@@ -15,6 +15,7 @@ class Classroom extends Model
      * @var array
      */
     protected $fillable = [
+        'classrooms_code',
         'title',
     ];
 }

@@ -18,7 +18,7 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         //get exam groups
-        $exam_groups = ExamGroup::with('exam.lesson', 'exam_session', 'student.classroom')
+        $exam_groups = ExamGroup::with('exam', 'exam_session', 'student.classroom')
             ->where('student_id', auth()->guard('student')->user()->id)
             ->get();
 
@@ -39,6 +39,7 @@ class DashboardController extends Controller
 
                 //create defaul grade
                 $grade = new Grade();
+                $grade->grades_code     = 'grds-' . rand(11, 99) . uniqid();
                 $grade->exam_id         = $exam_group->exam_id;
                 $grade->exam_session_id = $exam_group->exam_session_id;
                 $grade->student_id      = auth()->guard('student')->user()->id;

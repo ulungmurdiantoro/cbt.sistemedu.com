@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Kelas - Aplikasi Ujian Online</title>
+        <title>Skema - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
@@ -34,7 +34,7 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0">Nama Kelas</th>
+                                        <th class="border-0">Nama Skema</th>
                                         <th class="border-0">Classroom_id</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
@@ -46,7 +46,7 @@
                                         <td>{{ classroom.title }}</td>
                                         <td>{{ classroom.id }}</td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/classrooms/${classroom.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
+                                            <Link :href="`/admin/classrooms/${classroom.classrooms_code}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
                                             <button @click.prevent="destroy(classroom.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
@@ -132,7 +132,7 @@
 
                         Swal.fire({
                             title: 'Deleted!',
-                            text: 'Kelas Berhasil Dihapus!.',
+                            text: 'Skema Berhasil Dihapus!.',
                             icon: 'success',
                             timer: 2000,
                             showConfirmButton: false,

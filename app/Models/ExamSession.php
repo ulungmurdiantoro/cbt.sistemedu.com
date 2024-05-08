@@ -15,6 +15,7 @@ class ExamSession extends Model
      * @var array
      */
     protected $fillable = [
+        'exam_sessions_code',
         'exam_id',
         'title',
         'start_time',

@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Siswa - Aplikasi Ujian Online</title>
+        <title>Peserta - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
@@ -43,11 +43,12 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0">Nisn</th>
+                                        <th class="border-0">No. Peserta</th>
                                         <th class="border-0">Nama</th>
-                                        <th class="border-0">Kelas</th>
+                                        <th class="border-0">Skema</th>
                                         <th class="border-0">Jenis Kelamin</th>
-                                        <th class="border-0">Password</th>
+                                        <th class="border-0">Jabatan</th>
+                                        <th class="border-0">Asal Institusi</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -56,11 +57,12 @@
                                     <tr v-for="(student, index) in students.data" :key="index">
                                         <td class="fw-bold text-center">
                                             {{ ++index + (students.current_page - 1) * students.per_page }}</td>
-                                        <td>{{ student.nisn }}</td>
+                                        <td>{{ student.no_participant }}</td>
                                         <td>{{ student.name }}</td>
                                         <td class="text-center">{{ student.classroom.title }}</td>
                                         <td class="text-center">{{ student.gender }}</td>
-                                        <td>{{ student.password }}</td>
+                                        <td>{{ student.position }}</td>
+                                        <td>{{ student.institution }}</td>
                                         <td class="text-center">
                                             <Link :href="`/admin/students/${student.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
                                             <button @click.prevent="destroy(student.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
@@ -148,7 +150,7 @@
 
                             Swal.fire({
                                 title: 'Deleted!',
-                                text: 'Siswa Berhasil Dihapus!.',
+                                text: 'Peserta Berhasil Dihapus!.',
                                 icon: 'success',
                                 timer: 2000,
                                 showConfirmButton: false,

@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
+            $table->string('exams_code')->unique();
             $table->string('title');
-            $table->foreignId('lesson_id')->references('id')->on('lessons')->cascadeOnDelete();
+            $table->string('type');
             $table->foreignId('classroom_id')->references('id')->on('classrooms')->cascadeOnDelete();
             $table->integer('duration');
             $table->text('description');
             $table->enum('random_question', ['Y', 'N'])->default('Y');
-            $table->enum('random_answer', ['Y', 'N'])->default('Y');
+            $table->enum('random_answer', ['Y', 'N'])->default('N');
             $table->enum('show_answer', ['Y', 'N'])->default('N');
             $table->timestamps();
         });

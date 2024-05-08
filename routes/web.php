@@ -50,6 +50,27 @@ Route::prefix('admin')->group(function() {
         //route student import
         Route::post('/exams/{exam}/questions/import', [\App\Http\Controllers\Admin\ExamController::class, 'storeImport'])->name('admin.exam.questionStoreImport');
     
+        //custom route for create essays exam
+        Route::get('/exams/{exam}/essays/create', [\App\Http\Controllers\Admin\ExamController::class, 'createEssay'])->name('admin.exams.createEssay');
+
+        //custom route for store essays exam
+        Route::post('/exams/{exam}/essays/store', [\App\Http\Controllers\Admin\ExamController::class, 'storeEssay'])->name('admin.exams.storeEssay');
+    
+        //custom route for edit essays exam
+        Route::get('/exams/{exam}/essays/{essays}/edit', [\App\Http\Controllers\Admin\ExamController::class, 'editEssay'])->name('admin.exams.editEssay');
+
+        //custom route for update essays exam
+        Route::put('/exams/{exam}/essays/{essays}/update', [\App\Http\Controllers\Admin\ExamController::class, 'updateEssay'])->name('admin.exams.updateEssay');
+    
+        //custom route for destroy essays exam
+        Route::delete('/exams/{exam}/essays/{essays}/destroy', [\App\Http\Controllers\Admin\ExamController::class, 'destroyEssay'])->name('admin.exams.destroyEssay');
+    
+        //route student import
+        Route::get('/exams/{exam}/essays/import', [\App\Http\Controllers\Admin\ExamController::class, 'import'])->name('admin.exam.essaysImport');
+
+        //route student import
+        Route::post('/exams/{exam}/essays/import', [\App\Http\Controllers\Admin\ExamController::class, 'storeImport'])->name('admin.exam.essaysStoreImport');
+    
         //route resource exam_sessions    
         Route::resource('/exam_sessions', \App\Http\Controllers\Admin\ExamSessionController::class, ['as' => 'admin']);
     
@@ -61,15 +82,19 @@ Route::prefix('admin')->group(function() {
         
         //custom route for enrolle destroy
         Route::delete('/exam_sessions/{exam_session}/enrolle/{exam_group}/destroy', [\App\Http\Controllers\Admin\ExamSessionController::class, 'destroyEnrolle'])->name('admin.exam_sessions.destroyEnrolle');
-   
+
         //route index reports
         Route::get('/reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');
-
+        
         //route index reports filter
         Route::get('/reports/filter', [\App\Http\Controllers\Admin\ReportController::class, 'filter'])->name('admin.reports.filter');
 
         //route index reports export
         Route::get('/reports/export', [\App\Http\Controllers\Admin\ReportController::class, 'export'])->name('admin.reports.export');
+        
+        //route essay show
+        Route::get('/reports/{id}', [App\Http\Controllers\Admin\ReportController::class, 'show'])->name('admin.reports.show');
+            
     });
 });
 
@@ -103,8 +128,8 @@ Route::prefix('student')->group(function() {
         //route exam start
         Route::get('/exam-start/{id}', [App\Http\Controllers\Student\ExamController::class, 'startExam'])->name('student.exams.startExam');
         
-         //route exam show
-         Route::get('/exam/{id}/{page}', [App\Http\Controllers\Student\ExamController::class, 'show'])->name('student.exams.show');
+        //route exam show
+        Route::get('/exam/{id}/{page}', [App\Http\Controllers\Student\ExamController::class, 'show'])->name('student.exams.show');
     
         //route exam update duration
         Route::put('/exam-duration/update/{grade_id}', [App\Http\Controllers\Student\ExamController::class, 'updateDuration'])->name('student.exams.update_duration');
@@ -117,6 +142,28 @@ Route::prefix('student')->group(function() {
         
         //route exam result
         Route::get('/exam-result/{exam_group_id}', [App\Http\Controllers\Student\ExamController::class, 'resultExam'])->name('student.exams.resultExam');
+
+        //route essay confirmation
+        Route::get('/essay-confirmation/{id}', [App\Http\Controllers\Student\EssayController::class, 'confirmation'])->name('student.essays.confirmation');
+    
+        //route essay start
+        Route::get('/essay-start/{id}', [App\Http\Controllers\Student\EssayController::class, 'startEssay'])->name('student.essays.startEssay');
+        
+        //route essay show
+        Route::get('/essay/{id}/{page}', [App\Http\Controllers\Student\EssayController::class, 'show'])->name('student.essays.show');
+    
+        //route essay update duration
+        Route::put('/essay-duration/update/{grade_id}', [App\Http\Controllers\Student\EssayController::class, 'updateDuration'])->name('student.essays.update_duration');
+        
+        //route answer question
+        Route::post('/essay-answer', [App\Http\Controllers\Student\EssayController::class, 'answerQuestion'])->name('student.essays.answerQuestion');
+        
+        //route essay end
+        Route::post('/essay-end', [App\Http\Controllers\Student\EssayController::class, 'endEssay'])->name('student.essays.endEssay');
+        
+        //route essay result
+        Route::get('/essay-result/{essay_group_id}', [App\Http\Controllers\Student\EssayController::class, 'resultEssay'])->name('student.essays.resultEssay');
+    
     });
 
 });

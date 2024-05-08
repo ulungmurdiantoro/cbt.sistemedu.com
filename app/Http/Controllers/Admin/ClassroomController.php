@@ -55,6 +55,7 @@ class ClassroomController extends Controller
 
         //create classroom
         Classroom::create([
+            'classrooms_code' => 'clsr-' . rand(11, 99) . uniqid(),
             'title' => $request->title,
         ]);
 
@@ -68,10 +69,10 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($classrooms_code)
     {
         //get classroom
-        $classroom = Classroom::findOrFail($id);
+        $classroom = Classroom::where('classrooms_code', $classrooms_code)->firstOrFail();
 
         //render with inertia
         return inertia('Admin/Classrooms/Edit', [

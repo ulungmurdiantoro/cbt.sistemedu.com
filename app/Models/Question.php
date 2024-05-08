@@ -15,6 +15,7 @@ class Question extends Model
      * @var array
      */
     protected $fillable = [
+        // 'questions_code',
         'exam_id',
         'question',
         'option_1',
@@ -33,5 +34,15 @@ class Question extends Model
     public function exam()
     {
         return $this->belongsTo(Exam::class);
+    }
+
+    /**
+     * exam
+     *
+     * @return void
+     */
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
     }
 }

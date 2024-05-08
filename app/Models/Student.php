@@ -16,10 +16,11 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'no_participant',
         'classroom_id',
-        'nisn',
         'name',
-        'password',
+        'position',
+        'institution',
         'gender'
     ];
 
@@ -31,5 +32,15 @@ class Student extends Authenticatable
     public function classroom()
     {
         return $this->belongsTo(Classroom::class);
+    }
+
+    /**
+     * classroom
+     *
+     * @return void
+     */
+    public function answers()
+    {
+        return $this->hasMany(Classroom::class);
     }
 }

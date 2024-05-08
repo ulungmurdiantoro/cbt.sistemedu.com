@@ -17,11 +17,12 @@ class StudentsImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row)
     {
         return new Student([
-            'nisn'          => (int) $row['nisn'],
-            'name'          => $row['name'],
-            'password'      => $row['password'],
-            'gender'        => $row['gender'],
-            'classroom_id'  => (int) $row['classroom_id'],
+            'no_participant'    => $row['no_participant'],
+            'name'              => $row['name'],
+            'gender'            => $row['gender'],
+            'position'          => $row['position'],
+            'institution'       => $row['institution'],
+            'classroom_id'      => (int) $row['classroom_id'],
         ]);
     }
         
@@ -33,7 +34,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'nisn' => 'unique:students,nisn',
+            'no_participant' => 'unique:students,no_participant',
         ];
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Login Siswa - Aplikasi Ujian Online</title>
+        <title>Login Peserta - Aplikasi Ujian Online</title>
     </Head>
     <div class="row justify-content-center mt-5">
         <div class="col-md-5">
@@ -12,21 +12,21 @@
                     {{ $page.props.session.error }}
                 </div>
                 <form @submit.prevent="submit" class="mt-4">
-
                     <div class="form-group mb-4">
-                        <label for="email">Nisn</label>
+                        <label for="email">No. Peserta</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1">
-                                <i class="fa fa-key"></i>
+                                <i class="fa fa-envelope"></i>
                             </span>
-                            <input type="number" class="form-control" v-model="form.nisn" placeholder="Nisn">
+                            <input type="text" class="form-control" v-model="form.no_participant" placeholder="No. Peserta">
                         </div>
-                        <div v-if="errors.nisn" class="alert alert-danger mt-2">
-                            {{ errors.nisn }}
+                        <div v-if="errors.no_participant" class="alert alert-danger mt-2">
+                            {{ errors.no_participant }}
                         </div>
                     </div>
 
-                    <div class="form-group">
+
+                    <!-- <div class="form-group">
                         <div class="form-group mb-4">
                             <label for="password">Password</label>
                             <div class="input-group">
@@ -50,7 +50,7 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
                     
                     <div class="d-grid">
                         <button type="submit" class="btn btn-gray-800">LOGIN</button>
@@ -96,8 +96,8 @@
 
             //define form state
             const form = reactive({
-                nisn: '',
-                password: '',
+                email: '',
+                // password: '',
             });
 
             //submit method
@@ -107,8 +107,8 @@
                 router.post('/students/login', {
 
                     //data
-                    nisn: form.nisn,
-                    password: form.password,
+                    no_participant: form.no_participant,
+                    // password: form.password,
                 });
             }
 

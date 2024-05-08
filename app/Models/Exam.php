@@ -15,8 +15,9 @@ class Exam extends Model
      * @var array
      */
     protected $fillable = [
+        'exams_code',
         'title',
-        'lesson_id',
+        'type',
         'classroom_id',
         'duration',
         'description',
@@ -30,10 +31,10 @@ class Exam extends Model
      *
      * @return void
      */
-    public function lesson()
-    {
-        return $this->belongsTo(Lesson::class);
-    }
+    // public function lesson()
+    // {
+    //     return $this->belongsTo(Lesson::class);
+    // }
 
     /**
      * classroom
@@ -53,5 +54,25 @@ class Exam extends Model
     public function questions()
     {
         return $this->hasMany(Question::class)->orderBy('id', 'DESC');
+    }
+
+    /**
+     * questions
+     *
+     * @return void
+     */
+    public function answers()
+    {
+        return $this->hasManyThrough(Answer::class, Question::class)->orderBy('question_id', 'DESC');
+    }
+
+    /**
+     * essays
+     *
+     * @return void
+     */
+    public function essays()
+    {
+        return $this->hasMany(Essay::class)->orderBy('id', 'DESC');
     }
 }

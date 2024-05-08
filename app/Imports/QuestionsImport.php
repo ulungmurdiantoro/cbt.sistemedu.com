@@ -16,14 +16,15 @@ class QuestionsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new Question([
-            'exam_id'   => (int) $row['exam_id'],
-            'question'  => $row['question'],
-            'option_1'  => $row['option_1'],
-            'option_2'  => $row['option_2'],
-            'option_3'  => $row['option_3'],
-            'option_4'  => $row['option_4'],
-            'option_5'  => $row['option_5'],
-            'answer'    => $row['answer'],
+            // 'questions_code'     => $row['questions_code'],
+            'exam_id'           => (int) $row['exam_id'],
+            'question'          => $row['question'],
+            'option_1'          => $row['option_1'],
+            'option_2'          => $row['option_2'],
+            'option_3'          => $row['option_3'],
+            'option_4'          => $row['option_4'],
+            'option_5'          => $row['option_5'],
+            'answer'            => $row['answer'],
         ]);
     }
 }

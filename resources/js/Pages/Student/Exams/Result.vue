@@ -12,15 +12,15 @@
                         <table class="table table-centered table-nowrap mb-0 rounded">
                             <thead>
                                 <tr>
-                                    <td class="fw-bold">Nisn</td>
-                                    <td>{{ exam_group.student.nisn }}</td>
+                                    <td class="fw-bold">No. Peserta</td>
+                                    <td>{{ exam_group.student.no_participant }}</td>
                                 </tr>
                                 <tr>
                                     <td class="fw-bold">Nama Lengkap</td>
                                     <td>{{ exam_group.student.name }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold">Kelas</td>
+                                    <td class="fw-bold">Skema</td>
                                     <td>{{ exam_group.student.classroom.title }}</td>
                                 </tr>
                                 <tr>
@@ -28,8 +28,8 @@
                                     <td>{{ exam_group.exam.title }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold">Mata Pelajaran</td>
-                                    <td>{{ exam_group.exam.lesson.title }}</td>
+                                    <td class="fw-bold">Tipe Ujian</td>
+                                    <td>{{ exam_group.exam.type }}</td>
                                 </tr>
                                 <tr>
                                     <td class="fw-bold">Mulai Mengerjakan</td>

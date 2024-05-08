@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Mata Pelajaran - Aplikasi Ujian Online</title>
+        <title>Tipe Ujian - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
@@ -35,7 +35,7 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0">Nama Mata Pelajaran</th>
+                                        <th class="border-0">Nama Tipe Ujian</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>

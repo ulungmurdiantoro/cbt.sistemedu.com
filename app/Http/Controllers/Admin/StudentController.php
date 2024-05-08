@@ -58,20 +58,22 @@ class StudentController extends Controller
     {
         //validate request
         $request->validate([
-            'name'          => 'required|string|max:255',
-            'nisn'          => 'required|unique:students',
-            'gender'        => 'required|string',
-            'password'      => 'required|confirmed',
-            'classroom_id'  => 'required'
+            'name'              => 'required|string|max:255',  
+            'no_participant'    => 'required|unique:students',
+            'gender'            => 'required|string',
+            'position'          => 'required',
+            'institution'       => 'required',
+            'classroom_id'      => 'required'
         ]);
 
         //create student
         Student::create([
-            'name'          => $request->name,
-            'nisn'          => $request->nisn,
-            'gender'        => $request->gender,
-            'password'      => $request->password,
-            'classroom_id'  => $request->classroom_id
+            'no_participant'    => $request->no_participant,
+            'name'              => $request->name,
+            'gender'            => $request->gender,
+            'position'          => $request->position,
+            'institution'       => $request->institution,
+            'classroom_id'      => $request->classroom_id
         ]);
 
         //redirect
@@ -81,7 +83,7 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $students_code
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -110,36 +112,38 @@ class StudentController extends Controller
     {
         //validate request
         $request->validate([
-            'name'          => 'required|string|max:255',
-            'nisn'          => 'required|unique:students,nisn,'.$student->id,
-            'gender'        => 'required|string',
-            'classroom_id'  => 'required',
-            'password'      => 'confirmed'
+            'name'              => 'required|string|max:255',
+            'no_participant'    => 'required|unique:students,no_participant,'.$student->id,
+            'gender'            => 'required|string',
+            'position'          => 'required',
+            'institution'       => 'required',
+            'classroom_id'      => 'required',
         ]);
 
         //check passwordy
-        if($request->password == "") {
+        // if($request->password == "") {
 
-            //update student without password
-            $student->update([
-                'name'          => $request->name,
-                'nisn'          => $request->nisn,
-                'gender'        => $request->gender,
-                'classroom_id'  => $request->classroom_id
-            ]);
+        //     //update student without password
+        //     $student->update([
+        //         'name'          => $request->name,
+        //         'email'          => $request->email,
+        //         'gender'        => $request->gender,
+        //         'classroom_id'  => $request->classroom_id
+        //     ]);
 
-        } else {
+        // } else {
 
             //update student with password
             $student->update([
-                'name'          => $request->name,
-                'nisn'          => $request->nisn,
-                'gender'        => $request->gender,
-                'password'      => $request->password,
-                'classroom_id'  => $request->classroom_id
+                'name'              => $request->name,
+                'no_participant'    => $request->no_participant,
+                'gender'            => $request->gender,
+                'position'          => $request->position,
+                'institution'       => $request->institution,
+                'classroom_id'      => $request->classroom_id
             ]);
 
-        }
+        // }
 
         //redirect
         return redirect()->route('admin.students.index');

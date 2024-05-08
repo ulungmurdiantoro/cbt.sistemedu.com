@@ -21,7 +21,7 @@ class ReportController extends Controller
     public function index()
     {
         //geta ll exams
-        $exams = Exam::with('lesson', 'classroom')->get();
+        $exams = Exam::with( 'classroom')->get();
 
         return inertia('Admin/Reports/Index', [
             'exams'         => $exams,
@@ -42,10 +42,10 @@ class ReportController extends Controller
         ]);
 
         //geta ll exams
-        $exams = Exam::with('lesson', 'classroom')->get();
+        $exams = Exam::with('classroom')->get();
 
         //get exam
-        $exam = Exam::with('lesson', 'classroom')
+        $exam = Exam::with('classroom')
                 ->where('id', $request->exam_id)
                 ->first();
 
@@ -55,7 +55,7 @@ class ReportController extends Controller
             $exam_session = ExamSession::where('exam_id', $exam->id)->first();
 
             //get grades / nilai
-            $grades = Grade::with('student', 'exam.classroom', 'exam.lesson', 'exam_session')
+            $grades = Grade::with('student', 'exam.classroom', 'exam_session')
                     ->where('exam_id', $exam->id)
                     ->where('exam_session_id', $exam_session->id)        
                     ->get();
@@ -63,12 +63,32 @@ class ReportController extends Controller
         } else {
             $grades = [];
         }        
-        
+        // dd($grades);
         return inertia('Admin/Reports/Index', [
             'exams'         => $exams,
             'grades'         => $grades,
         ]);
         
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //get grade
+        $grade = Grade::with('student', 'student', 'exam.classroom', 'questions.answers', 'answers', 'exam_session')
+        ->findOrFail($id);
+
+        $grade->setRelation('questions', $grade->exam->questions()->paginate(5));
+        $grade->setRelation('answers', $grade->exam->answers()->paginate(5));
+        // dd($grade->answers);
+        return inertia('Admin/Reports/Show', [
+            'grade' => $grade,
+        ]);
     }
 
     /**
@@ -80,7 +100,7 @@ class ReportController extends Controller
     public function export(Request $request)
     {
         //get exam
-        $exam = Exam::with('lesson', 'classroom')
+        $exam = Exam::with('classroom')
                 ->where('id', $request->exam_id)
                 ->first();
 
@@ -88,11 +108,11 @@ class ReportController extends Controller
         $exam_session = ExamSession::where('exam_id', $exam->id)->first();
 
         //get grades / nilai
-        $grades = Grade::with('student', 'exam.classroom', 'exam.lesson', 'exam_session')
+        $grades = Grade::with('student', 'exam.classroom', 'exam_session')
                 ->where('exam_id', $exam->id)
                 ->where('exam_session_id', $exam_session->id)        
                 ->get();
 
-        return Excel::download(new GradesExport($grades), 'grade : '.$exam->title.' — '.$exam->lesson->title.' — '.Carbon::now().'.xlsx');
+        return Excel::download(new GradesExport($grades), 'grade : '.$exam->title.' — '.Carbon::now().'.xlsx');
     }
 }

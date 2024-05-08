@@ -15,7 +15,7 @@
                                 <div class="col-md-9">
                                     <label class="control-label" for="name">Ujian</label>
                                     <select class="form-select" v-model="form.exam_id">
-                                        <option v-for="(exam, index) in exams" :key="index" :value="exam.id">{{ exam.title }} — Kelas : {{ exam.classroom.title }} — Pelajaran : {{ exam.lesson.title }}</option>
+                                        <option v-for="(exam, index) in exams" :key="index" :value="exam.id">{{ exam.title }} — Skema : {{ exam.classroom.title }} — Tipe Ujian : {{ exam.type }}</option>
                                     </select>
                                     <div v-if="errors.exam_id" class="alert alert-danger mt-2">
                                         {{ errors.exam_id }}
@@ -49,10 +49,11 @@
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Ujian</th>
                                         <th class="border-0">Sesi</th>
-                                        <th class="border-0">Nama Siswa</th>
-                                        <th class="border-0">Kelas</th>
-                                        <th class="border-0">Pelajaran</th>
+                                        <th class="border-0">Nama Peserta</th>
+                                        <th class="border-0">Skema</th>
+                                        <th class="border-0">Tipe Ujian</th>
                                         <th class="border-0">Nilai</th>
+                                        <th class="border-0 rounded-end">Aksi</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
@@ -65,8 +66,11 @@
                                         <td>{{ grade.exam_session.title }}</td>
                                         <td>{{ grade.student.name }}</td>
                                         <td class="text-center">{{ grade.exam.classroom.title }}</td>
-                                        <td>{{ grade.exam.lesson.title }}</td>
+                                        <td>{{ grade.exam.type }}</td>
                                         <td class="fw-bold text-center">{{ grade.grade }}</td>
+                                        <td class="text-center">
+                                            <Link :href="`/admin/reports/${grade.id}`" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-plus-circle"></i></Link>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -85,6 +89,7 @@
     //import Head from Inertia
     import {
         Head,
+        Link,
         router
     } from '@inertiajs/vue3';
 
@@ -99,6 +104,7 @@
         //register components
         components: {
             Head,
+            Link
         },
 
         //props

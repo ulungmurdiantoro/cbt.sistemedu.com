@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Enrolle Siswa - Aplikasi Ujian Online</title>
+        <title>Enrolle Peserta - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
@@ -9,7 +9,7 @@
                     class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h5><i class="fa fa-user-plus"></i> Enrolle Siswa</h5>
+                        <h5><i class="fa fa-user-plus"></i> Enrolle Peserta</h5>
                         <hr>
                         <form @submit.prevent="submit">
 
@@ -20,8 +20,8 @@
                                             <th class="border-0 rounded-start" style="width:5%">
                                                 <input type="checkbox" v-model="form.allSelected" @change="selectAll" />
                                             </th>
-                                            <th class="border-0">Nama Siswa</th>
-                                            <th class="border-0">Kelas</th>
+                                            <th class="border-0">Nama Peserta</th>
+                                            <th class="border-0">Skema</th>
                                             <th class="border-0">Jenis Kelamin</th>
                                         </tr>
                                     </thead>
@@ -124,7 +124,7 @@
                         //show success alert
                         Swal.fire({
                             title: 'Success!',
-                            text: 'Enrolle Siswa Berhasil Disimpan!.',
+                            text: 'Enrolle Peserta Berhasil Disimpan!.',
                             icon: 'success',
                             showConfirmButton: false,
                             timer: 2000

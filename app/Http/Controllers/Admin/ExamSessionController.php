@@ -21,7 +21,7 @@ class ExamSessionController extends Controller
         //get exam_sessions
         $exam_sessions = ExamSession::when(request()->q, function($exam_sessions) {
             $exam_sessions = $exam_sessions->where('title', 'like', '%'. request()->q . '%');
-        })->with('exam.classroom', 'exam.lesson', 'exam_groups')->latest()->paginate(5);
+        })->with('exam.classroom', 'exam_groups')->latest()->paginate(5);
 
         //append query string to pagination links
         $exam_sessions->appends(['q' => request()->q]);
@@ -68,6 +68,7 @@ class ExamSessionController extends Controller
         ExamSession::create([
             'title'         => $request->title,
             'exam_id'       => $request->exam_id,
+            'exam_sessions_code' => 'exmss-' . rand(11, 99) . uniqid(),
             'start_time'    => date('Y-m-d H:i:s', strtotime($request->start_time)),
             'end_time'      => date('Y-m-d H:i:s', strtotime($request->end_time)),
         ]);
@@ -85,7 +86,7 @@ class ExamSessionController extends Controller
     public function show($id)
     {
         //get exam_session
-        $exam_session = ExamSession::with('exam.classroom', 'exam.lesson')->findOrFail($id);
+        $exam_session = ExamSession::with('exam.classroom')->findOrFail($id);
 
         //get relation exam_groups with pagination
         $exam_session->setRelation('exam_groups', $exam_session->exam_groups()->with('student.classroom')->paginate(5));
@@ -210,9 +211,10 @@ class ExamSessionController extends Controller
 
             //create exam_group
             ExamGroup::create([
-                'exam_id'         => $request->exam_id,  
-                'exam_session_id' => $exam_session->id,
-                'student_id'      => $student->id,
+                'exam_groups_code' => 'exmg-' . rand(11, 99) . uniqid(),
+                'exam_id'          => $request->exam_id,  
+                'exam_session_id'  => $exam_session->id,
+                'student_id'       => $student->id,
             ]);
         }
         

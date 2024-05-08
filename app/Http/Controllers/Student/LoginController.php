@@ -18,18 +18,18 @@ class LoginController extends Controller
     {
         //validate the form data
         $request->validate([
-            'nisn'      => 'required',
-            'password'  => 'required',
+            'no_participant'    => 'required',
+            // 'password'          => 'required',
         ]);
 
-        //cek nisn dan password
+        //cek email dan password
         $student = Student::where([
-            'nisn'      => $request->nisn,
-            'password'  => $request->password
+            'no_participant'    => $request->no_participant,
+            // 'password'          => $request->password
         ])->first();
 
         if(!$student) {
-            return redirect()->back()->with('error', 'NISN atau Password salah');
+            return redirect()->back()->with('error', 'No. Peserta Salah salah');
         }
         
         //login the user

@@ -39,7 +39,7 @@ class GradesExport implements FromCollection, WithMapping, WithHeadings
             $grades->exam_session->title,
             $grades->student->name,
             $grades->exam->classroom->title,
-            $grades->exam->lesson->title,
+            // $grades->exam->lesson->title,
             $grades->grade,
         ] ;
     }
@@ -50,7 +50,7 @@ class GradesExport implements FromCollection, WithMapping, WithHeadings
             'Sesi',
             'Nama Siswa',
             'Kelas',
-            'Pelajaran',
+            // 'Pelajaran',
             'Nilai'
         ] ;
     }

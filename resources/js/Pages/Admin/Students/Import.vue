@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Import Siswa - Aplikasi Ujian Online</title>
+        <title>Import Peserta - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
@@ -12,7 +12,7 @@
                         class="fa fa-file-excel me-2"></i> Contoh Format</a>
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h5><i class="fa fa-user"></i> Import Siswa</h5>
+                        <h5><i class="fa fa-user"></i> Import Peserta</h5>
                         <hr>
                         <form @submit.prevent="submit">
 
@@ -92,7 +92,7 @@
                         //show success alert
                         Swal.fire({
                             title: 'Success!',
-                            text: 'Import Siswa Berhasil Disimpan!.',
+                            text: 'Import Peserta Berhasil Disimpan!.',
                             icon: 'success',
                             showConfirmButton: false,
                             timer: 2000

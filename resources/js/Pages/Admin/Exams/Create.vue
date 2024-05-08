@@ -23,18 +23,19 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Mata Pelajaran</label> 
-                                        <select class="form-select" v-model="form.lesson_id">
-                                            <option v-for="(lesson, index) in lessons" :key="index" :value="lesson.id">{{ lesson.title }}</option>
+                                        <label>Jenis Ujian</label> 
+                                        <select class="form-select" v-model="form.type">
+                                            <option value="Pilihan Ganda">Pilihan Ganda</option>
+                                            <option value="Essay">Essay</option>
                                         </select>
-                                        <div v-if="errors.lesson_id" class="alert alert-danger mt-2">
-                                            {{ errors.lesson_id }}
+                                        <div v-if="errors.type" class="alert alert-danger mt-2">
+                                            {{ errors.type }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Kelas</label> 
+                                        <label>Skema</label> 
                                         <select class="form-select" v-model="form.classroom_id">
                                             <option v-for="(classroom, index) in classrooms" :key="index" :value="classroom.id">{{ classroom.title }}</option>
                                         </select>
@@ -45,11 +46,10 @@
                                 </div>
                             </div>
 
-
                             <div class="mb-4">
                                 <label>Deskripsi</label> 
                                 <Editor 
-                                    api-key="bvu9lokg76dk4mx0sipczxrdbcmps5ll9px9olsfpqjywybo" 
+                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
                                     v-model="form.description" 
                                     :init="{
                                         menubar: false,
@@ -158,7 +158,7 @@
         //props
         props: {
             errors: Object,
-            lessons: Array,
+            // lessons: Array,
             classrooms: Array,
         },
 
@@ -168,7 +168,7 @@
             //define form with reactive
             const form = reactive({
                 title: '',
-                lesson_id: '',
+                type: '',
                 classroom_id: '',
                 duration: '',
                 description: '',
@@ -184,7 +184,7 @@
                 router.post('/admin/exams', {
                     //data
                     title: form.title,
-                    lesson_id: form.lesson_id,
+                    type: form.type,
                     classroom_id: form.classroom_id,
                     duration: form.duration,
                     description: form.description,

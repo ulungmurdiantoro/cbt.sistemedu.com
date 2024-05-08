@@ -35,8 +35,8 @@
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Ujian</th>
-                                        <th class="border-0">Pelajaran</th>
-                                        <th class="border-0">Kelas</th>
+                                        <th class="border-0">Tipe Ujian</th>
+                                        <th class="border-0">Skema</th>
                                         <th class="border-0">Jumlah Soal</th>
                                         <th class="border-0">Exam_id</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
@@ -47,9 +47,11 @@
                                     <tr v-for="(exam, index) in exams.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (exams.current_page - 1) * exams.per_page }}</td>
                                         <td>{{ exam.title }}</td>
-                                        <td>{{ exam.lesson.title }}</td>
+                                        <td>{{ exam.type }}</td>
                                         <td class="text-center">{{ exam.classroom.title }}</td>
-                                        <td class="text-center">{{ exam.questions.length }}</td>
+                                        <td v-if="exam.type == 'Essay'" class="text-center">{{ exam.essays.length }}</td>
+                                        <td v-else class="text-center">{{ exam.questions.length }}</td>
+                                        <!-- <td class="text-center">{{ exam.questions.length }}</td> -->
                                         <td class="text-center">{{ exam.id }}</td>
                                         <td class="text-center">
                                             <Link :href="`/admin/exams/${exam.id}`" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-plus-circle"></i></Link>

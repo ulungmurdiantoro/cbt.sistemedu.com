@@ -15,6 +15,7 @@ class ExamGroup extends Model
      * @var array
      */
     protected $fillable = [
+        'exam_groups_code',
         'exam_id',
         'exam_session_id',
         'student_id',

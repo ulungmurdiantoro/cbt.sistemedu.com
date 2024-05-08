@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Tambah Siswa - Aplikasi Ujian Online</title>
+        <title>Tambah Peserta - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
@@ -8,24 +8,24 @@
                 <Link href="/admin/students" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h5><i class="fa fa-user"></i> Tambah Siswa</h5>
+                        <h5><i class="fa fa-user"></i> Tambah Peserta</h5>
                         <hr>
                         <form @submit.prevent="submit">
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Nisn</label> 
-                                        <input type="text" class="form-control" placeholder="Masukkan Nisn Siswa" v-model="form.nisn">
-                                        <div v-if="errors.nisn" class="alert alert-danger mt-2">
-                                            {{ errors.nisn }}
+                                        <label>No. Peserta</label> 
+                                        <input type="text" class="form-control" placeholder="Masukkan No. Peserta" v-model="form.no_participant">
+                                        <div v-if="errors.no_participant" class="alert alert-danger mt-2">
+                                            {{ errors.no_participant }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-4">
                                         <label>Nama Lengkap</label> 
-                                        <input type="text" class="form-control" placeholder="Masukkan Nama Siswa" v-model="form.name">
+                                        <input type="text" class="form-control" placeholder="Masukkan Nama Peserta" v-model="form.name">
                                         <div v-if="errors.name" class="alert alert-danger mt-2">
                                             {{ errors.name }}
                                         </div>
@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Kelas</label> 
+                                        <label>Skema</label> 
                                         <select class="form-select" v-model="form.classroom_id">
                                             <option v-for="(classroom, index) in classrooms" :key="index" :value="classroom.id">{{ classroom.title }}</option>
                                         </select>
@@ -62,21 +62,23 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Password</label> 
-                                        <input type="password" class="form-control" placeholder="Masukkan Password" v-model="form.password">
-                                        <div v-if="errors.password" class="alert alert-danger mt-2">
-                                            {{ errors.password }}
+                                        <label>Jabatan</label> 
+                                        <input type="text" class="form-control" placeholder="Masukkan Jabatan" v-model="form.position">
+                                        <div v-if="errors.position" class="alert alert-danger mt-2">
+                                            {{ errors.position }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Konfirmasi Password</label> 
-                                        <input type="password" class="form-control" placeholder="Masukkan Konfirmasi Password" v-model="form.password_confirmation">
+                                        <label>Asal Institusi</label> 
+                                        <input type="text" class="form-control" placeholder="Masukkan Asal Institusi" v-model="form.institution">
+                                        <div v-if="errors.institution" class="alert alert-danger mt-2">
+                                            {{ errors.institution }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
                             
                             <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
                             <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
@@ -127,12 +129,12 @@
 
             //define form with reactive
             const form = reactive({
-                nisn: '',
+                no_participant: '',
                 name: '',
                 classroom_id: '',
                 gender: '',
-                password: '',
-                password_confirmation: ''
+                position: '',
+                institution: ''
             });
 
             //method "submit"
@@ -141,18 +143,18 @@
                 //send data to server
                 router.post('/admin/students', {
                     //data
-                    nisn: form.nisn,
+                    no_participant: form.no_participant,
                     name: form.name,
                     classroom_id: form.classroom_id,
                     gender: form.gender,
-                    password: form.password,
-                    password_confirmation: form.password_confirmation
+                    position: form.position,
+                    institution: form.institution
                 }, {
                     onSuccess: () => {
                         //show success alert
                         Swal.fire({
                             title: 'Success!',
-                            text: 'Siswa Berhasil Disimpan.',
+                            text: 'Peserta Berhasil Disimpan.',
                             icon: 'success',
                             showConfirmButton: false,
                             timer: 2000

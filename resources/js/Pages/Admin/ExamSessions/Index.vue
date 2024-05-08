@@ -37,7 +37,7 @@
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Ujian</th>
                                         <th class="border-0">Sesi</th>
-                                        <th class="border-0">Siswa</th>
+                                        <th class="border-0">Peserta</th>
                                         <th class="border-0">Mulai</th>
                                         <th class="border-0">Selesai</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
@@ -50,8 +50,8 @@
                                         <td>
                                             <strong class="fw-bold">{{ exam_session.exam.title }}</strong>
                                             <ul class="mt-2">
-                                                <li>Kelas : <strong class="fw-bold">{{ exam_session.exam.classroom.title }}</strong></li>
-                                                <li>Pelajaran : <strong class="fw-bold">{{ exam_session.exam.lesson.title }}</strong></li>
+                                                <li>Skema : <strong class="fw-bold">{{ exam_session.exam.classroom.title }}</strong></li>
+                                                <li>Tipe Ujian : <strong class="fw-bold">{{ exam_session.exam.type }}</strong></li>
                                             </ul>
                                         </td>
                                         <td>{{ exam_session.title }}</td>

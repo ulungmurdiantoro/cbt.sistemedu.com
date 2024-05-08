@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('classroom_id')->references('id')->on('classrooms')->cascadeOnDelete();
-            $table->bigInteger('nisn')->unique();
+            $table->string('no_participant')->unique();
             $table->string('name');
-            $table->string('password');
+            $table->string('position');
+            $table->string('institution');
             $table->enum('gender', ['L', 'P'])->default('L');
             $table->timestamps();
         });

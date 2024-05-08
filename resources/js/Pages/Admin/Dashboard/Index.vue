@@ -17,13 +17,13 @@
                                     </svg>
                                 </div>
                                 <div class="d-sm-none">
-                                    <h2 class="h5">Kelas</h2>
+                                    <h2 class="h5">Skema</h2>
                                     <h3 class="fw-extrabold mb-1">{{ classrooms }}</h3>
                                 </div>
                             </div>
                             <div class="col-12 col-xl-7 px-xl-0">
                                 <div class="d-none d-sm-block">
-                                    <h2 class="h5">Kelas</h2>
+                                    <h2 class="h5">Skema</h2>
                                     <h3 class="fw-extrabold mb-1">{{ classrooms }}</h3>
                                 </div>
                             </div>
@@ -46,13 +46,13 @@
                                     </svg>
                                 </div>
                                 <div class="d-sm-none">
-                                    <h2 class="h5">Siswa</h2>
+                                    <h2 class="h5">Peserta</h2>
                                     <h3 class="fw-extrabold mb-1">{{ students }}</h3>
                                 </div>
                             </div>
                             <div class="col-12 col-xl-7 px-xl-0">
                                 <div class="d-none d-sm-block">
-                                    <h2 class="h5">Siswa</h2>
+                                    <h2 class="h5">Peserta</h2>
                                     <h3 class="fw-extrabold mb-1">{{ students }}</h3>
                                 </div>
                             </div>

@@ -20,16 +20,13 @@
                                         <td>{{ exam.title }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">Mata Pelajaran</td>
-                                        <td>{{ exam.lesson.title }}</td>
-                                    </tr>
-                                    <tr>
                                         <td class="fw-bold">Kelas</td>
                                         <td>{{ exam.classroom.title }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Jumlah Soal</td>
-                                        <td>{{ exam.questions.data.length }}</td>
+                                        <td v-if="exam.type == 'Essay'">{{ exam.essays.data.length }}</td>
+                                        <td v-else>{{ exam.questions.data.length }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Durasi (Menit)</td>
@@ -43,12 +40,47 @@
                 </div>
 
                 <div class="card border-0 shadow">
-                    <div class="card-body">
+                    <div v-if="exam.type == 'Essay'" class="card-body">
                         <h5> <i class="fa fa-question-circle"></i> Soal Ujian</h5>
                         <hr>
                         
-                        <Link :href="`/admin/exams/${exam.id}/questions/create`" class="btn btn-md btn-primary border-0 shadow me-2" type="button"><i class="fa fa-plus-circle"></i> Tambah</Link>
-                        <Link :href="`/admin/exams/${exam.id}/questions/import`" class="btn btn-md btn-success border-0 shadow text-white" type="button"><i class="fa fa-file-excel"></i> Import</Link>
+                        <Link :href="`/admin/exams/${exam.id}/essays/create`" class="btn btn-md btn-primary border-0 shadow me-2" type="button"><i class="fa fa-plus-circle"></i> Tambah</Link>
+                        <Link :href="`/admin/exams/${exam.id}/essays/import`" class="btn btn-md btn-success border-0 shadow text-white" type="button"><i class="fa fa-file-excel"></i> Import</Link>
+                        <div class="table-responsive mt-3">
+                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                <thead class="thead-dark">
+                                    <tr class="border-0">
+                                        <th class="border-0 rounded-start" style="width:5%">No.</th>
+                                        <th class="border-0">Soal</th>
+                                        <th class="border-0 rounded-end" style="width:15%">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <div class="mt-2"></div>
+                                <tbody>
+                                    <tr v-for="(essay, index) in exam.essays.data" :key="index">
+                                        <td class="fw-bold text-center">{{ ++index + (exam.essays.current_page - 1) * exam.essays.per_page }}</td>
+                                        <td>
+                                            <div class="fw-bold" v-html="essay.question"></div>
+                                            <hr>
+                                            <div v-html="essay.answer" :class="{ 'text-success fw-bold': essay.answer }"></div>
+                                        </td>
+                                        <td class="text-center">
+                                            <Link :href="`/admin/exams/${exam.id}/essays/${essay.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2"
+                                                type="button"><i class="fa fa-pencil-alt"></i></Link>
+                                            <button @click.prevent="destroyEssay(exam.id, essay.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <Pagination :links="exam.essays.links" align="end" />
+                    </div>
+                    <div v-else class="card-body">
+                        <h5> <i class="fa fa-question-circle"></i> Soal Ujian</h5>
+                        <hr>
+                        
+                            <Link :href="`/admin/exams/${exam.id}/questions/create`" class="btn btn-md btn-primary border-0 shadow me-2" type="button"><i class="fa fa-plus-circle"></i> Tambah</Link>
+                            <Link :href="`/admin/exams/${exam.id}/questions/import`" class="btn btn-md btn-success border-0 shadow text-white" type="button"><i class="fa fa-file-excel"></i> Import</Link>
                         
                         <div class="table-responsive mt-3">
                             <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
@@ -157,9 +189,36 @@
                 })
             }
 
+            const destroyEssay = (exam_id, essay_id) => {
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        router.delete(`/admin/exams/${exam_id}/essays/${essay_id}/destroy`);
+
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'Soal Ujian Berhasil Dihapus!.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+            }
+
             //return
             return {
                 destroy,
+                destroyEssay,
             }
 
         }

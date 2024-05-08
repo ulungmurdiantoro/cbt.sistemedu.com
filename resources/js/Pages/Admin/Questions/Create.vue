@@ -10,6 +10,8 @@
                     <div class="card-body">
                         <h5><i class="fa fa-question-circle"></i> Tambah Soal Ujian</h5>
                         <hr>
+                        <div class="card border-0 shadow mb-4">
+                </div>
                         <form @submit.prevent="submit">
 
                             <div class="table-responsive mb-4">
@@ -19,7 +21,7 @@
                                             <td style="width:20%" class="fw-bold">Soal</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="bvu9lokg76dk4mx0sipczxrdbcmps5ll9px9olsfpqjywybo" 
+                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
                                                     v-model="form.question" 
                                                     :init="{
                                                         menubar: false,
@@ -33,7 +35,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan A</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="bvu9lokg76dk4mx0sipczxrdbcmps5ll9px9olsfpqjywybo" 
+                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
                                                     v-model="form.option_1" 
                                                     :init="{
                                                         height: 130,
@@ -48,7 +50,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan B</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="bvu9lokg76dk4mx0sipczxrdbcmps5ll9px9olsfpqjywybo" 
+                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
                                                     v-model="form.option_2" 
                                                     :init="{
                                                         height: 130,
@@ -63,7 +65,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan C</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="bvu9lokg76dk4mx0sipczxrdbcmps5ll9px9olsfpqjywybo" 
+                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
                                                     v-model="form.option_3" 
                                                     :init="{
                                                         height: 130,
@@ -78,7 +80,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan D</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="bvu9lokg76dk4mx0sipczxrdbcmps5ll9px9olsfpqjywybo" 
+                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
                                                     v-model="form.option_4" 
                                                     :init="{
                                                         height: 130,
@@ -93,7 +95,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan E</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="bvu9lokg76dk4mx0sipczxrdbcmps5ll9px9olsfpqjywybo" 
+                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
                                                     v-model="form.option_5" 
                                                     :init="{
                                                         height: 130,

@@ -19,12 +19,12 @@
                                         <td style="width:30%" class="fw-bold">Nama Ujian</td>
                                         <td>{{ exam_session.exam.title }}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="fw-bold">Mata Pelajaran</td>
+                                    <!-- <tr>
+                                        <td class="fw-bold">Tipe Ujian</td>
                                         <td>{{ exam_session.exam.lesson.title }}</td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
-                                        <td class="fw-bold">Kelas</td>
+                                        <td class="fw-bold">Skema</td>
                                         <td>{{ exam_session.exam.classroom.title }}</td>
                                     </tr>
                                     <tr>
@@ -60,7 +60,7 @@
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Nama Siswa</th>
-                                        <th class="border-0">Kelas</th>
+                                        <th class="border-0">Skema</th>
                                         <th class="border-0">Jenis Kelamin</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>

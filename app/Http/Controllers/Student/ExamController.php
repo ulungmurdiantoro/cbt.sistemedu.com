@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 
 class ExamController extends Controller
 {
-        /**
+    /**
      * confirmation
      *
      * @param  mixed $id
@@ -21,7 +21,7 @@ class ExamController extends Controller
     public function confirmation($id)
     {
         //get exam group
-        $exam_group = ExamGroup::with('exam.lesson', 'exam_session', 'student.classroom')
+        $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
                     ->where('student_id', auth()->guard('student')->user()->id)
                     ->where('id', $id)
                     ->first();
@@ -31,7 +31,7 @@ class ExamController extends Controller
                     ->where('exam_session_id', $exam_group->exam_session->id)
                     ->where('student_id', auth()->guard('student')->user()->id)
                     ->first();
-        
+        // dd($exam_group->exam);
         //return with inertia
         return inertia('Student/Exams/Confirmation', [
             'exam_group' => $exam_group,
@@ -48,7 +48,7 @@ class ExamController extends Controller
     public function startExam($id)
     {
         //get exam group
-        $exam_group = ExamGroup::with('exam.lesson', 'exam_session', 'student.classroom')
+        $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
                     ->where('student_id', auth()->guard('student')->user()->id)
                     ->where('id', $id)
                     ->first();
@@ -110,6 +110,7 @@ class ExamController extends Controller
 
                 //buat jawaban default baru
                 Answer::create([
+                    'answers_code'      => 'answ-' . rand(11, 99) . uniqid(),
                     'exam_id'           => $exam_group->exam->id,
                     'exam_session_id'   => $exam_group->exam_session->id,
                     'question_id'       => $question->id,
@@ -142,7 +143,7 @@ class ExamController extends Controller
     public function show($id, $page)
     {
         //get exam group
-        $exam_group = ExamGroup::with('exam.lesson', 'exam_session', 'student.classroom')
+        $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
                     ->where('student_id', auth()->guard('student')->user()->id)
                     ->where('id', $id)
                     ->first();
@@ -199,7 +200,7 @@ class ExamController extends Controller
         ]); 
     }
 
-        /**
+    /**
      * updateDuration
      *
      * @param  mixed $request
@@ -275,7 +276,7 @@ class ExamController extends Controller
     public function endExam(Request $request)
     {
         //count jawaban benar
-        $count_correct_answer = Answer::where('exam_id', $request->exam_id)
+        $count_answer = Answer::where('exam_id', $request->exam_id)
                             ->where('exam_session_id', $request->exam_session_id)
                             ->where('student_id', auth()->guard('student')->user()->id)
                             ->where('is_correct', 'Y')
@@ -285,7 +286,7 @@ class ExamController extends Controller
         $count_question = Question::where('exam_id', $request->exam_id)->count();
 
         //hitung nilai
-        $grade_exam = round($count_correct_answer/$count_question*100, 2);
+        $grade_exam = round($count_answer/$count_question*100, 2);
 
         //update nilai di table grades
         $grade = Grade::where('exam_id', $request->exam_id)
@@ -294,7 +295,7 @@ class ExamController extends Controller
                 ->first();
         
         $grade->end_time        = Carbon::now();
-        $grade->total_correct   = $count_correct_answer;
+        $grade->total_correct   = $count_answer;
         $grade->grade           = $grade_exam;
         $grade->update();
 
@@ -311,7 +312,7 @@ class ExamController extends Controller
     public function resultExam($exam_group_id)
     {
         //get exam group
-        $exam_group = ExamGroup::with('exam.lesson', 'exam_session', 'student.classroom')
+        $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
                 ->where('student_id', auth()->guard('student')->user()->id)
                 ->where('id', $exam_group_id)
                 ->first();

@@ -59,7 +59,7 @@
 
                 <li role="separator" class="dropdown-divider mt-2 mb-2 border-gray-700"></li>
 
-                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/lessons') }">
+                <!-- <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/lessons') }">
                     <Link href="/admin/lessons" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
@@ -71,10 +71,10 @@
                                     d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z" />
                             </svg>
                         </span>
-                        <span class="sidebar-text">Mata Pelajaran</span>
+                        <span class="sidebar-text">Tipe Ujian</span>
                     </span>
                     </Link>
-                </li>
+                </li> -->
 
                 <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/classrooms') }">
                     <Link href="/admin/classrooms" class="nav-link d-flex justify-content-between">
@@ -86,7 +86,7 @@
                                     d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z" />
                             </svg>
                         </span>
-                        <span class="sidebar-text">Kelas</span>
+                        <span class="sidebar-text">Skema</span>
                     </span>
                     </Link>
                 </li>
@@ -103,7 +103,7 @@
                                 <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                             </svg>
                         </span>
-                        <span class="sidebar-text">Siswa</span>
+                        <span class="sidebar-text">Peserta</span>
                     </span>
                     </Link>
                 </li>

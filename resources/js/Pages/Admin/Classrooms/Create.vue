@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Tambah Kelas - Aplikasi Ujian Online</title>
+        <title>Tambah Skema - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
@@ -8,13 +8,13 @@
                 <Link href="/admin/classrooms" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h5><i class="fa fa-clone"></i> Tambah Kelas</h5>
+                        <h5><i class="fa fa-clone"></i> Tambah Skema</h5>
                         <hr>
                         <form @submit.prevent="submit">
 
                             <div class="mb-4">
-                                <label>Nama Kelas</label> 
-                                <input type="text" class="form-control" placeholder="Masukkan Nama Kelas" v-model="form.title">
+                                <label>Nama Skema</label> 
+                                <input type="text" class="form-control" placeholder="Masukkan Nama Skema" v-model="form.title">
                                 
                                 <div v-if="errors.title" class="alert alert-danger mt-2">
                                     {{ errors.title }}
@@ -85,7 +85,7 @@
                         //show success alert
                         Swal.fire({
                             title: 'Success!',
-                            text: 'Kelas Berhasil Disimpan!.',
+                            text: 'Skema Berhasil Disimpan!.',
                             icon: 'success',
                             showConfirmButton: false,
                             timer: 2000

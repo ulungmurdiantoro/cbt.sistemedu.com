@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Dashboard Siswa - Aplikasi Ujian Online</title>
+        <title>Dashboard Peserta - Aplikasi Ujian Online</title>
     </Head>
     <div class="row">
         <div class="col-md-12">
@@ -11,7 +11,7 @@
     </div>
     <div class="row" v-if="exam_groups.length > 0">
         <div class="col-md-6" v-for="(data, index) in exam_groups" :key="index">
-            <div class="card border-0 shadow">
+            <div class="card border-0 shadow mb-4">
                 <div class="card-body">
                     <h5>{{ data.exam_group.exam.title }}</h5>
                     <hr>
@@ -19,11 +19,11 @@
                         <table class="table table-centered table-nowrap mb-0 rounded">
                             <thead>
                                 <tr>
-                                    <td class="fw-bold">Mata Pelajaran</td>
-                                    <td>{{ data.exam_group.exam.lesson.title }}</td>
+                                    <td class="fw-bold">Tipe Ujian</td>
+                                    <td>{{ data.exam_group.exam.type }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold">Kelas</td>
+                                    <td class="fw-bold">Skema</td>
                                     <td>{{ data.exam_group.student.classroom.title }}</td>
                                 </tr>
                                 <tr>
@@ -49,11 +49,21 @@
                         <div v-if="examTimeRangeChecker(data.exam_group.exam_session.start_time, data.exam_group.exam_session.end_time)">
 
                             <div v-if="data.grade.start_time == null">
-                                <Link :href="`/student/exam-confirmation/${data.exam_group.id}`" class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
+                                <div v-if="data.exam_group.exam.type == 'Essay'">
+                                    <Link :href="`/student/essay-confirmation/${data.exam_group.id}`" class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
+                                </div>
+                                <div v-else>
+                                    <Link :href="`/student/exam-confirmation/${data.exam_group.id}`" class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
+                                </div>
                             </div>
 
                             <div v-else>
-                                <Link :href="`/student/exam/${data.exam_group.id}/1`" class="btn btn-md btn-info border-0 shadow w-100 mt-2">Lanjut Kerjakan</Link>
+                                <div v-if="data.exam_group.exam.type == 'Essay'">
+                                    <Link :href="`/student/essay/${data.exam_group.id}/1`" class="btn btn-md btn-info border-0 shadow w-100 mt-2">Lanjut Kerjakan</Link>
+                                </div>
+                                <div v-else>
+                                    <Link :href="`/student/exam/${data.exam_group.id}/1`" class="btn btn-md btn-info border-0 shadow w-100 mt-2">Lanjut Kerjakan</Link>
+                                </div>
                             </div>
 
                         </div>

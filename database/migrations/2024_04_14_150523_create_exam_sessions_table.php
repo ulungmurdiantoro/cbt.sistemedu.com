@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('exam_sessions', function (Blueprint $table) {
             $table->id();
+            $table->string('exam_sessions_code')->unique();
             $table->foreignId('exam_id')->references('id')->on('exams')->cascadeOnDelete();
             $table->string('title');
             $table->dateTime('start_time');
