@@ -28,22 +28,18 @@
 
                         <table>
                             <tbody>
-                                <form @submit.prevent="submitAnswer">
-                                    <tr>
-                                        <td>
-                                            <Editor 
-                                            api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
-                                            v-model="essay_active.answer" 
-                                            :init="{
-                                                menubar: false,
-                                                plugins: 'lists link image emoticons',
-                                                toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
-                                            }"
-                                            />
-                                        </td>
-                                    </tr>
-                                    <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
-                                </form>
+                                <!-- <form @submit.prevent="submitAnswer"> -->
+                                    <Editor 
+                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
+                                    v-model="essay_active.answer"
+                                    :init="{
+                                        menubar: false,
+                                        plugins: 'lists link image emoticons',
+                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                    }"
+                                    />
+                                <!-- <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button> -->
+                                <!-- </form> -->
                             </tbody>
                         </table>
 

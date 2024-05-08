@@ -75,4 +75,14 @@ class Exam extends Model
     {
         return $this->hasMany(Essay::class)->orderBy('id', 'DESC');
     }
+
+    /**
+     * questions
+     *
+     * @return void
+     */
+    public function essaysanswers()
+    {
+        return $this->hasManyThrough(AnswerEssay::class, Essay::class)->orderBy('essay_id', 'DESC');
+    }
 }

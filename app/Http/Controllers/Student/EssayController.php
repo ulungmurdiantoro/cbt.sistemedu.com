@@ -287,7 +287,7 @@ class EssayController extends Controller
         $count_essay = Essay::where('exam_id', $request->exam_id)->count();
 
         //hitung nilai
-        $grade_exam = round($count_answer/$count_essay*100, 2);
+        // $grade_exam = round($count_answer/$count_essay*100, 2);
 
         //update nilai di table grades
         $grade = Grade::where('exam_id', $request->exam_id)
@@ -297,7 +297,7 @@ class EssayController extends Controller
         
         $grade->end_time        = Carbon::now();
         $grade->total_correct   = $count_answer;
-        $grade->grade           = $grade_exam;
+        // $grade->grade           = $grade_exam;
         $grade->update();
 
         //redirect hasil

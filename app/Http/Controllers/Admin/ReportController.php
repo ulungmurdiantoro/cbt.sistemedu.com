@@ -83,8 +83,10 @@ class ReportController extends Controller
         $grade = Grade::with('student', 'student', 'exam.classroom', 'questions.answers', 'answers', 'exam_session')
         ->findOrFail($id);
 
-        $grade->setRelation('questions', $grade->exam->questions()->paginate(5));
-        $grade->setRelation('answers', $grade->exam->answers()->paginate(5));
+        $grade->setRelation('questions', $grade->exam->questions()->paginate(10));
+        $grade->setRelation('answers', $grade->exam->answers()->paginate(10));
+        $grade->setRelation('essays', $grade->exam->essays()->paginate(10));
+        $grade->setRelation('essaysanswers', $grade->exam->essaysanswers()->paginate(10));
         // dd($grade->answers);
         return inertia('Admin/Reports/Show', [
             'grade' => $grade,
