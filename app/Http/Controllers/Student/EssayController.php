@@ -274,7 +274,7 @@ class EssayController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function endExam(Request $request)
+    public function endEssay(Request $request)
     {
         //count jawaban benar
         $count_answer = AnswerEssay::where('exam_id', $request->exam_id)
@@ -301,7 +301,7 @@ class EssayController extends Controller
         $grade->update();
 
         //redirect hasil
-        return redirect()->route('student.essays.resultExam', $request->exam_group_id);
+        return redirect()->route('student.essays.resultEssay', $request->exam_group_id);
     }
 
     /**
@@ -310,7 +310,7 @@ class EssayController extends Controller
      * @param  mixed $id
      * @return void
      */
-    public function resultExam($exam_group_id)
+    public function resultEssay($exam_group_id)
     {
         //get exam group
         $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')

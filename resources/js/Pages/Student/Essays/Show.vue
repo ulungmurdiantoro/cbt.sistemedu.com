@@ -278,7 +278,7 @@
             //method endExam
             const endExam = (() => {
 
-                router.post('/student/exam-end', {
+                router.post('/student/essay-end', {
                     exam_group_id: props.exam_group.id,
                     exam_id: props.exam_group.exam.id,
                     exam_session_id: props.exam_group.exam_session.id,

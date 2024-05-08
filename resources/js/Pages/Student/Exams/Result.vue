@@ -20,6 +20,14 @@
                                     <td>{{ exam_group.student.name }}</td>
                                 </tr>
                                 <tr>
+                                    <td class="fw-bold">Asal Institusi</td>
+                                    <td>{{ exam_group.student.institution }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Jabatan</td>
+                                    <td>{{ exam_group.student.position }}</td>
+                                </tr>
+                                <tr>
                                     <td class="fw-bold">Skema</td>
                                     <td>{{ exam_group.student.classroom.title }}</td>
                                 </tr>
