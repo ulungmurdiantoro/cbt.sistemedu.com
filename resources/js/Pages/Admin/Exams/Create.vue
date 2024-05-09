@@ -13,7 +13,7 @@
                         <form @submit.prevent="submit">
 
                             <div class="mb-4">
-                                <label>Nama Ujian</label> 
+                                <label>Nama Ujian</label>
                                 <input type="text" class="form-control" placeholder="Masukkan Nama Ujian" v-model="form.title">
                                 <div v-if="errors.title" class="alert alert-danger mt-2">
                                     {{ errors.title }}
@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Jenis Ujian</label> 
+                                        <label>Jenis Ujian</label>
                                         <select class="form-select" v-model="form.type">
                                             <option value="Pilihan Ganda">Pilihan Ganda</option>
                                             <option value="Essay">Essay</option>
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Skema</label> 
+                                        <label>Skema</label>
                                         <select class="form-select" v-model="form.classroom_id">
                                             <option v-for="(classroom, index) in classrooms" :key="index" :value="classroom.id">{{ classroom.title }}</option>
                                         </select>
@@ -47,10 +47,10 @@
                             </div>
 
                             <div class="mb-4">
-                                <label>Deskripsi</label> 
-                                <Editor 
-                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
-                                    v-model="form.description" 
+                                <label>Deskripsi</label>
+                                <Editor
+                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34"
+                                    v-model="form.description"
                                     :init="{
                                         menubar: false,
                                         plugins: 'lists link image emoticons',
@@ -65,7 +65,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Acak Soal</label> 
+                                        <label>Acak Soal</label>
                                         <select class="form-select" v-model="form.random_question">
                                             <option value="Y">Y</option>
                                             <option value="N">N</option>
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Acak Jawaban</label> 
+                                        <label>Acak Jawaban</label>
                                         <select class="form-select" v-model="form.random_answer">
                                             <option value="Y">Y</option>
                                             <option value="N">N</option>
@@ -92,7 +92,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Tampilkan Hasil</label> 
+                                        <label>Tampilkan Hasil</label>
                                         <select class="form-select" v-model="form.show_answer">
                                             <option value="Y">Y</option>
                                             <option value="N">N</option>
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Durasi (Menit)</label> 
+                                        <label>Durasi (Menit)</label>
                                         <input type="number" min="1" class="form-control" placeholder="Masukkan Durasi Ujian (Menit)" v-model="form.duration">
                                         <div v-if="errors.duration" class="alert alert-danger mt-2">
                                             {{ errors.duration }}

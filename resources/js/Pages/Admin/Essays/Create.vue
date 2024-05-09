@@ -20,9 +20,9 @@
                                         <tr>
                                             <td style="width:20%" class="fw-bold">Soal</td>
                                             <td>
-                                                <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
-                                                    v-model="form.question" 
+                                                <Editor
+                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34"
+                                                    v-model="form.question"
                                                     :init="{
                                                         menubar: false,
                                                         plugins: 'lists link image emoticons',
@@ -34,9 +34,9 @@
                                         <tr>
                                             <td style="width:20%" class="fw-bold">Jawaban Benar</td>
                                             <td>
-                                                <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
-                                                    v-model="form.answer" 
+                                                <Editor
+                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34"
+                                                    v-model="form.answer"
                                                     :init="{
                                                         height: 130,
                                                         menubar: false,
@@ -49,7 +49,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
                             <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
                         </form>

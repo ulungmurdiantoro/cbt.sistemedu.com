@@ -29,15 +29,16 @@
                         <table>
                             <tbody>
                                 <!-- <form @submit.prevent="submitAnswer"> -->
-                                    <Editor 
-                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
-                                    v-model="essay_active.answer"
+                                    <Editor
+                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34"
+                                    @input.prevent="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)" v-model="form.answer"
                                     :init="{
                                         menubar: false,
                                         plugins: 'lists link image emoticons',
                                         toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
                                     }"
                                     />
+                                    <!-- <input @input.prevent="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)" v-model="form.answer"> -->
                                 <!-- <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button> -->
                                 <!-- </form> -->
                             </tbody>
@@ -152,13 +153,13 @@
 
     //import axios
     import axios from 'axios';
-    
+
     //import sweet alert2
     import Swal from 'sweetalert2';
 
     //import tinyMCE
     import Editor from '@tinymce/tinymce-vue';
-    
+
     export default {
         //layout
         layout: LayoutStudent,
@@ -260,7 +261,7 @@
             });
 
             const submitAnswer = ((exam_id, essay_id, answer) => {
-
+                // console.log(answer);
                 router.post('/student/essay-answer', {
                     exam_id: exam_id,
                     exam_session_id: props.exam_group.exam_session.id,
@@ -291,10 +292,10 @@
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 4000
-                });           
+                });
 
             });
-            
+
             //return
             return {
                 duration,

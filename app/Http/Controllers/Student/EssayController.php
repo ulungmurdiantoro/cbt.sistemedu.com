@@ -22,15 +22,15 @@ class EssayController extends Controller
     {
         //get exam group
         $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->where('id', $id)
-                    ->first();
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('id', $id)
+            ->first();
 
         //get grade / nilai
         $grade = Grade::where('exam_id', $exam_group->exam->id)
-                    ->where('exam_session_id', $exam_group->exam_session->id)
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->first();
+            ->where('exam_session_id', $exam_group->exam_session->id)
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->first();
         // dd($exam_group->exam);
         //return with inertia
         return inertia('Student/Essays/Confirmation', [
@@ -49,31 +49,29 @@ class EssayController extends Controller
     {
         //get exam group
         $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->where('id', $id)
-                    ->first();
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('id', $id)
+            ->first();
 
         //get grade / nilai
         $grade = Grade::where('exam_id', $exam_group->exam->id)
-                    ->where('exam_session_id', $exam_group->exam_session->id)
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->first();
+            ->where('exam_session_id', $exam_group->exam_session->id)
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->first();
 
         //update start time di table grades
         $grade->start_time = Carbon::now();
         $grade->update();
 
         //cek apakah essays / soal ujian di random
-        if($exam_group->exam->random_essay == 'Y') {
+        if ($exam_group->exam->random_essay == 'Y') {
 
             //get essays / soal ujian
             $essays = Essay::where('exam_id', $exam_group->exam->id)->inRandomOrder()->get();
-
         } else {
 
             //get essays / soal ujian
             $essays = Essay::where('exam_id', $exam_group->exam->id)->get();
-
         }
 
         //define pilihan jawaban default
@@ -88,24 +86,23 @@ class EssayController extends Controller
             // if(!empty($essay->option_5)) $options[] = 5;
 
             //acak jawaban / answer
-            if($exam_group->exam->random_answer == 'Y') {
+            if ($exam_group->exam->random_answer == 'Y') {
                 shuffle($options);
             }
 
             //cek apakah sudah ada data jawaban
             $answer = AnswerEssay::where('student_id', auth()->guard('student')->user()->id)
-                    ->where('exam_id', $exam_group->exam->id)
-                    ->where('exam_session_id', $exam_group->exam_session->id)
-                    ->where('essay_id', $essay->id)
-                    ->first();
+                ->where('exam_id', $exam_group->exam->id)
+                ->where('exam_session_id', $exam_group->exam_session->id)
+                ->where('essay_id', $essay->id)
+                ->first();
 
             //jika sudah ada jawaban / answer
-            if($answer) {
+            if ($answer) {
 
                 //update urutan essay / soal
                 $answer->essay_order = $essay_order;
                 $answer->update();
-
             } else {
 
                 //buat jawaban default baru
@@ -120,19 +117,17 @@ class EssayController extends Controller
                     'answer'            => NULL,
                     'is_correct'        => 'N'
                 ]);
-
             }
             $essay_order++;
-
         }
 
         //redirect ke ujian halaman 1
         return redirect()->route('student.essays.show', [
-            'id'    => $exam_group->id, 
+            'id'    => $exam_group->id,
             'page'  => 1
-        ]);   
+        ]);
     }
-    
+
     /**
      * show
      *
@@ -144,48 +139,48 @@ class EssayController extends Controller
     {
         //get exam group
         $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->where('id', $id)
-                    ->first();
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('id', $id)
+            ->first();
 
-        if(!$exam_group) {
+        if (!$exam_group) {
             return redirect()->route('student.dashboard');
         }
 
         //get all essays
         $all_essays = AnswerEssay::with('essay')
-                        ->where('student_id', auth()->guard('student')->user()->id)
-                        ->where('exam_id', $exam_group->exam->id)
-                        ->orderBy('essay_order', 'ASC')
-                        ->get();
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('exam_id', $exam_group->exam->id)
+            ->orderBy('essay_order', 'ASC')
+            ->get();
 
         //count all essay answered
         $essay_answered = AnswerEssay::with('essay')
-                        ->where('student_id', auth()->guard('student')->user()->id)
-                        ->where('exam_id', $exam_group->exam->id)
-                        ->where('answer', '!=', NULL)
-                        ->count();
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('exam_id', $exam_group->exam->id)
+            ->where('answer', '!=', NULL)
+            ->count();
 
 
         //get essay active
         $essay_active = AnswerEssay::with('essay.exam')
-                        ->where('student_id', auth()->guard('student')->user()->id)
-                        ->where('exam_id', $exam_group->exam->id)
-                        ->where('essay_order', $page)
-                        ->first();
-        
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('exam_id', $exam_group->exam->id)
+            ->where('essay_order', $page)
+            ->first();
+
         //explode atau pecah jawaban
         if ($essay_active) {
             $answer_order = explode(",", $essay_active->answer_order);
-        } else  {
+        } else {
             $answer_order = [];
         }
 
         //get duration
         $duration = Grade::where('exam_id', $exam_group->exam->id)
-                    ->where('exam_session_id', $exam_group->exam_session->id)
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->first();
+            ->where('exam_session_id', $exam_group->exam_session->id)
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->first();
 
         //return with inertia
         // dd($essay_active);
@@ -198,7 +193,7 @@ class EssayController extends Controller
             'essay_active'      => $essay_active,
             'answer_order'      => $answer_order,
             'duration'          => $duration,
-        ]); 
+        ]);
     }
 
     /**
@@ -226,22 +221,22 @@ class EssayController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function answerEssay(Request $request)
+    public function answerQuestion(Request $request)
     {
         //update duration
         $grade = Grade::where('exam_id', $request->exam_id)
-                ->where('exam_session_id', $request->exam_session_id)
-                ->where('student_id', auth()->guard('student')->user()->id)
-                ->first();
+            ->where('exam_session_id', $request->exam_session_id)
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->first();
 
         $grade->duration = $request->duration;
         $grade->update();
 
         //get essay
         $essay = Essay::find($request->essay_id);
-        
+
         //cek apakah jawaban sudah benar
-        if($essay->answer == $request->answer) {
+        if ($essay->answer == $request->answer) {
 
             //jawaban benar
             $result = 'Y';
@@ -253,13 +248,13 @@ class EssayController extends Controller
 
         //get answer
         $answer   = AnswerEssay::where('exam_id', $request->exam_id)
-                    ->where('exam_session_id', $request->exam_session_id)
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->where('essay_id', $request->essay_id)
-                    ->first();
+            ->where('exam_session_id', $request->exam_session_id)
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('essay_id', $request->essay_id)
+            ->first();
 
         //update jawaban
-        if($answer) {
+        if ($answer) {
             $answer->answer     = $request->answer;
             $answer->is_correct = $result;
             $answer->update();
@@ -278,10 +273,10 @@ class EssayController extends Controller
     {
         //count jawaban benar
         $count_answer = AnswerEssay::where('exam_id', $request->exam_id)
-                            ->where('exam_session_id', $request->exam_session_id)
-                            ->where('student_id', auth()->guard('student')->user()->id)
-                            ->where('is_correct', 'Y')
-                            ->count();
+            ->where('exam_session_id', $request->exam_session_id)
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('is_correct', 'Y')
+            ->count();
 
         //count jumlah soal
         $count_essay = Essay::where('exam_id', $request->exam_id)->count();
@@ -291,10 +286,10 @@ class EssayController extends Controller
 
         //update nilai di table grades
         $grade = Grade::where('exam_id', $request->exam_id)
-                ->where('exam_session_id', $request->exam_session_id)
-                ->where('student_id', auth()->guard('student')->user()->id)
-                ->first();
-        
+            ->where('exam_session_id', $request->exam_session_id)
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->first();
+
         $grade->end_time        = Carbon::now();
         $grade->total_correct   = $count_answer;
         // $grade->grade           = $grade_exam;
@@ -314,15 +309,15 @@ class EssayController extends Controller
     {
         //get exam group
         $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
-                ->where('student_id', auth()->guard('student')->user()->id)
-                ->where('id', $exam_group_id)
-                ->first();
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('id', $exam_group_id)
+            ->first();
 
         //get grade / nilai
         $grade = Grade::where('exam_id', $exam_group->exam->id)
-                ->where('exam_session_id', $exam_group->exam_session->id)
-                ->where('student_id', auth()->guard('student')->user()->id)
-                ->first();
+            ->where('exam_session_id', $exam_group->exam_session->id)
+            ->where('student_id', auth()->guard('student')->user()->id)
+            ->first();
 
         //return with inertia
         return inertia('Student/Essays/Result', [
