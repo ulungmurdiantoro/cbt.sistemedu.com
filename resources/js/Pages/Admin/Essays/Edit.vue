@@ -19,7 +19,7 @@
                                             <td style="width:20%" class="fw-bold">Soal</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
+                                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6" 
                                                     v-model="form.question" 
                                                     :init="{
                                                         menubar: false,
@@ -33,7 +33,7 @@
                                             <td style="width:20%" class="fw-bold">Jawaban Benar</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
+                                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6" 
                                                     v-model="form.answer" 
                                                     :init="{
                                                         height: 130,

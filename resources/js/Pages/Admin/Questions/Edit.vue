@@ -19,7 +19,7 @@
                                             <td style="width:20%" class="fw-bold">Soal</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
+                                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6" 
                                                     v-model="form.question" 
                                                     :init="{
                                                         menubar: false,
@@ -33,7 +33,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan A</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
+                                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6" 
                                                     v-model="form.option_1" 
                                                     :init="{
                                                         height: 130,
@@ -48,7 +48,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan B</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
+                                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6" 
                                                     v-model="form.option_2" 
                                                     :init="{
                                                         height: 130,
@@ -63,7 +63,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan C</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
+                                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6" 
                                                     v-model="form.option_3" 
                                                     :init="{
                                                         height: 130,
@@ -78,7 +78,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan D</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
+                                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6" 
                                                     v-model="form.option_4" 
                                                     :init="{
                                                         height: 130,
@@ -93,7 +93,7 @@
                                             <td style="width:20%" class="fw-bold">Pilihan E</td>
                                             <td>
                                                 <Editor 
-                                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34" 
+                                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6" 
                                                     v-model="form.option_5" 
                                                     :init="{
                                                         height: 130,
