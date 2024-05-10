@@ -31,11 +31,16 @@
                                 <!-- <form @submit.prevent="submitAnswer"> -->
                                     <Editor
                                     api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34"
-                                    @input.prevent="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)" v-model="form.answer"
+                                    v-model="form.answer"
                                     :init="{
                                         menubar: false,
                                         plugins: 'lists link image emoticons',
-                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons',
+                                        setup: (editor)=>    {
+                                            editor.on('keyup', (e)=>{
+                                                submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)
+                                            })
+                                        }
                                     }"
                                     />
                                     <!-- <input @input.prevent="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)" v-model="form.answer"> -->
