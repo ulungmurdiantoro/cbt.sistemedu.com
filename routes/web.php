@@ -94,6 +94,9 @@ Route::prefix('admin')->group(function() {
         
         //route essay show
         Route::get('/reports/{id}', [App\Http\Controllers\Admin\ReportController::class, 'show'])->name('admin.reports.show');
+        
+        //route essay show
+        Route::get('/reports/essays/{id}', [App\Http\Controllers\Admin\ReportController::class, 'essayShow'])->name('admin.reports.essayShow');
             
     });
 });

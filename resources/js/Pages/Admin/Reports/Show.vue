@@ -105,14 +105,10 @@
                                                 </thead>
                                                 <div class="mt-2"></div>
                                                 <tbody>
-                                                    <tr v-for="(answer, index) in grade.answers.data" :key="index">
+                                                    <tr v-for="(essayanswer, index) in grade.essaysanswers.data" :key="index">
                                                         <td>{{ ++index + (grade.questions.current_page - 1) * grade.questions.per_page }}</td>
-                                                        <td v-if="grade.student.id == answer.student_id">
-                                                            <p v-if="answer.answer == 1"><b>A</b></p>
-                                                            <p v-else-if="answer.answer == 2"><b>B</b></p>
-                                                            <p v-else-if="answer.answer == 3"><b>C</b></p>
-                                                            <p v-else-if="answer.answer == 4"><b>D</b></p>
-                                                            <p v-else-if="answer.answer == 5"><b>E</b></p>
+                                                        <td v-if="grade.student.id == essayanswer.student_id">
+                                                            {{ essayanswer.answer }}
                                                         </td>
                                                     </tr>
                                                 </tbody>
