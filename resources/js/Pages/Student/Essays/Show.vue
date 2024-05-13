@@ -29,7 +29,7 @@
                         <table>
                             <tbody>
                                 <Editor
-                                    api-key="b3kze5j2lwfycx8koaq2c002zm6cizz1qlirr44kjzp85l34"
+                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6"
                                     v-model="form.answer"
                                     :init="{
                                         menubar: false,
