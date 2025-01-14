@@ -18,7 +18,7 @@ class ClassroomController extends Controller
         //get classrooms
         $classrooms = Classroom::when(request()->q, function($classrooms) {
             $classrooms = $classrooms->where('title', 'like', '%'. request()->q . '%');
-        })->latest()->paginate(5);
+        })->latest()->paginate(10);
 
         //append query string to pagination links
         $classrooms->appends(['q' => request()->q]);

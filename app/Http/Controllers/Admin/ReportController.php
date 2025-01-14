@@ -8,6 +8,7 @@ use App\Models\Grade;
 use App\Models\ExamSession;
 use Illuminate\Http\Request;
 use App\Exports\GradesExport;
+use App\Exports\GradesEssayExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -110,11 +111,15 @@ class ReportController extends Controller
         $exam_session = ExamSession::where('exam_id', $exam->id)->first();
 
         //get grades / nilai
-        $grades = Grade::with('student', 'exam.classroom', 'exam_session')
+        $grades = Grade::with('student', 'exam.classroom', 'exam_session', 'answers')
                 ->where('exam_id', $exam->id)
                 ->where('exam_session_id', $exam_session->id)        
                 ->get();
 
-        return Excel::download(new GradesExport($grades), 'grade : '.$exam->title.' — '.Carbon::now().'.xlsx');
+        if ($exam->type == 'Essay') {
+            return Excel::download(new GradesEssayExport($grades), 'essay_grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx');
+        } else {
+            return Excel::download(new GradesExport($grades), 'grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx');
+        }
     }
 }

@@ -20,7 +20,7 @@
                                         <td>{{ exam.title }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">Kelas</td>
+                                        <td class="fw-bold">Skema</td>
                                         <td>{{ exam.classroom.title }}</td>
                                     </tr>
                                     <tr>

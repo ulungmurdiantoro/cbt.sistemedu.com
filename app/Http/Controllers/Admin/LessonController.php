@@ -18,7 +18,7 @@ class LessonController extends Controller
         //get lessons
         $lessons = Lesson::when(request()->q, function($lessons) {
             $lessons = $lessons->where('title', 'like', '%'. request()->q . '%');
-        })->latest()->paginate(5);
+        })->latest()->paginate(10);
 
         //append query string to pagination links
         $lessons->appends(['q' => request()->q]);

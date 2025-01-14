@@ -26,62 +26,33 @@ class Grade extends Model
         'grade',
     ];
 
-    /**
-     * exam
-     *
-     * @return void
-     */
     public function exam()
     {
         return $this->belongsTo(Exam::class);
     }
 
-    /**
-     * exam_session
-     *
-     * @return void
-     */
     public function exam_session()
     {
         return $this->belongsTo(ExamSession::class);
     }
 
-    /**
-     * student
-     *
-     * @return void
-     */
     public function student()
     {
         return $this->belongsTo(Student::class);
     }
 
-    /**
-     * exam
-     *
-     * @return void
-     */
     public function questions()
     {
         return $this->belongsTo(Question::class, 'exam_id');
     }
 
-    /**
-     * exam
-     *
-     * @return void
-     */
-    // public function answers()
-    // {
-    //     return $this->hasManyThrough(Answer::class, Question::class, 
-    //     'exam_id', 
-    //     'question_id', 
-    //     'exam_id', 
-    //     'id');
-    // }
-
     public function answers()
     {
         return $this->hasMany(Answer::class, 'exam_session_id');
+    }
+
+    public function answersEssay()
+    {
+        return $this->hasMany(AnswerEssay::class, 'exam_session_id');
     }
 }

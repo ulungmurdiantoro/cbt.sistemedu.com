@@ -21,7 +21,7 @@ class ExamSessionController extends Controller
         //get exam_sessions
         $exam_sessions = ExamSession::when(request()->q, function($exam_sessions) {
             $exam_sessions = $exam_sessions->where('title', 'like', '%'. request()->q . '%');
-        })->with('exam.classroom', 'exam_groups')->latest()->paginate(5);
+        })->with('exam.classroom', 'exam_groups')->latest()->paginate(10);
 
         //append query string to pagination links
         $exam_sessions->appends(['q' => request()->q]);
@@ -89,7 +89,7 @@ class ExamSessionController extends Controller
         $exam_session = ExamSession::with('exam.classroom')->findOrFail($id);
 
         //get relation exam_groups with pagination
-        $exam_session->setRelation('exam_groups', $exam_session->exam_groups()->with('student.classroom')->paginate(5));
+        $exam_session->setRelation('exam_groups', $exam_session->exam_groups()->with('student.classroom')->paginate(10));
 
         //render with inertia
         return inertia('Admin/ExamSessions/Show', [

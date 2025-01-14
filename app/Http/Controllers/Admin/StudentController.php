@@ -21,7 +21,7 @@ class StudentController extends Controller
         //get students
         $students = Student::when(request()->q, function($students) {
             $students = $students->where('name', 'like', '%'. request()->q . '%');
-        })->with('classroom')->latest()->paginate(5);
+        })->with('classroom')->latest()->paginate(10);
 
         //append query string to pagination links
         $students->appends(['q' => request()->q]);

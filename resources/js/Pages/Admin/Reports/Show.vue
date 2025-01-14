@@ -107,8 +107,7 @@
                                                 <tbody>
                                                     <tr v-for="(essayanswer, index) in grade.essaysanswers.data" :key="index">
                                                         <td>{{ ++index + (grade.questions.current_page - 1) * grade.questions.per_page }}</td>
-                                                        <td v-if="grade.student.id == essayanswer.student_id">
-                                                            {{ essayanswer.answer }}
+                                                        <td v-if="grade.student.id == essayanswer.student_id" v-html="essayanswer.answer">
                                                         </td>
                                                     </tr>
                                                 </tbody>

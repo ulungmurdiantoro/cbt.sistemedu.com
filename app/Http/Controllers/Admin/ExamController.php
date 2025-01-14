@@ -24,7 +24,7 @@ class ExamController extends Controller
         //get exams
         $exams = Exam::when(request()->q, function($exams) {
             $exams = $exams->where('title', 'like', '%'. request()->q . '%');
-        })->with('classroom', 'questions', 'essays')->latest()->paginate(5);
+        })->with('classroom', 'questions', 'essays')->latest()->paginate(10);
 
         //append query string to pagination links
         $exams->appends(['q' => request()->q]);
