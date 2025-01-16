@@ -36,7 +36,7 @@ class GradesExport implements FromCollection, WithMapping, WithHeadings
     public function map($grades) : array {
         // Create the is_correct_answers array with numbered entries
         $is_correct_answers = array_map(function($answer, $index) {
-            return ['number' => $index + 1, 'is_correct' => $answer->is_correct];
+            return ['number' => $index + 1, 'is_correct' => $answer->is_correct, 'student_id' => $answer->student_id];
         }, $grades->answers->all(), array_keys($grades->answers->all()));
     
         // Initialize the row with common information
@@ -47,16 +47,18 @@ class GradesExport implements FromCollection, WithMapping, WithHeadings
             $grades->exam->classroom->title
         ];
     
-        // Add the is_correct values to the row in separate columns
+        // Add the is_correct values to the row in separate columns if student IDs match
         foreach ($is_correct_answers as $answer) {
-            $row[] = $answer['is_correct'];
+            if ($grades->student->id == $answer['student_id']) {
+                $row[] = $answer['is_correct'];
+            }
         }
     
         // Add the final grade to the row
         $row[] = $grades->grade;
     
         return [$row];
-    }
+    }    
     
     public function headings() : array {
         // Assume a fixed number of answers for headings (e.g., 10). Adjust this value as needed.
