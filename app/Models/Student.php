@@ -24,23 +24,18 @@ class Student extends Authenticatable
         'gender'
     ];
 
-    /**
-     * classroom
-     *
-     * @return void
-     */
     public function classroom()
     {
         return $this->belongsTo(Classroom::class);
     }
 
-    /**
-     * classroom
-     *
-     * @return void
-     */
     public function answers()
     {
-        return $this->hasMany(Classroom::class);
+        return $this->hasMany(Answer::class);
+    }
+
+    public function answersEssay()
+    {
+        return $this->hasMany(AnswerEssay::class);
     }
 }

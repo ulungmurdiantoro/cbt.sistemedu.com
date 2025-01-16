@@ -48,11 +48,11 @@ class Grade extends Model
 
     public function answers()
     {
-        return $this->hasMany(Answer::class, 'exam_session_id');
+        return $this->hasMany(Answer::class, 'student_id');
     }
 
     public function answersEssay()
     {
-        return $this->hasMany(AnswerEssay::class, 'exam_session_id');
+        return $this->hasMany(AnswerEssay::class, 'student_id');
     }
 }

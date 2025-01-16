@@ -111,7 +111,7 @@ class ReportController extends Controller
         $exam_session = ExamSession::where('exam_id', $exam->id)->first();
 
         //get grades / nilai
-        $grades = Grade::with('student', 'exam.classroom', 'exam_session', 'answers')
+        $grades = Grade::with('student', 'student.answers', 'student.answersEssay', 'exam.classroom', 'exam_session', 'answers', 'answersEssay')
                 ->where('exam_id', $exam->id)
                 ->where('exam_session_id', $exam_session->id)        
                 ->get();
