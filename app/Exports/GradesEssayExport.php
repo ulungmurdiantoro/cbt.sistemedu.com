@@ -20,17 +20,17 @@ class GradesEssayExport implements FromCollection, WithMapping, WithHeadings
     }
 
     public function map($grades): array {
-        // Log the original answers array
-        error_log('Original Answers: ' . print_r($grades->answers->all(), true));
+        // Log the original answersEssay array
+        error_log('Original Answers: ' . print_r($grades->answersEssay->all(), true));
         
         // Create the is_correct_answers array with numbered entries and question_id
         $is_correct_answers = array_map(function ($answer, $index) {
             return [
                 'number' => $index + 1,
                 'question_id' => $answer->question_id ?? null, // Add a null check
-                'is_correct' => $answer->is_correct ?? null   // Add a null check
+                'answer' => $answer->answer ?? null   // Add a null check
             ];
-        }, $grades->answers->all(), array_keys($grades->answers->all()));
+        }, $grades->answersEssay->all(), array_keys($grades->answersEssay->all()));
         
         // Log after mapping
         error_log('Mapped is_correct_answers: ' . print_r($is_correct_answers, true));
@@ -52,9 +52,9 @@ class GradesEssayExport implements FromCollection, WithMapping, WithHeadings
             $grades->exam->classroom->title
         ];
         
-        // Add the is_correct values to the row in separate columns
+        // Add the answer values to the row in separate columns
         foreach ($is_correct_answers as $answer) {
-            $row[] = $answer['is_correct'] ?? null;
+            $row[] = $answer['answer'] ?? null;
         }
         
         // Add the final grade to the row
