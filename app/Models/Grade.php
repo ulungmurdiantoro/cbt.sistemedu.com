@@ -9,11 +9,6 @@ class Grade extends Model
 {
     use HasFactory;
 
-    /**
-     * fillable
-     *
-     * @var array
-     */
     protected $fillable = [
         'grades_code',
         'exam_id',
@@ -48,11 +43,11 @@ class Grade extends Model
 
     public function answers()
     {
-        return $this->hasMany(Answer::class, 'student_id');
+        return $this->hasMany(Answer::class, 'student_id', 'student_id');
     }
 
     public function answersEssay()
     {
-        return $this->hasMany(AnswerEssay::class, 'student_id');
+        return $this->hasMany(AnswerEssay::class, 'student_id', 'student_id');
     }
 }

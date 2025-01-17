@@ -111,10 +111,17 @@ class ReportController extends Controller
         $exam_session = ExamSession::where('exam_id', $exam->id)->first();
 
         //get grades / nilai
-        $grades = Grade::with('student', 'student.answers', 'student.answersEssay', 'exam.classroom', 'exam_session', 'answers', 'answersEssay')
-                ->where('exam_id', $exam->id)
-                ->where('exam_session_id', $exam_session->id)        
-                ->get();
+        $grades = Grade::with([
+            'answers',
+            'answersEssay',
+            'exam.classroom',
+            'exam_session',
+            'student' // If you still need student details
+        ])
+        ->where('exam_id', $exam->id)
+        ->where('exam_session_id', $exam_session->id)
+        ->get();
+        
 
         if ($exam->type == 'Essay') {
             return Excel::download(new GradesEssayExport($grades), 'essay_grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx');

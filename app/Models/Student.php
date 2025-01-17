@@ -31,11 +31,11 @@ class Student extends Authenticatable
 
     public function answers()
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class, 'student_id', 'student_id');
     }
 
     public function answersEssay()
     {
-        return $this->hasMany(AnswerEssay::class);
+        return $this->hasMany(AnswerEssay::class, 'student_id', 'student_id');
     }
 }

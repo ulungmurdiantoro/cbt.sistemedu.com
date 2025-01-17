@@ -33,6 +33,6 @@ class AnswerEssay extends Model
      */
     public function essay()
     {
-        return $this->belongsTo(Essay::class);
+        return $this->belongsTo(Essay::class, 'student_id', 'student_id');
     }
 }

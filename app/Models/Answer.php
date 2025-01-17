@@ -43,6 +43,6 @@ class Answer extends Model
 
     public function answers()
     {
-        return $this->belongsTo(Grade::class);
+        return $this->belongsTo(Grade::class, 'student_id', 'student_id');
     }
 }
