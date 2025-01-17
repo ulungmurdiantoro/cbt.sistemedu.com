@@ -33,15 +33,18 @@ class GradesEssayExport implements FromCollection, WithMapping, WithHeadings
         $is_correct_answers = $grades->answersEssay->sortBy(function($answer) {
             return $answer->question_id;
         })->values()->map(function ($answer, $index) {
+            // Return the answer or blank, followed by "0"
             return [
                 'number' => $index + 1,
-                'answer' => $answer->answer,
+                'answer' => $answer->answer ?? '',  // If answer is null, show blank
+                'zero' => '0',                      // Append "0" for each answer
             ];
         })->toArray();
     
-        // Append answer values to the row
+        // Append answer values and "0" after each
         foreach ($is_correct_answers as $answer) {
-            $row[] = $answer['answer'];
+            $row[] = $answer['answer'];  // Add the answer (blank if null)
+            $row[] = $answer['zero'];    // Add "0" after each answer
         }
     
         // Append the grade
@@ -55,7 +58,8 @@ class GradesEssayExport implements FromCollection, WithMapping, WithHeadings
         
         $is_correct_headers = [];
         foreach (range(1, $num_answers) as $index) {
-            $is_correct_headers[] = "$index";
+            $is_correct_headers[] = $index;          // Add the index (number) first
+            $is_correct_headers[] = "Nilai $index";  // Then add "Nilai" followed by the index
         }
     
         return array_merge(
@@ -67,7 +71,7 @@ class GradesEssayExport implements FromCollection, WithMapping, WithHeadings
                 'Skema',
             ],
             $is_correct_headers,
-            ['Nilai']
+            ['Total Nilai']
         );
     }
     
