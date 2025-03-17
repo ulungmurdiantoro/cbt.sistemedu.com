@@ -19,41 +19,33 @@
                     </div>
                 </div>
                 <div class="card-body">
-
                     <div v-if="essay_active !== null">
-
                         <div>
-                            <p v-html="essay_active.essay.question"></p>
+                        <p v-html="essay_active.essay.question"></p>
                         </div>
 
                         <table>
-                            <tbody>
-                                <Editor
-                                    api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6"
-                                    v-model="form.answer"
-                                    :init="{
-                                        menubar: false,
-                                        plugins: 'lists link image emoticons',
-                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons',
-                                        setup: (editor)=>    {
-                                            editor.on('keyup', (e)=>{
-                                                submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)
-                                            })
-                                        }
-                                    }"
-                                    />
-                            </tbody>
+                        <tbody>
+                            <Editor
+                            api-key="zb77mx2rawyupaiawfej86t2m3vg29holy1q2nycvi8kx4t6"
+                            v-model="form.answer"
+                            :init="{
+                                menubar: false,
+                                plugins: 'lists link image emoticons',
+                                toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons',
+                            }"
+                            />
+                        </tbody>
                         </table>
 
+                        <!-- Manual Submit Button -->
+                        <button @click="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)"
+                            class="btn btn-md btn-info border-0 shadow mt-2 text-white">
+                            Submit Answer
+                        </button>
                     </div>
-
-                    <div v-else>
-                        <div class="alert alert-danger border-0 shadow">
-                            <i class="fa fa-exclamation-triangle"></i> Soal Tidak Ditemukan!.
-                        </div>
-                    </div>
-
                 </div>
+
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
                         <div class="text-start">
