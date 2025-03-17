@@ -254,15 +254,28 @@
             });
 
             const submitAnswer = ((exam_id, essay_id, answer) => {
-                // console.log(answer);
-                router.post('/student/essay-answer', {
-                    exam_id: exam_id,
-                    exam_session_id: props.exam_group.exam_session.id,
-                    essay_id: essay_id,
-                    answer: answer,
-                    duration: duration.value
-                });
-
+            router.post(
+                '/student/essay-answer',
+                {
+                exam_id: exam_id,
+                exam_session_id: props.exam_group.exam_session.id,
+                essay_id: essay_id,
+                answer: answer,
+                duration: duration.value
+                },
+                {
+                onSuccess: () => {
+                    // Show success alert using SweetAlert2
+                    Swal.fire({
+                    title: 'Success!',
+                    text: 'Jawaban Berhasil Disimpan.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
+                    });
+                }
+                }
+            );
             });
 
             //define state modal
