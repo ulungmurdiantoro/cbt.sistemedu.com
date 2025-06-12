@@ -21,28 +21,38 @@
                 <div class="card-body">
                     <div v-if="essay_active !== null">
                         <div>
-                        <p v-html="essay_active.essay.question"></p>
+                            <p v-html="essay_active.essay.question"></p>
                         </div>
 
                         <table>
-                        <tbody>
-                            <Editor
-                            api-key="cbw50e6mfoyos48vhi4roqvezwkmmzf6il98j4bw6bhkwr2z"
-                            v-model="form.answer"
-                            :init="{
-                                menubar: false,
-                                plugins: 'lists link image emoticons',
-                                toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons',
-                            }"
-                            />
-                        </tbody>
-                        </table>
+                            <tbody>
+                                <QuillEditor
+                                    ref="editor"
+                                    v-model:content="form.answer"
+                                    contentType="html"
+                                    theme="snow"
+                                    :options="{
+                                        modules: {
+                                            toolbar: [
+                                                ['bold', 'italic', 'underline'],
+                                                [{ 'align': [] }],
+                                                [{ 'header': [1, 2, 3, false] }],
+                                                [{ 'list': 'ordered' }, { 'list': 'bullet' }]
+                                            ]
+                                        },
+                                        placeholder: 'Type your answer here...',
+                                    }"
+                                    style="min-height: 300px; width: 550px;" 
+                                    @update:content="val => form.answer = val"
+                                />
 
-                        <!-- Manual Submit Button -->
-                        <button @click="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)"
-                            class="btn btn-md btn-info border-0 shadow mt-2 text-white">
-                            Submit Answer
-                        </button>
+                                <button @click="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)"
+                                    class="btn btn-md btn-info border-0 shadow mt-2 text-white">
+                                    Submit Answer
+                                </button>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -124,48 +134,23 @@
 </template>
 
 <script>
-    //import layout student
     import LayoutStudent from '../../../Layouts/Student.vue';
-
-    //import Head and Link from Inertia
-    import {
-        Head,
-        Link,
-        router
-    } from '@inertiajs/vue3';
-
-    import { reactive } from 'vue';
-
-    //import ref
-    import {
-        ref
-    } from 'vue';
-
-    //import VueCountdown
+    import { Head, Link, router } from '@inertiajs/vue3';
+    import { reactive, ref } from 'vue';
     import VueCountdown from '@chenfengyuan/vue-countdown';
-
-    //import axios
     import axios from 'axios';
-
-    //import sweet alert2
     import Swal from 'sweetalert2';
-
-    //import tinyMCE
-    import Editor from '@tinymce/tinymce-vue';
+    import { QuillEditor } from '@vueup/vue-quill';
+    import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
     export default {
-        //layout
         layout: LayoutStudent,
-
-        //register components
         components: {
             Head,
             Link,
             VueCountdown,
-            Editor
+            QuillEditor
         },
-
-        //props
         props: {
             id: Number,
             page: Number,
@@ -176,122 +161,99 @@
             answer_order: Array,
             duration: Object,
         },
-
-        //composition API
         setup(props) {
-
+            // const form = reactive({
+            //     answer: props.essay_active.answer,
+            // });
             const form = reactive({
-                answer: props.essay_active.answer,
+                answer: props.essay_active?.answer || '', 
             });
-
-            //define state counter
             const counter = ref(0);
-
-            //define state duration
             const duration = ref(props.duration.duration);
 
-            //handleChangeDuration
             const handleChangeDuration = (() => {
-
-                //decrement duration
                 duration.value = duration.value - 1000;
-
-                //increment counter
                 counter.value = counter.value + 1;
 
-                //cek jika durasi di atas 0
-                if (duration.value > 0) {
-
-                    //update duration if 10 seconds
-                    if (counter.value % 10 == 1) {
-
-                        //update duration
-                        axios.put(`/student/essay-duration/update/${props.duration.id}`, {
-                            duration: duration.value
-                        })
-
-                    }
-
+                if (duration.value > 0 && counter.value % 10 == 1) {
+                    axios.put(`/student/essay-duration/update/${props.duration.id}`, {
+                        duration: duration.value
+                    });
                 }
-
             });
 
-            //metohd prevPage
             const prevPage = (() => {
-
-                //update duration
                 axios.put(`/student/essay-duration/update/${props.duration.id}`, {
                     duration: duration.value
                 });
-
-                //redirect to prevPage
                 router.get(`/student/essay/${props.id}/${props.page - 1}`);
-
             });
 
-            //method nextPage
             const nextPage = (() => {
-
-                //update duration
                 axios.put(`/student/essay-duration/update/${props.duration.id}`, {
                     duration: duration.value
                 });
-
-                //redirect to nextPage
                 router.get(`/student/essay/${props.id}/${props.page + 1}`);
             });
 
-            //method clickQuestion
             const clickQuestion = ((index) => {
-
-                //update duration
                 axios.put(`/student/essay-duration/update/${props.duration.id}`, {
                     duration: duration.value
                 });
-
-                //redirect to questin
                 router.get(`/student/essay/${props.id}/${index + 1}`);
             });
 
             const submitAnswer = ((exam_id, essay_id, answer) => {
-            router.post(
-                '/student/essay-answer',
-                {
-                exam_id: exam_id,
-                exam_session_id: props.exam_group.exam_session.id,
-                essay_id: essay_id,
-                answer: answer,
-                duration: duration.value
-                },
-                {
-                onSuccess: () => {
-                    // Show success alert using SweetAlert2
+                if (!form.answer || form.answer.trim() === '') {
                     Swal.fire({
-                    title: 'Success!',
-                    text: 'Jawaban Berhasil Disimpan.',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 2000
+                        title: 'Error!',
+                        text: 'Jawaban tidak boleh kosong',
+                        icon: 'error',
+                        showConfirmButton: true
                     });
+                    return;
                 }
-                }
-            );
+
+                router.post(
+                    '/student/essay-answer',
+                    {
+                        exam_id: exam_id,
+                        exam_session_id: props.exam_group.exam_session.id,
+                        essay_id: essay_id,
+                        answer: form.answer,
+                        duration: duration.value
+                    },
+                    {
+                        onSuccess: () => {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Jawaban Berhasil Disimpan.',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        },
+                        onError: (errors) => {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Gagal menyimpan jawaban',
+                                icon: 'error',
+                                showConfirmButton: true
+                            });
+                        }
+                    }
+                );
             });
 
-            //define state modal
-            const showModalEndExam      = ref(false);
-            const showModalEndTimeExam  = ref(false);
+            const showModalEndExam = ref(false);
+            const showModalEndTimeExam = ref(false);
 
-            //method endExam
             const endExam = (() => {
-
                 router.post('/student/essay-end', {
                     exam_group_id: props.exam_group.id,
                     exam_id: props.exam_group.exam.id,
                     exam_session_id: props.exam_group.exam_session.id,
                 });
-
-                //show success alert
                 Swal.fire({
                     title: 'Success!',
                     text: 'Ujian Selesai!.',
@@ -299,10 +261,8 @@
                     showConfirmButton: false,
                     timer: 4000
                 });
-
             });
 
-            //return
             return {
                 duration,
                 handleChangeDuration,
@@ -315,10 +275,8 @@
                 endExam,
                 form,
             }
-
         }
     }
-
 </script>
 
 <style>
