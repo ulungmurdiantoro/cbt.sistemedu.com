@@ -10,23 +10,25 @@
                         <h5><i class="fa fa-filter"></i> Filter Nilai Ujian</h5>
                         <hr>
                         <form @submit.prevent="filter">
-                            
                             <div class="row">
                                 <div class="col-md-9">
-                                    <label class="control-label" for="name">Ujian</label>
-                                    <select class="form-select" v-model="form.exam_id">
-                                        <option v-for="(exam, index) in exams" :key="index" :value="exam.id">{{ exam.title }} — Skema : {{ exam.classroom.title }} — Tipe Ujian : {{ exam.type }}</option>
+                                    <label class="control-label" for="name">Sesi Ujian</label>
+                                    <select class="form-select" v-model="form.exam_session_id">
+                                        <option v-for="(session, index) in exam_sessions" :key="index" :value="session.id">
+                                            {{ session.title }} — {{ session.exam.title }} / {{ session.exam.classroom.title }} ({{ session.exam.type }})
+                                        </option>
                                     </select>
-                                    <div v-if="errors.exam_id" class="alert alert-danger mt-2">
-                                        {{ errors.exam_id }}
+                                    <div v-if="errors.exam_session_id" class="alert alert-danger mt-2">
+                                        {{ errors.exam_session_id }}
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label fw-bold text-white">*</label>
-                                    <button type="submit" class="btn btn-md btn-primary border-0 shadow w-100"> <i class="fa fa-filter"></i> Filter</button>
+                                    <button type="submit" class="btn btn-md btn-primary border-0 shadow w-100">
+                                        <i class="fa fa-filter"></i> Filter
+                                    </button>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -38,7 +40,9 @@
                                 <h5 class="mt-2"><i class="fa fa-chart-line"></i> Laporan Nilai Ujian</h5>
                             </div>
                             <div class="col-md-3 col-12">
-                                <a :href="`/admin/reports/export?exam_id=${form.exam_id}`" target="_blank" class="btn btn-success btn-md border-0 shadow w-100 text-white"><i class="fa fa-file-excel"></i> DOWNLOAD EXCEL</a>
+                                <a :href="`/admin/reports/export?exam_session_id=${form.exam_session_id}`" target="_blank" class="btn btn-success btn-md border-0 shadow w-100 text-white">
+                                    <i class="fa fa-file-excel"></i> DOWNLOAD EXCEL
+                                </a>
                             </div>
                         </div>
                         <hr>
@@ -56,12 +60,9 @@
                                         <th class="border-0 rounded-end">Aksi</th>
                                     </tr>
                                 </thead>
-                                <div class="mt-2"></div>
                                 <tbody>
                                     <tr v-for="(grade, index) in grades" :key="grade.id">
-                                        <td class="fw-bold text-center">
-                                            {{ index + 1 }}
-                                        </td>
+                                        <td class="fw-bold text-center">{{ index + 1 }}</td>
                                         <td>{{ grade.exam.title }}</td>
                                         <td>{{ grade.exam_session.title }}</td>
                                         <td>{{ grade.student.name }}</td>
@@ -69,7 +70,9 @@
                                         <td>{{ grade.exam.type }}</td>
                                         <td class="fw-bold text-center">{{ grade.grade }}</td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/reports/${grade.id}`" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-plus-circle"></i></Link>
+                                            <Link :href="`/admin/reports/${grade.id}`" class="btn btn-sm btn-primary border-0 shadow me-2" type="button">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </Link>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -83,69 +86,33 @@
 </template>
 
 <script>
-    //import layout Admin
-    import LayoutAdmin from '../../../Layouts/Admin.vue';
+import LayoutAdmin from '../../../Layouts/Admin.vue';
+import { Head, Link, router } from '@inertiajs/vue3';
+import { reactive } from 'vue';
 
-    //import Head from Inertia
-    import {
-        Head,
-        Link,
-        router
-    } from '@inertiajs/vue3';
+export default {
+    layout: LayoutAdmin,
+    components: { Head, Link },
+    props: {
+        errors: Object,
+        exam_sessions: Array,
+        grades: Array,
+    },
+    setup() {
+        const form = reactive({
+            exam_session_id: '' || (new URL(document.location)).searchParams.get('exam_session_id'),
+        });
 
-    //import reactive from vue
-    import { reactive } from 'vue';
-
-    export default {
-
-        //layout
-        layout: LayoutAdmin,
-
-        //register components
-        components: {
-            Head,
-            Link
-        },
-
-        //props
-        props: {
-            errors: Object,
-            exams: Array,
-            grades: Array,
-        },
-
-        //inisialisasi composition API
-        setup() {
-
-            //define state
-            const form = reactive({
-                'exam_id': '' || (new URL(document.location)).searchParams.get('exam_id'),
+        const filter = () => {
+            router.get('/admin/reports/filter', {
+                exam_session_id: form.exam_session_id,
             });
+        };
 
-             //define methods filter
-            const filter = () => {
-
-                //HTTP request
-                router.get('/admin/reports/filter', {
-
-                    //send data to server
-                    exam_id: form.exam_id,
-                });
-
-            }
-
-            //return
-            return {
-                form,
-                filter
-            }
-
-        }
-
+        return { form, filter };
     }
-
+}
 </script>
 
 <style>
-
 </style>
