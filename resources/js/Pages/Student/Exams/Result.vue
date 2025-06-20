@@ -49,17 +49,22 @@
                                 </tr>
                             </thead>
                             <tbody v-if="exam_group.exam.show_answer == 'Y'">
-                                    <tr>
-                                        <td class="fw-bold">Jumlah Benar</td>
-                                        <td>{{  grade.total_correct  }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Nilai</td>
-                                        <td>{{  grade.grade  }}</td>
-                                    </tr>
-                                </tbody>
+                                <tr>
+                                    <td class="fw-bold">Jumlah Benar</td>
+                                    <td>{{  grade.total_correct  }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Nilai</td>
+                                    <td>{{  grade.grade  }}</td>
+                                </tr>
+                            </tbody>
                         </table>
-                    </div>    
+                    </div>
+                    <div class="mt-4 text-center">
+                        <Link href="/student/dashboard" class="btn btn-primary btn-lg">
+                            Kembali ke Beranda
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,7 +97,6 @@
             grade: Object
         },
     }
-
 </script>
 
 <style>

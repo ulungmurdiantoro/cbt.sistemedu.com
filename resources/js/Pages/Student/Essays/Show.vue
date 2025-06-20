@@ -40,7 +40,7 @@
                                                 [{ 'list': 'ordered' }, { 'list': 'bullet' }]
                                             ]
                                         },
-                                        placeholder: 'Type your answer here...',
+                                        placeholder: 'Ketik jawaban Anda di sini...',
                                     }"
                                     style="min-height: 300px; width: 550px;" 
                                     @update:content="val => form.answer = val"
@@ -48,7 +48,7 @@
 
                                 <button @click="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)"
                                     class="btn btn-md btn-info border-0 shadow mt-2 text-white">
-                                    Submit Answer
+                                    Simpan Jawaban
                                 </button>
 
                             </tbody>
