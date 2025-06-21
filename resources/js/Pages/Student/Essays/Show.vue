@@ -162,9 +162,6 @@
             duration: Object,
         },
         setup(props) {
-            // const form = reactive({
-            //     answer: props.essay_active.answer,
-            // });
             const form = reactive({
                 answer: props.essay_active?.answer || '', 
             });
