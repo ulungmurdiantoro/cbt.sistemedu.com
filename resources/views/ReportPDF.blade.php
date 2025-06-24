@@ -52,13 +52,13 @@
     {{-- Bagian 1: Tabel ringkasan nilai --}}
     <table border="1" cellspacing="0" cellpadding="4" width="100%">
         <thead>
-            <tr>
-            <th>No Peserta</th>
+            {{-- <tr> --}}
+            {{-- <th>No Peserta</th> --}}
             {{-- <th>Nama Siswa</th> --}}
-            @for ($i = 1; $i <= 10; $i++)
+            {{-- @for ($i = 1; $i <= 10; $i++)
                 <th>{{ $i }}</th>
-            @endfor
-            </tr>
+            @endfor --}}
+            {{-- </tr> --}}
         </thead>
         <tbody>
             @foreach($grades as $grade)
