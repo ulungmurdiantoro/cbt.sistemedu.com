@@ -91,7 +91,13 @@ Route::prefix('admin')->group(function() {
 
         //route index reports export
         Route::get('/reports/export', [\App\Http\Controllers\Admin\ReportController::class, 'export'])->name('admin.reports.export');
-        
+
+        //route index reports export pdf
+        Route::get('/reports/export-pdf', [\App\Http\Controllers\Admin\ReportController::class, 'exportPdf'])->name('admin.reports.export-pdf');
+
+        //route index reports export pdf
+        Route::get('/reports/export-pdf-2', [\App\Http\Controllers\Admin\ReportController::class, 'exportPdf2'])->name('admin.reports.export-pdf-2');
+
         //route essay show
         Route::get('/reports/{id}', [App\Http\Controllers\Admin\ReportController::class, 'show'])->name('admin.reports.show');
         

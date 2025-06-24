@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Mpdf\Mpdf;
 use Carbon\Carbon;
 use App\Models\Exam;
 use App\Models\Grade;
 use App\Models\ExamSession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use App\Exports\GradesExport;
 use App\Exports\GradesEssayExport;
 use App\Http\Controllers\Controller;
@@ -94,7 +96,9 @@ class ReportController extends Controller
         ])
         ->where('exam_id', $exam_session->exam_id)
         ->where('exam_session_id', $exam_session->id)
-        ->get();
+        ->get()
+        ->sortBy(fn($grade) => $grade->student->no_participant)
+        ->values(); // reset index agar urutan dari 0 kembali
 
         $exam = $exam_session->exam;
 
@@ -103,5 +107,134 @@ class ReportController extends Controller
         } else {
             return Excel::download(new GradesExport($grades), 'grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx');
         }
+    }
+
+    public function exportPdf(Request $request)
+    {
+        $request->validate([
+            'exam_session_id' => 'required'
+        ]);
+
+        // get selected exam session
+        $exam_session = ExamSession::with('exam.classroom')
+            ->where('id', $request->exam_session_id)
+            ->first();
+
+        if (!$exam_session) {
+            abort(404, 'Exam session not found');
+        }
+
+        // get grades
+        $grades = Grade::with([
+            'student',
+            'exam.classroom',
+            'exam.questions.answers',
+            'exam.answers',
+            'exam.essays',
+            'exam.essaysanswers',
+            'exam_session'
+        ])->where('exam_session_id', $request->exam_session_id)->get();
+
+        foreach ($grades as $grade) {
+            $grade->setRelation('questions', $grade->exam->questions()->get());
+            $grade->setRelation('answers', $grade->exam->answers()->where('student_id', $grade->student_id)->get());
+            $grade->setRelation('essays', $grade->exam->essays()->get());
+            $grade->setRelation('essaysanswers', $grade->exam->essaysanswers()->where('student_id', $grade->student_id)->get());
+        }
+
+        $grades = $grades->sortBy(function ($grade) {
+            return $grade->student->no_participant;
+        })->values(); 
+
+        $exam = $exam_session->exam;
+
+        // render HTML view
+        if ($exam->type == 'Essay') {
+            $html = View::make('EssayReportPDF', [
+                'grades' => $grades,
+                'exam' => $exam,
+                'exam_session' => $exam_session
+            ])->render();
+        } else {
+            $html = View::make('ReportPDF', [
+                'grades' => $grades,
+                'exam' => $exam,
+                'exam_session' => $exam_session
+            ])->render();
+        }
+
+        // generate PDF
+        $mpdf = new Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'orientation' => 'P',
+        ]);
+
+        $mpdf->WriteHTML($html);
+
+        $filename = 'grades_' . $exam->title . '_' . now()->format('Ymd_His') . '.pdf';
+        return response($mpdf->Output($filename, \Mpdf\Output\Destination::INLINE))
+            ->header('Content-Type', 'application/pdf');
+    }
+
+    public function exportPdf2(Request $request)
+    {
+        $request->validate([
+            'exam_session_id' => 'required'
+        ]);
+
+        // get selected exam session
+        $exam_session = ExamSession::with('exam.classroom')
+            ->where('id', $request->exam_session_id)
+            ->first();
+
+        if (!$exam_session) {
+            abort(404, 'Exam session not found');
+        }
+
+        // get grades
+        $grades = Grade::with([
+            'student',
+            'exam.classroom',
+            'exam.questions.answers',
+            'exam.answers',
+            'exam.essays',
+            'exam.essaysanswers',
+            'exam_session'
+        ])->where('exam_session_id', $request->exam_session_id)->get();
+
+        foreach ($grades as $grade) {
+            $grade->setRelation('questions', $grade->exam->questions()->get());
+            $grade->setRelation('answers', $grade->exam->answers()->where('student_id', $grade->student_id)->get());
+            $grade->setRelation('essays', $grade->exam->essays()->get());
+            $grade->setRelation('essaysanswers', $grade->exam->essaysanswers()->where('student_id', $grade->student_id)->get());
+        }
+
+        $grades = $grades->sortBy(function ($grade) {
+            return $grade->student->no_participant;
+        })->values(); 
+
+        $exam = $exam_session->exam;
+
+        // render HTML view
+        
+            $html = View::make('ReportPDF', [
+                'grades' => $grades,
+                'exam' => $exam,
+                'exam_session' => $exam_session
+            ])->render();
+
+        // generate PDF
+        $mpdf = new Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'orientation' => 'L',
+        ]);
+
+        $mpdf->WriteHTML($html);
+
+        $filename = 'grades_' . $exam->title . '_' . now()->format('Ymd_His') . '.pdf';
+        return response($mpdf->Output($filename, \Mpdf\Output\Destination::INLINE))
+            ->header('Content-Type', 'application/pdf');
     }
 }

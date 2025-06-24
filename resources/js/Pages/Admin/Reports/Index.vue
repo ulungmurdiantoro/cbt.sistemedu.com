@@ -43,6 +43,12 @@
                                 <a :href="`/admin/reports/export?exam_session_id=${form.exam_session_id}`" target="_blank" class="btn btn-success btn-md border-0 shadow w-100 text-white">
                                     <i class="fa fa-file-excel"></i> DOWNLOAD EXCEL
                                 </a>
+                                <a :href="`/admin/reports/export-pdf?exam_session_id=${form.exam_session_id}`" target="_blank" class="btn btn-danger btn-md border-0 shadow w-100 text-white mt-2">
+                                    <i class="fa fa-file-pdf"></i> DOWNLOAD PDF
+                                </a>
+                                <a :href="`/admin/reports/export-pdf-2?exam_session_id=${form.exam_session_id}`" target="_blank" class="btn btn-danger btn-md border-0 shadow w-100 text-white mt-2">
+                                    <i class="fa fa-file-pdf"></i> DOWNLOAD PDF 2
+                                </a>
                             </div>
                         </div>
                         <hr>
@@ -70,7 +76,7 @@
                                         <td>{{ grade.exam.type }}</td>
                                         <td class="fw-bold text-center">{{ grade.grade }}</td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/reports/${grade.id}`" class="btn btn-sm btn-primary border-0 shadow me-2" type="button">
+                                            <Link :href="`/admin/reports/${grade.id}`" class="btn btn-sm btn-primary border-0 shadow me-2">
                                                 <i class="fa fa-plus-circle"></i>
                                             </Link>
                                         </td>
@@ -78,6 +84,12 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+
+                <div v-else class="card border-0 shadow">
+                    <div class="card-body text-center text-muted">
+                        <p><i class="fa fa-info-circle"></i> Belum ada data nilai untuk sesi ini.</p>
                     </div>
                 </div>
             </div>
@@ -88,7 +100,7 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 export default {
     layout: LayoutAdmin,
@@ -103,16 +115,20 @@ export default {
             exam_session_id: '' || (new URL(document.location)).searchParams.get('exam_session_id'),
         });
 
+        const isLoading = ref(false);
+
         const filter = () => {
+            isLoading.value = true;
             router.get('/admin/reports/filter', {
                 exam_session_id: form.exam_session_id,
+            }, {
+                preserveState: true,
+                replace: true,
+                onFinish: () => isLoading.value = false
             });
         };
 
-        return { form, filter };
+        return { form, filter, isLoading };
     }
 }
 </script>
-
-<style>
-</style>
