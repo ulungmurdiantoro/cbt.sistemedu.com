@@ -43,11 +43,11 @@
 </head>
 <body>
 
-    <div class="no-break">
+    {{-- <div class="no-break">
         <h2>LAPORAN JAWABAN PESERTA</h2>
         <h4>{{ $exam->title }}</h4>
         <p>Sesi: {{ $exam_session->title }} | Kelas: {{ $exam->classroom->title }} | Tipe: {{ $exam->type }}</p>
-    </div>
+    </div> --}}
 
     {{-- Bagian 1: Tabel ringkasan nilai --}}
     <table border="1" cellspacing="0" cellpadding="4" width="100%">
