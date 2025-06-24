@@ -54,7 +54,7 @@
         <thead>
             <tr>
             <th>No Peserta</th>
-            <th>Nama Siswa</th>
+            {{-- <th>Nama Siswa</th> --}}
             @for ($i = 1; $i <= 10; $i++)
                 <th>{{ $i }}</th>
             @endfor
@@ -64,7 +64,7 @@
             @foreach($grades as $grade)
             <tr>
                 <td>{{ $grade->student->no_participant }}</td>
-                <td>{{ $grade->student->name }}</td>
+                {{-- <td>{{ $grade->student->name }}</td> --}}
                 @for ($i = 0; $i < 10; $i++)
                 <td>
                     @if(isset($grade->essaysanswers[$i]))

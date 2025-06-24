@@ -166,7 +166,7 @@ class ReportController extends Controller
         // generate PDF
         $mpdf = new Mpdf([
             'mode' => 'utf-8',
-            'format' => 'A4',
+            'format' => '4A0',
             'orientation' => 'P',
         ]);
 
