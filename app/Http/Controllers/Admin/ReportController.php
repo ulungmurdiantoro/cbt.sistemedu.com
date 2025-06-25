@@ -9,6 +9,7 @@ use App\Models\Grade;
 use App\Models\ExamSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use App\Exports\GradesExport;
 use App\Exports\GradesEssayExport;
 use App\Http\Controllers\Controller;
@@ -115,16 +116,9 @@ class ReportController extends Controller
             'exam_session_id' => 'required'
         ]);
 
-        // get selected exam session
         $exam_session = ExamSession::with('exam.classroom')
-            ->where('id', $request->exam_session_id)
-            ->first();
+            ->findOrFail($request->exam_session_id);
 
-        if (!$exam_session) {
-            abort(404, 'Exam session not found');
-        }
-
-        // get grades
         $grades = Grade::with([
             'student',
             'exam.classroom',
@@ -142,29 +136,12 @@ class ReportController extends Controller
             $grade->setRelation('essaysanswers', $grade->exam->essaysanswers()->where('student_id', $grade->student_id)->get());
         }
 
-        $grades = $grades->sortBy(function ($grade) {
-            return $grade->student->no_participant;
-        })->values(); 
-
+        $grades = $grades->sortBy(fn($g) => $g->student->no_participant)->values();
         $exam = $exam_session->exam;
 
-        // render HTML view
-        if ($exam->type == 'Essay') {
-            $html = View::make('EssayReportPDF', [
-                'grades' => $grades,
-                'exam' => $exam,
-                'exam_session' => $exam_session
-            ])->render();
-        } else {
-            $html = View::make('ReportPDF', [
-                'grades' => $grades,
-                'exam' => $exam,
-                'exam_session' => $exam_session
-            ])->render();
-        }
+        $html = View::make('EssayReportPDF', compact('grades', 'exam', 'exam_session'))->render();
 
-        // generate PDF
-        $mpdf = new Mpdf([
+        $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
             'format' => 'A4',
             'orientation' => 'P',
@@ -172,14 +149,14 @@ class ReportController extends Controller
 
         $mpdf->WriteHTML($html);
 
-        $filename = 'grades_' . $exam->title . '_' . now()->format('Ymd_His') . '.pdf';
-        $pdfContent = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+        $filename = 'grades_' . Str::slug($exam->title) . '_' . now()->format('Ymd_His') . '.pdf';
+        $tempPath = storage_path('app/public/' . $filename);
 
-        return response($pdfContent)
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'inline; filename="' . $filename . '"');
+        $mpdf->Output($tempPath, \Mpdf\Output\Destination::FILE);
 
+        return response()->download($tempPath)->deleteFileAfterSend();
     }
+
 
     public function exportPdf2(Request $request)
     {
