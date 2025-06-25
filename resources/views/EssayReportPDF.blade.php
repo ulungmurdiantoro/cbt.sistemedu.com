@@ -54,14 +54,14 @@
             <div class="line"></div>
             <strong>Nama Peserta:</strong> {{ $grade->student->name }}<br>
             <strong>No. Peserta:</strong> {{ $grade->student->no_participant ?? '-' }}<br>
-            {{-- <strong>Nilai:</strong> {{ $grade->grade ?? '-' }} --}}
+            <strong>Nilai:</strong>
 
             @foreach($grade->essaysanswers as $answer)
                 <div class="question">
 									Soal {{ $loop->iteration }}: {{ strip_tags($answer->essay->question) ?? '-' }}
                 </div>
                 <div class="answer">
-                  Jawaban: {!! $answer->answer ?? '-' !!}
+                    Jawaban: {!! $answer->answer ?? '-' !!}
                 </div>
             @endforeach
         </div>

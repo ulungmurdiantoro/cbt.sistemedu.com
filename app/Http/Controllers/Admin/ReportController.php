@@ -173,8 +173,12 @@ class ReportController extends Controller
         $mpdf->WriteHTML($html);
 
         $filename = 'grades_' . $exam->title . '_' . now()->format('Ymd_His') . '.pdf';
-        return response($mpdf->Output($filename, \Mpdf\Output\Destination::INLINE))
-            ->header('Content-Type', 'application/pdf');
+        $pdfContent = $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+
+        return response($pdfContent)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="' . $filename . '"');
+
     }
 
     public function exportPdf2(Request $request)
