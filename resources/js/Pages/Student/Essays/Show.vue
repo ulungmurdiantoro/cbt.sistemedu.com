@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <div v-if="essay_active !== null">
                         <div>
-                            <p v-html="essay_active.essay.question"></p>
+                            <p v-html="essay_active.essay.question" style="user-select: none;"></p>
                         </div>
 
                         <table>
@@ -44,6 +44,7 @@
                                     }"
                                     style="min-height: 300px; width: 550px;" 
                                     @update:content="val => form.answer = val"
+                                    @ready="disablePaste"
                                 />
 
                                 <button @click="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id, form.answer)"
@@ -260,6 +261,13 @@
                 });
             });
 
+            const disablePaste = (quill) => {
+                quill.root.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    alert('Maaf, fitur paste dinonaktifkan untuk jawaban ini.');
+                });
+            };
+
             return {
                 duration,
                 handleChangeDuration,
@@ -271,6 +279,7 @@
                 showModalEndTimeExam,
                 endExam,
                 form,
+                disablePaste,
             }
         }
     }

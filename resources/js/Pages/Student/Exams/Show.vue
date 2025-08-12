@@ -22,19 +22,28 @@
 
                     <div v-if="question_active !== null">
 
-                        <div>
+                        <div style="user-select: none;">
                             <p v-html="question_active.question.question"></p>
                         </div>
 
-                        <table>
+                        <table style="user-select: none;">
                             <tbody>
                                 <tr v-for="(answer, index) in answer_order" :key="index">
                                     <td width="50" style="padding: 10px;">
-                                        
-                                        <button v-if="answer == question_active.answer" class="btn btn-info btn-sm w-100 shdaow">{{ options[index] }}</button>
+                                        <button 
+                                            v-if="answer == question_active.answer" 
+                                            class="btn btn-info btn-sm w-100 shdaow"
+                                        >
+                                            {{ options[index] }}
+                                        </button>
 
-                                        <button v-else @click.prevent="submitAnswer(question_active.question.exam.id, question_active.question.id, answer)" class="btn btn-outline-info btn-sm w-100 shdaow">{{ options[index] }}</button>
-                                            
+                                        <button 
+                                            v-else 
+                                            @click.prevent="submitAnswer(question_active.question.exam.id, question_active.question.id, answer)" 
+                                            class="btn btn-outline-info btn-sm w-100 shdaow"
+                                        >
+                                            {{ options[index] }}
+                                        </button>
                                     </td>
                                     <td style="padding: 10px;">
                                         <p v-html="question_active.question['option_'+answer]"></p>
@@ -50,6 +59,7 @@
                             <i class="fa fa-exclamation-triangle"></i> Soal Tidak Ditemukan!.
                         </div>
                     </div>
+
 
                 </div>
                 <div class="card-footer">
