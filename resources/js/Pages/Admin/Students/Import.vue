@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <Link href="/admin/students" class="btn btn-md btn-primary border-0 shadow mb-3 me-3" type="button"><i
                     class="fa fa-long-arrow-alt-left me-2"></i> Kembali</Link>
-                <a href="/assets/excel/students.xlsx" target="_blank"
+                <a href="/assets/excel/Students.xlsx" target="_blank"
                     class="btn btn-md btn-success border-0 shadow mb-3 text-white" type="button"><i
                         class="fa fa-file-excel me-2"></i> Contoh Format</a>
                 <div class="card border-0 shadow">
