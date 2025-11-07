@@ -82,9 +82,9 @@
 
                                 <button @click.prevent="clickQuestion(index)" v-if="index+1 == page" class="btn btn-gray-400 btn-sm w-100">{{ index + 1 }}</button>
 
-                                <button @click.prevent="clickQuestion(index)" v-if="index+1 != page && essay.answer == 0" class="btn btn-outline-info btn-sm w-100">{{ index + 1 }}</button>
+                                <button @click.prevent="clickQuestion(index)" v-if="index+1 != page && essay.answer == NULL" class="btn btn-outline-info btn-sm w-100">{{ index + 1 }}</button>
 
-                                <button @click.prevent="clickQuestion(index)" v-if="index+1 != page && essay.answer != 0" class="btn btn-info btn-sm w-100">{{ index + 1 }}</button>
+                                <button @click.prevent="clickQuestion(index)" v-if="index+1 != page && essay.answer != NULL" class="btn btn-info btn-sm w-100">{{ index + 1 }}</button>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,6 @@
         </div>
     </div>
 
-    <!-- modal akhiri ujian -->
     <div v-if="showModalEndExam" class="modal fade" :class="{ 'show': showModalEndExam }" tabindex="-1" aria-hidden="true" style="display:block;" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -115,7 +114,6 @@
         </div>
     </div>
 
-    <!-- modal waktu ujian berakhir -->
     <div v-if="showModalEndTimeExam" class="modal fade" :class="{ 'show': showModalEndTimeExam }" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true" style="display:block;" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -284,7 +282,3 @@
         }
     }
 </script>
-
-<style>
-
-</style>
