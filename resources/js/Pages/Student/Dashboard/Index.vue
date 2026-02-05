@@ -52,6 +52,9 @@
                                 <div v-if="data.exam_group.exam.type == 'Essay'">
                                     <Link :href="`/student/essay-confirmation/${data.exam_group.id}`" class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
                                 </div>
+                                <div v-else-if="data.exam_group.exam.type == 'Essay Migas'">
+                                    <Link :href="`/student/essay-migas-confirmation/${data.exam_group.id}`" class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
+                                </div>
                                 <div v-else>
                                     <Link :href="`/student/exam-confirmation/${data.exam_group.id}`" class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
                                 </div>
@@ -60,6 +63,9 @@
                             <div v-else>
                                 <div v-if="data.exam_group.exam.type == 'Essay'">
                                     <Link :href="`/student/essay/${data.exam_group.id}/1`" class="btn btn-md btn-info border-0 shadow w-100 mt-2">Lanjut Kerjakan</Link>
+                                </div>
+                                <div v-else-if="data.exam_group.exam.type == 'Essay Migas'">
+                                    <Link :href="`/student/essay-migas/${data.exam_group.id}/1`" class="btn btn-md btn-info border-0 shadow w-100 mt-2">Lanjut Kerjakan</Link>
                                 </div>
                                 <div v-else>
                                     <Link :href="`/student/exam/${data.exam_group.id}/1`" class="btn btn-md btn-info border-0 shadow w-100 mt-2">Lanjut Kerjakan</Link>

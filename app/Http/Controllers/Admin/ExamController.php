@@ -109,6 +109,7 @@ class ExamController extends Controller
         //get relation questions with pagination
         $exam->setRelation('questions', $exam->questions()->paginate(10));
         $exam->setRelation('essays', $exam->essays()->paginate(10));
+        $exam->setRelation('migas_essays', $exam->migas_essays()->paginate(10));
         
         // $question = Exam::withCount('questions')->get();
         // $essay = Exam::withCount('essays')->get();

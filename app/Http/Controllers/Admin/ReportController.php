@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use App\Exports\GradesExport;
 use App\Exports\GradesEssayExport;
+use App\Exports\GradesEssayMigasExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -105,7 +106,9 @@ class ReportController extends Controller
 
         if ($exam->type == 'Essay') {
             return Excel::download(new GradesEssayExport($grades), 'essay_grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx');
-        } else {
+        } else if ($exam->type == 'Essay Migas') {
+            return Excel::download(new GradesEssayMigasExport($grades), 'essay_migas_grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx');
+        }else {
             return Excel::download(new GradesExport($grades), 'grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx');
         }
     }
@@ -156,7 +159,6 @@ class ReportController extends Controller
 
         return response()->download($tempPath)->deleteFileAfterSend();
     }
-
 
     public function exportPdf2(Request $request)
     {

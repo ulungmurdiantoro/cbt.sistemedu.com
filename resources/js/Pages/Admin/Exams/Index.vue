@@ -49,8 +49,8 @@
                                         <td>{{ exam.title }}</td>
                                         <td>{{ exam.type }}</td>
                                         <td class="text-center">{{ exam.classroom.title }}</td>
-                                        <td v-if="exam.type == 'Essay'" class="text-center">{{ exam.essays.length }}</td>
-                                        <td v-else class="text-center">{{ exam.questions.length }}</td>
+                                        <td v-if="exam.type == 'Pilihan Ganda'" class="text-center">{{ exam.questions.length }}</td>
+                                        <td v-else class="text-center">{{ exam.essays.length }}</td>
                                         <!-- <td class="text-center">{{ exam.questions.length }}</td> -->
                                         <td class="text-center">{{ exam.id }}</td>
                                         <td class="text-center">

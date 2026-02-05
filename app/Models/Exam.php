@@ -75,6 +75,16 @@ class Exam extends Model
     {
         return $this->hasMany(Essay::class)->orderBy('id', 'DESC');
     }
+    
+    /**
+     * essays
+     *
+     * @return void
+     */
+    public function migas_essays()
+    {
+        return $this->hasMany(Essay::class)->orderBy('id', 'DESC');
+    }
 
     /**
      * questions

@@ -27,10 +27,6 @@
                         <table class="table table-centered table-nowrap mb-0 rounded">
                             <thead>
                                 <tr>
-                                    <td class="fw-bold">Email</td>
-                                    <td>{{ exam_group.student.email }}</td>
-                                </tr>
-                                <tr>
                                     <td class="fw-bold">Nama Lengkap</td>
                                     <td>{{ exam_group.student.name }}</td>
                                 </tr>

@@ -50,7 +50,7 @@
                         </table>
                     </div>
                     <div v-if="grade.end_time == null">
-                        <Link :href="`/student/exam-start/${exam_group.id}`"
+                        <Link :href="`/student/essay-migas-start/${exam_group.id}`"
                             class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Mulai</Link>
                     </div>
                     <div v-else>

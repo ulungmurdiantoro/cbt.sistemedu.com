@@ -172,7 +172,43 @@ Route::prefix('student')->group(function() {
         
         //route essay result
         Route::get('/essay-result/{essay_group_id}', [App\Http\Controllers\Student\EssayController::class, 'resultEssay'])->name('student.essays.resultEssay');
-    
+
+        // 1) Confirmation
+    Route::get('/essay-migas-confirmation/{id}', [App\Http\Controllers\Student\EssayMigasController::class, 'confirmation'])
+        ->name('student.essaysmigas.confirmation');
+
+    // 2) Start (generate AnswerEssay + set start_time)
+    Route::get('/essay-migas-start/{id}', [App\Http\Controllers\Student\EssayMigasController::class, 'startEssay'])
+        ->name('student.essaysmigas.startEssay');
+
+    // 3) Show (soal + upload 1 file jika kamu taruh di halaman show)
+    Route::get('/essay-migas/{id}/{page}', [App\Http\Controllers\Student\EssayMigasController::class, 'show'])
+        ->name('student.essaysmigas.show');
+
+    // 4) Update duration (AJAX)
+    Route::put('/essay-migas-duration/update/{grade_id}', [App\Http\Controllers\Student\EssayMigasController::class, 'updateDuration'])
+        ->name('student.essaysmigas.update_duration');
+
+    // 5) Upload page (kalau kamu pakai halaman khusus upload)
+    Route::get('/essay-migas/upload/{exam_id}/{exam_session_id}', [App\Http\Controllers\Student\EssayMigasController::class, 'showUploadPage'])
+        ->name('student.essaysmigas.uploadPage');
+
+    // 6) Upload file jawaban (API)
+    Route::post('/essay-migas-answer', [App\Http\Controllers\Student\EssayMigasController::class, 'answerQuestion'])
+        ->name('student.essaysmigas.answerQuestion');
+
+    // 7) Download (kalau masih dipakai)
+    Route::get('/essay-migas-download/{exam_id}/{exam_session_id}', [App\Http\Controllers\Student\EssayMigasController::class, 'download'])
+        ->name('student.essaysmigas.download');
+
+    // 8) End essay (WAJIB kirim exam_group_id dari FE)
+    Route::post('/essay-migas-end', [App\Http\Controllers\Student\EssayMigasController::class, 'endEssay'])
+        ->name('student.essaysmigas.endEssay');
+
+    // 9) Result
+    Route::get('/essay-migas-result/{essay_group_id}', [App\Http\Controllers\Student\EssayMigasController::class, 'resultEssay'])
+        ->name('student.essaysmigas.resultEssay');
+
     });
 
 });

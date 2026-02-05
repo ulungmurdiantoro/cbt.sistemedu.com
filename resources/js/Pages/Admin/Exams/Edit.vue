@@ -27,6 +27,7 @@
                                         <select class="form-select" v-model="form.type">
                                             <option value="Pilihan Ganda">Pilihan Ganda</option>
                                             <option value="Essay">Essay</option>
+                                            <option value="Essay Migas">Essay Migas</option>
                                         </select>
                                         <div v-if="errors.type" class="alert alert-danger mt-2">
                                             {{ errors.type }}
