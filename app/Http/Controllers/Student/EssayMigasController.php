@@ -447,4 +447,35 @@ class EssayMigasController extends Controller
             'grade'      => $grade,
         ]);
     }
+
+    public function storeTextAnswer(Request $request)
+    {
+        $request->validate([
+            'exam_id'         => 'required|integer',
+            'exam_session_id' => 'required|integer',
+            'exam_group_id'   => 'required|integer',
+            'essay_id'        => 'required|integer',
+            'answer'          => 'nullable|string',
+            'duration'        => 'nullable',
+        ]);
+
+        AnswerEssay::updateOrCreate(
+            [
+                'student_id'       => auth()->guard('student')->id(),
+                'exam_id'          => $request->exam_id,
+                'exam_session_id'  => $request->exam_session_id,
+                'essay_id'         => $request->essay_id,
+            ],
+            [
+                'exam_group_id'    => $request->exam_group_id,
+                'answer'           => $request->answer,
+                'duration'         => $request->duration,
+            ]
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Jawaban berhasil disimpan.',
+        ]);
+    }
 }

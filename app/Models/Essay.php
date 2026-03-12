@@ -15,10 +15,11 @@ class Essay extends Model
      * @var array
      */
     protected $fillable = [
-        'essays_code',
         'exam_id',
+        'essays_code',
         'question',
         'answer',
+        'is_essay',
     ];
 
     /**

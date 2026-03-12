@@ -381,21 +381,23 @@ class ExamController extends Controller
      */
     public function storeEssay(Request $request, Exam $exam)
     {
-        //validate request
+        // validate request
         $request->validate([
-            'question'             => 'required',
-            'answer'               => 'required',
+            'question'   => 'required',
+            'answer'     => 'nullable',
+            'is_essay'   => 'nullable|boolean',
         ]);
-        
-        //create essay
+
+        // create essay
         Essay::create([
-            'exam_id'              => $exam->id,
-            'essays_code'          => 'essy-' . rand(11, 99) . uniqid(),
-            'question'             => $request->question,
-            'answer'               => $request->answer,
+            'exam_id'      => $exam->id,
+            'essays_code'  => 'essy-' . rand(11, 99) . uniqid(),
+            'question'     => $request->question,
+            'answer'       => $request->answer,
+            'is_essay'     => $request->boolean('is_essay'),
         ]);
-        
-        //redirect
+
+        // redirect
         return redirect()->route('admin.exams.show', $exam->id);
     }
 
@@ -426,19 +428,21 @@ class ExamController extends Controller
      */
     public function updateEssay(Request $request, Exam $exam, Essay $essays)
     {
-        //validate request
+        // validate request
         $request->validate([
-            'question'          => 'required',
-            'answer'            => 'required',
+            'question'   => 'required',
+            'answer'     => 'nullable',
+            'is_essay'   => 'nullable|boolean',
         ]);
-        
-        //update essay
+
+        // update essay
         $essays->update([
-            'question'          => $request->question,
-            'answer'            => $request->answer,
+            'question'   => $request->question,
+            'answer'     => $request->answer,
+            'is_essay'   => $request->boolean('is_essay'),
         ]);
-        
-        //redirect
+
+        // redirect
         return redirect()->route('admin.exams.show', $exam->id);
     }
 

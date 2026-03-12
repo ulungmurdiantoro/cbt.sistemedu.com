@@ -20,11 +20,18 @@
                 </span>
               </div>
 
-              <div class="mt-2 p-2 px-3 d-flex align-items-center gap-2"
-                   style="border-radius: 12px; border: 1px solid rgba(0,0,0,.08);">
+              <div
+                class="mt-2 p-2 px-3 d-flex align-items-center gap-2"
+                style="border-radius: 12px; border: 1px solid rgba(0,0,0,.08);"
+              >
                 <i class="fa fa-info-circle"></i>
                 <span class="fw-semibold">
-                  Jawaban dikumpulkan dalam <strong>1 file</strong> (PDF/DOC/DOCX/ZIP, dll).
+                  <template v-if="hasEssayQuestion">
+                    Sebagian soal berbentuk <strong>uraian</strong>. Jawaban diketik langsung pada editor.
+                  </template>
+                  <template v-else>
+                    Jawaban dikumpulkan dalam <strong>1 file</strong> (PDF/DOC/DOCX/ZIP, dll).
+                  </template>
                 </span>
               </div>
             </div>
@@ -47,15 +54,73 @@
 
         <div class="card-body">
           <!-- LIST SOAL -->
-          <div v-for="(essayWrap, index) in all_essays" :key="essayWrap.id || index" class="mb-4">
+          <div
+            v-for="(essayWrap, index) in all_essays"
+            :key="essayWrap.id || essayWrap.essay_id || index"
+            class="mb-4"
+          >
             <div class="p-3" style="border: 1px solid rgba(0,0,0,.08); border-radius: 14px;">
               <div class="fw-bold mb-1">Soal No. {{ index + 1 }}</div>
-              <div v-html="essayWrap.question ?? essayWrap?.essay?.question ?? '-' " style="user-select:none;"></div>
+
+              <div
+                v-html="essayWrap.question ?? essayWrap?.essay?.question ?? '-'"
+                style="user-select:none;"
+              ></div>
+
+              <!-- JIKA SOAL URAIAN -->
+              <div v-if="getIsEssay(essayWrap)" class="mt-4">
+                <div class="fw-semibold mb-2">Jawaban Anda</div>
+
+                <QuillEditor
+                  :ref="el => setEditorRef(essayWrap, el)"
+                  v-model:content="answers[getEssayId(essayWrap)]"
+                  contentType="html"
+                  theme="snow"
+                  :options="{
+                    modules: {
+                      toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ align: [] }],
+                        [{ header: [1, 2, 3, false] }],
+                        [{ list: 'ordered' }, { list: 'bullet' }]
+                      ]
+                    },
+                    placeholder: 'Ketik jawaban Anda di sini...'
+                  }"
+                  style="min-height: 300px; width: 100%; border-radius: 12px;"
+                  @update:content="val => (answers[getEssayId(essayWrap)] = val)"
+                  @ready="disablePaste"
+                />
+
+                <button
+                  @click="submitAnswer(essayWrap)"
+                  class="btn btn-md btn-info border-0 shadow mt-3 text-white"
+                  style="border-radius: 12px;"
+                  :disabled="savingAnswer[getEssayId(essayWrap)]"
+                >
+                  <span v-if="savingAnswer[getEssayId(essayWrap)]">
+                    <i class="fa fa-spinner fa-spin me-2"></i> Menyimpan...
+                  </span>
+                  <span v-else>
+                    <i class="fa fa-save me-2"></i> Simpan Jawaban
+                  </span>
+                </button>
+
+                <div v-if="savedAnswer[getEssayId(essayWrap)]" class="mt-2">
+                  <span class="badge bg-success rounded-pill px-3 py-2">
+                    <i class="fa fa-check me-1"></i> Jawaban berhasil disimpan
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- UPLOAD -->
-          <div class="mt-4 p-3" style="border:1px solid rgba(0,0,0,.1); border-radius:14px;">
+          <!-- UPLOAD 1 FILE HANYA JIKA TIDAK ADA SOAL ESSAY -->
+          <div
+            v-if="!hasEssayQuestion"
+            class="mt-4 p-3"
+            style="border:1px solid rgba(0,0,0,.1); border-radius:14px;"
+          >
             <div class="fw-bold mb-2">Upload Jawaban Ujian (1 File)</div>
 
             <input type="file" class="form-control" @change="onFileChange" />
@@ -77,7 +142,6 @@
               <span v-else><i class="fa fa-upload me-2"></i> Upload Jawaban</span>
             </button>
 
-            <!-- PROGRESS -->
             <div class="mt-3" v-if="uploading">
               <div class="progress" style="height:10px; border-radius:999px;">
                 <div class="progress-bar" :style="{ width: uploadProgress + '%' }"></div>
@@ -89,14 +153,12 @@
               </div>
             </div>
 
-            <!-- STATUS UPLOAD -->
             <div class="mt-2" v-if="uploadDone">
               <span class="badge bg-success rounded-pill px-3 py-2">
                 <i class="fa fa-check me-1"></i> File berhasil diupload
               </span>
             </div>
 
-            <!-- ERROR DETAIL -->
             <div class="mt-2" v-if="uploadError">
               <span class="badge bg-danger rounded-pill px-3 py-2">
                 <i class="fa fa-times me-1"></i> {{ uploadError }}
@@ -109,7 +171,6 @@
               </div>
             </div>
 
-            <!-- FILE TERSIMPAN -->
             <div class="mt-3" v-if="uploadedFile">
               <div class="small text-muted">
                 File tersimpan:
@@ -117,7 +178,6 @@
                 <span v-if="uploadedFile.size">({{ formatBytes(uploadedFile.size) }})</span>
               </div>
 
-              <!-- ✅ tetap boleh “Lihat/Unduh” -->
               <a
                 v-if="uploadedFile.url"
                 :href="uploadedFile.url"
@@ -145,8 +205,15 @@
   </div>
 
   <!-- MODAL END EXAM -->
-  <div v-if="showModalEndExam" class="modal fade" :class="{ show: showModalEndExam }"
-       tabindex="-1" aria-hidden="true" style="display:block;" role="dialog">
+  <div
+    v-if="showModalEndExam"
+    class="modal fade"
+    :class="{ show: showModalEndExam }"
+    tabindex="-1"
+    aria-hidden="true"
+    style="display:block;"
+    role="dialog"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header"><h5 class="modal-title">Akhiri Ujian ?</h5></div>
@@ -162,9 +229,17 @@
   </div>
 
   <!-- MODAL TIME END -->
-  <div v-if="showModalEndTimeExam" class="modal fade" :class="{ show: showModalEndTimeExam }"
-       data-bs-backdrop="static" data-bs-keyboard="false"
-       tabindex="-1" aria-hidden="true" style="display:block;" role="dialog">
+  <div
+    v-if="showModalEndTimeExam"
+    class="modal fade"
+    :class="{ show: showModalEndTimeExam }"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-hidden="true"
+    style="display:block;"
+    role="dialog"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header"><h5 class="modal-title">Waktu Habis !</h5></div>
@@ -180,72 +255,155 @@
 </template>
 
 <script>
-import LayoutStudent from '../../../Layouts/Student.vue';
-import { Head, router } from '@inertiajs/vue3';
-import { ref, computed } from 'vue';
-import VueCountdown from '@chenfengyuan/vue-countdown';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import LayoutStudent from '../../../Layouts/Student.vue'
+import { Head, router } from '@inertiajs/vue3'
+import { ref, computed, reactive } from 'vue'
+import VueCountdown from '@chenfengyuan/vue-countdown'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 export default {
   layout: LayoutStudent,
-  components: { Head, VueCountdown },
+  components: { Head, VueCountdown, QuillEditor },
   props: {
     id: Number,
     page: Number,
-
     exam_id: [Number, String],
     exam_session_id: [Number, String],
-
     all_essays: Array,
     duration: Object,
     existing_file: Object,
   },
+
   setup(props) {
-    const durationMs = ref(props.duration?.duration ?? 0);
+    const durationMs = ref(props.duration?.duration ?? 0)
 
     const handleChangeDuration = () => {
-      durationMs.value = durationMs.value - 1000;
-    };
+      durationMs.value = durationMs.value - 1000
+    }
 
     const examId = computed(() => {
-      const v = parseInt(String(props.exam_id ?? ''), 10);
-      return Number.isInteger(v) ? v : null;
-    });
+      const v = parseInt(String(props.exam_id ?? ''), 10)
+      return Number.isInteger(v) ? v : null
+    })
 
     const sessionId = computed(() => {
-      const v = parseInt(String(props.exam_session_id ?? ''), 10);
-      return Number.isInteger(v) ? v : null;
-    });
+      const v = parseInt(String(props.exam_session_id ?? ''), 10)
+      return Number.isInteger(v) ? v : null
+    })
 
-    const selectedFile = ref(null);
-    const uploading = ref(false);
-    const uploadProgress = ref(0);
-    const uploadedBytes = ref(0);
-    const totalBytes = ref(0);
-    const uploadDone = ref(!!props.existing_file);
-    const uploadError = ref(null);
-    const uploadErrorDetail = ref(null);
+    const getIsEssay = (essayWrap) => {
+      return Number(essayWrap?.is_essay ?? essayWrap?.essay?.is_essay ?? 0) === 1
+    }
 
-    const uploadedFile = ref(props.existing_file || null);
+    const getEssayId = (essayWrap) => {
+      return essayWrap?.essay_id ?? essayWrap?.id ?? essayWrap?.essay?.id
+    }
+
+    const hasEssayQuestion = computed(() => {
+      return (props.all_essays || []).some(item => getIsEssay(item))
+    })
+
+    const answers = reactive({})
+    const savingAnswer = reactive({})
+    const savedAnswer = reactive({})
+    const editors = ref({})
+
+    ;(props.all_essays || []).forEach((item) => {
+      const essayId = getEssayId(item)
+      answers[essayId] = item?.answer ?? item?.student_answer ?? ''
+      savingAnswer[essayId] = false
+      savedAnswer[essayId] = false
+    })
+
+    const setEditorRef = (essayWrap, el) => {
+      const essayId = getEssayId(essayWrap)
+      if (essayId) editors.value[essayId] = el
+    }
+
+    const disablePaste = (quill) => {
+      if (!quill) return
+      quill.root.addEventListener('paste', (e) => {
+        e.preventDefault()
+      })
+    }
+
+    const submitAnswer = async (essayWrap) => {
+      const essayId = getEssayId(essayWrap)
+
+      if (!examId.value || !sessionId.value || !essayId) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'exam_id / exam_session_id / essay_id tidak valid.',
+          icon: 'error'
+        })
+        return
+      }
+
+      savingAnswer[essayId] = true
+      savedAnswer[essayId] = false
+
+      try {
+        const payload = {
+          exam_id: examId.value,
+          exam_session_id: sessionId.value,
+          exam_group_id: props.id,
+          essay_id: essayId,
+          answer: answers[essayId] || '',
+          duration: durationMs.value,
+        }
+
+        await axios.post('/student/essay-migas-answer-text', payload)
+
+        savedAnswer[essayId] = true
+
+        Swal.fire({
+          title: 'Success!',
+          text: 'Jawaban berhasil disimpan.',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false
+        })
+      } catch (error) {
+        Swal.fire({
+          title: 'Error!',
+          text: error?.response?.data?.message || 'Gagal menyimpan jawaban.',
+          icon: 'error'
+        })
+      } finally {
+        savingAnswer[essayId] = false
+      }
+    }
+
+    const selectedFile = ref(null)
+    const uploading = ref(false)
+    const uploadProgress = ref(0)
+    const uploadedBytes = ref(0)
+    const totalBytes = ref(0)
+    const uploadDone = ref(!!props.existing_file)
+    const uploadError = ref(null)
+    const uploadErrorDetail = ref(null)
+    const uploadedFile = ref(props.existing_file || null)
 
     const onFileChange = (e) => {
-      const file = e.target.files?.[0] || null;
-      if (!file) return;
+      const file = e.target.files?.[0] || null
+      if (!file) return
 
-      selectedFile.value = file;
-      uploadProgress.value = 0;
-      uploadedBytes.value = 0;
-      totalBytes.value = file.size;
-      uploadError.value = null;
-      uploadErrorDetail.value = null;
-    };
+      selectedFile.value = file
+      uploadProgress.value = 0
+      uploadedBytes.value = 0
+      totalBytes.value = file.size
+      uploadError.value = null
+      uploadErrorDetail.value = null
+    }
 
     const uploadAnswerFile = async () => {
-      if (!selectedFile.value) return;
+      if (!selectedFile.value) return
 
       if (!examId.value || !sessionId.value) {
-        uploadError.value = 'exam_id / exam_session_id tidak valid (bukan integer).';
+        uploadError.value = 'exam_id / exam_session_id tidak valid (bukan integer).'
         uploadErrorDetail.value = {
           status: 422,
           detail: JSON.stringify({
@@ -253,47 +411,47 @@ export default {
             exam_session_id: props.exam_session_id,
             resolved: { examId: examId.value, sessionId: sessionId.value }
           }, null, 2),
-        };
-        return;
+        }
+        return
       }
 
-      uploading.value = true;
-      uploadError.value = null;
-      uploadErrorDetail.value = null;
+      uploading.value = true
+      uploadError.value = null
+      uploadErrorDetail.value = null
 
       try {
-        const formData = new FormData();
-        formData.append('exam_id', String(examId.value));
-        formData.append('exam_session_id', String(sessionId.value));
-        formData.append('duration', String(durationMs.value));
-        formData.append('file', selectedFile.value);
+        const formData = new FormData()
+        formData.append('exam_id', String(examId.value))
+        formData.append('exam_session_id', String(sessionId.value))
+        formData.append('duration', String(durationMs.value))
+        formData.append('file', selectedFile.value)
 
         const res = await axios.post('/student/essay-migas-answer', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           onUploadProgress: (ev) => {
-            uploadedBytes.value = ev.loaded || 0;
+            uploadedBytes.value = ev.loaded || 0
 
             if (ev.total) {
-              totalBytes.value = ev.total;
-              uploadProgress.value = Math.round((ev.loaded * 100) / ev.total);
+              totalBytes.value = ev.total
+              uploadProgress.value = Math.round((ev.loaded * 100) / ev.total)
             } else {
-              totalBytes.value = selectedFile.value?.size || 0;
+              totalBytes.value = selectedFile.value?.size || 0
               uploadProgress.value = totalBytes.value
                 ? Math.min(99, Math.round((uploadedBytes.value * 100) / totalBytes.value))
-                : 0;
+                : 0
             }
           }
-        });
+        })
 
-        uploadDone.value = true;
-        uploadProgress.value = 100;
+        uploadDone.value = true
+        uploadProgress.value = 100
 
         uploadedFile.value = {
           name: res?.data?.file?.name || selectedFile.value.name,
           path: res?.data?.file?.path || null,
-          url:  res?.data?.file?.url || null,
+          url: res?.data?.file?.url || null,
           size: res?.data?.file?.size || selectedFile.value.size,
-        };
+        }
 
         Swal.fire({
           title: 'Success!',
@@ -301,10 +459,10 @@ export default {
           icon: 'success',
           timer: 2000,
           showConfirmButton: false
-        });
+        })
       } catch (e) {
-        const status = e?.response?.status || 'UNKNOWN';
-        const data = e?.response?.data;
+        const status = e?.response?.status || 'UNKNOWN'
+        const data = e?.response?.data
 
         uploadError.value =
           data?.message ||
@@ -314,48 +472,47 @@ export default {
           status === 403 ? 'Tidak punya akses (403).' :
           status === 404 ? 'Endpoint tidak ditemukan (404).' :
           status === 500 ? 'Server error (500). Cek laravel.log.' :
-          'Gagal upload file.');
+          'Gagal upload file.')
 
         uploadErrorDetail.value = {
           status,
           detail: JSON.stringify(data || {}, null, 2)
-        };
+        }
 
         Swal.fire({
           title: 'Error!',
           text: uploadError.value,
           icon: 'error',
           showConfirmButton: true
-        });
+        })
       } finally {
-        uploading.value = false;
+        uploading.value = false
       }
-    };
+    }
 
     const formatBytes = (bytes) => {
-      if (!bytes && bytes !== 0) return '0 B';
-      const k = 1024;
-      const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      const val = bytes / Math.pow(k, i);
-      return `${val.toFixed(val >= 10 || i === 0 ? 0 : 1)} ${sizes[i]}`;
-    };
+      if (!bytes && bytes !== 0) return '0 B'
+      const k = 1024
+      const sizes = ['B', 'KB', 'MB', 'GB', 'TB']
+      const i = Math.floor(Math.log(bytes) / Math.log(k))
+      const val = bytes / Math.pow(k, i)
+      return `${val.toFixed(val >= 10 || i === 0 ? 0 : 1)} ${sizes[i]}`
+    }
 
-    const showModalEndExam = ref(false);
-    const showModalEndTimeExam = ref(false);
+    const showModalEndExam = ref(false)
+    const showModalEndTimeExam = ref(false)
 
     const endExam = () => {
       if (!examId.value || !sessionId.value) {
-        Swal.fire({ title: 'Error!', text: 'exam_id / exam_session_id tidak valid.', icon: 'error' });
-        return;
+        Swal.fire({ title: 'Error!', text: 'exam_id / exam_session_id tidak valid.', icon: 'error' })
+        return
       }
 
       router.post('/student/essay-migas-end', {
         exam_id: examId.value,
         exam_session_id: sessionId.value,
-        exam_group_id: props.id, // ✅ ini wajib
-      });
-
+        exam_group_id: props.id,
+      })
 
       Swal.fire({
         title: 'Success!',
@@ -363,12 +520,23 @@ export default {
         icon: 'success',
         showConfirmButton: false,
         timer: 4000
-      });
-    };
+      })
+    }
 
     return {
       durationMs,
       handleChangeDuration,
+
+      getIsEssay,
+      getEssayId,
+      hasEssayQuestion,
+
+      answers,
+      savingAnswer,
+      savedAnswer,
+      setEditorRef,
+      disablePaste,
+      submitAnswer,
 
       selectedFile,
       uploading,
@@ -379,7 +547,6 @@ export default {
       uploadError,
       uploadErrorDetail,
       uploadedFile,
-
       onFileChange,
       uploadAnswerFile,
       formatBytes,
@@ -387,7 +554,7 @@ export default {
       showModalEndExam,
       showModalEndTimeExam,
       endExam,
-    };
+    }
   }
-};
+}
 </script>
