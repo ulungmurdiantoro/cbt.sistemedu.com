@@ -66,10 +66,10 @@ Route::prefix('admin')->group(function() {
         Route::delete('/exams/{exam}/essays/{essays}/destroy', [\App\Http\Controllers\Admin\ExamController::class, 'destroyEssay'])->name('admin.exams.destroyEssay');
     
         //route student import
-        Route::get('/exams/{exam}/essays/import', [\App\Http\Controllers\Admin\ExamController::class, 'import'])->name('admin.exam.essaysImport');
+        Route::get('/exams/{exam}/essays/import', [\App\Http\Controllers\Admin\ExamController::class, 'EssayImport'])->name('admin.exam.essaysImport');
 
         //route student import
-        Route::post('/exams/{exam}/essays/import', [\App\Http\Controllers\Admin\ExamController::class, 'storeImport'])->name('admin.exam.essaysStoreImport');
+        Route::post('/exams/{exam}/essays/import', [\App\Http\Controllers\Admin\ExamController::class, 'EssayStoreImport'])->name('admin.exam.essaysStoreImport');
     
         //route resource exam_sessions    
         Route::resource('/exam_sessions', \App\Http\Controllers\Admin\ExamSessionController::class, ['as' => 'admin']);
