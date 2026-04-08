@@ -14,7 +14,11 @@
                                 <div class="col-md-9">
                                     <label class="control-label" for="name">Sesi Ujian</label>
                                     <select class="form-select" v-model="form.exam_session_id">
-                                        <option v-for="(session, index) in exam_sessions" :key="index" :value="session.id">
+                                        <option
+                                            v-for="(session, index) in sortedExamSessions"
+                                            :key="index"
+                                            :value="session.id"
+                                        >
                                             {{ session.title }} — {{ session.exam.title }} / {{ session.exam.classroom.title }} ({{ session.exam.type }})
                                         </option>
                                     </select>
@@ -100,20 +104,43 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { reactive, ref } from 'vue';
+import { reactive, ref, computed } from 'vue';
 
 export default {
     layout: LayoutAdmin,
     components: { Head, Link },
     props: {
         errors: Object,
-        exam_sessions: Array,
-        grades: Array,
+        exam_sessions: {
+            type: Array,
+            default: () => [],
+        },
+        grades: {
+            type: Array,
+            default: () => [],
+        },
     },
-    setup() {
-        const form = reactive({
-            exam_session_id: '' || (new URL(document.location)).searchParams.get('exam_session_id'),
+    setup(props) {
+        const sortedExamSessions = computed(() => {
+            return [...props.exam_sessions].sort((a, b) => {
+                // jika created_at tersedia, urutkan berdasarkan created_at terbaru
+                if (a.created_at && b.created_at) {
+                    return new Date(b.created_at) - new Date(a.created_at);
+                }
+
+                // fallback ke id terbaru
+                return b.id - a.id;
+            });
         });
+
+        const form = reactive({
+            exam_session_id: (new URL(document.location)).searchParams.get('exam_session_id') || '',
+        });
+
+        // otomatis pilih sesi terbaru jika belum ada yang dipilih
+        if (!form.exam_session_id && sortedExamSessions.value.length > 0) {
+            form.exam_session_id = sortedExamSessions.value[0].id;
+        }
 
         const isLoading = ref(false);
 
@@ -128,7 +155,12 @@ export default {
             });
         };
 
-        return { form, filter, isLoading };
+        return {
+            form,
+            filter,
+            isLoading,
+            sortedExamSessions
+        };
     }
 }
 </script>
