@@ -20,23 +20,27 @@ class ReportController extends Controller
 {    
     public function index()
     {
-        // get all exam sessions
-        $exam_sessions = ExamSession::with('exam.classroom')->get();
+        // get all exam sessions terbaru
+        $exam_sessions = ExamSession::with('exam.classroom')
+            ->orderBy('id', 'desc')
+            ->get();
 
         return inertia('Admin/Reports/Index', [
             'exam_sessions' => $exam_sessions,
             'grades'        => []
         ]);
     }
-    
+
     public function filter(Request $request)
     {
         $request->validate([
             'exam_session_id' => 'required',
         ]);
 
-        // get all exam sessions
-        $exam_sessions = ExamSession::with('exam.classroom')->get();
+        // get all exam sessions terbaru
+        $exam_sessions = ExamSession::with('exam.classroom')
+            ->orderBy('id', 'desc')
+            ->get();
 
         // get selected exam session
         $exam_session = ExamSession::with('exam.classroom')
