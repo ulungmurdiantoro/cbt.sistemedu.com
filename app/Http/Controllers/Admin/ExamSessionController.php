@@ -177,10 +177,17 @@ class ExamSessionController extends Controller
         $exam = $exam_session->exam;
 
         //get students already enrolled
-        $students_enrolled = ExamGroup::where('exam_id', $exam->id)->where('exam_session_id', $exam_session->id)->pluck('student_id')->all();
+        $students_enrolled = ExamGroup::where('exam_id', $exam->id)
+            ->where('exam_session_id', $exam_session->id)
+            ->pluck('student_id')
+            ->all();
         
-        //get students
-        $students = Student::with('classroom')->where('classroom_id', $exam->classroom_id)->whereNotIn('id', $students_enrolled)->get();
+        //get students (hanya 1 bulan terakhir)
+        $students = Student::with('classroom')
+            ->where('classroom_id', $exam->classroom_id)
+            ->whereNotIn('id', $students_enrolled)
+            ->where('created_at', '>=', now()->subMonth())
+            ->get();
 
         //render with inertia
         return inertia('Admin/ExamGroups/Create', [
