@@ -77,7 +77,7 @@
         <div class="col-md-5">
             <div class="card border-0 shadow">
                 <div class="card-header text-center">
-                    <div class="badge bg-success p-2"> {{ question_answered }} dikerjakan</div>
+                    <div class="badge bg-success p-2"> {{ question_answered }} / {{ totalQuestions }} soal dikerjakan</div>
                 </div>
                 <div class="card-body" style="height: 330px;overflow-y: auto">
 
@@ -110,6 +110,18 @@
                     <h5 class="modal-title">Akhiri Ujian ?</h5>
                 </div>
                 <div class="modal-body">
+                    <div v-if="unansweredQuestions > 0" class="alert alert-warning border-0 mb-3">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        Masih ada <strong class="fw-bold">{{ unansweredQuestions }}</strong> soal belum terjawab.
+                        Total dikerjakan <strong class="fw-bold">{{ question_answered }}</strong> dari
+                        <strong class="fw-bold">{{ totalQuestions }}</strong> soal.
+                    </div>
+                    <div v-else class="alert alert-success border-0 mb-3">
+                        <i class="fa fa-check-circle"></i>
+                        Semua soal sudah dikerjakan. Total dikerjakan
+                        <strong class="fw-bold">{{ question_answered }}</strong> dari
+                        <strong class="fw-bold">{{ totalQuestions }}</strong> soal.
+                    </div>
                     Setelah mengakhiri ujian, Anda tidak dapat kembali ke ujian ini lagi. Yakin akan mengakhiri ujian?
                 </div>
                 <div class="modal-footer">
@@ -152,6 +164,7 @@
 
     //import ref
     import {
+        computed,
         ref
     } from 'vue';
 
@@ -198,6 +211,10 @@
 
             //define state duration
             const duration = ref(props.duration.duration);
+
+            //total questions and unanswered questions
+            const totalQuestions = computed(() => props.all_questions.length);
+            const unansweredQuestions = computed(() => Math.max(totalQuestions.value - props.question_answered, 0));
 
             //handleChangeDuration
             const handleChangeDuration = (() => {
@@ -303,6 +320,8 @@
             return {
                 options,
                 duration,
+                totalQuestions,
+                unansweredQuestions,
                 handleChangeDuration,
                 prevPage,
                 nextPage,
