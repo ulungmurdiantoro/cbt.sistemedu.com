@@ -83,7 +83,9 @@
             <ul class="pagination pagination-sm">
                 <li class="page-item" v-for="link in applications.links" :key="link.label"
                     :class="{ active: link.active, disabled: !link.url }">
-                    <Link class="page-link" :href="link.url ?? '#'" v-html="link.label"></Link>
+                    <a v-if="link.url" class="page-link" :href="link.url"
+                        @click.prevent="router.visit(link.url)" v-html="link.label"></a>
+                    <span v-else class="page-link" v-html="link.label"></span>
                 </li>
             </ul>
         </nav>
