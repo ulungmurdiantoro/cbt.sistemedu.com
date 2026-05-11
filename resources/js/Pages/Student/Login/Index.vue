@@ -75,7 +75,7 @@
                                     </span>
                                     <input type="text" class="form-control"
                                         v-model="form.no_participant"
-                                        placeholder="Contoh: TOT.10.2026.00001"
+                                        placeholder="Contoh: ToT.10.2026.00001"
                                         autocomplete="off"
                                         :class="{ 'is-invalid': errors.no_participant }">
                                     <div v-if="errors.no_participant" class="invalid-feedback">
