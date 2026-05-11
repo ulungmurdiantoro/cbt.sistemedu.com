@@ -16,17 +16,29 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'participant_id',
         'no_participant',
         'classroom_id',
         'name',
         'position',
         'institution',
-        'gender'
+        'gender',
+        'is_active',
     ];
 
     public function classroom()
     {
         return $this->belongsTo(Classroom::class);
+    }
+
+    public function participant()
+    {
+        return $this->belongsTo(Participant::class);
+    }
+
+    public function assessmentApplication()
+    {
+        return $this->hasOne(AssessmentApplication::class);
     }
 
     public function answers()

@@ -20,6 +20,9 @@ class ExamSession extends Model
         'title',
         'start_time',
         'end_time',
+        'konteks_asesmen',
+        'tempat_ujian',
+        'kode_batch',
     ];
 
     /**
@@ -40,5 +43,15 @@ class ExamSession extends Model
     public function exam()
     {
         return $this->belongsTo(Exam::class);
+    }
+
+    public function assessmentApplications()
+    {
+        return $this->hasMany(AssessmentApplication::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('end_time', '>', now());
     }
 }

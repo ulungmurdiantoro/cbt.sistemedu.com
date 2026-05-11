@@ -46,7 +46,8 @@
                                         <td>{{ classroom.title }}</td>
                                         <td>{{ classroom.id }}</td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/classrooms/${classroom.classrooms_code}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
+                                            <Link :href="`/admin/classrooms/${classroom.id}/requirements`" class="btn btn-sm btn-secondary border-0 shadow me-1" title="Persyaratan Dokumen"><i class="fa fa-file-alt"></i></Link>
+                                            <Link :href="`/admin/classrooms/${classroom.classrooms_code}/edit`" class="btn btn-sm btn-info border-0 shadow me-1" type="button"><i class="fa fa-pencil-alt"></i></Link>
                                             <button @click.prevent="destroy(classroom.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>

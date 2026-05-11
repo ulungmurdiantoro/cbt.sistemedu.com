@@ -58,19 +58,25 @@ class ExamSessionController extends Controller
     {
         //validate request
         $request->validate([
-            'title'         => 'required',
-            'exam_id'       => 'required',
-            'start_time'    => 'required',
-            'end_time'      => 'required',
+            'title'           => 'required',
+            'exam_id'         => 'required',
+            'start_time'      => 'required',
+            'end_time'        => 'required',
+            'konteks_asesmen' => 'required|string|max:255',
+            'tempat_ujian'    => 'required|string|max:255',
+            'kode_batch'      => 'required|string|max:100',
         ]);
 
         //create exam_session
         ExamSession::create([
-            'title'         => $request->title,
-            'exam_id'       => $request->exam_id,
+            'title'              => $request->title,
+            'exam_id'            => $request->exam_id,
             'exam_sessions_code' => 'exmss-' . rand(11, 99) . uniqid(),
-            'start_time'    => date('Y-m-d H:i:s', strtotime($request->start_time)),
-            'end_time'      => date('Y-m-d H:i:s', strtotime($request->end_time)),
+            'start_time'         => date('Y-m-d H:i:s', strtotime($request->start_time)),
+            'end_time'           => date('Y-m-d H:i:s', strtotime($request->end_time)),
+            'konteks_asesmen'    => $request->konteks_asesmen,
+            'tempat_ujian'       => $request->tempat_ujian,
+            'kode_batch'         => $request->kode_batch,
         ]);
 
         //redirect
@@ -129,18 +135,24 @@ class ExamSessionController extends Controller
     {
         //validate request
         $request->validate([
-            'title'         => 'required',
-            'exam_id'       => 'required',
-            'start_time'    => 'required',
-            'end_time'      => 'required',
+            'title'           => 'required',
+            'exam_id'         => 'required',
+            'start_time'      => 'required',
+            'end_time'        => 'required',
+            'konteks_asesmen' => 'required|string|max:255',
+            'tempat_ujian'    => 'required|string|max:255',
+            'kode_batch'      => 'required|string|max:100',
         ]);
-        
+
         //update exam_session
         $exam_session->update([
-            'title'         => $request->title,
-            'exam_id'       => $request->exam_id,
-            'start_time'    => date('Y-m-d H:i:s', strtotime($request->start_time)),
-            'end_time'      => date('Y-m-d H:i:s', strtotime($request->end_time)),
+            'title'           => $request->title,
+            'exam_id'         => $request->exam_id,
+            'start_time'      => date('Y-m-d H:i:s', strtotime($request->start_time)),
+            'end_time'        => date('Y-m-d H:i:s', strtotime($request->end_time)),
+            'konteks_asesmen' => $request->konteks_asesmen,
+            'tempat_ujian'    => $request->tempat_ujian,
+            'kode_batch'      => $request->kode_batch,
         ]);
         
         //redirect

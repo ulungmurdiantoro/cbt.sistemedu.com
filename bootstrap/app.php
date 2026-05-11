@@ -15,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\HandleInertiaRequests::class,
         ]);
         $middleware->alias([
-            'student' => \App\Http\Middleware\AuthStudent::class,
+            'student'     => \App\Http\Middleware\AuthStudent::class,
+            'participant' => \App\Http\Middleware\AuthParticipant::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

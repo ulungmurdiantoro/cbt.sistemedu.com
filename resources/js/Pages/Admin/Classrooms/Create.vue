@@ -12,16 +12,24 @@
                         <hr>
                         <form @submit.prevent="submit">
 
-                            <div class="mb-4">
-                                <label>Nama Skema</label> 
-                                <input type="text" class="form-control" placeholder="Masukkan Nama Skema" v-model="form.title">
-                                
-                                <div v-if="errors.title" class="alert alert-danger mt-2">
-                                    {{ errors.title }}
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label>Kode Skema</label>
+                                    <input type="text" class="form-control" placeholder="contoh: EDUKIA-ToT-2024-004" v-model="form.kode_skema">
+                                    <div v-if="errors.kode_skema" class="alert alert-danger mt-2">{{ errors.kode_skema }}</div>
                                 </div>
-
+                                <div class="col-md-8 mb-3">
+                                    <label>Nama Skema</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama Skema" v-model="form.title">
+                                    <div v-if="errors.title" class="alert alert-danger mt-2">{{ errors.title }}</div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label>GELAR</label>
+                                    <input type="text" class="form-control" placeholder="contoh: A.Md.Kom" v-model="form.gelar">
+                                    <div v-if="errors.gelar" class="alert alert-danger mt-2">{{ errors.gelar }}</div>
+                                </div>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
                             <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
                         </form>
@@ -70,7 +78,9 @@
 
             //define form with reactive
             const form = reactive({
-                title: '',
+                kode_skema: '',
+                title:      '',
+                gelar:      '',
             });
 
             //method "submit"
@@ -78,8 +88,9 @@
 
                 //send data to server
                 router.post('/admin/classrooms', {
-                    //data
-                    title: form.title,
+                    kode_skema: form.kode_skema,
+                    title:      form.title,
+                    gelar:      form.gelar,
                 }, {
                     onSuccess: () => {
                         //show success alert

@@ -16,6 +16,18 @@ class Classroom extends Model
      */
     protected $fillable = [
         'classrooms_code',
+        'kode_skema',
+        'gelar',
         'title',
     ];
+
+    public function documentRequirements()
+    {
+        return $this->hasMany(ClassroomDocumentRequirement::class)->orderBy('order');
+    }
+
+    public function assessmentApplications()
+    {
+        return $this->hasMany(AssessmentApplication::class);
+    }
 }

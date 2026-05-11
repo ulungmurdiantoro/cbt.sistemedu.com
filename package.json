@@ -20,6 +20,7 @@
         "@vueup/vue-quill": "^1.2.0",
         "ckeditor5": "^45.2.0",
         "lodash": "^4.17.21",
+        "signature_pad": "^5.1.3",
         "vue": "^3.4.21",
         "vue-sweetalert2": "^5.0.2",
         "vue-wysiwyg": "^1.7.2"

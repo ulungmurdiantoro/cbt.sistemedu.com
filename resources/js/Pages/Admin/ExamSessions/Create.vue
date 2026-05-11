@@ -61,6 +61,30 @@
                             </div>
 
 
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-4">
+                                        <label>Konteks Asesmen</label>
+                                        <input type="text" class="form-control" v-model="form.konteks_asesmen" placeholder="Sertifikasi Person">
+                                        <div v-if="errors.konteks_asesmen" class="alert alert-danger mt-2">{{ errors.konteks_asesmen }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-4">
+                                        <label>Tempat Ujian</label>
+                                        <input type="text" class="form-control" v-model="form.tempat_ujian" placeholder="Online (Zoom Meeting)">
+                                        <div v-if="errors.tempat_ujian" class="alert alert-danger mt-2">{{ errors.tempat_ujian }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-4">
+                                        <label>Kode Batch</label>
+                                        <input type="text" class="form-control" v-model="form.kode_batch" placeholder="BATCH-2025-01">
+                                        <div v-if="errors.kode_batch" class="alert alert-danger mt-2">{{ errors.kode_batch }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
                             <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
                         </form>
@@ -117,10 +141,13 @@
 
             //define form with reactive
             const form = reactive({
-                title: '',
-                exam_id: '',
-                start_time: '',
-                end_time: '',
+                title:            '',
+                exam_id:          '',
+                start_time:       '',
+                end_time:         '',
+                konteks_asesmen:  'Sertifikasi Person',
+                tempat_ujian:     'Online (Zoom Meeting)',
+                kode_batch:       '',
             });
 
             //method "submit"
@@ -128,11 +155,13 @@
 
                 //send data to server
                 router.post('/admin/exam_sessions', {
-                    //data
-                    title: form.title,
-                    exam_id: form.exam_id,
-                    start_time: form.start_time,
-                    end_time: form.end_time,
+                    title:           form.title,
+                    exam_id:         form.exam_id,
+                    start_time:      form.start_time,
+                    end_time:        form.end_time,
+                    konteks_asesmen: form.konteks_asesmen,
+                    tempat_ujian:    form.tempat_ujian,
+                    kode_batch:      form.kode_batch,
                 }, {
                     onSuccess: () => {
                         //show success alert

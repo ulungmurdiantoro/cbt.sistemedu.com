@@ -48,15 +48,17 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        //validate request
         $request->validate([
-            'title' => 'required|string|unique:classrooms'
+            'title'      => 'required|string|unique:classrooms',
+            'kode_skema' => 'nullable|string|max:100',
+            'gelar'      => 'nullable|string|max:100',
         ]);
 
-        //create classroom
         Classroom::create([
             'classrooms_code' => 'clsr-' . rand(11, 99) . uniqid(),
-            'title' => $request->title,
+            'kode_skema'      => $request->kode_skema,
+            'gelar'           => $request->gelar,
+            'title'           => $request->title,
         ]);
 
         //redirect
@@ -89,14 +91,16 @@ class ClassroomController extends Controller
      */
     public function update(Request $request, Classroom $classroom)
     {
-        //validate request
         $request->validate([
-            'title' => 'required|string|unique:classrooms,title,'.$classroom->id,
+            'title'      => 'required|string|unique:classrooms,title,'.$classroom->id,
+            'kode_skema' => 'nullable|string|max:100',
+            'gelar'      => 'nullable|string|max:100',
         ]);
 
-        //update classroom
         $classroom->update([
-            'title' => $request->title,
+            'kode_skema' => $request->kode_skema,
+            'gelar'      => $request->gelar,
+            'title'      => $request->title,
         ]);
 
         //redirect

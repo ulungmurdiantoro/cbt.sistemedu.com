@@ -143,6 +143,21 @@
                     </Link>
                 </li>
 
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/applications') }">
+                    <Link href="/admin/applications" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                class="bi bi-file-earmark-person icon icon-xs me-2" viewBox="0 0 16 16">
+                                <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5v2z"/>
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Permohonan</span>
+                    </span>
+                    </Link>
+                </li>
+
                 <li role="separator" class="dropdown-divider mt-2 mb-2 border-gray-700"></li>
 
                 <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/reports') }">

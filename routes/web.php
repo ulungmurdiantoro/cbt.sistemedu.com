@@ -83,6 +83,22 @@ Route::prefix('admin')->group(function() {
         //custom route for enrolle destroy
         Route::delete('/exam_sessions/{exam_session}/enrolle/{exam_group}/destroy', [\App\Http\Controllers\Admin\ExamSessionController::class, 'destroyEnrolle'])->name('admin.exam_sessions.destroyEnrolle');
 
+        //route classroom document requirements
+        Route::get('/classrooms/{classroom}/requirements', [\App\Http\Controllers\Admin\ClassroomRequirementController::class, 'index'])->name('admin.classrooms.requirements');
+        Route::post('/classrooms/{classroom}/requirements', [\App\Http\Controllers\Admin\ClassroomRequirementController::class, 'store'])->name('admin.classrooms.requirements.store');
+        Route::put('/classrooms/{classroom}/requirements/{requirement}', [\App\Http\Controllers\Admin\ClassroomRequirementController::class, 'update'])->name('admin.classrooms.requirements.update');
+        Route::delete('/classrooms/{classroom}/requirements/{requirement}', [\App\Http\Controllers\Admin\ClassroomRequirementController::class, 'destroy'])->name('admin.classrooms.requirements.destroy');
+
+        //route assessment applications
+        Route::get('/applications', [\App\Http\Controllers\Admin\ApplicationController::class, 'index'])->name('admin.applications.index');
+        Route::get('/applications/{application}', [\App\Http\Controllers\Admin\ApplicationController::class, 'show'])->name('admin.applications.show');
+        Route::post('/applications/{application}/approve', [\App\Http\Controllers\Admin\ApplicationController::class, 'approve'])->name('admin.applications.approve');
+        Route::post('/applications/{application}/reject', [\App\Http\Controllers\Admin\ApplicationController::class, 'reject'])->name('admin.applications.reject');
+        Route::post('/applications/{application}/reissue', [\App\Http\Controllers\Admin\ApplicationController::class, 'reissueStudent'])->name('admin.applications.reissue');
+        Route::post('/applications/{application}/documents/{doc}/verify', [\App\Http\Controllers\Admin\ApplicationController::class, 'verifyDocument'])->name('admin.applications.documents.verify');
+        Route::get('/applications/{application}/documents/{document}/download', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadDocument'])->name('admin.applications.documents.download');
+        Route::get('/applications/{application}/tanda-tangan/{type}', [\App\Http\Controllers\Admin\ApplicationController::class, 'serveSignature'])->name('admin.applications.signature.serve');
+
         //route index reports
         Route::get('/reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');
         
@@ -107,7 +123,7 @@ Route::prefix('admin')->group(function() {
     });
 });
 
-//route homepage
+//route homepage (login ujian)
 Route::get('/', function () {
 
     //cek session student
@@ -117,6 +133,56 @@ Route::get('/', function () {
 
     //return view login
     return \Inertia\Inertia::render('Student/Login/Index');
+});
+
+// ─── Portal Peserta Sertifikasi ─────────────────────────────────────────────
+
+//register & login peserta (public)
+Route::get('/peserta/register', [App\Http\Controllers\Peserta\AuthController::class, 'showRegister'])->name('peserta.register');
+Route::post('/peserta/register', [App\Http\Controllers\Peserta\AuthController::class, 'register'])->middleware('throttle:5,5');
+Route::get('/peserta/login', [App\Http\Controllers\Peserta\AuthController::class, 'showLogin'])->name('peserta.login');
+Route::post('/peserta/login', [App\Http\Controllers\Peserta\AuthController::class, 'login'])->name('peserta.login.post')->middleware('throttle:5,1');
+Route::post('/peserta/logout', [App\Http\Controllers\Peserta\AuthController::class, 'logout'])->name('peserta.logout');
+
+//reset password peserta (public)
+Route::get('/peserta/lupa-password', [App\Http\Controllers\Peserta\PasswordResetController::class, 'showForgot'])->name('peserta.password.request');
+Route::post('/peserta/lupa-password', [App\Http\Controllers\Peserta\PasswordResetController::class, 'sendResetLink'])->name('peserta.password.email')->middleware('throttle:3,5');
+Route::get('/peserta/reset-password/{token}', [App\Http\Controllers\Peserta\PasswordResetController::class, 'showReset'])->name('peserta.password.reset');
+Route::post('/peserta/reset-password', [App\Http\Controllers\Peserta\PasswordResetController::class, 'resetPassword'])->name('peserta.password.update');
+
+//peserta authenticated
+Route::prefix('peserta')->middleware('participant')->group(function () {
+
+    //dashboard
+    Route::get('/dashboard', App\Http\Controllers\Peserta\DashboardController::class)->name('peserta.dashboard');
+
+    //pilih skema & daftar
+    Route::get('/skema', [App\Http\Controllers\Peserta\ApplicationController::class, 'chooseSkema'])->name('peserta.skema.choose');
+    Route::post('/skema', [App\Http\Controllers\Peserta\ApplicationController::class, 'storeSkema'])->name('peserta.skema.store');
+
+    //form FR.APL.01
+    Route::get('/aplikasi/{application}/form', [App\Http\Controllers\Peserta\ApplicationController::class, 'showForm'])->name('peserta.application.form');
+    Route::put('/aplikasi/{application}/form', [App\Http\Controllers\Peserta\ApplicationController::class, 'saveForm'])->name('peserta.application.saveForm');
+    Route::post('/aplikasi/{application}/form/tanda-tangan', [App\Http\Controllers\Peserta\ApplicationController::class, 'saveFormSignature'])->name('peserta.application.form.signature');
+
+    //pakta integritas FR.AK.01
+    Route::get('/aplikasi/{application}/pakta', [App\Http\Controllers\Peserta\ApplicationController::class, 'showPakta'])->name('peserta.application.pakta');
+    Route::post('/aplikasi/{application}/pakta', [App\Http\Controllers\Peserta\ApplicationController::class, 'savePakta'])->name('peserta.application.pakta.save');
+
+    //upload dokumen
+    Route::get('/aplikasi/{application}/dokumen', [App\Http\Controllers\Peserta\DocumentController::class, 'index'])->name('peserta.application.documents');
+    Route::post('/aplikasi/{application}/dokumen', [App\Http\Controllers\Peserta\DocumentController::class, 'upload'])->name('peserta.application.documents.upload');
+    Route::get('/aplikasi/{application}/dokumen/{document}/download', [App\Http\Controllers\Peserta\DocumentController::class, 'download'])->name('peserta.application.documents.download');
+    Route::delete('/aplikasi/{application}/dokumen/{document}', [App\Http\Controllers\Peserta\DocumentController::class, 'destroy'])->name('peserta.application.documents.destroy');
+
+    //sajikan tanda tangan secara privat
+    Route::get('/aplikasi/{application}/tanda-tangan/{type}', [App\Http\Controllers\Peserta\ApplicationController::class, 'serveSignature'])->name('peserta.application.signature.serve');
+
+    //revisi permohonan yang ditolak
+    Route::post('/aplikasi/{application}/revisi', [App\Http\Controllers\Peserta\ApplicationController::class, 'revisi'])->name('peserta.application.revisi');
+
+    //submit permohonan
+    Route::post('/aplikasi/{application}/submit', [App\Http\Controllers\Peserta\ApplicationController::class, 'submit'])->name('peserta.application.submit');
 });
 
 //login students
