@@ -3,52 +3,46 @@
     <Head>
         <title>Login Administrator - Aplikasi Ujian Online</title>
     </Head>
-    <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-        <div class="text-center text-md-center mb-4 mt-md-0">
-            <h3>ADMINISTRATOR</h3>
+    <div class="min-vh-100 d-flex align-items-center justify-content-center" style="background:#f5f8fb">
+        <div style="width:100%;max-width:420px" class="px-3">
+            <div class="text-center mb-4">
+                <img src="/assets/images/logo.png" alt="Logo" style="max-height:70px;object-fit:contain">
+            </div>
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 p-md-5">
+                    <h5 class="fw-bold text-center mb-4">Login Administrator</h5>
+
+                    <div v-if="errors.email" class="alert alert-danger py-2 small border-0">{{ errors.email }}</div>
+                    <div v-if="errors.password" class="alert alert-danger py-2 small border-0">{{ errors.password }}</div>
+
+                    <form @submit.prevent="submit">
+                        <div class="mb-3">
+                            <label class="fw-semibold small">Email</label>
+                            <div class="input-group mt-1">
+                                <span class="input-group-text"><i class="fa fa-envelope text-muted"></i></span>
+                                <input type="email" class="form-control" v-model="form.email" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="fw-semibold small">Password</label>
+                            <div class="input-group mt-1">
+                                <span class="input-group-text"><i class="fa fa-lock text-muted"></i></span>
+                                <input type="password" class="form-control" v-model="form.password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="form-check mb-0">
+                                <input class="form-check-input" type="checkbox" id="remember">
+                                <label class="form-check-label small" for="remember">Remember me</label>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-gray-800">LOGIN</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <form @submit.prevent="submit" class="mt-4">
-            <div class="form-group mb-4">
-                <label for="email">Email Address</label>
-                <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1">
-                        <i class="fa fa-envelope"></i>
-                    </span>
-                    <input type="email" class="form-control" v-model="form.email" placeholder="Email Address">
-                </div>
-                <div v-if="errors.email" class="alert alert-danger mt-2">
-                    {{ errors.email }}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="form-group mb-4">
-                    <label for="password">Password</label>
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon2">
-                            <i class="fa fa-lock"></i>
-                        </span>
-                        <input type="password" placeholder="Password" class="form-control" v-model="form.password">
-                    </div>
-                    <div v-if="errors.password" class="alert alert-danger mt-2">
-                        {{ errors.password }}
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-between align-items-top mb-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="remember">
-                        <label class="form-check-label mb-0" for="remember">
-                            Remember me
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-            <div class="d-grid">
-                <button type="submit" class="btn btn-gray-800">LOGIN</button>
-            </div>
-        </form>
     </div>
 </template>
 
