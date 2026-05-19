@@ -19,6 +19,7 @@ class Classroom extends Model
         'kode_skema',
         'gelar',
         'title',
+        'title_en',
     ];
 
     public function documentRequirements()
@@ -26,8 +27,18 @@ class Classroom extends Model
         return $this->hasMany(ClassroomDocumentRequirement::class)->orderBy('order');
     }
 
+    public function competencyUnits()
+    {
+        return $this->hasMany(ClassroomCompetencyUnit::class)->orderBy('order');
+    }
+
     public function assessmentApplications()
     {
         return $this->hasMany(AssessmentApplication::class);
+    }
+
+    public function gradingScheme()
+    {
+        return $this->hasOne(GradingScheme::class);
     }
 }

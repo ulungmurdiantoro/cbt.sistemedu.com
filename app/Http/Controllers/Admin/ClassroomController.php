@@ -50,6 +50,7 @@ class ClassroomController extends Controller
     {
         $request->validate([
             'title'      => 'required|string|unique:classrooms',
+            'title_en'   => 'nullable|string|max:255',
             'kode_skema' => 'nullable|string|max:100',
             'gelar'      => 'nullable|string|max:100',
         ]);
@@ -59,6 +60,7 @@ class ClassroomController extends Controller
             'kode_skema'      => $request->kode_skema,
             'gelar'           => $request->gelar,
             'title'           => $request->title,
+            'title_en'        => $request->title_en,
         ]);
 
         //redirect
@@ -93,6 +95,7 @@ class ClassroomController extends Controller
     {
         $request->validate([
             'title'      => 'required|string|unique:classrooms,title,'.$classroom->id,
+            'title_en'   => 'nullable|string|max:255',
             'kode_skema' => 'nullable|string|max:100',
             'gelar'      => 'nullable|string|max:100',
         ]);
@@ -101,6 +104,7 @@ class ClassroomController extends Controller
             'kode_skema' => $request->kode_skema,
             'gelar'      => $request->gelar,
             'title'      => $request->title,
+            'title_en'   => $request->title_en,
         ]);
 
         //redirect

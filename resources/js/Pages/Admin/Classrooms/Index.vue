@@ -35,7 +35,7 @@
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Nama Skema</th>
-                                        <th class="border-0">Classroom_id</th>
+                                        <th class="border-0">Classroom_id (kode skema)</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -43,10 +43,14 @@
                                 <tbody>
                                     <tr v-for="(classroom, index) in classrooms.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (classrooms.current_page - 1) * classrooms.per_page }}</td>
-                                        <td>{{ classroom.title }}</td>
-                                        <td>{{ classroom.id }}</td>
+                                        <td>
+                                            <div class="fw-semibold">{{ classroom.title }}</div>
+                                            <div v-if="classroom.title_en" class="text-muted fst-italic small">{{ classroom.title_en }}</div>
+                                        </td>
+                                        <td>{{ classroom.id }} ({{ classroom.kode_skema ?? '—' }})</td>
                                         <td class="text-center">
                                             <Link :href="`/admin/classrooms/${classroom.id}/requirements`" class="btn btn-sm btn-secondary border-0 shadow me-1" title="Persyaratan Dokumen"><i class="fa fa-file-alt"></i></Link>
+                                            <Link :href="`/admin/classrooms/${classroom.id}/competency-units`" class="btn btn-sm btn-success border-0 shadow me-1" title="Unit Kompetensi"><i class="fa fa-list-ol"></i></Link>
                                             <Link :href="`/admin/classrooms/${classroom.classrooms_code}/edit`" class="btn btn-sm btn-info border-0 shadow me-1" type="button"><i class="fa fa-pencil-alt"></i></Link>
                                             <button @click.prevent="destroy(classroom.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>

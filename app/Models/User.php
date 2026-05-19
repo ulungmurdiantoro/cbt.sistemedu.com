@@ -20,8 +20,19 @@ class User extends Authenticatable
         'users_code',
         'name',
         'email',
+        'role',
         'password',
     ];
+
+    public function isAsesor(): bool
+    {
+        return $this->role === 'asesor';
+    }
+
+    public function assignments()
+    {
+        return $this->hasMany(\App\Models\AsesorAssignment::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,7 +57,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
+            'assessed_at'       => 'datetime',
         ];
     }
 }

@@ -116,12 +116,12 @@
 </template>
 
 <script>
-import LayoutStudent from '../../../Layouts/Student.vue';
+import LayoutAuth from '../../../Layouts/Auth.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { reactive, ref } from 'vue';
 
 export default {
-    layout: LayoutStudent,
+    layout: LayoutAuth,
     components: { Head },
     props: { errors: Object },
 

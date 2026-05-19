@@ -23,8 +23,13 @@
                                     <input type="text" class="form-control" placeholder="Masukkan Nama Skema" v-model="form.title">
                                     <div v-if="errors.title" class="alert alert-danger mt-2">{{ errors.title }}</div>
                                 </div>
+                                <div class="col-md-8 mb-3">
+                                    <label>Nama Skema (Bahasa Inggris)</label>
+                                    <input type="text" class="form-control" placeholder="Enter Scheme Name in English" v-model="form.title_en">
+                                    <div v-if="errors.title_en" class="alert alert-danger mt-2">{{ errors.title_en }}</div>
+                                </div>
                                 <div class="col-md-4 mb-3">
-                                    <label>GELAR</label>
+                                    <label>Gelar</label>
                                     <input type="text" class="form-control" placeholder="contoh: A.Md.Kom" v-model="form.gelar">
                                     <div v-if="errors.gelar" class="alert alert-danger mt-2">{{ errors.gelar }}</div>
                                 </div>
@@ -80,6 +85,7 @@
             const form = reactive({
                 kode_skema: '',
                 title:      '',
+                title_en:   '',
                 gelar:      '',
             });
 
@@ -90,6 +96,7 @@
                 router.post('/admin/classrooms', {
                     kode_skema: form.kode_skema,
                     title:      form.title,
+                    title_en:   form.title_en,
                     gelar:      form.gelar,
                 }, {
                     onSuccess: () => {

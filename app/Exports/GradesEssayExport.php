@@ -31,25 +31,23 @@ class GradesEssayExport implements FromCollection, WithMapping, WithHeadings
             $grades->exam->classroom->title ?? 'N/A',
         ];
 
-        // Sort answersEssay by question_id and map them
+        // Sort answersEssay by essay_order and map them
         $is_correct_answers = $grades->answersEssay
-            ->sortBy(function ($answer) {
-                return $answer->question_id;
-            })
+            ->sortBy('essay_order')
             ->values()
             ->map(function ($answer, $index) {
                 return [
                     'number' => $index + 1,
                     'answer' => $answer->answer ?? '',
-                    'zero' => '0',
+                    'score'  => $answer->score ?? '',
                 ];
             })
             ->toArray();
 
-        // Append answer values and "0" after each
+        // Append answer text and score after each
         foreach ($is_correct_answers as $answer) {
             $row[] = $answer['answer'];
-            $row[] = $answer['zero'];
+            $row[] = $answer['score'];
         }
 
         // Append the grade

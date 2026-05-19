@@ -1,0 +1,181 @@
+<template>
+    <Head><title>Rekap Hasil - {{ exam_session.title }}</title></Head>
+
+    <div class="container-fluid mb-5 mt-4">
+
+        <!-- Header -->
+        <div class="d-flex align-items-start gap-3 mb-4">
+            <Link href="/admin/results" class="btn btn-sm btn-outline-secondary mt-1">
+                <i class="fa fa-arrow-left"></i>
+            </Link>
+            <div class="flex-grow-1">
+                <h5 class="mb-0 fw-bold">{{ exam_session.title }}</h5>
+                <p class="mb-0 small text-muted">Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary" @click="distribute" :disabled="!hasFinalized">
+                    <i class="fa fa-paper-plane me-1"></i> Kirim ke Peserta
+                </button>
+                <button class="btn btn-sm btn-dark" @click="confirmFinalize" :disabled="allFinalized">
+                    <i class="fa fa-lock me-1"></i> Finalisasi Semua
+                </button>
+            </div>
+        </div>
+
+        <!-- Scheme info -->
+        <div v-if="scheme" class="alert alert-info py-2 small border-0 mb-3">
+            <i class="fa fa-info-circle me-1"></i>
+            Komposisi: PG <strong>{{ scheme.bobot_pg }}%</strong> · Esai <strong>{{ scheme.bobot_esai }}%</strong> · Wawancara <strong>{{ scheme.bobot_wawancara }}%</strong> · KKM <strong>{{ scheme.nilai_kelulusan }}</strong>
+        </div>
+        <div v-else class="alert alert-warning py-2 small border-0 mb-3">
+            <i class="fa fa-exclamation-triangle me-1"></i>
+            Komposisi nilai belum diatur untuk skema ini. Menggunakan default (PG 40%, Esai 35%, Wawancara 25%).
+        </div>
+
+        <!-- Flash -->
+        <div v-if="$page.props.flash?.success" class="alert alert-success py-2 small border-0 mb-3">
+            {{ $page.props.flash.success }}
+        </div>
+
+        <!-- Table -->
+        <div class="card border-0 shadow">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="border-0" style="width:3%">No.</th>
+                                <th class="border-0">No. Peserta</th>
+                                <th class="border-0">Nama</th>
+                                <th class="border-0 text-center" v-if="exam_session.exam_id_pg">PG</th>
+                                <th class="border-0 text-center" v-if="exam_session.exam_id_esai">Esai</th>
+                                <th class="border-0 text-center" v-if="exam_session.has_wawancara">Wawancara</th>
+                                <th class="border-0 text-center">Nilai Akhir</th>
+                                <th class="border-0 text-center">Keputusan</th>
+                                <th class="border-0 text-center">Status</th>
+                                <th class="border-0 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(row, i) in rows" :key="row.student_id">
+                                <td class="text-center">{{ i + 1 }}</td>
+                                <td class="small">{{ row.no_participant }}</td>
+                                <td>
+                                    {{ row.name }}
+                                    <span v-if="row.attempt > 1" class="badge bg-warning text-dark ms-1 small">Remidi</span>
+                                </td>
+                                <td class="text-center" v-if="exam_session.exam_id_pg">
+                                    {{ row.nilai_pg !== null ? row.nilai_pg : '—' }}
+                                </td>
+                                <td class="text-center" v-if="exam_session.exam_id_esai">
+                                    {{ row.nilai_esai !== null ? row.nilai_esai : '—' }}
+                                </td>
+                                <td class="text-center" v-if="exam_session.has_wawancara">
+                                    {{ row.nilai_wawancara !== null ? row.nilai_wawancara : '—' }}
+                                </td>
+                                <td class="text-center fw-bold">
+                                    <span v-if="row.nilai_akhir !== null" :class="nilaiColor(row)">
+                                        {{ row.nilai_akhir }}
+                                    </span>
+                                    <span v-else class="text-muted">—</span>
+                                </td>
+                                <td class="text-center">
+                                    <span v-if="row.keputusan === 'LULUS'" class="badge bg-success">LULUS</span>
+                                    <span v-else-if="row.keputusan === 'TIDAK_LULUS'" class="badge bg-danger">TIDAK LULUS</span>
+                                    <span v-else class="text-muted small">—</span>
+                                </td>
+                                <td class="text-center">
+                                    <span v-if="row.is_finalized" class="badge bg-dark">
+                                        <i class="fa fa-lock me-1"></i>Final
+                                    </span>
+                                    <span v-else class="badge bg-secondary">Draft</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex gap-1 justify-content-center flex-wrap">
+                                        <a v-if="row.is_finalized"
+                                           :href="`/admin/results/${exam_session.id}/download-sk/${row.student_id}`"
+                                           target="_blank" class="btn btn-xs btn-outline-secondary py-0 px-1" title="Download SK">
+                                            <i class="fa fa-file-alt"></i> SK
+                                        </a>
+                                        <a v-if="row.is_finalized && row.keputusan === 'LULUS'"
+                                           :href="`/admin/results/${exam_session.id}/download-sertifikat/${row.student_id}`"
+                                           target="_blank" class="btn btn-xs btn-outline-primary py-0 px-1" title="Download Sertifikat">
+                                            <i class="fa fa-certificate"></i> Sert.
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr v-if="rows.length === 0">
+                                <td colspan="20" class="text-center text-muted py-4">Belum ada peserta terdaftar di sesi ini.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+import LayoutAdmin from '../../../Layouts/Admin.vue';
+import { Head, Link, router } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import Swal from 'sweetalert2';
+
+export default {
+    layout: LayoutAdmin,
+    components: { Head, Link },
+    props: {
+        exam_session: Object,
+        rows:         Array,
+        scheme:       Object,
+    },
+
+    setup(props) {
+        const allFinalized  = computed(() => props.rows.length > 0 && props.rows.every(r => r.is_finalized));
+        const hasFinalized  = computed(() => props.rows.some(r => r.is_finalized));
+
+        const nilaiColor = (row) => {
+            if (row.keputusan === 'LULUS') return 'text-success';
+            if (row.keputusan === 'TIDAK_LULUS') return 'text-danger';
+            return '';
+        };
+
+        const confirmFinalize = () => {
+            Swal.fire({
+                title: 'Finalisasi Hasil?',
+                html: 'Nilai akan dikunci dan nomor SK / Sertifikat akan diterbitkan.<br><strong>Tindakan ini tidak dapat dibatalkan.</strong>',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#1f2937',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Finalisasi',
+                cancelButtonText: 'Batal',
+            }).then(result => {
+                if (result.isConfirmed) {
+                    router.post(`/admin/results/${props.exam_session.id}/finalize`);
+                }
+            });
+        };
+
+        const distribute = () => {
+            Swal.fire({
+                title: 'Kirim Hasil ke Peserta?',
+                html: 'SK dan Sertifikat akan dikirim ke email dan dashboard peserta yang sudah difinalisasi.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#1f2937',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya, Kirim',
+            }).then(result => {
+                if (result.isConfirmed) {
+                    router.post(`/admin/results/${props.exam_session.id}/distribute`);
+                }
+            });
+        };
+
+        return { allFinalized, hasFinalized, nilaiColor, confirmFinalize, distribute };
+    },
+}
+</script>

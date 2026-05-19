@@ -24,6 +24,9 @@ class AnswerEssay extends Model
         'answer_order',
         'answer',
         'is_correct',
+        'score',
+        'assessed_by',
+        'assessed_at',
     ];
 
     /**

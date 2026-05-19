@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Student extends Authenticatable
@@ -39,6 +38,16 @@ class Student extends Authenticatable
     public function assessmentApplication()
     {
         return $this->hasOne(AssessmentApplication::class);
+    }
+
+    public function examGroups()
+    {
+        return $this->hasMany(ExamGroup::class);
+    }
+
+    public function participantResults()
+    {
+        return $this->hasMany(ParticipantResult::class);
     }
 
     public function answers()

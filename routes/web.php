@@ -81,13 +81,19 @@ Route::prefix('admin')->group(function() {
         Route::post('/exam_sessions/{exam_session}/enrolle/store', [\App\Http\Controllers\Admin\ExamSessionController::class, 'storeEnrolle'])->name('admin.exam_sessions.storeEnrolle');
         
         //custom route for enrolle destroy
-        Route::delete('/exam_sessions/{exam_session}/enrolle/{exam_group}/destroy', [\App\Http\Controllers\Admin\ExamSessionController::class, 'destroyEnrolle'])->name('admin.exam_sessions.destroyEnrolle');
+        Route::delete('/exam_sessions/{exam_session}/enrolle/{student}/destroy', [\App\Http\Controllers\Admin\ExamSessionController::class, 'destroyEnrolle'])->name('admin.exam_sessions.destroyEnrolle');
 
         //route classroom document requirements
         Route::get('/classrooms/{classroom}/requirements', [\App\Http\Controllers\Admin\ClassroomRequirementController::class, 'index'])->name('admin.classrooms.requirements');
         Route::post('/classrooms/{classroom}/requirements', [\App\Http\Controllers\Admin\ClassroomRequirementController::class, 'store'])->name('admin.classrooms.requirements.store');
         Route::put('/classrooms/{classroom}/requirements/{requirement}', [\App\Http\Controllers\Admin\ClassroomRequirementController::class, 'update'])->name('admin.classrooms.requirements.update');
         Route::delete('/classrooms/{classroom}/requirements/{requirement}', [\App\Http\Controllers\Admin\ClassroomRequirementController::class, 'destroy'])->name('admin.classrooms.requirements.destroy');
+
+        //route classroom competency units
+        Route::get('/classrooms/{classroom}/competency-units', [\App\Http\Controllers\Admin\ClassroomCompetencyUnitController::class, 'index'])->name('admin.classrooms.competency-units');
+        Route::post('/classrooms/{classroom}/competency-units', [\App\Http\Controllers\Admin\ClassroomCompetencyUnitController::class, 'store'])->name('admin.classrooms.competency-units.store');
+        Route::put('/classrooms/{classroom}/competency-units/{unit}', [\App\Http\Controllers\Admin\ClassroomCompetencyUnitController::class, 'update'])->name('admin.classrooms.competency-units.update');
+        Route::delete('/classrooms/{classroom}/competency-units/{unit}', [\App\Http\Controllers\Admin\ClassroomCompetencyUnitController::class, 'destroy'])->name('admin.classrooms.competency-units.destroy');
 
         //route assessment applications
         Route::get('/applications', [\App\Http\Controllers\Admin\ApplicationController::class, 'index'])->name('admin.applications.index');
@@ -119,8 +125,43 @@ Route::prefix('admin')->group(function() {
         
         //route essay show
         Route::get('/reports/essays/{id}', [App\Http\Controllers\Admin\ReportController::class, 'essayShow'])->name('admin.reports.essayShow');
-            
+
+        //route penugasan asesor
+        Route::get('/penilaian', [\App\Http\Controllers\Admin\PenilaianController::class, 'index'])->name('admin.penilaian.index');
+        Route::get('/penilaian/{exam_session_id}', [\App\Http\Controllers\Admin\PenilaianController::class, 'show'])->name('admin.penilaian.show');
+        Route::post('/penilaian/{exam_session_id}/penugasan', [\App\Http\Controllers\Admin\PenilaianController::class, 'saveAssignments'])->name('admin.penilaian.saveAssignments');
+
+        // Grading scheme (komposisi nilai per skema)
+        Route::get('/classrooms/{classroom}/grading-scheme', [\App\Http\Controllers\Admin\GradingSchemeController::class, 'show'])->name('admin.classrooms.grading-scheme');
+        Route::post('/classrooms/{classroom}/grading-scheme', [\App\Http\Controllers\Admin\GradingSchemeController::class, 'save'])->name('admin.classrooms.grading-scheme.save');
+
+        // Rekap hasil & finalisasi
+        Route::get('/results', [\App\Http\Controllers\Admin\ResultController::class, 'index'])->name('admin.results.index');
+        Route::get('/results/{examSession}', [\App\Http\Controllers\Admin\ResultController::class, 'show'])->name('admin.results.show');
+        Route::post('/results/{examSession}/finalize', [\App\Http\Controllers\Admin\ResultController::class, 'finalize'])->name('admin.results.finalize');
+        Route::post('/results/{examSession}/distribute', [\App\Http\Controllers\Admin\ResultController::class, 'distribute'])->name('admin.results.distribute');
+        Route::get('/results/{examSession}/download-sk/{student}', [\App\Http\Controllers\Admin\ResultController::class, 'downloadSk'])->name('admin.results.download-sk');
+        Route::get('/results/{examSession}/download-sertifikat/{student}', [\App\Http\Controllers\Admin\ResultController::class, 'downloadSertifikat'])->name('admin.results.download-sertifikat');
+
+        // Template dokumen sertifikat
+        Route::get('/certificate-template', [\App\Http\Controllers\Admin\CertificateTemplateController::class, 'show'])->name('admin.certificate-template');
+        Route::post('/certificate-template', [\App\Http\Controllers\Admin\CertificateTemplateController::class, 'save'])->name('admin.certificate-template.save');
+
     });
+});
+
+// ─── Portal Asesor ───────────────────────────────────────────────────────────
+
+Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
+
+    Route::get('/dashboard', \App\Http\Controllers\Asesor\DashboardController::class)->name('asesor.dashboard');
+
+    Route::get('/penilaian/{exam_session_id}/esai', [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'show'])->name('asesor.esai.show');
+    Route::post('/penilaian/{exam_session_id}/esai', [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'store'])->name('asesor.esai.store');
+
+    Route::get('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'show'])->name('asesor.wawancara.show');
+    Route::post('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'store'])->name('asesor.wawancara.store');
+
 });
 
 //route homepage (login ujian)
@@ -183,6 +224,11 @@ Route::prefix('peserta')->middleware('participant')->group(function () {
 
     //submit permohonan
     Route::post('/aplikasi/{application}/submit', [App\Http\Controllers\Peserta\ApplicationController::class, 'submit'])->name('peserta.application.submit');
+
+    // Hasil & dokumen
+    Route::get('/hasil/{sessionId}/{studentId}/sk', [App\Http\Controllers\Peserta\ResultController::class, 'downloadSk'])->name('peserta.hasil.sk');
+    Route::get('/hasil/{sessionId}/{studentId}/sertifikat', [App\Http\Controllers\Peserta\ResultController::class, 'downloadSertifikat'])->name('peserta.hasil.sertifikat');
+    Route::post('/remidi/{sessionId}', [App\Http\Controllers\Peserta\ResultController::class, 'startRemidi'])->name('peserta.remidi.start');
 });
 
 //login students

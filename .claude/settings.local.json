@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(\\(Get-Content \"h:\\\\My Drive\\\\Ulung\\\\Code\\\\cbt.sistemedu.com\\\\resources\\\\js\\\\Pages\\\\Student\\\\EssaysMigas\\\\Show.vue\" | Select-String \"is_essay\" | Select-Object -First 3\\).Line)",
+      "Bash(dir vendor *)",
+      "Bash(findstr -i \"qr\\\\|bacon\")"
+    ]
+  }
+}

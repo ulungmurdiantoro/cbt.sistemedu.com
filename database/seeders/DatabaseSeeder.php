@@ -27,9 +27,5 @@ class DatabaseSeeder extends Seeder
             'password'      => bcrypt('password'),
         ]);
 
-        Classroom::factory()->create([
-            'classrooms_code'   => 'clsr-' . rand(11, 99) . uniqid(),
-            'title'             => 'LEAD AUDITOR INTERNAL',
-        ]);
     }
 }

@@ -3,85 +3,93 @@
         <title>Daftar Akun - Portal Sertifikasi</title>
     </Head>
 
-    <div class="min-vh-100 d-flex">
+    <div class="container py-4 py-md-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-9">
+                <div class="row g-0 shadow-sm rounded-3 overflow-hidden bg-white">
 
-        <!-- Panel kiri: alur pendaftaran (desktop) -->
-        <div class="d-none d-lg-flex flex-column p-5 text-white" style="width:420px;flex-shrink:0;background:#1f2937">
-            <div>
-                <div class="text-center mb-4">
-                    <img src="/assets/images/logo.png" alt="Logo"
-                        style="max-height:80px;max-width:160px;object-fit:contain">
-                </div>
-                <div class="text-center mb-5">
-                    <div class="fw-bold lh-1">LSP Edukasi Global</div>
-                    <div class="small opacity-60">Cendekia</div>
-                </div>
+                    <!-- Panel kiri -->
+                    <div class="col-md-5 d-flex flex-column p-4 p-md-5 text-white"
+                        style="background:#1f2937">
 
-                <h5 class="fw-bold mb-1">Alur Pendaftaran</h5>
-                <p class="small opacity-75 mb-4">Selesaikan 6 langkah berikut untuk mengajukan permohonan sertifikasi.</p>
+                        <div class="text-center mb-4">
+                            <img src="/assets/images/logo.png" alt="Logo"
+                                style="max-height:90px;max-width:180px;object-fit:contain">
+                        </div>
 
-                <div v-for="(step, i) in steps" :key="i" class="d-flex gap-3 mb-3 align-items-start">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0"
-                        style="width:26px;height:26px;font-size:0.75rem;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3)">
-                        {{ i + 1 }}
+                        <div class="text-center mb-4">
+                            <h5 class="fw-bold mb-1">Portal Sertifikasi</h5>
+                            <p class="small mb-0" style="opacity:.65">LSP Edukasi Global Cendekia</p>
+                        </div>
+
+                        <hr style="border-color:rgba(255,255,255,.15)">
+
+                        <div class="mb-4">
+                            <p class="small fw-semibold mb-3">
+                                <i class="fa fa-list-ol me-1"></i>Alur Pendaftaran
+                            </p>
+                            <div v-for="(step, i) in steps" :key="i" class="d-flex gap-2 mb-2 align-items-start">
+                                <span class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                                    style="width:20px;height:20px;font-size:0.65rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25)">
+                                    {{ i + 1 }}
+                                </span>
+                                <span class="small" style="opacity:.8;line-height:1.4">{{ step }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <Link href="/peserta/login" class="btn btn-sm w-100"
+                                style="background:#fff;color:#1f2937;font-weight:600;border:none">
+                                <i class="fa fa-sign-in me-1"></i> Sudah punya akun? Login
+                            </Link>
+                        </div>
                     </div>
-                    <div>
-                        <div class="fw-semibold small lh-1 mb-1">{{ step.title }}</div>
-                        <div class="opacity-60" style="font-size:0.73rem">{{ step.desc }}</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="mt-4 pt-4" style="border-top:1px solid rgba(255,255,255,0.15)">
-                <p class="small opacity-75 mb-2">Sudah punya akun?</p>
-                <Link href="/peserta/login" class="btn btn-sm px-4"
-                    style="background:#fff;color:#1f2937;font-weight:600;border:none">
-                    <i class="fa fa-sign-in me-1"></i> Login di sini
-                </Link>
-            </div>
-        </div>
+                    <!-- Panel kanan: form -->
+                    <div class="col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center">
 
-        <!-- Panel kanan: form -->
-        <div class="flex-fill d-flex align-items-center justify-content-center p-4">
-            <div style="max-width:460px;width:100%">
-
-                <!-- Logo mobile -->
-                <div class="d-flex d-lg-none align-items-center gap-2 mb-4">
-                    <img src="/assets/images/logo.png" alt="Logo" style="height:40px;object-fit:contain">
-                    <span class="fw-bold small">LSP Edukasi Global Cendekia</span>
-                </div>
-
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body p-4 p-md-5">
                         <h4 class="fw-bold mb-1">Buat Akun Peserta</h4>
                         <p class="text-muted small mb-4">
                             Akun ini untuk pendaftaran sertifikasi, bukan untuk login ujian.
                         </p>
 
                         <div v-if="$page.props.session.error" class="alert alert-danger py-2 small border-0">
-                            {{ $page.props.session.error }}
+                            <i class="fa fa-exclamation-circle me-1"></i>{{ $page.props.session.error }}
                         </div>
 
                         <form @submit.prevent="submit">
                             <div class="mb-3">
                                 <label class="fw-semibold small">Nama Lengkap</label>
-                                <input type="text" class="form-control mt-1" v-model="form.name"
-                                    placeholder="Sesuai KTP / identitas resmi"
-                                    :class="{ 'is-invalid': errors.name }">
-                                <div v-if="errors.name" class="invalid-feedback">{{ errors.name }}</div>
+                                <div class="input-group mt-1">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-user text-muted"></i>
+                                    </span>
+                                    <input type="text" class="form-control" v-model="form.name"
+                                        placeholder="Sesuai KTP / identitas resmi"
+                                        :class="{ 'is-invalid': errors.name }">
+                                    <div v-if="errors.name" class="invalid-feedback">{{ errors.name }}</div>
+                                </div>
                             </div>
 
                             <div class="mb-3">
                                 <label class="fw-semibold small">Email</label>
-                                <input type="email" class="form-control mt-1" v-model="form.email"
-                                    placeholder="email@contoh.com"
-                                    :class="{ 'is-invalid': errors.email }">
-                                <div v-if="errors.email" class="invalid-feedback">{{ errors.email }}</div>
+                                <div class="input-group mt-1">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-envelope text-muted"></i>
+                                    </span>
+                                    <input type="email" class="form-control" v-model="form.email"
+                                        placeholder="email@contoh.com"
+                                        :class="{ 'is-invalid': errors.email }">
+                                    <div v-if="errors.email" class="invalid-feedback">{{ errors.email }}</div>
+                                </div>
                             </div>
 
                             <div class="mb-3">
                                 <label class="fw-semibold small">Password</label>
                                 <div class="input-group mt-1">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-lock text-muted"></i>
+                                    </span>
                                     <input :type="showPass ? 'text' : 'password'" class="form-control"
                                         v-model="form.password" placeholder="Minimal 8 karakter"
                                         :class="{ 'is-invalid': errors.password }">
@@ -94,8 +102,14 @@
 
                             <div class="mb-4">
                                 <label class="fw-semibold small">Konfirmasi Password</label>
-                                <input type="password" class="form-control mt-1"
-                                    v-model="form.password_confirmation" placeholder="Ulangi password">
+                                <div class="input-group mt-1">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-lock text-muted"></i>
+                                    </span>
+                                    <input type="password" class="form-control"
+                                        v-model="form.password_confirmation"
+                                        placeholder="Ulangi password">
+                                </div>
                             </div>
 
                             <div class="d-grid mb-3">
@@ -110,22 +124,16 @@
                                 <Link href="/peserta/login" class="text-decoration-none fw-semibold">Login di sini</Link>
                             </p>
                         </form>
-                    </div>
-                </div>
 
-                <p class="text-center small text-muted mt-3">
-                    <i class="fa fa-desktop me-1"></i>
-                    Peserta ujian?
-                    <Link href="/" class="text-decoration-none">Login dengan No. Peserta</Link>
-                </p>
-
-                <!-- Alur ringkas mobile -->
-                <div class="d-lg-none mt-4 p-3 rounded" style="background:#f8f9fa;border:1px solid #e9ecef">
-                    <div class="small fw-bold mb-2 text-muted">ALUR PENDAFTARAN</div>
-                    <div v-for="(step, i) in steps" :key="i" class="d-flex gap-2 align-items-start mb-2">
-                        <span class="badge bg-dark rounded-circle" style="width:20px;height:20px;font-size:0.65rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">{{ i+1 }}</span>
-                        <span class="small">{{ step.title }}</span>
+                        <!-- Info ujian di mobile -->
+                        <div class="d-md-none mt-4 p-3 rounded" style="background:#f8f9fa;border:1px solid #e9ecef">
+                            <p class="small fw-semibold mb-1">
+                                <i class="fa fa-desktop me-1 text-muted"></i>Ingin ikut ujian?
+                            </p>
+                            <Link href="/" class="btn btn-sm btn-dark mt-1">Login dengan No. Peserta</Link>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -146,19 +154,19 @@ export default {
         const processing = ref(false);
         const showPass   = ref(false);
         const form = reactive({
-            name: '',
-            email: '',
-            password: '',
+            name:                  '',
+            email:                 '',
+            password:              '',
             password_confirmation: '',
         });
 
         const steps = [
-            { title: 'Buat akun peserta',          desc: 'Daftar dengan email dan password' },
-            { title: 'Pilih skema & sesi ujian',   desc: 'Pilih skema sertifikasi yang sesuai' },
-            { title: 'Isi formulir FR.APL.01',     desc: 'Data pribadi dan riwayat pekerjaan' },
-            { title: 'Pakta integritas FR.AK.01',  desc: 'Tanda tangani secara digital' },
-            { title: 'Upload dokumen persyaratan', desc: 'Ijazah, SK, dan dokumen pendukung' },
-            { title: 'Submit & tunggu verifikasi', desc: 'Admin memverifikasi permohonan Anda' },
+            'Buat akun peserta (halaman ini)',
+            'Pilih skema & sesi ujian',
+            'Isi formulir FR.APL.01',
+            'Tanda tangani pakta integritas',
+            'Upload dokumen persyaratan',
+            'Submit & tunggu verifikasi admin',
         ];
 
         const submit = () => {

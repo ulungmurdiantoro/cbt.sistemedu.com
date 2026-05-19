@@ -158,6 +158,51 @@
                     </Link>
                 </li>
 
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/penilaian') }">
+                    <Link href="/admin/penilaian" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                class="bi bi-person-check icon icon-xs me-2" viewBox="0 0 16 16">
+                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514zM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                                <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256z"/>
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Penugasan Asesor</span>
+                    </span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/results') }">
+                    <Link href="/admin/results" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                class="bi bi-award icon icon-xs me-2" viewBox="0 0 16 16">
+                                <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                                <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Rekap Hasil</span>
+                    </span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/certificate-template') }">
+                    <Link href="/admin/certificate-template" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                class="bi bi-file-richtext icon icon-xs me-2" viewBox="0 0 16 16">
+                                <path d="M7 4.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V7.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V7s1.54-1.274 1.639-1.208zM5 9a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z"/>
+                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Template Dokumen</span>
+                    </span>
+                    </Link>
+                </li>
+
                 <li role="separator" class="dropdown-divider mt-2 mb-2 border-gray-700"></li>
 
                 <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/reports') }">

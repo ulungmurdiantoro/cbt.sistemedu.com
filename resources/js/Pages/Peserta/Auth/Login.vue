@@ -3,56 +3,52 @@
         <title>Login Peserta - Portal Sertifikasi</title>
     </Head>
 
-    <div class="min-vh-100 d-flex">
+    <div class="container py-4 py-md-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-9">
+                <div class="row g-0 shadow-sm rounded-3 overflow-hidden bg-white">
 
-        <!-- Panel kiri: welcome (desktop) -->
-        <div class="d-none d-lg-flex flex-column p-5 text-white" style="width:420px;flex-shrink:0;background:#1f2937">
-            <div>
-                <div class="text-center mb-4">
-                    <img src="/assets/images/logo.png" alt="Logo"
-                        style="max-height:80px;max-width:160px;object-fit:contain">
-                </div>
-                <div class="text-center mb-5">
-                    <div class="fw-bold lh-1">LSP Edukasi Global</div>
-                    <div class="small opacity-60">Cendekia</div>
-                </div>
+                    <!-- Panel kiri -->
+                    <div class="col-md-5 d-flex flex-column p-4 p-md-5 text-white"
+                        style="background:#1f2937">
 
-                <h4 class="fw-bold mb-2">Selamat Datang</h4>
-                <p class="opacity-75 mb-5" style="font-size:0.9rem;line-height:1.7">
-                    Portal pendaftaran sertifikasi kompetensi. Login untuk melanjutkan proses pengajuan
-                    atau memantau status permohonan Anda.
-                </p>
+                        <div class="text-center mb-4">
+                            <img src="/assets/images/logo.png" alt="Logo"
+                                style="max-height:90px;max-width:180px;object-fit:contain">
+                        </div>
 
-                <div class="p-3 rounded mb-4" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12)">
-                    <div class="small fw-semibold mb-2"><i class="fa fa-info-circle me-1 opacity-75"></i>Informasi</div>
-                    <p class="small opacity-75 mb-0">
-                        Halaman ini khusus untuk <strong>pendaftaran sertifikasi</strong>.
-                        Jika Anda ingin mengikuti ujian, gunakan halaman login ujian dengan No. Peserta.
-                    </p>
-                </div>
-            </div>
+                        <div class="text-center mb-4">
+                            <h5 class="fw-bold mb-1">Portal Sertifikasi</h5>
+                            <p class="small mb-0" style="opacity:.65">LSP Edukasi Global Cendekia</p>
+                        </div>
 
-            <div class="mt-4 pt-4" style="border-top:1px solid rgba(255,255,255,0.15)">
-                <p class="small opacity-75 mb-2">Belum punya akun?</p>
-                <Link href="/peserta/register" class="btn btn-sm px-4"
-                    style="background:#fff;color:#1f2937;font-weight:600;border:none">
-                    <i class="fa fa-user-plus me-1"></i> Daftar Sekarang
-                </Link>
-            </div>
-        </div>
+                        <hr style="border-color:rgba(255,255,255,.15)">
 
-        <!-- Panel kanan: form -->
-        <div class="flex-fill d-flex align-items-center justify-content-center p-4">
-            <div style="max-width:440px;width:100%">
+                        <div class="mb-4">
+                            <p class="small fw-semibold mb-3">
+                                <i class="fa fa-info-circle me-1"></i>Tentang Portal Ini
+                            </p>
+                            <p class="small mb-0" style="opacity:.8;line-height:1.6">
+                                Halaman ini khusus untuk <strong>pendaftaran sertifikasi</strong>.
+                                Jika Anda ingin mengikuti ujian, gunakan halaman login ujian dengan No. Peserta.
+                            </p>
+                        </div>
 
-                <!-- Logo mobile -->
-                <div class="d-flex d-lg-none align-items-center gap-2 mb-4">
-                    <img src="/assets/images/logo.png" alt="Logo" style="height:40px;object-fit:contain">
-                    <span class="fw-bold small">LSP Edukasi Global Cendekia</span>
-                </div>
+                        <div class="mt-auto">
+                            <Link href="/peserta/register" class="btn btn-sm w-100 mb-2"
+                                style="background:#fff;color:#1f2937;font-weight:600;border:none">
+                                <i class="fa fa-user-plus me-1"></i> Daftar Sekarang
+                            </Link>
+                            <Link href="/" class="btn btn-sm w-100 text-decoration-none"
+                                style="font-size:0.8rem;color:rgba(255,255,255,0.6)">
+                                Login ujian dengan No. Peserta
+                            </Link>
+                        </div>
+                    </div>
 
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body p-4 p-md-5">
+                    <!-- Panel kanan: form -->
+                    <div class="col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center">
+
                         <h4 class="fw-bold mb-1">Login Portal Peserta</h4>
                         <p class="text-muted small mb-4">
                             Masukkan email dan password akun sertifikasi Anda.
@@ -66,7 +62,9 @@
                             <div class="mb-3">
                                 <label class="fw-semibold small">Email</label>
                                 <div class="input-group mt-1">
-                                    <span class="input-group-text"><i class="fa fa-envelope text-muted"></i></span>
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-envelope text-muted"></i>
+                                    </span>
                                     <input type="email" class="form-control" v-model="form.email"
                                         placeholder="email@contoh.com"
                                         :class="{ 'is-invalid': errors.email }">
@@ -77,7 +75,9 @@
                             <div class="mb-3">
                                 <label class="fw-semibold small">Password</label>
                                 <div class="input-group mt-1">
-                                    <span class="input-group-text"><i class="fa fa-lock text-muted"></i></span>
+                                    <span class="input-group-text bg-light">
+                                        <i class="fa fa-lock text-muted"></i>
+                                    </span>
                                     <input :type="showPass ? 'text' : 'password'" class="form-control"
                                         v-model="form.password" placeholder="Password"
                                         :class="{ 'is-invalid': errors.password }">
@@ -108,14 +108,17 @@
                                 <Link href="/peserta/register" class="text-decoration-none fw-semibold">Daftar di sini</Link>
                             </p>
                         </form>
-                    </div>
-                </div>
 
-                <p class="text-center small text-muted mt-3">
-                    <i class="fa fa-desktop me-1"></i>
-                    Peserta ujian?
-                    <Link href="/" class="text-decoration-none">Login dengan No. Peserta</Link>
-                </p>
+                        <!-- Info ujian di mobile -->
+                        <div class="d-md-none mt-4 p-3 rounded" style="background:#f8f9fa;border:1px solid #e9ecef">
+                            <p class="small fw-semibold mb-1">
+                                <i class="fa fa-desktop me-1 text-muted"></i>Ingin ikut ujian?
+                            </p>
+                            <Link href="/" class="btn btn-sm btn-dark mt-1">Login dengan No. Peserta</Link>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -135,7 +138,7 @@ export default {
         const processing = ref(false);
         const showPass   = ref(false);
         const form = reactive({
-            email: '',
+            email:    '',
             password: '',
             remember: false,
         });
