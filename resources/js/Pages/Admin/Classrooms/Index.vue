@@ -47,7 +47,10 @@
                                             <div class="fw-semibold">{{ classroom.title }}</div>
                                             <div v-if="classroom.title_en" class="text-muted fst-italic small">{{ classroom.title_en }}</div>
                                         </td>
-                                        <td>{{ classroom.id }} ({{ classroom.kode_skema ?? '—' }})</td>
+                                        <td>
+                                            <div class="fw-semibold">{{ classroom.id }} </div>
+                                            <div v-if="classroom.kode_skema" class="text-muted fst-italic small">({{ classroom.kode_skema }})</div>
+                                        </td>
                                         <td class="text-center">
                                             <Link :href="`/admin/classrooms/${classroom.id}/requirements`" class="btn btn-sm btn-secondary border-0 shadow me-1" title="Persyaratan Dokumen"><i class="fa fa-file-alt"></i></Link>
                                             <Link :href="`/admin/classrooms/${classroom.id}/competency-units`" class="btn btn-sm btn-success border-0 shadow me-1" title="Unit Kompetensi"><i class="fa fa-list-ol"></i></Link>
