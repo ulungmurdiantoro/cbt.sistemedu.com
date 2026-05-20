@@ -11,6 +11,7 @@ use App\Services\NumberingService;
 use App\Services\ResultCalculatorService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ResultController extends Controller
 {
@@ -84,29 +85,29 @@ class ResultController extends Controller
             ->where('is_finalized', false)
             ->get();
 
-        foreach ($results as $result) {
-            if ($result->is_finalized) continue;
+        DB::transaction(function () use ($results, $classroom, $classroomId, $examSession) {
+            foreach ($results as $result) {
+                $skNum = $this->numbering->nextSkNumber();
 
-            $skNum = $this->numbering->nextSkNumber();
+                $sertifikatNum = null;
+                if ($result->keputusan === 'LULUS' && $classroom) {
+                    $sertifikatNum = $this->numbering->nextSertifikatNumber(
+                        $classroom->kode_skema ?? '',
+                        $examSession->kode_batch ?? '',
+                        $classroomId
+                    );
+                }
 
-            $sertifikatNum = null;
-            if ($result->keputusan === 'LULUS' && $classroom) {
-                $sertifikatNum = $this->numbering->nextSertifikatNumber(
-                    $classroom->kode_skema ?? '',
-                    $examSession->kode_batch ?? '',
-                    $classroomId
-                );
+                $result->update([
+                    'is_finalized'     => true,
+                    'finalized_at'     => now(),
+                    'finalized_by'     => Auth::id(),
+                    'sk_number'        => $skNum,
+                    'sertifikat_number'=> $sertifikatNum,
+                    'valid_until'      => now()->addYears(config('lsp.sertifikat_valid_years', 3)),
+                ]);
             }
-
-            $result->update([
-                'is_finalized'     => true,
-                'finalized_at'     => now(),
-                'finalized_by'     => Auth::id(),
-                'sk_number'        => $skNum,
-                'sertifikat_number'=> $sertifikatNum,
-                'valid_until'      => now()->addYears(config('lsp.sertifikat_valid_years', 3)),
-            ]);
-        }
+        });
 
         return redirect()->back()->with('success', 'Hasil berhasil difinalisasi.');
     }
@@ -119,7 +120,7 @@ class ResultController extends Controller
             ->where('is_finalized', true)
             ->firstOrFail();
 
-        $pdf      = $generator->generateSk($result, 'with_kop');
+        $pdf      = $generator->skPdf($result, 'with_kop');
         $filename = 'SK_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)
@@ -136,7 +137,7 @@ class ResultController extends Controller
             ->where('keputusan', 'LULUS')
             ->firstOrFail();
 
-        $pdf      = $generator->generateSertifikat($result, 'with_kop');
+        $pdf      = $generator->sertifikatPdf($result, 'with_kop');
         $filename = 'Sertifikat_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)

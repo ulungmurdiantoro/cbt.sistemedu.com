@@ -45,7 +45,8 @@ class ApplicationController extends Controller
         $application->load([
             'participant',
             'classroom.documentRequirements',
-            'examSession.exam',
+            'examSession.examPg',
+            'examSession.examEsai',
             'student',
             'approver',
             'documents.requirement',
@@ -106,7 +107,7 @@ class ApplicationController extends Controller
 
             $application->update([
                 'student_id'    => $student->id,
-                'exam_group_id' => $examGroup->id,
+                'exam_group_id' => $examGroup?->id,
                 'status'        => ApplicationStatus::Approved,
                 'approved_at'   => now(),
                 'approved_by'   => auth()->id(),
@@ -203,7 +204,7 @@ class ApplicationController extends Controller
 
             $application->update([
                 'student_id'    => $newStudent->id,
-                'exam_group_id' => $newExamGroup->id,
+                'exam_group_id' => $newExamGroup?->id,
             ]);
         });
 

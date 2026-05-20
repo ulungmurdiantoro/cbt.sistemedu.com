@@ -26,6 +26,8 @@ class EssayAssessmentController extends Controller
             ->where('exam_session_id', $exam_session_id)
             ->pluck('student_id');
 
+        abort_if($assigned_student_ids->isEmpty(), 403, 'Anda tidak ditugaskan pada sesi ini.');
+
         // Soal-soal esai
         $essays = Essay::where('exam_id', $esaiExamId)
             ->orderBy('id')
@@ -83,7 +85,18 @@ class EssayAssessmentController extends Controller
         $exam_session = ExamSession::findOrFail($exam_session_id);
         $esaiExamId = $exam_session->exam_id_esai;
 
+        $assigned_student_ids = AsesorAssignment::where('user_id', $asesor->id)
+            ->where('exam_session_id', $exam_session_id)
+            ->pluck('student_id')
+            ->all();
+
         foreach ($request->scores as $student_row) {
+            abort_unless(
+                in_array($student_row['student_id'], $assigned_student_ids),
+                403,
+                'Anda tidak ditugaskan untuk menilai peserta ini.'
+            );
+
             $scores = collect($student_row['answers'])->pluck('score')->filter()->values();
             $avg = $scores->count() > 0 ? round($scores->avg(), 2) : null;
 

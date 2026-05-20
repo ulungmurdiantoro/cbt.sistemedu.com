@@ -10,11 +10,61 @@ use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Mpdf\Mpdf;
 
 class DocumentGeneratorService
 {
+    /**
+     * SK PDF dengan cache di disk privat. Setelah finalisasi, sk_number bersifat
+     * immutable sehingga PDF cukup digenerate sekali.
+     *
+     * @param 'with_kop'|'without_kop' $versi
+     */
+    public function skPdf(ParticipantResult $result, string $versi = 'with_kop'): string
+    {
+        if (!$result->sk_number) {
+            return $this->generateSk($result, $versi);
+        }
+
+        return $this->cachedPdf(
+            'documents/sk/' . md5($result->sk_number . '|' . $versi) . '.pdf',
+            fn() => $this->generateSk($result, $versi),
+        );
+    }
+
+    /**
+     * Sertifikat PDF dengan cache di disk privat.
+     *
+     * @param 'with_kop'|'without_kop' $versi
+     */
+    public function sertifikatPdf(ParticipantResult $result, string $versi = 'with_kop'): string
+    {
+        if (!$result->sertifikat_number) {
+            return $this->generateSertifikat($result, $versi);
+        }
+
+        return $this->cachedPdf(
+            'documents/sertifikat/' . md5($result->sertifikat_number . '|' . $versi) . '.pdf',
+            fn() => $this->generateSertifikat($result, $versi),
+        );
+    }
+
+    private function cachedPdf(string $path, \Closure $generate): string
+    {
+        $disk = Storage::disk('local');
+
+        if ($disk->exists($path)) {
+            return $disk->get($path);
+        }
+
+        $bytes = $generate();
+        $disk->put($path, $bytes);
+
+        return $bytes;
+    }
+
     private function kategori(float|null $nilai): string
     {
         if ($nilai === null) return '-';

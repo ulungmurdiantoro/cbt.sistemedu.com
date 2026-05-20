@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 //prefix "admin"
 Route::prefix('admin')->group(function() {
 
-    //middleware "auth"
-    Route::group(['middleware' => ['auth']], function () {
+    //middleware "auth" + "admin" (role check)
+    Route::group(['middleware' => ['auth', 'admin']], function () {
 
         //route dashboard
         Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
@@ -104,6 +104,14 @@ Route::prefix('admin')->group(function() {
         Route::post('/applications/{application}/documents/{doc}/verify', [\App\Http\Controllers\Admin\ApplicationController::class, 'verifyDocument'])->name('admin.applications.documents.verify');
         Route::get('/applications/{application}/documents/{document}/download', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadDocument'])->name('admin.applications.documents.download');
         Route::get('/applications/{application}/tanda-tangan/{type}', [\App\Http\Controllers\Admin\ApplicationController::class, 'serveSignature'])->name('admin.applications.signature.serve');
+
+        // route kelola user (admin & asesor)
+        Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
+        Route::get('/users/create', [\App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.users.create');
+        Route::post('/users', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin.users.store');
+        Route::get('/users/{user}/edit', [\App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.users.edit');
+        Route::put('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.users.update');
+        Route::delete('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
 
         //route index reports
         Route::get('/reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');

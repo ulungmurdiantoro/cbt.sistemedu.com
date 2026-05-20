@@ -40,12 +40,12 @@ class ResultDistributionMail extends Mailable
         $result      = $this->result;
         $attachments = [];
 
-        $skPdf = $generator->generateSk($result, $this->versi);
+        $skPdf = $generator->skPdf($result, $this->versi);
         $attachments[] = Attachment::fromData(fn() => $skPdf, 'SK_' . $result->student?->no_participant . '.pdf')
             ->withMime('application/pdf');
 
         if ($result->keputusan === 'LULUS' && $result->sertifikat_number) {
-            $sertPdf = $generator->generateSertifikat($result, $this->versi);
+            $sertPdf = $generator->sertifikatPdf($result, $this->versi);
             $attachments[] = Attachment::fromData(fn() => $sertPdf, 'Sertifikat_' . $result->student?->no_participant . '.pdf')
                 ->withMime('application/pdf');
         }

@@ -5,7 +5,12 @@
       "Bash(dir vendor *)",
       "Bash(findstr -i \"qr\\\\|bacon\")",
       "Bash(grep -c 'use Illuminate\\\\\\\\Support\\\\\\\\Str;' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ClassroomController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ExamSessionController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\ExamController.php')",
-      "Bash(grep -n '^use Illuminate\\\\\\\\Http\\\\\\\\Request;' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ClassroomController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ExamController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ExamSessionController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\DashboardController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\EssayController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\EssayMigasController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\ExamController.php')"
+      "Bash(grep -n '^use Illuminate\\\\\\\\Http\\\\\\\\Request;' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ClassroomController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ExamController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ExamSessionController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\DashboardController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\EssayController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\EssayMigasController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\ExamController.php')",
+      "Bash(php -l app/Http/Middleware/EnsureAdmin.php)",
+      "Bash(php -l app/Jobs/DistributeResultsJob.php)",
+      "Bash(php -l app/Jobs/SendResultMailJob.php)",
+      "Bash(php -l app/Services/ResultCalculatorService.php)",
+      "Bash(php -l app/Services/DocumentGeneratorService.php)"
     ]
   }
 }

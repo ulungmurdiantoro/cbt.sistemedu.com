@@ -20,11 +20,13 @@ class InterviewAssessmentController extends Controller
     {
         $asesor = auth()->user();
 
-        $exam_session = ExamSession::with('exam.classroom')->findOrFail($exam_session_id);
+        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($exam_session_id);
 
         $assigned_student_ids = AsesorAssignment::where('user_id', $asesor->id)
             ->where('exam_session_id', $exam_session_id)
             ->pluck('student_id');
+
+        abort_if($assigned_student_ids->isEmpty(), 403, 'Anda tidak ditugaskan pada sesi ini.');
 
         $students = Student::whereIn('id', $assigned_student_ids)
             ->orderBy('no_participant')
@@ -48,7 +50,18 @@ class InterviewAssessmentController extends Controller
 
         $asesor = auth()->user();
 
+        $assigned_student_ids = AsesorAssignment::where('user_id', $asesor->id)
+            ->where('exam_session_id', $exam_session_id)
+            ->pluck('student_id')
+            ->all();
+
         foreach ($request->assessments as $item) {
+            abort_unless(
+                in_array($item['student_id'], $assigned_student_ids),
+                403,
+                'Anda tidak ditugaskan untuk menilai peserta ini.'
+            );
+
             $sum = collect([
                 $item['gaya_wawancara'],
                 $item['penguasaan_materi'],
