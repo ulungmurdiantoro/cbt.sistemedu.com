@@ -6,6 +6,7 @@ use App\Models\Grade;
 use App\Models\ExamGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -39,7 +40,7 @@ class DashboardController extends Controller
 
                 //create defaul grade
                 $grade = new Grade();
-                $grade->grades_code     = 'grds-' . rand(11, 99) . uniqid();
+                $grade->grades_code     = 'grds-' . Str::ulid();
                 $grade->exam_id         = $exam_group->exam_id;
                 $grade->exam_session_id = $exam_group->exam_session_id;
                 $grade->student_id      = auth()->guard('student')->user()->id;

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StoreExamSessionRequest;
+use App\Http\Requests\UpdateExamSessionRequest;
 use App\Models\Exam;
 use App\Models\Student;
 use App\Models\ExamGroup;
 use App\Models\ExamSession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
 class ExamSessionController extends Controller
@@ -37,33 +40,14 @@ class ExamSessionController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreExamSessionRequest $request)
     {
-        $request->validate([
-            'title'           => 'required|string|max:255',
-            'exam_id_pg'      => 'nullable|exists:exams,id',
-            'exam_id_esai'    => 'nullable|exists:exams,id',
-            'has_wawancara'   => 'boolean',
-            'start_time'      => 'required',
-            'end_time'        => 'required',
-            'konteks_asesmen' => 'required|string|max:255',
-            'tempat_ujian'    => 'required|string|max:255',
-            'kode_batch'      => 'required|string|max:100',
-        ]);
-
-        // Pastikan minimal satu ujian dipilih
-        if (!$request->exam_id_pg && !$request->exam_id_esai && !$request->has_wawancara) {
-            return back()->withErrors(['exam_id_pg' => 'Pilih minimal satu jenis ujian.'])->withInput();
-        }
-
         ExamSession::create([
-            'exam_sessions_code' => 'exmss-' . rand(11, 99) . uniqid(),
+            'exam_sessions_code' => 'exmss-' . Str::ulid(),
             'title'              => $request->title,
             'exam_id_pg'         => $request->exam_id_pg,
             'exam_id_esai'       => $request->exam_id_esai,
             'has_wawancara'      => $request->boolean('has_wawancara'),
-            // legacy: simpan salah satu untuk backward compat
-            'exam_id'            => $request->exam_id_pg ?? $request->exam_id_esai,
             'start_time'         => date('Y-m-d H:i:s', strtotime($request->start_time)),
             'end_time'           => date('Y-m-d H:i:s', strtotime($request->end_time)),
             'konteks_asesmen'    => $request->konteks_asesmen,
@@ -104,32 +88,13 @@ class ExamSessionController extends Controller
         ]);
     }
 
-    public function update(Request $request, ExamSession $exam_session)
+    public function update(UpdateExamSessionRequest $request, ExamSession $exam_session)
     {
-        $request->validate([
-            'title'           => 'required|string|max:255',
-            'exam_id_pg'      => 'nullable|exists:exams,id',
-            'exam_id_esai'    => 'nullable|exists:exams,id',
-            'has_wawancara'   => 'boolean',
-            'start_time'      => 'required',
-            'end_time'        => 'required',
-            'remidi_start_at' => 'nullable',
-            'remidi_end_at'   => 'nullable',
-            'konteks_asesmen' => 'required|string|max:255',
-            'tempat_ujian'    => 'required|string|max:255',
-            'kode_batch'      => 'required|string|max:100',
-        ]);
-
-        if (!$request->exam_id_pg && !$request->exam_id_esai && !$request->has_wawancara) {
-            return back()->withErrors(['exam_id_pg' => 'Pilih minimal satu jenis ujian.'])->withInput();
-        }
-
         $exam_session->update([
             'title'           => $request->title,
             'exam_id_pg'      => $request->exam_id_pg,
             'exam_id_esai'    => $request->exam_id_esai,
             'has_wawancara'   => $request->boolean('has_wawancara'),
-            'exam_id'         => $request->exam_id_pg ?? $request->exam_id_esai,
             'start_time'      => date('Y-m-d H:i:s', strtotime($request->start_time)),
             'end_time'        => date('Y-m-d H:i:s', strtotime($request->end_time)),
             'remidi_start_at' => $request->remidi_start_at ? date('Y-m-d H:i:s', strtotime($request->remidi_start_at)) : null,
@@ -199,7 +164,7 @@ class ExamSessionController extends Controller
 
                 if (!$exists) {
                     ExamGroup::create([
-                        'exam_groups_code' => 'exmg-' . rand(11, 99) . uniqid(),
+                        'exam_groups_code' => 'exmg-' . Str::ulid(),
                         'exam_id'          => $exam_id,
                         'exam_session_id'  => $exam_session->id,
                         'student_id'       => $student_id,

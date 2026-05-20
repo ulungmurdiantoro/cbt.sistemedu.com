@@ -86,13 +86,23 @@ class ApplicationController extends Controller
                 ]);
             }
 
-            // buat exam_group untuk sesi ini (selalu baru)
-            $examGroup = ExamGroup::create([
-                'exam_groups_code' => 'EG-' . strtoupper(Str::random(8)),
-                'exam_id'          => $application->examSession->exam_id,
-                'exam_session_id'  => $application->exam_session_id,
-                'student_id'       => $student->id,
+            // buat exam_group untuk semua ujian di sesi ini (PG dan/atau Esai)
+            $examIds = array_filter([
+                $application->examSession->exam_id_pg,
+                $application->examSession->exam_id_esai,
             ]);
+
+            $firstExamGroup = null;
+            foreach ($examIds as $examId) {
+                $eg = ExamGroup::create([
+                    'exam_groups_code' => 'EG-' . strtoupper(Str::random(8)),
+                    'exam_id'          => $examId,
+                    'exam_session_id'  => $application->exam_session_id,
+                    'student_id'       => $student->id,
+                ]);
+                $firstExamGroup ??= $eg;
+            }
+            $examGroup = $firstExamGroup;
 
             $application->update([
                 'student_id'    => $student->id,
@@ -164,13 +174,23 @@ class ApplicationController extends Controller
                 'is_active'      => true,
             ]);
 
-            // exam_group baru
-            $newExamGroup = ExamGroup::create([
-                'exam_groups_code' => 'EG-' . strtoupper(Str::random(8)),
-                'exam_id'          => $application->examSession->exam_id,
-                'exam_session_id'  => $application->exam_session_id,
-                'student_id'       => $newStudent->id,
+            // exam_group baru untuk semua ujian di sesi ini (PG dan/atau Esai)
+            $examIds = array_filter([
+                $application->examSession->exam_id_pg,
+                $application->examSession->exam_id_esai,
             ]);
+
+            $firstExamGroup = null;
+            foreach ($examIds as $examId) {
+                $eg = ExamGroup::create([
+                    'exam_groups_code' => 'EG-' . strtoupper(Str::random(8)),
+                    'exam_id'          => $examId,
+                    'exam_session_id'  => $application->exam_session_id,
+                    'student_id'       => $newStudent->id,
+                ]);
+                $firstExamGroup ??= $eg;
+            }
+            $newExamGroup = $firstExamGroup;
 
             // log reissue
             StudentReissueLog::create([

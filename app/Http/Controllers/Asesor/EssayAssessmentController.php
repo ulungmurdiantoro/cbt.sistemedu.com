@@ -19,7 +19,7 @@ class EssayAssessmentController extends Controller
 
         $exam_session = ExamSession::with(['examEsai.classroom', 'examPg.classroom'])->findOrFail($exam_session_id);
 
-        $esaiExamId = $exam_session->exam_id_esai ?? $exam_session->exam_id;
+        $esaiExamId = $exam_session->exam_id_esai;
 
         // Peserta yang ditugaskan ke asesor ini di sesi ini
         $assigned_student_ids = AsesorAssignment::where('user_id', $asesor->id)
@@ -81,7 +81,7 @@ class EssayAssessmentController extends Controller
 
         $asesor = auth()->user();
         $exam_session = ExamSession::findOrFail($exam_session_id);
-        $esaiExamId = $exam_session->exam_id_esai ?? $exam_session->exam_id;
+        $esaiExamId = $exam_session->exam_id_esai;
 
         foreach ($request->scores as $student_row) {
             $scores = collect($student_row['answers'])->pluck('score')->filter()->values();

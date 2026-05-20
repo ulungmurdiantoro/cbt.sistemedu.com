@@ -2,6 +2,7 @@
 
 namespace App\Http\Responses;
 
+use App\Enums\UserRole;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 
 class LoginResponse implements LoginResponseContract
@@ -10,7 +11,7 @@ class LoginResponse implements LoginResponseContract
     {
         $user = auth()->user();
 
-        if ($user && $user->isAsesor()) {
+        if ($user?->role === UserRole::Asesor) {
             return redirect()->route('asesor.dashboard');
         }
 

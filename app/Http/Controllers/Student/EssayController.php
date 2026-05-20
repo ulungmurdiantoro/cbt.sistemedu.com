@@ -9,6 +9,7 @@ use App\Models\Essay;
 use App\Models\ExamGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
 class EssayController extends Controller
@@ -76,7 +77,7 @@ class EssayController extends Controller
             } else {
 
                 AnswerEssay::create([
-                    'answeressays_code' => 'answess-' . rand(11, 99) . uniqid(),
+                    'answeressays_code' => 'answess-' . Str::ulid(),
                     'exam_id'           => $exam_group->exam->id,
                     'exam_session_id'   => $exam_group->exam_session->id,
                     'essay_id'          => $essay->id,

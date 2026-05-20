@@ -7,6 +7,7 @@ use App\Models\Essay;
 use App\Models\Question;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Imports\QuestionsImport;
 use App\Imports\EssaysImport;
 use App\Http\Controllers\Controller;
@@ -77,7 +78,7 @@ class ExamController extends Controller
 
         //create exam
         Exam::create([
-            'exams_code'        => 'exms-' . rand(11, 99) . uniqid(),
+            'exams_code'        => 'exms-' . Str::ulid(),
             'title'             => $request->title,
             'type'              => $request->type,
             'classroom_id'      => $request->classroom_id,
@@ -241,7 +242,7 @@ class ExamController extends Controller
         //create question
         Question::create([
             'exam_id'           => $exam->id,
-            // 'questions_code'    => 'qstn-' . rand(11, 99) . uniqid(),
+            // 'questions_code'    => 'qstn-' . Str::ulid(),
             'question'          => $request->question,
             'option_1'          => $request->option_1,
             'option_2'          => $request->option_2,
@@ -391,7 +392,7 @@ class ExamController extends Controller
         // create essay
         Essay::create([
             'exam_id'      => $exam->id,
-            'essays_code'  => 'essy-' . rand(11, 99) . uniqid(),
+            'essays_code'  => 'essy-' . Str::ulid(),
             'question'     => $request->question,
             'answer'       => $request->answer,
             'is_essay'     => $request->boolean('is_essay'),

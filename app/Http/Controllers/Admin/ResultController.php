@@ -73,6 +73,8 @@ class ResultController extends Controller
 
     public function finalize(ExamSession $examSession)
     {
+        $this->authorize('finalize', ParticipantResult::class);
+
         $examSession->load(['examPg.classroom', 'examEsai.classroom']);
 
         $classroomId = $examSession->referenceExam?->classroom_id;
@@ -102,7 +104,7 @@ class ResultController extends Controller
                 'finalized_by'     => Auth::id(),
                 'sk_number'        => $skNum,
                 'sertifikat_number'=> $sertifikatNum,
-                'valid_until'      => now()->addYears(3),
+                'valid_until'      => now()->addYears(config('lsp.sertifikat_valid_years', 3)),
             ]);
         }
 
@@ -111,6 +113,7 @@ class ResultController extends Controller
 
     public function downloadSk(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)
     {
+        $this->authorize('download', ParticipantResult::class);
         $result = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('student_id', $student->id)
             ->where('is_finalized', true)
@@ -126,6 +129,7 @@ class ResultController extends Controller
 
     public function downloadSertifikat(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)
     {
+        $this->authorize('download', ParticipantResult::class);
         $result = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('student_id', $student->id)
             ->where('is_finalized', true)
@@ -142,6 +146,7 @@ class ResultController extends Controller
 
     public function distribute(ExamSession $examSession)
     {
+        $this->authorize('distribute', ParticipantResult::class);
         $unfinalized = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('is_finalized', false)
             ->count();

@@ -8,6 +8,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Models\ExamGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
 class ExamController extends Controller
@@ -110,7 +111,7 @@ class ExamController extends Controller
 
                 //buat jawaban default baru
                 Answer::create([
-                    'answers_code'      => 'answ-' . rand(11, 99) . uniqid(),
+                    'answers_code'      => 'answ-' . Str::ulid(),
                     'exam_id'           => $exam_group->exam->id,
                     'exam_session_id'   => $exam_group->exam_session->id,
                     'question_id'       => $question->id,

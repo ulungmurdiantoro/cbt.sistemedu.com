@@ -11,7 +11,6 @@ class ExamSession extends Model
 
     protected $fillable = [
         'exam_sessions_code',
-        'exam_id',
         'exam_id_pg',
         'exam_id_esai',
         'has_wawancara',
@@ -35,12 +34,6 @@ class ExamSession extends Model
     public function exam_groups()
     {
         return $this->hasMany(ExamGroup::class);
-    }
-
-    /** Legacy — dipertahankan agar kode lama tidak pecah */
-    public function exam()
-    {
-        return $this->belongsTo(Exam::class);
     }
 
     public function examPg()

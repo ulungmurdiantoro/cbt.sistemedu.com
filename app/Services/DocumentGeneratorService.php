@@ -18,9 +18,10 @@ class DocumentGeneratorService
     private function kategori(float|null $nilai): string
     {
         if ($nilai === null) return '-';
-        if ($nilai < 60)  return 'Remidial (Re-Assessment)';
-        if ($nilai < 70)  return 'Cukup (Average)';
-        if ($nilai < 80)  return 'Bagus (Good)';
+        $t = config('lsp.kategori');
+        if ($nilai < $t['remidial']) return 'Remidial (Re-Assessment)';
+        if ($nilai < $t['cukup'])    return 'Cukup (Average)';
+        if ($nilai < $t['bagus'])    return 'Bagus (Good)';
         return 'Bagus Sekali (Excellence)';
     }
 
@@ -55,6 +56,8 @@ class DocumentGeneratorService
 
     private function writeQrFile(string $data, string $path): void
     {
+        if (file_exists($path)) return; // cache: skip if already generated
+
         $svg = $this->generateQrSvg($data);
         file_put_contents($path, $svg);
     }
@@ -73,17 +76,21 @@ class DocumentGeneratorService
         $tglDitetapkan = Carbon::now()->translatedFormat('d F Y');
 
         // QR for SK page 2
+        $verifikasiUrl = config('lsp.verifikasi_url');
+        $namaTtd       = $template?->nama_penandatangan    ?? config('lsp.penandatangan.nama');
+        $jabatanTtd    = $template?->jabatan_penandatangan ?? config('lsp.penandatangan.jabatan');
+
         $qrData = implode("\n", [
             'Dokumen ini telah ditandatangani secara digital oleh:',
-            $template?->nama_penandatangan ?? 'Dr. Agung Yulianto, M.Si.',
-            'Sebagai ' . ($template?->jabatan_penandatangan ?? 'Ketua LSP'),
+            $namaTtd,
+            'Sebagai ' . $jabatanTtd,
             'LSP Edukasi Global Cendekia',
             '',
             'Dengan No Dokumen:',
             'No: ' . $result->sk_number,
             'Tanggal: ' . $tglDitetapkan,
             '',
-            'Link: https://verifikasi-sertifikat.lspedukia.id/sk/' . $result->sk_number,
+            'Link: ' . $verifikasiUrl . '/sk/' . $result->sk_number,
         ]);
 
         $qrSkPath = null;
@@ -103,6 +110,8 @@ class DocumentGeneratorService
             'kategori'      => $kategori,
             'tglDitetapkan' => $tglDitetapkan,
             'qrSkPath'      => $qrSkPath,
+            'menimbang'     => config('lsp.sk_menimbang'),
+            'mengingat'     => config('lsp.sk_mengingat'),
         ])->render();
 
         $mpdf = new Mpdf([
@@ -147,32 +156,41 @@ class DocumentGeneratorService
             : collect();
         $hasUnitKomp = $competencyUnits->isNotEmpty();
 
-        // Page 2 background: look for storage/app/public/templates/page2/{kode_skema}.png
-        $bgPage2Path = null;
+        // Page 1 background
+        $bgPage1Path = $template?->bg_sertifikat_path
+            ? 'file://' . storage_path('app/public/' . $template->bg_sertifikat_path)
+            : null;
+
+        // Page 2 background: storage/app/public/templates/page2/{kode_skema}.png or fallback to page1 bg
         $kodeSkema   = $classroom?->kode_skema ?? '';
+        $bgPage2Path = null;
         if ($kodeSkema) {
             $candidate = storage_path('app/public/templates/page2/' . $kodeSkema . '.png');
             if (file_exists($candidate)) {
                 $bgPage2Path = 'file://' . $candidate;
             }
         }
+        $bgPage2Path ??= $bgPage1Path;
 
         // QR for sertifikat
         $qrSertifPath = null;
         if ($result->sertifikat_number) {
-            $certDateStr = $certDate;
+            $verifikasiUrl = config('lsp.verifikasi_url');
+            $namaTtd       = $template?->nama_penandatangan    ?? config('lsp.penandatangan.nama');
+            $jabatanTtd    = $template?->jabatan_penandatangan ?? config('lsp.penandatangan.jabatan');
+
             $qrData = implode("\n", [
                 'This document has been digitally signed by:',
-                $template?->nama_penandatangan ?? 'Dr. Agung Yulianto, M.Si',
-                'As ' . ($template?->jabatan_penandatangan ?? 'Ketua LSP'),
+                $namaTtd,
+                'As ' . $jabatanTtd,
                 'LSP Edukasi Global Cendekia',
                 '',
                 'By Certificate No: ' . $result->sertifikat_number,
-                'Date of Certificate: ' . $certDateStr,
+                'Date of Certificate: ' . $certDate,
                 'Certificate Holder Name: ' . $student?->name,
                 '',
                 'Verification Link:',
-                'https://verifikasi-sertifikat.lspedukia.id/' . $result->sertifikat_number,
+                $verifikasiUrl . '/' . $result->sertifikat_number,
             ]);
 
             $tmpPath = $this->qrTempPath('cert_' . md5($result->sertifikat_number));
@@ -183,7 +201,6 @@ class DocumentGeneratorService
         $html = View::make('sertifikat', [
             'result'          => $result,
             'template'        => $template,
-            'withKop'         => $versi === 'with_kop',
             'student'         => $student,
             'classroom'       => $classroom,
             'heldOn'          => $heldOn,
@@ -191,6 +208,7 @@ class DocumentGeneratorService
             'validUntil'      => $validUntil,
             'competencyUnits' => $competencyUnits,
             'hasUnitKomp'     => $hasUnitKomp,
+            'bgPage1Path'     => $bgPage1Path,
             'bgPage2Path'     => $bgPage2Path,
             'qrSertifPath'    => $qrSertifPath,
         ])->render();

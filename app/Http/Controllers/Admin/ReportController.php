@@ -21,7 +21,7 @@ class ReportController extends Controller
     public function index()
     {
         // get all exam sessions terbaru
-        $exam_sessions = ExamSession::with('exam.classroom')
+        $exam_sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -38,18 +38,17 @@ class ReportController extends Controller
         ]);
 
         // get all exam sessions terbaru
-        $exam_sessions = ExamSession::with('exam.classroom')
+        $exam_sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->orderBy('id', 'desc')
             ->get();
 
         // get selected exam session
-        $exam_session = ExamSession::with('exam.classroom')
+        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->where('id', $request->exam_session_id)
             ->first();
 
         if ($exam_session) {
             $grades = Grade::with('student', 'exam.classroom', 'exam_session')
-                ->where('exam_id', $exam_session->exam_id)
                 ->where('exam_session_id', $exam_session->id)
                 ->get();
         } else {
@@ -84,7 +83,7 @@ class ReportController extends Controller
         ]);
 
         // get selected exam session
-        $exam_session = ExamSession::with('exam.classroom')
+        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->where('id', $request->exam_session_id)
             ->first();
 
@@ -100,13 +99,12 @@ class ReportController extends Controller
             'exam_session',
             'student'
         ])
-        ->where('exam_id', $exam_session->exam_id)
         ->where('exam_session_id', $exam_session->id)
         ->get()
         ->sortBy(fn($grade) => $grade->student->no_participant)
-        ->values(); // reset index agar urutan dari 0 kembali
+        ->values();
 
-        $exam = $exam_session->exam;
+        $exam = $exam_session->referenceExam;
 
         if ($exam->type == 'Essay') {
             return Excel::download(new GradesEssayExport($grades), 'essay_grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx');
@@ -123,7 +121,7 @@ class ReportController extends Controller
             'exam_session_id' => 'required'
         ]);
 
-        $exam_session = ExamSession::with('exam.classroom')
+        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->findOrFail($request->exam_session_id);
 
         $grades = Grade::with([
@@ -144,7 +142,7 @@ class ReportController extends Controller
         }
 
         $grades = $grades->sortBy(fn($g) => $g->student->no_participant)->values();
-        $exam = $exam_session->exam;
+        $exam = $exam_session->referenceExam;
 
         $html = View::make('EssayReportPDF', compact('grades', 'exam', 'exam_session'))->render();
 
@@ -171,7 +169,7 @@ class ReportController extends Controller
         ]);
 
         // get selected exam session
-        $exam_session = ExamSession::with('exam.classroom')
+        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->where('id', $request->exam_session_id)
             ->first();
 
@@ -201,7 +199,7 @@ class ReportController extends Controller
             return $grade->student->no_participant;
         })->values(); 
 
-        $exam = $exam_session->exam;
+        $exam = $exam_session->referenceExam;
 
         // render HTML view
         

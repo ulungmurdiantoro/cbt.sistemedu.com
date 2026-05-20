@@ -112,37 +112,21 @@
     <div class="sk-tentang">Tentang</div>
     <div class="sk-judul-skema">Sertifikasi {{ $classroom?->title ?? '' }}</div>
 
-    {{-- MENIMBANG --}}
+    {{-- MENIMBANG — items dari config/lsp.php, {skema} di-replace --}}
     <div class="section-label">Menimbang :</div>
     <table class="numbered-list">
+        @foreach($menimbang as $idx => $item)
         <tr>
-            <td class="num">1.</td>
-            <td>Bahwa kepada peserta Uji Kompetensi Sertifikasi yang dinyatakan <strong>Lulus</strong> akan diberikan Sertifikat Kompetensi sedangkan yang dinyatakan <strong>Tidak Lulus</strong> akan diterbitkan Surat Keputusan Ketidaklulusan;</td>
+            <td class="num">{{ $idx + 1 }}.</td>
+            <td>{!! str_replace('{skema}', e($classroom?->title ?? ''), $item) !!}</td>
         </tr>
-        <tr>
-            <td class="num">2.</td>
-            <td>Bahwa sehubungan dengan poin 1 penetapan peserta Uji Kompetensi {{ $classroom?->title ?? '' }} yang dinyatakan <strong>Lulus</strong> atau <strong>Belum Lulus</strong> ditetapkan melalui Keputusan Ketua LSP Edukasi Global Cendekia</td>
-        </tr>
+        @endforeach
     </table>
 
-    {{-- MENGINGAT --}}
+    {{-- MENGINGAT — items dari config/lsp.php --}}
     <div class="section-label">Mengingat :</div>
     <table class="numbered-list">
-        @foreach([
-            'Standar SNI ISO/IEC 17024:2012 tentang Penilaian Kesesuaian – Persyaratan Umum untuk Lembaga Sertifikasi Person;',
-            'Undang-undang Nomor 25 Tahun 2009 tentang Pelayanan Publik;',
-            'Undang-undang Republik Indonesia Nomor 5 Tahun 2014 tentang Aparatur Sipil Negara (ASN);',
-            'Undang-undang Nomor 20 Tahun 2014 tentang Standardisasi dan Penilaian Kesesuaian;',
-            'Undang-undang Nomor 13 Tahun 2003 tentang Ketenagakerjaan;',
-            'Peraturan Presiden Republik Indonesia Nomor 8 Tahun 2012 tentang Kerangka Kualifikasi Nasional Indonesia;',
-            'Peraturan Menteri Tenaga Kerja dan Transmigrasi Republik Indonesia Nomor 5 Tahun 2014 tentang Sistem Standardisasi Kompetensi Kerja Nasional;',
-            'Peraturan Menteri Tenaga Kerja dan Transmigrasi Republik Indonesia Nomor 8 Tahun 2012 tentang Tata Cara Penetapan Standar Kompetensi Kerja Nasional Indonesia;',
-            'Undang-undang Republik Indonesia Nomor 11 Tahun 2019 tentang Sistem Nasional Ilmu Pengetahuan dan Teknologi;',
-            'Peraturan Pemerintah Republik Indonesia Nomor 11 Tahun 2017 tentang Manajemen Pegawai Negeri Sipil;',
-            'Peraturan Pemerintah Republik Indonesia Nomor 34 Tahun 2018 tentang Sistem Standardisasi dan Penilaian Kesesuaian Nasional;',
-            'Peraturan Menteri Pendayagunaan Aparatur Negara dan Reformasi Birokrasi Nomor 38 Tahun 2017 tentang Standar Kompetensi Jabatan Aparatur Sipil Negara;',
-            'Peraturan Menteri Riset, Teknologi, dan Pendidikan Tinggi Republik Indonesia Nomor 6 Tahun 2022 tentang Ijazah, Sertifikat Kompetensi, Sertifikat Profesi, Gelar, dan Tata Cara Penulisan Gelar di Perguruan Tinggi;',
-        ] as $idx => $item)
+        @foreach($mengingat as $idx => $item)
         <tr>
             <td class="num">{{ $idx + 1 }}.</td>
             <td>{{ $item }}</td>

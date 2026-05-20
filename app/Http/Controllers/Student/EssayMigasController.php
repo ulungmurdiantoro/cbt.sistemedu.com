@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\AnswerEssay;
+use Illuminate\Support\Str;
 use App\Models\Essay;
 use App\Models\ExamGroup;
 use App\Models\Grade;
@@ -116,7 +117,7 @@ class EssayMigasController extends Controller
                 $answer->save();
             } else {
                 AnswerEssay::create([
-                    'answeressays_code' => 'answess-' . rand(11, 99) . uniqid(),
+                    'answeressays_code' => 'answess-' . Str::ulid(),
                     'exam_id'           => $examId,
                     'exam_session_id'   => $sessionId,
                     'essay_id'          => $essay->id,

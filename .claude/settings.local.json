@@ -3,7 +3,9 @@
     "allow": [
       "PowerShell(\\(Get-Content \"h:\\\\My Drive\\\\Ulung\\\\Code\\\\cbt.sistemedu.com\\\\resources\\\\js\\\\Pages\\\\Student\\\\EssaysMigas\\\\Show.vue\" | Select-String \"is_essay\" | Select-Object -First 3\\).Line)",
       "Bash(dir vendor *)",
-      "Bash(findstr -i \"qr\\\\|bacon\")"
+      "Bash(findstr -i \"qr\\\\|bacon\")",
+      "Bash(grep -c 'use Illuminate\\\\\\\\Support\\\\\\\\Str;' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ClassroomController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ExamSessionController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\ExamController.php')",
+      "Bash(grep -n '^use Illuminate\\\\\\\\Http\\\\\\\\Request;' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ClassroomController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ExamController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Admin\\\\ExamSessionController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\DashboardController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\EssayController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\EssayMigasController.php' 'c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\app\\\\Http\\\\Controllers\\\\Student\\\\ExamController.php')"
     ]
   }
 }

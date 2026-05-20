@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Classroom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
 class ClassroomController extends Controller
@@ -56,7 +57,7 @@ class ClassroomController extends Controller
         ]);
 
         Classroom::create([
-            'classrooms_code' => 'clsr-' . rand(11, 99) . uniqid(),
+            'classrooms_code' => 'clsr-' . Str::ulid(),
             'kode_skema'      => $request->kode_skema,
             'gelar'           => $request->gelar,
             'title'           => $request->title,

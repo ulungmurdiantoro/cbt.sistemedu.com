@@ -23,15 +23,16 @@ class ApplicationController extends Controller
         $enrolledSessionIds = AssessmentApplication::where('participant_id', auth()->guard('participant')->id())
             ->pluck('exam_session_id');
 
-        $activeSessions = ExamSession::with('exam.classroom')
+        $activeSessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->active()
             ->get();
 
         // group by classroom_id, hasilkan 1 entry per skema dengan list sesinya
         $grouped = $activeSessions
-            ->groupBy(fn($s) => $s->exam->classroom_id)
+            ->groupBy(fn($s) => $s->referenceExam?->classroom_id)
+            ->filter(fn($sessions, $classroomId) => $classroomId !== null)
             ->map(function ($sessions) use ($enrolledSessionIds) {
-                $classroom = $sessions->first()->exam->classroom;
+                $classroom = $sessions->first()->referenceExam?->classroom;
                 return [
                     'classroom_id' => $classroom->id,
                     'kode_skema'   => $classroom->kode_skema,
@@ -70,12 +71,12 @@ class ApplicationController extends Controller
             return back()->with('error', 'Anda sudah mendaftar untuk sesi ujian ini.');
         }
 
-        $session = ExamSession::with('exam')->findOrFail($request->exam_session_id);
+        $session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($request->exam_session_id);
 
         $application = AssessmentApplication::create([
             'code'            => 'APL-' . strtoupper(Str::random(8)),
             'participant_id'  => $participantId,
-            'classroom_id'    => $session->exam->classroom_id,
+            'classroom_id'    => $session->referenceExam?->classroom_id,
             'exam_session_id' => $session->id,
             // diambil dari sesi yang ditetapkan admin
             'konteks_asesmen' => $session->konteks_asesmen,
