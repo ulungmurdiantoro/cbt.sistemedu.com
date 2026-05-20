@@ -19,7 +19,7 @@
                                             :key="index"
                                             :value="session.id"
                                         >
-                                            {{ session.title }} — {{ session.exam.title }} / {{ session.exam.classroom.title }} ({{ session.exam.type }})
+                                            {{ sessionLabel(session) }}
                                         </option>
                                     </select>
                                     <div v-if="errors.exam_session_id" class="alert alert-danger mt-2">
@@ -155,11 +155,19 @@ export default {
             });
         };
 
+        const sessionLabel = (session) => {
+            const parts = [session.title];
+            if (session.exam_pg) parts.push('PG: ' + session.exam_pg.title);
+            if (session.exam_esai) parts.push('Esai: ' + session.exam_esai.title);
+            return parts.join(' — ');
+        };
+
         return {
             form,
             filter,
             isLoading,
-            sortedExamSessions
+            sortedExamSessions,
+            sessionLabel,
         };
     }
 }
