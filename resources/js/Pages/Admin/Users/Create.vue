@@ -13,7 +13,13 @@
                         <form @submit.prevent="submit">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Kode User <span class="text-danger">*</span></label>
-                                <input v-model="form.users_code" type="text" class="form-control" placeholder="cth: ADM001 / ASR001">
+                                <div class="input-group">
+                                    <input v-model="form.users_code" type="text" class="form-control" placeholder="otomatis ter-generate">
+                                    <button type="button" class="btn btn-outline-secondary" @click="form.users_code = generateCode(form.role)" title="Generate ulang">
+                                        <i class="fa fa-refresh"></i> Generate Ulang
+                                    </button>
+                                </div>
+                                <div class="form-text small">Kode otomatis berdasarkan role. Anda tetap bisa mengubahnya secara manual.</div>
                                 <div v-if="errors.users_code" class="text-danger small mt-1">{{ errors.users_code }}</div>
                             </div>
 
@@ -66,7 +72,7 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { reactive, ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
 
 export default {
     layout: LayoutAdmin,
@@ -78,13 +84,33 @@ export default {
     setup() {
         const processing = ref(false);
 
+        // Random alphanumeric: tanpa karakter ambigu (I, O, 0, 1) supaya tidak salah ketik
+        const generateCode = (role) => {
+            const prefix = role === 'admin' ? 'ADM' : 'ASR';
+            const chars  = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let suffix   = '';
+            for (let i = 0; i < 6; i++) {
+                suffix += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return `${prefix}-${suffix}`;
+        };
+
         const form = reactive({
-            users_code:            '',
+            users_code:            generateCode('asesor'),
             name:                  '',
             email:                 '',
             role:                  'asesor',
             password:              '',
             password_confirmation: '',
+        });
+
+        // Regenerate kode tiap kali role berubah (kecuali user sudah ubah manual prefix-nya)
+        watch(() => form.role, (newRole, oldRole) => {
+            const oldPrefix = oldRole === 'admin' ? 'ADM-' : 'ASR-';
+            // Hanya regenerate jika kode saat ini masih dalam format auto (prefix sesuai role lama)
+            if (form.users_code.startsWith(oldPrefix)) {
+                form.users_code = generateCode(newRole);
+            }
         });
 
         const submit = () => {
@@ -94,7 +120,7 @@ export default {
             });
         };
 
-        return { form, processing, submit };
+        return { form, processing, submit, generateCode };
     },
 }
 </script>
