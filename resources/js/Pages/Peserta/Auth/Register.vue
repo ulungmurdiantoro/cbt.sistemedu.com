@@ -65,7 +65,7 @@
                                         <i class="fa fa-user text-muted"></i>
                                     </span>
                                     <input type="text" class="form-control" v-model="form.name"
-                                        placeholder="Sesuai KTP / identitas resmi"
+                                        placeholder="Nama Lengkap Beserta Gelar (jika ada)"
                                         :class="{ 'is-invalid': errors.name }">
                                     <div v-if="errors.name" class="invalid-feedback">{{ errors.name }}</div>
                                 </div>

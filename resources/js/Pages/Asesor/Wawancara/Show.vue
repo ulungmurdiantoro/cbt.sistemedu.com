@@ -20,11 +20,11 @@
                                 </tr>
                                 <tr>
                                     <td class="fw-bold">Ujian</td>
-                                    <td>{{ exam_session.exam.title }}</td>
+                                    <td>{{ exam_session.examPg?.title ?? exam_session.examEsai?.title ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="fw-bold">Skema</td>
-                                    <td>{{ exam_session.exam.classroom.title }}</td>
+                                    <td>{{ exam_session.examPg?.classroom?.title ?? exam_session.examEsai?.classroom?.title ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="fw-bold">Bobot</td>

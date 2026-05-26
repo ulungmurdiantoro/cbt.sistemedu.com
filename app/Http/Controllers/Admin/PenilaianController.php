@@ -14,7 +14,7 @@ class PenilaianController extends Controller
 {
     public function index()
     {
-        $exam_sessions = ExamSession::with('exam.classroom')
+        $exam_sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -28,7 +28,7 @@ class PenilaianController extends Controller
 
     public function show(int $exam_session_id)
     {
-        $exam_session = ExamSession::with('exam.classroom')->findOrFail($exam_session_id);
+        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($exam_session_id);
 
         $asesors = User::where('role', 'asesor')->orderBy('name')->get();
 

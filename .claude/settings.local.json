@@ -11,7 +11,10 @@
       "Bash(php -l app/Jobs/SendResultMailJob.php)",
       "Bash(php -l app/Services/ResultCalculatorService.php)",
       "Bash(php -l app/Services/DocumentGeneratorService.php)",
-      "Bash(php -l app/Http/Controllers/Admin/ExamSessionController.php)"
+      "Bash(php -l app/Http/Controllers/Admin/ExamSessionController.php)",
+      "Bash(php -l app/Http/Controllers/Peserta/ApplicationController.php)",
+      "Bash(php -l app/Http/Controllers/Asesor/DashboardController.php)",
+      "Bash(php -l app/Http/Controllers/Admin/PenilaianController.php)"
     ]
   }
 }

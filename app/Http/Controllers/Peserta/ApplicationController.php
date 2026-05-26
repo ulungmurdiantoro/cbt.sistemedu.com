@@ -95,7 +95,7 @@ class ApplicationController extends Controller
     {
         $this->authorizeApplication($application);
 
-        $application->load(['classroom', 'examSession.exam']);
+        $application->load(['classroom', 'examSession.examPg', 'examSession.examEsai']);
         $participant = auth()->guard('participant')->user();
 
         return inertia('Peserta/Application/Form', [
