@@ -23,51 +23,55 @@
 
     <div class="row">
         <!-- Daftar requirement -->
-        <div class="col-md-7">
+        <div class="col-12 col-lg-7">
             <div class="card border-0 shadow mb-4">
                 <div class="card-body p-0">
-                    <table class="table table-hover mb-0">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th style="width:40px">No.</th>
-                                <th>Dokumen</th>
-                                <th style="width:100px">Wajib</th>
-                                <th style="width:80px">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-if="requirements.length === 0">
-                                <td colspan="4" class="text-center text-muted py-4">Belum ada persyaratan</td>
-                            </tr>
-                            <tr v-for="(req, i) in requirements" :key="req.id">
-                                <td class="align-middle">{{ req.order || i + 1 }}</td>
-                                <td class="align-middle">
-                                    <div class="fw-semibold small">{{ req.label }}</div>
-                                    <div class="text-muted" style="font-size:0.78rem">{{ req.code }}</div>
-                                    <div v-if="req.description" class="text-muted" style="font-size:0.78rem">{{ req.description }}</div>
-                                </td>
-                                <td class="align-middle">
-                                    <span :class="req.is_required ? 'badge bg-danger' : 'badge bg-secondary'">
-                                        {{ req.is_required ? 'Wajib' : 'Opsional' }}
-                                    </span>
-                                </td>
-                                <td class="align-middle">
-                                    <button class="btn btn-sm btn-warning me-1" @click="editReq(req)">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" @click="deleteReq(req.id)">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th style="width:40px">No.</th>
+                                    <th style="min-width:200px">Dokumen</th>
+                                    <th style="width:100px">Wajib</th>
+                                    <th style="width:110px; white-space:nowrap">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-if="requirements.length === 0">
+                                    <td colspan="4" class="text-center text-muted py-4">Belum ada persyaratan</td>
+                                </tr>
+                                <tr v-for="(req, i) in requirements" :key="req.id">
+                                    <td>{{ req.order || i + 1 }}</td>
+                                    <td>
+                                        <div class="fw-semibold small text-break">{{ req.label }}</div>
+                                        <div class="text-muted text-break" style="font-size:0.78rem">{{ req.code }}</div>
+                                        <div v-if="req.description" class="text-muted text-break" style="font-size:0.78rem">{{ req.description }}</div>
+                                    </td>
+                                    <td>
+                                        <span :class="req.is_required ? 'badge bg-danger' : 'badge bg-secondary'">
+                                            {{ req.is_required ? 'Wajib' : 'Opsional' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-1">
+                                            <button class="btn btn-sm btn-warning" @click="editReq(req)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger" @click="deleteReq(req.id)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Form tambah/edit -->
-        <div class="col-md-5">
+        <div class="col-12 col-lg-5">
             <div class="card border-0 shadow">
                 <div class="card-header bg-gray-800 text-white fw-semibold">
                     {{ editMode ? 'Edit Persyaratan' : 'Tambah Persyaratan' }}

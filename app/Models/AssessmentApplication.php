@@ -31,6 +31,8 @@ class AssessmentApplication extends Model
         'submitted_at',
         'approved_at',
         'approved_by',
+        'admin_signature_path',
+        'admin_signature_name',
     ];
 
     protected function casts(): array

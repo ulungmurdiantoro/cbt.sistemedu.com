@@ -31,69 +31,71 @@
 
     <div class="card border-0 shadow mb-4" v-else>
         <div class="card-body p-0">
-            <table class="table table-hover mb-0">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th style="width:40px">No.</th>
-                        <th>Dokumen</th>
-                        <th style="width:140px">Status</th>
-                        <th style="width:200px">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(req, i) in requirements" :key="req.id">
-                        <td class="align-middle">{{ i + 1 }}</td>
-                        <td class="align-middle">
-                            <div class="fw-semibold small">
-                                {{ req.label }}
-                                <span v-if="req.is_required" class="text-danger">*</span>
-                            </div>
-                            <div v-if="req.description" class="text-muted" style="font-size:0.78rem">{{ req.description }}</div>
-                            <div v-if="req.document" class="mt-1" style="font-size:0.78rem">
-                                <i class="fa fa-paperclip me-1 text-muted"></i>
-                                <a :href="`/peserta/aplikasi/${application.id}/dokumen/${req.document.id}/download`" target="_blank" class="text-decoration-none">
-                                    {{ req.document.original_filename }}
-                                </a>
-                            </div>
-                            <div v-if="req.document?.reviewer_notes" class="text-danger mt-1" style="font-size:0.78rem">
-                                <i class="fa fa-exclamation-circle me-1"></i>{{ req.document.reviewer_notes }}
-                            </div>
-                        </td>
-                        <td class="align-middle">
-                            <span v-if="!req.document" class="badge bg-secondary">Belum Upload</span>
-                            <span v-else-if="req.document.status === 'pending'" class="badge bg-warning text-dark">Menunggu</span>
-                            <span v-else-if="req.document.status === 'verified'" class="badge bg-success">Terverifikasi</span>
-                            <span v-else-if="req.document.status === 'rejected'" class="badge bg-danger">Ditolak</span>
-                        </td>
-                        <td class="align-middle">
-                            <div v-if="application.status === 'draft'">
-                                <label :for="`file-${req.id}`"
-                                    class="btn btn-sm btn-primary mb-1"
-                                    :class="{ disabled: uploading[req.id] }">
-                                    <span v-if="uploading[req.id]">
-                                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                                        Mengunggah...
-                                    </span>
-                                    <span v-else>
-                                        <i class="fa fa-upload me-1"></i>
-                                        {{ req.document ? 'Ganti' : 'Upload' }}
-                                    </span>
-                                </label>
-                                <input :id="`file-${req.id}`" type="file" class="d-none"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    :disabled="uploading[req.id]"
-                                    @change="uploadFile($event, req.id)">
-                                <button v-if="req.document && !uploading[req.id]" type="button"
-                                    class="btn btn-sm btn-danger mb-1 ms-1"
-                                    @click="openDeleteModal(req.document.id)">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </div>
-                            <div v-else class="text-muted small">—</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th style="width:40px">No.</th>
+                            <th style="min-width:240px">Dokumen</th>
+                            <th style="width:140px">Status</th>
+                            <th style="width:170px; white-space:nowrap">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(req, i) in requirements" :key="req.id">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                                <div class="fw-semibold small">
+                                    {{ req.label }}
+                                    <span v-if="req.is_required" class="text-danger">*</span>
+                                </div>
+                                <div v-if="req.description" class="text-muted text-break" style="font-size:0.78rem">{{ req.description }}</div>
+                                <div v-if="req.document" class="mt-1 text-break" style="font-size:0.78rem">
+                                    <i class="fa fa-paperclip me-1 text-muted"></i>
+                                    <a :href="`/peserta/aplikasi/${application.id}/dokumen/${req.document.id}/download`" target="_blank" class="text-decoration-none">
+                                        {{ req.document.original_filename }}
+                                    </a>
+                                </div>
+                                <div v-if="req.document?.reviewer_notes" class="text-danger mt-1 text-break" style="font-size:0.78rem">
+                                    <i class="fa fa-exclamation-circle me-1"></i>{{ req.document.reviewer_notes }}
+                                </div>
+                            </td>
+                            <td>
+                                <span v-if="!req.document" class="badge bg-secondary">Belum Upload</span>
+                                <span v-else-if="req.document.status === 'pending'" class="badge bg-warning text-dark">Menunggu</span>
+                                <span v-else-if="req.document.status === 'verified'" class="badge bg-success">Terverifikasi</span>
+                                <span v-else-if="req.document.status === 'rejected'" class="badge bg-danger">Ditolak</span>
+                            </td>
+                            <td>
+                                <div v-if="application.status === 'draft'" class="d-flex flex-wrap gap-1" style="min-width:140px">
+                                    <label :for="`file-${req.id}`"
+                                        class="btn btn-sm btn-primary"
+                                        :class="{ disabled: uploading[req.id] }">
+                                        <span v-if="uploading[req.id]">
+                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            Mengunggah...
+                                        </span>
+                                        <span v-else>
+                                            <i class="fa fa-upload me-1"></i>
+                                            {{ req.document ? 'Ganti' : 'Upload' }}
+                                        </span>
+                                    </label>
+                                    <input :id="`file-${req.id}`" type="file" class="d-none"
+                                        accept=".pdf,.jpg,.jpeg,.png"
+                                        :disabled="uploading[req.id]"
+                                        @change="uploadFile($event, req.id)">
+                                    <button v-if="req.document && !uploading[req.id]" type="button"
+                                        class="btn btn-sm btn-danger"
+                                        @click="openDeleteModal(req.document.id)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div v-else class="text-muted small">—</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

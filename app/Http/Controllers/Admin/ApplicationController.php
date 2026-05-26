@@ -60,11 +60,24 @@ class ApplicationController extends Controller
         ]);
     }
 
-    public function approve(AssessmentApplication $application)
+    public function approve(Request $request, AssessmentApplication $application)
     {
         abort_if(!$application->isSubmitted(), 422, 'Hanya permohonan berstatus submitted yang dapat disetujui.');
 
-        DB::transaction(function () use ($application) {
+        $request->validate([
+            'admin_signature_name' => 'required|string|max:255',
+            'admin_signature_data' => 'nullable|string',
+            'admin_signature_file' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        if (!$request->admin_signature_data && !$request->hasFile('admin_signature_file')) {
+            return back()->withErrors(['admin_signature_data' => 'Tanda tangan wajib diisi (gambar atau upload).']);
+        }
+
+        // Simpan TTD admin ke disk privat
+        $sigPath = $this->storeAdminSignature($request, $application);
+
+        DB::transaction(function () use ($application, $request, $sigPath) {
             $participant = $application->participant;
 
             // cek apakah sudah ada student aktif untuk participant + classroom yang sama
@@ -106,12 +119,14 @@ class ApplicationController extends Controller
             $examGroup = $firstExamGroup;
 
             $application->update([
-                'student_id'    => $student->id,
-                'exam_group_id' => $examGroup?->id,
-                'status'        => ApplicationStatus::Approved,
-                'approved_at'   => now(),
-                'approved_by'   => auth()->id(),
-                'admin_notes'   => null,
+                'student_id'           => $student->id,
+                'exam_group_id'        => $examGroup?->id,
+                'status'               => ApplicationStatus::Approved,
+                'approved_at'          => now(),
+                'approved_by'          => auth()->id(),
+                'admin_notes'          => null,
+                'admin_signature_path' => $sigPath,
+                'admin_signature_name' => $request->admin_signature_name,
             ]);
         });
 
@@ -236,12 +251,42 @@ class ApplicationController extends Controller
         $path = match ($type) {
             'form'  => $application->signature_form_path,
             'pakta' => $application->signature_path,
+            'admin' => $application->admin_signature_path,
             default => null,
         };
 
         abort_if(!$path || !Storage::disk('private')->exists($path), 404);
 
         return response()->file(Storage::disk('private')->path($path));
+    }
+
+    /**
+     * Simpan TTD admin dari base64 data-URL atau uploaded file ke disk privat.
+     */
+    private function storeAdminSignature(Request $request, AssessmentApplication $application): string
+    {
+        $disk    = Storage::disk('private');
+        $dir     = 'admin-signatures/' . $application->id;
+        $now     = now()->format('YmdHis');
+
+        if ($request->hasFile('admin_signature_file')) {
+            $ext  = $request->file('admin_signature_file')->getClientOriginalExtension() ?: 'png';
+            $path = $dir . '/admin_' . $now . '.' . strtolower($ext);
+            $disk->put($path, file_get_contents($request->file('admin_signature_file')->getRealPath()));
+            return $path;
+        }
+
+        // Format data URL: "data:image/png;base64,iVBORw0..."
+        $data = $request->admin_signature_data;
+        if (preg_match('/^data:image\/(png|jpe?g);base64,(.+)$/', $data, $m)) {
+            $ext     = $m[1] === 'jpg' ? 'jpeg' : $m[1];
+            $decoded = base64_decode($m[2]);
+            $path    = $dir . '/admin_' . $now . '.' . $ext;
+            $disk->put($path, $decoded);
+            return $path;
+        }
+
+        abort(422, 'Format tanda tangan tidak valid.');
     }
 
     private function generateNoParticipant(AssessmentApplication $application): string

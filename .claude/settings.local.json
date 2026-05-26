@@ -14,7 +14,9 @@
       "Bash(php -l app/Http/Controllers/Admin/ExamSessionController.php)",
       "Bash(php -l app/Http/Controllers/Peserta/ApplicationController.php)",
       "Bash(php -l app/Http/Controllers/Asesor/DashboardController.php)",
-      "Bash(php -l app/Http/Controllers/Admin/PenilaianController.php)"
+      "Bash(php -l app/Http/Controllers/Admin/PenilaianController.php)",
+      "Bash(php -l app/Http/Controllers/Admin/ApplicationController.php)",
+      "Bash(php -l app/Models/AssessmentApplication.php)"
     ]
   }
 }

@@ -51,7 +51,22 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label class="fw-semibold small">Tanggal Lahir <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" v-model="form.tanggal_lahir">
+                        <Datepicker
+                            v-model="tanggalLahirDate"
+                            :format="'dd MMMM yyyy'"
+                            :preview-format="'dd MMMM yyyy'"
+                            :enable-time-picker="false"
+                            auto-apply
+                            :year-range="[1940, currentYear]"
+                            :max-date="new Date()"
+                            :start-date="new Date(1970, 0, 1)"
+                            text-input
+                            locale="id"
+                            placeholder="Pilih tanggal lahir"
+                            input-class-name="form-control"
+                            month-name-format="long"
+                        />
+                        <div class="form-text small">Klik nama bulan/tahun di kalender untuk navigasi cepat ke tahun lama.</div>
                         <div v-if="errors.tanggal_lahir" class="text-danger small mt-1">{{ errors.tanggal_lahir }}</div>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -247,12 +262,14 @@
 <script>
 import LayoutPeserta from '../../../Layouts/Peserta.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { reactive, ref, onMounted, onUnmounted, nextTick } from 'vue';
+import { reactive, ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import SignaturePad from 'signature_pad';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 export default {
     layout: LayoutPeserta,
-    components: { Head, Link },
+    components: { Head, Link, Datepicker },
     props: {
         application: Object,
         participant: Object,
@@ -336,11 +353,15 @@ export default {
             });
         };
 
+        const currentYear = new Date().getFullYear();
+
         const form = reactive({
             name:                   props.participant.name ?? '',
             nik:                    props.participant.nik ?? '',
             tempat_lahir:           props.participant.tempat_lahir ?? '',
-            tanggal_lahir:          props.participant.tanggal_lahir ?? '',
+            tanggal_lahir:          props.participant.tanggal_lahir
+                ? String(props.participant.tanggal_lahir).substring(0, 10)
+                : '',
             jenis_kelamin:          props.participant.jenis_kelamin ?? '',
             kebangsaan:             props.participant.kebangsaan ?? 'Indonesia',
             alamat_rumah:           props.participant.alamat_rumah ?? '',
@@ -358,6 +379,19 @@ export default {
             email_kantor:           props.participant.email_kantor ?? '',
         });
 
+        // Two-way binding antara Datepicker (Date object) dan form.tanggal_lahir (string YYYY-MM-DD)
+        const tanggalLahirDate = computed({
+            get: () => form.tanggal_lahir ? new Date(form.tanggal_lahir) : null,
+            set: (val) => {
+                if (!val) { form.tanggal_lahir = ''; return; }
+                const d = val instanceof Date ? val : new Date(val);
+                const yyyy = d.getFullYear();
+                const mm   = String(d.getMonth() + 1).padStart(2, '0');
+                const dd   = String(d.getDate()).padStart(2, '0');
+                form.tanggal_lahir = `${yyyy}-${mm}-${dd}`;
+            },
+        });
+
         const submit = () => {
             processing.value = true;
             router.put(`/peserta/aplikasi/${props.application.id}/form`, form, {
@@ -366,7 +400,7 @@ export default {
         };
 
         return {
-            form, processing, submit,
+            form, processing, submit, currentYear, tanggalLahirDate,
             sigMode, sigCanvas, sigFile, sigFilePreview, savingSig,
             switchSigMode, clearSig, saveSigDrawn, onSigFileChange, saveSigUpload,
         };

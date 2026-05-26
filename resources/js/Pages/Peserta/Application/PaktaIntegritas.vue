@@ -73,7 +73,6 @@
                     <tr><td>☐</td><td><strong>L</strong> &nbsp;: Observasi Langsung</td></tr>
                     <tr><td>☐</td><td><strong>T</strong> &nbsp;: Hasil Tes Tulis</td></tr>
                     <tr><td>☐</td><td><strong>T</strong> &nbsp;: Hasil Tes Lisan</td></tr>
-                    <tr><td>☐</td><td><strong>T</strong> &nbsp;: Hasil Wawancara</td></tr>
                 </table>
             </div>
 

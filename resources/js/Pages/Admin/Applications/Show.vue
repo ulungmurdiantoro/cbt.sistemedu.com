@@ -141,21 +141,74 @@
                         <small class="text-muted">Gunakan kode ini untuk login ujian di halaman utama.</small>
                     </div>
 
-                    <!-- Approve -->
-                    <div v-if="application.status === 'submitted'" class="d-grid gap-2 mb-3">
-                        <button class="btn btn-success" @click="approve" :disabled="processing">
-                            <i class="fa fa-check me-1"></i>
-                            {{ processing ? 'Memproses...' : 'Setujui & Buat Akun Ujian' }}
-                        </button>
-                        <button class="btn btn-danger" @click="showRejectForm = !showRejectForm">
-                            <i class="fa fa-times me-1"></i> Tolak Permohonan
-                        </button>
-                        <div v-if="showRejectForm" class="mt-2">
-                            <textarea class="form-control mb-2" rows="3" v-model="rejectNotes"
-                                placeholder="Alasan penolakan (wajib diisi)"></textarea>
-                            <button class="btn btn-danger btn-sm w-100" @click="reject" :disabled="processing">
-                                Konfirmasi Tolak
+                    <!-- Approve: butuh TTD + nama -->
+                    <div v-if="application.status === 'submitted'" class="mb-3">
+                        <div class="mb-2">
+                            <label class="fw-semibold small">Nama Penandatangan <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm mt-1" v-model="adminSignName"
+                                placeholder="contoh: Dr. Agung Yulianto, M.Si.">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="fw-semibold small">Tanda Tangan Admin <span class="text-danger">*</span></label>
+                            <div class="d-flex gap-1 mt-1 mb-2">
+                                <button type="button" class="btn btn-sm flex-fill"
+                                    :class="adminSigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                                    @click="switchAdminSigMode('draw')">
+                                    <i class="fa fa-pen me-1"></i>Gambar
+                                </button>
+                                <button type="button" class="btn btn-sm flex-fill"
+                                    :class="adminSigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                                    @click="switchAdminSigMode('upload')">
+                                    <i class="fa fa-upload me-1"></i>Upload
+                                </button>
+                            </div>
+
+                            <div v-show="adminSigMode === 'draw'">
+                                <div class="border rounded bg-white" style="touch-action:none">
+                                    <canvas ref="adminSigCanvas" style="display:block; width:100%; height:140px; cursor:crosshair"></canvas>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-light border mt-1" @click="clearAdminSig">
+                                    <i class="fa fa-eraser me-1"></i>Hapus
+                                </button>
+                            </div>
+
+                            <div v-show="adminSigMode === 'upload'">
+                                <input type="file" class="form-control form-control-sm"
+                                    accept="image/png,image/jpeg,image/jpg"
+                                    @change="onAdminSigFileChange">
+                                <div v-if="adminSigFilePreview" class="mt-2">
+                                    <img :src="adminSigFilePreview" style="max-height:80px; border:1px solid #ddd; background:#fff; padding:4px">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" @click="approve" :disabled="processing">
+                                <i class="fa fa-check me-1"></i>
+                                {{ processing ? 'Memproses...' : 'Setujui & Buat Akun Ujian' }}
                             </button>
+                            <button class="btn btn-danger" @click="showRejectForm = !showRejectForm">
+                                <i class="fa fa-times me-1"></i> Tolak Permohonan
+                            </button>
+                            <div v-if="showRejectForm" class="mt-2">
+                                <textarea class="form-control mb-2" rows="3" v-model="rejectNotes"
+                                    placeholder="Alasan penolakan (wajib diisi)"></textarea>
+                                <button class="btn btn-danger btn-sm w-100" @click="reject" :disabled="processing">
+                                    Konfirmasi Tolak
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tampilkan TTD admin setelah approved -->
+                    <div v-if="application.status === 'approved' && application.admin_signature_path"
+                        class="border rounded p-2 mb-3 bg-white">
+                        <div class="small fw-semibold mb-1 text-muted">TTD Admin</div>
+                        <img :src="`/admin/applications/${application.id}/tanda-tangan/admin`" alt="TTD Admin"
+                            style="max-height:80px; max-width:100%; object-fit:contain">
+                        <div v-if="application.admin_signature_name" class="small mt-1">
+                            <i class="fa fa-user me-1 text-muted"></i>{{ application.admin_signature_name }}
                         </div>
                     </div>
 
@@ -250,7 +303,8 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue';
+import SignaturePad from 'signature_pad';
 
 export default {
     layout: LayoutAdmin,
@@ -265,6 +319,60 @@ export default {
         const reissueReason    = ref('');
         const rejectDocId     = ref(null);
         const rejectDocNotes  = ref('');
+
+        // Admin TTD state
+        const adminSigMode        = ref('draw');
+        const adminSigCanvas      = ref(null);
+        const adminSigFile        = ref(null);
+        const adminSigFilePreview = ref(null);
+        const adminSignName       = ref('');
+        let   adminSigPad         = null;
+        let   resizeTimer         = null;
+
+        const initAdminPad = () => {
+            if (!adminSigCanvas.value) return;
+            const canvas    = adminSigCanvas.value;
+            const container = canvas.parentElement;
+            const ratio     = Math.max(window.devicePixelRatio || 1, 1);
+            const savedData = adminSigPad?.toData() ?? [];
+            canvas.width    = (container?.clientWidth || canvas.offsetWidth) * ratio;
+            canvas.height   = canvas.offsetHeight * ratio;
+            canvas.getContext('2d').scale(ratio, ratio);
+            adminSigPad     = new SignaturePad(canvas, { backgroundColor: 'rgb(255,255,255)' });
+            if (savedData.length) adminSigPad.fromData(savedData);
+        };
+
+        const handleResize = () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(initAdminPad, 200);
+        };
+
+        onMounted(async () => {
+            if (props.application.status === 'submitted') {
+                await nextTick();
+                initAdminPad();
+                window.addEventListener('resize', handleResize);
+            }
+        });
+
+        onUnmounted(() => {
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimer);
+        });
+
+        const switchAdminSigMode = async (mode) => {
+            adminSigMode.value = mode;
+            if (mode === 'draw') { await nextTick(); initAdminPad(); }
+        };
+
+        const clearAdminSig = () => adminSigPad?.clear();
+
+        const onAdminSigFileChange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            adminSigFile.value        = file;
+            adminSigFilePreview.value = URL.createObjectURL(file);
+        };
 
         const pribadi  = computed(() => props.application.snapshot_pribadi  ?? buildPribadi());
         const pekerjaan = computed(() => props.application.snapshot_pekerjaan ?? buildPekerjaan());
@@ -306,8 +414,31 @@ export default {
         const formatDate  = (dt) => dt ? new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
 
         const approve = () => {
+            if (!adminSignName.value) {
+                alert('Nama penandatangan wajib diisi.');
+                return;
+            }
+
+            const fd = new FormData();
+            fd.append('admin_signature_name', adminSignName.value);
+
+            if (adminSigMode.value === 'draw') {
+                if (!adminSigPad || adminSigPad.isEmpty()) {
+                    alert('Tanda tangan wajib diisi.');
+                    return;
+                }
+                fd.append('admin_signature_data', adminSigPad.toDataURL('image/png'));
+            } else {
+                if (!adminSigFile.value) {
+                    alert('Pilih file tanda tangan terlebih dahulu.');
+                    return;
+                }
+                fd.append('admin_signature_file', adminSigFile.value);
+            }
+
             processing.value = true;
-            router.post(`/admin/applications/${props.application.id}/approve`, {}, {
+            router.post(`/admin/applications/${props.application.id}/approve`, fd, {
+                forceFormData: true,
                 onFinish: () => { processing.value = false; },
             });
         };
@@ -344,6 +475,8 @@ export default {
             processing, showRejectForm, showReissueModal, rejectNotes, reissueReason,
             rejectDocId, rejectDocNotes,
             approve, reject, reissue, openRejectDoc, verifyDoc,
+            adminSigMode, adminSigCanvas, adminSigFile, adminSigFilePreview, adminSignName,
+            switchAdminSigMode, clearAdminSig, onAdminSigFileChange,
         };
     },
 }

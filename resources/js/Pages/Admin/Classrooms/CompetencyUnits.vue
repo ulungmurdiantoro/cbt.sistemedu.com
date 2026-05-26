@@ -23,48 +23,52 @@
 
     <div class="row">
         <!-- Daftar unit kompetensi -->
-        <div class="col-md-7">
+        <div class="col-12 col-lg-7">
             <div class="card border-0 shadow mb-4">
                 <div class="card-body p-0">
-                    <table class="table table-hover mb-0">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th style="width:40px">No.</th>
-                                <th style="width:130px">Kode Unit</th>
-                                <th>Judul Unit Kompetensi</th>
-                                <th style="width:80px">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-if="units.length === 0">
-                                <td colspan="4" class="text-center text-muted py-4">Belum ada unit kompetensi</td>
-                            </tr>
-                            <tr v-for="(unit, i) in units" :key="unit.id">
-                                <td class="align-middle">{{ unit.order || i + 1 }}</td>
-                                <td class="align-middle">
-                                    <span class="badge bg-secondary text-wrap" style="font-size:0.8rem">{{ unit.kode_unit }}</span>
-                                </td>
-                                <td class="align-middle">
-                                    <div class="fw-semibold small">{{ unit.judul_unit }}</div>
-                                    <div v-if="unit.judul_unit_en" class="text-muted fst-italic" style="font-size:0.78rem">{{ unit.judul_unit_en }}</div>
-                                </td>
-                                <td class="align-middle">
-                                    <button class="btn btn-sm btn-warning me-1" @click="editUnit(unit)">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" @click="deleteUnit(unit.id)">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th style="width:40px">No.</th>
+                                    <th style="width:160px">Kode Unit</th>
+                                    <th style="min-width:200px">Judul Unit Kompetensi</th>
+                                    <th style="width:110px; white-space:nowrap">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-if="units.length === 0">
+                                    <td colspan="4" class="text-center text-muted py-4">Belum ada unit kompetensi</td>
+                                </tr>
+                                <tr v-for="(unit, i) in units" :key="unit.id">
+                                    <td>{{ unit.order || i + 1 }}</td>
+                                    <td>
+                                        <span class="badge bg-secondary text-wrap" style="font-size:0.8rem">{{ unit.kode_unit }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="fw-semibold small text-break">{{ unit.judul_unit }}</div>
+                                        <div v-if="unit.judul_unit_en" class="text-muted fst-italic text-break" style="font-size:0.78rem">{{ unit.judul_unit_en }}</div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-1">
+                                            <button class="btn btn-sm btn-warning" @click="editUnit(unit)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger" @click="deleteUnit(unit.id)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Form tambah/edit -->
-        <div class="col-md-5">
+        <div class="col-12 col-lg-5">
             <div class="card border-0 shadow">
                 <div class="card-header bg-gray-800 text-white fw-semibold">
                     {{ editMode ? 'Edit Unit Kompetensi' : 'Tambah Unit Kompetensi' }}
