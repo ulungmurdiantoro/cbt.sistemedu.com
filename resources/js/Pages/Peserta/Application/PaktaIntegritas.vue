@@ -13,7 +13,10 @@
                 </ol>
             </nav>
             <h5 class="fw-bold">FR.AK.01 — Pakta Integritas</h5>
-            <p class="text-muted small">Baca seluruh dokumen, kemudian berikan tanda tangan di bagian bawah.</p>
+            <p class="text-muted small mb-2">Baca seluruh dokumen, kemudian berikan tanda tangan di bagian bawah.</p>
+            <button type="button" class="btn btn-sm btn-gray-800" @click="scrollToTtd">
+                <i class="fa fa-pen me-1"></i> Lompat ke Tanda Tangan
+            </button>
         </div>
     </div>
 
@@ -21,9 +24,10 @@
         {{ $page.props.session.success }}
     </div>
 
-    <!-- Dokumen FR.AK.01 -->
+    <!-- Dokumen FR.AK.01 (scrollable supaya halaman tidak terlalu panjang) -->
     <div class="card border-0 shadow mb-4">
-        <div class="card-body px-4 py-4" style="font-size:0.88rem; line-height:1.8; color:#222">
+        <div class="card-body px-4 py-4"
+            style="font-size:0.88rem; line-height:1.8; color:#222; max-height:65vh; overflow-y:auto">
 
             <!-- Header -->
             <div class="text-center mb-4">
@@ -228,7 +232,7 @@
     </div>
 
     <!-- Form TTD (hanya jika masih draft) -->
-    <div class="card border-0 shadow mb-4" v-if="application.status === 'draft'">
+    <div ref="ttdSection" class="card border-0 shadow mb-4" v-if="application.status === 'draft'">
         <div class="card-header bg-gray-800 text-white fw-semibold">
             <i class="fa fa-pen me-2"></i>Tanda Tangan Asesi
             <span v-if="application.pakta_signed_at" class="badge bg-success ms-2">
@@ -333,7 +337,12 @@ export default {
         const sigFile    = ref(null);
         const filePreview = ref(null);
         const saving     = ref(false);
+        const ttdSection = ref(null);
         let   signaturePad = null;
+
+        const scrollToTtd = () => {
+            ttdSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
 
         let resizeTimer = null;
 
@@ -412,9 +421,9 @@ export default {
         };
 
         return {
-            sigMode, sigCanvas, sigFile, filePreview, saving,
+            sigMode, sigCanvas, sigFile, filePreview, saving, ttdSection,
             switchMode, clearCanvas, saveDrawn, onFileChange, saveUpload,
-            formatTanggal,
+            formatTanggal, scrollToTtd,
         };
     },
 }
