@@ -90,19 +90,49 @@ class ExamSessionController extends Controller
 
     public function update(UpdateExamSessionRequest $request, ExamSession $exam_session)
     {
-        $exam_session->update([
-            'title'           => $request->title,
-            'exam_id_pg'      => $request->exam_id_pg,
-            'exam_id_esai'    => $request->exam_id_esai,
-            'has_wawancara'   => $request->boolean('has_wawancara'),
-            'start_time'      => date('Y-m-d H:i:s', strtotime($request->start_time)),
-            'end_time'        => date('Y-m-d H:i:s', strtotime($request->end_time)),
-            'remidi_start_at' => $request->remidi_start_at ? date('Y-m-d H:i:s', strtotime($request->remidi_start_at)) : null,
-            'remidi_end_at'   => $request->remidi_end_at   ? date('Y-m-d H:i:s', strtotime($request->remidi_end_at))   : null,
-            'konteks_asesmen' => $request->konteks_asesmen,
-            'tempat_ujian'    => $request->tempat_ujian,
-            'kode_batch'      => $request->kode_batch,
-        ]);
+        \DB::transaction(function () use ($request, $exam_session) {
+            $exam_session->update([
+                'title'           => $request->title,
+                'exam_id_pg'      => $request->exam_id_pg,
+                'exam_id_esai'    => $request->exam_id_esai,
+                'has_wawancara'   => $request->boolean('has_wawancara'),
+                'start_time'      => date('Y-m-d H:i:s', strtotime($request->start_time)),
+                'end_time'        => date('Y-m-d H:i:s', strtotime($request->end_time)),
+                'remidi_start_at' => $request->remidi_start_at ? date('Y-m-d H:i:s', strtotime($request->remidi_start_at)) : null,
+                'remidi_end_at'   => $request->remidi_end_at   ? date('Y-m-d H:i:s', strtotime($request->remidi_end_at))   : null,
+                'konteks_asesmen' => $request->konteks_asesmen,
+                'tempat_ujian'    => $request->tempat_ujian,
+                'kode_batch'      => $request->kode_batch,
+            ]);
+
+            // Sinkronkan ExamGroup peserta yang sudah enrolled supaya
+            // exam yang baru ditambahkan (mis. esai) langsung ter-create
+            // untuk semua peserta tanpa perlu re-enroll manual.
+            $enrolledStudentIds = ExamGroup::where('exam_session_id', $exam_session->id)
+                ->distinct()
+                ->pluck('student_id')
+                ->all();
+
+            $examIds = array_filter([
+                $exam_session->exam_id_pg,
+                $exam_session->exam_id_esai,
+            ]);
+
+            foreach ($examIds as $examId) {
+                foreach ($enrolledStudentIds as $studentId) {
+                    ExamGroup::firstOrCreate(
+                        [
+                            'exam_id'         => $examId,
+                            'exam_session_id' => $exam_session->id,
+                            'student_id'      => $studentId,
+                        ],
+                        [
+                            'exam_groups_code' => 'exmg-' . Str::ulid(),
+                        ]
+                    );
+                }
+            }
+        });
 
         return redirect()->route('admin.exam_sessions.index');
     }
