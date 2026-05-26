@@ -331,7 +331,12 @@ export default {
             savingSig.value = true;
             router.post(`/peserta/aplikasi/${props.application.id}/form/tanda-tangan`,
                 { signature_data: signaturePad.toDataURL('image/png') },
-                { onFinish: () => { savingSig.value = false; } }
+                {
+                    // Pertahankan state form (field yang sudah diisi user tapi belum di-save)
+                    preserveState:  true,
+                    preserveScroll: true,
+                    onFinish: () => { savingSig.value = false; },
+                }
             );
         };
 
@@ -348,7 +353,9 @@ export default {
             const fd = new FormData();
             fd.append('signature_file', sigFile.value);
             router.post(`/peserta/aplikasi/${props.application.id}/form/tanda-tangan`, fd, {
-                forceFormData: true,
+                forceFormData:  true,
+                preserveState:  true,
+                preserveScroll: true,
                 onFinish: () => { savingSig.value = false; sigFile.value = null; sigFilePreview.value = null; },
             });
         };
