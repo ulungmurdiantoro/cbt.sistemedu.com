@@ -33,10 +33,16 @@
                                     <tr v-for="(session, i) in exam_sessions" :key="session.id">
                                         <td>{{ i + 1 }}</td>
                                         <td>{{ session.title }}</td>
-                                        <td>{{ session.exam.title }}</td>
-                                        <td>{{ session.exam.classroom.title }}</td>
                                         <td>
-                                            <span class="badge bg-secondary">{{ session.exam.type }}</span>
+                                            <div v-if="session.examPg" class="small">{{ session.examPg.title }}</div>
+                                            <div v-if="session.examEsai" class="small">{{ session.examEsai.title }}</div>
+                                            <div v-if="!session.examPg && !session.examEsai" class="text-muted small">—</div>
+                                        </td>
+                                        <td>{{ (session.examPg ?? session.examEsai)?.classroom?.title ?? '—' }}</td>
+                                        <td>
+                                            <span v-if="session.examPg" class="badge bg-info me-1">{{ session.examPg.type }}</span>
+                                            <span v-if="session.examEsai" class="badge bg-warning text-dark me-1">{{ session.examEsai.type }}</span>
+                                            <span v-if="session.has_wawancara" class="badge bg-secondary">Wawancara</span>
                                         </td>
                                         <td class="text-center">
                                             <Link :href="`/admin/penilaian/${session.id}`"

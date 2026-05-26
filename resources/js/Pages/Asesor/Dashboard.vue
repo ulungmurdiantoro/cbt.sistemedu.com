@@ -21,12 +21,22 @@
                         <div class="card border-0 shadow h-100">
                             <div class="card-body">
                                 <h6 class="fw-bold">{{ session.title }}</h6>
-                                <p class="text-muted mb-1">
-                                    <i class="fa fa-book me-1"></i>{{ session.exam.title }}
-                                    <span class="badge bg-secondary ms-1">{{ session.exam.type }}</span>
+                                <p class="text-muted mb-1 small">
+                                    <i class="fa fa-book me-1"></i>
+                                    <span v-if="session.examPg">
+                                        {{ session.examPg.title }}
+                                        <span class="badge bg-info ms-1">{{ session.examPg.type }}</span>
+                                    </span>
+                                    <br v-if="session.examPg && session.examEsai">
+                                    <span v-if="session.examEsai">
+                                        <i v-if="!session.examPg" class="fa fa-book me-1"></i>
+                                        <span v-if="session.examPg" class="invisible me-1"><i class="fa fa-book"></i></span>
+                                        {{ session.examEsai.title }}
+                                        <span class="badge bg-warning text-dark ms-1">{{ session.examEsai.type }}</span>
+                                    </span>
                                 </p>
                                 <p class="text-muted mb-3">
-                                    <i class="fa fa-layer-group me-1"></i>{{ session.exam.classroom.title }}
+                                    <i class="fa fa-layer-group me-1"></i>{{ (session.examPg ?? session.examEsai)?.classroom?.title ?? '—' }}
                                     &nbsp;|&nbsp;
                                     <i class="fa fa-users me-1"></i>{{ session.student_count }} peserta ditugaskan
                                 </p>
