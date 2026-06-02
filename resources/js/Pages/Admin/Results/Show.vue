@@ -13,7 +13,7 @@
                 <p class="mb-0 small text-muted">Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}</p>
             </div>
             <div class="d-flex gap-2">
-                <button class="btn btn-sm btn-outline-light" @click="distribute" :disabled="!hasFinalized">
+                <button class="btn btn-sm btn-outline-secondary" @click="distribute" :disabled="!hasFinalized">
                     <i class="fa fa-paper-plane me-1"></i> Kirim ke Peserta
                 </button>
                 <button class="btn btn-sm btn-warning text-dark fw-semibold" @click="confirmFinalize" :disabled="allFinalized">

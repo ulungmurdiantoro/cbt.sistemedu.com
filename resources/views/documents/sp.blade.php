@@ -37,7 +37,7 @@
 
     /* Lampiran (hal.2) */
     .section-title { font-weight:bold; text-decoration:underline; font-size:12pt; margin-bottom:6pt; }
-    tbl-fixed { width:100%; border-collapse:collapse; font-size:11pt; }
+    .tbl-fixed { width:100%; border-collapse:collapse; font-size:11pt; }
     .tbl th { border:0.5pt solid #000; padding:4pt 6pt; background:#BFCDE9; font-weight:bold; text-align:center; }
     .tbl td { border:0.5pt solid #000; padding:4pt 6pt; }
     .tbl .merged { text-align:center; font-weight:bold; }
@@ -227,10 +227,12 @@
     <div class="fw-bold mb-2">B. Standar Kelulusan</div>
     <div style="padding-left:14pt;">
         @foreach($sp['standar_kelulusan'] as $i => $item)
-        <div style="margin-bottom:4pt; display:flex; gap:6pt;">
-            <span>{{ $i + 1 }}.</span>
-            <span>{!! $item !!}</span>
-        </div>
+        <table style="width:100%; margin-bottom:4pt; border-collapse:collapse;">
+            <tr>
+                <td style="width:14pt; vertical-align:top;">{{ $i + 1 }}.</td>
+                <td style="vertical-align:top;">{!! $item !!}</td>
+            </tr>
+        </table>
         @endforeach
     </div>
 

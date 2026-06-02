@@ -91,8 +91,7 @@
 </div>
 
 {{-- PAGE 2 — background ditentukan $bgPage2Path (KAN vs tanpa KAN) --}}
-<div class="page-break"></div>
-<div class="cert-page" style="page: page2;">
+<div class="cert-page" style="page: page2; page-break-before: always;">
 
     @if($hasUnitKomp)
     <div class="shifted-cx" style="top:43.7mm;">

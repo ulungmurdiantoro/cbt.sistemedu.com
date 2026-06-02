@@ -42,15 +42,14 @@
         .penutup { font-size: 12pt; line-height: 16pt; text-align: justify; margin: 8pt 0 10pt; }
 
         /* ────── TTD / QR ────── */
-        .ttd-block { width: 100mm; float: right; margin-top: 10pt; }
+        .ttd-block { width: 100%; margin-top: 10pt; }
         .ttd-tabel { width: 100%; border-collapse: collapse; margin-bottom: 6pt; }
         .ttd-tabel td { vertical-align: top; padding: 0 0 2pt 0; font-size: 12pt; line-height: 16pt; }
         .ttd-tabel td.lbl { width: 36mm; }
         .ttd-tabel td.sep { width: 4mm; }
-        .qr-row img.qr { width: 32mm; height: 32mm; display: inline-block; vertical-align: middle; }
-        .qr-note { display: inline-block; vertical-align: middle; margin-left: 8pt; font-size: 12pt; line-height: 18pt; font-style: italic; width: 52mm; }
+        .qr-row img.qr { width: 32mm; height: 32mm; }
+        .qr-note { font-size: 12pt; line-height: 18pt; font-style: italic; }
         .signer { font-size: 12pt; font-weight: bold; line-height: 16pt; margin-top: 8pt; }
-        .clearfix::after { content: ''; display: table; clear: both; }
 
         /* ────── LAMPIRAN (HAL 3) ────── */
         .lamp-title { font-weight: bold; font-size: 14pt; margin-bottom: 22pt; }
@@ -186,31 +185,41 @@
 
     <p class="penutup">{{ $penutupHal2 }}</p>
 
-    <div class="ttd-block">
-        <table class="ttd-tabel">
-            <tr>
-                <td class="lbl">Ditetapkan di</td>
-                <td class="sep">:</td>
-                <td>{{ $lsp['kota'] }}</td>
-            </tr>
-            <tr>
-                <td class="lbl">Pada tanggal</td>
-                <td class="sep">:</td>
-                <td>{{ $tglDitetapkan }}</td>
-            </tr>
-        </table>
-        <div class="qr-row">
-            @if($qrSkPath)
-                <img class="qr" src="{{ $qrSkPath }}">
-            @endif
-            <span class="qr-note">{!! nl2br(e($catatanQr)) !!}</span>
-        </div>
-        <div class="signer">
-            {{ $penandatangan['nama'] }}<br>
-            <span style="font-weight:normal;font-size:11pt;">{{ $penandatangan['jabatan'] }}</span>
-        </div>
-    </div>
-    <div class="clearfix"></div>
+    <table style="width:100%; margin-top:10pt;">
+        <tr>
+            <td style="width:50%;"></td>
+            <td style="width:50%; vertical-align:top;">
+                <table class="ttd-tabel">
+                    <tr>
+                        <td class="lbl">Ditetapkan di</td>
+                        <td class="sep">:</td>
+                        <td>{{ $lsp['kota'] }}</td>
+                    </tr>
+                    <tr>
+                        <td class="lbl">Pada tanggal</td>
+                        <td class="sep">:</td>
+                        <td>{{ $tglDitetapkan }}</td>
+                    </tr>
+                </table>
+                <table style="width:100%; margin-top:4pt;">
+                    <tr>
+                        <td style="vertical-align:middle; width:36mm;">
+                            @if($qrSkPath)
+                                <img class="qr" src="{{ $qrSkPath }}">
+                            @endif
+                        </td>
+                        <td style="vertical-align:middle; padding-left:8pt;">
+                            <span class="qr-note">{!! nl2br(e($catatanQr)) !!}</span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="signer">
+                    {{ $penandatangan['nama'] }}<br>
+                    <span style="font-weight:normal;font-size:11pt;">{{ $penandatangan['jabatan'] }}</span>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 
 {{-- ═══════════════ HAL 3 — Lampiran Hasil Penilaian ═══════════════ --}}
