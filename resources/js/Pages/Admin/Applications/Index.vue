@@ -40,40 +40,47 @@
 
     <div class="card border-0 shadow">
         <div class="card-body p-0">
-            <table class="table table-hover mb-0">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th>Peserta</th>
-                        <th>Skema</th>
-                        <th>Sesi</th>
-                        <th>Tgl Submit</th>
-                        <th style="width:110px">Status</th>
-                        <th style="width:80px">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-if="applications.data.length === 0">
-                        <td colspan="6" class="text-center text-muted py-4">Tidak ada data</td>
-                    </tr>
-                    <tr v-for="app in applications.data" :key="app.id">
-                        <td class="align-middle">
-                            <div class="fw-semibold small">{{ app.participant?.name }}</div>
-                            <div class="text-muted" style="font-size:0.78rem">{{ app.participant?.email }}</div>
-                        </td>
-                        <td class="align-middle small">{{ app.classroom?.title }}</td>
-                        <td class="align-middle small">{{ app.exam_session?.title }}</td>
-                        <td class="align-middle small">{{ app.submitted_at ? formatDate(app.submitted_at) : '—' }}</td>
-                        <td class="align-middle">
-                            <span :class="statusBadge(app.status)" class="badge">{{ statusLabel(app.status) }}</span>
-                        </td>
-                        <td class="align-middle">
-                            <Link :href="`/admin/applications/${app.id}`" class="btn btn-sm btn-info">
-                                <i class="fa fa-eye"></i>
-                            </Link>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0" style="min-width:700px">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th style="width:200px">Peserta</th>
+                            <th>Skema / Sesi</th>
+                            <th style="width:110px">Tgl Submit</th>
+                            <th style="width:110px">Status</th>
+                            <th style="width:70px" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="applications.data.length === 0">
+                            <td colspan="5" class="text-center text-muted py-4">Tidak ada data</td>
+                        </tr>
+                        <tr v-for="app in applications.data" :key="app.id">
+                            <td>
+                                <div class="fw-semibold small">{{ app.participant?.name }}</div>
+                                <div class="text-muted" style="font-size:0.78rem">{{ app.participant?.email }}</div>
+                            </td>
+                            <td>
+                                <div class="small fw-semibold text-truncate" style="max-width:340px" :title="app.classroom?.title">
+                                    {{ app.classroom?.title ?? '—' }}
+                                </div>
+                                <div class="text-muted text-truncate" style="font-size:0.78rem; max-width:340px" :title="app.exam_session?.title">
+                                    <i class="fa fa-calendar-alt me-1"></i>{{ app.exam_session?.title ?? '—' }}
+                                </div>
+                            </td>
+                            <td class="small">{{ app.submitted_at ? formatDate(app.submitted_at) : '—' }}</td>
+                            <td>
+                                <span :class="statusBadge(app.status)" class="badge">{{ statusLabel(app.status) }}</span>
+                            </td>
+                            <td class="text-center">
+                                <Link :href="`/admin/applications/${app.id}`" class="btn btn-sm btn-info">
+                                    <i class="fa fa-eye"></i>
+                                </Link>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
