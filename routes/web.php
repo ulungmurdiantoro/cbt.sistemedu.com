@@ -155,6 +155,7 @@ Route::prefix('admin')->group(function() {
         // Template dokumen sertifikat
         Route::get('/certificate-template', [\App\Http\Controllers\Admin\CertificateTemplateController::class, 'show'])->name('admin.certificate-template');
         Route::post('/certificate-template', [\App\Http\Controllers\Admin\CertificateTemplateController::class, 'save'])->name('admin.certificate-template.save');
+        Route::get('/certificate-template/preview/{type}', [\App\Http\Controllers\Admin\CertificateTemplateController::class, 'preview'])->name('admin.certificate-template.preview');
 
     });
 });

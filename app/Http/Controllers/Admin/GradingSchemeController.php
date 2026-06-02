@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
-use App\Models\Essay;
-use App\Models\Exam;
 use App\Models\GradingScheme;
-use App\Models\Question;
 use Illuminate\Http\Request;
 
 class GradingSchemeController extends Controller
@@ -20,33 +17,15 @@ class GradingSchemeController extends Controller
                 'bobot_pg'          => 45.5,
                 'bobot_esai'        => 24.5,
                 'bobot_wawancara'   => 30,
-                'nilai_kelulusan'   => 70,
+                'nilai_kelulusan'   => 60,
                 'bobot_ujian_tulis' => 70,
                 'proporsi_pg'       => 65,
             ]
         );
 
-        // Ambil info dari exam PG dan Esai terkait classroom ini
-        $examPg   = Exam::where('classroom_id', $classroom->id)->where('type', 'Pilihan Ganda')->latest()->first();
-        $examEsai = Exam::where('classroom_id', $classroom->id)->whereIn('type', ['Essay', 'Essay Migas'])->latest()->first();
-
-        $examInfo = [
-            'pg' => $examPg ? [
-                'title'        => $examPg->title,
-                'duration'     => $examPg->duration,
-                'jumlah_soal'  => Question::where('exam_id', $examPg->id)->count(),
-            ] : null,
-            'esai' => $examEsai ? [
-                'title'        => $examEsai->title,
-                'duration'     => $examEsai->duration,
-                'jumlah_soal'  => Essay::where('exam_id', $examEsai->id)->count(),
-            ] : null,
-        ];
-
         return inertia('Admin/GradingSchemes/Show', [
             'classroom' => $classroom,
             'scheme'    => $scheme->exists ? $scheme : $scheme->toArray(),
-            'exam_info' => $examInfo,
         ]);
     }
 

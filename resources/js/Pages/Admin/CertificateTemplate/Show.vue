@@ -128,11 +128,23 @@
 
             </div>
 
-            <div class="mt-4">
+            <div class="mt-4 d-flex flex-wrap gap-2 align-items-center">
                 <button type="submit" class="btn btn-dark px-4" :disabled="processing">
                     <i class="fa fa-save me-1"></i>
                     {{ processing ? 'Menyimpan...' : 'Simpan Template' }}
                 </button>
+                <a href="/admin/certificate-template/preview/sk" target="_blank"
+                    class="btn btn-outline-primary px-4">
+                    <i class="fa fa-eye me-1"></i> Preview SK
+                </a>
+                <a href="/admin/certificate-template/preview/sertifikat" target="_blank"
+                    class="btn btn-outline-success px-4">
+                    <i class="fa fa-eye me-1"></i> Preview Sertifikat
+                </a>
+                <span class="small text-muted">
+                    <i class="fa fa-info-circle me-1"></i>
+                    Preview menggunakan data nyata jika tersedia, atau data contoh jika belum ada.
+                </span>
             </div>
         </form>
 

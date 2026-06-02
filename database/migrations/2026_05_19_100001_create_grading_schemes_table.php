@@ -14,7 +14,7 @@ return new class extends Migration
             $table->decimal('bobot_pg', 5, 2)->default(40);
             $table->decimal('bobot_esai', 5, 2)->default(35);
             $table->decimal('bobot_wawancara', 5, 2)->default(25);
-            $table->decimal('nilai_kelulusan', 5, 2)->default(70);
+            $table->decimal('nilai_kelulusan', 5, 2)->default(60);
             $table->timestamps();
         });
     }
