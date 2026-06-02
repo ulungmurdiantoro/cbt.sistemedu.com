@@ -120,7 +120,7 @@ class ResultController extends Controller
             ->where('is_finalized', true)
             ->firstOrFail();
 
-        $pdf      = $generator->skPdf($result, 'with_kop');
+        $pdf      = $generator->skPdf($result, false);
         $filename = 'SK_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)
@@ -137,7 +137,7 @@ class ResultController extends Controller
             ->where('keputusan', 'LULUS')
             ->firstOrFail();
 
-        $pdf      = $generator->sertifikatPdf($result, 'with_kop');
+        $pdf      = $generator->sertifikatPdf($result, false);
         $filename = 'Sertifikat_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)

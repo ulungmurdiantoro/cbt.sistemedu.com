@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\CertificateTemplate;
 use App\Models\ClassroomCompetencyUnit;
 use App\Models\ParticipantResult;
 use BaconQrCode\Renderer\ImageRenderer;
@@ -16,56 +15,14 @@ use Mpdf\Mpdf;
 
 class DocumentGeneratorService
 {
-    /**
-     * SK PDF dengan cache di disk privat. Setelah finalisasi, sk_number bersifat
-     * immutable sehingga PDF cukup digenerate sekali.
-     *
-     * @param 'with_kop'|'without_kop' $versi
-     */
-    public function skPdf(ParticipantResult $result, string $versi = 'with_kop'): string
+    // ── Asset paths (fixed, dari resources/lsp-assets/) ────────────────
+    private function asset(string $key): string
     {
-        if (!$result->sk_number) {
-            return $this->generateSk($result, $versi);
-        }
-
-        return $this->cachedPdf(
-            'documents/sk/' . md5($result->sk_number . '|' . $versi) . '.pdf',
-            fn() => $this->generateSk($result, $versi),
-        );
+        return base_path(config("lsp_documents.assets.{$key}"));
     }
 
-    /**
-     * Sertifikat PDF dengan cache di disk privat.
-     *
-     * @param 'with_kop'|'without_kop' $versi
-     */
-    public function sertifikatPdf(ParticipantResult $result, string $versi = 'with_kop'): string
-    {
-        if (!$result->sertifikat_number) {
-            return $this->generateSertifikat($result, $versi);
-        }
-
-        return $this->cachedPdf(
-            'documents/sertifikat/' . md5($result->sertifikat_number . '|' . $versi) . '.pdf',
-            fn() => $this->generateSertifikat($result, $versi),
-        );
-    }
-
-    private function cachedPdf(string $path, \Closure $generate): string
-    {
-        $disk = Storage::disk('local');
-
-        if ($disk->exists($path)) {
-            return $disk->get($path);
-        }
-
-        $bytes = $generate();
-        $disk->put($path, $bytes);
-
-        return $bytes;
-    }
-
-    private function kategori(float|null $nilai): string
+    // ── Kategori nilai ──────────────────────────────────────────────────
+    private function kategori(?float $nilai): string
     {
         if ($nilai === null) return '-';
         $t = config('lsp.kategori');
@@ -75,30 +32,27 @@ class DocumentGeneratorService
         return 'Bagus Sekali (Excellence)';
     }
 
-    private function ordinalEn(int $day): string
+    // ── Status KOMPETEN mapping ─────────────────────────────────────────
+    private function statusKompeten(string $keputusan): string
     {
-        $suffix = match(true) {
+        return strtoupper($keputusan) === 'LULUS' ? 'KOMPETEN' : 'TIDAK KOMPETEN';
+    }
+
+    // ── heldOn English ─────────────────────────────────────────────────
+    private function heldOnEn(Carbon $dt): string
+    {
+        $day    = $dt->day;
+        $suffix = match (true) {
             $day % 100 >= 11 && $day % 100 <= 13 => 'th',
             $day % 10 === 1 => 'st',
             $day % 10 === 2 => 'nd',
             $day % 10 === 3 => 'rd',
             default         => 'th',
         };
-        return $day . $suffix;
+        return $day . $suffix . ' ' . $dt->format('F Y');
     }
 
-    private function heldOnEn(Carbon $dt): string
-    {
-        return $this->ordinalEn($dt->day) . ' ' . $dt->format('F Y');
-    }
-
-    private function generateQrSvg(string $data, int $size = 200): string
-    {
-        $renderer = new ImageRenderer(new RendererStyle($size), new SvgImageBackEnd());
-        $writer   = new Writer($renderer);
-        return $writer->writeString($data);
-    }
-
+    // ── QR SVG → temp file dengan cache ────────────────────────────────
     private function qrTempPath(string $suffix): string
     {
         return sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'lsp_qr_' . $suffix . '.svg';
@@ -106,151 +60,217 @@ class DocumentGeneratorService
 
     private function writeQrFile(string $data, string $path): void
     {
-        if (file_exists($path)) return; // cache: skip if already generated
-
-        $svg = $this->generateQrSvg($data);
-        file_put_contents($path, $svg);
+        if (file_exists($path)) return;
+        $renderer = new ImageRenderer(new RendererStyle(200), new SvgImageBackEnd());
+        $writer   = new Writer($renderer);
+        file_put_contents($path, $writer->writeString($data));
     }
 
-    /** @param 'with_kop'|'without_kop' $versi */
-    public function generateSk(ParticipantResult $result, string $versi = 'with_kop'): string
+    // ── mPDF factory ────────────────────────────────────────────────────
+    private function makeMpdf(): Mpdf
+    {
+        return new Mpdf([
+            'mode'          => 'utf-8',
+            'format'        => 'A4',
+            'orientation'   => 'P',
+            'margin_top'    => 0,
+            'margin_bottom' => 0,
+            'margin_left'   => 0,
+            'margin_right'  => 0,
+        ]);
+    }
+
+    // ── Cache helper ────────────────────────────────────────────────────
+    private function cachedPdf(string $path, \Closure $generate): string
+    {
+        $disk = Storage::disk('local');
+        if ($disk->exists($path)) return $disk->get($path);
+        $bytes = $generate();
+        $disk->put($path, $bytes);
+        return $bytes;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // PUBLIC API
+    // ═══════════════════════════════════════════════════════════════════
+
+    /**
+     * SP — Surat Pemberitahuan (2 halaman, tanpa varian KAN).
+     */
+    public function generateSp(ParticipantResult $result): string
     {
         $result->loadMissing(['student', 'examSession.examPg.classroom', 'examSession.examEsai.classroom']);
 
-        $template  = CertificateTemplate::first();
         $session   = $result->examSession;
         $classroom = $session?->referenceExam?->classroom;
         $student   = $result->student;
-        $kategori  = $this->kategori($result->nilai_akhir);
+        $lsp       = config('lsp_documents.lsp');
+        $sp        = config('lsp_documents.sp');
 
-        $tglDitetapkan = Carbon::now()->translatedFormat('d F Y');
+        $startDt = $session?->start_time ? Carbon::parse($session->start_time) : Carbon::now();
 
-        // QR for SK page 2
-        $verifikasiUrl = config('lsp.verifikasi_url');
-        $namaTtd       = $template?->nama_penandatangan    ?? config('lsp.penandatangan.nama');
-        $jabatanTtd    = $template?->jabatan_penandatangan ?? config('lsp.penandatangan.jabatan');
+        $html = View::make('documents.sp', [
+            'result'         => $result,
+            'student'        => $student,
+            'classroom'      => $classroom,
+            'session'        => $session,
+            'skema'          => $classroom?->title ?? '-',
+            'heldOn'         => $startDt->translatedFormat('d F Y'),
+            'noSp'           => $result->sp_number ?? '-',
+            'tglSurat'       => now()->translatedFormat('d F Y'),
+            'statusKompeten' => $this->statusKompeten($result->keputusan ?? ''),
+            'lsp'            => $lsp,
+            'sp'             => $sp,
+            'penandatangan'  => config('lsp_documents.penandatangan'),
+            'logoEdukiaPath' => $this->asset('logo_edukia'),
+            'ttdPath'        => $this->asset('ttd'),
+        ])->render();
 
-        $qrData = implode("\n", [
-            'Dokumen ini telah ditandatangani secara digital oleh:',
-            $namaTtd,
-            'Sebagai ' . $jabatanTtd,
-            'LSP Edukasi Global Cendekia',
-            '',
-            'Dengan No Dokumen:',
-            'No: ' . $result->sk_number,
-            'Tanggal: ' . $tglDitetapkan,
-            '',
-            'Link: ' . $verifikasiUrl . '/sk/' . $result->sk_number,
-        ]);
+        $mpdf = $this->makeMpdf();
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    }
 
+    /**
+     * SP dengan cache (pakai sp_number sebagai key).
+     */
+    public function spPdf(ParticipantResult $result): string
+    {
+        if (!$result->sp_number) return $this->generateSp($result);
+        return $this->cachedPdf(
+            'documents/sp/' . md5($result->sp_number) . '.pdf',
+            fn() => $this->generateSp($result)
+        );
+    }
+
+    /**
+     * SK — 3 halaman.
+     * @param bool $kan true = dengan logo KAN di kop
+     */
+    public function generateSk(ParticipantResult $result, bool $kan = false): string
+    {
+        $result->loadMissing(['student', 'examSession.examPg.classroom', 'examSession.examEsai.classroom']);
+
+        $lsp       = config('lsp_documents.lsp');
+        $skConf    = config('lsp_documents.sk');
+        $session   = $result->examSession;
+        $classroom = $session?->referenceExam?->classroom;
+        $student   = $result->student;
+
+        // QR
         $qrSkPath = null;
         if ($result->sk_number) {
+            $verifikasiUrl = $lsp['verifikasi_url'];
+            $pnds          = config('lsp_documents.penandatangan');
+            $tglStr        = now()->translatedFormat('d F Y');
+            $qrData        = implode("\n", [
+                'Dokumen ini telah ditandatangani secara digital oleh:',
+                $pnds['nama'],
+                'Sebagai ' . $pnds['jabatan'],
+                'LSP Edukasi Global Cendekia',
+                '',
+                'No: ' . $result->sk_number,
+                'Tanggal: ' . $tglStr,
+                '',
+                'Link: ' . $verifikasiUrl . '/sk/' . $result->sk_number,
+            ]);
             $tmpPath = $this->qrTempPath('sk_' . md5($result->sk_number));
             $this->writeQrFile($qrData, $tmpPath);
             $qrSkPath = 'file://' . $tmpPath;
         }
 
-        $html = View::make('sk', [
-            'result'        => $result,
-            'template'      => $template,
-            'withKop'       => $versi === 'with_kop',
-            'student'       => $student,
-            'classroom'     => $classroom,
-            'session'       => $session,
-            'kategori'      => $kategori,
-            'tglDitetapkan' => $tglDitetapkan,
-            'qrSkPath'      => $qrSkPath,
-            'menimbang'     => config('lsp.sk_menimbang'),
-            'mengingat'     => config('lsp.sk_mengingat'),
+        $html = View::make('documents.sk', [
+            'result'         => $result,
+            'student'        => $student,
+            'classroom'      => $classroom,
+            'session'        => $session,
+            'kan'            => $kan,
+            'kategori'       => $this->kategori($result->nilai_akhir),
+            'kategoriList'   => $skConf['kategori'],
+            'menimbang'      => $skConf['menimbang'],
+            'mengingat'      => $skConf['mengingat'],
+            'penutupHal2'    => $skConf['penutup_hal2'],
+            'catatanQr'      => $skConf['catatan_qr'],
+            'tglDitetapkan'  => now()->translatedFormat('d F Y'),
+            'lsp'            => $lsp,
+            'penandatangan'  => config('lsp_documents.penandatangan'),
+            'logoEdukiaPath' => $this->asset('logo_edukia'),
+            'logoKanPath'    => $this->asset('logo_kan'),
+            'qrSkPath'       => $qrSkPath,
         ])->render();
 
-        $mpdf = new Mpdf([
-            'mode'         => 'utf-8',
-            'format'       => 'A4',
-            'orientation'  => 'P',
-            'margin_top'   => 0,
-            'margin_bottom'=> 0,
-            'margin_left'  => 0,
-            'margin_right' => 0,
-        ]);
+        $mpdf = $this->makeMpdf();
         $mpdf->WriteHTML($html);
-
         return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
     }
 
-    /** @param 'with_kop'|'without_kop' $versi */
-    public function generateSertifikat(ParticipantResult $result, string $versi = 'with_kop'): string
+    /**
+     * SK dengan cache.
+     */
+    public function skPdf(ParticipantResult $result, bool $kan = false): string
+    {
+        if (!$result->sk_number) return $this->generateSk($result, $kan);
+        return $this->cachedPdf(
+            'documents/sk/' . md5($result->sk_number . '|' . ($kan ? 'kan' : 'nokan')) . '.pdf',
+            fn() => $this->generateSk($result, $kan)
+        );
+    }
+
+    /**
+     * Sertifikat — 2 halaman.
+     * @param bool $kan true = background hal.2 versi KAN
+     */
+    public function generateSertifikat(ParticipantResult $result, bool $kan = false): string
     {
         $result->loadMissing(['student', 'examSession.examPg.classroom', 'examSession.examEsai.classroom']);
 
-        $template  = CertificateTemplate::first();
-        $student   = $result->student;
         $session   = $result->examSession;
         $classroom = $session?->referenceExam?->classroom;
+        $student   = $result->student;
+        $lsp       = config('lsp_documents.lsp');
 
-        $startDt   = $session?->start_time ? Carbon::parse($session->start_time) : Carbon::now();
-        $heldOn    = $this->heldOnEn($startDt);
+        $startDt    = $session?->start_time ? Carbon::parse($session->start_time) : Carbon::now();
+        $heldOn     = $this->heldOnEn($startDt);
+        $certDate   = $result->finalized_at ? $this->heldOnEn($result->finalized_at) : $this->heldOnEn(Carbon::now());
+        $validUntil = $result->valid_until  ? $this->heldOnEn($result->valid_until)  : '-';
 
-        $certDate   = $result->finalized_at
-            ? $this->heldOnEn($result->finalized_at)
-            : $this->heldOnEn(Carbon::now());
+        // Background pages
+        $bgPage1Path = 'file://' . $this->asset('bg_sertif_depan');
+        $bgPage2Path = $kan
+            ? 'file://' . $this->asset('bg_sertif_kan')
+            : 'file://' . $this->asset('bg_sertif_tanpa_kan');
 
-        $validUntil = $result->valid_until
-            ? $this->heldOnEn($result->valid_until)
-            : '-';
-
-        // Competency units
+        // Unit kompetensi dari DB
         $classroomId     = $classroom?->id;
         $competencyUnits = $classroomId
             ? ClassroomCompetencyUnit::where('classroom_id', $classroomId)->orderBy('order')->get()
             : collect();
         $hasUnitKomp = $competencyUnits->isNotEmpty();
 
-        // Page 1 background
-        $bgPage1Path = $template?->bg_sertifikat_path
-            ? 'file://' . storage_path('app/public/' . $template->bg_sertifikat_path)
-            : null;
-
-        // Page 2 background: storage/app/public/templates/page2/{kode_skema}.png or fallback to page1 bg
-        $kodeSkema   = $classroom?->kode_skema ?? '';
-        $bgPage2Path = null;
-        if ($kodeSkema) {
-            $candidate = storage_path('app/public/templates/page2/' . $kodeSkema . '.png');
-            if (file_exists($candidate)) {
-                $bgPage2Path = 'file://' . $candidate;
-            }
-        }
-        $bgPage2Path ??= $bgPage1Path;
-
-        // QR for sertifikat
+        // QR
         $qrSertifPath = null;
         if ($result->sertifikat_number) {
-            $verifikasiUrl = config('lsp.verifikasi_url');
-            $namaTtd       = $template?->nama_penandatangan    ?? config('lsp.penandatangan.nama');
-            $jabatanTtd    = $template?->jabatan_penandatangan ?? config('lsp.penandatangan.jabatan');
-
+            $pnds   = config('lsp_documents.penandatangan');
             $qrData = implode("\n", [
                 'This document has been digitally signed by:',
-                $namaTtd,
-                'As ' . $jabatanTtd,
+                $pnds['nama'],
+                'As ' . $pnds['jabatan'],
                 'LSP Edukasi Global Cendekia',
                 '',
                 'By Certificate No: ' . $result->sertifikat_number,
                 'Date of Certificate: ' . $certDate,
-                'Certificate Holder Name: ' . $student?->name,
+                'Certificate Holder Name: ' . ($student?->name ?? '-'),
                 '',
                 'Verification Link:',
-                $verifikasiUrl . '/' . $result->sertifikat_number,
+                $lsp['verifikasi_url'] . '/' . $result->sertifikat_number,
             ]);
-
             $tmpPath = $this->qrTempPath('cert_' . md5($result->sertifikat_number));
             $this->writeQrFile($qrData, $tmpPath);
             $qrSertifPath = 'file://' . $tmpPath;
         }
 
-        $html = View::make('sertifikat', [
+        $html = View::make('documents.sertifikat', [
             'result'          => $result,
-            'template'        => $template,
             'student'         => $student,
             'classroom'       => $classroom,
             'heldOn'          => $heldOn,
@@ -263,17 +283,20 @@ class DocumentGeneratorService
             'qrSertifPath'    => $qrSertifPath,
         ])->render();
 
-        $mpdf = new Mpdf([
-            'mode'         => 'utf-8',
-            'format'       => 'A4',
-            'orientation'  => 'P',
-            'margin_top'   => 0,
-            'margin_bottom'=> 0,
-            'margin_left'  => 0,
-            'margin_right' => 0,
-        ]);
+        $mpdf = $this->makeMpdf();
         $mpdf->WriteHTML($html);
-
         return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    }
+
+    /**
+     * Sertifikat dengan cache.
+     */
+    public function sertifikatPdf(ParticipantResult $result, bool $kan = false): string
+    {
+        if (!$result->sertifikat_number) return $this->generateSertifikat($result, $kan);
+        return $this->cachedPdf(
+            'documents/sertifikat/' . md5($result->sertifikat_number . '|' . ($kan ? 'kan' : 'nokan')) . '.pdf',
+            fn() => $this->generateSertifikat($result, $kan)
+        );
     }
 }

@@ -19,7 +19,6 @@ class DistributeResultsJob implements ShouldQueue
 
     public function __construct(
         public readonly int $examSessionId,
-        public readonly string $versi = 'with_kop',
     ) {}
 
     public function handle(): void
@@ -28,6 +27,6 @@ class DistributeResultsJob implements ShouldQueue
             ->where('is_finalized', true)
             ->whereNull('distributed_at')
             ->pluck('id')
-            ->each(fn($id) => SendResultMailJob::dispatch($id, $this->versi));
+            ->each(fn($id) => SendResultMailJob::dispatch($id));
     }
 }

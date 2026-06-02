@@ -16,7 +16,11 @@
       "Bash(php -l app/Http/Controllers/Asesor/DashboardController.php)",
       "Bash(php -l app/Http/Controllers/Admin/PenilaianController.php)",
       "Bash(php -l app/Http/Controllers/Admin/ApplicationController.php)",
-      "Bash(php -l app/Models/AssessmentApplication.php)"
+      "Bash(php -l app/Models/AssessmentApplication.php)",
+      "Bash(mkdir -p resources/lsp-assets)",
+      "Bash(php -r ' *)",
+      "Bash(php -l app/Services/DocumentGeneratorService.php app/Http/Controllers/Admin/CertificateTemplateController.php app/Jobs/SendResultMailJob.php app/Jobs/DistributeResultsJob.php)",
+      "Bash(php -l app/Http/Controllers/Admin/CertificateTemplateController.php)"
     ]
   }
 }

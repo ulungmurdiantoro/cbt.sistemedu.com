@@ -7,6 +7,28 @@ use Illuminate\Support\Facades\DB;
 
 class NumberingService
 {
+    /** Format: 001/SP/LSP-EDUKIA/VI/2026 */
+    public function nextSpNumber(): string
+    {
+        return DB::transaction(function () {
+            $year = now()->year;
+
+            $counter = NumberingCounter::lockForUpdate()
+                ->firstOrCreate(
+                    ['type' => 'sp', 'scope' => null, 'year' => $year],
+                    ['last_number' => 0]
+                );
+
+            $counter->increment('last_number');
+            $counter->refresh();
+
+            $n     = str_pad($counter->last_number, 3, '0', STR_PAD_LEFT);
+            $bulan = $this->toRoman(now()->month);
+
+            return "{$n}/SP/LSP-EDUKIA/{$bulan}/{$year}";
+        });
+    }
+
     /** Format: 111/SK-SP/LSP-EDUKIA/V/2026 */
     public function nextSkNumber(): string
     {

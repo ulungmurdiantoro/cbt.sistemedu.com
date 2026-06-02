@@ -23,7 +23,6 @@ class SendResultMailJob implements ShouldQueue
 
     public function __construct(
         public readonly int $participantResultId,
-        public readonly string $versi = 'with_kop',
     ) {}
 
     public function handle(): void
@@ -45,7 +44,7 @@ class SendResultMailJob implements ShouldQueue
             return;
         }
 
-        Mail::to($email)->send(new ResultDistributionMail($result, $this->versi));
+        Mail::to($email)->send(new ResultDistributionMail($result));
 
         $result->update(['distributed_at' => now()]);
     }

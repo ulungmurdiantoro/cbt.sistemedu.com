@@ -16,8 +16,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 # =========================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-EXCEL_FILE = os.path.join(BASE_DIR, "data", "ToTUPD.04052026.xlsx")
-BG_PATH    = os.path.join(BASE_DIR, "assets", "DepanTrial.png")
+EXCEL_FILE = os.path.join(BASE_DIR, "data", "ToTUPDTidar.xlsx")
+BG_PATH    = os.path.join(BASE_DIR, "assets", "DepanV2.png")
 LOGO_PATH  = os.path.join(BASE_DIR, "assets", "logo2.jpg")
 
 # Fonts

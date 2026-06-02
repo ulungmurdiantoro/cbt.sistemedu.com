@@ -22,11 +22,11 @@ from reportlab.lib.utils import simpleSplit
 # =========================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-EXCEL_FILE = os.path.join(BASE_DIR, "data", "Suryaningsih.xlsx")
+EXCEL_FILE = os.path.join(BASE_DIR, "data", "ISO14.xlsx")
 
 ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 LOGO_LEFT_PATH  = os.path.join(ASSETS_DIR, "logo2.jpg")         # Edukia
-LOGO_RIGHT_PATH = os.path.join(ASSETS_DIR, "logo_iaf_kan.png")  # IAF/KAN
+LOGO_RIGHT_PATH = None  # IAF/KAN
 TTD_PATH        = os.path.join(ASSETS_DIR, "ttd.png")           # optional
 
 OUTPUT_ROOT = os.path.join(BASE_DIR, "output", "sk")
@@ -286,59 +286,23 @@ Link: https://verifikasi-sertifikat.lspedukia.id/sk/{no_sk}
 def draw_header_sk(c: canvas.Canvas):
     y_top = PAGE_H - HEADER_MARGIN_TOP
 
-    logo_left_w_pt, logo_left_h_pt = 3.99 * CM, 1.67 * CM
-    logo_right_w_pt, logo_right_h_pt = 5.2 * CM, 1.81 * CM
+    logo_w_pt, logo_h_pt = 3.99 * CM, 1.67 * CM
 
-    p_style = ParagraphStyle(
-        name="HeaderMid",
-        fontName=fnt("Cambria"),
-        fontSize=12,
-        leading=14,
-        alignment=1,
-        spaceBefore=0,
-        spaceAfter=0
-    )
+    # posisi tengah
+    x_logo = (PAGE_W - logo_w_pt) / 2
+    y_logo = y_top - logo_h_pt
 
-    mid_cell = Paragraph("", p_style)
+    if os.path.exists(LOGO_LEFT_PATH):
+        c.drawImage(
+            LOGO_LEFT_PATH,
+            x_logo,
+            y_logo,
+            width=logo_w_pt,
+            height=logo_h_pt,
+            mask="auto"
+        )
 
-    left_cell = RLImage(LOGO_LEFT_PATH, width=logo_left_w_pt, height=logo_left_h_pt) if os.path.exists(LOGO_LEFT_PATH) else Paragraph("", p_style)
-    right_cell = RLImage(LOGO_RIGHT_PATH, width=logo_right_w_pt, height=logo_right_h_pt) if os.path.exists(LOGO_RIGHT_PATH) else Paragraph("", p_style)
-
-    header_w = PAGE_W - HEADER_MARGIN_LEFT - HEADER_MARGIN_RIGHT
-
-    gap = 6
-    col_left = logo_left_w_pt + gap
-    col_right = logo_right_w_pt + gap
-    col_mid = header_w - col_left - col_right
-    if col_mid < 20:
-        col_mid = 20
-
-    row_h = max(logo_left_h_pt, logo_right_h_pt, 70)
-
-    table = Table([[left_cell, mid_cell, right_cell]],
-                  colWidths=[col_left, col_mid, col_right],
-                  rowHeights=[row_h])
-
-    table.setStyle(TableStyle([
-        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("ALIGN", (0, 0), (0, 0), "LEFT"),
-        ("ALIGN", (1, 0), (1, 0), "CENTER"),
-        ("ALIGN", (2, 0), (2, 0), "RIGHT"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 0),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-        ("TOPPADDING", (0, 0), (-1, -1), 0),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
-        ("GRID", (0, 0), (-1, -1), 0, colors.white),
-    ]))
-
-    table_x = HEADER_MARGIN_LEFT
-    table_y = y_top - row_h
-
-    table.wrapOn(c, header_w, PAGE_H)
-    table.drawOn(c, table_x, table_y)
-
-    return table_y - 13
-
+    return y_logo - 24
 
 # =========================
 # PAGE 1
@@ -470,7 +434,7 @@ def draw_sk_page1(c: canvas.Canvas, d: dict):
 # =========================
 def draw_sk_page2(c: canvas.Canvas, d: dict, qr_path: str):
     y = draw_header_sk(c)
-    y -= 28
+    y -= 12
 
     draw_centered(c, y, "MEMUTUSKAN", fnt("Cambria-Bold"), 12)
     y -= 16
@@ -753,7 +717,7 @@ def draw_sk_page3(c: canvas.Canvas, d: dict):
     # Header 2 baris + 1 baris nilai
     data_nilai = [
         [
-            Paragraph("NILAI WAWANCARA", ps_head),
+            Paragraph("NILAI PRAKTIK", ps_head),
             Paragraph("NILAI PILIHAN<br/>GANDA", ps_head),
             Paragraph("NILAI ESAI", ps_head),
             Paragraph("REKAPITULASI HASIL ASESMEN ", ps_head),     # akan di-span dengan kolom sebelahnya
@@ -939,6 +903,7 @@ def main():
                 "skema": safe_str(row.get("skema", ""))
                           or safe_str(row.get("skema_eng", ""))
                           or "-",
+                "no_skema": safe_str(row.get("no_skema", "")) or "",
                 "judul_skema": safe_str(row.get("judul_skema", "")),
                 "nama_lengkap": nama_lengkap,
                 "hasil": safe_str(row.get("hasil", "")) or "Lulus/Kompeten",
@@ -970,9 +935,11 @@ def main():
                 )
 
             # =========================
-            # PDF → SK_Nama_Lengkap.pdf
+            # PDF → SK_Nama_Lengkap_NoSkema.pdf
             # =========================
-            out_pdf = os.path.join(OUT_DIR, f"SK_{safe_nama}.pdf")
+            no_skema_raw = d["no_skema"]
+            safe_no_skema = sanitize_filename(no_skema_raw) if no_skema_raw else "NOSKEMA"
+            out_pdf = os.path.join(OUT_DIR, f"SK_{safe_nama}_{safe_no_skema}.pdf")
             c = canvas.Canvas(out_pdf, pagesize=A4)
 
             draw_sk_page1(c, d)

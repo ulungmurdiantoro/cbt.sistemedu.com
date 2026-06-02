@@ -17,7 +17,6 @@ class ResultDistributionMail extends Mailable
 
     public function __construct(
         public readonly ParticipantResult $result,
-        public readonly string $versi = 'with_kop',
     ) {}
 
     public function envelope(): Envelope
@@ -40,12 +39,12 @@ class ResultDistributionMail extends Mailable
         $result      = $this->result;
         $attachments = [];
 
-        $skPdf = $generator->skPdf($result, $this->versi);
+        $skPdf = $generator->skPdf($result, false);
         $attachments[] = Attachment::fromData(fn() => $skPdf, 'SK_' . $result->student?->no_participant . '.pdf')
             ->withMime('application/pdf');
 
         if ($result->keputusan === 'LULUS' && $result->sertifikat_number) {
-            $sertPdf = $generator->sertifikatPdf($result, $this->versi);
+            $sertPdf = $generator->sertifikatPdf($result, false);
             $attachments[] = Attachment::fromData(fn() => $sertPdf, 'Sertifikat_' . $result->student?->no_participant . '.pdf')
                 ->withMime('application/pdf');
         }
