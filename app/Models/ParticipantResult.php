@@ -21,6 +21,7 @@ class ParticipantResult extends Model
         'finalized_at',
         'finalized_by',
         'sk_number',
+        'sp_number',
         'sertifikat_number',
         'distributed_at',
         'valid_until',

@@ -91,18 +91,68 @@
                                     <span v-else class="badge bg-secondary">Draft</span>
                                 </td>
                                 <td class="text-center">
-                                    <div class="d-flex gap-1 justify-content-center flex-wrap">
-                                        <a v-if="row.is_finalized"
-                                           :href="`/admin/results/${exam_session.id}/download-sk/${row.student_id}`"
-                                           target="_blank" class="btn btn-xs btn-outline-secondary py-0 px-1" title="Download SK">
-                                            <i class="fa fa-file-alt"></i> SK
-                                        </a>
-                                        <a v-if="row.is_finalized && row.keputusan === 'LULUS'"
-                                           :href="`/admin/results/${exam_session.id}/download-sertifikat/${row.student_id}`"
-                                           target="_blank" class="btn btn-xs btn-outline-primary py-0 px-1" title="Download Sertifikat">
-                                            <i class="fa fa-certificate"></i> Sert.
-                                        </a>
+                                    <div v-if="row.is_finalized" class="d-flex gap-1 justify-content-center flex-wrap">
+
+                                        <!-- SP -->
+                                        <div class="dropdown">
+                                            <a :href="`/admin/results/${exam_session.id}/download-sp/${row.student_id}`"
+                                               target="_blank"
+                                               class="btn btn-xs btn-outline-secondary py-0 px-2"
+                                               title="Surat Pemberitahuan">
+                                                <i class="fa fa-envelope-open"></i> SP
+                                            </a>
+                                        </div>
+
+                                        <!-- SK -->
+                                        <div class="dropdown">
+                                            <button class="btn btn-xs btn-outline-dark py-0 px-2 dropdown-toggle"
+                                                data-bs-toggle="dropdown" title="Surat Keputusan">
+                                                <i class="fa fa-file-alt"></i> SK
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" style="min-width:160px; font-size:0.82rem;">
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                       :href="`/admin/results/${exam_session.id}/download-sk/${row.student_id}`"
+                                                       target="_blank">
+                                                        Tanpa KAN
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                       :href="`/admin/results/${exam_session.id}/download-sk/${row.student_id}?kan=1`"
+                                                       target="_blank">
+                                                        Dengan KAN
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- Sertifikat (hanya LULUS) -->
+                                        <div v-if="row.keputusan === 'LULUS'" class="dropdown">
+                                            <button class="btn btn-xs btn-outline-primary py-0 px-2 dropdown-toggle"
+                                                data-bs-toggle="dropdown" title="Sertifikat Kompetensi">
+                                                <i class="fa fa-certificate"></i> Sert.
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" style="min-width:160px; font-size:0.82rem;">
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                       :href="`/admin/results/${exam_session.id}/download-sertifikat/${row.student_id}`"
+                                                       target="_blank">
+                                                        Tanpa KAN
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                       :href="`/admin/results/${exam_session.id}/download-sertifikat/${row.student_id}?kan=1`"
+                                                       target="_blank">
+                                                        Dengan KAN
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
                                     </div>
+                                    <span v-else class="text-muted small">—</span>
                                 </td>
                             </tr>
                             <tr v-if="rows.length === 0">

@@ -53,7 +53,8 @@ class ResultController extends Controller
                 'nilai_akhir'     => $r->nilai_akhir,
                 'keputusan'       => $r->keputusan,
                 'is_finalized'    => $r->is_finalized,
-                'sk_number'       => $r->sk_number,
+                'sk_number'         => $r->sk_number,
+                'sp_number'         => $r->sp_number,
                 'sertifikat_number' => $r->sertifikat_number,
                 'distributed_at'  => $r->distributed_at,
                 'attempt'         => $r->attempt,
@@ -98,11 +99,14 @@ class ResultController extends Controller
                     );
                 }
 
+                $spNum = $this->numbering->nextSpNumber();
+
                 $result->update([
                     'is_finalized'     => true,
                     'finalized_at'     => now(),
                     'finalized_by'     => Auth::id(),
                     'sk_number'        => $skNum,
+                    'sp_number'        => $spNum,
                     'sertifikat_number'=> $sertifikatNum,
                     'valid_until'      => now()->addYears(config('lsp.sertifikat_valid_years', 3)),
                 ]);
@@ -110,6 +114,22 @@ class ResultController extends Controller
         });
 
         return redirect()->back()->with('success', 'Hasil berhasil difinalisasi.');
+    }
+
+    public function downloadSp(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)
+    {
+        $this->authorize('download', ParticipantResult::class);
+        $result = ParticipantResult::where('exam_session_id', $examSession->id)
+            ->where('student_id', $student->id)
+            ->where('is_finalized', true)
+            ->firstOrFail();
+
+        $pdf      = $generator->spPdf($result);
+        $filename = 'SP_' . $student->no_participant . '.pdf';
+
+        return response($pdf, 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', "inline; filename=\"{$filename}\"");
     }
 
     public function downloadSk(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)
@@ -120,8 +140,10 @@ class ResultController extends Controller
             ->where('is_finalized', true)
             ->firstOrFail();
 
-        $pdf      = $generator->skPdf($result, false);
-        $filename = 'SK_' . $student->no_participant . '.pdf';
+        $kan      = request()->boolean('kan', false);
+        $pdf      = $generator->skPdf($result, $kan);
+        $suffix   = $kan ? '_KAN' : '';
+        $filename = 'SK' . $suffix . '_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)
             ->header('Content-Type', 'application/pdf')
@@ -137,8 +159,10 @@ class ResultController extends Controller
             ->where('keputusan', 'LULUS')
             ->firstOrFail();
 
-        $pdf      = $generator->sertifikatPdf($result, false);
-        $filename = 'Sertifikat_' . $student->no_participant . '.pdf';
+        $kan      = request()->boolean('kan', false);
+        $pdf      = $generator->sertifikatPdf($result, $kan);
+        $suffix   = $kan ? '_KAN' : '';
+        $filename = 'Sertifikat' . $suffix . '_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)
             ->header('Content-Type', 'application/pdf')
