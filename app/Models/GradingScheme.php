@@ -17,10 +17,6 @@ class GradingScheme extends Model
         'nilai_kelulusan',
         'bobot_ujian_tulis',
         'proporsi_pg',
-        'jumlah_soal_pg',
-        'durasi_pg_menit',
-        'jumlah_soal_esai',
-        'durasi_esai_menit',
     ];
 
     protected function casts(): array
@@ -32,10 +28,6 @@ class GradingScheme extends Model
             'nilai_kelulusan'   => 'float',
             'bobot_ujian_tulis' => 'float',
             'proporsi_pg'       => 'float',
-            'jumlah_soal_pg'    => 'integer',
-            'durasi_pg_menit'   => 'integer',
-            'jumlah_soal_esai'  => 'integer',
-            'durasi_esai_menit' => 'integer',
         ];
     }
 
