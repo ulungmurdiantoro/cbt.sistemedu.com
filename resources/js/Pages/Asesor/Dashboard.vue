@@ -40,7 +40,7 @@
                                     &nbsp;|&nbsp;
                                     <i class="fa fa-users me-1"></i>{{ session.student_count }} peserta ditugaskan
                                 </p>
-                                <div class="d-flex gap-2">
+                                <div class="d-flex flex-wrap gap-2">
                                     <Link :href="`/asesor/penilaian/${session.id}/esai`"
                                         class="btn btn-sm btn-primary border-0 shadow">
                                         <i class="fa fa-pen me-1"></i> Nilai Esai
@@ -48,6 +48,10 @@
                                     <Link :href="`/asesor/penilaian/${session.id}/wawancara`"
                                         class="btn btn-sm btn-success border-0 shadow">
                                         <i class="fa fa-comments me-1"></i> Nilai Wawancara
+                                    </Link>
+                                    <Link :href="`/asesor/penilaian/${session.id}/dokumen`"
+                                        class="btn btn-sm btn-warning border-0 shadow text-dark">
+                                        <i class="fa fa-folder-open me-1"></i> Verifikasi Dokumen
                                     </Link>
                                 </div>
                             </div>

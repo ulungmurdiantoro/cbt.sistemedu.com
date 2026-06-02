@@ -15,7 +15,10 @@ class PenilaianController extends Controller
     public function index()
     {
         $exam_sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
-            ->orderBy('id', 'desc')
+            ->withCount('exam_groups')
+            ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
+            ->orderByRaw('CASE WHEN end_time > NOW() THEN end_time END ASC')
+            ->orderBy('end_time', 'desc')
             ->get();
 
         $asesors = User::where('role', 'asesor')->orderBy('name')->get();

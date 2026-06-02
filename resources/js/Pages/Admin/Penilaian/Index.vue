@@ -5,110 +5,101 @@
             <div class="col-md-12">
 
                 <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <h5><i class="fa fa-user-tie me-2"></i>Penugasan Asesor</h5>
-                        <hr>
-                        <p class="text-muted mb-0">Pilih sesi ujian untuk mengatur penugasan asesor ke peserta.</p>
-                    </div>
-                </div>
-
-                <!-- Sesi Aktif -->
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-header bg-success text-white fw-semibold">
-                        <i class="fa fa-circle-play me-2"></i>Sesi Aktif
-                        <span class="badge bg-light text-success ms-2">{{ activeSessions.length }}</span>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover align-middle mb-0">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th style="width:5%">No</th>
-                                        <th>Sesi Ujian</th>
-                                        <th>Ujian</th>
-                                        <th>Skema</th>
-                                        <th>Tipe</th>
-                                        <th>Berakhir</th>
-                                        <th class="text-center" style="width:12%">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-if="activeSessions.length === 0">
-                                        <td colspan="7" class="text-center text-muted py-3">Tidak ada sesi aktif.</td>
-                                    </tr>
-                                    <tr v-for="(session, i) in activeSessions" :key="session.id">
-                                        <td>{{ i + 1 }}</td>
-                                        <td>{{ session.title }}</td>
-                                        <td>
-                                            <div v-if="session.examPg" class="small">{{ session.examPg.title }}</div>
-                                            <div v-if="session.examEsai" class="small">{{ session.examEsai.title }}</div>
-                                            <div v-if="!session.examPg && !session.examEsai" class="text-muted small">—</div>
-                                        </td>
-                                        <td>{{ (session.examPg ?? session.examEsai)?.classroom?.title ?? '—' }}</td>
-                                        <td>
-                                            <span v-if="session.examPg" class="badge bg-info me-1">{{ session.examPg.type }}</span>
-                                            <span v-if="session.examEsai" class="badge bg-warning text-dark me-1">{{ session.examEsai.type }}</span>
-                                            <span v-if="session.has_wawancara" class="badge bg-secondary">Wawancara</span>
-                                        </td>
-                                        <td class="small">{{ formatDate(session.end_time) }}</td>
-                                        <td class="text-center">
-                                            <Link :href="`/admin/penilaian/${session.id}`"
-                                                class="btn btn-sm btn-primary border-0 shadow">
-                                                <i class="fa fa-users-cog me-1"></i> Atur
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="card-body py-3 d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="fw-bold mb-0"><i class="fa fa-user-tie me-2"></i>Penugasan Asesor</h5>
+                            <p class="text-muted small mb-0">Pilih sesi ujian untuk mengatur penugasan asesor ke peserta.</p>
+                        </div>
+                        <div class="d-flex gap-2 text-center">
+                            <div class="px-3 py-1 rounded border">
+                                <div class="fw-bold text-success">{{ activeSessions.length }}</div>
+                                <div class="text-muted" style="font-size:0.75rem">Aktif</div>
+                            </div>
+                            <div class="px-3 py-1 rounded border">
+                                <div class="fw-bold text-secondary">{{ endedSessions.length }}</div>
+                                <div class="text-muted" style="font-size:0.75rem">Selesai</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Sesi Selesai -->
                 <div class="card border-0 shadow">
-                    <div class="card-header bg-secondary text-white fw-semibold">
-                        <i class="fa fa-circle-check me-2"></i>Sesi Selesai
-                        <span class="badge bg-light text-secondary ms-2">{{ endedSessions.length }}</span>
-                    </div>
-                    <div class="card-body p-0">
+                    <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover align-middle mb-0">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th style="width:5%">No</th>
-                                        <th>Sesi Ujian</th>
-                                        <th>Ujian</th>
-                                        <th>Skema</th>
-                                        <th>Tipe</th>
-                                        <th>Selesai</th>
-                                        <th class="text-center" style="width:12%">Aksi</th>
+                            <table class="table table-bordered table-centered mb-0 rounded">
+                                <thead class="thead-dark">
+                                    <tr class="border-0">
+                                        <th class="border-0 rounded-start" style="width:4%">No.</th>
+                                        <th class="border-0">Sesi Ujian</th>
+                                        <th class="border-0">Jenis Ujian</th>
+                                        <th class="border-0" style="width:8%">Peserta</th>
+                                        <th class="border-0">Mulai</th>
+                                        <th class="border-0">Selesai</th>
+                                        <th class="border-0 rounded-end text-center" style="width:12%">Aksi</th>
                                     </tr>
                                 </thead>
+                                <div class="mt-2"></div>
                                 <tbody>
-                                    <tr v-if="endedSessions.length === 0">
-                                        <td colspan="7" class="text-center text-muted py-3">Belum ada sesi yang selesai.</td>
-                                    </tr>
-                                    <tr v-for="(session, i) in endedSessions" :key="session.id" class="text-muted">
-                                        <td>{{ i + 1 }}</td>
-                                        <td>{{ session.title }}</td>
-                                        <td>
-                                            <div v-if="session.examPg" class="small">{{ session.examPg.title }}</div>
-                                            <div v-if="session.examEsai" class="small">{{ session.examEsai.title }}</div>
-                                            <div v-if="!session.examPg && !session.examEsai" class="small">—</div>
-                                        </td>
-                                        <td>{{ (session.examPg ?? session.examEsai)?.classroom?.title ?? '—' }}</td>
-                                        <td>
-                                            <span v-if="session.examPg" class="badge bg-info me-1">{{ session.examPg.type }}</span>
-                                            <span v-if="session.examEsai" class="badge bg-warning text-dark me-1">{{ session.examEsai.type }}</span>
-                                            <span v-if="session.has_wawancara" class="badge bg-secondary">Wawancara</span>
-                                        </td>
-                                        <td class="small">{{ formatDate(session.end_time) }}</td>
-                                        <td class="text-center">
-                                            <Link :href="`/admin/penilaian/${session.id}`"
-                                                class="btn btn-sm btn-outline-secondary">
-                                                <i class="fa fa-eye me-1"></i> Lihat
-                                            </Link>
-                                        </td>
+                                    <template v-for="(session, index) in exam_sessions" :key="session.id">
+                                        <!-- Separator sebelum baris pertama yang sudah selesai -->
+                                        <tr v-if="isFirstFinished(index)" class="separator-row">
+                                            <td colspan="7" class="py-1 px-3 text-muted small fw-semibold border-0"
+                                                style="background:#f8f9fa; border-top:2px dashed #dee2e6 !important;">
+                                                <i class="fa fa-check-circle me-1 text-secondary"></i> Sesi Selesai
+                                            </td>
+                                        </tr>
+
+                                        <tr :class="isActive(session) ? 'table-active-session' : 'table-finished-session'">
+                                            <td class="fw-bold text-center">{{ index + 1 }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-start gap-2">
+                                                    <span v-if="isActive(session)" class="badge bg-success mt-1 flex-shrink-0">Aktif</span>
+                                                    <span v-else class="badge bg-secondary mt-1 flex-shrink-0">Selesai</span>
+                                                    <div>
+                                                        <strong>{{ session.title }}</strong>
+                                                        <div class="text-muted small">Batch {{ session.kode_batch }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <ul class="mb-0 ps-3 small">
+                                                    <li v-if="session.exam_pg">
+                                                        <span class="badge bg-primary me-1">PG</span>
+                                                        {{ session.exam_pg.title }}
+                                                        <span class="text-muted">({{ session.exam_pg.classroom?.title }})</span>
+                                                    </li>
+                                                    <li v-if="session.exam_esai">
+                                                        <span class="badge bg-success me-1">Esai</span>
+                                                        {{ session.exam_esai.title }}
+                                                        <span class="text-muted">({{ session.exam_esai.classroom?.title }})</span>
+                                                    </li>
+                                                    <li v-if="session.has_wawancara">
+                                                        <span class="badge bg-warning text-dark me-1">Wawancara</span>
+                                                        Penilaian asesor
+                                                    </li>
+                                                    <li v-if="!session.exam_pg && !session.exam_esai && !session.has_wawancara"
+                                                        class="text-muted">—</li>
+                                                </ul>
+                                            </td>
+                                            <td class="text-center">
+                                                {{ session.exam_groups_count ?? 0 }}
+                                            </td>
+                                            <td class="small">{{ formatDate(session.start_time) }}</td>
+                                            <td class="small">{{ formatDate(session.end_time) }}</td>
+                                            <td class="text-center">
+                                                <Link :href="`/admin/penilaian/${session.id}`"
+                                                    class="btn btn-sm border-0 shadow"
+                                                    :class="isActive(session) ? 'btn-primary' : 'btn-outline-secondary'"
+                                                    :title="isActive(session) ? 'Atur Penugasan' : 'Lihat Penugasan'">
+                                                    <i :class="isActive(session) ? 'fa fa-users-cog' : 'fa fa-eye'"></i>
+                                                    {{ isActive(session) ? 'Atur' : 'Lihat' }}
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    </template>
+
+                                    <tr v-if="exam_sessions.length === 0">
+                                        <td colspan="7" class="text-center text-muted py-4">Belum ada sesi ujian.</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -135,30 +126,38 @@ export default {
     },
 
     setup(props) {
-        const isEnded = (session) => {
-            if (!session.end_time) return false;
-            return new Date(session.end_time).getTime() < Date.now();
+        const now = new Date();
+
+        const isActive = (s) => new Date(s.end_time) > now;
+
+        const isFirstFinished = (index) => {
+            const data = props.exam_sessions;
+            if (index === 0) return false;
+            return !isActive(data[index]) && isActive(data[index - 1]);
         };
 
-        // Aktif: belum lewat end_time, urut yang berakhir paling cepat dulu
-        const activeSessions = computed(() =>
-            (props.exam_sessions ?? [])
-                .filter(s => !isEnded(s))
-                .sort((a, b) => new Date(a.end_time) - new Date(b.end_time))
-        );
-
-        // Selesai: sudah lewat end_time, urut yang baru selesai dulu
-        const endedSessions = computed(() =>
-            (props.exam_sessions ?? [])
-                .filter(isEnded)
-                .sort((a, b) => new Date(b.end_time) - new Date(a.end_time))
-        );
+        const activeSessions = computed(() => (props.exam_sessions ?? []).filter(isActive));
+        const endedSessions  = computed(() => (props.exam_sessions ?? []).filter(s => !isActive(s)));
 
         const formatDate = (dt) => dt
             ? new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
             : '—';
 
-        return { activeSessions, endedSessions, formatDate };
+        return { isActive, isFirstFinished, activeSessions, endedSessions, formatDate };
     },
 }
 </script>
+
+<style scoped>
+.table-active-session td {
+    background-color: #fff;
+}
+.table-finished-session td {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    opacity: 0.85;
+}
+.table-finished-session .badge {
+    opacity: 0.8;
+}
+</style>

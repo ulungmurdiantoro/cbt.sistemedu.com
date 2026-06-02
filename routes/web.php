@@ -171,6 +171,11 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
     Route::get('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'show'])->name('asesor.wawancara.show');
     Route::post('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'store'])->name('asesor.wawancara.store');
 
+    Route::get('/penilaian/{exam_session_id}/dokumen', [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'index'])->name('asesor.dokumen.index');
+    Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}', [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'show'])->name('asesor.dokumen.show');
+    Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/verify', [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'verify'])->name('asesor.dokumen.verify');
+    Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/download', [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'download'])->name('asesor.dokumen.download');
+
 });
 
 //route homepage (login ujian)
