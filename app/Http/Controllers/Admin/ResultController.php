@@ -9,7 +9,6 @@ use App\Models\Student;
 use App\Services\DocumentGeneratorService;
 use App\Services\NumberingService;
 use App\Services\ResultCalculatorService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -43,21 +42,21 @@ class ResultController extends Controller
         $rows = collect($results)->map(function ($r) use ($students) {
             $student = $students->get($r->student_id);
             return [
-                'result_id'       => $r->id,
-                'student_id'      => $r->student_id,
-                'no_participant'  => $student?->no_participant,
-                'name'            => $student?->name,
-                'nilai_pg'        => $r->nilai_pg,
-                'nilai_esai'      => $r->nilai_esai,
-                'nilai_wawancara' => $r->nilai_wawancara,
-                'nilai_akhir'     => $r->nilai_akhir,
-                'keputusan'       => $r->keputusan,
-                'is_finalized'    => $r->is_finalized,
+                'result_id'         => $r->id,
+                'student_id'        => $r->student_id,
+                'no_participant'    => $student?->no_participant,
+                'name'              => $student?->name,
+                'nilai_pg'          => $r->nilai_pg,
+                'nilai_esai'        => $r->nilai_esai,
+                'nilai_wawancara'   => $r->nilai_wawancara,
+                'nilai_akhir'       => $r->nilai_akhir,
+                'keputusan'         => $r->keputusan,
+                'is_finalized'      => $r->is_finalized,
                 'sk_number'         => $r->sk_number,
                 'sp_number'         => $r->sp_number,
                 'sertifikat_number' => $r->sertifikat_number,
-                'distributed_at'  => $r->distributed_at,
-                'attempt'         => $r->attempt,
+                'distributed_at'    => $r->distributed_at,
+                'attempt'           => $r->attempt,
             ];
         })->sortBy('name')->values();
 
@@ -75,8 +74,6 @@ class ResultController extends Controller
 
     public function finalize(ExamSession $examSession)
     {
-        $this->authorize('finalize', ParticipantResult::class);
-
         $examSession->load(['examPg.classroom', 'examEsai.classroom']);
 
         $classroomId = $examSession->referenceExam?->classroom_id;
@@ -89,6 +86,7 @@ class ResultController extends Controller
         DB::transaction(function () use ($results, $classroom, $classroomId, $examSession) {
             foreach ($results as $result) {
                 $skNum = $this->numbering->nextSkNumber();
+                $spNum = $this->numbering->nextSpNumber();
 
                 $sertifikatNum = null;
                 if ($result->keputusan === 'LULUS' && $classroom) {
@@ -99,16 +97,14 @@ class ResultController extends Controller
                     );
                 }
 
-                $spNum = $this->numbering->nextSpNumber();
-
                 $result->update([
-                    'is_finalized'     => true,
-                    'finalized_at'     => now(),
-                    'finalized_by'     => Auth::id(),
-                    'sk_number'        => $skNum,
-                    'sp_number'        => $spNum,
-                    'sertifikat_number'=> $sertifikatNum,
-                    'valid_until'      => now()->addYears(config('lsp.sertifikat_valid_years', 3)),
+                    'is_finalized'      => true,
+                    'finalized_at'      => now(),
+                    'finalized_by'      => Auth::id(),
+                    'sk_number'         => $skNum,
+                    'sp_number'         => $spNum,
+                    'sertifikat_number' => $sertifikatNum,
+                    'valid_until'       => now()->addYears(config('lsp.sertifikat_valid_years', 3)),
                 ]);
             }
         });
@@ -118,7 +114,6 @@ class ResultController extends Controller
 
     public function downloadSp(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)
     {
-        $this->authorize('download', ParticipantResult::class);
         $result = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('student_id', $student->id)
             ->where('is_finalized', true)
@@ -134,7 +129,6 @@ class ResultController extends Controller
 
     public function downloadSk(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)
     {
-        $this->authorize('download', ParticipantResult::class);
         $result = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('student_id', $student->id)
             ->where('is_finalized', true)
@@ -152,7 +146,6 @@ class ResultController extends Controller
 
     public function downloadSertifikat(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)
     {
-        $this->authorize('download', ParticipantResult::class);
         $result = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('student_id', $student->id)
             ->where('is_finalized', true)
@@ -171,7 +164,6 @@ class ResultController extends Controller
 
     public function distribute(ExamSession $examSession)
     {
-        $this->authorize('distribute', ParticipantResult::class);
         $unfinalized = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('is_finalized', false)
             ->count();
