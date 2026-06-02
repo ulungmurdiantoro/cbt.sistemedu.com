@@ -36,7 +36,7 @@
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Nama Skema</th>
                                         <th class="border-0">Classroom_id (kode skema)</th>
-                                        <th class="border-0 rounded-end" style="width:15%">Aksi</th>
+                                        <th class="border-0 rounded-end" style="width:20%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
@@ -52,10 +52,13 @@
                                             <div v-if="classroom.kode_skema" class="text-muted fst-italic small">({{ classroom.kode_skema }})</div>
                                         </td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/classrooms/${classroom.id}/requirements`" class="btn btn-sm btn-secondary border-0 shadow me-1" title="Persyaratan Dokumen"><i class="fa fa-file-alt"></i></Link>
-                                            <Link :href="`/admin/classrooms/${classroom.id}/competency-units`" class="btn btn-sm btn-success border-0 shadow me-1" title="Unit Kompetensi"><i class="fa fa-list-ol"></i></Link>
-                                            <Link :href="`/admin/classrooms/${classroom.classrooms_code}/edit`" class="btn btn-sm btn-info border-0 shadow me-1" type="button"><i class="fa fa-pencil-alt"></i></Link>
-                                            <button @click.prevent="destroy(classroom.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
+                                            <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                                <Link :href="`/admin/classrooms/${classroom.id}/requirements`" class="btn btn-sm btn-secondary border-0 shadow" title="Persyaratan Dokumen"><i class="fa fa-file-alt"></i></Link>
+                                                <Link :href="`/admin/classrooms/${classroom.id}/competency-units`" class="btn btn-sm btn-success border-0 shadow" title="Unit Kompetensi"><i class="fa fa-list-ol"></i></Link>
+                                                <Link :href="`/admin/classrooms/${classroom.id}/grading-scheme`" class="btn btn-sm btn-warning border-0 shadow" title="Bobot Penilaian"><i class="fa fa-percent"></i></Link>
+                                                <Link :href="`/admin/classrooms/${classroom.classrooms_code}/edit`" class="btn btn-sm btn-info border-0 shadow" type="button" title="Edit"><i class="fa fa-pencil-alt"></i></Link>
+                                                <button @click.prevent="destroy(classroom.id)" class="btn btn-sm btn-danger border-0" title="Hapus"><i class="fa fa-trash"></i></button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
