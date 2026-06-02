@@ -332,8 +332,8 @@ export default {
     top: 0;
     right: 0;
     height: 100vh;
-    width: 100%;
-    max-width: 640px;
+    width: 90%;
+    max-width: 960px;
     background: #fff;
     z-index: 1050;
     display: flex;

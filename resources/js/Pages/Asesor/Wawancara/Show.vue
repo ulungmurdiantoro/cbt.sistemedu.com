@@ -60,13 +60,13 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th class="text-center" style="min-width:100px">No Peserta</th>
-                                        <th style="min-width:150px">Nama</th>
-                                        <th class="text-center" style="min-width:130px">Gaya Wawancara</th>
-                                        <th class="text-center" style="min-width:150px">Penguasaan Materi</th>
-                                        <th class="text-center" style="min-width:200px">Kemampuan Menghadapi Pertanyaan</th>
-                                        <th class="text-center" style="min-width:220px">Hasil Pengerjaan Worksheet Ujian Keterampilan</th>
-                                        <th class="text-center" style="min-width:120px">Total Nilai</th>
-                                        <th style="min-width:180px">Catatan</th>
+                                        <th style="min-width:160px">Nama</th>
+                                        <th class="text-center" style="min-width:100px" title="Gaya Wawancara">(A) Gaya</th>
+                                        <th class="text-center" style="min-width:110px" title="Penguasaan Materi">(B) Penguasaan</th>
+                                        <th class="text-center" style="min-width:110px" title="Kemampuan Menghadapi Pertanyaan">(C) Pertanyaan</th>
+                                        <th class="text-center" style="min-width:110px" title="Hasil Pengerjaan Worksheet Ujian Keterampilan">(D) Worksheet</th>
+                                        <th class="text-center" style="min-width:100px">Total</th>
+                                        <th style="min-width:160px">Catatan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -134,9 +134,16 @@
                             </table>
                         </div>
 
-                        <p class="text-muted small mt-2">
-                            * Total Nilai = (Gaya Wawancara + Penguasaan Materi + Kemampuan Hadapi Pertanyaan + Hasil Worksheet) × {{ bobot }}
-                        </p>
+                        <div class="mt-3 small text-muted border-top pt-2">
+                            <div class="fw-semibold mb-1">Keterangan Kolom:</div>
+                            <div class="row g-1">
+                                <div class="col-md-6"><span class="fw-semibold">(A) Gaya</span> — Gaya Wawancara</div>
+                                <div class="col-md-6"><span class="fw-semibold">(B) Penguasaan</span> — Penguasaan Materi</div>
+                                <div class="col-md-6"><span class="fw-semibold">(C) Pertanyaan</span> — Kemampuan Menghadapi Pertanyaan</div>
+                                <div class="col-md-6"><span class="fw-semibold">(D) Worksheet</span> — Hasil Pengerjaan Worksheet Ujian Keterampilan</div>
+                            </div>
+                            <div class="mt-1">* Total = (A + B + C + D) × {{ bobot }}</div>
+                        </div>
                     </div>
                 </div>
 
