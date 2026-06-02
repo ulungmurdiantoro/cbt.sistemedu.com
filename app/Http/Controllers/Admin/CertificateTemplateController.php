@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ClassroomCompetencyUnit;
 use App\Models\ExamSession;
 use App\Models\ParticipantResult;
 use App\Models\Student;
 use App\Services\DocumentGeneratorService;
-use App\Services\NumberingService;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class CertificateTemplateController extends Controller
 {
@@ -24,9 +21,11 @@ class CertificateTemplateController extends Controller
      * type:    sp | sk | sertifikat
      * variant: kan | nokan  (diabaikan untuk SP)
      */
-    public function preview(string $type, string $variant = 'nokan', DocumentGeneratorService $generator, NumberingService $numbering)
+    public function preview(string $type, string $variant = 'nokan')
     {
         abort_if(!in_array($type, ['sp', 'sk', 'sertifikat']), 404);
+
+        $generator = app(DocumentGeneratorService::class);
         $kan = ($variant === 'kan');
 
         // Cari result nyata jika ada
