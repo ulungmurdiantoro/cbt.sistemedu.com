@@ -141,16 +141,41 @@
                         <small class="text-muted">Gunakan kode ini untuk login ujian di halaman utama.</small>
                     </div>
 
-                    <!-- Approve: butuh TTD + nama -->
+                    <!-- Approve: TTD admin -->
                     <div v-if="application.status === 'submitted'" class="mb-3">
+
+                        <!-- Nama penandatangan -->
                         <div class="mb-2">
                             <label class="fw-semibold small">Nama Penandatangan <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm mt-1" v-model="adminSignName"
                                 placeholder="contoh: Dr. Agung Yulianto, M.Si.">
                         </div>
 
-                        <div class="mb-2">
-                            <label class="fw-semibold small">Tanda Tangan Admin <span class="text-danger">*</span></label>
+                        <!-- TTD tersimpan -->
+                        <div v-if="auth_admin?.signature_path" class="mb-2">
+                            <label class="fw-semibold small">Tanda Tangan Admin</label>
+                            <div class="p-2 border rounded bg-white mt-1 d-flex align-items-center gap-3">
+                                <img src="/admin/profile/tanda-tangan" alt="TTD Tersimpan"
+                                    style="max-height:60px; max-width:160px; object-fit:contain">
+                                <div class="flex-fill">
+                                    <span class="badge bg-success small">
+                                        <i class="fa fa-check me-1"></i>TTD Tersimpan
+                                    </span>
+                                    <div class="small text-muted mt-1">Akan digunakan otomatis.</div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-secondary"
+                                    @click="useSavedSig = false">
+                                    <i class="fa fa-pen me-1"></i>Ganti
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Form TTD baru (muncul jika belum ada TTD / klik Ganti) -->
+                        <div v-if="!auth_admin?.signature_path || !useSavedSig" class="mb-2">
+                            <label class="fw-semibold small">
+                                {{ auth_admin?.signature_path ? 'TTD Baru (akan mengganti yang tersimpan)' : 'Tanda Tangan Admin' }}
+                                <span class="text-danger">*</span>
+                            </label>
                             <div class="d-flex gap-1 mt-1 mb-2">
                                 <button type="button" class="btn btn-sm flex-fill"
                                     :class="adminSigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
@@ -161,6 +186,10 @@
                                     :class="adminSigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
                                     @click="switchAdminSigMode('upload')">
                                     <i class="fa fa-upload me-1"></i>Upload
+                                </button>
+                                <button v-if="auth_admin?.signature_path" type="button"
+                                    class="btn btn-sm btn-light border" @click="useSavedSig = true">
+                                    Batal
                                 </button>
                             </div>
 
@@ -178,7 +207,8 @@
                                     accept="image/png,image/jpeg,image/jpg"
                                     @change="onAdminSigFileChange">
                                 <div v-if="adminSigFilePreview" class="mt-2">
-                                    <img :src="adminSigFilePreview" style="max-height:80px; border:1px solid #ddd; background:#fff; padding:4px">
+                                    <img :src="adminSigFilePreview"
+                                        style="max-height:80px; border:1px solid #ddd; background:#fff; padding:4px">
                                 </div>
                             </div>
                         </div>
@@ -309,7 +339,7 @@ import SignaturePad from 'signature_pad';
 export default {
     layout: LayoutAdmin,
     components: { Head, Link },
-    props: { application: Object },
+    props: { application: Object, auth_admin: Object },
 
     setup(props) {
         const processing       = ref(false);
@@ -325,7 +355,9 @@ export default {
         const adminSigCanvas      = ref(null);
         const adminSigFile        = ref(null);
         const adminSigFilePreview = ref(null);
-        const adminSignName       = ref('');
+        const adminSignName       = ref(props.auth_admin?.signature_name ?? '');
+        // true = pakai TTD tersimpan, false = input baru
+        const useSavedSig         = ref(!!props.auth_admin?.signature_path);
         let   adminSigPad         = null;
         let   resizeTimer         = null;
 
@@ -422,18 +454,21 @@ export default {
             const fd = new FormData();
             fd.append('admin_signature_name', adminSignName.value);
 
-            if (adminSigMode.value === 'draw') {
-                if (!adminSigPad || adminSigPad.isEmpty()) {
-                    alert('Tanda tangan wajib diisi.');
-                    return;
+            // Kalau pakai TTD tersimpan, kirim tanpa data TTD baru
+            if (!useSavedSig.value) {
+                if (adminSigMode.value === 'draw') {
+                    if (!adminSigPad || adminSigPad.isEmpty()) {
+                        alert('Tanda tangan wajib diisi atau gunakan TTD tersimpan.');
+                        return;
+                    }
+                    fd.append('admin_signature_data', adminSigPad.toDataURL('image/png'));
+                } else {
+                    if (!adminSigFile.value) {
+                        alert('Pilih file tanda tangan terlebih dahulu.');
+                        return;
+                    }
+                    fd.append('admin_signature_file', adminSigFile.value);
                 }
-                fd.append('admin_signature_data', adminSigPad.toDataURL('image/png'));
-            } else {
-                if (!adminSigFile.value) {
-                    alert('Pilih file tanda tangan terlebih dahulu.');
-                    return;
-                }
-                fd.append('admin_signature_file', adminSigFile.value);
             }
 
             processing.value = true;
@@ -475,7 +510,8 @@ export default {
             processing, showRejectForm, showReissueModal, rejectNotes, reissueReason,
             rejectDocId, rejectDocNotes,
             approve, reject, reissue, openRejectDoc, verifyDoc,
-            adminSigMode, adminSigCanvas, adminSigFile, adminSigFilePreview, adminSignName,
+            adminSigMode, adminSigCanvas, adminSigFile, adminSigFilePreview,
+            adminSignName, useSavedSig,
             switchAdminSigMode, clearAdminSig, onAdminSigFileChange,
         };
     },

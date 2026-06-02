@@ -55,8 +55,12 @@ class ApplicationController extends Controller
             'reissueLogs.reissuedBy',
         ]);
 
+        $admin = auth()->user();
+        $admin->makeVisible(['signature_path', 'signature_name']);
+
         return inertia('Admin/Applications/Show', [
             'application' => $application,
+            'auth_admin'  => $admin->only(['id', 'name', 'signature_path', 'signature_name']),
         ]);
     }
 
@@ -64,20 +68,41 @@ class ApplicationController extends Controller
     {
         abort_if(!$application->isSubmitted(), 422, 'Hanya permohonan berstatus submitted yang dapat disetujui.');
 
+        $admin         = auth()->user();
+        $hasSavedSig   = $admin->signature_path && Storage::disk('private')->exists($admin->signature_path);
+        $hasNewSig     = $request->admin_signature_data || $request->hasFile('admin_signature_file');
+        $useNewName    = $request->filled('admin_signature_name');
+
+        // Jika admin belum punya TTD tersimpan, wajib input baru
+        if (!$hasSavedSig && !$hasNewSig) {
+            return back()->withErrors(['admin_signature_data' => 'Tanda tangan wajib diisi (gambar atau upload).']);
+        }
+        if (!$hasSavedSig && !$useNewName) {
+            return back()->withErrors(['admin_signature_name' => 'Nama penandatangan wajib diisi.']);
+        }
+
         $request->validate([
-            'admin_signature_name' => 'required|string|max:255',
+            'admin_signature_name' => 'nullable|string|max:255',
             'admin_signature_data' => 'nullable|string',
             'admin_signature_file' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
-        if (!$request->admin_signature_data && !$request->hasFile('admin_signature_file')) {
-            return back()->withErrors(['admin_signature_data' => 'Tanda tangan wajib diisi (gambar atau upload).']);
+        // Pakai TTD lama jika tidak ada input baru
+        if ($hasNewSig) {
+            $sigPath  = $this->storeAdminSignature($request, $application);
+            $sigName  = $request->admin_signature_name ?: $admin->signature_name ?: $admin->name;
+            // Simpan TTD ini sebagai default admin (akan dipakai di approve berikutnya)
+            $admin->update(['signature_path' => $sigPath, 'signature_name' => $sigName]);
+        } else {
+            // Reuse TTD default yang sudah tersimpan
+            $sigPath = $admin->signature_path;
+            $sigName = $request->admin_signature_name ?: $admin->signature_name ?: $admin->name;
+            if ($useNewName && $sigName !== $admin->signature_name) {
+                $admin->update(['signature_name' => $sigName]);
+            }
         }
 
-        // Simpan TTD admin ke disk privat
-        $sigPath = $this->storeAdminSignature($request, $application);
-
-        DB::transaction(function () use ($application, $request, $sigPath) {
+        DB::transaction(function () use ($application, $sigPath, $sigName) {
             $participant = $application->participant;
 
             // cek apakah sudah ada student aktif untuk participant + classroom yang sama
@@ -126,7 +151,7 @@ class ApplicationController extends Controller
                 'approved_by'          => auth()->id(),
                 'admin_notes'          => null,
                 'admin_signature_path' => $sigPath,
-                'admin_signature_name' => $request->admin_signature_name,
+                'admin_signature_name' => $sigName,
             ]);
         });
 
@@ -258,6 +283,13 @@ class ApplicationController extends Controller
         abort_if(!$path || !Storage::disk('private')->exists($path), 404);
 
         return response()->file(Storage::disk('private')->path($path));
+    }
+
+    public function serveAdminDefaultSignature()
+    {
+        $user = auth()->user();
+        abort_if(!$user->signature_path || !Storage::disk('private')->exists($user->signature_path), 404);
+        return response()->file(Storage::disk('private')->path($user->signature_path));
     }
 
     /**

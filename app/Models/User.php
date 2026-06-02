@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'role',
         'password',
+        'signature_path',
+        'signature_name',
     ];
 
     public function isAsesor(): bool

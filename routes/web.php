@@ -104,6 +104,7 @@ Route::prefix('admin')->group(function() {
         Route::post('/applications/{application}/documents/{doc}/verify', [\App\Http\Controllers\Admin\ApplicationController::class, 'verifyDocument'])->name('admin.applications.documents.verify');
         Route::get('/applications/{application}/documents/{document}/download', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadDocument'])->name('admin.applications.documents.download');
         Route::get('/applications/{application}/tanda-tangan/{type}', [\App\Http\Controllers\Admin\ApplicationController::class, 'serveSignature'])->name('admin.applications.signature.serve');
+        Route::get('/profile/tanda-tangan', [\App\Http\Controllers\Admin\ApplicationController::class, 'serveAdminDefaultSignature'])->name('admin.profile.signature');
 
         // route kelola user (admin & asesor)
         Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
