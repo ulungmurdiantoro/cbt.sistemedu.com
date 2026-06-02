@@ -1,33 +1,22 @@
 <template>
     <Head><title>Penilaian Esai — {{ exam_session.title }}</title></Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid mb-5 mt-4">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-10 col-xl-9 mx-auto">
 
                 <Link href="/asesor/dashboard" class="btn btn-md btn-primary border-0 shadow mb-3">
                     <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
                 </Link>
 
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <h5><i class="fa fa-pen me-2"></i>Penilaian Esai</h5>
-                        <hr>
-                        <table class="table table-bordered mb-0" style="max-width:500px">
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold" style="width:40%">Sesi</td>
-                                    <td>{{ exam_session.title }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Ujian</td>
-                                    <td>{{ exam_session.examEsai?.title ?? exam_session.examPg?.title ?? '-' }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Skema</td>
-                                    <td>{{ exam_session.examEsai?.classroom?.title ?? exam_session.examPg?.classroom?.title ?? '-' }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Info sesi -->
+                <div class="card border-0 shadow mb-3">
+                    <div class="card-body py-3">
+                        <h6 class="fw-bold mb-2"><i class="fa fa-pen me-2"></i>Penilaian Esai</h6>
+                        <div class="row small">
+                            <div class="col-md-4"><span class="text-muted">Sesi:</span> {{ exam_session.title }}</div>
+                            <div class="col-md-4"><span class="text-muted">Ujian:</span> {{ exam_session.examEsai?.title ?? '-' }}</div>
+                            <div class="col-md-4"><span class="text-muted">Skema:</span> {{ exam_session.examEsai?.classroom?.title ?? exam_session.examPg?.classroom?.title ?? '-' }}</div>
+                        </div>
                     </div>
                 </div>
 
@@ -35,93 +24,186 @@
                     Tidak ada peserta yang ditugaskan di sesi ini.
                 </div>
 
-                <div v-else class="card border-0 shadow">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h6 class="mb-0"><i class="fa fa-table me-2"></i>Tabel Penilaian Jawaban Esai</h6>
-                            <button @click="saveAll" :disabled="saving"
-                                class="btn btn-success border-0 shadow">
-                                <i class="fa fa-save me-1"></i>
-                                {{ saving ? 'Menyimpan...' : 'Simpan Semua Nilai' }}
-                            </button>
-                        </div>
-
-                        <div v-if="successMsg" class="alert alert-success alert-dismissible">
-                            {{ successMsg }}
-                            <button type="button" class="btn-close" @click="successMsg = ''"></button>
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-sm align-middle mb-0">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th class="text-center" style="min-width:100px">No Peserta</th>
-                                        <th style="min-width:150px">Nama</th>
-                                        <template v-for="(essay, i) in essays" :key="essay.id">
-                                            <th style="min-width:260px">Jawaban {{ i + 1 }}</th>
-                                            <th class="text-center" style="min-width:90px">Nilai {{ i + 1 }}</th>
-                                        </template>
-                                        <th class="text-center" style="min-width:110px">Total Nilai</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(row, ri) in form" :key="row.student_id">
-                                        <td class="text-center fw-bold">
-                                            {{ students_data[ri]?.student?.no_participant ?? '-' }}
-                                        </td>
-                                        <td>
-                                            {{ students_data[ri]?.student?.name ?? '-' }}
-                                            <span v-if="students_data[ri]?.attempt > 1" class="badge bg-warning text-dark ms-1" style="font-size:0.65rem">Remidi</span>
-                                        </td>
-
-                                        <template v-for="(ans, ai) in row.answers" :key="ans.answer_essay_id">
-                                            <td>
-                                                <div class="answer-cell">
-                                                    <span :class="{ collapsed: !ans.expanded }"
-                                                        v-html="ans.answer_text || '<em class=\'text-muted\'>—</em>'">
-                                                    </span>
-                                                    <button v-if="ans.answer_text && ans.answer_text.length > 120"
-                                                        class="btn btn-link btn-sm p-0 ms-1"
-                                                        @click="ans.expanded = !ans.expanded">
-                                                        {{ ans.expanded ? 'Lebih sedikit' : 'Selengkapnya' }}
-                                                    </button>
-                                                </div>
-                                            </td>
-                                            <td class="text-center">
-                                                <input type="number" min="0" max="100" step="0.01"
-                                                    v-model.number="ans.score"
-                                                    @input="recalcTotal(ri)"
-                                                    class="form-control form-control-sm text-center"
-                                                    style="width:80px;margin:auto"
-                                                    placeholder="0–100" />
-                                            </td>
-                                        </template>
-
-                                        <td class="text-center fw-bold">
-                                            <span :class="row.total !== null ? 'text-success' : 'text-muted'">
-                                                {{ row.total !== null ? row.total.toFixed(2) : '—' }}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot class="table-secondary">
-                                    <tr>
-                                        <td colspan="2" class="fw-bold">Rata-rata Sesi</td>
-                                        <template v-for="(essay, i) in essays" :key="essay.id">
-                                            <td></td>
-                                            <td class="text-center fw-bold">
-                                                {{ columnAvg(i) }}
-                                            </td>
-                                        </template>
-                                        <td class="text-center fw-bold text-success">
-                                            {{ sessionAvg() }}
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                <template v-else>
+                    <!-- Action bar (sticky top) -->
+                    <div class="card border-0 shadow mb-3" style="position:sticky; top:10px; z-index:1020">
+                        <div class="card-body py-2">
+                            <div class="row align-items-center g-2">
+                                <div class="col-md-3 small">
+                                    <span class="fw-semibold">Peserta {{ currentIndex + 1 }} dari {{ form.length }}</span>
+                                </div>
+                                <div class="col-md-5">
+                                    <select class="form-select form-select-sm" v-model.number="currentIndex">
+                                        <option v-for="(s, i) in students_data" :key="s.student_id" :value="i">
+                                            {{ s.student?.no_participant ?? '-' }} — {{ s.student?.name ?? '-' }}
+                                            {{ form[i]?.total !== null ? `(${form[i].total.toFixed(2)})` : '(belum dinilai)' }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 d-flex justify-content-end gap-1">
+                                    <button class="btn btn-sm btn-light border" :disabled="currentIndex === 0"
+                                        @click="currentIndex--">
+                                        <i class="fa fa-chevron-left"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-light border" :disabled="currentIndex >= form.length - 1"
+                                        @click="currentIndex++">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </button>
+                                    <button @click="saveAll" :disabled="saving"
+                                        class="btn btn-sm btn-success border-0">
+                                        <i class="fa fa-save me-1"></i>
+                                        {{ saving ? 'Menyimpan...' : 'Simpan Semua' }}
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <div v-if="successMsg" class="alert alert-success alert-dismissible">
+                        {{ successMsg }}
+                        <button type="button" class="btn-close" @click="successMsg = ''"></button>
+                    </div>
+
+                    <!-- Info peserta aktif -->
+                    <div class="card border-0 shadow mb-3 bg-light">
+                        <div class="card-body py-3">
+                            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                                <div>
+                                    <div class="small text-muted">No. Peserta</div>
+                                    <div class="fw-bold">{{ currentStudent?.student?.no_participant ?? '-' }}</div>
+                                </div>
+                                <div>
+                                    <div class="small text-muted">Nama</div>
+                                    <div class="fw-bold">
+                                        {{ currentStudent?.student?.name ?? '-' }}
+                                        <span v-if="currentStudent?.attempt > 1" class="badge bg-warning text-dark ms-1">Remidi</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-muted">Total Nilai</div>
+                                    <div class="fw-bold">
+                                        <span :class="currentRow?.total !== null ? 'text-success' : 'text-muted'">
+                                            {{ currentRow?.total !== null ? currentRow.total.toFixed(2) : '— belum lengkap' }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-muted">Progress</div>
+                                    <div class="fw-bold">
+                                        {{ answeredCount(currentRow) }} / {{ essays.length }} dinilai
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card per soal esai -->
+                    <div v-for="(ans, ai) in currentRow.answers" :key="ans.answer_essay_id ?? ai"
+                        class="card border-0 shadow mb-3">
+                        <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between">
+                            <span><i class="fa fa-question-circle me-2"></i>Soal {{ ai + 1 }}</span>
+                            <span class="badge bg-light text-dark" v-if="ans.score !== null && ans.score !== ''">
+                                Nilai: {{ ans.score }}
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <!-- Pertanyaan -->
+                            <div class="mb-3">
+                                <div class="small fw-semibold text-muted mb-1">PERTANYAAN</div>
+                                <div class="p-3 bg-light rounded" style="line-height:1.7"
+                                    v-html="essays[ai]?.question || '<em class=\'text-muted\'>—</em>'">
+                                </div>
+                            </div>
+
+                            <!-- Jawaban peserta -->
+                            <div class="mb-3">
+                                <div class="small fw-semibold text-muted mb-1">JAWABAN PESERTA</div>
+                                <div class="p-3 border rounded bg-white" style="line-height:1.7; min-height:80px"
+                                    v-html="ans.answer_text || '<em class=\'text-muted\'>(Peserta tidak menjawab)</em>'">
+                                </div>
+                            </div>
+
+                            <!-- Input nilai -->
+                            <div class="row align-items-end">
+                                <div class="col-md-4">
+                                    <label class="fw-semibold small mb-1">Nilai (0–100) <span class="text-danger">*</span></label>
+                                    <input type="number" min="0" max="100" step="0.01"
+                                        v-model.number="ans.score"
+                                        @input="recalcTotal(currentIndex)"
+                                        class="form-control"
+                                        placeholder="Masukkan nilai">
+                                </div>
+                                <div class="col-md-8 small text-muted">
+                                    <i class="fa fa-info-circle me-1"></i>
+                                    Total nilai dihitung otomatis sebagai rata-rata dari semua nilai soal.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom nav -->
+                    <div class="d-flex justify-content-between mt-4 mb-3">
+                        <button class="btn btn-light border" :disabled="currentIndex === 0"
+                            @click="goPrev">
+                            <i class="fa fa-chevron-left me-1"></i> Peserta Sebelumnya
+                        </button>
+                        <button class="btn btn-light border" :disabled="currentIndex >= form.length - 1"
+                            @click="goNext">
+                            Peserta Berikutnya <i class="fa fa-chevron-right ms-1"></i>
+                        </button>
+                    </div>
+
+                    <!-- Ringkasan semua peserta (collapsible) -->
+                    <div class="card border-0 shadow mt-4">
+                        <div class="card-header bg-light fw-semibold d-flex justify-content-between"
+                            @click="showSummary = !showSummary" style="cursor:pointer">
+                            <span><i class="fa fa-list me-2"></i>Ringkasan Semua Peserta</span>
+                            <i :class="showSummary ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
+                        </div>
+                        <div v-show="showSummary" class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-sm align-middle mb-0">
+                                    <thead class="table-secondary">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>No. Peserta</th>
+                                            <th>Nama</th>
+                                            <th class="text-center">Dinilai</th>
+                                            <th class="text-center">Total</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(row, i) in form" :key="row.student_id"
+                                            :class="{ 'table-active': i === currentIndex }">
+                                            <td>{{ i + 1 }}</td>
+                                            <td class="fw-bold">{{ students_data[i]?.student?.no_participant ?? '-' }}</td>
+                                            <td>{{ students_data[i]?.student?.name ?? '-' }}</td>
+                                            <td class="text-center">{{ answeredCount(row) }} / {{ essays.length }}</td>
+                                            <td class="text-center fw-bold">
+                                                <span :class="row.total !== null ? 'text-success' : 'text-muted'">
+                                                    {{ row.total !== null ? row.total.toFixed(2) : '—' }}
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-outline-primary" @click="currentIndex = i; scrollTop()">
+                                                    Nilai
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot class="table-secondary">
+                                        <tr>
+                                            <td colspan="4" class="text-end fw-bold">Rata-rata Sesi</td>
+                                            <td class="text-center fw-bold text-success">{{ sessionAvg() }}</td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </template>
 
             </div>
         </div>
@@ -146,33 +228,39 @@ export default {
         return {
             saving: false,
             successMsg: '',
+            showSummary: false,
+            currentIndex: 0,
             form: this.buildForm(),
         };
+    },
+
+    computed: {
+        currentRow() {
+            return this.form[this.currentIndex] ?? null;
+        },
+        currentStudent() {
+            return this.students_data[this.currentIndex] ?? null;
+        },
     },
 
     methods: {
         buildForm() {
             return this.students_data.map(row => {
-                const answers = this.essays.map((essay, i) => {
+                const answers = this.essays.map((_, i) => {
                     const ans = row.answers.find(a => a.essay_order === i + 1) || row.answers[i] || null;
                     return {
                         answer_essay_id: ans?.id ?? null,
-                        answer_text: ans?.answer ?? '',
-                        score: ans?.score ?? null,
-                        expanded: false,
+                        answer_text:     ans?.answer ?? '',
+                        score:           ans?.score ?? null,
                     };
                 });
 
                 const scores = answers.map(a => a.score).filter(s => s !== null && s !== '');
-                const total = scores.length > 0
+                const total  = scores.length > 0
                     ? Math.round(scores.reduce((a, b) => a + Number(b), 0) / scores.length * 100) / 100
                     : null;
 
-                return {
-                    student_id: row.student_id,
-                    answers,
-                    total,
-                };
+                return { student_id: row.student_id, answers, total };
             });
         },
 
@@ -185,18 +273,33 @@ export default {
                 : null;
         },
 
-        columnAvg(colIndex) {
-            const scores = this.form
-                .map(r => r.answers[colIndex]?.score)
-                .filter(s => s !== null && s !== '' && !isNaN(s));
-            if (!scores.length) return '—';
-            return (scores.reduce((a, b) => a + Number(b), 0) / scores.length).toFixed(2);
+        answeredCount(row) {
+            if (!row) return 0;
+            return row.answers.filter(a => a.score !== null && a.score !== '' && !isNaN(a.score)).length;
         },
 
         sessionAvg() {
             const totals = this.form.map(r => r.total).filter(t => t !== null);
             if (!totals.length) return '—';
             return (totals.reduce((a, b) => a + b, 0) / totals.length).toFixed(2);
+        },
+
+        scrollTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+
+        goPrev() {
+            if (this.currentIndex > 0) {
+                this.currentIndex--;
+                this.scrollTop();
+            }
+        },
+
+        goNext() {
+            if (this.currentIndex < this.form.length - 1) {
+                this.currentIndex++;
+                this.scrollTop();
+            }
         },
 
         saveAll() {
@@ -213,24 +316,13 @@ export default {
                     })),
                 },
                 {
-                    onSuccess: () => {
-                        this.successMsg = 'Nilai berhasil disimpan.';
-                    },
-                    onFinish: () => {
-                        this.saving = false;
-                    },
+                    preserveState:  true,
+                    preserveScroll: true,
+                    onSuccess: () => { this.successMsg = 'Nilai berhasil disimpan.'; },
+                    onFinish:  () => { this.saving = false; },
                 }
             );
         },
     },
 }
 </script>
-
-<style scoped>
-.answer-cell .collapsed {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-</style>
