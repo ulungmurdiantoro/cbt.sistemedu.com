@@ -4,15 +4,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Bobot Penilaian Wawancara
-    |--------------------------------------------------------------------------
-    | Total = (gaya_wawancara + penguasaan_materi + kemampuan_hadapi_pertanyaan
-    |          + hasil_worksheet) * bobot_wawancara
-    */
-    'bobot_wawancara' => 0.075,
-
-    /*
-    |--------------------------------------------------------------------------
     | Threshold Kategori Nilai
     |--------------------------------------------------------------------------
     | < remidial       → Remidial (Re-Assessment)

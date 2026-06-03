@@ -6,20 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInterviewAssessmentRequest;
 use App\Models\AsesorAssignment;
 use App\Models\ExamSession;
+use App\Models\GradingScheme;
 use App\Models\InterviewAssessment;
 use App\Models\Student;
 
 class InterviewAssessmentController extends Controller
 {
-    private static function bobot(): float
+    private function getFaktorWawancara(int $examSessionId): float
     {
-        return (float) config('lsp.bobot_wawancara', 0.075);
+        $session     = ExamSession::find($examSessionId);
+        $classroomId = $session?->referenceExam?->classroom_id;
+        $scheme      = $classroomId
+            ? GradingScheme::where('classroom_id', $classroomId)->first()
+            : null;
+
+        return $scheme?->faktor_wawancara ?? 0.075;
     }
 
     public function show(int $exam_session_id)
     {
-        $asesor = auth()->user();
-
+        $asesor       = auth()->user();
         $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($exam_session_id);
 
         $assigned_student_ids = AsesorAssignment::where('user_id', $asesor->id)
@@ -41,19 +47,20 @@ class InterviewAssessmentController extends Controller
             'exam_session' => $exam_session,
             'students'     => $students,
             'assessments'  => $assessments,
-            'bobot'        => self::bobot(),
+            'bobot'        => $this->getFaktorWawancara($exam_session_id),
         ]);
     }
 
     public function store(StoreInterviewAssessmentRequest $request, int $exam_session_id)
     {
-
         $asesor = auth()->user();
 
         $assigned_student_ids = AsesorAssignment::where('user_id', $asesor->id)
             ->where('exam_session_id', $exam_session_id)
             ->pluck('student_id')
             ->all();
+
+        $faktor = $this->getFaktorWawancara($exam_session_id);
 
         foreach ($request->assessments as $item) {
             abort_unless(
@@ -69,8 +76,6 @@ class InterviewAssessmentController extends Controller
                 $item['hasil_worksheet'],
             ])->filter(fn($v) => $v !== null)->sum();
 
-            $total = round($sum * self::bobot(), 2);
-
             InterviewAssessment::updateOrCreate(
                 [
                     'exam_session_id' => $exam_session_id,
@@ -82,7 +87,7 @@ class InterviewAssessmentController extends Controller
                     'penguasaan_materi'           => $item['penguasaan_materi'],
                     'kemampuan_hadapi_pertanyaan' => $item['kemampuan_hadapi_pertanyaan'],
                     'hasil_worksheet'             => $item['hasil_worksheet'],
-                    'total_nilai'                 => $total,
+                    'total_nilai'                 => round($sum * $faktor, 2),
                     'catatan'                     => $item['catatan'] ?? null,
                 ]
             );

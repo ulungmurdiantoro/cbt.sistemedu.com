@@ -6,189 +6,108 @@ use Carbon\Carbon;
 use App\Models\Grade;
 use App\Models\Answer;
 use App\Models\Question;
-use App\Models\ExamGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Http\Controllers\Controller;
 
-class ExamController extends Controller
+class ExamController extends BaseExamController
 {
-    /**
-     * confirmation
-     *
-     * @param  mixed $id
-     * @return void
-     */
     public function confirmation($id)
     {
-        //get exam group
-        $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->where('id', $id)
-                    ->first();
+        $exam_group = $this->examGroup((int) $id);
 
-        //get grade / nilai
-        $grade = Grade::where('exam_id', $exam_group->exam->id)
-                    ->where('exam_session_id', $exam_group->exam_session->id)
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->first();
-        // dd($exam_group->exam);
-        //return with inertia
+        $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
+
         return inertia('Student/Exams/Confirmation', [
             'exam_group' => $exam_group,
-            'grade' => $grade,
+            'grade'      => $grade,
         ]);
     }
 
-    /**
-     * startExam
-     *
-     * @param  mixed $id
-     * @return void
-     */
     public function startExam($id)
     {
-        //get exam group
-        $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->where('id', $id)
-                    ->first();
+        $exam_group = $this->examGroup((int) $id);
 
-        //get grade / nilai
-        $grade = Grade::where('exam_id', $exam_group->exam->id)
-                    ->where('exam_session_id', $exam_group->exam_session->id)
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->first();
-
-        //update start time di table grades
+        $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
         $grade->start_time = Carbon::now();
-        $grade->update();
+        $grade->save();
 
-        //cek apakah questions / soal ujian di random
-        if($exam_group->exam->random_question == 'Y') {
+        $questions = $exam_group->exam->random_question == 'Y'
+            ? Question::where('exam_id', $exam_group->exam->id)->inRandomOrder()->get()
+            : Question::where('exam_id', $exam_group->exam->id)->get();
 
-            //get questions / soal ujian
-            $questions = Question::where('exam_id', $exam_group->exam->id)->inRandomOrder()->get();
-
-        } else {
-
-            //get questions / soal ujian
-            $questions = Question::where('exam_id', $exam_group->exam->id)->get();
-
-        }
-
-        //define pilihan jawaban default
         $question_order = 1;
 
         foreach ($questions as $question) {
+            $options = [1, 2];
+            if (!empty($question->option_3)) $options[] = 3;
+            if (!empty($question->option_4)) $options[] = 4;
+            if (!empty($question->option_5)) $options[] = 5;
 
-            //buat array jawaban / answer
-            $options = [1,2];
-            if(!empty($question->option_3)) $options[] = 3;
-            if(!empty($question->option_4)) $options[] = 4;
-            if(!empty($question->option_5)) $options[] = 5;
-
-            //acak jawaban / answer
-            if($exam_group->exam->random_answer == 'Y') {
+            if ($exam_group->exam->random_answer == 'Y') {
                 shuffle($options);
             }
 
-            //cek apakah sudah ada data jawaban
-            $answer = Answer::where('student_id', auth()->guard('student')->user()->id)
-                    ->where('exam_id', $exam_group->exam->id)
-                    ->where('exam_session_id', $exam_group->exam_session->id)
-                    ->where('question_id', $question->id)
-                    ->first();
+            $answer = Answer::where('student_id', $this->studentId())
+                ->where('exam_id', $exam_group->exam->id)
+                ->where('exam_session_id', $exam_group->exam_session->id)
+                ->where('question_id', $question->id)
+                ->first();
 
-            //jika sudah ada jawaban / answer
-            if($answer) {
-
-                //update urutan question / soal
+            if ($answer) {
                 $answer->question_order = $question_order;
-                $answer->update();
-
+                $answer->save();
             } else {
-
-                //buat jawaban default baru
                 Answer::create([
-                    'answers_code'      => 'answ-' . Str::ulid(),
-                    'exam_id'           => $exam_group->exam->id,
-                    'exam_session_id'   => $exam_group->exam_session->id,
-                    'question_id'       => $question->id,
-                    'student_id'        => auth()->guard('student')->user()->id,
-                    'question_order'    => $question_order,
-                    'answer_order'      => implode(",", $options),
-                    'answer'            => 0,
-                    'is_correct'        => 'N'
+                    'answers_code'    => 'answ-' . Str::ulid(),
+                    'exam_id'         => $exam_group->exam->id,
+                    'exam_session_id' => $exam_group->exam_session->id,
+                    'question_id'     => $question->id,
+                    'student_id'      => $this->studentId(),
+                    'question_order'  => $question_order,
+                    'answer_order'    => implode(',', $options),
+                    'answer'          => 0,
+                    'is_correct'      => 'N',
                 ]);
-
             }
-            $question_order++;
 
+            $question_order++;
         }
 
-        //redirect ke ujian halaman 1
         return redirect()->route('student.exams.show', [
-            'id'    => $exam_group->id, 
-            'page'  => 1
-        ]);   
+            'id'   => $exam_group->id,
+            'page' => 1,
+        ]);
     }
-    
-    /**
-     * show
-     *
-     * @param  mixed $id
-     * @param  mixed $page
-     * @return void
-     */
+
     public function show($id, $page)
     {
-        //get exam group
-        $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->where('id', $id)
-                    ->first();
+        $exam_group = $this->examGroup((int) $id);
 
-        if(!$exam_group) {
+        if (!$exam_group) {
             return redirect()->route('student.dashboard');
         }
 
-        //get all questions
         $all_questions = Answer::with('question')
-                        ->where('student_id', auth()->guard('student')->user()->id)
-                        ->where('exam_id', $exam_group->exam->id)
-                        ->orderBy('question_order', 'ASC')
-                        ->get();
+            ->where('student_id', $this->studentId())
+            ->where('exam_id', $exam_group->exam->id)
+            ->orderBy('question_order', 'ASC')
+            ->get();
 
-        //count all question answered
-        $question_answered = Answer::with('question')
-                        ->where('student_id', auth()->guard('student')->user()->id)
-                        ->where('exam_id', $exam_group->exam->id)
-                        ->where('answer', '!=', 0)
-                        ->count();
+        $question_answered = Answer::where('student_id', $this->studentId())
+            ->where('exam_id', $exam_group->exam->id)
+            ->where('answer', '!=', 0)
+            ->count();
 
-
-        //get question active
         $question_active = Answer::with('question.exam')
-                        ->where('student_id', auth()->guard('student')->user()->id)
-                        ->where('exam_id', $exam_group->exam->id)
-                        ->where('question_order', $page)
-                        ->first();
-        
-        //explode atau pecah jawaban
-        if ($question_active) {
-            $answer_order = explode(",", $question_active->answer_order);
-        } else  {
-            $answer_order = [];
-        }
+            ->where('student_id', $this->studentId())
+            ->where('exam_id', $exam_group->exam->id)
+            ->where('question_order', $page)
+            ->first();
 
-        //get duration
-        $duration = Grade::where('exam_id', $exam_group->exam->id)
-                    ->where('exam_session_id', $exam_group->exam_session->id)
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->first();
+        $answer_order = $question_active ? explode(',', $question_active->answer_order) : [];
 
-        //return with inertia
+        $duration = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
+
         return inertia('Student/Exams/Show', [
             'id'                => (int) $id,
             'page'              => (int) $page,
@@ -198,133 +117,73 @@ class ExamController extends Controller
             'question_active'   => $question_active,
             'answer_order'      => $answer_order,
             'duration'          => $duration,
-        ]); 
-    }
-
-    /**
-     * updateDuration
-     *
-     * @param  mixed $request
-     * @param  mixed $grade_id
-     * @return void
-     */
-    public function updateDuration(Request $request, $grade_id)
-    {
-        $grade = Grade::find($grade_id);
-        $grade->duration = $request->duration;
-        $grade->update();
-
-        return response()->json([
-            'success'  => true,
-            'message' => 'Duration updated successfully.'
         ]);
     }
 
-    /**
-     * answerQuestion
-     *
-     * @param  mixed $request
-     * @return void
-     */
+    public function updateDuration(Request $request, $grade_id)
+    {
+        $grade = $this->ownedGrade((int) $grade_id);
+        $grade->duration = $request->duration;
+        $grade->save();
+
+        return response()->json(['success' => true]);
+    }
+
     public function answerQuestion(Request $request)
     {
-        //update duration
-        $grade = Grade::where('exam_id', $request->exam_id)
-                ->where('exam_session_id', $request->exam_session_id)
-                ->where('student_id', auth()->guard('student')->user()->id)
-                ->first();
+        $grade = $this->currentGrade((int) $request->exam_id, (int) $request->exam_session_id);
 
-        $grade->duration = $request->duration;
-        $grade->update();
-
-        //get question
-        $question = Question::find($request->question_id);
-        
-        //cek apakah jawaban sudah benar
-        if($question->answer == $request->answer) {
-
-            //jawaban benar
-            $result = 'Y';
-        } else {
-
-            //jawaban salah
-            $result = 'N';
+        if (!$grade) {
+            return redirect()->back();
         }
 
-        //get answer
-        $answer   = Answer::where('exam_id', $request->exam_id)
-                    ->where('exam_session_id', $request->exam_session_id)
-                    ->where('student_id', auth()->guard('student')->user()->id)
-                    ->where('question_id', $request->question_id)
-                    ->first();
+        $grade->duration = $request->duration;
+        $grade->save();
 
-        //update jawaban
-        if($answer) {
+        $question = Question::find($request->question_id);
+        $result   = ($question && $question->answer == $request->answer) ? 'Y' : 'N';
+
+        $answer = Answer::where('exam_id', $request->exam_id)
+            ->where('exam_session_id', $request->exam_session_id)
+            ->where('student_id', $this->studentId())
+            ->where('question_id', $request->question_id)
+            ->first();
+
+        if ($answer) {
             $answer->answer     = $request->answer;
             $answer->is_correct = $result;
-            $answer->update();
+            $answer->save();
         }
 
         return redirect()->back();
     }
 
-    /**
-     * endExam
-     *
-     * @param  mixed $request
-     * @return void
-     */
     public function endExam(Request $request)
     {
-        //count jawaban benar
-        $count_answer = Answer::where('exam_id', $request->exam_id)
-                            ->where('exam_session_id', $request->exam_session_id)
-                            ->where('student_id', auth()->guard('student')->user()->id)
-                            ->where('is_correct', 'Y')
-                            ->count();
+        $count_answer   = Answer::where('exam_id', $request->exam_id)
+            ->where('exam_session_id', $request->exam_session_id)
+            ->where('student_id', $this->studentId())
+            ->where('is_correct', 'Y')
+            ->count();
 
-        //count jumlah soal
         $count_question = Question::where('exam_id', $request->exam_id)->count();
 
-        //hitung nilai
-        $grade_exam = round($count_answer/$count_question*100, 2);
+        $grade = $this->currentGrade((int) $request->exam_id, (int) $request->exam_session_id);
 
-        //update nilai di table grades
-        $grade = Grade::where('exam_id', $request->exam_id)
-                ->where('exam_session_id', $request->exam_session_id)
-                ->where('student_id', auth()->guard('student')->user()->id)
-                ->first();
-        
-        $grade->end_time        = Carbon::now();
-        $grade->total_correct   = $count_answer;
-        $grade->grade           = $grade_exam;
-        $grade->update();
+        $grade->end_time      = Carbon::now();
+        $grade->total_correct = $count_answer;
+        $grade->grade         = $count_question > 0 ? round($count_answer / $count_question * 100, 2) : 0;
+        $grade->save();
 
-        //redirect hasil
         return redirect()->route('student.exams.resultExam', $request->exam_group_id);
     }
 
-    /**
-     * resultExam
-     *
-     * @param  mixed $id
-     * @return void
-     */
     public function resultExam($exam_group_id)
     {
-        //get exam group
-        $exam_group = ExamGroup::with('exam', 'exam_session', 'student.classroom')
-                ->where('student_id', auth()->guard('student')->user()->id)
-                ->where('id', $exam_group_id)
-                ->first();
+        $exam_group = $this->examGroup((int) $exam_group_id);
 
-        //get grade / nilai
-        $grade = Grade::where('exam_id', $exam_group->exam->id)
-                ->where('exam_session_id', $exam_group->exam_session->id)
-                ->where('student_id', auth()->guard('student')->user()->id)
-                ->first();
+        $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
 
-        //return with inertia
         return inertia('Student/Exams/Result', [
             'exam_group' => $exam_group,
             'grade'      => $grade,

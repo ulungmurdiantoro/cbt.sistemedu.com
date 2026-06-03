@@ -122,6 +122,19 @@
                             </div>
                         </div>
 
+                        <div class="mb-3">
+                            <label class="fw-semibold small">Faktor Wawancara <span class="text-danger">*</span></label>
+                            <div class="input-group mt-1">
+                                <input type="number" class="form-control" v-model.number="form.faktor_wawancara"
+                                    min="0" max="1" step="0.001">
+                                <span class="input-group-text">×</span>
+                            </div>
+                            <div class="form-text">
+                                Faktor pengali skor mentah wawancara.
+                                Contoh: 0.075 → 4 kriteria × maks 100 × 0.075 = maks <strong>{{ (400 * form.faktor_wawancara).toFixed(1) }} poin</strong>.
+                            </div>
+                        </div>
+
                         <div class="mb-4">
                             <label class="fw-semibold small">Nilai Kelulusan <span class="text-danger">*</span></label>
                             <div class="input-group mt-1">
@@ -170,6 +183,7 @@ export default {
             bobot_ujian_tulis: props.scheme?.bobot_ujian_tulis ?? 70,
             proporsi_pg:       props.scheme?.proporsi_pg       ?? 65,
             bobot_wawancara:   props.scheme?.bobot_wawancara   ?? 30,
+            faktor_wawancara:  props.scheme?.faktor_wawancara  ?? 0.075,
             nilai_kelulusan:   props.scheme?.nilai_kelulusan   ?? 60,
         });
 

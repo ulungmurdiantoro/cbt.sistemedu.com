@@ -1,342 +1,160 @@
 <template>
     <Head>
-        <title>Ujian Dengan Nomor Soal : {{ page }} - Aplikasi Ujian Online</title>
+        <title>Ujian Soal No. {{ page }} - Aplikasi Ujian Online</title>
     </Head>
+
     <div class="row mb-5">
+        <!-- Soal -->
         <div class="col-md-7">
             <div class="card border-0 shadow">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <div>
-                            <h5 class="mb-0">Soal No. <strong class="fw-bold">{{ page }}</strong></h5>
-                        </div>
-                        <div>
-                            <VueCountdown :time="duration" @progress="handleChangeDuration" @end="showModalEndTimeExam = true" v-slot="{ hours, minutes, seconds }">
-                                <span class="badge bg-info p-2"> <i class="fa fa-clock"></i> {{ hours }} jam,
-                                    {{ minutes }} menit, {{ seconds }} detik.</span>
-                            </VueCountdown>
-                        </div>
+                        <h5 class="mb-0">Soal No. <strong>{{ page }}</strong></h5>
+                        <VueCountdown :time="duration" @progress="handleChangeDuration" @end="timeUp = true" v-slot="{ hours, minutes, seconds }">
+                            <span class="badge bg-info p-2"><i class="fa fa-clock"></i> {{ hours }} jam, {{ minutes }} menit, {{ seconds }} detik.</span>
+                        </VueCountdown>
                     </div>
                 </div>
                 <div class="card-body">
-
-                    <div v-if="question_active !== null">
-
-                        <div style="user-select: none;">
-                            <p v-html="question_active.question.question"></p>
-                        </div>
-
-                        <table style="user-select: none;">
+                    <div v-if="question_active">
+                        <div style="user-select:none;" v-html="question_active.question.question"></div>
+                        <table style="user-select:none;">
                             <tbody>
                                 <tr v-for="(answer, index) in answer_order" :key="index">
-                                    <td width="50" style="padding: 10px;">
-                                        <button 
-                                            v-if="answer == question_active.answer" 
-                                            class="btn btn-info btn-sm w-100 shdaow"
-                                        >
-                                            {{ options[index] }}
-                                        </button>
-
-                                        <button 
-                                            v-else 
-                                            @click.prevent="submitAnswer(question_active.question.exam.id, question_active.question.id, answer)" 
-                                            class="btn btn-outline-info btn-sm w-100 shdaow"
-                                        >
-                                            {{ options[index] }}
-                                        </button>
+                                    <td width="50" style="padding:10px;">
+                                        <button
+                                            v-if="answer == question_active.answer"
+                                            class="btn btn-info btn-sm w-100"
+                                        >{{ options[index] }}</button>
+                                        <button
+                                            v-else
+                                            @click.prevent="submitAnswer(question_active.question.exam.id, question_active.question.id, answer)"
+                                            class="btn btn-outline-info btn-sm w-100"
+                                        >{{ options[index] }}</button>
                                     </td>
-                                    <td style="padding: 10px;">
+                                    <td style="padding:10px;">
                                         <p v-html="question_active.question['option_'+answer]"></p>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
-
                     <div v-else>
                         <div class="alert alert-danger border-0 shadow">
-                            <i class="fa fa-exclamation-triangle"></i> Soal Tidak Ditemukan!.
+                            <i class="fa fa-exclamation-triangle"></i> Soal Tidak Ditemukan!
                         </div>
                     </div>
-
-
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
-                        <div class="text-start">
-                            <button v-if="page > 1" @click.prevent="prevPage" type="button" class="btn btn-gray-400 btn-sm btn-block mb-2">Sebelumnya</button>
-                        </div>
-                        <div class="text-end">
-                            <button v-if="page < Object.keys(all_questions).length" @click.prevent="nextPage" type="button" class="btn btn-gray-400 btn-sm">Selanjutnya</button>
-                        </div>
+                        <button v-if="page > 1" @click.prevent="prevPage" class="btn btn-gray-400 btn-sm">Sebelumnya</button>
+                        <div></div>
+                        <button v-if="page < all_questions.length" @click.prevent="nextPage" class="btn btn-gray-400 btn-sm">Selanjutnya</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Navigator -->
         <div class="col-md-5">
             <div class="card border-0 shadow">
                 <div class="card-header text-center">
-                    <div class="badge bg-success p-2"> {{ question_answered }} / {{ totalQuestions }} soal dikerjakan</div>
+                    <div class="badge bg-success p-2">{{ question_answered }} / {{ all_questions.length }} soal dikerjakan</div>
                 </div>
-                <div class="card-body" style="height: 330px;overflow-y: auto">
-
-                    <div v-for="(question, index) in all_questions" :key="index">
-                        <div width="20%" style="width: 20%; float: left;">
-                            <div style="padding: 5px;">
-
-                                <button @click.prevent="clickQuestion(index)" v-if="index+1 == page" class="btn btn-gray-400 btn-sm w-100">{{ index + 1 }}</button>
-
-                                <button @click.prevent="clickQuestion(index)" v-if="index+1 != page && question.answer == 0" class="btn btn-outline-info btn-sm w-100">{{ index + 1 }}</button>
-
-                                <button @click.prevent="clickQuestion(index)" v-if="index+1 != page && question.answer != 0" class="btn btn-info btn-sm w-100">{{ index + 1 }}</button>
-                            </div>
-                        </div>
+                <div class="card-body" style="height:330px;overflow-y:auto;">
+                    <div v-for="(q, index) in all_questions" :key="index" style="width:20%;float:left;padding:5px;">
+                        <button @click.prevent="clickQuestion(index)" class="btn btn-sm w-100"
+                            :class="{
+                                'btn-gray-400':     index + 1 === page,
+                                'btn-info':         index + 1 !== page && q.answer != 0,
+                                'btn-outline-info': index + 1 !== page && q.answer == 0,
+                            }"
+                        >{{ index + 1 }}</button>
                     </div>
-
                 </div>
                 <div class="card-footer">
-                    <button @click="showModalEndExam = true" class="btn btn-danger btn-md border-0 shadow w-100">Akhiri Ujian</button>
+                    <button @click="showEndModal = true" class="btn btn-danger btn-md border-0 shadow w-100">Akhiri Ujian</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- modal akhiri ujian -->
-    <div v-if="showModalEndExam" class="modal fade" :class="{ 'show': showModalEndExam }" tabindex="-1" aria-hidden="true" style="display:block;" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Akhiri Ujian ?</h5>
-                </div>
-                <div class="modal-body">
-                    <div v-if="unansweredQuestions > 0" class="alert alert-warning border-0 mb-3">
-                        <i class="fa fa-exclamation-triangle"></i>
-                        Masih ada <strong class="fw-bold">{{ unansweredQuestions }}</strong> soal belum terjawab.
-                        Total dikerjakan <strong class="fw-bold">{{ question_answered }}</strong> dari
-                        <strong class="fw-bold">{{ totalQuestions }}</strong> soal.
-                    </div>
-                    <div v-else class="alert alert-success border-0 mb-3">
-                        <i class="fa fa-check-circle"></i>
-                        Semua soal sudah dikerjakan. Total dikerjakan
-                        <strong class="fw-bold">{{ question_answered }}</strong> dari
-                        <strong class="fw-bold">{{ totalQuestions }}</strong> soal.
-                    </div>
-                    Setelah mengakhiri ujian, Anda tidak dapat kembali ke ujian ini lagi. Yakin akan mengakhiri ujian?
-                </div>
-                <div class="modal-footer">
-                    <button @click.prevent="endExam" type="button" class="btn btn-primary">Ya, Akhiri</button>
-                    <button @click.prevent="showModalEndExam = false" type="button" class="btn btn-secondary">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- modal waktu ujian berakhir -->
-    <div v-if="showModalEndTimeExam" class="modal fade" :class="{ 'show': showModalEndTimeExam }" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true" style="display:block;" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Waktu Habis !</h5>
-                </div>
-                <div class="modal-body">
-                    Waktu ujian sudah berakhir!. Klik <strong class="fw-bold">Ya</strong> untuk mengakhiri ujian.
-                </div>
-                <div class="modal-footer">
-                    <button @click.prevent="endExam" type="button" class="btn btn-primary">Ya</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <ExamEndModals
+        v-model="showEndModal"
+        :time-up="timeUp"
+        :answered="question_answered"
+        :total="all_questions.length"
+        @confirm="endExam"
+    />
 </template>
 
 <script>
-    //import layout student
-    import LayoutStudent from '../../../Layouts/Student.vue';
+import LayoutStudent from '../../../Layouts/Student.vue'
+import { Head, router } from '@inertiajs/vue3'
+import { ref } from 'vue'
+import VueCountdown from '@chenfengyuan/vue-countdown'
+import Swal from 'sweetalert2'
+import { useExamTimer } from '../../../Composables/useExamTimer'
+import ExamEndModals from '../../../Components/Exam/ExamEndModals.vue'
 
-    //import Head and Link from Inertia
-    import {
-        Head,
-        Link,
-        router
-    } from '@inertiajs/vue3';
+export default {
+    layout: LayoutStudent,
+    components: { Head, VueCountdown, ExamEndModals },
+    props: {
+        id:                 Number,
+        page:               Number,
+        exam_group:         Object,
+        all_questions:      Array,
+        question_answered:  Number,
+        question_active:    Object,
+        answer_order:       Array,
+        duration:           Object,
+    },
+    setup(props) {
+        const options = ['A', 'B', 'C', 'D', 'E']
 
-    //import ref
-    import {
-        computed,
-        ref
-    } from 'vue';
+        const { duration, handleChangeDuration, saveDuration } = useExamTimer(
+            props.duration.duration,
+            props.duration.id,
+            '/student/exam-duration/update'
+        )
 
-    //import VueCountdown
-    import VueCountdown from '@chenfengyuan/vue-countdown';
+        const showEndModal = ref(false)
+        const timeUp       = ref(false)
 
-    //import axios
-    import axios from 'axios';
-    
-    //import sweet alert2
-    import Swal from 'sweetalert2';
-
-    export default {
-        //layout
-        layout: LayoutStudent,
-
-        //register components
-        components: {
-            Head,
-            Link,
-            VueCountdown
-        },
-
-        //props
-        props: {
-            id: Number,
-            page: Number,
-            exam_group: Object,
-            all_questions: Array,
-            question_answered: Number,
-            question_active: Object,
-            answer_order: Array,
-            duration: Object,
-        },
-
-        //composition API
-        setup(props) {
-
-            //define options for answer
-            let options = ["A", "B", "C", "D", "E"];
-
-            //define state counter
-            const counter = ref(0);
-
-            //define state duration
-            const duration = ref(props.duration.duration);
-
-            //total questions and unanswered questions
-            const totalQuestions = computed(() => props.all_questions.length);
-            const unansweredQuestions = computed(() => Math.max(totalQuestions.value - props.question_answered, 0));
-
-            //handleChangeDuration
-            const handleChangeDuration = (() => {
-
-                //decrement duration
-                duration.value = duration.value - 1000;
-
-                //increment counter
-                counter.value = counter.value + 1;
-
-                //cek jika durasi di atas 0
-                if (duration.value > 0) {
-
-                    //update duration if 10 seconds
-                    if (counter.value % 10 == 1) {
-
-                        //update duration
-                        axios.put(`/student/exam-duration/update/${props.duration.id}`, {
-                            duration: duration.value
-                        })
-
-                    }
-
-                }
-
-            });
-
-            //metohd prevPage
-            const prevPage = (() => {
-
-                //update duration
-                axios.put(`/student/exam-duration/update/${props.duration.id}`, {
-                    duration: duration.value
-                });
-
-                //redirect to prevPage
-                router.get(`/student/exam/${props.id}/${props.page - 1}`);
-
-            });
-
-            //method nextPage
-            const nextPage = (() => {
-
-                //update duration
-                axios.put(`/student/exam-duration/update/${props.duration.id}`, {
-                    duration: duration.value
-                });
-
-                //redirect to nextPage
-                router.get(`/student/exam/${props.id}/${props.page + 1}`);
-            });
-
-            //method clickQuestion
-            const clickQuestion = ((index) => {
-
-                //update duration
-                axios.put(`/student/exam-duration/update/${props.duration.id}`, {
-                    duration: duration.value
-                });
-
-                //redirect to questin
-                router.get(`/student/exam/${props.id}/${index + 1}`);
-            });
-
-            //method submit answer
-            const submitAnswer = ((exam_id, question_id, answer) => {
-
-                router.post('/student/exam-answer', {
-                    exam_id: exam_id,
-                    exam_session_id: props.exam_group.exam_session.id,
-                    question_id: question_id,
-                    answer: answer,
-                    duration: duration.value
-                });
-
-            });
-
-            //define state modal
-            const showModalEndExam      = ref(false);
-            const showModalEndTimeExam  = ref(false);
-
-            //method endExam
-            const endExam = (() => {
-
-                router.post('/student/exam-end', {
-                    exam_group_id: props.exam_group.id,
-                    exam_id: props.exam_group.exam.id,
-                    exam_session_id: props.exam_group.exam_session.id,
-                });
-
-                //show success alert
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Ujian Selesai!.',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 4000
-                });           
-
-            });
-            
-            //return
-            return {
-                options,
-                duration,
-                totalQuestions,
-                unansweredQuestions,
-                handleChangeDuration,
-                prevPage,
-                nextPage,
-                clickQuestion,
-                submitAnswer,
-                showModalEndExam,
-                showModalEndTimeExam,
-                endExam,
-            }
-
+        function navigate(page) {
+            saveDuration()
+            router.get(`/student/exam/${props.id}/${page}`)
         }
-    }
 
+        const prevPage     = () => navigate(props.page - 1)
+        const nextPage     = () => navigate(props.page + 1)
+        const clickQuestion = (index) => navigate(index + 1)
+
+        function submitAnswer(exam_id, question_id, answer) {
+            router.post('/student/exam-answer', {
+                exam_id,
+                exam_session_id: props.exam_group.exam_session.id,
+                question_id,
+                answer,
+                duration: duration.value,
+            })
+        }
+
+        function endExam() {
+            router.post('/student/exam-end', {
+                exam_group_id:   props.exam_group.id,
+                exam_id:         props.exam_group.exam.id,
+                exam_session_id: props.exam_group.exam_session.id,
+            })
+            Swal.fire({ title: 'Ujian Selesai!', icon: 'success', showConfirmButton: false, timer: 4000 })
+        }
+
+        return {
+            options, duration, handleChangeDuration,
+            showEndModal, timeUp,
+            prevPage, nextPage, clickQuestion, submitAnswer, endExam,
+        }
+    },
+}
 </script>
-
-<style>
-
-</style>

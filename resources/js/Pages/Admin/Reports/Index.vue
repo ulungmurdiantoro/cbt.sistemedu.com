@@ -47,11 +47,11 @@
                                 <a :href="`/admin/reports/export?exam_session_id=${form.exam_session_id}`" target="_blank" class="btn btn-success btn-md border-0 shadow w-100 text-white">
                                     <i class="fa fa-file-excel"></i> DOWNLOAD EXCEL
                                 </a>
-                                <a :href="`/admin/reports/export-pdf?exam_session_id=${form.exam_session_id}`" target="_blank" class="btn btn-danger btn-md border-0 shadow w-100 text-white mt-2">
-                                    <i class="fa fa-file-pdf"></i> DOWNLOAD PDF
+                                <a :href="`/admin/reports/export-pdf?exam_session_id=${form.exam_session_id}&layout=ringkas`" target="_blank" class="btn btn-danger btn-md border-0 shadow w-100 text-white mt-2">
+                                    <i class="fa fa-file-pdf"></i> PDF Ringkas (A4)
                                 </a>
-                                <a :href="`/admin/reports/export-pdf-2?exam_session_id=${form.exam_session_id}`" target="_blank" class="btn btn-danger btn-md border-0 shadow w-100 text-white mt-2">
-                                    <i class="fa fa-file-pdf"></i> DOWNLOAD PDF 2
+                                <a :href="`/admin/reports/export-pdf?exam_session_id=${form.exam_session_id}&layout=lebar`" target="_blank" class="btn btn-danger btn-md border-0 shadow w-100 text-white mt-2">
+                                    <i class="fa fa-file-pdf"></i> PDF Lebar (A0)
                                 </a>
                             </div>
                         </div>

@@ -17,6 +17,7 @@ class GradingSchemeController extends Controller
                 'bobot_pg'          => 45.5,
                 'bobot_esai'        => 24.5,
                 'bobot_wawancara'   => 30,
+                'faktor_wawancara'  => 0.075,
                 'nilai_kelulusan'   => 60,
                 'bobot_ujian_tulis' => 70,
                 'proporsi_pg'       => 65,
@@ -36,6 +37,7 @@ class GradingSchemeController extends Controller
             'proporsi_pg'       => 'required|numeric|min:0|max:100',
             'nilai_kelulusan'   => 'required|numeric|min:0|max:100',
             'bobot_wawancara'   => 'required|numeric|min:0|max:100',
+            'faktor_wawancara'  => 'required|numeric|min:0|max:1',
         ]);
 
         $total = round($data['bobot_ujian_tulis'] + $data['bobot_wawancara'], 2);
@@ -45,7 +47,7 @@ class GradingSchemeController extends Controller
             ]);
         }
 
-        // Hitung bobot efektif untuk ResultCalculatorService
+        // Hitung bobot efektif PG dan Esai dari proporsi ujian tulis
         $data['bobot_pg']   = round($data['bobot_ujian_tulis'] * $data['proporsi_pg'] / 100, 2);
         $data['bobot_esai'] = round($data['bobot_ujian_tulis'] * (100 - $data['proporsi_pg']) / 100, 2);
 

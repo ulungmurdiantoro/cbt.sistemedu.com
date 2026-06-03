@@ -15,56 +15,28 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //get exams
-        $exams = Exam::when(request()->q, function($exams) {
-            $exams = $exams->where('title', 'like', '%'. request()->q . '%');
+        $exams = Exam::when(request()->q, function ($exams) {
+            $exams->where('title', 'like', '%' . request()->q . '%');
         })->with('classroom', 'questions', 'essays')->latest()->paginate(10);
 
-        //append query string to pagination links
         $exams->appends(['q' => request()->q]);
 
-        //render with inertia
         return inertia('Admin/Exams/Index', [
             'exams' => $exams,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //get lessons
-        // $lessons = Lesson::all();
-
-        //get classrooms
-        $classrooms = Classroom::all();
-        
-        //render with inertia
         return inertia('Admin/Exams/Create', [
-            // 'lessons' => $lessons,
-            'classrooms' => $classrooms,
+            'classrooms' => Classroom::all(),
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //validate request
         $request->validate([
             'title'             => 'required',
             'type'              => 'required',
@@ -76,7 +48,6 @@ class ExamController extends Controller
             'show_answer'       => 'required',
         ]);
 
-        //create exam
         Exam::create([
             'exams_code'        => 'exms-' . Str::ulid(),
             'title'             => $request->title,
@@ -89,75 +60,32 @@ class ExamController extends Controller
             'show_answer'       => $request->show_answer,
         ]);
 
-        //redirect
         return redirect()->route('admin.exams.index');
-
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        
-        //get exam
         $exam = Exam::with('classroom')->findOrFail($id);
-        // $exam = Exam::where('exams_code', $exams_code)->with('classroom')->firstOrFail();
-        
-        //get relation questions with pagination
+
         $exam->setRelation('questions', $exam->questions()->paginate(10));
         $exam->setRelation('essays', $exam->essays()->paginate(10));
         $exam->setRelation('migas_essays', $exam->migas_essays()->paginate(10));
-        
-        // $question = Exam::withCount('questions')->get();
-        // $essay = Exam::withCount('essays')->get();
-        // dd($exam);
-        //render with inertia
+
         return inertia('Admin/Exams/Show', [
             'exam' => $exam,
-            // 'question' => $question,
-            // 'essay' => $essay,
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //get exam
-        $exam = Exam::findOrFail($id);
-
-        //get lessons
-        // $lessons = Lesson::all();
-
-        //get classrooms
-        $classrooms = Classroom::all();
-
-        //render with inertia
         return inertia('Admin/Exams/Edit', [
-            'exam' => $exam,
-            // 'lessons' => $lessons,
-            'classrooms' => $classrooms,
+            'exam'       => Exam::findOrFail($id),
+            'classrooms' => Classroom::all(),
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Exam $exam)
     {
-        //validate request
         $request->validate([
             'title'             => 'required',
             'type'              => 'required',
@@ -169,7 +97,6 @@ class ExamController extends Controller
             'show_answer'       => 'required',
         ]);
 
-        //update exam
         $exam->update([
             'title'             => $request->title,
             'type'              => $request->type,
@@ -181,318 +108,180 @@ class ExamController extends Controller
             'show_answer'       => $request->show_answer,
         ]);
 
-        //redirect
         return redirect()->route('admin.exams.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //get exam
-        $exam = Exam::findOrFail($id);
+        Exam::findOrFail($id)->delete();
 
-        //delete exam
-        $exam->delete();
-
-        //redirect
         return redirect()->route('admin.exams.index');
     }
 
-    /**
-     * createQuestion
-     *
-     * @param  mixed $exam
-     * @return void
-     */
     public function createQuestion(Exam $exam)
-    {        
-        //render with inertia
-        // dd($exam);
+    {
         return inertia('Admin/Questions/Create', [
             'exam' => $exam,
         ]);
-        
     }
-    
-    /**
-     * storeQuestion
-     *
-     * @param  mixed $request
-     * @param  mixed $exam
-     * @return void
-     */
+
     public function storeQuestion(Request $request, Exam $exam)
     {
-        //validate request
         $request->validate([
-            'question'          => 'required',
-            'option_1'          => 'required',
-            'option_2'          => 'required',
-            'option_3'          => 'required',
-            'option_4'          => 'required',
-            'option_5'          => 'required',
-            'answer'            => 'required',
+            'question'  => 'required',
+            'option_1'  => 'required',
+            'option_2'  => 'required',
+            'option_3'  => 'required',
+            'option_4'  => 'required',
+            'option_5'  => 'required',
+            'answer'    => 'required',
         ]);
-        
-        //create question
+
         Question::create([
-            'exam_id'           => $exam->id,
-            // 'questions_code'    => 'qstn-' . Str::ulid(),
-            'question'          => $request->question,
-            'option_1'          => $request->option_1,
-            'option_2'          => $request->option_2,
-            'option_3'          => $request->option_3,
-            'option_4'          => $request->option_4,
-            'option_5'          => $request->option_5,
-            'answer'            => $request->answer,
+            'exam_id'   => $exam->id,
+            'question'  => $request->question,
+            'option_1'  => $request->option_1,
+            'option_2'  => $request->option_2,
+            'option_3'  => $request->option_3,
+            'option_4'  => $request->option_4,
+            'option_5'  => $request->option_5,
+            'answer'    => $request->answer,
         ]);
-        
-        //redirect
+
         return redirect()->route('admin.exams.show', $exam->id);
     }
 
-    /**
-     * editQuestion
-     *
-     * @param  mixed $exam
-     * @param  mixed $question
-     * @return void
-     */
     public function editQuestion(Exam $exam, Question $question)
     {
-        //render with inertia
-        // dd($question);
         return inertia('Admin/Questions/Edit', [
-            'exam' => $exam,
+            'exam'     => $exam,
             'question' => $question,
         ]);
     }
 
-    /**
-     * updateQuestion
-     *
-     * @param  mixed $request
-     * @param  mixed $exam
-     * @param  mixed $question
-     * @return void
-     */
     public function updateQuestion(Request $request, Exam $exam, Question $question)
     {
-        //validate request
         $request->validate([
-            'question'          => 'required',
-            'option_1'          => 'required',
-            'option_2'          => 'required',
-            'option_3'          => 'required',
-            'option_4'          => 'required',
-            'option_5'          => 'required',
-            'answer'            => 'required',
+            'question'  => 'required',
+            'option_1'  => 'required',
+            'option_2'  => 'required',
+            'option_3'  => 'required',
+            'option_4'  => 'required',
+            'option_5'  => 'required',
+            'answer'    => 'required',
         ]);
-        
-        //update question
+
         $question->update([
-            'question'          => $request->question,
-            'option_1'          => $request->option_1,
-            'option_2'          => $request->option_2,
-            'option_3'          => $request->option_3,
-            'option_4'          => $request->option_4,
-            'option_5'          => $request->option_5,
-            'answer'            => $request->answer,
+            'question'  => $request->question,
+            'option_1'  => $request->option_1,
+            'option_2'  => $request->option_2,
+            'option_3'  => $request->option_3,
+            'option_4'  => $request->option_4,
+            'option_5'  => $request->option_5,
+            'answer'    => $request->answer,
         ]);
-        
-        //redirect
+
         return redirect()->route('admin.exams.show', $exam->id);
     }
 
-    /**
-     * destroyQuestion
-     *
-     * @param  mixed $exam
-     * @param  mixed $question
-     * @return void
-     */
     public function destroyQuestion(Exam $exam, Question $question)
     {
-        //delete question
         $question->delete();
-        
-        //redirect
+
         return redirect()->route('admin.exams.show', $exam->id);
     }
 
-    /**
-     * import
-     *
-     * @return void
-     */
     public function import(Exam $exam)
     {
-        // dd($exam);
         return inertia('Admin/Questions/Import', [
-            'exam' => $exam
+            'exam' => $exam,
         ]);
     }
-    
-    /**
-     * storeImport
-     *
-     * @param  mixed $request
-     * @return void
-     */
+
     public function storeImport(Request $request, Exam $exam)
     {
         $request->validate([
-            'file' => 'required|mimes:csv,xls,xlsx'
+            'file' => 'required|mimes:csv,xls,xlsx',
         ]);
 
-        // import data
         Excel::import(new QuestionsImport(), $request->file('file'));
 
-        //redirect
         return redirect()->route('admin.exams.show', $exam->id);
     }
 
-    /**
-     * createEssay
-     *
-     * @param  mixed $exam
-     * @return void
-     */
     public function createEssay(Exam $exam)
-    {        
-        //render with inertia
-        // dd($exam);
+    {
         return inertia('Admin/Essays/Create', [
             'exam' => $exam,
         ]);
-        
     }
-    
-    /**
-     * storeEssay
-     *
-     * @param  mixed $request
-     * @param  mixed $exam
-     * @return void
-     */
+
     public function storeEssay(Request $request, Exam $exam)
     {
-        // validate request
         $request->validate([
-            'question'   => 'required',
-            'answer'     => 'nullable',
-            'is_essay'   => 'nullable|boolean',
+            'question' => 'required',
+            'answer'   => 'nullable',
+            'is_essay' => 'nullable|boolean',
         ]);
 
-        // create essay
         Essay::create([
-            'exam_id'      => $exam->id,
-            'essays_code'  => 'essy-' . Str::ulid(),
-            'question'     => $request->question,
-            'answer'       => $request->answer,
-            'is_essay'     => $request->boolean('is_essay'),
+            'exam_id'     => $exam->id,
+            'essays_code' => 'essy-' . Str::ulid(),
+            'question'    => $request->question,
+            'answer'      => $request->answer,
+            'is_essay'    => $request->boolean('is_essay'),
         ]);
 
-        // redirect
         return redirect()->route('admin.exams.show', $exam->id);
     }
 
-    /**
-     * editEssay
-     *
-     * @param  mixed $exam
-     * @param  mixed $essay
-     * @return void
-     */
     public function editEssay(Exam $exam, Essay $essays)
     {
-        //render with inertia
-        // dd($essay);
         return inertia('Admin/Essays/Edit', [
-            'exam' => $exam,
+            'exam'  => $exam,
             'essay' => $essays,
         ]);
     }
 
-    /**
-     * updateEssay
-     *
-     * @param  mixed $request
-     * @param  mixed $exam
-     * @param  mixed $essay
-     * @return void
-     */
     public function updateEssay(Request $request, Exam $exam, Essay $essays)
     {
-        // validate request
         $request->validate([
-            'question'   => 'required',
-            'answer'     => 'nullable',
-            'is_essay'   => 'nullable|boolean',
+            'question' => 'required',
+            'answer'   => 'nullable',
+            'is_essay' => 'nullable|boolean',
         ]);
 
-        // update essay
         $essays->update([
-            'question'   => $request->question,
-            'answer'     => $request->answer,
-            'is_essay'   => $request->boolean('is_essay'),
+            'question' => $request->question,
+            'answer'   => $request->answer,
+            'is_essay' => $request->boolean('is_essay'),
         ]);
 
-        // redirect
         return redirect()->route('admin.exams.show', $exam->id);
     }
 
-    /**
-     * destroyEssay
-     *
-     * @param  mixed $exam
-     * @param  mixed $essay
-     * @return void
-     */
     public function destroyEssay(Exam $exam, Essay $essays)
     {
-        //delete essay
         $essays->delete();
-        
-        //redirect
+
         return redirect()->route('admin.exams.show', $exam->id);
     }
 
-    /**
-     * import
-     *
-     * @return void
-     */
     public function EssayImport(Exam $exam)
     {
-        // dd($exam);
         return inertia('Admin/Essays/Import', [
-            'exam' => $exam
+            'exam' => $exam,
         ]);
     }
-    
-    /**
-     * storeImport
-     *
-     * @param  mixed $request
-     * @return void
-     */
+
     public function EssayStoreImport(Request $request, Exam $exam)
     {
-        
         $request->validate([
-            'file' => 'required|mimes:csv,xls,xlsx'
+            'file' => 'required|mimes:csv,xls,xlsx',
         ]);
 
-        // import data
         Excel::import(new EssaysImport(), $request->file('file'));
 
-        //redirect
         return redirect()->route('admin.exams.show', $exam->id);
     }
 }

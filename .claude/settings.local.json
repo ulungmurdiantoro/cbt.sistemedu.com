@@ -21,7 +21,11 @@
       "Bash(php -r ' *)",
       "Bash(php -l app/Services/DocumentGeneratorService.php app/Http/Controllers/Admin/CertificateTemplateController.php app/Jobs/SendResultMailJob.php app/Jobs/DistributeResultsJob.php)",
       "Bash(php -l app/Http/Controllers/Admin/CertificateTemplateController.php)",
-      "Bash(php -l app/Http/Controllers/Admin/ResultController.php)"
+      "Bash(php -l app/Http/Controllers/Admin/ResultController.php)",
+      "Bash(xargs wc -l)",
+      "Bash(xargs grep -l \"setInterval\")",
+      "Bash(ls resources/js/Components/)",
+      "Bash(ls resources/js/Composables/)"
     ]
   }
 }

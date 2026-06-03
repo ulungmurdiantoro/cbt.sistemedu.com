@@ -24,10 +24,10 @@ class ResultCalculatorService
             ? GradingScheme::where('classroom_id', $classroomId)->first()
             : null;
 
-        $bobotPg         = $scheme?->bobot_pg         ?? 40;
-        $bobotEsai       = $scheme?->bobot_esai       ?? 35;
-        $bobotWawancara  = $scheme?->bobot_wawancara  ?? 25;
-        $nilaiKelulusan  = $scheme?->nilai_kelulusan  ?? 70;
+        $bobotPg         = $scheme?->bobot_pg        ?? 0;
+        $bobotEsai       = $scheme?->bobot_esai      ?? 0;
+        $bobotWawancara  = $scheme?->bobot_wawancara ?? 0;
+        $nilaiKelulusan  = $scheme?->nilai_kelulusan ?? 70;
 
         $studentIds = $session->exam_groups
             ->pluck('student_id')
