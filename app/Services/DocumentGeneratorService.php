@@ -145,6 +145,8 @@ class DocumentGeneratorService
             'certDate'        => $certDate,
             'validUntil'      => $validUntil,
             'qrSertifPath'    => $qrSertifPath,
+            'bgSertifikatDepanPath' => $this->asset('bg_sertif_depan'),
+            'bgSertifikatKanPath'   => $this->asset('bg_sertif_kan'),
             'logoEdukiaPath'  => $this->asset('logo_edukia'),
             'logoKanPath'     => $this->asset('logo_kan'),
             'lsp'             => $lsp,
@@ -159,8 +161,10 @@ class DocumentGeneratorService
     public function sertifikatPdf(ParticipantResult $result): string
     {
         if (!$result->sertifikat_number) return $this->generateSertifikat($result);
+        $templateVersion = filemtime(resource_path('views/documents/sertifikat.blade.php')) ?: '';
+
         return $this->cachedPdf(
-            'documents/sertifikat/' . md5($result->sertifikat_number) . '.pdf',
+            'documents/sertifikat/' . md5($result->sertifikat_number . '|' . $templateVersion) . '.pdf',
             fn() => $this->generateSertifikat($result)
         );
     }

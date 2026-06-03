@@ -35,7 +35,7 @@ return [
         'logo_edukia'         => 'resources/lsp-assets/logo-edukia.png',
         'logo_kan'            => 'resources/lsp-assets/logo-kan.png',
         'ttd'                 => 'resources/lsp-assets/ttd.png',
-        'bg_sertif_depan'     => 'resources/lsp-assets/bg-sertifikat-depan.png',
+        'bg_sertif_depan'     => 'resources/lsp-assets/bg-sertifikat-depan-kan.png',
         'bg_sertif_kan'       => 'resources/lsp-assets/bg-sertifikat-kan.png',
         'bg_sertif_tanpa_kan' => 'resources/lsp-assets/bg-sertifikat-tanpa-kan.png',
     ],
