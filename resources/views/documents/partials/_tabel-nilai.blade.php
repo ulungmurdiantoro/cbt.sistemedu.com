@@ -22,14 +22,14 @@
 
 <table style="width:100%; border-collapse:collapse; font-family:Cambria,serif; font-size:10pt; margin-top:6pt;">
     {{-- Header baris 1 --}}
-    <tr style="background:{{ $headerBg }}; font-weight:bold; text-align:center;">
+    <tr style="background-color:{{ $headerBg }}; font-weight:bold; text-align:center;">
         <td rowspan="2" style="border:0.5pt solid #000; padding:4pt; width:18%; vertical-align:middle;">NILAI<br>WAWANCARA</td>
         <td rowspan="2" style="border:0.5pt solid #000; padding:4pt; width:20%; vertical-align:middle;">NILAI PILIHAN<br>GANDA</td>
         <td rowspan="2" style="border:0.5pt solid #000; padding:4pt; width:16%; vertical-align:middle;">NILAI ESAI</td>
         <td colspan="2" style="border:0.5pt solid #000; padding:4pt; width:46%;">REKAPITULASI HASIL ASESMEN</td>
     </tr>
     {{-- Header baris 2 --}}
-    <tr style="background:{{ $headerBg }}; font-weight:bold; text-align:center;">
+    <tr style="background-color:{{ $headerBg }}; font-weight:bold; text-align:center;">
         <td style="border:0.5pt solid #000; padding:4pt; width:23%;">HASIL NILAI</td>
         <td style="border:0.5pt solid #000; padding:4pt; width:23%;">STATUS</td>
     </tr>
@@ -39,7 +39,7 @@
         <td style="border:0.5pt solid #000; padding:4pt;">{{ $nilaiPg ?? '-' }}</td>
         <td style="border:0.5pt solid #000; padding:4pt;">{{ $nilaiEsai ?? '-' }}</td>
         <td style="border:0.5pt solid #000; padding:4pt; font-weight:bold;">{{ $nilaiAkhir ?? '-' }}</td>
-        <td style="border:0.5pt solid #000; padding:4pt; font-weight:bold; background:{{ $bg }}; color:{{ $color }};">
+        <td style="border:0.5pt solid #000; padding:4pt; font-weight:bold; background-color:{{ $bg }}; color:{{ $color }};">
             {!! $statusUp !!}
         </td>
     </tr>

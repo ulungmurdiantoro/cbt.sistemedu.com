@@ -12,14 +12,13 @@ class DashboardController extends Controller
     {
         $asesor = auth()->user();
 
-        // Sesi ujian yang ada penugasan untuk asesor ini
         $session_ids = AsesorAssignment::where('user_id', $asesor->id)
             ->pluck('exam_session_id')
             ->unique();
 
-        $exam_sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
+        $all = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->whereIn('id', $session_ids)
-            ->orderBy('id', 'desc')
+            ->orderBy('end_time', 'desc')
             ->get()
             ->map(function ($session) use ($asesor) {
                 $session->student_count = AsesorAssignment::where('user_id', $asesor->id)
@@ -29,8 +28,9 @@ class DashboardController extends Controller
             });
 
         return inertia('Asesor/Dashboard', [
-            'exam_sessions' => $exam_sessions,
-            'asesor'        => $asesor,
+            'active_sessions'    => $all->filter(fn($s) => $s->end_time && now()->lt($s->end_time))->values(),
+            'completed_sessions' => $all->filter(fn($s) => !$s->end_time || now()->gte($s->end_time))->values(),
+            'asesor'             => $asesor,
         ]);
     }
 }

@@ -38,7 +38,7 @@
     /* Lampiran (hal.2) */
     .section-title { font-weight:bold; text-decoration:underline; font-size:12pt; margin-bottom:6pt; }
     .tbl-fixed { width:100%; border-collapse:collapse; font-size:11pt; }
-    .tbl th { border:0.5pt solid #000; padding:4pt 6pt; background:#BFCDE9; font-weight:bold; text-align:center; }
+    .tbl th { border:0.5pt solid #000; padding:4pt 6pt; background-color:#BFCDE9; font-weight:bold; text-align:center; }
     .tbl td { border:0.5pt solid #000; padding:4pt 6pt; }
     .tbl .merged { text-align:center; font-weight:bold; }
 </style>
@@ -176,13 +176,13 @@
         <table class="tbl" style="width:100%; border-collapse:collapse; font-size:11pt;">
             <thead>
                 <tr>
-                    <th class="tbl" style="border:0.5pt solid #000; padding:4pt 6pt; background:#BFCDE9; text-align:center;">Metode Ujian</th>
-                    <th class="tbl" style="border:0.5pt solid #000; padding:4pt 6pt; background:#BFCDE9; text-align:center;">Jumlah Soal</th>
-                    <th class="tbl" style="border:0.5pt solid #000; padding:4pt 6pt; background:#BFCDE9; text-align:center;">Lama Pengerjaan</th>
-                    <th class="tbl" style="border:0.5pt solid #000; padding:4pt 6pt; background:#BFCDE9; text-align:center;">Proporsi Nilai</th>
+                    <th class="tbl" style="border:0.5pt solid #000; padding:4pt 6pt; background-color:#BFCDE9; text-align:center;">Metode Ujian</th>
+                    <th class="tbl" style="border:0.5pt solid #000; padding:4pt 6pt; background-color:#BFCDE9; text-align:center;">Jumlah Soal</th>
+                    <th class="tbl" style="border:0.5pt solid #000; padding:4pt 6pt; background-color:#BFCDE9; text-align:center;">Lama Pengerjaan</th>
+                    <th class="tbl" style="border:0.5pt solid #000; padding:4pt 6pt; background-color:#BFCDE9; text-align:center;">Proporsi Nilai</th>
                 </tr>
                 <tr>
-                    <td colspan="4" style="border:0.5pt solid #000; padding:4pt 6pt; text-align:center; font-weight:bold; background:#f0f0f0;">
+                    <td colspan="4" style="border:0.5pt solid #000; padding:4pt 6pt; text-align:center; font-weight:bold; background-color:#f0f0f0;">
                         Evaluasi per Unit Kompetensi
                     </td>
                 </tr>
@@ -208,8 +208,8 @@
         <table style="width:100%; border-collapse:collapse; font-size:11pt;">
             <thead>
                 <tr>
-                    <th style="border:0.5pt solid #000; padding:4pt 6pt; background:#BFCDE9; text-align:center; width:70%;">Metode Ujian</th>
-                    <th style="border:0.5pt solid #000; padding:4pt 6pt; background:#BFCDE9; text-align:center; width:30%;">Proporsi Nilai</th>
+                    <th style="border:0.5pt solid #000; padding:4pt 6pt; background-color:#BFCDE9; text-align:center; width:70%;">Metode Ujian</th>
+                    <th style="border:0.5pt solid #000; padding:4pt 6pt; background-color:#BFCDE9; text-align:center; width:30%;">Proporsi Nilai</th>
                 </tr>
             </thead>
             <tbody>
