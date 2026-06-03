@@ -26,7 +26,14 @@
       "Bash(xargs grep -l \"setInterval\")",
       "Bash(ls resources/js/Components/)",
       "Bash(ls resources/js/Composables/)",
-      "Bash(php -r \"echo PHP_VERSION;\")"
+      "Bash(php -r \"echo PHP_VERSION;\")",
+      "Bash(find \"c:\\\\Users\\\\umurd\\\\Downloads\" -name \"*.pdf\" -newer \"c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\\\\composer.json\" 2>/dev/null | head -20)",
+      "Read(//c/Users/umurd/Downloads/**)",
+      "Bash(python3 -c ' *)",
+      "Bash(where gs *)",
+      "Bash(where magick *)",
+      "Bash(where pdftotext *)",
+      "Bash(where mutool *)"
     ]
   }
 }

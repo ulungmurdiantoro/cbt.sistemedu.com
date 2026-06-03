@@ -134,10 +134,8 @@ class ResultController extends Controller
             ->where('is_finalized', true)
             ->firstOrFail();
 
-        $kan      = request()->boolean('kan', false);
-        $pdf      = $generator->skPdf($result, $kan);
-        $suffix   = $kan ? '_KAN' : '';
-        $filename = 'SK' . $suffix . '_' . $student->no_participant . '.pdf';
+        $pdf      = $generator->skPdf($result);
+        $filename = 'SK_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)
             ->header('Content-Type', 'application/pdf')
@@ -152,10 +150,8 @@ class ResultController extends Controller
             ->where('keputusan', 'LULUS')
             ->firstOrFail();
 
-        $kan      = request()->boolean('kan', false);
-        $pdf      = $generator->sertifikatPdf($result, $kan);
-        $suffix   = $kan ? '_KAN' : '';
-        $filename = 'Sertifikat' . $suffix . '_' . $student->no_participant . '.pdf';
+        $pdf      = $generator->sertifikatPdf($result);
+        $filename = 'Sertifikat_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)
             ->header('Content-Type', 'application/pdf')

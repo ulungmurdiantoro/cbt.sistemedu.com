@@ -17,16 +17,14 @@ class CertificateTemplateController extends Controller
     }
 
     /**
-     * Preview salah satu dari 5 varian dokumen.
-     * type:    sp | sk | sertifikat
-     * variant: kan | nokan  (diabaikan untuk SP)
+     * Preview salah satu dari 3 jenis dokumen.
+     * type: sp | sk | sertifikat
      */
-    public function preview(string $type, string $variant = 'nokan')
+    public function preview(string $type)
     {
         abort_if(!in_array($type, ['sp', 'sk', 'sertifikat']), 404);
 
         $generator = app(DocumentGeneratorService::class);
-        $kan = ($variant === 'kan');
 
         // Cari result nyata jika ada
         $result = match ($type) {
@@ -41,19 +39,19 @@ class CertificateTemplateController extends Controller
 
         // Fallback dummy jika belum ada result
         if (!$result) {
-            $result = $this->makeDummyResult($type, $numbering);
+            $result = $this->makeDummyResult($type);
         }
 
         $pdf = match ($type) {
-            'sp'          => $generator->generateSp($result),
-            'sk'          => $generator->generateSk($result, $kan),
-            'sertifikat'  => $generator->generateSertifikat($result, $kan),
+            'sp'         => $generator->generateSp($result),
+            'sk'         => $generator->generateSk($result),
+            'sertifikat' => $generator->generateSertifikat($result),
         };
 
         $labels = [
             'sp'         => 'Preview_SP',
-            'sk'         => 'Preview_SK_' . ($kan ? 'KAN' : 'tanpaKAN'),
-            'sertifikat' => 'Preview_Sertifikat_' . ($kan ? 'KAN' : 'tanpaKAN'),
+            'sk'         => 'Preview_SK',
+            'sertifikat' => 'Preview_Sertifikat',
         ];
 
         return response($pdf, 200)
@@ -61,7 +59,7 @@ class CertificateTemplateController extends Controller
             ->header('Content-Disposition', 'inline; filename="' . $labels[$type] . '.pdf"');
     }
 
-    private function makeDummyResult(string $type, NumberingService $numbering): ParticipantResult
+    private function makeDummyResult(string $type): ParticipantResult
     {
         $classroom = new \App\Models\Classroom();
         $classroom->id         = 0;

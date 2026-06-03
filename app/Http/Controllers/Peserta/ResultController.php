@@ -21,7 +21,7 @@ class ResultController extends Controller
             ->whereHas('student', fn($q) => $q->where('participant_id', $participant->id))
             ->firstOrFail();
 
-        $pdf      = $generator->skPdf($result, false);
+        $pdf      = $generator->skPdf($result);
         $filename = 'SK_' . $result->student?->no_participant . '.pdf';
 
         return response($pdf, 200)
@@ -40,7 +40,7 @@ class ResultController extends Controller
             ->whereHas('student', fn($q) => $q->where('participant_id', $participant->id))
             ->firstOrFail();
 
-        $pdf      = $generator->sertifikatPdf($result, false);
+        $pdf      = $generator->sertifikatPdf($result);
         $filename = 'Sertifikat_' . $result->student?->no_participant . '.pdf';
 
         return response($pdf, 200)

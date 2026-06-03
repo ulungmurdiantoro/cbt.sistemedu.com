@@ -10,13 +10,14 @@ return [
      | Identitas LSP
      * --------------------------------------------------------------- */
     'lsp' => [
-        'nama'          => 'LSP EDUKASI GLOBAL CENDEKIA',
-        'nama_singkat'  => 'LSP Edukia',
-        'alamat'        => 'Kompleks Ruko Teras Bali No. 12, Desa/Kelurahan, Bubakan, Kec. Mijen, Kota Semarang, Jawa Tengah',
-        'telp'          => '+62 851-7547-9385',
-        'web'           => 'www.lspedukia.id',
-        'kota'          => 'Semarang',
-        'verifikasi_url'=> 'https://verifikasi-sertifikat.lspedukia.id',
+        'nama'            => 'LSP EDUKASI GLOBAL CENDEKIA',
+        'nama_singkat'    => 'LSP Edukia',
+        'alamat'          => 'Kompleks Ruko Teras Bali No. 12, Desa/Kelurahan, Bubakan, Kec. Mijen, Kota Semarang, Jawa Tengah',
+        'telp'            => '+62 851-7547-9385',
+        'web'             => 'www.lspedukia.id',
+        'kota'            => 'Semarang',
+        'verifikasi_url'  => 'https://verifikasi-sertifikat.lspedukia.id',
+        'kode_akreditasi' => 'LSP-033-IDN',
     ],
 
     /* ---------------------------------------------------------------

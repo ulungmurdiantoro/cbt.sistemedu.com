@@ -104,7 +104,7 @@ Route::prefix('admin')->group(function () {
 
         // Template dokumen
         Route::get('/certificate-template',                           [\App\Http\Controllers\Admin\CertificateTemplateController::class, 'show'])->name('admin.certificate-template');
-        Route::get('/certificate-template/preview/{type}/{variant?}', [\App\Http\Controllers\Admin\CertificateTemplateController::class, 'preview'])->name('admin.certificate-template.preview');
+        Route::get('/certificate-template/preview/{type}', [\App\Http\Controllers\Admin\CertificateTemplateController::class, 'preview'])->name('admin.certificate-template.preview');
 
     });
 });

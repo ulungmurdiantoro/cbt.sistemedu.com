@@ -19,7 +19,6 @@
                     <div class="card-body">
                         <p class="small text-muted mb-3">
                             2 halaman — berisi hasil nilai peserta, pembobotan penilaian, dan standar kelulusan.
-                            Tidak ada varian KAN.
                         </p>
                         <a href="/admin/certificate-template/preview/sp" target="_blank"
                             class="btn btn-outline-primary">
@@ -37,19 +36,13 @@
                     </div>
                     <div class="card-body">
                         <p class="small text-muted mb-3">
-                            3 halaman — Menimbang, Mengingat, Memutuskan (Hal.1–2) + Lampiran Nilai (Hal.3).
-                            Varian KAN menampilkan logo KAN di kop surat.
+                            2 halaman — Hal.1: Certificate of Competence. Hal.2: Tabel Unit Kompetensi.
+                            Sidebar navy dengan kode akreditasi LSP-033-IDN.
                         </p>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="/admin/certificate-template/preview/sk/nokan" target="_blank"
-                                class="btn btn-outline-secondary">
-                                <i class="fa fa-eye me-1"></i> Preview SK <span class="badge bg-secondary ms-1">Tanpa KAN</span>
-                            </a>
-                            <a href="/admin/certificate-template/preview/sk/kan" target="_blank"
-                                class="btn btn-outline-success">
-                                <i class="fa fa-eye me-1"></i> Preview SK <span class="badge bg-success ms-1">Dengan KAN</span>
-                            </a>
-                        </div>
+                        <a href="/admin/certificate-template/preview/sk" target="_blank"
+                            class="btn btn-outline-secondary">
+                            <i class="fa fa-eye me-1"></i> Preview SK
+                        </a>
                     </div>
                 </div>
             </div>
@@ -62,19 +55,13 @@
                     </div>
                     <div class="card-body">
                         <p class="small text-muted mb-3">
-                            2 halaman — Hal.1: data peserta + QR. Hal.2: tabel Unit Kompetensi + QR.
-                            Varian KAN menggunakan background halaman 2 yang berbeda.
+                            2 halaman — Hal.1: Certificate of Competence + QR. Hal.2: Tabel Unit Kompetensi + QR.
+                            Sidebar navy dengan kode akreditasi LSP-033-IDN.
                         </p>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="/admin/certificate-template/preview/sertifikat/nokan" target="_blank"
-                                class="btn btn-outline-secondary">
-                                <i class="fa fa-eye me-1"></i> Preview Sertifikat <span class="badge bg-secondary ms-1">Tanpa KAN</span>
-                            </a>
-                            <a href="/admin/certificate-template/preview/sertifikat/kan" target="_blank"
-                                class="btn btn-outline-success">
-                                <i class="fa fa-eye me-1"></i> Preview Sertifikat <span class="badge bg-success ms-1">Dengan KAN</span>
-                            </a>
-                        </div>
+                        <a href="/admin/certificate-template/preview/sertifikat" target="_blank"
+                            class="btn btn-outline-secondary">
+                            <i class="fa fa-eye me-1"></i> Preview Sertifikat
+                        </a>
                     </div>
                 </div>
             </div>
@@ -84,7 +71,7 @@
         <!-- Info asset -->
         <div class="alert alert-info border-0 shadow-sm mt-4 small">
             <i class="fa fa-info-circle me-2"></i>
-            <strong>Asset gambar</strong> (logo, tanda tangan, background) tersimpan di
+            <strong>Asset gambar</strong> (logo, tanda tangan) tersimpan di
             <code>resources/lsp-assets/</code>.
             Untuk mengganti gambar, timpa file di folder tersebut lalu deploy ulang.
         </div>
