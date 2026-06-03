@@ -10,7 +10,7 @@
         {{-- Logo Edukia --}}
         <td style="width:100pt; vertical-align:middle;">
             @if(file_exists($logoEdukiaPath))
-                <img src="{{ $logoEdukiaPath }}" style="max-height:42pt; max-width:100pt; object-fit:contain;">
+                <img src="{{ $logoEdukiaPath }}" style="max-height:42pt; max-width:100pt; ">
             @endif
         </td>
 
@@ -28,7 +28,7 @@
         {{-- Logo KAN (opsional) --}}
         <td style="width:80pt; vertical-align:middle; text-align:right;">
             @if(!empty($logoKanPath) && file_exists($logoKanPath))
-                <img src="{{ $logoKanPath }}" style="max-height:42pt; max-width:80pt; object-fit:contain;">
+                <img src="{{ $logoKanPath }}" style="max-height:42pt; max-width:80pt; ">
             @endif
         </td>
     </tr>

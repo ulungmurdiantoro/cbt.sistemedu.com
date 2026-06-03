@@ -25,7 +25,8 @@
       "Bash(xargs wc -l)",
       "Bash(xargs grep -l \"setInterval\")",
       "Bash(ls resources/js/Components/)",
-      "Bash(ls resources/js/Composables/)"
+      "Bash(ls resources/js/Composables/)",
+      "Bash(php -r \"echo PHP_VERSION;\")"
     ]
   }
 }
