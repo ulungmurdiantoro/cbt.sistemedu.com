@@ -1,102 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Certificate - {{ $certNumber }}</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-    font-family: "Times New Roman", Times, serif;
+    font-family: 'Radley', serif;
     color: #000;
-}
-
-@page {
-    size: A4 portrait;
-    margin: 0;
-}
-
-.page {
-    position: relative;
-    width: 210mm;
-    height: 297mm;
-    overflow: hidden;
-}
-.page-break {
-    page-break-after: always;
-}
-.bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 210mm;
-    height: 297mm;
-}
-.overlay {
-    position: absolute;
-    z-index: 2;
 }
 .center {
     text-align: center;
 }
-
-.cert-body {
-    left: 31mm;
-    top: 59mm;
+.cert-page {
+    position: relative;
+    padding-top: 38mm;
+    margin-left: 31mm;
     width: 171mm;
 }
+.cert-title {
+    font-size: 24pt;
+    font-weight: normal;
+    letter-spacing: 1.5pt;
+}
 .cert-number {
-    font-size: 14pt;
-    font-weight: bold;
+    font-weight: normal;
     letter-spacing: .3pt;
 }
 .cert-intro {
-    margin-top: 7mm;
-    font-size: 14pt;
     font-style: italic;
 }
 .cert-name {
-    margin-top: 8mm;
-    font-size: 21pt;
-    font-weight: bold;
+    font-weight: normal;
     line-height: 1.1;
 }
 .cert-label {
-    margin-top: 8mm;
-    font-size: 13pt;
+    font-weight: normal;
 }
 .cert-scheme-abbrev {
-    margin-top: 5mm;
-    font-size: 14.5pt;
-    font-weight: bold;
+    font-weight: normal;
     line-height: 1.25;
 }
 .cert-based-label {
-    margin-top: 19mm;
-    font-size: 15pt;
-    font-weight: bold;
+    font-weight: normal;
 }
 .cert-scheme-name {
-    margin-top: 5mm;
-    font-size: 15pt;
-    font-weight: bold;
+    font-weight: normal;
     line-height: 1.25;
 }
-.cert-batch {
-    margin-top: 20mm;
-    font-size: 15pt;
-    font-weight: bold;
-    letter-spacing: .6pt;
+.cert-scheme-kode {
+    font-weight: normal;
 }
-.cert-held-on {
-    margin-top: 4mm;
-    font-size: 12.5pt;
+.cert-held-on {}
+.cert-bottom {
+    margin-top: 72mm;
+    width: 160mm;
+    border-collapse: collapse;
+}
+.cert-bottom td {
+    padding: 0;
+    vertical-align: top;
 }
 .cert-validity {
-    left: 32mm;
-    top: 214mm;
-    width: 76mm;
-    font-size: 12.5pt;
+    width: 80mm;
+    font-size: 10pt;
     line-height: 1.75;
+    text-align: left;
 }
 .cert-validity table {
     border-collapse: collapse;
@@ -112,36 +75,26 @@ body {
     width: 5mm;
     text-align: center;
 }
-.signature-qr {
-    left: 121mm;
-    top: 219mm;
-    width: 30mm;
-    height: 30mm;
-}
-
-.unit-head {
-    left: 29mm;
-    top: 39mm;
+.unit-page {
+    padding-top: 39mm;
+    margin-left: 29mm;
     width: 176mm;
 }
 .unit-title {
-    font-size: 16.5pt;
-    font-weight: bold;
+    font-size: 13pt;
+    font-weight: normal;
     text-transform: uppercase;
     line-height: 1.2;
 }
 .unit-number {
     margin-top: 1mm;
-    font-size: 13.5pt;
-    font-weight: bold;
-}
-.unit-table-wrap {
-    left: 38mm;
-    top: 52mm;
-    width: 162mm;
+    font-size: 13pt;
+    font-weight: normal;
 }
 .unit-table {
-    width: 100%;
+    margin-top: 5mm;
+    margin-left: 9mm;
+    width: 162mm;
     border-collapse: collapse;
     color: #000;
 }
@@ -150,7 +103,7 @@ body {
     border: 1.2pt solid #1f3f7a;
     color: #fff;
     font-size: 12pt;
-    font-weight: bold;
+    font-weight: normal;
     padding: 5.5mm 3mm 3mm;
     text-align: center;
     line-height: 1.1;
@@ -164,7 +117,7 @@ body {
 }
 .unit-table td {
     border: 1.2pt solid #1f3f7a;
-    padding: 4mm 4mm;
+    padding: 4mm;
     vertical-align: middle;
 }
 .unit-table .kode {
@@ -184,109 +137,127 @@ body {
     line-height: 1.25;
 }
 </style>
-</head>
-<body>
 
 @php
-    $bgDepan = $bgSertifikatDepanPath ?? base_path('resources/lsp-assets/bg-sertifikat-depan-kan.png');
-    $bgBelakang = $bgSertifikatKanPath ?? base_path('resources/lsp-assets/bg-sertifikat-kan.png');
-    $schemeEn = $classroom?->title_en ?? $classroom?->title ?? '';
+    $renderPage = $renderPage ?? 'all';
+    $schemeEn   = $classroom?->title_en ?? $classroom?->title ?? '';
     $schemeName = $classroom?->title ?? '';
-    $schemeAbbrev = $classroom?->gelar
-        ? $classroom->gelar . ' (' . $schemeEn . ')'
-        : $schemeEn;
-    $ordinal = function ($date) {
+    $kodeSkema  = $classroom?->kode_skema ?? '';
+    $hasGelar   = !empty($classroom?->gelar);
+    $ordinal    = function ($date) {
         return preg_replace('/(\d+)(st|nd|rd|th)\b/', '$1<sup>$2</sup>', e($date));
     };
+
+    // Font sizes & spacings — dua kondisi: dengan/tanpa gelar
+    if ($hasGelar) {
+        $fsNumber      = '13pt'; $fsCertify = '12pt'; $fsName    = '18pt';
+        $fsExam        = '11pt'; $fsGelar   = '13pt';
+        $fsSchemeLabel = '11pt'; $fsScheme  = '13pt';
+        $fsNoskema     = '13pt'; $fsHeld    = '11pt';
+        $sp0 = '1mm';   // CERTIFICATE OF COMPETENCE → Number
+        $sp1 = '9mm';   // Number → This is to certify that
+        $sp2 = '11mm';  // certify → Nama
+        $sp3 = '3mm';   // Gelar → The Certification Based on Scheme
+        $sp4 = '3mm';   // Kode skema → Held on
+        $sp5 = '5mm';   // Nama → Has followed
+        $sp6 = '3mm';   // Has followed → Gelar
+        $sp7 = '3mm';   // The Certification → Nama skema
+        $sp8 = '2mm';   // Nama skema → Kode skema
+    } else {
+        $fsNumber      = '17pt'; $fsCertify = '13pt'; $fsName    = '20pt';
+        $fsExam        = '13pt'; $fsGelar   = '14pt';
+        $fsSchemeLabel = '15pt'; $fsScheme  = '17pt';
+        $fsNoskema     = '14pt'; $fsHeld    = '14pt';
+        $sp0 = '0.5mm';   // CERTIFICATE OF COMPETENCE → Number
+        $sp1 = '12mm';  // Number → This is to certify that
+        $sp2 = '0.75mm';   // certify → Nama
+        $sp3 = '15mm';  // Nama → The Certification Based on Scheme
+        $sp4 = '1mm';   // Kode skema → Held on
+        $sp5 = '0mm'; $sp6 = '0mm'; // tidak dipakai
+        $sp7 = '1mm';   // The Certification → Nama skema
+        $sp8 = '7.5mm';   // Nama skema → Kode skema
+    }
 @endphp
 
-<div class="page page-break">
-    @if(file_exists($bgDepan))
-        <img class="bg" src="{{ $bgDepan }}">
+@if($renderPage === 'front' || $renderPage === 'all')
+<div class="cert-page center">
+    <div class="cert-title">CERTIFICATE OF COMPETENCE</div>
+    <div class="cert-number" style="margin-top:{{ $sp0 }};font-size:{{ $fsNumber }}">Number : {{ $certNumber }}</div>
+    <div class="cert-intro" style="margin-top:{{ $sp1 }};font-size:{{ $fsCertify }}">This is to certify that:</div>
+    <div class="cert-name" style="margin-top:{{ $sp2 }};font-size:{{ $fsName }}">{{ $student?->name }}</div>
+
+    @if($hasGelar)
+        <div class="cert-label" style="margin-top:{{ $sp5 }};font-size:{{ $fsExam }}">Has followed and successfully passed the exam of:</div>
+        <div class="cert-scheme-abbrev" style="margin-top:{{ $sp6 }};font-size:{{ $fsGelar }}">{{ $classroom?->gelar }}</div>
     @endif
 
-    <div class="overlay cert-body center">
-        <div class="cert-number">Number : {{ $certNumber }}</div>
-        <div class="cert-intro">This is to certify that:</div>
-        <div class="cert-name">{{ $student?->name }}</div>
-        <div class="cert-label">Has followed and successfully passed the exam of:</div>
-        <div class="cert-scheme-abbrev">{{ $schemeAbbrev }}</div>
-        <div class="cert-based-label">The Certification Based on Scheme :</div>
-        <div class="cert-scheme-name">{{ $schemeName }}</div>
-
-        @if($session?->kode_batch)
-            <div class="cert-batch">{{ $session->kode_batch }}</div>
-        @endif
-
-        <div class="cert-held-on">Held on {!! $ordinal($heldOn) !!}</div>
-    </div>
-
-    <div class="overlay cert-validity">
-        <table>
-            <tr>
-                <td class="label">Certification date</td>
-                <td class="colon">:</td>
-                <td>{!! $ordinal($certDate) !!}</td>
-            </tr>
-            <tr>
-                <td class="label">Valid until</td>
-                <td class="colon">:</td>
-                <td>{!! $ordinal($validUntil) !!}</td>
-            </tr>
-        </table>
-    </div>
-
-    @if($qrSertifPath ?? null)
-        <img class="overlay signature-qr" src="{{ $qrSertifPath }}">
+    <div class="cert-based-label" style="margin-top:{{ $sp3 }};font-size:{{ $fsSchemeLabel }}">The Certification Based on Scheme :</div>
+    <div class="cert-scheme-name" style="margin-top:{{ $sp7 }};font-size:{{ $fsScheme }}">{{ $schemeName }}</div>
+    @if($kodeSkema)
+        <div class="cert-scheme-kode" style="margin-top:{{ $sp8 }};font-size:{{ $fsNoskema }}">{{ $kodeSkema }}</div>
     @endif
+
+    <div class="cert-held-on" style="margin-top:{{ $sp4 }};font-size:{{ $fsHeld }}">Held on {!! $ordinal($heldOn) !!}</div>
+
+    <table class="cert-bottom">
+        <tr>
+            <td class="cert-validity">
+                <table>
+                    <tr>
+                        <td class="label">Certification date</td>
+                        <td class="colon">:</td>
+                        <td>{!! $ordinal($certDate) !!}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Valid until</td>
+                        <td class="colon">:</td>
+                        <td>{!! $ordinal($validUntil) !!}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
 </div>
+@endif
 
-<div class="page">
-    @if(file_exists($bgBelakang))
-        <img class="bg" src="{{ $bgBelakang }}">
-    @endif
+@if($renderPage === 'all')
+<pagebreak />
+@endif
 
-    <div class="overlay unit-head center">
-        <div class="unit-title">{{ strtoupper($schemeEn) }}</div>
-        <div class="unit-number">Number : {{ $certNumber }}</div>
-    </div>
+@if($renderPage === 'back' || $renderPage === 'all')
+<div class="unit-page center">
+    <div class="unit-title">{{ strtoupper($schemeEn) }}</div>
+    <div class="unit-number">Number : {{ $certNumber }}</div>
 
     @if($competencyUnits->isNotEmpty())
-        <div class="overlay unit-table-wrap">
-            <table class="unit-table">
-                <thead>
+        <table class="unit-table">
+            <thead>
+                <tr>
+                    <th style="width:42mm;">
+                        KODE UNIT<br>
+                        <span style="font-size:11pt;font-style:italic;font-weight:normal;">UNIT CODES</span>
+                    </th>
+                    <th>
+                        JUDUL UNIT KOMPETENSI<br>
+                        <span style="font-size:11pt;font-style:italic;font-weight:normal;">UNITS OF COMPETENCY TITLES</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($competencyUnits as $unit)
                     <tr>
-                        <th style="width:42mm;">
-                            KODE UNIT
-                            <span class="en">UNIT CODES</span>
-                        </th>
-                        <th>
-                            JUDUL UNIT KOMPETENSI
-                            <span class="en">UNITS OF COMPETENCY TITLES</span>
-                        </th>
+                        <td class="kode">{{ $unit->kode_unit }}</td>
+                        <td class="judul">
+                            {{ $unit->judul_unit }}
+                            @if($unit->judul_unit_en)
+                                <span class="en">{{ $unit->judul_unit_en }}</span>
+                            @endif
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($competencyUnits as $unit)
-                        <tr>
-                            <td class="kode">{{ $unit->kode_unit }}</td>
-                            <td class="judul">
-                                {{ $unit->judul_unit }}
-                                @if($unit->judul_unit_en)
-                                    <span class="en">{{ $unit->judul_unit_en }}</span>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endif
-
-    @if($qrSertifPath ?? null)
-        <img class="overlay signature-qr" src="{{ $qrSertifPath }}">
+                @endforeach
+            </tbody>
+        </table>
     @endif
 </div>
-
-</body>
-</html>
+@endif

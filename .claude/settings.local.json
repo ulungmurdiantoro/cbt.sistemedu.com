@@ -33,7 +33,37 @@
       "Bash(where gs *)",
       "Bash(where magick *)",
       "Bash(where pdftotext *)",
-      "Bash(where mutool *)"
+      "Bash(where mutool *)",
+      "Bash(rm \"c:/Users/umurd/Downloads/cbt.sistemedu.com/storage/app/documents/sertifikat/\"*.pdf && echo \"Cleared\" && ls \"c:/Users/umurd/Downloads/cbt.sistemedu.com/storage/app/documents/sertifikat/\" 2>/dev/null | wc -l)",
+      "Bash(rm \"c:/Users/umurd/Downloads/cbt.sistemedu.com/storage/app/documents/sertifikat/\"*.pdf 2>/dev/null; echo \"Cache cleared\")",
+      "Bash(rm \"c:/Users/umurd/Downloads/cbt.sistemedu.com/storage/app/documents/sertifikat/\"*.pdf 2>/dev/null; echo \"done\")",
+      "Bash(rm \"c:/Users/umurd/Downloads/cbt.sistemedu.com/storage/app/documents/sertifikat/\"*.pdf)",
+      "Bash(del /q \"C:\\\\Windows\\\\Temp\\\\lsp_qr_cert_logo_*\")",
+      "Bash(ls \"C:/Users/umurd/AppData/Local/Temp/lsp_qr_cert_logo_\"* 2>/dev/null | head -5; echo \"---old:\"; ls \"C:/Users/umurd/AppData/Local/Temp/lsp_qr_cert_\"* 2>/dev/null | head -5)",
+      "Read(//c/Users/umurd/AppData/Local/Temp/**)",
+      "Bash(del /q \"C:\\\\Users\\\\umurd\\\\AppData\\\\Local\\\\Temp\\\\lsp_qr_cert_logo_*\")",
+      "Bash(del /q \"C:\\\\Users\\\\umurd\\\\AppData\\\\Local\\\\Temp\\\\lsp_qr_cert_*\")",
+      "Bash(del /q \"C:\\\\Users\\\\umurd\\\\AppData\\\\Local\\\\Temp\\\\lsp_qr_cert_*\" 2>nul && rm \"c:/Users/umurd/Downloads/cbt.sistemedu.com/storage/app/documents/sertifikat/\"*.pdf 2>/dev/null; echo \"done\")",
+      "Bash(awk 'NR>=345 && NR<=365 {print NR\": \"$0}')",
+      "Bash(awk 'NR>=320 && NR<=360 {print NR\": \"$0}')",
+      "Bash(awk 'NR>=83 && NR<=95 {print NR\": \"$0}')",
+      "Bash(php -v)",
+      "Bash(php -r \"echo var_export\\(['a' => ['x', 'y']][1] ?? 'fallback', true\\);\")",
+      "Bash(awk 'NR>=250 && NR<=300 {print NR\": \"$0}')",
+      "Bash(grep -v \"css\\\\|style\\\\|/\\\\*\")",
+      "Bash(php -r \"echo file_get_contents\\('vendor/mpdf/mpdf/composer.json'\\);\")",
+      "Bash(cd \"c:\\\\Users\\\\umurd\\\\Downloads\\\\cbt.sistemedu.com\" && rm storage/app/documents/sp/*.pdf && echo \"Cache SP dibersihkan\")",
+      "Bash(ls \"c:/Users/umurd/Downloads/cbt.sistemedu.com/resources/fonts/\" && echo \"---\" && ls \"C:/Windows/Fonts/\" | grep -i cambria)",
+      "Read(//c/Windows/Fonts/**)",
+      "Bash(cp \"C:/Windows/Fonts/cambria.ttc\" \"c:/Users/umurd/Downloads/cbt.sistemedu.com/resources/fonts/cambria.ttc\")",
+      "Bash(cp \"C:/Windows/Fonts/cambriab.ttf\" \"c:/Users/umurd/Downloads/cbt.sistemedu.com/resources/fonts/cambriab.ttf\")",
+      "Bash(cp \"C:/Windows/Fonts/cambriai.ttf\" \"c:/Users/umurd/Downloads/cbt.sistemedu.com/resources/fonts/cambriai.ttf\")",
+      "Bash(cp \"C:/Windows/Fonts/cambriaz.ttf\" \"c:/Users/umurd/Downloads/cbt.sistemedu.com/resources/fonts/cambriaz.ttf\")",
+      "Bash(php -r \"echo extension_loaded\\('imagick'\\) ? 'imagick: yes' : 'imagick: no'; echo PHP_EOL; echo extension_loaded\\('gd'\\) ? 'gd: yes' : 'gd: no';\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\umurd\\Downloads\\cbt.sistemedu.com\\storage\\app\\documents\\sertifikat",
+      "C:\\Users\\umurd\\Downloads\\cbt.sistemedu.com\\storage\\app\\documents\\sp"
     ]
   }
 }

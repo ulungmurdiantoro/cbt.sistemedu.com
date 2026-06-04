@@ -53,6 +53,7 @@
                                 <th class="border-0 text-center">Nilai Akhir</th>
                                 <th class="border-0 text-center">Keputusan</th>
                                 <th class="border-0 text-center">Status</th>
+                                <th class="border-0 text-center">No. Dokumen</th>
                                 <th class="border-0 text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -85,10 +86,24 @@
                                     <span v-else class="text-muted small">—</span>
                                 </td>
                                 <td class="text-center">
-                                    <span v-if="row.is_finalized" class="badge bg-dark">
+                                    <span v-if="row.is_finalized" class="badge text-white" style="background-color:#212529;">
                                         <i class="fa fa-lock me-1"></i>Final
                                     </span>
-                                    <span v-else class="badge bg-secondary">Draft</span>
+                                    <span v-else class="badge text-white" style="background-color:#6c757d;">Draft</span>
+                                </td>
+                                <td class="small" style="min-width:140px;">
+                                    <div v-if="row.is_finalized">
+                                        <div v-if="row.sp_number" class="text-muted">
+                                            <span class="fw-semibold">SP:</span> {{ row.sp_number }}
+                                        </div>
+                                        <div v-if="row.sk_number" class="text-muted">
+                                            <span class="fw-semibold">SK:</span> {{ row.sk_number }}
+                                        </div>
+                                        <div v-if="row.sertifikat_number" class="text-muted">
+                                            <span class="fw-semibold">Sert:</span> {{ row.sertifikat_number }}
+                                        </div>
+                                    </div>
+                                    <span v-else class="text-muted">—</span>
                                 </td>
                                 <td class="text-center">
                                     <div v-if="row.is_finalized" class="d-flex gap-1 justify-content-center flex-wrap">
@@ -97,7 +112,7 @@
                                         <div class="dropdown">
                                             <a :href="`/admin/results/${exam_session.id}/download-sp/${row.student_id}`"
                                                target="_blank"
-                                               class="btn btn-xs btn-outline-secondary py-0 px-2"
+                                               class="btn btn-sm btn-outline-secondary"
                                                title="Surat Pemberitahuan">
                                                 <i class="fa fa-envelope-open"></i> SP
                                             </a>
@@ -105,7 +120,7 @@
 
                                         <!-- SK -->
                                         <div class="dropdown">
-                                            <button class="btn btn-xs btn-outline-dark py-0 px-2 dropdown-toggle"
+                                            <button class="btn btn-sm btn-outline-dark dropdown-toggle"
                                                 data-bs-toggle="dropdown" title="Surat Keputusan">
                                                 <i class="fa fa-file-alt"></i> SK
                                             </button>
@@ -129,7 +144,7 @@
 
                                         <!-- Sertifikat (hanya LULUS) -->
                                         <div v-if="row.keputusan === 'LULUS'" class="dropdown">
-                                            <button class="btn btn-xs btn-outline-primary py-0 px-2 dropdown-toggle"
+                                            <button class="btn btn-sm btn-outline-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown" title="Sertifikat Kompetensi">
                                                 <i class="fa fa-certificate"></i> Sert.
                                             </button>

@@ -5,12 +5,9 @@
 <title>Surat Pemberitahuan - {{ $spNumber }}</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; color: #000; }
+body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 12pt; color: #000; }
 
-@page {
-    size: A4 portrait;
-    margin: 20mm 20mm 20mm 20mm;
-}
+
 
 /* ──────────────────────────────────────────
    KOP
@@ -25,37 +22,35 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
     padding: 0;
 }
 .kop-logo {
-    width: 32mm;
+    width: 39mm;
     text-align: left;
 }
 .kop-logo img {
-    max-width: 30mm;
-    max-height: 16mm;
+    width: 36mm;
+    height: auto;
 }
 .kop-teks {
     text-align: center;
     padding: 0 6pt;
 }
 .kop-nama {
-    font-weight: bold;
-    font-size: 15pt;
+    font-weight: normal;
+    font-size: 22pt;
     letter-spacing: 0.5pt;
     line-height: 1.2;
 }
 .kop-alamat {
-    font-size: 8pt;
+    font-size: 12pt;
     margin-top: 2pt;
     line-height: 1.35;
 }
 .kop-garis-atas {
-    border: none;
-    border-top: 2.5pt solid #000;
-    margin: 3pt 0 1pt;
-}
-.kop-garis-bawah {
-    border: none;
-    border-top: 1pt solid #000;
-    margin: 0 0 6pt;
+    width: 100%;
+    height: 1.5pt;
+    background-color: #000;
+    margin: 3pt 0 6pt;
+    font-size: 0;
+    line-height: 0;
 }
 
 /* ──────────────────────────────────────────
@@ -63,13 +58,23 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
    ────────────────────────────────────────── */
 .text-center { text-align: center; }
 .fw-bold     { font-weight: bold; }
-.underline   { text-decoration: underline; }
+.underline   { border-bottom: 0.75pt solid #000; padding-bottom: 2pt; display: inline; }
 .mt-2  { margin-top: 6pt; }
 .mt-4  { margin-top: 12pt; }
 .mb-2  { margin-bottom: 6pt; }
 .mb-4  { margin-bottom: 12pt; }
 .mb-6  { margin-bottom: 18pt; }
 .indent { text-indent: 28pt; text-align: justify; }
+
+/* ──────────────────────────────────────────
+   CONTENT WRAPPER
+   Halaman: margin 1.72cm kiri/kanan (HEADER_MARGIN)
+   Konten : indent 0.78cm tambahan → total 2.5cm (CONTENT_MARGIN)
+   ────────────────────────────────────────── */
+.content-wrap {
+    margin-left: 8mm;
+    margin-right: 8mm;
+}
 
 /* ──────────────────────────────────────────
    FIELD TABLE (Nomor / Lampiran / Perihal dsb)
@@ -81,18 +86,20 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
 .field-table td {
     padding: 1.5pt 0;
     vertical-align: top;
-    font-size: 11pt;
+    font-size: 12pt;
 }
-.field-label { width: 90pt; }
-.field-colon { width: 8pt; }
+.field-label   { white-space: nowrap; padding-right: 4pt; }
+.field-label-s { width: 70pt; }   /* Nomor / Lampiran / Perihal */
+.field-label-p { width: 90pt; }   /* Nama / No Registrasi / Skema */
+.field-colon   { width: 6pt; }
 
 /* ──────────────────────────────────────────
-   TABEL NILAI — hitam putih (tanpa background warna)
+   TABEL NILAI
    ────────────────────────────────────────── */
 .nilai-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 10pt;
+    font-size: 12pt;
     margin: 8pt 0 12pt;
 }
 .nilai-table th,
@@ -102,8 +109,11 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
     text-align: center;
     vertical-align: middle;
 }
-.nilai-table th {
+.nilai-table th,
+.nilai-table .nth {
     font-weight: bold;
+    background-color: #B8D6F0;
+    color: #000000;
 }
 
 /* ──────────────────────────────────────────
@@ -119,20 +129,20 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
     padding: 0;
 }
 .ttd-inner {
-    font-size: 11pt;
+    font-size: 12pt;
     line-height: 1.5;
 }
 .ttd-img img {
-    max-height: 18mm;
-    max-width: 50mm;
+    height: 13mm;
+    width: auto;
     margin: 4pt 0;
 }
 .ttd-name {
-    font-weight: bold;
-    font-size: 11pt;
+    font-weight: normal;
+    font-size: 12pt;
 }
 .ttd-jabatan {
-    font-size: 10pt;
+    font-size: 12pt;
 }
 
 /* ──────────────────────────────────────────
@@ -148,24 +158,23 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
 .lamp-title {
     font-weight: bold;
     font-size: 12pt;
-    text-decoration: underline;
     margin-bottom: 8pt;
 }
 .section-bold {
     font-weight: bold;
-    font-size: 11pt;
+    font-size: 12pt;
     margin: 8pt 0 4pt;
 }
 .sub-section {
     padding-left: 14pt;
     font-weight: bold;
-    font-size: 11pt;
+    font-size: 12pt;
     margin: 4pt 0;
 }
 .lamp-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 10pt;
+    font-size: 12pt;
     margin-bottom: 10pt;
 }
 .lamp-table th,
@@ -227,7 +236,7 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
     }
     $nilaiKelulusan = $scheme?->nilai_kelulusan ?? 60;
     $standarKelulusan = [
-        'Asesi dinyatakan lulus apabila nilai minimal &ge;' . $nilaiKelulusan,
+        'Asesi (Peserta) dinyatakan lulus uji kompetensi apabila nilai minimal &ge;' . $nilaiKelulusan,
         'Asesi (Peserta) dinyatakan tidak lulus jika tidak memenuhi poin 1',
         'Asesi (Peserta) yang dinyatakan tidak lulus dapat mengikuti kegiatan remidial',
     ];
@@ -242,49 +251,49 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
     <tr>
         <td class="kop-logo">
             @if(file_exists($logoEdukiaPath))
-                <img src="{{ $logoEdukiaPath }}">
+                <img src="{{ $logoEdukiaPath }}" style="width:36mm;">
             @endif
         </td>
         <td class="kop-teks">
             <div class="kop-nama">{{ $lsp['nama'] }}</div>
             <div class="kop-alamat">
-                {{ $lsp['alamat'] }}<br>
-                Telp. {{ $lsp['telp'] }} &nbsp;|&nbsp; {{ $lsp['web'] }}
+                {{ $lsp['alamat'] }} Telp. {{ $lsp['telp'] }}<br>
+                {{ $lsp['web'] }}
             </div>
         </td>
     </tr>
 </table>
-<hr class="kop-garis-atas">
-<hr class="kop-garis-bawah">
+<div class="kop-garis-atas"></div>
 
+<div class="content-wrap">
 {{-- Judul --}}
-<div class="text-center fw-bold underline mb-4" style="margin-top:8pt; font-size:12pt;">
-    SURAT PEMBERITAHUAN
+<div class="text-center fw-bold mb-4" style="margin-top:8pt; font-size:12pt;">
+    <span class="underline">SURAT PEMBERITAHUAN</span>
 </div>
 
 {{-- Nomor / Lampiran / Perihal --}}
 <table class="field-table mb-4">
     <tr>
-        <td class="field-label">Nomor</td>
+        <td class="field-label field-label-s">Nomor</td>
         <td class="field-colon">:</td>
         <td>{{ $spNumber }}</td>
     </tr>
     <tr>
-        <td class="field-label">Lampiran</td>
+        <td class="field-label field-label-s">Lampiran</td>
         <td class="field-colon">:</td>
         <td>1 Halaman</td>
     </tr>
     <tr>
-        <td class="field-label">Perihal</td>
+        <td class="field-label field-label-s">Perihal</td>
         <td class="field-colon">:</td>
         <td>{{ $spConf['perihal'] }}</td>
     </tr>
 </table>
 
 {{-- Kepada --}}
-<div class="fw-bold mb-2">Kepada Yth:</div>
+<div class="fw-bold">Kepada Yth:</div>
 <div class="mb-4" style="line-height:1.5;">
-    {{ $student?->name }}<br>
+    {{ $student?->gender === 'L' ? 'Bapak' : 'Ibu' }} {{ $student?->name }}<br>
     Di Tempat
 </div>
 
@@ -296,43 +305,43 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
 {{-- Field Nama / No Reg / Skema --}}
 <table class="field-table mb-2">
     <tr>
-        <td class="field-label fw-bold">Nama</td>
+        <td class="field-label field-label-p">Nama</td>
         <td class="field-colon">:</td>
         <td class="fw-bold">{{ $student?->name }}</td>
     </tr>
     <tr>
-        <td class="field-label fw-bold">No Registrasi</td>
+        <td class="field-label field-label-p">No Registrasi</td>
         <td class="field-colon">:</td>
         <td class="fw-bold">{{ $student?->no_participant ?? '-' }}</td>
     </tr>
     <tr>
-        <td class="field-label fw-bold">Skema</td>
+        <td class="field-label field-label-p">Skema</td>
         <td class="field-colon">:</td>
         <td class="fw-bold">{{ $skema }}</td>
     </tr>
 </table>
 
-{{-- Tabel Nilai (hitam-putih) --}}
+{{-- Tabel Nilai --}}
 <table class="nilai-table">
-    <thead>
-        <tr>
-            <th rowspan="2" style="width:20%;">NILAI<br>WAWANCARA</th>
-            <th rowspan="2" style="width:22%;">NILAI PILIHAN<br>GANDA</th>
-            <th rowspan="2" style="width:16%;">NILAI ESAI</th>
-            <th colspan="2" style="width:42%;">REKAPITULASI HASIL ASESMEN</th>
-        </tr>
-        <tr>
-            <th style="width:21%;">HASIL NILAI</th>
-            <th style="width:21%;">STATUS</th>
-        </tr>
-    </thead>
     <tbody>
+        <tr>
+            <td rowspan="2" class="nth" style="width:20%;">NILAI<br>PRAKTIK</td>
+            <td rowspan="2" class="nth" style="width:22%;">NILAI PILIHAN<br>GANDA</td>
+            <td rowspan="2" class="nth" style="width:16%;">NILAI ESAI</td>
+            <td colspan="2" class="nth" style="width:42%;">REKAPITULASI HASIL ASESMEN</td>
+        </tr>
+        <tr>
+            <td class="nth" style="width:21%;">HASIL NILAI</td>
+            <td class="nth" style="width:21%;">STATUS</td>
+        </tr>
         <tr>
             <td>{{ $result->nilai_wawancara !== null ? number_format($result->nilai_wawancara, 2) : '-' }}</td>
             <td>{{ $result->nilai_pg        !== null ? number_format($result->nilai_pg, 2)        : '-' }}</td>
             <td>{{ $result->nilai_esai      !== null ? number_format($result->nilai_esai, 2)      : '-' }}</td>
             <td><strong>{{ $result->nilai_akhir !== null ? number_format($result->nilai_akhir, 2) : '-' }}</strong></td>
-            <td><strong>{{ $statusKompeten }}</strong></td>
+            <td style="background-color:{{ $statusKompeten === 'KOMPETEN' ? '#c6efce' : '#ffc7ce' }};">
+                <strong>{{ $statusKompeten }}</strong>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -349,9 +358,9 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
             <div>Mengetahui</div>
             <div class="ttd-img">
                 @if(file_exists($ttdPath))
-                    <img src="{{ $ttdPath }}">
+                    <img src="{{ $ttdPath }}" style="height:18mm; width:auto;">
                 @else
-                    <div style="height:18mm;"></div>
+                    <div style="height:10mm;"></div>
                 @endif
             </div>
             <div class="ttd-name">{{ $penandatangan['nama'] }}</div>
@@ -359,6 +368,7 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
         </td>
     </tr>
 </table>
+</div>{{-- /content-wrap hal.1 --}}
 
 {{-- ══════════════════════════════════════════════════════
      HAL 2 — LAMPIRAN
@@ -370,25 +380,25 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
     <tr>
         <td class="kop-logo">
             @if(file_exists($logoEdukiaPath))
-                <img src="{{ $logoEdukiaPath }}">
+                <img src="{{ $logoEdukiaPath }}" style="width:36mm;">
             @endif
         </td>
         <td class="kop-teks">
             <div class="kop-nama">{{ $lsp['nama'] }}</div>
             <div class="kop-alamat">
-                {{ $lsp['alamat'] }}<br>
-                Telp. {{ $lsp['telp'] }} &nbsp;|&nbsp; {{ $lsp['web'] }}
+                {{ $lsp['alamat'] }} Telp. {{ $lsp['telp'] }}<br>
+                {{ $lsp['web'] }}
             </div>
         </td>
     </tr>
 </table>
-<hr class="kop-garis-atas">
-<hr class="kop-garis-bawah">
+<div class="kop-garis-atas"></div>
 
+<div class="content-wrap">
 {{-- Judul Lampiran --}}
 <div class="text-center fw-bold mb-2" style="margin-top:8pt; font-size:12pt;">LAMPIRAN</div>
-<div class="text-center lamp-title mb-4">
-    STANDAR PEMBOBOTAN PENILAIAN DAN KELULUSAN
+<div class="lamp-title mb-4">
+    <span style="border-bottom: 0.75pt solid #000; padding-bottom: 2pt;">STANDAR PEMBOBOTAN PENILAIAN DAN KELULUSAN</span>
 </div>
 
 {{-- A. Pembobotan Penilaian --}}
@@ -404,11 +414,11 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
                 <th>Lama Pengerjaan</th>
                 <th>Proporsi Nilai</th>
             </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td colspan="4" class="merged">Evaluasi per Unit Kompetensi</td>
             </tr>
-        </thead>
-        <tbody>
             @foreach($pembobotan_a as $row)
             <tr>
                 <td>{{ $row['metode'] }}</td>
@@ -443,16 +453,17 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
 
 {{-- B. Standar Kelulusan --}}
 <div class="section-bold">B. Standar Kelulusan</div>
-<div style="padding-left:14pt; margin-top:4pt;">
-    @foreach($standarKelulusan as $i => $item)
-    <table style="width:100%; border-collapse:collapse; margin-bottom:3pt;">
+<div style="padding-left:20pt; margin-top:4pt;">
+    <table style="width:100%; border-collapse:collapse;">
+        @foreach($standarKelulusan as $i => $item)
         <tr>
-            <td style="width:16pt; vertical-align:top; font-size:11pt;">{{ $i + 1 }}.</td>
-            <td style="vertical-align:top; font-size:11pt; line-height:1.5;">{!! $item !!}</td>
+            <td style="width:18pt; vertical-align:top; font-size:12pt; line-height:1.5; padding:0 0 1pt 0;">{{ $i + 1 }}.</td>
+            <td style="vertical-align:top; font-size:12pt; line-height:1.5; padding:0 0 1pt 0;">{!! $item !!}</td>
         </tr>
+        @endforeach
     </table>
-    @endforeach
 </div>
+</div>{{-- /content-wrap hal.2 --}}
 
 </body>
 </html>

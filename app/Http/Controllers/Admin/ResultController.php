@@ -134,7 +134,8 @@ class ResultController extends Controller
             ->where('is_finalized', true)
             ->firstOrFail();
 
-        $pdf      = $generator->skPdf($result);
+        $withKan  = request()->boolean('kan');
+        $pdf      = $generator->skPdf($result, $withKan);
         $filename = 'SK_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)
@@ -150,7 +151,8 @@ class ResultController extends Controller
             ->where('keputusan', 'LULUS')
             ->firstOrFail();
 
-        $pdf      = $generator->sertifikatPdf($result);
+        $withKan  = request()->boolean('kan');
+        $pdf      = $generator->sertifikatPdf($result, $withKan);
         $filename = 'Sertifikat_' . $student->no_participant . '.pdf';
 
         return response($pdf, 200)
