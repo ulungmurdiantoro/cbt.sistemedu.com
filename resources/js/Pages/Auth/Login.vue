@@ -40,6 +40,12 @@
                             <button type="submit" class="btn btn-gray-800">LOGIN</button>
                         </div>
                     </form>
+
+                    <div class="text-center mt-4 pt-3 border-top">
+                        <Link href="/peserta/panduan" class="text-decoration-none small text-muted">
+                            <i class="fa fa-book-open me-1"></i> Panduan Pendaftaran Sertifikasi
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,6 +59,7 @@
     //import Inertia
     import {
         Head,
+        Link,
         router
     } from '@inertiajs/vue3';
 
@@ -68,7 +75,8 @@
 
         //register component
         components: {
-            Head
+            Head,
+            Link
         },
 
         //props

@@ -44,6 +44,10 @@
                                 style="background:#fff;color:#1f2937;font-weight:600;border:none">
                                 <i class="fa fa-user-plus me-1"></i> Daftar Sertifikasi
                             </a>
+                            <a href="/peserta/panduan" class="btn btn-sm w-100 mb-2"
+                                style="background:transparent;color:#fff;font-weight:600;border:1px solid rgba(255,255,255,.45)">
+                                <i class="fa fa-book-open me-1"></i> Panduan Pendaftaran
+                            </a>
                             <a href="/peserta/login" class="btn btn-sm w-100 text-decoration-none"
                                 style="font-size:0.8rem;color:rgba(255,255,255,0.6)">
                                 Sudah punya akun peserta? Login

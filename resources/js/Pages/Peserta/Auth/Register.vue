@@ -38,9 +38,13 @@
                         </div>
 
                         <div class="mt-auto">
-                            <Link href="/peserta/login" class="btn btn-sm w-100"
+                            <Link href="/peserta/login" class="btn btn-sm w-100 mb-2"
                                 style="background:#fff;color:#1f2937;font-weight:600;border:none">
                                 <i class="fa fa-sign-in me-1"></i> Sudah punya akun? Login
+                            </Link>
+                            <Link href="/peserta/panduan" class="btn btn-sm w-100"
+                                style="background:transparent;color:#fff;font-weight:600;border:1px solid rgba(255,255,255,.45)">
+                                <i class="fa fa-book-open me-1"></i> Panduan Pendaftaran
                             </Link>
                         </div>
                     </div>
