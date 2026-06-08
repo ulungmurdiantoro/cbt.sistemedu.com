@@ -42,7 +42,7 @@
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0" style="min-width:700px">
-                    <thead class="bg-gray-100">
+                    <thead class="thead-dark">
                         <tr>
                             <th style="width:200px">Peserta</th>
                             <th>Skema / Sesi</th>
@@ -53,7 +53,11 @@
                     </thead>
                     <tbody>
                         <tr v-if="applications.data.length === 0">
-                            <td colspan="5" class="text-center text-muted py-4">Tidak ada data</td>
+                            <td colspan="5" class="text-center text-muted py-5">
+                                <i class="fa fa-inbox fa-2x d-block mb-2 text-gray-300"></i>
+                                <strong class="d-block">Tidak ada permohonan</strong>
+                                <span class="small">Belum ada permohonan sertifikasi yang cocok dengan filter Anda.</span>
+                            </td>
                         </tr>
                         <tr v-for="app in applications.data" :key="app.id">
                             <td>
@@ -70,7 +74,7 @@
                             </td>
                             <td class="small">{{ app.submitted_at ? formatDate(app.submitted_at) : '—' }}</td>
                             <td>
-                                <span :class="statusBadge(app.status)" class="badge">{{ statusLabel(app.status) }}</span>
+                                <StatusBadge :tone="statusTone(app.status)" :label="statusLabel(app.status)" />
                             </td>
                             <td class="text-center">
                                 <Link :href="`/admin/applications/${app.id}`" class="btn btn-sm btn-info">
@@ -101,12 +105,13 @@
 
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
+import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { reactive } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { Head, Link, StatusBadge },
     props: {
         applications: Object,
         filters:      Object,
@@ -130,9 +135,10 @@ export default {
         const formatDate = (dt) => new Date(dt).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' });
 
         const statusLabel = (s) => ({ draft:'Draft', submitted:'Disubmit', approved:'Disetujui', rejected:'Ditolak' }[s] ?? s);
-        const statusBadge = (s) => ({ draft:'bg-secondary', submitted:'bg-warning text-dark', approved:'bg-success', rejected:'bg-danger' }[s] ?? 'bg-secondary');
+        // tone badge senada dengan Blueprint §4
+        const statusTone = (s) => ({ draft:'neutral', submitted:'secondary', approved:'success', rejected:'danger' }[s] ?? 'neutral');
 
-        return { filterForm, applyFilter, resetFilter, formatDate, statusLabel, statusBadge };
+        return { filterForm, applyFilter, resetFilter, formatDate, statusLabel, statusTone };
     },
 }
 </script>

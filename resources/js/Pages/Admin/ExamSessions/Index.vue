@@ -14,7 +14,7 @@
                     <div class="col-md-9 col-12 mb-2">
                         <form @submit.prevent="handleSearch">
                             <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
+                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci...">
                                 <span class="input-group-text border-0 shadow"><i class="fa fa-search"></i></span>
                             </div>
                         </form>
@@ -54,8 +54,8 @@
                                             <td class="fw-bold text-center">{{ index + 1 + (exam_sessions.current_page - 1) * exam_sessions.per_page }}</td>
                                             <td>
                                                 <div class="d-flex align-items-start gap-2">
-                                                    <span v-if="isActive(s)" class="badge bg-success mt-1 flex-shrink-0">Aktif</span>
-                                                    <span v-else class="badge bg-secondary mt-1 flex-shrink-0">Selesai</span>
+                                                    <StatusBadge v-if="isActive(s)" tone="accent" label="Aktif" class="mt-1 flex-shrink-0" />
+                                                    <StatusBadge v-else tone="success" label="Selesai" class="mt-1 flex-shrink-0" />
                                                     <div>
                                                         <strong>{{ s.title }}</strong>
                                                         <div class="text-muted small">{{ s.kode_batch }}</div>
@@ -91,10 +91,18 @@
                                             </td>
                                         </tr>
                                     </template>
+
+                                    <tr v-if="exam_sessions.data.length === 0">
+                                        <td colspan="7" class="text-center text-muted py-5">
+                                            <i class="fa fa-stopwatch fa-2x d-block mb-2 text-gray-300"></i>
+                                            <strong class="d-block">Belum ada sesi ujian</strong>
+                                            <span class="small">Tidak ada sesi yang cocok dengan pencarian Anda.</span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination :links="exam_sessions.links" align="end" />
+                        <Pagination :links="exam_sessions.links" align="end" :total="exam_sessions.total" :from="exam_sessions.from" :to="exam_sessions.to" entity="sesi" />
                     </div>
                 </div>
             </div>
@@ -105,13 +113,14 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
+import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination },
+    components: { Head, Link, Pagination, StatusBadge },
     props: {
         exam_sessions: Object,
     },

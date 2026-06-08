@@ -221,6 +221,20 @@
                     </Link>
                 </li>
 
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/blueprint') }">
+                    <Link href="/admin/blueprint" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                class="bi bi-grid-1x2-fill icon icon-xs me-2" viewBox="0 0 16 16">
+                                <path d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1Zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1Zm0 7a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V8ZM0 12a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-3Z"/>
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Blueprint UI</span>
+                    </span>
+                    </Link>
+                </li>
+
             </ul>
         </div>
     </nav>

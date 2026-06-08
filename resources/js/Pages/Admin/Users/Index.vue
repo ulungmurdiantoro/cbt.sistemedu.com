@@ -37,13 +37,11 @@
                                 <td class="small text-muted">{{ user.users_code }}</td>
                                 <td>
                                     <span class="fw-semibold">{{ user.name }}</span>
-                                    <span v-if="user.id === $page.props.auth.user.id" class="badge bg-info ms-1 small">Anda</span>
+                                    <StatusBadge v-if="user.id === $page.props.auth.user.id" tone="accent" label="Anda" class="ms-1" />
                                 </td>
                                 <td class="small">{{ user.email }}</td>
                                 <td class="text-center">
-                                    <span :class="user.role === 'admin' ? 'badge bg-primary' : 'badge bg-success'">
-                                        {{ user.role === 'admin' ? 'Admin' : 'Asesor' }}
-                                    </span>
+                                    <StatusBadge :tone="user.role === 'admin' ? 'accent' : 'success'" :label="user.role === 'admin' ? 'Admin' : 'Asesor'" />
                                 </td>
                                 <td class="text-center">
                                     <Link :href="`/admin/users/${user.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-1">
@@ -58,12 +56,16 @@
                                 </td>
                             </tr>
                             <tr v-if="users.data.length === 0">
-                                <td colspan="6" class="text-center text-muted py-4">Belum ada user.</td>
+                                <td colspan="6" class="text-center text-muted py-5">
+                                    <i class="fa fa-user-cog fa-2x d-block mb-2 text-gray-300"></i>
+                                    <strong class="d-block">Belum ada user</strong>
+                                    <span class="small">Tambahkan admin atau asesor untuk mulai mengelola sistem.</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <Pagination :links="users.links" align="end" />
+                <Pagination :links="users.links" align="end" :total="users.total" :from="users.from" :to="users.to" entity="user" />
             </div>
         </div>
     </div>
@@ -72,12 +74,13 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
+import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination },
+    components: { Head, Link, Pagination, StatusBadge },
     props: {
         users: Object,
     },

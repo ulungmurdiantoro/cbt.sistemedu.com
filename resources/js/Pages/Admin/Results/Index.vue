@@ -28,8 +28,8 @@
                                 <td class="small">{{ s.kode_batch }}</td>
                                 <td class="text-center">{{ s.participant_results_count }}</td>
                                 <td class="text-center">
-                                    <span v-if="new Date(s.end_time) > new Date()" class="badge bg-success">Aktif</span>
-                                    <span v-else class="badge bg-secondary">Selesai</span>
+                                    <StatusBadge v-if="new Date(s.end_time) > new Date()" tone="accent" label="Aktif" />
+                                    <StatusBadge v-else tone="success" label="Selesai" />
                                 </td>
                                 <td class="text-center">
                                     <Link :href="`/admin/results/${s.id}`" class="btn btn-sm btn-primary border-0 shadow">
@@ -37,10 +37,17 @@
                                     </Link>
                                 </td>
                             </tr>
+                            <tr v-if="sessions.data.length === 0">
+                                <td colspan="6" class="text-center text-muted py-5">
+                                    <i class="fa fa-award fa-2x d-block mb-2 text-gray-300"></i>
+                                    <strong class="d-block">Belum ada hasil penilaian</strong>
+                                    <span class="small">Rekap hasil akan muncul setelah sesi ujian berjalan.</span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-                <Pagination :links="sessions.links" align="end" />
+                <Pagination :links="sessions.links" align="end" :total="sessions.total" :from="sessions.from" :to="sessions.to" entity="sesi" />
             </div>
         </div>
     </div>
@@ -49,11 +56,12 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
+import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination },
+    components: { Head, Link, Pagination, StatusBadge },
     props: { sessions: Object },
 }
 </script>

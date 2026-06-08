@@ -10,6 +10,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
 
+        // Blueprint UI/UX — referensi gaya & master prompt agar semua menu admin senada
+        Route::get('/blueprint', fn () => inertia('Admin/Blueprint/Index'))->name('admin.blueprint');
+
         Route::resource('/lessons',   \App\Http\Controllers\Admin\LessonController::class,   ['as' => 'admin']);
         Route::resource('/classrooms', \App\Http\Controllers\Admin\ClassroomController::class, ['as' => 'admin']);
 

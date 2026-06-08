@@ -14,7 +14,7 @@
                     <div class="col-md-9 col-12 mb-2">
                         <form @submit.prevent="handleSearch">
                             <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
+                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci...">
                                 <span class="input-group-text border-0 shadow">
                                     <i class="fa fa-search"></i>
                                 </span>
@@ -61,10 +61,17 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <tr v-if="classrooms.data.length === 0">
+                                        <td colspan="4" class="text-center text-muted py-5">
+                                            <i class="fa fa-layer-group fa-2x d-block mb-2 text-gray-300"></i>
+                                            <strong class="d-block">Belum ada skema</strong>
+                                            <span class="small">Tidak ada skema yang cocok dengan pencarian Anda.</span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination :links="classrooms.links" align="end" />
+                        <Pagination :links="classrooms.links" align="end" :total="classrooms.total" :from="classrooms.from" :to="classrooms.to" entity="skema" />
                     </div>
                 </div>
             </div>

@@ -65,24 +65,24 @@
                                     {{ row.name }}
                                     <span v-if="row.attempt > 1" class="badge bg-warning text-dark ms-1 small">Remidi</span>
                                 </td>
-                                <td class="text-center" v-if="exam_session.exam_id_pg">
-                                    {{ row.nilai_pg !== null ? row.nilai_pg : '—' }}
+                                <td class="text-center num" v-if="exam_session.exam_id_pg">
+                                    {{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}
                                 </td>
-                                <td class="text-center" v-if="exam_session.exam_id_esai">
-                                    {{ row.nilai_esai !== null ? row.nilai_esai : '—' }}
+                                <td class="text-center num" v-if="exam_session.exam_id_esai">
+                                    {{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}
                                 </td>
-                                <td class="text-center" v-if="exam_session.has_wawancara">
-                                    {{ row.nilai_wawancara !== null ? row.nilai_wawancara : '—' }}
+                                <td class="text-center num" v-if="exam_session.has_wawancara">
+                                    {{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}
                                 </td>
-                                <td class="text-center fw-bold">
+                                <td class="text-center fw-bold num">
                                     <span v-if="row.nilai_akhir !== null" :class="nilaiColor(row)">
-                                        {{ row.nilai_akhir }}
+                                        {{ fmt(row.nilai_akhir) }}
                                     </span>
                                     <span v-else class="text-muted">—</span>
                                 </td>
                                 <td class="text-center">
-                                    <span v-if="row.keputusan === 'LULUS'" class="badge bg-success">LULUS</span>
-                                    <span v-else-if="row.keputusan === 'TIDAK_LULUS'" class="badge bg-danger">TIDAK LULUS</span>
+                                    <StatusBadge v-if="row.keputusan === 'LULUS'" tone="success" label="LULUS" />
+                                    <StatusBadge v-else-if="row.keputusan === 'TIDAK_LULUS'" tone="danger" label="TIDAK LULUS" />
                                     <span v-else class="text-muted small">—</span>
                                 </td>
                                 <td class="text-center">
@@ -184,13 +184,14 @@
 
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
+import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { Head, Link, StatusBadge },
     props: {
         exam_session: Object,
         rows:         Array,
@@ -206,6 +207,9 @@ export default {
             if (row.keputusan === 'TIDAK_LULUS') return 'text-danger';
             return '';
         };
+
+        // Format nilai dua desimal (Blueprint: 87.50), aman untuk null.
+        const fmt = (v) => (v === null || v === undefined || v === '') ? '—' : Number(v).toFixed(2);
 
         const confirmFinalize = () => {
             Swal.fire({
@@ -240,7 +244,15 @@ export default {
             });
         };
 
-        return { allFinalized, hasFinalized, nilaiColor, confirmFinalize, distribute };
+        return { allFinalized, hasFinalized, nilaiColor, fmt, confirmFinalize, distribute };
     },
 }
 </script>
+
+<style scoped>
+/* Angka nilai: tabular-nums agar dua-desimal sejajar antar baris (Blueprint §5). */
+.num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+}
+</style>

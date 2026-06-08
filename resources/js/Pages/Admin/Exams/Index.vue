@@ -14,7 +14,7 @@
                     <div class="col-md-9 col-12 mb-2">
                         <form @submit.prevent="handleSearch">
                             <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
+                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci...">
                                 <span class="input-group-text border-0 shadow">
                                     <i class="fa fa-search"></i>
                                 </span>
@@ -47,8 +47,8 @@
                                     <tr v-for="(exam, index) in exams.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (exams.current_page - 1) * exams.per_page }}</td>
                                         <td>{{ exam.title }}</td>
-                                        <td>{{ exam.type }}</td>
-                                        <td class="text-center">{{ exam.classroom.title }}</td>
+                                        <td><StatusBadge :tone="tipeTone(exam.type)" :label="exam.type" /></td>
+                                        <td class="text-center">{{ exam.classroom?.title }}</td>
                                         <td v-if="exam.type == 'Pilihan Ganda'" class="text-center">{{ exam.questions.length }}</td>
                                         <td v-else class="text-center">{{ exam.essays.length }}</td>
                                         <!-- <td class="text-center">{{ exam.questions.length }}</td> -->
@@ -59,10 +59,17 @@
                                             <button @click.prevent="destroy(exam.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
+                                    <tr v-if="exams.data.length === 0">
+                                        <td colspan="7" class="text-center text-muted py-5">
+                                            <i class="fa fa-pencil-alt fa-2x d-block mb-2 text-gray-300"></i>
+                                            <strong class="d-block">Belum ada ujian</strong>
+                                            <span class="small">Tidak ada ujian yang cocok dengan pencarian Anda.</span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination :links="exams.links" align="end" />
+                        <Pagination :links="exams.links" align="end" :total="exams.total" :from="exams.from" :to="exams.to" entity="ujian" />
                     </div>
                 </div>
             </div>
@@ -76,6 +83,9 @@
 
     //import component pagination
     import Pagination from '../../../Components/Pagination.vue';
+
+    //import status badge component
+    import StatusBadge from '../../../Components/StatusBadge.vue';
 
     //import Heade and Link from Inertia
     import {
@@ -100,7 +110,8 @@
         components: {
             Head,
             Link,
-            Pagination
+            Pagination,
+            StatusBadge
         },
 
         //props
@@ -113,6 +124,14 @@
 
             //define state search
             const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+
+            //map tipe ujian → tone badge (senada dengan blueprint)
+            const tipeTone = (type) => {
+                if (type === 'Pilihan Ganda') return 'accent';
+                if (type === 'Essay') return 'success';
+                if (type === 'Essay Migas') return 'secondary';
+                return 'neutral';
+            };
 
             //define method search
             const handleSearch = () => {
@@ -155,6 +174,7 @@
                 search,
                 handleSearch,
                 destroy,
+                tipeTone,
             }
 
         }

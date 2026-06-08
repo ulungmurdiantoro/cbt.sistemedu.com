@@ -76,9 +76,9 @@
                                         <td>{{ grade.exam.title }}</td>
                                         <td>{{ grade.exam_session.title }}</td>
                                         <td>{{ grade.student.name }}</td>
-                                        <td class="text-center">{{ grade.exam.classroom.title }}</td>
-                                        <td>{{ grade.exam.type }}</td>
-                                        <td class="fw-bold text-center">{{ grade.grade }}</td>
+                                        <td class="text-center"><StatusBadge tone="accent" :label="grade.exam.classroom?.title" /></td>
+                                        <td><StatusBadge :tone="tipeTone(grade.exam.type)" :label="grade.exam.type" /></td>
+                                        <td class="fw-bold text-center num">{{ fmt(grade.grade) }}</td>
                                         <td class="text-center">
                                             <Link :href="`/admin/reports/${grade.id}`" class="btn btn-sm btn-primary border-0 shadow me-2">
                                                 <i class="fa fa-plus-circle"></i>
@@ -103,12 +103,13 @@
 
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
+import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { reactive, ref, computed } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { Head, Link, StatusBadge },
     props: {
         errors: Object,
         exam_sessions: {
@@ -162,13 +163,34 @@ export default {
             return parts.join(' — ');
         };
 
+        // Format nilai dua desimal (Blueprint: 87.50)
+        const fmt = (v) => (v === null || v === undefined || v === '') ? '—' : Number(v).toFixed(2);
+
+        // map tipe ujian → tone badge (senada dengan blueprint)
+        const tipeTone = (type) => {
+            if (type === 'Pilihan Ganda') return 'accent';
+            if (type === 'Essay') return 'success';
+            if (type === 'Essay Migas') return 'secondary';
+            return 'neutral';
+        };
+
         return {
             form,
             filter,
             isLoading,
             sortedExamSessions,
             sessionLabel,
+            fmt,
+            tipeTone,
         };
     }
 }
 </script>
+
+<style scoped>
+/* Angka nilai: tabular-nums agar dua-desimal sejajar antar baris (Blueprint §5). */
+.num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+}
+</style>

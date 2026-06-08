@@ -23,7 +23,7 @@
                     <div class="col-md-7 col-12 mb-2">
                         <form @submit.prevent="handleSearch">
                             <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
+                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci...">
                                 <span class="input-group-text border-0 shadow">
                                     <i class="fa fa-search"></i>
                                 </span>
@@ -59,7 +59,7 @@
                                             {{ ++index + (students.current_page - 1) * students.per_page }}</td>
                                         <td>{{ student.no_participant }}</td>
                                         <td>{{ student.name }}</td>
-                                        <td class="text-center">{{ student.classroom.title }}</td>
+                                        <td class="text-center"><StatusBadge tone="accent" :label="student.classroom?.title" /></td>
                                         <td class="text-center">{{ student.gender }}</td>
                                         <td>{{ student.position }}</td>
                                         <td>{{ student.institution }}</td>
@@ -68,10 +68,17 @@
                                             <button @click.prevent="destroy(student.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
+                                    <tr v-if="students.data.length === 0">
+                                        <td colspan="8" class="text-center text-muted py-5">
+                                            <i class="fa fa-users fa-2x d-block mb-2 text-gray-300"></i>
+                                            <strong class="d-block">Belum ada peserta</strong>
+                                            <span class="small">Tidak ada peserta yang cocok dengan pencarian Anda.</span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination :links="students.links" align="end" />
+                        <Pagination :links="students.links" align="end" :total="students.total" :from="students.from" :to="students.to" entity="peserta" />
                     </div>
                 </div>
             </div>
@@ -85,6 +92,9 @@
 
     //import component pagination
     import Pagination from '../../../Components/Pagination.vue';
+
+    //import status badge component
+    import StatusBadge from '../../../Components/StatusBadge.vue';
 
     //import Heade and Link from Inertia
     import {
@@ -109,7 +119,8 @@
         components: {
             Head,
             Link,
-            Pagination
+            Pagination,
+            StatusBadge
         },
 
         //props

@@ -53,8 +53,8 @@
                                             <td class="fw-bold text-center">{{ index + 1 }}</td>
                                             <td>
                                                 <div class="d-flex align-items-start gap-2">
-                                                    <span v-if="isActive(session)" class="badge bg-success mt-1 flex-shrink-0">Aktif</span>
-                                                    <span v-else class="badge bg-secondary mt-1 flex-shrink-0">Selesai</span>
+                                                    <StatusBadge v-if="isActive(session)" tone="accent" label="Aktif" class="mt-1 flex-shrink-0" />
+                                                    <StatusBadge v-else tone="success" label="Selesai" class="mt-1 flex-shrink-0" />
                                                     <div>
                                                         <strong>{{ session.title }}</strong>
                                                         <div class="text-muted small">Batch {{ session.kode_batch }}</div>
@@ -99,7 +99,11 @@
                                     </template>
 
                                     <tr v-if="exam_sessions.length === 0">
-                                        <td colspan="7" class="text-center text-muted py-4">Belum ada sesi ujian.</td>
+                                        <td colspan="7" class="text-center text-muted py-5">
+                                            <i class="fa fa-user-check fa-2x d-block mb-2 text-gray-300"></i>
+                                            <strong class="d-block">Belum ada sesi ujian</strong>
+                                            <span class="small">Sesi ujian akan muncul di sini untuk diatur penugasan asesornya.</span>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -114,12 +118,13 @@
 
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
+import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { Head, Link, StatusBadge },
     props: {
         exam_sessions: Array,
         asesors: Array,
