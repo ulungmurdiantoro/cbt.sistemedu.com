@@ -470,22 +470,28 @@ class CompetencyUnitsSeeder extends Seeder
                 ], fn($v) => $v !== null)
             );
 
-            // Unit kompetensi
-            ClassroomCompetencyUnit::where('classroom_id', $classroom->id)->delete();
+            // Unit kompetensi — idempoten, tanpa delete (cocokkan per classroom_id + kode_unit)
             foreach ($skema['units'] as $order => [$kode, $judul]) {
-                ClassroomCompetencyUnit::create([
-                    'classroom_id' => $classroom->id,
-                    'kode_unit'    => $kode,
-                    'judul_unit'   => $judul,
-                    'order'        => $order + 1,
-                ]);
+                ClassroomCompetencyUnit::updateOrCreate(
+                    ['classroom_id' => $classroom->id, 'kode_unit' => $kode],
+                    ['judul_unit' => $judul, 'order' => $order + 1],
+                );
             }
 
-            // Persyaratan dokumen
-            ClassroomDocumentRequirement::where('classroom_id', $classroom->id)->delete();
+            // Persyaratan dokumen — idempoten, tanpa delete (cocokkan per classroom_id + code).
+            // ID lama dipertahankan sehingga dokumen peserta yang sudah terunggah
+            // (application_documents, cascadeOnDelete) TIDAK ikut terhapus.
             $reqs = $skema['req'] === 'pt' ? $reqPt : $reqNonPt;
             foreach ($reqs as $req) {
-                ClassroomDocumentRequirement::create(array_merge($req, ['classroom_id' => $classroom->id]));
+                ClassroomDocumentRequirement::updateOrCreate(
+                    ['classroom_id' => $classroom->id, 'code' => $req['code']],
+                    [
+                        'label'       => $req['label'],
+                        'description' => $req['description'],
+                        'is_required' => $req['is_required'],
+                        'order'       => $req['order'],
+                    ],
+                );
             }
 
             $this->command->info("✓ {$classroom->title} ({$classroom->id}) — " . count($skema['units']) . " unit");

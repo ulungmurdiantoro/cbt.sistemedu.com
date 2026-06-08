@@ -61,7 +61,8 @@
       "Bash(cp \"C:/Windows/Fonts/cambriaz.ttf\" \"c:/Users/umurd/Downloads/cbt.sistemedu.com/resources/fonts/cambriaz.ttf\")",
       "Bash(php -r \"echo extension_loaded\\('imagick'\\) ? 'imagick: yes' : 'imagick: no'; echo PHP_EOL; echo extension_loaded\\('gd'\\) ? 'gd: yes' : 'gd: no';\")",
       "PowerShell(npm run build 2>$null | Select-Object -Last 8; \"EXITCODE: $LASTEXITCODE\")",
-      "PowerShell(npm run build 2>$null | Select-Object -Last 6; \"EXITCODE: $LASTEXITCODE\")"
+      "PowerShell(npm run build 2>$null | Select-Object -Last 6; \"EXITCODE: $LASTEXITCODE\")",
+      "PowerShell(php -l database/seeders/CompetencyUnitsSeeder.php)"
     ],
     "additionalDirectories": [
       "c:\\Users\\umurd\\Downloads\\cbt.sistemedu.com\\storage\\app\\documents\\sertifikat",
