@@ -180,6 +180,9 @@ Route::prefix('student')->middleware('student')->group(function () {
 
 // ─── Portal Peserta Sertifikasi ──────────────────────────────────────────────
 
+// Panduan pendaftaran (publik — bisa dibaca sebelum membuat akun)
+Route::get('/peserta/panduan', fn () => inertia('Peserta/Guide/Index'))->name('peserta.panduan');
+
 Route::get('/peserta/register',  [App\Http\Controllers\Peserta\AuthController::class, 'showRegister'])->name('peserta.register');
 Route::post('/peserta/register', [App\Http\Controllers\Peserta\AuthController::class, 'register'])->middleware('throttle:5,5');
 Route::get('/peserta/login',     [App\Http\Controllers\Peserta\AuthController::class, 'showLogin'])->name('peserta.login');

@@ -14,9 +14,14 @@
     <div class="row mb-4">
         <div class="col-md-12 d-flex justify-content-between align-items-center">
             <h5 class="fw-bold mb-0">Permohonan Sertifikasi Saya</h5>
-            <Link href="/peserta/skema" class="btn btn-gray-800 btn-sm shadow">
-                <i class="fa fa-plus me-1"></i> Tambah Skema
-            </Link>
+            <div class="d-flex gap-2">
+                <Link href="/peserta/panduan" class="btn btn-outline-secondary btn-sm shadow-sm">
+                    <i class="fa fa-book-open me-1"></i> Panduan
+                </Link>
+                <Link href="/peserta/skema" class="btn btn-gray-800 btn-sm shadow">
+                    <i class="fa fa-plus me-1"></i> Tambah Skema
+                </Link>
+            </div>
         </div>
     </div>
 
