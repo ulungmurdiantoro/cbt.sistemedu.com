@@ -29,6 +29,7 @@ class CompetencyUnitsSeeder extends Seeder
         ];
 
         // ── Data skema ──────────────────────────────────────────────────
+        // Format unit: [kode_unit, judul_unit (ID), judul_unit_en (EN, opsional), kode_unit_asli (ref. SKKNI, opsional)]
         $skemas = [
 
             // ── A ──────────────────────────────────────────────────────
@@ -157,12 +158,12 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['F.410140.001.01', 'Menerapkan Komunikasi di Tempat Kerja'],
-                    ['F.42LFE00.001.1', 'Menyusun pekerjaan persiapan perencanaan operasi pesawat angkat & angkut'],
-                    ['F.42LFE00.002.1', 'Menyusun rencana operasi pengangkatan (lifting plan) untuk beban kurang dari 50 ton'],
-                    ['F.42LFE00.003.1', 'Melakukan kajian risiko dan pengendaliannya'],
-                    ['F.42LFE00.004.1', 'Mengawasi proses pengangkatan dan pemasangan beban sesuai Lifting Plan'],
-                    ['F.42LFE00.005.1', 'Melakukan evaluasi kinerja pelaksanaan Lifting Plan'],
+                    ['F.410140.001.01', 'Menerapkan Komunikasi di Tempat Kerja', 'Implementing Workplace Communication'],
+                    ['F.42LFE00.001.1', 'Menyusun pekerjaan persiapan perencanaan operasi pesawat angkat & angkut', 'Preparing Preliminary Work for Lifting and Mechanical Handling Operations'],
+                    ['F.42LFE00.002.1', 'Menyusun rencana operasi pengangkatan (lifting plan) untuk beban kurang dari 50 ton', 'Developing a Lifting Plan for Loads Under 50 Tons'],
+                    ['F.42LFE00.003.1', 'Melakukan kajian risiko dan pengendaliannya', 'Conducting Risk Assessment and Control'],
+                    ['F.42LFE00.004.1', 'Mengawasi proses pengangkatan dan pemasangan beban sesuai Lifting Plan', 'Supervising Lifting and Installation Operations in Accordance with the Lifting Plan'],
+                    ['F.42LFE00.005.1', 'Melakukan evaluasi kinerja pelaksanaan Lifting Plan', 'Evaluating the Performance of Lifting Plan Execution'],
                 ],
             ],
 
@@ -173,12 +174,12 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['F.410140.001.01', 'Menerapkan Komunikasi di Tempat Kerja'],
-                    ['F.42LFE00.001.1', 'Menyusun pekerjaan persiapan perencanaan operasi pesawat angkat & angkut'],
-                    ['F.42LFE00.002.1', 'Menyusun rencana operasi pengangkatan (lifting plan) untuk beban lebih dari 50 ton atau berjenis critical lifting'],
-                    ['F.42LFE00.003.1', 'Melakukan kajian risiko dan pengendaliannya'],
-                    ['F.42LFE00.004.1', 'Mengawasi proses pengangkatan dan pemasangan beban sesuai Lifting Plan'],
-                    ['F.42LFE00.005.1', 'Melakukan evaluasi kinerja pelaksanaan Lifting Plan'],
+                    ['F.410140.001.01', 'Menerapkan Komunikasi di Tempat Kerja', 'Implementing Workplace Communication'],
+                    ['F.42LFE00.001.1', 'Menyusun pekerjaan persiapan perencanaan operasi pesawat angkat & angkut', 'Preparing Preliminary Work for Lifting and Mechanical Handling Operations'],
+                    ['F.42LFE00.002.1', 'Menyusun rencana operasi pengangkatan (lifting plan) untuk beban lebih dari 50 ton atau berjenis critical lifting', 'Developing a Lifting Plan for Loads Over 50 Tons or Critical Lifting Operations'],
+                    ['F.42LFE00.003.1', 'Melakukan kajian risiko dan pengendaliannya', 'Conducting Risk Assessment and Control'],
+                    ['F.42LFE00.004.1', 'Mengawasi proses pengangkatan dan pemasangan beban sesuai Lifting Plan', 'Supervising Lifting and Installation Operations in Accordance with the Lifting Plan'],
+                    ['F.42LFE00.005.1', 'Melakukan evaluasi kinerja pelaksanaan Lifting Plan', 'Evaluating the Performance of Lifting Plan Execution'],
                 ],
             ],
 
@@ -189,11 +190,11 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.LDT.001.01', 'Menerapkan Komunikasi di Tempat Kerja'],
-                    ['SP.LDT.002.01', 'Memahami Spesifikasi Crane & Lifting Gear'],
-                    ['SP.LDT.003.01', 'Memahami Kaidah Operasi Lifting yang Aman'],
-                    ['SP.LDT.004.01', 'Memahami Lifting/Rigging Study'],
-                    ['SP.LDT.005.01', 'Mampu membuat Lifting Plan Drawing 2D'],
+                    ['SP.LDE2.001.01', 'Menerapkan Komunikasi di Tempat Kerja', 'Implementing Workplace Communication'],
+                    ['SP.LDE2.002.01', 'Memahami Spesifikasi Crane & Lifting Gear', 'Understanding Crane and Lifting Gear Specifications'],
+                    ['SP.LDE2.003.01', 'Memahami Kaidah Operasi Lifting yang Aman', 'Comprehending Safe Lifting Operation Principles'],
+                    ['SP.LDE2.004.01', 'Memahami Lifting/Rigging Study', 'Understanding Lifting and Rigging Studies'],
+                    ['SP.LDE2.005.01', 'Mampu membuat Lifting Plan Drawing 2D', 'Proficiency in Developing 2D Lifting Plan Drawings'],
                 ],
             ],
 
@@ -204,11 +205,11 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.DLD.001.01', 'Menerapkan Komunikasi di Tempat Kerja'],
-                    ['SP.DLD.002.01', 'Memahami Spesifikasi Crane & Lifting Gear'],
-                    ['SP.DLD.003.01', 'Memahami Kaidah Operasi Lifting yang Aman'],
-                    ['SP.DLD.004.01', 'Memahami Lifting/Rigging Study'],
-                    ['SP.DLD.005.01', 'Mampu membuat Lifting Modelling 3D & Lifting Plan Drawing'],
+                    ['SP.LDE3.001.01', 'Menerapkan Komunikasi di Tempat Kerja', 'Implementing Workplace Communication'],
+                    ['SP.LDE3.002.01', 'Memahami Spesifikasi Crane & Lifting Gear', 'Understanding Crane and Lifting Gear Specifications'],
+                    ['SP.LDE3.003.01', 'Memahami Kaidah Operasi Lifting yang Aman', 'Comprehending Safe Lifting Operation Principles'],
+                    ['SP.LDE3.004.01', 'Memahami Lifting/Rigging Study', 'Understanding Lifting and Rigging Studies'],
+                    ['SP.LDE3.005.01', 'Mampu membuat Lifting Modelling 3D & Lifting Plan Drawing', 'Proficiency in 3D Lifting Modelling and Developing Lifting Plan Drawings'],
                 ],
             ],
 
@@ -219,11 +220,11 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.LQO.001.01', 'Memahami Prinsip Ketidakberpihakan dan Kerahasiaan (Klausul 4 ISO 17025)'],
-                    ['SP.LQO.002.01', 'Memahami Struktur Organisasi Laboratorium yang Sesuai (Klausul 5 ISO 17025)'],
-                    ['SP.LQO.003.01', 'Memahami Pengelolaan Persyaratan Sumber Daya (Klausul 6 ISO 17025)'],
-                    ['SP.LQO.004.01', 'Memahami dan Menganalisis Persyaratan Proses (Klausul 7 ISO 17025)'],
-                    ['SP.LQO.005.01', 'Memahami Pengembangan Sistem Manajemen Laboratorium (Klausul 8 ISO 17025)'],
+                    ['SP.ISL.001.01', 'Memahami Prinsip Ketidakberpihakan dan Kerahasiaan (Klausul 4 ISO 17025)', 'Understanding the Principles of Impartiality and Confidentiality (ISO 17025 Clause 4)'],
+                    ['SP.ISL.002.01', 'Memahami Struktur Organisasi Laboratorium yang Sesuai (Klausul 5 ISO 17025)', 'Understanding Compliant Laboratory Organizational Structures (ISO 17025 Clause 5)'],
+                    ['SP.ISL.003.01', 'Memahami Pengelolaan Persyaratan Sumber Daya (Klausul 6 ISO 17025)', 'Understanding the Management of Resource Requirements (ISO 17025 Clause 6)'],
+                    ['SP.ISL.004.01', 'Memahami dan Menganalisis Persyaratan Proses (Klausul 7 ISO 17025)', 'Understanding and Analyzing Process Requirements (ISO 17025 Clause 7)'],
+                    ['SP.ISL.005.01', 'Memahami Pengembangan Sistem Manajemen Laboratorium (Klausul 8 ISO 17025)', 'Understanding the Development of Laboratory Management Systems (ISO 17025 Clause 8)'],
                 ],
             ],
 
@@ -234,12 +235,12 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.FMO.001.01', 'Menguasai Prinsip Dasar dan Regulasi Keamanan Pangan'],
-                    ['SP.FMO.002.01', 'Mengimplementasikan Program Prasyarat (PRPs - Prerequisite Programs)'],
-                    ['SP.IKP.003.01', 'Mengembangkan dan Menerapkan Rencana HACCP'],
-                    ['SP.IKP.004.01', 'Mengelola Pengendalian Operasional Keamanan Pangan'],
-                    ['SP.IKP.005.01', 'Melaksanakan Verifikasi dan Peningkatan Berkelanjutan FSMS'],
-                    ['SP.IKP.006.01', 'Mengelola Komunikasi dan Pelatihan Keamanan Pangan'],
+                    ['SP.IKP.001.01', 'Menguasai Prinsip Dasar dan Regulasi Keamanan Pangan', 'Mastering Fundamental Principles and Food Safety Regulatory Compliance'],
+                    ['SP.IKP.002.01', 'Mengimplementasikan Program Prasyarat (PRPs - Prerequisite Programs)', 'Implementing Prerequisite Programs (PRPs)'],
+                    ['SP.IKP.003.01', 'Mengembangkan dan Menerapkan Rencana HACCP', 'Developing and Implementing a HACCP Plan'],
+                    ['SP.IKP.004.01', 'Mengelola Pengendalian Operasional Keamanan Pangan', 'Managing Food Safety Operational Controls'],
+                    ['SP.IKP.005.01', 'Melaksanakan Verifikasi dan Peningkatan Berkelanjutan FSMS', 'Conducting Verification and Continual Improvement of the FSMS'],
+                    ['SP.IKP.006.01', 'Mengelola Komunikasi dan Pelatihan Keamanan Pangan', 'Managing Food Safety Communication and Training'],
                 ],
             ],
 
@@ -250,12 +251,12 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.PSP.001.01', 'Menguasai Prinsip Fundamental Analisis Sensori dan Fisiologi Indrawi'],
-                    ['SP.PSP.002.01', 'Melaksanakan Prosedur Uji Pembedaan (Discrimination Testing)'],
-                    ['SP.PSP.003.01', 'Melaksanakan Prosedur Uji Deskriptif Kuantitatif (Quantitative Descriptive Analysis)'],
-                    ['SP.PSP.004.01', 'Menerapkan Praktik Laboratorium Sensori yang Baik (Good Sensory Practices)'],
-                    ['SP.PSP.005.01', 'Mengelola Kinerja dan Konsistensi Penilaian Sensori Pribadi'],
-                    ['SP.PSP.006.01', 'Menguasai Prinsip Fundamental Analisis Sensori dan Fisiologi Indrawi'],
+                    ['SP.PSP.001.01', 'Menguasai Prinsip Fundamental Analisis Sensori dan Fisiologi Indrawi', 'Mastering the Fundamental Principles of Sensory Analysis and Sensory Physiology'],
+                    ['SP.PSP.002.01', 'Melaksanakan Prosedur Uji Pembedaan (Discrimination Testing)', 'Conducting Discrimination Testing Procedures'],
+                    ['SP.PSP.003.01', 'Melaksanakan Prosedur Uji Deskriptif Kuantitatif (Quantitative Descriptive Analysis)', 'Conducting Quantitative Descriptive Analysis (QDA) Procedures'],
+                    ['SP.PSP.004.01', 'Menerapkan Praktik Laboratorium Sensori yang Baik (Good Sensory Practices)', 'Implementing Good Sensory Practices (GSP)'],
+                    ['SP.PSP.005.01', 'Mengelola Kinerja dan Konsistensi Penilaian Sensori Pribadi', 'Managing Personal Sensory Performance and Assessment Consistency'],
+                    ['SP.PSP.006.01', 'Menguasai Prinsip Fundamental Analisis Sensori dan Fisiologi Indrawi', 'Mastering the Fundamental Principles of Sensory Analysis and Sensory Physiology'],
                 ],
             ],
 
@@ -266,10 +267,10 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.GLP.001.01', 'Melakukan Persiapan Penerapan GLP'],
-                    ['SP.GLP.002.01', 'Melaksanakan Pengujian Sesuai Prinsip GLP'],
-                    ['SP.GLP.003.01', 'Melakukan Pengendalian Mutu dan Data'],
-                    ['SP.GLP.004.01', 'Mengelola Limbah dan Pasca Pengujian'],
+                    ['SP.GLP.001.01', 'Melakukan Persiapan Penerapan GLP', 'Preparing for GLP Implementation'],
+                    ['SP.GLP.002.01', 'Melaksanakan Pengujian Sesuai Prinsip GLP', 'Conducting Testing in Accordance with GLP Principles'],
+                    ['SP.GLP.003.01', 'Melakukan Pengendalian Mutu dan Data', 'Performing Quality and Data Control'],
+                    ['SP.GLP.004.01', 'Mengelola Limbah dan Pasca Pengujian', 'Managing Laboratory Waste and Post-Testing Activities'],
                 ],
             ],
 
@@ -280,11 +281,11 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.K3L.001.01', 'Melakukan Identifikasi Bahaya dan Penilaian Risiko (HIRADC) di Laboratorium'],
-                    ['SP.K3L.002.01', 'Mengelola Penyimpanan dan Penanganan Bahan Kimia Berbahaya (B3)'],
-                    ['SP.K3L.003.01', 'Melakukan Pengelolaan dan Penyimpanan Limbah B3 Laboratorium'],
-                    ['SP.K3L.004.01', 'Mengelola Tindakan Tanggap Darurat di Laboratorium'],
-                    ['SP.K3L.005.01', 'Melakukan Inspeksi K3 dan Lingkungan Kerja Laboratorium'],
+                    ['SP.K3L.001.01', 'Melakukan Identifikasi Bahaya dan Penilaian Risiko (HIRADC) di Laboratorium', 'Conducting Hazard Identification, Risk Assessment, and Determining Controls (HIRADC) in the Laboratory', 'M.71KKK01.002.1'],
+                    ['SP.K3L.002.01', 'Mengelola Penyimpanan dan Penanganan Bahan Kimia Berbahaya (B3)', 'Managing the Storage and Handling of Hazardous Chemicals', 'M.749000.017.01'],
+                    ['SP.K3L.003.01', 'Melakukan Pengelolaan dan Penyimpanan Limbah B3 Laboratorium', 'Managing the Storage and Disposal of Hazardous Laboratory Waste', 'E.38PLB00.008.1'],
+                    ['SP.K3L.004.01', 'Mengelola Tindakan Tanggap Darurat di Laboratorium', 'Managing Laboratory Emergency Response Procedures', 'M.71KKK01.007.1'],
+                    ['SP.K3L.005.01', 'Melakukan Inspeksi K3 dan Lingkungan Kerja Laboratorium', 'Conducting Occupational Health and Safety (OHS) and Workplace Environment Inspections in the Laboratory', 'IMG.KK02.012.01'],
                 ],
             ],
 
@@ -295,10 +296,10 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.LOP.001.01', 'Menetapkan Konteks Organisasi dan Perencanaan Mutu (Plan)'],
-                    ['SP.LOP.002.01', 'Mengelola Sumber Daya dan Operasional (Do)'],
-                    ['SP.LOP.003.01', 'Melakukan Evaluasi Kinerja (Check)'],
-                    ['SP.LOP.004.01', 'Melakukan Peningkatan Berkelanjutan (Act)'],
+                    ['SP.SPL.001.01', 'Menetapkan Konteks Organisasi dan Perencanaan Mutu (Plan)', 'Establishing Organizational Context and Quality Planning (Plan)'],
+                    ['SP.SPL.002.01', 'Mengelola Sumber Daya dan Operasional (Do)', 'Managing Resources and Operations (Do)'],
+                    ['SP.SPL.003.01', 'Melakukan Evaluasi Kinerja (Check)', 'Conducting Performance Evaluation (Check)'],
+                    ['SP.SPL.004.01', 'Melakukan Peningkatan Berkelanjutan (Act)', 'Implementing Continual Improvement (Act)'],
                 ],
             ],
 
@@ -309,11 +310,11 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.QMS.001.01', 'Menganalisis Konteks Organisasi dan Pihak Berkepentingan'],
-                    ['SP.QMS.002.01', 'Menyusun Perencanaan Mutu dan Manajemen Risiko'],
-                    ['SP.QMS.003.01', 'Mengelola Sumber Daya dan Informasi Terdokumentasi'],
-                    ['SP.QMS.004.01', 'Mengendalikan Operasional dan Penyedia Eksternal'],
-                    ['SP.QMS.005.01', 'Melakukan Evaluasi Kinerja dan Peningkatan Berkelanjutan'],
+                    ['SP.SMM.001.01', 'Menganalisis Konteks Organisasi dan Pihak Berkepentingan', 'Analyzing Organizational Context and Interested Parties'],
+                    ['SP.SMM.002.01', 'Menyusun Perencanaan Mutu dan Manajemen Risiko', 'Developing Quality Planning and Risk Management'],
+                    ['SP.SMM.003.01', 'Mengelola Sumber Daya dan Informasi Terdokumentasi', 'Managing Resources and Documented Information'],
+                    ['SP.SMM.004.01', 'Mengendalikan Operasional dan Penyedia Eksternal', 'Controlling Operations and External Providers'],
+                    ['SP.SMM.005.01', 'Melakukan Evaluasi Kinerja dan Peningkatan Berkelanjutan', 'Conducting Performance Evaluation and Continual Improvement'],
                 ],
             ],
 
@@ -362,11 +363,11 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.RDO.001.01', 'Merencanakan Kegiatan Penelitian dan Pengembangan'],
-                    ['SP.RDO.002.01', 'Melaksanakan Kegiatan Penelitian dan Pengembangan'],
-                    ['SP.RDO.003.01', 'Melakukan Analisis dan Validasi Hasil Penelitian'],
-                    ['SP.RDO.004.01', 'Mengelola Dokumentasi dan Pelaporan Kegiatan R&D'],
-                    ['SP.RDO.005.01', 'Mengelola Implementasi dan Peningkatan Berkelanjutan Hasil Pengembangan'],
+                    ['SP.RDO.001.01', 'Merencanakan Kegiatan Penelitian dan Pengembangan', 'Planning Research and Development Activities'],
+                    ['SP.RDO.002.01', 'Melaksanakan Kegiatan Penelitian dan Pengembangan', 'Executing Research and Development Activities'],
+                    ['SP.RDO.003.01', 'Melakukan Analisis dan Validasi Hasil Penelitian', 'Analyzing and Validating Research Results'],
+                    ['SP.RDO.004.01', 'Mengelola Dokumentasi dan Pelaporan Kegiatan R&D', 'Managing Documentation and Reporting of R&D Activities'],
+                    ['SP.RDO.005.01', 'Mengelola Implementasi dan Peningkatan Berkelanjutan Hasil Pengembangan', 'Managing the Implementation and Continual Improvement of Development Results'],
                 ],
             ],
 
@@ -377,12 +378,12 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.RAQ.001.01', 'Menerapkan Prinsip Kepatuhan Regulasi dan Etika Profesi'],
-                    ['SP.RAQ.002.01', 'Menyusun dan Mengevaluasi Dokumen Registrasi dan Perizinan Produk'],
-                    ['SP.RAQ.003.01', 'Melakukan Proses Pengajuan Registrasi dan Perizinan Produk kepada Otoritas Terkait'],
-                    ['SP.RAQ.004.01', 'Melakukan Pemantauan Perubahan Regulasi dan Analisis Dampaknya terhadap Produk/Perusahaan'],
-                    ['SP.RAQ.005.01', 'Mengelola Arsip dan Sistem Dokumentasi Regulatory Affairs'],
-                    ['SP.RAQ.006.01', 'Melakukan Evaluasi Kepatuhan Produk dan Menyusun Tindak Lanjut Ketidaksesuaian (Compliance Management)'],
+                    ['SP.RAO.001.01', 'Menerapkan Prinsip Kepatuhan Regulasi dan Etika Profesi', 'Applying Regulatory Compliance Principles and Professional Ethics'],
+                    ['SP.RAO.002.01', 'Menyusun dan Mengevaluasi Dokumen Registrasi dan Perizinan Produk', 'Drafting and Evaluating Product Registration and Licensing Documents'],
+                    ['SP.RAO.003.01', 'Melakukan Proses Pengajuan Registrasi dan Perizinan Produk kepada Otoritas Terkait', 'Conducting the Submission Process for Product Registration and Licensing to Relevant Authorities'],
+                    ['SP.RAO.004.01', 'Melakukan Pemantauan Perubahan Regulasi dan Analisis Dampaknya terhadap Produk/Perusahaan', 'Monitoring Regulatory Changes and Analyzing Their Impact on Products and the Company'],
+                    ['SP.RAO.005.01', 'Mengelola Arsip dan Sistem Dokumentasi Regulatory Affairs', 'Managing Regulatory Affairs Archives and Documentation Systems'],
+                    ['SP.RAO.006.01', 'Melakukan Evaluasi Kepatuhan Produk dan Menyusun Tindak Lanjut Ketidaksesuaian (Compliance Management)', 'Evaluating Product Compliance and Formulating Corrective Actions for Non-Conformities'],
                 ],
             ],
 
@@ -393,12 +394,12 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.SBO.001.01', 'Mengidentifikasi aspek dan dampak keberlanjutan operasional'],
-                    ['SP.SBO.002.01', 'Merencanakan program peningkatan kinerja lingkungan dan sosial'],
-                    ['SP.SBO.003.01', 'Mengimplementasikan program keberlanjutan organisasi'],
-                    ['SP.SBO.004.01', 'Memantau dan mengevaluasi capaian target keberlanjutan'],
-                    ['SP.SBO.005.01', 'Mengomunikasikan kinerja keberlanjutan internal'],
-                    ['SP.SBO.006.01', 'Mendukung pengelolaan data kinerja keberlanjutan'],
+                    ['SP.SDR.001.01', 'Mengidentifikasi aspek dan dampak keberlanjutan operasional', 'Identifying Operational Sustainability Aspects and Impacts'],
+                    ['SP.SDR.002.01', 'Merencanakan program peningkatan kinerja lingkungan dan sosial', 'Planning Environmental and Social Performance Improvement Programs'],
+                    ['SP.SDR.003.01', 'Mengimplementasikan program keberlanjutan organisasi', 'Implementing Organizational Sustainability Programs'],
+                    ['SP.SDR.004.01', 'Memantau dan mengevaluasi capaian target keberlanjutan', 'Monitoring and Evaluating Sustainability Target Achievements'],
+                    ['SP.SDR.005.01', 'Mengomunikasikan kinerja keberlanjutan internal', 'Communicating Internal Sustainability Performance'],
+                    ['SP.SDR.006.01', 'Mendukung pengelolaan data kinerja keberlanjutan', 'Supporting Sustainability Performance Data Management'],
                 ],
             ],
 
@@ -409,13 +410,13 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.ESG.001.01', 'Mengidentifikasi dan memetakan pemangku kepentingan'],
-                    ['SP.ESG.002.01', 'Mengidentifikasi isu dan risiko ESG'],
-                    ['SP.ESG.003.01', 'Melakukan penilaian dampak dan risiko ESG'],
-                    ['SP.ESG.004.01', 'Menyusun matriks materialitas'],
-                    ['SP.ESG.005.01', 'Mengintegrasikan risiko ESG ke dalam manajemen risiko organisasi'],
-                    ['SP.ESG.006.01', 'Menyiapkan informasi pengungkapan ESG'],
-                    ['SP.ESG.007.01', 'Mendukung tata kelola dan kebijakan ESG organisasi'],
+                    ['SP.ESG.001.01', 'Mengidentifikasi dan memetakan pemangku kepentingan', 'Identifying and Mapping Stakeholders'],
+                    ['SP.ESG.002.01', 'Mengidentifikasi isu dan risiko ESG', 'Identifying ESG Issues and Risks'],
+                    ['SP.ESG.003.01', 'Melakukan penilaian dampak dan risiko ESG', 'Conducting ESG Impact and Risk Assessments'],
+                    ['SP.ESG.004.01', 'Menyusun matriks materialitas', 'Developing a Materiality Matrix'],
+                    ['SP.ESG.005.01', 'Mengintegrasikan risiko ESG ke dalam manajemen risiko organisasi', 'Integrating ESG Risks into Enterprise Risk Management (ERM)'],
+                    ['SP.ESG.006.01', 'Menyiapkan informasi pengungkapan ESG', 'Preparing ESG Disclosure Information'],
+                    ['SP.ESG.007.01', 'Mendukung tata kelola dan kebijakan ESG organisasi', 'Supporting Organizational ESG Governance and Policy'],
                 ],
             ],
 
@@ -444,15 +445,16 @@ class CompetencyUnitsSeeder extends Seeder
                 'kode_skema'      => null,
                 'req'             => 'non-pt',
                 'units'      => [
-                    ['SP.CLO.001.01', 'Melakukan Pemenuhan Perizinan Usaha dan Legalitas Korporasi'],
-                    ['SP.CLO.002.01', 'Menyusun dan Meninjau Dokumen Hukum Perusahaan'],
-                    ['SP.CLO.003.01', 'Menyusun Legal Opinion dan Rekomendasi Hukum'],
-                    ['SP.CLO.004.01', 'Mengelola Administrasi dan Arsip Hukum Korporasi'],
-                    ['SP.CLO.005.01', 'Menyusun Laporan Legal dan Kepatuhan Secara Berkala'],
-                    ['SP.CLO.006.01', 'Melakukan Monitoring dan Analisis Perubahan Regulasi'],
-                    ['SP.CLO.007.01', 'Melakukan Legal Due Diligence & Audit Kepatuhan Hukum'],
-                    ['SP.CLO.008.01', 'Mengelola Hubungan dengan Regulasi dan Stakeholder'],
-                    ['SP.CLO.009.01', 'Menangani Pemeriksaan dan Investigasi oleh Regulator'],
+                    ['SP.CLO.001.01', 'Melakukan Pemenuhan Perizinan Usaha dan Legalitas Korporasi', 'Ensuring Business Licensing Compliance and Corporate Legality'],
+                    ['SP.CLO.002.01', 'Menyusun dan Meninjau Dokumen Hukum Perusahaan', 'Drafting and Reviewing Corporate Legal Documents'],
+                    ['SP.CLO.003.01', 'Menyusun Legal Opinion dan Rekomendasi Hukum', 'Formulating Legal Opinions and Recommendations'],
+                    ['SP.CLO.004.01', 'Mengelola Administrasi dan Arsip Hukum Korporasi', 'Managing Corporate Legal Administration and Archives'],
+                    ['SP.CLO.005.01', 'Menyusun Laporan Legal dan Kepatuhan Secara Berkala', 'Preparing Periodic Legal and Compliance Reports'],
+                    ['SP.CLO.006.01', 'Melakukan Monitoring dan Analisis Perubahan Regulasi', 'Monitoring and Analyzing Regulatory Changes'],
+                    ['SP.CLO.007.01', 'Melakukan Legal Due Diligence & Audit Kepatuhan Hukum', 'Conducting Legal Due Diligence and Compliance Audits'],
+                    ['SP.CLO.008.01', 'Mendukung Audit Eksternal dan Pemeriksaan', 'Supporting External Audits and Inspections'],
+                    ['SP.CLO.009.01', 'Mengelola Hubungan dengan Regulasi dan Stakeholder', 'Managing Relations with Regulators and Stakeholders'],
+                    ['SP.CLO.010.01', 'Menangani Pemeriksaan dan Investigasi oleh Regulator', 'Handling Regulatory Inquiries and Investigations'],
                 ],
             ],
 
@@ -470,13 +472,31 @@ class CompetencyUnitsSeeder extends Seeder
                 ], fn($v) => $v !== null)
             );
 
-            // Unit kompetensi — idempoten, tanpa delete (cocokkan per classroom_id + kode_unit)
-            foreach ($skema['units'] as $order => [$kode, $judul]) {
+            // Unit kompetensi — sinkron per classroom (upsert + prune kode lama).
+            // Aman: unit kompetensi hanya dibaca sebagai daftar (sertifikat/SK),
+            // tidak direferensikan by-id oleh data peserta.
+            $unitCodes = [];
+            foreach ($skema['units'] as $order => $unit) {
+                $kode     = $unit[0];
+                $judul    = $unit[1];
+                $judulEn  = $unit[2] ?? null;
+                $kodeAsli = $unit[3] ?? null;
+                $unitCodes[] = $kode;
+
                 ClassroomCompetencyUnit::updateOrCreate(
                     ['classroom_id' => $classroom->id, 'kode_unit' => $kode],
-                    ['judul_unit' => $judul, 'order' => $order + 1],
+                    [
+                        'judul_unit'     => $judul,
+                        'judul_unit_en'  => $judulEn,
+                        'kode_unit_asli' => $kodeAsli,
+                        'order'          => $order + 1,
+                    ],
                 );
             }
+            // hapus unit lama (kode berubah/dihapus) untuk skema ini saja
+            ClassroomCompetencyUnit::where('classroom_id', $classroom->id)
+                ->whereNotIn('kode_unit', $unitCodes)
+                ->delete();
 
             // Persyaratan dokumen — idempoten, tanpa delete (cocokkan per classroom_id + code).
             // ID lama dipertahankan sehingga dokumen peserta yang sudah terunggah

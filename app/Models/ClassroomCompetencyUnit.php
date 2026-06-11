@@ -12,6 +12,7 @@ class ClassroomCompetencyUnit extends Model
     protected $fillable = [
         'classroom_id',
         'kode_unit',
+        'kode_unit_asli',
         'judul_unit',
         'judul_unit_en',
         'order',

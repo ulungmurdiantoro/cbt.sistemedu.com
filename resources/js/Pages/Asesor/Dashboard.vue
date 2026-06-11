@@ -20,8 +20,8 @@
                             class="nav-link fw-semibold"
                             :class="{ active: tab === 'active' }"
                             @click="tab = 'active'"
-                            style="border-bottom:3px solid transparent;"
-                            :style="tab === 'active' ? 'border-bottom-color:#0d6efd; color:#0d6efd;' : ''"
+                            style="border-bottom:3px solid transparent; background-color:#fff;"
+                            :style="tab === 'active' ? 'border-bottom-color:#0d6efd; color:#0d6efd; background-color:#fff;' : 'color:#6B7280; background-color:#fff;'"
                         >
                             <i class="fa fa-circle-dot me-1 text-success"></i>
                             Sesi Aktif
@@ -35,8 +35,8 @@
                             class="nav-link fw-semibold"
                             :class="{ active: tab === 'completed' }"
                             @click="tab = 'completed'"
-                            style="border-bottom:3px solid transparent;"
-                            :style="tab === 'completed' ? 'border-bottom-color:#0d6efd; color:#0d6efd;' : ''"
+                            style="border-bottom:3px solid transparent; background-color:#fff;"
+                            :style="tab === 'completed' ? 'border-bottom-color:#0d6efd; color:#0d6efd; background-color:#fff;' : 'color:#6B7280; background-color:#fff;'"
                         >
                             <i class="fa fa-check-circle me-1 text-secondary"></i>
                             Sesi Selesai

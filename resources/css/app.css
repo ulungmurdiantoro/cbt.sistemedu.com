@@ -1,0 +1,140 @@
+/* =====================================================================
+   Konsistensi & Visibilitas Tombol (override tema Volt)
+   ---------------------------------------------------------------------
+   File ini dimuat SETELAH assets/css/volt.css (lihat app.blade.php),
+   sehingga aturan di sini menimpa tema bawaan.
+
+   Masalah yang diperbaiki:
+   - Tombol "outline" (transparan) sering tidak terlihat karena tema
+     Volt memberi warna yang sangat pucat, mis. btn-outline-secondary
+     (#f0bc74) dan btn-outline-warning (#f3c78e) di atas latar putih.
+
+   Solusi:
+   - Semua tombol outline diberi latar bertint lembut + border solid
+     + teks yang cukup gelap, lalu terisi penuh saat hover.
+   ===================================================================== */
+
+/* Dasar untuk semua tombol outline: border tegas, teks tebal, transisi halus */
+.btn[class*="btn-outline-"] {
+    border-width: 1.5px;
+    font-weight: 600;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out,
+                border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* ---------- Primary (slate) ---------- */
+.btn-outline-primary {
+    color: #1F2937;
+    background-color: rgba(31, 41, 55, .06);
+    border-color: #1F2937;
+}
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    color: #ffffff;
+    background-color: #1F2937;
+    border-color: #1F2937;
+}
+
+/* ---------- Secondary (amber) — sebelumnya nyaris tak terlihat ---------- */
+.btn-outline-secondary {
+    color: #8a5a12;            /* amber gelap, kontras di latar putih */
+    background-color: rgba(240, 188, 116, .20);
+    border-color: #d99a3a;
+}
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-outline-secondary:active {
+    color: #1F2937;
+    background-color: #f0bc74;
+    border-color: #e0a233;
+}
+
+/* ---------- Success (green) ---------- */
+.btn-outline-success {
+    color: #0b7a55;
+    background-color: rgba(16, 185, 129, .12);
+    border-color: #10B981;
+}
+.btn-outline-success:hover,
+.btn-outline-success:focus,
+.btn-outline-success:active {
+    color: #ffffff;
+    background-color: #10B981;
+    border-color: #10B981;
+}
+
+/* ---------- Info (blue) ---------- */
+.btn-outline-info {
+    color: #1d52b0;
+    background-color: rgba(35, 97, 206, .10);
+    border-color: #2361ce;
+}
+.btn-outline-info:hover,
+.btn-outline-info:focus,
+.btn-outline-info:active {
+    color: #ffffff;
+    background-color: #2361ce;
+    border-color: #2361ce;
+}
+
+/* ---------- Warning (amber muda) — sebelumnya nyaris tak terlihat ---------- */
+.btn-outline-warning {
+    color: #946200;
+    background-color: rgba(243, 199, 142, .25);
+    border-color: #e0a85a;
+}
+.btn-outline-warning:hover,
+.btn-outline-warning:focus,
+.btn-outline-warning:active {
+    color: #1F2937;
+    background-color: #f3c78e;
+    border-color: #e0a85a;
+}
+
+/* ---------- Danger (rose) ---------- */
+.btn-outline-danger {
+    color: #c2153b;
+    background-color: rgba(225, 29, 72, .10);
+    border-color: #E11D48;
+}
+.btn-outline-danger:hover,
+.btn-outline-danger:focus,
+.btn-outline-danger:active {
+    color: #ffffff;
+    background-color: #E11D48;
+    border-color: #E11D48;
+}
+
+/* ---------- Dark ---------- */
+.btn-outline-dark {
+    color: #1F2937;
+    background-color: rgba(31, 41, 55, .06);
+    border-color: #374151;
+}
+.btn-outline-dark:hover,
+.btn-outline-dark:focus,
+.btn-outline-dark:active {
+    color: #ffffff;
+    background-color: #1F2937;
+    border-color: #1F2937;
+}
+
+/* ---------- Light (untuk latar terang: jangan tak terlihat) ---------- */
+.btn-outline-light {
+    color: #374151;
+    background-color: rgba(31, 41, 55, .04);
+    border-color: #9CA3AF;
+}
+.btn-outline-light:hover,
+.btn-outline-light:focus,
+.btn-outline-light:active {
+    color: #1F2937;
+    background-color: #E5E7EB;
+    border-color: #9CA3AF;
+}
+
+/* Jaga keterbacaan teks saat hover pada tombol outline (ikon ikut warna teks) */
+.btn[class*="btn-outline-"]:hover i {
+    color: inherit !important;
+}

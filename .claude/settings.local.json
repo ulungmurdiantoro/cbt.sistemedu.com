@@ -62,7 +62,10 @@
       "Bash(php -r \"echo extension_loaded\\('imagick'\\) ? 'imagick: yes' : 'imagick: no'; echo PHP_EOL; echo extension_loaded\\('gd'\\) ? 'gd: yes' : 'gd: no';\")",
       "PowerShell(npm run build 2>$null | Select-Object -Last 8; \"EXITCODE: $LASTEXITCODE\")",
       "PowerShell(npm run build 2>$null | Select-Object -Last 6; \"EXITCODE: $LASTEXITCODE\")",
-      "PowerShell(php -l database/seeders/CompetencyUnitsSeeder.php)"
+      "PowerShell(php -l database/seeders/CompetencyUnitsSeeder.php)",
+      "PowerShell(php -l database/migrations/2026_06_08_000001_add_kode_unit_asli_to_classroom_competency_units_table.php)",
+      "PowerShell(php -l app/Models/ClassroomCompetencyUnit.php)",
+      "Bash(grep -n \"\\\\.nav-link[ ,{]\" public/assets/css/volt.css)"
     ],
     "additionalDirectories": [
       "c:\\Users\\umurd\\Downloads\\cbt.sistemedu.com\\storage\\app\\documents\\sertifikat",
