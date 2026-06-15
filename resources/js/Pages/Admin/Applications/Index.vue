@@ -71,6 +71,9 @@
                                 <div class="text-muted text-truncate" style="font-size:0.78rem; max-width:340px" :title="app.exam_session?.title">
                                     <i class="fa fa-calendar-alt me-1"></i>{{ app.exam_session?.title ?? '—' }}
                                 </div>
+                                <div class="text-muted" style="font-size:0.75rem">
+                                    <i class="fa fa-hashtag me-1"></i>Batch: {{ app.exam_session?.kode_batch ?? app.kode_batch ?? '—' }}
+                                </div>
                             </td>
                             <td class="small">{{ app.submitted_at ? formatDate(app.submitted_at) : '—' }}</td>
                             <td>

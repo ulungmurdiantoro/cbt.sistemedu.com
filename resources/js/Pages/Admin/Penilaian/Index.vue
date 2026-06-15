@@ -60,21 +60,16 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <ul class="mb-0 ps-3 small">
-                                                    <li v-if="session.exam_pg">
-                                                        <span class="badge bg-primary me-1">PG</span>
-                                                        {{ session.exam_pg.title }}
-                                                        <span class="text-muted">({{ session.exam_pg.classroom?.title }})</span>
+                                            <td style="max-width:240px">
+                                                <ul class="list-unstyled mb-0 small">
+                                                    <li v-if="session.exam_pg" class="text-truncate" :title="session.exam_pg.title">
+                                                        <span class="badge bg-primary me-1">PG</span>{{ session.exam_pg.title }}
                                                     </li>
-                                                    <li v-if="session.exam_esai">
-                                                        <span class="badge bg-success me-1">Esai</span>
-                                                        {{ session.exam_esai.title }}
-                                                        <span class="text-muted">({{ session.exam_esai.classroom?.title }})</span>
+                                                    <li v-if="session.exam_esai" class="text-truncate" :title="session.exam_esai.title">
+                                                        <span class="badge bg-success me-1">Esai</span>{{ session.exam_esai.title }}
                                                     </li>
                                                     <li v-if="session.has_wawancara">
                                                         <span class="badge bg-warning text-dark me-1">Wawancara</span>
-                                                        Penilaian asesor
                                                     </li>
                                                     <li v-if="!session.exam_pg && !session.exam_esai && !session.has_wawancara"
                                                         class="text-muted">—</li>
