@@ -35,8 +35,7 @@
                                         <th class="border-0">Sesi</th>
                                         <th class="border-0">Jenis Ujian</th>
                                         <th class="border-0" style="width:8%">Peserta</th>
-                                        <th class="border-0">Mulai</th>
-                                        <th class="border-0">Selesai</th>
+                                        <th class="border-0">Waktu</th>
                                         <th class="border-0 rounded-end" style="width:13%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -45,7 +44,7 @@
                                     <template v-for="(s, index) in exam_sessions.data" :key="s.id">
                                         <!-- Pemisah: baris pertama yang sudah selesai -->
                                         <tr v-if="isFirstFinished(index)" class="separator-row">
-                                            <td colspan="7" class="py-1 px-3 text-muted small fw-semibold border-0" style="background:#f8f9fa;border-top:2px dashed #dee2e6 !important;">
+                                            <td colspan="6" class="py-1 px-3 text-muted small fw-semibold border-0" style="background:#f8f9fa;border-top:2px dashed #dee2e6 !important;">
                                                 <i class="fa fa-check-circle me-1 text-secondary"></i> Sesi Selesai
                                             </td>
                                         </tr>
@@ -82,8 +81,10 @@
                                                 </ul>
                                             </td>
                                             <td class="text-center">{{ s.exam_groups.length }}</td>
-                                            <td class="small">{{ s.start_time }}</td>
-                                            <td class="small">{{ s.end_time }}</td>
+                                            <td class="small text-nowrap">
+                                                <div><span class="text-muted">Mulai:</span> {{ formatDate(s.start_time) }}</div>
+                                                <div><span class="text-muted">Selesai:</span> {{ formatDate(s.end_time) }}</div>
+                                            </td>
                                             <td class="text-center">
                                                 <Link :href="`/admin/exam_sessions/${s.id}`" class="btn btn-sm btn-primary border-0 shadow me-1" title="Enroll Siswa"><i class="fa fa-plus-circle"></i></Link>
                                                 <Link :href="`/admin/exam_sessions/${s.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-1"><i class="fa fa-pencil-alt"></i></Link>
@@ -93,7 +94,7 @@
                                     </template>
 
                                     <tr v-if="exam_sessions.data.length === 0">
-                                        <td colspan="7" class="text-center text-muted py-5">
+                                        <td colspan="6" class="text-center text-muted py-5">
                                             <i class="fa fa-stopwatch fa-2x d-block mb-2 text-gray-300"></i>
                                             <strong class="d-block">Belum ada sesi ujian</strong>
                                             <span class="small">Tidak ada sesi yang cocok dengan pencarian Anda.</span>
@@ -143,6 +144,10 @@ export default {
             router.get('/admin/exam_sessions', { q: search.value });
         };
 
+        const formatDate = (dt) => dt
+            ? new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
+            : '—';
+
         const destroy = (id) => {
             Swal.fire({
                 title: 'Apakah Anda yakin?',
@@ -160,7 +165,7 @@ export default {
             });
         };
 
-        return { search, handleSearch, destroy, isActive, isFirstFinished };
+        return { search, handleSearch, destroy, isActive, isFirstFinished, formatDate };
     },
 }
 </script>

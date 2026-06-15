@@ -27,7 +27,7 @@
 
     <div class="row">
         <!-- Kolom kiri: data peserta & sertifikasi -->
-        <div class="col-md-8">
+        <div class="col-md-12">
 
             <!-- Info sertifikasi -->
             <div class="card border-0 shadow mb-4">
@@ -126,9 +126,12 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Kolom kanan: aksi -->
-        <div class="col-md-4">
+    <!-- Aksi TTD & persetujuan — dipindah ke bawah -->
+    <div class="row">
+        <!-- Kolom aksi -->
+        <div class="col-lg-8">
 
             <!-- Status & aksi -->
             <div class="card border-0 shadow mb-4">

@@ -33,8 +33,7 @@
                                         <th class="border-0">Sesi Ujian</th>
                                         <th class="border-0">Jenis Ujian</th>
                                         <th class="border-0" style="width:8%">Peserta</th>
-                                        <th class="border-0">Mulai</th>
-                                        <th class="border-0">Selesai</th>
+                                        <th class="border-0">Waktu</th>
                                         <th class="border-0 rounded-end text-center" style="width:12%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -43,7 +42,7 @@
                                     <template v-for="(session, index) in exam_sessions" :key="session.id">
                                         <!-- Separator sebelum baris pertama yang sudah selesai -->
                                         <tr v-if="isFirstFinished(index)" class="separator-row">
-                                            <td colspan="7" class="py-1 px-3 text-muted small fw-semibold border-0"
+                                            <td colspan="6" class="py-1 px-3 text-muted small fw-semibold border-0"
                                                 style="background:#f8f9fa; border-top:2px dashed #dee2e6 !important;">
                                                 <i class="fa fa-check-circle me-1 text-secondary"></i> Sesi Selesai
                                             </td>
@@ -84,8 +83,10 @@
                                             <td class="text-center">
                                                 {{ session.exam_groups_count ?? 0 }}
                                             </td>
-                                            <td class="small">{{ formatDate(session.start_time) }}</td>
-                                            <td class="small">{{ formatDate(session.end_time) }}</td>
+                                            <td class="small text-nowrap">
+                                                <div><span class="text-muted">Mulai:</span> {{ formatDate(session.start_time) }}</div>
+                                                <div><span class="text-muted">Selesai:</span> {{ formatDate(session.end_time) }}</div>
+                                            </td>
                                             <td class="text-center">
                                                 <Link :href="`/admin/penilaian/${session.id}`"
                                                     class="btn btn-sm border-0 shadow"
@@ -99,7 +100,7 @@
                                     </template>
 
                                     <tr v-if="exam_sessions.length === 0">
-                                        <td colspan="7" class="text-center text-muted py-5">
+                                        <td colspan="6" class="text-center text-muted py-5">
                                             <i class="fa fa-user-check fa-2x d-block mb-2 text-gray-300"></i>
                                             <strong class="d-block">Belum ada sesi ujian</strong>
                                             <span class="small">Sesi ujian akan muncul di sini untuk diatur penugasan asesornya.</span>
