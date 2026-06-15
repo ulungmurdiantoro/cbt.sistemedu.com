@@ -271,6 +271,19 @@ class ApplicationController extends Controller
         return response()->download(Storage::disk('private')->path($document->file_path), $document->original_filename);
     }
 
+    public function previewDocument(AssessmentApplication $application, ApplicationDocument $document)
+    {
+        abort_if($document->assessment_application_id !== $application->id, 403);
+        abort_if(!Storage::disk('private')->exists($document->file_path), 404);
+
+        $headers = ['Content-Disposition' => 'inline; filename="' . $document->original_filename . '"'];
+        if ($document->mime_type) {
+            $headers['Content-Type'] = $document->mime_type;
+        }
+
+        return response()->file(Storage::disk('private')->path($document->file_path), $headers);
+    }
+
     public function serveSignature(AssessmentApplication $application, string $type)
     {
         $path = match ($type) {

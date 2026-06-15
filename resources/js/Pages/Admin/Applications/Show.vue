@@ -11,8 +11,8 @@
             </div>
             <div class="d-flex gap-2 align-items-center">
                 <span :class="statusBadge(application.status)" class="badge fs-6">{{ statusLabel(application.status) }}</span>
-                <Link href="/admin/applications" class="btn btn-sm btn-light border">
-                    <i class="fa fa-arrow-left me-1"></i> Kembali
+                <Link href="/admin/applications" class="btn btn-md btn-primary border-0 shadow" type="button">
+                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
                 </Link>
             </div>
         </div>
@@ -107,7 +107,8 @@
                                     <span v-else :class="docBadge(getDoc(req.id).status)" class="badge">{{ docLabel(getDoc(req.id).status) }}</span>
                                 </td>
                                 <td class="align-middle">
-                                    <a v-if="getDoc(req.id)" :href="`/admin/applications/${application.id}/documents/${getDoc(req.id).id}/download`" target="_blank" class="btn btn-sm btn-light border">
+                                    <a v-if="getDoc(req.id)" :href="`/admin/applications/${application.id}/documents/${getDoc(req.id).id}/preview`"
+                                        target="_blank" rel="noopener" class="btn btn-sm btn-light border" title="Pratinjau dokumen">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                 </td>

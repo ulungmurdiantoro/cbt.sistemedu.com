@@ -8,8 +8,8 @@
                     <h5 class="fw-bold mb-0">Komposisi Nilai</h5>
                     <p class="text-muted small mb-0">Skema: <strong>{{ classroom.title }}</strong></p>
                 </div>
-                <Link href="/admin/classrooms" class="btn btn-sm btn-light border">
-                    <i class="fa fa-arrow-left me-1"></i> Kembali
+                <Link href="/admin/classrooms" class="btn btn-md btn-primary border-0 shadow" type="button">
+                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
                 </Link>
             </div>
         </div>
