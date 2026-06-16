@@ -5,18 +5,26 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class GradesEssayMigasExport implements FromCollection, WithMapping, WithHeadings
+class GradesEssayMigasExport implements FromCollection, WithMapping, WithHeadings, WithTitle
 {
     protected $grades;
     protected string $baseUrl;
+    protected string $title;
 
-    public function __construct($grades)
+    public function __construct($grades, string $title = 'Esai Migas')
     {
         $this->grades = $grades;
+        $this->title = $title;
 
         // base URL download file
         $this->baseUrl = 'https://lsp-cbt.sistemedu.com/storage/';
+    }
+
+    public function title(): string
+    {
+        return $this->title;
     }
 
     public function collection()

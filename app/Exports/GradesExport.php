@@ -5,13 +5,21 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class GradesExport implements FromCollection, WithMapping, WithHeadings
-{   
+class GradesExport implements FromCollection, WithMapping, WithHeadings, WithTitle
+{
     protected $grades;
+    protected string $title;
 
-    public function __construct($grades) {
+    public function __construct($grades, string $title = 'Pilihan Ganda') {
         $this->grades = $grades;
+        $this->title = $title;
+    }
+
+    public function title(): string
+    {
+        return $this->title;
     }
 
     public function collection()

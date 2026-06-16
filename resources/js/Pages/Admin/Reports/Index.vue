@@ -61,28 +61,26 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0">Ujian</th>
-                                        <th class="border-0">Sesi</th>
                                         <th class="border-0">Nama Peserta</th>
                                         <th class="border-0">Skema</th>
-                                        <th class="border-0">Tipe Ujian</th>
-                                        <th class="border-0">Nilai</th>
-                                        <th class="border-0 rounded-end">Aksi</th>
+                                        <th class="border-0">Sesi</th>
+                                        <th class="border-0 rounded-end">Hasil Ujian</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(grade, index) in grades" :key="grade.id">
+                                    <tr v-for="(row, index) in groupedGrades" :key="row.key">
                                         <td class="fw-bold text-center">{{ index + 1 }}</td>
-                                        <td>{{ grade.exam.title }}</td>
-                                        <td>{{ grade.exam_session.title }}</td>
-                                        <td>{{ grade.student.name }}</td>
-                                        <td class="text-center"><StatusBadge tone="accent" :label="grade.exam.classroom?.title" /></td>
-                                        <td><StatusBadge :tone="tipeTone(grade.exam.type)" :label="grade.exam.type" /></td>
-                                        <td class="fw-bold text-center num">{{ fmt(grade.grade) }}</td>
-                                        <td class="text-center">
-                                            <Link :href="`/admin/reports/${grade.id}`" class="btn btn-sm btn-primary border-0 shadow me-2">
-                                                <i class="fa fa-plus-circle"></i>
-                                            </Link>
+                                        <td>{{ row.student?.name }}</td>
+                                        <td class="text-center"><StatusBadge tone="accent" :label="row.classroom?.title" /></td>
+                                        <td>{{ row.session?.title }}</td>
+                                        <td>
+                                            <div v-for="g in row.items" :key="g.id" class="d-flex align-items-center gap-2 mb-1">
+                                                <StatusBadge :tone="tipeTone(g.exam.type)" :label="g.exam.type" class="flex-shrink-0" />
+                                                <span class="fw-bold num">{{ fmt(g.grade) }}</span>
+                                                <Link :href="`/admin/reports/${g.id}`" class="btn btn-sm btn-primary border-0 shadow ms-auto" title="Detail jawaban">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                </Link>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -122,6 +120,26 @@ export default {
         },
     },
     setup(props) {
+        // Kelompokkan grade per peserta agar nama tidak tampil berulang.
+        // Satu sesi bisa berisi ujian PG + Esai → satu peserta punya beberapa grade.
+        const groupedGrades = computed(() => {
+            const map = new Map();
+            for (const g of props.grades) {
+                const sid = g.student?.id ?? g.student_id;
+                if (!map.has(sid)) {
+                    map.set(sid, {
+                        key: sid,
+                        student: g.student,
+                        session: g.exam_session,
+                        classroom: g.exam?.classroom,
+                        items: [],
+                    });
+                }
+                map.get(sid).items.push(g);
+            }
+            return [...map.values()];
+        });
+
         const sortedExamSessions = computed(() => {
             return [...props.exam_sessions].sort((a, b) => {
                 // jika created_at tersedia, urutkan berdasarkan created_at terbaru
@@ -182,6 +200,7 @@ export default {
             sessionLabel,
             fmt,
             tipeTone,
+            groupedGrades,
         };
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Mpdf\Mpdf;
-use Carbon\Carbon;
 use App\Models\Grade;
 use App\Models\Answer;
 use App\Models\AnswerEssay;
@@ -14,6 +13,7 @@ use Illuminate\Support\Str;
 use App\Exports\GradesExport;
 use App\Exports\GradesEssayExport;
 use App\Exports\GradesEssayMigasExport;
+use App\Exports\GradesSessionExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -85,13 +85,10 @@ class ReportController extends Controller
             ->sortBy(fn($g) => $g->student->no_participant)
             ->values();
 
-        $exam = $exam_session->referenceExam;
+        // Sesi bisa berisi PG + Esai sekaligus → ekspor multi-sheet (satu sheet per jenis ujian)
+        $filename = 'nilai_' . Str::slug($exam_session->title) . '_' . now()->format('Ymd_His') . '.xlsx';
 
-        return match ($exam->type) {
-            'Essay'       => Excel::download(new GradesEssayExport($grades), 'essay_grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx'),
-            'Essay Migas' => Excel::download(new GradesEssayMigasExport($grades), 'essay_migas_grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx'),
-            default       => Excel::download(new GradesExport($grades), 'grades_' . $exam->title . ' — ' . Carbon::now() . '.xlsx'),
-        };
+        return Excel::download(new GradesSessionExport($exam_session, $grades), $filename);
     }
 
     /**
@@ -116,13 +113,17 @@ class ReportController extends Controller
         $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->findOrFail($request->exam_session_id);
 
+        // PDF laporan menampilkan jawaban esai → gunakan ujian esai bila ada.
+        // (referenceExam mengutamakan PG sehingga membuat laporan esai kosong.)
+        $exam = $exam_session->examEsai ?? $exam_session->referenceExam;
+
+        // Hanya ambil grade milik ujian yang dilaporkan → tidak ada baris ganda per peserta.
         $grades = Grade::with(['student', 'exam.classroom', 'exam_session'])
             ->where('exam_session_id', $request->exam_session_id)
+            ->where('exam_id', $exam->id)
             ->get()
             ->sortBy(fn($g) => $g->student->no_participant)
             ->values();
-
-        $exam = $exam_session->referenceExam;
 
         // Muat relasi soal & jawaban sekali, bukan per-baris (hindari N+1)
         $examQuestions   = $exam->questions()->get();
@@ -130,7 +131,8 @@ class ReportController extends Controller
         $allAnswers      = Answer::where('exam_id', $exam->id)
             ->where('exam_session_id', $request->exam_session_id)
             ->get()->groupBy('student_id');
-        $allEssayAnswers = AnswerEssay::where('exam_id', $exam->id)
+        $allEssayAnswers = AnswerEssay::with('essay')
+            ->where('exam_id', $exam->id)
             ->where('exam_session_id', $request->exam_session_id)
             ->get()->groupBy('student_id');
 
