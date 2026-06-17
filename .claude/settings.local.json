@@ -65,7 +65,8 @@
       "PowerShell(php -l database/seeders/CompetencyUnitsSeeder.php)",
       "PowerShell(php -l database/migrations/2026_06_08_000001_add_kode_unit_asli_to_classroom_competency_units_table.php)",
       "PowerShell(php -l app/Models/ClassroomCompetencyUnit.php)",
-      "Bash(grep -n \"\\\\.nav-link[ ,{]\" public/assets/css/volt.css)"
+      "Bash(grep -n \"\\\\.nav-link[ ,{]\" public/assets/css/volt.css)",
+      "Bash(php -l app/Mail/DocumentRejectedMail.php)"
     ],
     "additionalDirectories": [
       "c:\\Users\\umurd\\Downloads\\cbt.sistemedu.com\\storage\\app\\documents\\sertifikat",

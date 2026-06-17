@@ -13,6 +13,7 @@ use App\Models\StudentReissueLog;
 use Illuminate\Http\Request;
 use App\Mail\ApplicationApprovedMail;
 use App\Mail\ApplicationRejectedMail;
+use App\Mail\DocumentRejectedMail;
 use App\Models\ApplicationDocument;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -259,6 +260,17 @@ class ApplicationController extends Controller
             'status'         => $request->status,
             'reviewer_notes' => $request->reviewer_notes,
         ]);
+
+        // Notifikasi email hanya saat dokumen DITOLAK. Verifikasi (verified) tidak perlu notifikasi.
+        if ($request->status === 'rejected') {
+            try {
+                $application->loadMissing('participant', 'classroom');
+                $doc->loadMissing('requirement');
+                Mail::to($application->participant->email)->send(new DocumentRejectedMail($application, $doc));
+            } catch (\Exception) {
+                // email gagal, tidak menghentikan alur
+            }
+        }
 
         return back()->with('success', 'Status dokumen diperbarui.');
     }
