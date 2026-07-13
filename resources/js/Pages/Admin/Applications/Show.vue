@@ -115,11 +115,15 @@
                                         </a>
                                     </td>
                                     <td class="align-middle">
-                                        <div v-if="getDoc(req.id) && application.status === 'submitted'" class="d-flex gap-1">
-                                            <button class="btn btn-xs btn-success btn-sm"
-                                                @click="verifyDoc(getDoc(req.id).id, 'verified', '')">✓ OK</button>
-                                            <button class="btn btn-xs btn-danger btn-sm"
-                                                @click="openRejectDoc(getDoc(req.id).id)">✗ Tolak</button>
+                                        <div v-if="getDoc(req.id) && application.status === 'submitted'" class="d-flex gap-1 flex-wrap">
+                                            <button class="btn btn-sm btn-success"
+                                                @click="verifyDoc(getDoc(req.id).id, 'verified', '')">
+                                                <i class="fa fa-check me-1"></i>Terima
+                                            </button>
+                                            <button class="btn btn-sm btn-danger"
+                                                @click="openRejectDoc(getDoc(req.id).id)">
+                                                <i class="fa fa-times me-1"></i>Tolak
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
