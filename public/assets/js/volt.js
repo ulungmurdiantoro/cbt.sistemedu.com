@@ -1097,7 +1097,7 @@ d.addEventListener("DOMContentLoaded", function (event) {
     */
 
     var config = {
-        mapboxToken: 'pk.eyJ1Ijoiem9sdGFudGhlbWVzYmVyZyIsImEiOiJjazZqaWUwcWswYTBvM21td2Jmcm5mYmdyIn0.7_5YCbbOFRnvqZzCNDo9fw',
+        mapboxToken: '', // fitur peta tidak dipakai di aplikasi ini — isi token Anda sendiri bila diaktifkan
         mapboxId: 'mapbox/light-v10'
     };
 
@@ -1256,7 +1256,7 @@ d.addEventListener("DOMContentLoaded", function (event) {
         }
 
         var sidebarToggle = d.getElementById('sidebar-toggle');
-        sidebarToggle.addEventListener('click', function () {
+        if (sidebarToggle) sidebarToggle.addEventListener('click', function () {
             if (sidebar.classList.contains('contracted')) {
                 sidebar.classList.remove('contracted');
                 localStorage.removeItem('sidebar', 'contracted');

@@ -3,7 +3,7 @@
         <span v-if="hasMeta" class="text-muted small">
             Menampilkan {{ from || 0 }}–{{ to || 0 }} dari {{ total }} {{ entity }}
         </span>
-        <nav>
+        <nav class="pagination-scroll">
             <ul :class="`pagination pagination-sm justify-content-${align} mb-0 ${hasMeta ? '' : 'mt-4'}`">
                 <li :class="[
                         'page-item',
@@ -66,6 +66,19 @@
     }
 </script>
 
-<style>
+<style scoped>
+/* Cegah daftar nomor halaman terpotong di layar sempit — biarkan
+   digeser horizontal alih-alih meluber keluar kartu. */
+.pagination-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
+@media (max-width: 575.98px) {
+    .pagination-scroll :deep(.pagination) {
+        justify-content: flex-start !important;
+        padding-bottom: 2px;
+    }
+}
 </style>
