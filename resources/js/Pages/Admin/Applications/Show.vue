@@ -33,13 +33,14 @@
             <div class="card border-0 shadow mb-4">
                 <div class="card-header bg-gray-800 text-white fw-semibold">Data Sertifikasi</div>
                 <div class="card-body">
-                    <table class="table table-sm mb-0">
-                        <tr><td class="text-muted" style="width:200px">Skema</td><td>{{ application.classroom?.title }}</td></tr>
-                        <tr><td class="text-muted">Sesi Ujian</td><td>{{ application.exam_session?.title }}</td></tr>
-                        <tr><td class="text-muted">Konteks Asesmen</td><td>{{ application.konteks_asesmen }}</td></tr>
-                        <tr><td class="text-muted">Tempat Ujian</td><td>{{ application.tempat_ujian }}</td></tr>
-                        <tr><td class="text-muted">Kode Batch</td><td>{{ application.kode_batch }}</td></tr>
-                        <tr><td class="text-muted">Tujuan Asesmen</td><td>{{ application.tujuan_asesmen }}</td></tr>
+                    <table class="table table-sm mb-0 detail-table" style="table-layout:fixed;width:100%">
+                        <colgroup><col style="width:200px"><col></colgroup>
+                        <tr><td class="text-muted">Skema</td><td class="text-break">{{ application.classroom?.title }}</td></tr>
+                        <tr><td class="text-muted">Sesi Ujian</td><td class="text-break">{{ application.exam_session?.title }}</td></tr>
+                        <tr><td class="text-muted">Konteks Asesmen</td><td class="text-break">{{ application.konteks_asesmen }}</td></tr>
+                        <tr><td class="text-muted">Tempat Ujian</td><td class="text-break">{{ application.tempat_ujian }}</td></tr>
+                        <tr><td class="text-muted">Kode Batch</td><td class="text-break">{{ application.kode_batch }}</td></tr>
+                        <tr><td class="text-muted">Tujuan Asesmen</td><td class="text-break">{{ application.tujuan_asesmen }}</td></tr>
                     </table>
                 </div>
             </div>
@@ -48,7 +49,7 @@
             <div class="card border-0 shadow mb-4">
                 <div class="card-header bg-gray-800 text-white fw-semibold">Data Pribadi (FR.APL.01 Bag. 1a)</div>
                 <div class="card-body">
-                    <table class="table table-sm mb-0" style="table-layout:fixed;width:100%">
+                    <table class="table table-sm mb-0 detail-table" style="table-layout:fixed;width:100%">
                         <colgroup><col style="width:200px"><col></colgroup>
                         <tr v-for="(val, key) in pribadi" :key="key">
                             <td class="text-muted">{{ fieldLabel(key) }}</td>
@@ -62,7 +63,7 @@
             <div class="card border-0 shadow mb-4">
                 <div class="card-header bg-gray-800 text-white fw-semibold">Data Pekerjaan (FR.APL.01 Bag. 1b)</div>
                 <div class="card-body">
-                    <table class="table table-sm mb-0" style="table-layout:fixed;width:100%">
+                    <table class="table table-sm mb-0 detail-table" style="table-layout:fixed;width:100%">
                         <colgroup><col style="width:200px"><col></colgroup>
                         <tr v-for="(val, key) in pekerjaan" :key="key">
                             <td class="text-muted">{{ fieldLabel(key) }}</td>
@@ -87,42 +88,44 @@
             <div class="card border-0 shadow mb-4">
                 <div class="card-header bg-gray-800 text-white fw-semibold">Bukti Kelengkapan (Bag. 3)</div>
                 <div class="card-body p-0">
-                    <table class="table table-hover mb-0">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th>Dokumen</th>
-                                <th style="width:120px">Status</th>
-                                <th style="width:80px">File</th>
-                                <th style="width:200px">Aksi Verifikasi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="req in application.classroom?.document_requirements" :key="req.id">
-                                <td class="align-middle">
-                                    <div class="fw-semibold small">{{ req.label }} <span v-if="req.is_required" class="text-danger">*</span></div>
-                                    <div v-if="getDoc(req.id)?.reviewer_notes" class="text-danger small">{{ getDoc(req.id).reviewer_notes }}</div>
-                                </td>
-                                <td class="align-middle">
-                                    <span v-if="!getDoc(req.id)" class="badge bg-secondary">Belum Upload</span>
-                                    <span v-else :class="docBadge(getDoc(req.id).status)" class="badge">{{ docLabel(getDoc(req.id).status) }}</span>
-                                </td>
-                                <td class="align-middle">
-                                    <a v-if="getDoc(req.id)" :href="`/admin/applications/${application.id}/documents/${getDoc(req.id).id}/preview`"
-                                        target="_blank" rel="noopener" class="btn btn-sm btn-light border" title="Pratinjau dokumen">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </td>
-                                <td class="align-middle">
-                                    <div v-if="getDoc(req.id) && application.status === 'submitted'" class="d-flex gap-1">
-                                        <button class="btn btn-xs btn-success btn-sm"
-                                            @click="verifyDoc(getDoc(req.id).id, 'verified', '')">✓ OK</button>
-                                        <button class="btn btn-xs btn-danger btn-sm"
-                                            @click="openRejectDoc(getDoc(req.id).id)">✗ Tolak</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th style="min-width:180px">Dokumen</th>
+                                    <th style="width:120px">Status</th>
+                                    <th style="width:80px">File</th>
+                                    <th style="width:200px">Aksi Verifikasi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="req in application.classroom?.document_requirements" :key="req.id">
+                                    <td class="align-middle">
+                                        <div class="fw-semibold small">{{ req.label }} <span v-if="req.is_required" class="text-danger">*</span></div>
+                                        <div v-if="getDoc(req.id)?.reviewer_notes" class="text-danger small">{{ getDoc(req.id).reviewer_notes }}</div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span v-if="!getDoc(req.id)" class="badge bg-secondary">Belum Upload</span>
+                                        <span v-else :class="docBadge(getDoc(req.id).status)" class="badge">{{ docLabel(getDoc(req.id).status) }}</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a v-if="getDoc(req.id)" :href="`/admin/applications/${application.id}/documents/${getDoc(req.id).id}/preview`"
+                                            target="_blank" rel="noopener" class="btn btn-sm btn-light border" title="Pratinjau dokumen">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div v-if="getDoc(req.id) && application.status === 'submitted'" class="d-flex gap-1">
+                                            <button class="btn btn-xs btn-success btn-sm"
+                                                @click="verifyDoc(getDoc(req.id).id, 'verified', '')">✓ OK</button>
+                                            <button class="btn btn-xs btn-danger btn-sm"
+                                                @click="openRejectDoc(getDoc(req.id).id)">✗ Tolak</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -521,3 +524,40 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+/* Tema Volt memaksa white-space:nowrap pada semua td/th ".table" secara
+   global — itu membuat nilai teks panjang (nama skema, alamat, dst.)
+   meluber keluar kartu alih-alih membungkus. Kembalikan wrap di sini. */
+.card-body table td {
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* Tabel label/nilai (kolom label tetap 200px) terlalu sempit untuk nilai
+   di layar kecil — di bawah 576px, tumpuk label di atas nilai alih-alih
+   memecah kata di tengah. */
+@media (max-width: 575.98px) {
+    .detail-table,
+    .detail-table tbody,
+    .detail-table tr,
+    .detail-table td {
+        display: block;
+        width: 100% !important;
+    }
+    .detail-table tr {
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid #E5E7EB;
+    }
+    .detail-table tr:last-child {
+        border-bottom: 0;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .detail-table td:first-child {
+        font-weight: 600;
+        padding-bottom: 2px;
+    }
+}
+</style>
