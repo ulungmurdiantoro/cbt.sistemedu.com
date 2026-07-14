@@ -19,7 +19,7 @@ class ClassroomController extends Controller
         //get classrooms
         $classrooms = Classroom::when(request()->q, function($classrooms) {
             $classrooms = $classrooms->where('title', 'like', '%'. request()->q . '%');
-        })->latest()->paginate(10);
+        })->orderByRaw("CAST(SUBSTRING_INDEX(kode_skema, '-', -1) AS UNSIGNED)")->paginate(10);
 
         //append query string to pagination links
         $classrooms->appends(['q' => request()->q]);
