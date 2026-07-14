@@ -3,6 +3,7 @@
         <title>Permohonan Sertifikasi - Admin</title>
     </Head>
 
+    <div class="container-fluid mb-5 mt-5">
     <div class="row mb-3">
         <div class="col-md-12 d-flex justify-content-between align-items-center">
             <h5 class="fw-bold mb-0">Permohonan Sertifikasi</h5>
@@ -93,6 +94,7 @@
 
     <!-- Pagination -->
     <Pagination :links="applications.links" align="end" :total="applications.total" :from="applications.from" :to="applications.to" entity="permohonan" />
+    </div>
 </template>
 
 <script>
