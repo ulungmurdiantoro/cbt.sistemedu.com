@@ -92,29 +92,19 @@
     </div>
 
     <!-- Pagination -->
-    <div class="d-flex justify-content-center mt-3" v-if="applications.last_page > 1">
-        <nav>
-            <ul class="pagination pagination-sm">
-                <li class="page-item" v-for="link in applications.links" :key="link.label"
-                    :class="{ active: link.active, disabled: !link.url }">
-                    <a v-if="link.url" class="page-link" :href="link.url"
-                        @click.prevent="router.visit(link.url)" v-html="link.label"></a>
-                    <span v-else class="page-link" v-html="link.label"></span>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <Pagination :links="applications.links" align="end" :total="applications.total" :from="applications.from" :to="applications.to" entity="permohonan" />
 </template>
 
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
+import Pagination from '../../../Components/Pagination.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { reactive } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge },
+    components: { Head, Link, StatusBadge, Pagination },
     props: {
         applications: Object,
         filters:      Object,

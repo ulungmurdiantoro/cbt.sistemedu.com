@@ -31,6 +31,7 @@ class ApplicationController extends Controller
                 $sub->where('name', 'like', '%' . $request->q . '%')
                     ->orWhere('email', 'like', '%' . $request->q . '%');
             }))
+            ->orderByRaw("status = 'submitted' DESC")
             ->latest()
             ->paginate(15)
             ->withQueryString();
