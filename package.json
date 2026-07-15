@@ -13,6 +13,7 @@
     "dependencies": {
         "@chenfengyuan/vue-countdown": "^2.0.0",
         "@inertiajs/vue3": "^1.0.15",
+        "@sentry/vue": "^10.65.0",
         "@tinymce/tinymce-vue": "^6.1.0",
         "@vitejs/plugin-vue": "^5.0.4",
         "@vuepic/vue-datepicker": "^3.2.2",

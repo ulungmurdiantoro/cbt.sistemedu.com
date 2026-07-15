@@ -11,7 +11,8 @@
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
-        "mpdf/mpdf": "^8.2"
+        "mpdf/mpdf": "^8.2",
+        "sentry/sentry-laravel": "^4.26"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",

@@ -2,6 +2,7 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
+import * as Sentry from '@sentry/vue'
 
 createInertiaApp({
     resolve: name => {
@@ -9,7 +10,18 @@ createInertiaApp({
         return pages[`./Pages/${name}.vue`]
     },
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
+        const app = createApp({ render: () => h(App, props) })
+
+        // Error reporting (Sentry) — no-op kalau VITE_SENTRY_DSN kosong
+        if (import.meta.env.VITE_SENTRY_DSN) {
+            Sentry.init({
+                app,
+                dsn: import.meta.env.VITE_SENTRY_DSN,
+                environment: import.meta.env.MODE,
+            });
+        }
+
+        app
         // Set mixins
         .mixin({
             methods: {
