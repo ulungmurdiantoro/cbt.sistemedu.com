@@ -16,7 +16,7 @@
                     <h5>{{ data.exam_group.exam.title }}</h5>
                     <hr>
                     <div class="table-responsive">
-                        <table class="table table-centered table-nowrap mb-0 rounded">
+                        <table class="table table-centered table-nowrap mb-0 rounded table-wrap">
                             <thead>
                                 <tr>
                                     <td class="fw-bold">Tipe Ujian</td>

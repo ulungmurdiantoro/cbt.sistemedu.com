@@ -46,7 +46,7 @@
                     </div>
                     <p class="text-muted small mb-2">{{ app.exam_session?.title }}</p>
 
-                    <table class="table table-sm mb-3">
+                    <table class="table table-sm mb-3 table-wrap">
                         <tr>
                             <td class="text-muted small" style="width:45%">Konteks Asesmen</td>
                             <td class="small">{{ app.konteks_asesmen }}</td>

@@ -138,3 +138,44 @@
 .btn[class*="btn-outline-"]:hover i {
     color: inherit !important;
 }
+
+/* =====================================================================
+   Wrapping teks di dalam tabel (override tema Volt)
+   ---------------------------------------------------------------------
+   Tema Volt memaksa white-space:nowrap pada semua td/th ".table" secara
+   global — itu membuat teks panjang (judul sesi, nama skema, soal, dst.)
+   meluber keluar kartu/kolom alih-alih membungkus ke baris baru.
+   Tempel class "table-wrap" pada tabel yang isinya teks bebas panjang.
+   ===================================================================== */
+.table-wrap td,
+.table-wrap th {
+    white-space: normal !important;
+    word-break: break-word;
+}
+
+/* Tabel label/nilai (kolom label sempit) — tambahkan juga class
+   "detail-table" supaya di layar <576px, label ditumpuk di atas nilai
+   alih-alih dipaksa masuk kolom sempit yang memecah kata di tengah. */
+@media (max-width: 575.98px) {
+    .table-wrap.detail-table,
+    .table-wrap.detail-table tbody,
+    .table-wrap.detail-table tr,
+    .table-wrap.detail-table td {
+        display: block;
+        width: 100% !important;
+    }
+    .table-wrap.detail-table tr {
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid #E5E7EB;
+    }
+    .table-wrap.detail-table tr:last-child {
+        border-bottom: 0;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .table-wrap.detail-table td:first-child {
+        font-weight: 600;
+        padding-bottom: 2px;
+    }
+}

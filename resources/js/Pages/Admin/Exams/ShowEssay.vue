@@ -13,7 +13,7 @@
                         <h5> <i class="fa fa-edit"></i> Detail Ujian</h5>
                         <hr>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
                                 <tbody>
                                     <tr>
                                         <td style="width:30%" class="fw-bold">Nama Ujian</td>
@@ -58,7 +58,7 @@
                         </p>
                         
                         <div class="table-responsive mt-3">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>

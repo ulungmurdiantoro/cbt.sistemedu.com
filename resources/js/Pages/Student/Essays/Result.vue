@@ -9,7 +9,7 @@
                     <h5> <i class="fa fa-check-circle"></i> Ujian Selesai</h5>
                     <hr>
                     <div class="table-responsive">
-                        <table class="table table-centered table-nowrap mb-0 rounded">
+                        <table class="table table-centered table-nowrap mb-0 rounded table-wrap">
                             <thead>
                                 <tr>
                                     <td class="fw-bold">No. Peserta</td>

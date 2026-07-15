@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <h5><i class="fa fa-user-tie me-2"></i>Penugasan Asesor — {{ exam_session.title }}</h5>
                         <hr>
-                        <table class="table table-bordered mb-0" style="max-width:500px">
+                        <table class="table table-bordered mb-0 table-wrap" style="max-width:500px">
                             <tbody>
                                 <tr>
                                     <td class="fw-bold" style="width:35%">Sesi</td>

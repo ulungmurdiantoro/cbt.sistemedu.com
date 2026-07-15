@@ -15,7 +15,7 @@
                         <h5> <i class="fa fa-edit"></i> Detail Ujian Peserta</h5>
                         <hr>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
                                 <tbody>
                                     <tr>
                                         <td class="fw-bold">Nama Peserta</td>
@@ -67,7 +67,7 @@
                                     <h5> <i class="fa fa-question-circle"></i> Detail Jawaban Peserta</h5>
                                     <hr>
                                     <div class="table-responsive mt-3 mb-4">
-                                        <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                        <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
                                             <thead class="thead-dark">
                                                 <tr class="border-0">
                                                     <th class="border-0 rounded-start" style="width:5%">No.</th>
@@ -105,7 +105,7 @@
                                 <div class="card border-0 shadow">
                                     <div class="card-body">
                                         <div class="table-responsive mt-3 mb-4">
-                                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
                                                 <thead class="thead-dark">
                                                     <tr class="border-0">
                                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
@@ -148,7 +148,7 @@
                                     <h5> <i class="fa fa-question-circle"></i> Detail Jawaban Peserta</h5>
                                     <hr>
                                     <div class="table-responsive mt-3 mb-4">
-                                        <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                        <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
                                             <thead class="thead-dark">
                                                 <tr class="border-0">
                                                     <th class="border-0 rounded-start" style="width:5%">No.</th>
@@ -182,7 +182,7 @@
                                 <div class="card border-0 shadow">
                                     <div class="card-body">
                                         <div class="table-responsive mt-3 mb-4">
-                                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
                                                 <thead class="thead-dark">
                                                     <tr class="border-0">
                                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
@@ -237,7 +237,7 @@
                                     <h5> <i class="fa fa-question-circle"></i> Detail Jawaban Peserta</h5>
                                     <hr>
                                     <div class="table-responsive mt-3 mb-4">
-                                        <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                        <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
                                             <thead class="thead-dark">
                                                 <tr class="border-0">
                                                     <th class="border-0 rounded-start" style="width:5%">No.</th>
@@ -271,7 +271,7 @@
                                 <div class="card border-0 shadow">
                                     <div class="card-body">
                                         <div class="table-responsive mt-3 mb-4">
-                                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
                                                 <thead class="thead-dark">
                                                     <tr class="border-0">
                                                         <th class="border-0 rounded-start" style="width:5%">No.</th>

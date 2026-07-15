@@ -16,7 +16,7 @@
                         <h5><i class="fa fa-stopwatch"></i> Detail Sesi Ujian</h5>
                         <hr>
                         <div class="table-responsive">
-                            <table class="table table-bordered mb-0 rounded">
+                            <table class="table table-bordered mb-0 rounded table-wrap">
                                 <tbody>
                                     <tr>
                                         <td style="width:30%" class="fw-bold">Nama Sesi</td>

@@ -62,7 +62,7 @@
                     </p>
 
                     <!-- Info sesi (otomatis dari sesi yang dipilih, read-only) -->
-                    <table class="table table-sm mb-4">
+                    <table class="table table-sm mb-4 table-wrap">
                         <tr>
                             <td class="text-muted small">Waktu</td>
                             <td class="small">

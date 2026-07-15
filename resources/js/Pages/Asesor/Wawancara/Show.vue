@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <h5><i class="fa fa-comments me-2"></i>Penilaian Wawancara</h5>
                         <hr>
-                        <table class="table table-bordered mb-0" style="max-width:500px">
+                        <table class="table table-bordered mb-0 table-wrap" style="max-width:500px">
                             <tbody>
                                 <tr>
                                     <td class="fw-bold" style="width:40%">Sesi</td>

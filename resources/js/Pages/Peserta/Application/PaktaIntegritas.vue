@@ -39,7 +39,7 @@
             <hr class="my-3">
 
             <!-- Info skema & sesi -->
-            <table class="table table-borderless table-sm mb-3" style="font-size:0.88rem">
+            <table class="table table-borderless table-sm mb-3 table-wrap" style="font-size:0.88rem">
                 <tr>
                     <td style="width:180px" class="fw-semibold align-top">Skema Sertifikasi</td>
                     <td style="width:10px" class="align-top">:</td>
@@ -68,7 +68,7 @@
             <!-- Bukti yang dikumpulkan -->
             <div class="mb-3">
                 <div class="fw-semibold mb-1">Bukti yang akan dikumpulkan :</div>
-                <table class="table table-borderless table-sm mb-0" style="font-size:0.85rem">
+                <table class="table table-borderless table-sm mb-0 table-wrap" style="font-size:0.85rem">
                     <tr><td style="width:30px">☐</td><td><strong>TL</strong> : Verifikasi Portofolio</td></tr>
                     <tr><td>☐</td><td><strong>L</strong> &nbsp;: Observasi Langsung</td></tr>
                     <tr><td>☐</td><td><strong>T</strong> &nbsp;: Hasil Tes Tulis</td></tr>
@@ -79,7 +79,7 @@
             <!-- Pelaksanaan asesmen -->
             <div class="mb-4">
                 <div class="fw-semibold mb-1">Pelaksanaan asesmen disepakati pada :</div>
-                <table class="table table-borderless table-sm mb-0" style="font-size:0.85rem">
+                <table class="table table-borderless table-sm mb-0 table-wrap" style="font-size:0.85rem">
                     <tr>
                         <td style="width:140px">Hari / Tanggal</td>
                         <td style="width:10px">:</td>

@@ -3,6 +3,7 @@
         <title>Detail Permohonan - {{ application.participant?.name }}</title>
     </Head>
 
+    <div class="container-fluid mb-5 mt-5">
     <div class="row mb-3">
         <div class="col-md-12 d-flex justify-content-between align-items-center">
             <div>
@@ -288,6 +289,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Modal re-issue akun ujian -->
