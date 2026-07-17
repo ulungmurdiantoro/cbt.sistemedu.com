@@ -16,7 +16,7 @@ class DashboardController extends Controller
             'classroom.documentRequirements',
             'examSession',
             'student',
-            'documents',
+            'documents.requirement',
         ])
             ->where('participant_id', $participant->id)
             ->latest()
@@ -25,6 +25,16 @@ class DashboardController extends Controller
         $applications->each(function ($app) {
             $app->setAttribute('docs_required', $app->classroom->documentRequirements->where('is_required', true)->count());
             $app->setAttribute('docs_uploaded', $app->documents->count());
+
+            $app->setAttribute('rejected_documents', $app->documents
+                ->where('status', 'rejected')
+                ->map(fn($doc) => [
+                    'id'             => $doc->id,
+                    'requirement_id' => $doc->classroom_document_requirement_id,
+                    'label'          => $doc->requirement?->label ?? 'Dokumen',
+                    'reviewer_notes' => $doc->reviewer_notes,
+                ])
+                ->values());
 
             if ($app->student && $app->exam_session_id) {
                 $result = ParticipantResult::where('exam_session_id', $app->exam_session_id)

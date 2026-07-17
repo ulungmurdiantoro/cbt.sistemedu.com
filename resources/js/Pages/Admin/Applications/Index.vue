@@ -79,6 +79,11 @@
                             <td class="small">{{ app.submitted_at ? formatDate(app.submitted_at) : '—' }}</td>
                             <td>
                                 <StatusBadge :tone="statusTone(app.status)" :label="statusLabel(app.status)" />
+                                <div v-if="app.rejected_documents_count > 0" class="mt-1">
+                                    <span class="badge bg-danger" style="font-size:0.68rem" title="Ada dokumen yang ditolak, permohonan belum ada keputusan akhir">
+                                        <i class="fa fa-exclamation-triangle me-1"></i>{{ app.rejected_documents_count }} dokumen ditolak
+                                    </span>
+                                </div>
                             </td>
                             <td class="text-center">
                                 <Link :href="`/admin/applications/${app.id}`" class="btn btn-sm btn-info">

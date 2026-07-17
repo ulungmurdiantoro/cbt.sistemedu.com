@@ -25,6 +25,7 @@ class ApplicationController extends Controller
     public function index(Request $request)
     {
         $applications = AssessmentApplication::with(['participant', 'classroom', 'examSession', 'student'])
+            ->withCount(['documents as rejected_documents_count' => fn($q) => $q->where('status', 'rejected')])
             ->when($request->status, fn($q) => $q->where('status', $request->status))
             ->when($request->classroom_id, fn($q) => $q->where('classroom_id', $request->classroom_id))
             ->when($request->q, fn($q) => $q->whereHas('participant', function ($sub) use ($request) {

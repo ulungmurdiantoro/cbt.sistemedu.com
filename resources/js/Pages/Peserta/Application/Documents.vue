@@ -90,6 +90,23 @@
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </div>
+                                <div v-else-if="application.status === 'submitted' && req.document?.status === 'rejected'" style="min-width:140px">
+                                    <label :for="`file-${req.id}`"
+                                        class="btn btn-sm btn-danger"
+                                        :class="{ disabled: uploading[req.id] }">
+                                        <span v-if="uploading[req.id]">
+                                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            Mengunggah...
+                                        </span>
+                                        <span v-else>
+                                            <i class="fa fa-upload me-1"></i> Upload Ulang
+                                        </span>
+                                    </label>
+                                    <input :id="`file-${req.id}`" type="file" class="d-none"
+                                        accept=".pdf,.jpg,.jpeg,.png"
+                                        :disabled="uploading[req.id]"
+                                        @change="uploadFile($event, req.id)">
+                                </div>
                                 <div v-else class="text-muted small">—</div>
                             </td>
                         </tr>

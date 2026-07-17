@@ -93,8 +93,23 @@
                         </Link>
                     </div>
 
-                    <div v-else-if="app.status === 'submitted'" class="text-muted small">
-                        <i class="fa fa-clock me-1"></i> Menunggu verifikasi admin
+                    <div v-else-if="app.status === 'submitted'">
+                        <div v-if="app.rejected_documents?.length" class="alert alert-danger p-2 small mb-2">
+                            <div class="fw-bold mb-1">
+                                <i class="fa fa-exclamation-circle me-1"></i>
+                                {{ app.rejected_documents.length }} dokumen perlu direvisi
+                            </div>
+                            <div v-for="doc in app.rejected_documents" :key="doc.id" class="mb-1">
+                                <strong>{{ doc.label }}</strong>
+                                <span v-if="doc.reviewer_notes"> — {{ doc.reviewer_notes }}</span>
+                            </div>
+                            <Link :href="`/peserta/aplikasi/${app.id}/dokumen`" class="btn btn-sm btn-danger mt-1">
+                                <i class="fa fa-upload me-1"></i> Lihat & Upload Ulang
+                            </Link>
+                        </div>
+                        <div v-else class="text-muted small">
+                            <i class="fa fa-clock me-1"></i> Menunggu verifikasi admin
+                        </div>
                     </div>
 
                     <div v-else-if="app.status === 'rejected'" class="d-flex flex-column gap-2">

@@ -47,7 +47,21 @@ class DocumentController extends Controller
     {
         $this->authorizeApplication($application);
 
-        abort_if(!$application->isDraft(), 403, 'Permohonan sudah disubmit, dokumen tidak dapat diubah.');
+        $requirement = ClassroomDocumentRequirement::where('id', $request->requirement_id)
+            ->where('classroom_id', $application->classroom_id)
+            ->firstOrFail();
+
+        $existing = ApplicationDocument::where('assessment_application_id', $application->id)
+            ->where('classroom_document_requirement_id', $requirement->id)
+            ->first();
+
+        // Boleh upload/ganti kalau permohonan masih draft, ATAU kalau permohonan
+        // sudah disubmit tapi dokumen spesifik ini ditolak admin (revisi mandiri
+        // tanpa perlu admin menolak seluruh permohonan).
+        $canUpload = $application->isDraft()
+            || ($application->isSubmitted() && $existing?->status === 'rejected');
+
+        abort_unless($canUpload, 403, 'Dokumen ini tidak dapat diubah saat ini.');
 
         // Validasi MIME aktual menggunakan finfo (cek magic bytes, bukan ekstensi)
         $file         = $request->file('file');
@@ -59,15 +73,7 @@ class DocumentController extends Controller
             return back()->withErrors(['file' => 'Format file tidak valid. Hanya PDF, JPG, dan PNG yang diperbolehkan.']);
         }
 
-        $requirement = ClassroomDocumentRequirement::where('id', $request->requirement_id)
-            ->where('classroom_id', $application->classroom_id)
-            ->firstOrFail();
-
         // hapus file lama jika ada
-        $existing = ApplicationDocument::where('assessment_application_id', $application->id)
-            ->where('classroom_document_requirement_id', $requirement->id)
-            ->first();
-
         if ($existing) {
             Storage::disk('private')->delete($existing->file_path);
             $existing->delete();
