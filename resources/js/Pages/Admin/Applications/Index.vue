@@ -19,10 +19,10 @@
     <div class="card border-0 shadow mb-4">
         <div class="card-body py-3">
             <form @submit.prevent="applyFilter" class="row g-2 align-items-end">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <input type="text" class="form-control form-control-sm" v-model="filterForm.q" placeholder="Cari nama / email peserta...">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <select class="form-select form-select-sm" v-model="filterForm.status">
                         <option value="">Semua Status</option>
                         <option value="draft">Draft</option>
@@ -31,9 +31,21 @@
                         <option value="rejected">Ditolak</option>
                     </select>
                 </div>
+                <div class="col-md-3">
+                    <select class="form-select form-select-sm" v-model="filterForm.classroom_id">
+                        <option value="">Semua Skema</option>
+                        <option v-for="c in classrooms" :key="c.id" :value="String(c.id)">{{ c.title }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control form-control-sm" v-model="filterForm.kode_batch" placeholder="Batch...">
+                </div>
                 <div class="col-md-auto">
                     <button type="submit" class="btn btn-sm btn-gray-800">Filter</button>
                     <button type="button" class="btn btn-sm btn-light border ms-1" @click="resetFilter">Reset</button>
+                    <a :href="exportUrl" class="btn btn-sm btn-success ms-1">
+                        <i class="fa fa-file-excel me-1"></i>Export Excel
+                    </a>
                 </div>
             </form>
         </div>
@@ -107,7 +119,7 @@ import LayoutAdmin from '../../../Layouts/Admin.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import Pagination from '../../../Components/Pagination.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 
 export default {
     layout: LayoutAdmin,
@@ -115,12 +127,15 @@ export default {
     props: {
         applications: Object,
         filters:      Object,
+        classrooms:   Array,
     },
 
     setup(props) {
         const filterForm = reactive({
-            q:      props.filters?.q ?? '',
-            status: props.filters?.status ?? '',
+            q:            props.filters?.q ?? '',
+            status:       props.filters?.status ?? '',
+            classroom_id: props.filters?.classroom_id ?? '',
+            kode_batch:   props.filters?.kode_batch ?? '',
         });
 
         const applyFilter = () => {
@@ -128,9 +143,18 @@ export default {
         };
 
         const resetFilter = () => {
-            filterForm.q = ''; filterForm.status = '';
+            filterForm.q = ''; filterForm.status = ''; filterForm.classroom_id = ''; filterForm.kode_batch = '';
             router.get('/admin/applications');
         };
+
+        const exportUrl = computed(() => {
+            const params = new URLSearchParams();
+            Object.entries(filterForm).forEach(([key, value]) => {
+                if (value) params.append(key, value);
+            });
+            const qs = params.toString();
+            return '/admin/applications/export' + (qs ? `?${qs}` : '');
+        });
 
         const formatDate = (dt) => new Date(dt).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' });
 
@@ -138,7 +162,7 @@ export default {
         // tone badge senada dengan Blueprint §4
         const statusTone = (s) => ({ draft:'neutral', submitted:'secondary', approved:'success', rejected:'danger' }[s] ?? 'neutral');
 
-        return { filterForm, applyFilter, resetFilter, formatDate, statusLabel, statusTone };
+        return { filterForm, applyFilter, resetFilter, exportUrl, formatDate, statusLabel, statusTone };
     },
 }
 </script>

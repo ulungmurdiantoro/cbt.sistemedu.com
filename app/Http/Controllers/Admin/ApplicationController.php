@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\ApplicationStatus;
+use App\Exports\ApplicationsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RejectApplicationRequest;
 use App\Http\Requests\VerifyDocumentRequest;
 use App\Models\AssessmentApplication;
+use App\Models\Classroom;
 use App\Models\ExamGroup;
 use App\Models\Student;
 use App\Models\StudentReissueLog;
@@ -19,19 +21,26 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ApplicationController extends Controller
 {
-    public function index(Request $request)
+    private function filteredQuery(Request $request)
     {
-        $applications = AssessmentApplication::with(['participant', 'classroom', 'examSession', 'student'])
-            ->withCount(['documents as rejected_documents_count' => fn($q) => $q->where('status', 'rejected')])
+        return AssessmentApplication::with(['participant', 'classroom', 'examSession', 'student'])
             ->when($request->status, fn($q) => $q->where('status', $request->status))
             ->when($request->classroom_id, fn($q) => $q->where('classroom_id', $request->classroom_id))
+            ->when($request->kode_batch, fn($q) => $q->where('kode_batch', $request->kode_batch))
             ->when($request->q, fn($q) => $q->whereHas('participant', function ($sub) use ($request) {
                 $sub->where('name', 'like', '%' . $request->q . '%')
                     ->orWhere('email', 'like', '%' . $request->q . '%');
-            }))
+            }));
+    }
+
+    public function index(Request $request)
+    {
+        $applications = $this->filteredQuery($request)
+            ->withCount(['documents as rejected_documents_count' => fn($q) => $q->where('status', 'rejected')])
             ->orderByRaw("status = 'submitted' DESC")
             ->latest()
             ->paginate(15)
@@ -39,8 +48,23 @@ class ApplicationController extends Controller
 
         return inertia('Admin/Applications/Index', [
             'applications' => $applications,
-            'filters'      => $request->only('status', 'classroom_id', 'q'),
+            'filters'      => $request->only('status', 'classroom_id', 'kode_batch', 'q'),
+            'classrooms'   => Classroom::orderBy('title')->get(['id', 'title']),
         ]);
+    }
+
+    public function export(Request $request)
+    {
+        $applications = $this->filteredQuery($request)->latest()->get();
+
+        $filenameParts = array_filter([
+            'permohonan',
+            $request->classroom_id ? Classroom::find($request->classroom_id)?->classrooms_code : null,
+            $request->kode_batch ? 'batch' . $request->kode_batch : null,
+            now()->format('Ymd_His'),
+        ]);
+
+        return Excel::download(new ApplicationsExport($applications), Str::slug(implode('_', $filenameParts)) . '.xlsx');
     }
 
     public function show(AssessmentApplication $application)
