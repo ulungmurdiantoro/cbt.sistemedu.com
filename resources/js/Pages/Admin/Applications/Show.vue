@@ -48,7 +48,12 @@
 
             <!-- Data pribadi (dari snapshot atau participant) -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-semibold">Data Pribadi (FR.APL.01 Bag. 1a)</div>
+                <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center">
+                    <span>Data Pribadi (FR.APL.01 Bag. 1a)</span>
+                    <button v-if="application.participant" class="btn btn-sm btn-warning" @click="openResetPasswordModal">
+                        <i class="fa fa-key me-1"></i>Ganti Password Peserta
+                    </button>
+                </div>
                 <div class="card-body">
                     <table class="table table-sm mb-0 detail-table" style="table-layout:fixed;width:100%">
                         <colgroup><col style="width:200px"><col></colgroup>
@@ -341,12 +346,46 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal ganti password peserta -->
+    <div v-if="showResetPasswordModal" class="modal d-block" style="background:rgba(0,0,0,.5)">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-0">
+                    <h6 class="modal-title fw-bold"><i class="fa fa-key text-warning me-2"></i>Ganti Password Peserta</h6>
+                    <button class="btn-close" @click="closeResetPasswordModal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="small text-muted mb-3">
+                        Untuk akun peserta: <strong>{{ application.participant?.name }}</strong>
+                        ({{ application.participant?.email }})
+                    </p>
+                    <div class="mb-2">
+                        <label class="fw-semibold small">Password Baru</label>
+                        <input type="password" class="form-control mt-1" v-model="resetPasswordForm.password" placeholder="Minimal 8 karakter">
+                        <div v-if="resetPasswordErrors.password" class="text-danger small mt-1">{{ resetPasswordErrors.password }}</div>
+                    </div>
+                    <div class="mb-2">
+                        <label class="fw-semibold small">Ulangi Password Baru</label>
+                        <input type="password" class="form-control mt-1" v-model="resetPasswordForm.password_confirmation" placeholder="Ulangi password baru">
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-warning" @click="submitResetPassword" :disabled="resetPasswordProcessing">
+                        <i class="fa fa-key me-1"></i>
+                        {{ resetPasswordProcessing ? 'Menyimpan...' : 'Ganti Password' }}
+                    </button>
+                    <button class="btn btn-light border" @click="closeResetPasswordModal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue';
+import { computed, reactive, ref, nextTick, onMounted, onUnmounted } from 'vue';
 import SignaturePad from 'signature_pad';
 
 export default {
@@ -362,6 +401,12 @@ export default {
         const reissueReason    = ref('');
         const rejectDocId     = ref(null);
         const rejectDocNotes  = ref('');
+
+        // Ganti password peserta
+        const showResetPasswordModal = ref(false);
+        const resetPasswordProcessing = ref(false);
+        const resetPasswordForm = reactive({ password: '', password_confirmation: '' });
+        const resetPasswordErrors = reactive({ password: null });
 
         // Admin TTD state
         const adminSigMode        = ref('draw');
@@ -517,6 +562,35 @@ export default {
             );
         };
 
+        const openResetPasswordModal = () => {
+            resetPasswordForm.password = '';
+            resetPasswordForm.password_confirmation = '';
+            resetPasswordErrors.password = null;
+            showResetPasswordModal.value = true;
+        };
+
+        const closeResetPasswordModal = () => { showResetPasswordModal.value = false; };
+
+        const submitResetPassword = () => {
+            resetPasswordErrors.password = null;
+
+            if (resetPasswordForm.password.length < 8) {
+                resetPasswordErrors.password = 'Password minimal 8 karakter.';
+                return;
+            }
+            if (resetPasswordForm.password !== resetPasswordForm.password_confirmation) {
+                resetPasswordErrors.password = 'Konfirmasi password tidak cocok.';
+                return;
+            }
+
+            resetPasswordProcessing.value = true;
+            router.post(`/admin/participants/${props.application.participant.id}/reset-password`, resetPasswordForm, {
+                onSuccess: () => { showResetPasswordModal.value = false; },
+                onError: (errors) => { resetPasswordErrors.password = errors.password; },
+                onFinish: () => { resetPasswordProcessing.value = false; },
+            });
+        };
+
         return {
             pribadi, pekerjaan, fieldLabel, fieldValue, getDoc, docLabel, docBadge,
             statusLabel, statusBadge, formatDate,
@@ -526,6 +600,8 @@ export default {
             adminSigMode, adminSigCanvas, adminSigFile, adminSigFilePreview,
             adminSignName, useSavedSig,
             switchAdminSigMode, clearAdminSig, onAdminSigFileChange,
+            showResetPasswordModal, resetPasswordProcessing, resetPasswordForm, resetPasswordErrors,
+            openResetPasswordModal, closeResetPasswordModal, submitResetPassword,
         };
     },
 }

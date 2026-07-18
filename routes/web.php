@@ -75,6 +75,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/applications/{application}/tanda-tangan/{type}',     [\App\Http\Controllers\Admin\ApplicationController::class, 'serveSignature'])->name('admin.applications.signature.serve');
         Route::get('/profile/tanda-tangan',                                [\App\Http\Controllers\Admin\ApplicationController::class, 'serveAdminDefaultSignature'])->name('admin.profile.signature');
 
+        Route::post('/participants/{participant}/reset-password', [\App\Http\Controllers\Admin\ParticipantController::class, 'resetPassword'])->name('admin.participants.reset-password');
+
         // Kelola user (admin & asesor)
         Route::get('/users',              [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
         Route::get('/users/create',       [\App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.users.create');
