@@ -32,11 +32,11 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:4%">No.</th>
-                                        <th class="border-0">Sesi</th>
+                                        <th class="border-0">Sesi Ujian</th>
                                         <th class="border-0">Jenis Ujian</th>
                                         <th class="border-0" style="width:8%">Peserta</th>
                                         <th class="border-0">Waktu</th>
-                                        <th class="border-0 rounded-end" style="width:13%">Aksi</th>
+                                        <th class="border-0 rounded-end text-center" style="width:13%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
@@ -57,30 +57,25 @@
                                                     <StatusBadge v-else tone="success" label="Selesai" class="mt-1 flex-shrink-0" />
                                                     <div>
                                                         <strong>{{ s.title }}</strong>
-                                                        <div class="text-muted small">{{ s.kode_batch }}</div>
+                                                        <div class="text-muted small">Batch {{ s.kode_batch }}</div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <ul class="mb-0 ps-3 small">
-                                                    <li v-if="s.exam_pg">
-                                                        <span class="badge bg-primary me-1">PG</span>
-                                                        {{ s.exam_pg.title }}
-                                                        <span class="text-muted">({{ s.exam_pg.classroom?.title }})</span>
+                                            <td style="max-width:240px">
+                                                <ul class="list-unstyled mb-0 small">
+                                                    <li v-if="s.exam_pg" class="text-truncate" :title="s.exam_pg.title">
+                                                        <span class="badge bg-primary me-1">PG</span>{{ s.exam_pg.title }}
                                                     </li>
-                                                    <li v-if="s.exam_esai">
-                                                        <span class="badge bg-success me-1">Esai</span>
-                                                        {{ s.exam_esai.title }}
-                                                        <span class="text-muted">({{ s.exam_esai.classroom?.title }})</span>
+                                                    <li v-if="s.exam_esai" class="text-truncate" :title="s.exam_esai.title">
+                                                        <span class="badge bg-success me-1">Esai</span>{{ s.exam_esai.title }}
                                                     </li>
                                                     <li v-if="s.has_wawancara">
                                                         <span class="badge bg-warning text-dark me-1">Wawancara</span>
-                                                        Penilaian asesor
                                                     </li>
                                                     <li v-if="!s.exam_pg && !s.exam_esai && !s.has_wawancara" class="text-muted">—</li>
                                                 </ul>
                                             </td>
-                                            <td class="text-center">{{ s.exam_groups.length }}</td>
+                                            <td class="text-center">{{ s.students_count }}</td>
                                             <td class="small text-nowrap">
                                                 <div><span class="text-muted">Mulai:</span> {{ formatDate(s.start_time) }}</div>
                                                 <div><span class="text-muted">Selesai:</span> {{ formatDate(s.end_time) }}</div>

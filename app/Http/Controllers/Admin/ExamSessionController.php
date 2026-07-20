@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\ExamGroup;
 use App\Models\ExamSession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
@@ -18,7 +19,12 @@ class ExamSessionController extends Controller
     {
         $exam_sessions = ExamSession::when(request()->q, function ($q) {
             $q->where('title', 'like', '%' . request()->q . '%');
-        })->with('examPg.classroom', 'examEsai.classroom', 'exam_groups')
+        })->with('examPg.classroom', 'examEsai.classroom')
+          // Satu peserta bisa punya 2 baris exam_groups (PG + Esai) dalam satu
+          // sesi, jadi hitung student_id yang unik, bukan jumlah baris.
+          ->withCount(['exam_groups as students_count' => function ($q) {
+              $q->select(DB::raw('count(distinct student_id)'));
+          }])
           ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
           ->orderByRaw('CASE WHEN end_time > NOW() THEN end_time END ASC')
           ->orderBy('end_time', 'desc')
