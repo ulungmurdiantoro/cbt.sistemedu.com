@@ -83,6 +83,7 @@ class DocumentVerificationController extends Controller
             'exam_session' => $examSession,
             'student'      => $student,
             'application'  => $application,
+            'auth_asesor'  => auth()->user()->only(['id', 'name', 'signature_path', 'signature_name']),
         ]);
     }
 
@@ -127,5 +128,106 @@ class DocumentVerificationController extends Controller
             Storage::disk('private')->path($doc->file_path),
             $doc->original_filename
         );
+    }
+
+    public function finalVerify(Request $request, int $examSessionId, int $studentId)
+    {
+        $assignedStudentIds = $this->assignedStudentIds($examSessionId);
+        abort_unless($assignedStudentIds->contains($studentId), 403);
+
+        $application = AssessmentApplication::where('student_id', $studentId)
+            ->where('exam_session_id', $examSessionId)
+            ->firstOrFail();
+
+        abort_if($application->asesor_verified_at, 422, 'Verifikasi akhir sudah ditandatangani sebelumnya.');
+
+        $asesor      = auth()->user();
+        $hasSavedSig = $asesor->signature_path && Storage::disk('private')->exists($asesor->signature_path);
+        $hasNewSig   = $request->signature_data || $request->hasFile('signature_file');
+        $useNewName  = $request->filled('signature_name');
+
+        if (!$hasSavedSig && !$hasNewSig) {
+            return back()->withErrors(['signature_data' => 'Tanda tangan wajib diisi (gambar atau upload).']);
+        }
+        if (!$hasSavedSig && !$useNewName) {
+            return back()->withErrors(['signature_name' => 'Nama penandatangan wajib diisi.']);
+        }
+
+        $request->validate([
+            'signature_name' => 'nullable|string|max:255',
+            'signature_data' => 'nullable|string',
+            'signature_file' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        if ($hasNewSig) {
+            $sigPath = $this->storeAsesorSignature($request, $application);
+            $sigName = $request->signature_name ?: $asesor->signature_name ?: $asesor->name;
+            $asesor->update(['signature_path' => $sigPath, 'signature_name' => $sigName]);
+        } else {
+            $sigPath = $asesor->signature_path;
+            $sigName = $request->signature_name ?: $asesor->signature_name ?: $asesor->name;
+            if ($useNewName && $sigName !== $asesor->signature_name) {
+                $asesor->update(['signature_name' => $sigName]);
+            }
+        }
+
+        $application->update([
+            'asesor_verified_by'    => $asesor->id,
+            'asesor_verified_at'    => now(),
+            'asesor_signature_path' => $sigPath,
+            'asesor_signature_name' => $sigName,
+        ]);
+
+        return back()->with('success', 'Verifikasi akhir berhasil ditandatangani.');
+    }
+
+    public function serveFinalSignature(int $examSessionId, int $studentId)
+    {
+        $assignedStudentIds = $this->assignedStudentIds($examSessionId);
+        abort_unless($assignedStudentIds->contains($studentId), 403);
+
+        $application = AssessmentApplication::where('student_id', $studentId)
+            ->where('exam_session_id', $examSessionId)
+            ->firstOrFail();
+
+        abort_if(
+            !$application->asesor_signature_path || !Storage::disk('private')->exists($application->asesor_signature_path),
+            404
+        );
+
+        return response()->file(Storage::disk('private')->path($application->asesor_signature_path));
+    }
+
+    public function serveDefaultSignature()
+    {
+        $user = auth()->user();
+        abort_if(!$user->signature_path || !Storage::disk('private')->exists($user->signature_path), 404);
+
+        return response()->file(Storage::disk('private')->path($user->signature_path));
+    }
+
+    private function storeAsesorSignature(Request $request, AssessmentApplication $application): string
+    {
+        $disk = Storage::disk('private');
+        $dir  = 'asesor-signatures/' . $application->id;
+        $now  = now()->format('YmdHis');
+
+        if ($request->hasFile('signature_file')) {
+            $ext  = $request->file('signature_file')->getClientOriginalExtension() ?: 'png';
+            $path = $dir . '/asesor_' . $now . '.' . strtolower($ext);
+            $disk->put($path, file_get_contents($request->file('signature_file')->getRealPath()));
+            return $path;
+        }
+
+        $data = $request->signature_data;
+        if (preg_match('/^data:image\/(png|jpe?g);base64,(.+)$/', $data, $m)) {
+            $ext     = $m[1] === 'jpg' ? 'jpeg' : $m[1];
+            $decoded = base64_decode($m[2]);
+            $path    = $dir . '/asesor_' . $now . '.' . $ext;
+            $disk->put($path, $decoded);
+            return $path;
+        }
+
+        abort(422, 'Format tanda tangan tidak valid.');
     }
 }

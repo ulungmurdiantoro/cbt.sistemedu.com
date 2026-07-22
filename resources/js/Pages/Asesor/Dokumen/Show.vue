@@ -122,6 +122,115 @@
                         </template>
                     </div>
                 </div>
+
+                <!-- Verifikasi Akhir -->
+                <div class="card border-0 shadow mb-3">
+                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                        <i class="fa fa-signature me-2"></i>Verifikasi Akhir
+                    </div>
+                    <div class="card-body">
+
+                        <!-- Sudah ditandatangani: terkunci -->
+                        <div v-if="application.asesor_verified_at" class="d-flex align-items-center gap-3">
+                            <img :src="`/asesor/penilaian/${exam_session.id}/dokumen/${student.id}/tanda-tangan`"
+                                alt="TTD Asesor"
+                                style="max-height:80px; max-width:220px; object-fit:contain; border:1px solid #ddd; background:#fff; padding:4px">
+                            <div>
+                                <span class="badge bg-success mb-1"><i class="fa fa-lock me-1"></i>Terverifikasi &amp; Terkunci</span>
+                                <div class="small mt-1"><i class="fa fa-user me-1 text-muted"></i>{{ application.asesor_signature_name }}</div>
+                                <div class="small text-muted">{{ formatDateTime(application.asesor_verified_at) }}</div>
+                            </div>
+                        </div>
+
+                        <!-- Belum ditandatangani: form TTD -->
+                        <div v-else>
+                            <p class="text-muted small mb-3">
+                                Verifikasi akhir menandakan seluruh dokumen peserta ini telah Anda periksa.
+                                Setelah ditandatangani, tidak dapat diubah lagi.
+                            </p>
+
+                            <div class="mb-2">
+                                <label class="fw-semibold small">Nama Penandatangan <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-sm mt-1" v-model="signName"
+                                    placeholder="contoh: Budi Santoso, S.T.">
+                            </div>
+
+                            <div v-if="auth_asesor?.signature_path" class="mb-2">
+                                <label class="fw-semibold small">Tanda Tangan Asesor</label>
+                                <div class="p-2 border rounded bg-white mt-1 d-flex align-items-center gap-3">
+                                    <img src="/asesor/profile/tanda-tangan" alt="TTD Tersimpan"
+                                        style="max-height:60px; max-width:160px; object-fit:contain">
+                                    <div class="flex-fill">
+                                        <span class="badge bg-success small"><i class="fa fa-check me-1"></i>TTD Tersimpan</span>
+                                        <div class="small text-muted mt-1">Akan digunakan otomatis.</div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" @click="useSavedSig = false">
+                                        <i class="fa fa-pen me-1"></i>Ganti
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div v-if="!auth_asesor?.signature_path || !useSavedSig" class="mb-2">
+                                <label class="fw-semibold small">
+                                    {{ auth_asesor?.signature_path ? 'TTD Baru (akan mengganti yang tersimpan)' : 'Tanda Tangan Asesor' }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="d-flex gap-1 mt-1 mb-2">
+                                    <button type="button" class="btn btn-sm flex-fill"
+                                        :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                                        @click="switchSigMode('draw')">
+                                        <i class="fa fa-pen me-1"></i>Gambar
+                                    </button>
+                                    <button type="button" class="btn btn-sm flex-fill"
+                                        :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                                        @click="switchSigMode('upload')">
+                                        <i class="fa fa-upload me-1"></i>Upload
+                                    </button>
+                                    <button v-if="auth_asesor?.signature_path" type="button"
+                                        class="btn btn-sm btn-light border" @click="useSavedSig = true">
+                                        Batal
+                                    </button>
+                                </div>
+
+                                <div v-show="sigMode === 'draw'">
+                                    <div class="border rounded bg-white" style="touch-action:none">
+                                        <canvas ref="sigCanvas" style="display:block; width:100%; height:140px; cursor:crosshair"></canvas>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-light border mt-1" @click="clearSig">
+                                        <i class="fa fa-eraser me-1"></i>Hapus
+                                    </button>
+                                </div>
+
+                                <div v-show="sigMode === 'upload'">
+                                    <input type="file" class="form-control form-control-sm"
+                                        accept="image/png,image/jpeg,image/jpg" @change="onSigFileChange">
+                                    <div v-if="sigFilePreview" class="mt-2">
+                                        <img :src="sigFilePreview"
+                                            style="max-height:80px; border:1px solid #ddd; background:#fff; padding:4px">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-if="!showFinalConfirm" class="d-grid mt-3">
+                                <button class="btn btn-success" @click="showFinalConfirm = true">
+                                    <i class="fa fa-signature me-1"></i>Simpan Verifikasi Akhir
+                                </button>
+                            </div>
+                            <div v-else class="alert alert-warning mt-3 mb-0">
+                                <div class="small mb-2">
+                                    <i class="fa fa-exclamation-triangle me-1"></i>
+                                    Tindakan ini <strong>tidak bisa dibatalkan</strong>. Pastikan tanda tangan sudah benar.
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-success" :disabled="finalSaving" @click="submitFinalVerify">
+                                        {{ finalSaving ? 'Menyimpan...' : 'Ya, Tandatangani' }}
+                                    </button>
+                                    <button class="btn btn-sm btn-light border" @click="showFinalConfirm = false">Batal</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </template>
 
         </div>
@@ -131,7 +240,8 @@
 <script>
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, ref, reactive } from 'vue';
+import { computed, ref, reactive, nextTick, onMounted, onUnmounted } from 'vue';
+import SignaturePad from 'signature_pad';
 
 export default {
     layout: LayoutAsesor,
@@ -140,12 +250,112 @@ export default {
         exam_session:  Object,
         student:       Object,
         application:   Object,
+        auth_asesor:   Object,
     },
 
     setup(props) {
         const saving      = ref(null);
         const activeReject = ref(null);
         const rejectNotes = reactive({});
+
+        // Verifikasi akhir — TTD asesor
+        const sigMode         = ref('draw');
+        const sigCanvas       = ref(null);
+        const sigFile         = ref(null);
+        const sigFilePreview  = ref(null);
+        const signName        = ref(props.auth_asesor?.signature_name ?? '');
+        const useSavedSig     = ref(!!props.auth_asesor?.signature_path);
+        const showFinalConfirm = ref(false);
+        const finalSaving     = ref(false);
+        let   sigPad          = null;
+        let   resizeTimer     = null;
+
+        const initSigPad = () => {
+            if (!sigCanvas.value) return;
+            const canvas    = sigCanvas.value;
+            const container = canvas.parentElement;
+            const ratio     = Math.max(window.devicePixelRatio || 1, 1);
+            const savedData = sigPad?.toData() ?? [];
+            canvas.width    = (container?.clientWidth || canvas.offsetWidth) * ratio;
+            canvas.height   = canvas.offsetHeight * ratio;
+            canvas.getContext('2d').scale(ratio, ratio);
+            sigPad          = new SignaturePad(canvas, { backgroundColor: 'rgb(255,255,255)' });
+            if (savedData.length) sigPad.fromData(savedData);
+        };
+
+        const handleResize = () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(initSigPad, 200);
+        };
+
+        onMounted(async () => {
+            if (props.application && !props.application.asesor_verified_at) {
+                await nextTick();
+                initSigPad();
+                window.addEventListener('resize', handleResize);
+            }
+        });
+
+        onUnmounted(() => {
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimer);
+        });
+
+        const switchSigMode = async (mode) => {
+            sigMode.value = mode;
+            if (mode === 'draw') { await nextTick(); initSigPad(); }
+        };
+
+        const clearSig = () => sigPad?.clear();
+
+        const onSigFileChange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            sigFile.value        = file;
+            sigFilePreview.value = URL.createObjectURL(file);
+        };
+
+        const formatDateTime = (dt) => dt
+            ? new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
+            : '—';
+
+        const submitFinalVerify = () => {
+            if (!signName.value) {
+                alert('Nama penandatangan wajib diisi.');
+                return;
+            }
+
+            const fd = new FormData();
+            fd.append('signature_name', signName.value);
+
+            if (!useSavedSig.value) {
+                if (sigMode.value === 'draw') {
+                    if (!sigPad || sigPad.isEmpty()) {
+                        alert('Tanda tangan wajib diisi atau gunakan TTD tersimpan.');
+                        return;
+                    }
+                    fd.append('signature_data', sigPad.toDataURL('image/png'));
+                } else {
+                    if (!sigFile.value) {
+                        alert('Pilih file tanda tangan terlebih dahulu.');
+                        return;
+                    }
+                    fd.append('signature_file', sigFile.value);
+                }
+            }
+
+            finalSaving.value = true;
+            router.post(
+                `/asesor/penilaian/${props.exam_session.id}/dokumen/${props.student.id}/verifikasi-akhir`,
+                fd,
+                {
+                    forceFormData:  true,
+                    preserveScroll: true,
+                    onSuccess: () => { showFinalConfirm.value = false; },
+                    onFinish:  () => { finalSaving.value = false; },
+                }
+            );
+        };
 
         const totalReq = computed(() =>
             props.application?.classroom?.document_requirements?.length ?? 0
@@ -200,6 +410,9 @@ export default {
             totalReq, doneCount, getDoc,
             statusLabel, docStatusClass, badgeClass, badgeLabel,
             submitVerify,
+            sigMode, sigCanvas, sigFile, sigFilePreview, signName, useSavedSig,
+            showFinalConfirm, finalSaving,
+            switchSigMode, clearSig, onSigFileChange, formatDateTime, submitFinalVerify,
         };
     },
 }

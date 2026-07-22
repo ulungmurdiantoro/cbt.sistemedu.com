@@ -132,6 +132,10 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
     Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}',               [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'show'])->name('asesor.dokumen.show');
     Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/verify',   [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'verify'])->name('asesor.dokumen.verify');
     Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/download',  [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'download'])->name('asesor.dokumen.download');
+    Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/verifikasi-akhir',  [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'finalVerify'])->name('asesor.dokumen.finalVerify');
+    Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/tanda-tangan',       [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'serveFinalSignature'])->name('asesor.dokumen.signature.serve');
+
+    Route::get('/profile/tanda-tangan', [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'serveDefaultSignature'])->name('asesor.profile.signature');
 
 });
 
