@@ -6,10 +6,11 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Participant extends Authenticatable implements CanResetPasswordContract
 {
-    use HasFactory, CanResetPassword;
+    use HasFactory, CanResetPassword, Notifiable;
 
     protected $fillable = [
         'name',
