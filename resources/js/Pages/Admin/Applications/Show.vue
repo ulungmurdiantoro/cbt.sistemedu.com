@@ -32,7 +32,12 @@
 
             <!-- Info sertifikasi -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-semibold">Data Sertifikasi</div>
+                <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center">
+                    <span>Data Sertifikasi</span>
+                    <button v-if="other_sessions?.length" class="btn btn-sm btn-warning" @click="openChangeBatchModal">
+                        <i class="fa fa-exchange-alt me-1"></i>Ganti Batch
+                    </button>
+                </div>
                 <div class="card-body">
                     <table class="table table-sm mb-0 detail-table" style="table-layout:fixed;width:100%">
                         <colgroup><col style="width:200px"><col></colgroup>
@@ -380,6 +385,43 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal ganti batch -->
+    <div v-if="showChangeBatchModal" class="modal d-block" style="background:rgba(0,0,0,.5)">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-0">
+                    <h6 class="modal-title fw-bold"><i class="fa fa-exchange-alt text-warning me-2"></i>Ganti Batch</h6>
+                    <button class="btn-close" @click="closeChangeBatchModal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="small text-muted mb-3">
+                        Batch saat ini: <strong>{{ application.exam_session?.title }} (Batch {{ application.kode_batch }})</strong>.
+                        Pilih batch baru untuk skema yang sama.
+                    </p>
+                    <div v-if="application.status === 'approved'" class="alert alert-warning border-0 py-2 small mb-3">
+                        <i class="fa fa-exclamation-triangle me-1"></i>
+                        Akun ujian (<strong>{{ application.student?.no_participant }}</strong>) sudah dibuat. Akun akan otomatis
+                        dipindahkan ke batch baru, selama peserta belum mengerjakan ujian di batch saat ini.
+                    </div>
+                    <label class="fw-semibold small">Batch Baru</label>
+                    <select class="form-control mt-1" v-model="selectedSessionId">
+                        <option :value="null" disabled>-- Pilih batch --</option>
+                        <option v-for="s in other_sessions" :key="s.id" :value="s.id">
+                            {{ s.title }} — Batch {{ s.kode_batch }} ({{ formatDate(s.start_time) }})
+                        </option>
+                    </select>
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-warning" @click="submitChangeBatch" :disabled="changeBatchProcessing || !selectedSessionId">
+                        <i class="fa fa-exchange-alt me-1"></i>
+                        {{ changeBatchProcessing ? 'Menyimpan...' : 'Konfirmasi Ganti Batch' }}
+                    </button>
+                    <button class="btn btn-light border" @click="closeChangeBatchModal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -391,7 +433,7 @@ import SignaturePad from 'signature_pad';
 export default {
     layout: LayoutAdmin,
     components: { Head, Link },
-    props: { application: Object, auth_admin: Object },
+    props: { application: Object, auth_admin: Object, other_sessions: Array },
 
     setup(props) {
         const processing       = ref(false);
@@ -401,6 +443,30 @@ export default {
         const reissueReason    = ref('');
         const rejectDocId     = ref(null);
         const rejectDocNotes  = ref('');
+
+        // Ganti batch
+        const showChangeBatchModal  = ref(false);
+        const selectedSessionId     = ref(null);
+        const changeBatchProcessing = ref(false);
+
+        const openChangeBatchModal = () => {
+            selectedSessionId.value = null;
+            showChangeBatchModal.value = true;
+        };
+        const closeChangeBatchModal = () => { showChangeBatchModal.value = false; };
+
+        const submitChangeBatch = () => {
+            if (!selectedSessionId.value) return;
+            changeBatchProcessing.value = true;
+            router.post(`/admin/applications/${props.application.id}/ganti-batch`,
+                { exam_session_id: selectedSessionId.value },
+                {
+                    preserveScroll: true,
+                    onSuccess: () => { showChangeBatchModal.value = false; },
+                    onFinish:  () => { changeBatchProcessing.value = false; },
+                }
+            );
+        };
 
         // Ganti password peserta
         const showResetPasswordModal = ref(false);
@@ -602,6 +668,8 @@ export default {
             switchAdminSigMode, clearAdminSig, onAdminSigFileChange,
             showResetPasswordModal, resetPasswordProcessing, resetPasswordForm, resetPasswordErrors,
             openResetPasswordModal, closeResetPasswordModal, submitResetPassword,
+            showChangeBatchModal, selectedSessionId, changeBatchProcessing,
+            openChangeBatchModal, closeChangeBatchModal, submitChangeBatch,
         };
     },
 }

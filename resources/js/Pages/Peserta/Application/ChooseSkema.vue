@@ -40,6 +40,9 @@
                                 {{ skema.kode_skema }}
                             </div>
                             <h6 class="fw-bold mb-0">{{ skema.title }}</h6>
+                            <div v-if="enrolledBatches(skema).length" class="small text-muted mt-1">
+                                <i class="fa fa-layer-group me-1"></i>Batch {{ enrolledBatches(skema).join(', ') }}
+                            </div>
                         </div>
                         <span v-if="allEnrolled(skema)" class="badge bg-success">Sudah Daftar</span>
                         <span v-else-if="selectedClassroomId === skema.classroom_id" class="badge bg-primary">Dipilih</span>
@@ -63,6 +66,10 @@
 
                     <!-- Info sesi (otomatis dari sesi yang dipilih, read-only) -->
                     <table class="table table-sm mb-4 table-wrap">
+                        <tr>
+                            <td class="text-muted small">Kode Batch</td>
+                            <td class="small fw-semibold">{{ selectedSession.kode_batch }}</td>
+                        </tr>
                         <tr>
                             <td class="text-muted small">Waktu</td>
                             <td class="small">
@@ -127,6 +134,8 @@ export default {
 
         const allEnrolled = (skema) => skema.sessions.every(s => s.enrolled);
 
+        const enrolledBatches = (skema) => skema.sessions.filter(s => s.enrolled).map(s => s.kode_batch);
+
         const selectSkema = (skema) => {
             if (allEnrolled(skema)) return;
 
@@ -153,7 +162,7 @@ export default {
         return {
             selectedClassroomId, selectedSkema, selectedSession,
             form, processing,
-            allEnrolled, selectSkema, formatDate, submit,
+            allEnrolled, enrolledBatches, selectSkema, formatDate, submit,
         };
     },
 }

@@ -7,9 +7,13 @@ use App\Exports\ApplicationsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RejectApplicationRequest;
 use App\Http\Requests\VerifyDocumentRequest;
+use App\Models\Answer;
+use App\Models\AnswerEssay;
 use App\Models\AssessmentApplication;
 use App\Models\Classroom;
 use App\Models\ExamGroup;
+use App\Models\ExamSession;
+use App\Models\Grade;
 use App\Models\Student;
 use App\Models\StudentReissueLog;
 use Illuminate\Http\Request;
@@ -85,9 +89,18 @@ class ApplicationController extends Controller
         $admin = auth()->user();
         $admin->makeVisible(['signature_path', 'signature_name']);
 
+        $otherSessions = ExamSession::where(function ($q) use ($application) {
+                $q->whereHas('examPg', fn($q2) => $q2->where('classroom_id', $application->classroom_id))
+                  ->orWhereHas('examEsai', fn($q2) => $q2->where('classroom_id', $application->classroom_id));
+            })
+            ->where('id', '!=', $application->exam_session_id)
+            ->orderByDesc('start_time')
+            ->get(['id', 'title', 'kode_batch', 'start_time', 'end_time']);
+
         return inertia('Admin/Applications/Show', [
-            'application' => $application,
-            'auth_admin'  => $admin->only(['id', 'name', 'signature_path', 'signature_name']),
+            'application'    => $application,
+            'auth_admin'     => $admin->only(['id', 'name', 'signature_path', 'signature_name']),
+            'other_sessions' => $otherSessions,
         ]);
     }
 
@@ -276,6 +289,71 @@ class ApplicationController extends Controller
         });
 
         return back()->with('success', 'Akun ujian baru berhasil dibuat.');
+    }
+
+    public function changeBatch(Request $request, AssessmentApplication $application)
+    {
+        $request->validate([
+            'exam_session_id' => 'required|exists:exam_sessions,id',
+        ]);
+
+        abort_if($request->exam_session_id == $application->exam_session_id, 422, 'Peserta sudah berada di batch ini.');
+
+        $newSession = ExamSession::with('examPg', 'examEsai')->findOrFail($request->exam_session_id);
+
+        abort_if($newSession->referenceExam?->classroom_id !== $application->classroom_id, 422, 'Sesi yang dipilih bukan untuk skema yang sama.');
+
+        $oldSession = ExamSession::find($application->exam_session_id);
+        $oldExamIds = array_filter([$oldSession?->exam_id_pg, $oldSession?->exam_id_esai]);
+
+        // Kalau peserta sudah punya akun ujian (approved) dan sudah mulai mengerjakan
+        // (ada nilai/jawaban tersimpan di batch lama), batch tidak boleh dipindah otomatis
+        // supaya data hasil ujian tidak jadi yatim/tidak konsisten.
+        if ($application->student_id && $oldExamIds) {
+            $hasActivity = Grade::where('student_id', $application->student_id)
+                    ->where('exam_session_id', $application->exam_session_id)
+                    ->whereIn('exam_id', $oldExamIds)
+                    ->exists()
+                || Answer::where('student_id', $application->student_id)
+                    ->where('exam_session_id', $application->exam_session_id)
+                    ->whereIn('exam_id', $oldExamIds)
+                    ->exists()
+                || AnswerEssay::where('student_id', $application->student_id)
+                    ->where('exam_session_id', $application->exam_session_id)
+                    ->whereIn('exam_id', $oldExamIds)
+                    ->exists();
+
+            abort_if($hasActivity, 422, 'Peserta sudah memiliki jawaban/nilai tersimpan di batch saat ini, tidak bisa dipindahkan otomatis.');
+        }
+
+        DB::transaction(function () use ($application, $newSession) {
+            if ($application->student_id) {
+                ExamGroup::where('exam_session_id', $application->exam_session_id)
+                    ->where('student_id', $application->student_id)
+                    ->delete();
+
+                $examIds = array_filter([$newSession->exam_id_pg, $newSession->exam_id_esai]);
+                $firstExamGroup = null;
+                foreach ($examIds as $examId) {
+                    $eg = ExamGroup::create([
+                        'exam_groups_code' => 'EG-' . strtoupper(Str::random(8)),
+                        'exam_id'          => $examId,
+                        'exam_session_id'  => $newSession->id,
+                        'student_id'       => $application->student_id,
+                    ]);
+                    $firstExamGroup ??= $eg;
+                }
+                $application->exam_group_id = $firstExamGroup?->id;
+            }
+
+            $application->exam_session_id = $newSession->id;
+            $application->konteks_asesmen = $newSession->konteks_asesmen;
+            $application->tempat_ujian    = $newSession->tempat_ujian;
+            $application->kode_batch      = $newSession->kode_batch ?? '-';
+            $application->save();
+        });
+
+        return back()->with('success', 'Batch peserta berhasil dipindahkan ke ' . $newSession->title . ' (Batch ' . $newSession->kode_batch . ').');
     }
 
     public function verifyDocument(VerifyDocumentRequest $request, AssessmentApplication $application, int $docId)

@@ -69,6 +69,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/applications/{application}/approve',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'approve'])->name('admin.applications.approve');
         Route::post('/applications/{application}/reject',                  [\App\Http\Controllers\Admin\ApplicationController::class, 'reject'])->name('admin.applications.reject');
         Route::post('/applications/{application}/reissue',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'reissueStudent'])->name('admin.applications.reissue');
+        Route::post('/applications/{application}/ganti-batch',             [\App\Http\Controllers\Admin\ApplicationController::class, 'changeBatch'])->name('admin.applications.changeBatch');
         Route::post('/applications/{application}/documents/{doc}/verify',  [\App\Http\Controllers\Admin\ApplicationController::class, 'verifyDocument'])->name('admin.applications.documents.verify');
         Route::get('/applications/{application}/documents/{document}/preview', [\App\Http\Controllers\Admin\ApplicationController::class, 'previewDocument'])->name('admin.applications.documents.preview');
         Route::get('/applications/{application}/documents/{document}/download', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadDocument'])->name('admin.applications.documents.download');
