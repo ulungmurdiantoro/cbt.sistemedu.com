@@ -14,7 +14,9 @@ use App\Models\Classroom;
 use App\Models\ExamGroup;
 use App\Models\ExamSession;
 use App\Models\Grade;
+use App\Models\InitialAssessment;
 use App\Models\Student;
+use App\Support\InitialAssessmentRubric;
 use App\Models\StudentReissueLog;
 use Illuminate\Http\Request;
 use App\Mail\ApplicationApprovedMail;
@@ -84,6 +86,7 @@ class ApplicationController extends Controller
             'reissueLogs.oldStudent',
             'reissueLogs.newStudent',
             'reissueLogs.reissuedBy',
+            'initialAssessment.assessor',
         ]);
 
         $admin = auth()->user();
@@ -98,15 +101,48 @@ class ApplicationController extends Controller
             ->get(['id', 'title', 'kode_batch', 'start_time', 'end_time']);
 
         return inertia('Admin/Applications/Show', [
-            'application'    => $application,
-            'auth_admin'     => $admin->only(['id', 'name', 'signature_path', 'signature_name']),
-            'other_sessions' => $otherSessions,
+            'application'               => $application,
+            'auth_admin'                => $admin->only(['id', 'name', 'signature_path', 'signature_name']),
+            'other_sessions'            => $otherSessions,
+            'initial_assessment_rubric' => InitialAssessmentRubric::for($application->classroom_id),
         ]);
+    }
+
+    public function saveInitialAssessment(Request $request, AssessmentApplication $application)
+    {
+        abort_if(!$application->isSubmitted(), 422, 'Hanya permohonan berstatus submitted yang dapat dinilai.');
+
+        $request->validate([
+            'answers' => 'required|array',
+        ]);
+
+        $rubric     = InitialAssessmentRubric::for($application->classroom_id);
+        $totalScore = InitialAssessmentRubric::score($rubric, $request->answers);
+        $isEligible = $totalScore >= $rubric['threshold'];
+
+        InitialAssessment::updateOrCreate(
+            ['assessment_application_id' => $application->id],
+            [
+                'classroom_id' => $application->classroom_id,
+                'answers'      => $request->answers,
+                'total_score'  => $totalScore,
+                'threshold'    => $rubric['threshold'],
+                'is_eligible'  => $isEligible,
+                'assessed_by'  => auth()->id(),
+                'assessed_at'  => now(),
+            ]
+        );
+
+        return back()->with('success', 'Penilaian awal kelayakan berhasil disimpan.');
     }
 
     public function approve(Request $request, AssessmentApplication $application)
     {
         abort_if(!$application->isSubmitted(), 422, 'Hanya permohonan berstatus submitted yang dapat disetujui.');
+
+        $assessment = $application->initialAssessment;
+        abort_if(!$assessment, 422, 'Penilaian awal kelayakan (FR.APL.03) belum diisi.');
+        abort_if(!$assessment->is_eligible, 422, 'Pemohon belum memenuhi ambang batas nilai penilaian awal — harus mengikuti training terlebih dahulu.');
 
         $admin         = auth()->user();
         $hasSavedSig   = $admin->signature_path && Storage::disk('private')->exists($admin->signature_path);
@@ -456,13 +492,23 @@ class ApplicationController extends Controller
         $kode      = substr($kodeSkema, 7, 3) ?: 'SKM';
         $batch     = $application->kode_batch ?? '-';
         $year      = now()->year;
+        $prefix    = $kode . '.' . $batch . '.' . $year . '.';
 
-        // counter reset per batch: hitung permohonan yang sudah approved di classroom + batch yang sama
-        $count = AssessmentApplication::where('classroom_id', $application->classroom_id)
-            ->where('kode_batch', $batch)
-            ->whereNotNull('student_id')
-            ->count() + 1;
+        // Ambil nomor urut tertinggi yang SUDAH benar-benar dipakai untuk kombinasi
+        // kode+batch+tahun ini, baru +1 — jangan hitung jumlah permohonan (bisa bentrok
+        // kalau ada permohonan yang batch-nya berubah, ditolak lalu direset, dst).
+        $lastNumber = Student::where('no_participant', 'like', $prefix . '%')
+            ->get(['no_participant'])
+            ->map(fn ($s) => (int) substr($s->no_participant, strlen($prefix)))
+            ->max() ?? 0;
 
-        return $kode . '.' . $batch . '.' . $year . '.' . str_pad($count, 5, '0', STR_PAD_LEFT);
+        $next = $lastNumber + 1;
+
+        // Pengaman tambahan kalau masih bentrok (mis. ada nomor yang diinput manual).
+        while (Student::where('no_participant', $prefix . str_pad($next, 5, '0', STR_PAD_LEFT))->exists()) {
+            $next++;
+        }
+
+        return $prefix . str_pad($next, 5, '0', STR_PAD_LEFT);
     }
 }

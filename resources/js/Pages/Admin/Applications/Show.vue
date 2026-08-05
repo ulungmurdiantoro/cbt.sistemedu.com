@@ -151,6 +151,85 @@
         <!-- Kolom aksi -->
         <div class="col-lg-8">
 
+            <!-- Penilaian Awal Kelayakan (FR.APL.03) -->
+            <div class="card border-0 shadow mb-4" v-if="application.status === 'submitted' || application.initial_assessment">
+                <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center">
+                    <span>Penilaian Awal Kelayakan (FR.APL.03)</span>
+                    <button v-if="application.initial_assessment && application.status === 'submitted' && !showAssessmentForm"
+                        type="button" class="btn btn-sm btn-outline-light" @click="openAssessmentForm">
+                        <i class="fa fa-pen me-1"></i>Ubah Penilaian
+                    </button>
+                </div>
+                <div class="card-body">
+
+                    <!-- Ringkasan (sudah dinilai, tidak sedang diedit) -->
+                    <div v-if="application.initial_assessment && !showAssessmentForm">
+                        <div class="d-flex align-items-center gap-3 mb-2 flex-wrap">
+                            <span class="badge fs-6" :class="application.initial_assessment.is_eligible ? 'bg-success' : 'bg-danger'">
+                                {{ application.initial_assessment.total_score }} / {{ application.initial_assessment.threshold }}
+                            </span>
+                            <span class="fw-semibold" :class="application.initial_assessment.is_eligible ? 'text-success' : 'text-danger'">
+                                {{ application.initial_assessment.is_eligible
+                                    ? 'Memenuhi syarat — bisa langsung uji kompetensi (jalur portofolio)'
+                                    : 'Belum memenuhi syarat — harus mengikuti training terlebih dahulu' }}
+                            </span>
+                        </div>
+                        <div class="small text-muted">
+                            Dinilai oleh {{ application.initial_assessment.assessor?.name ?? '—' }}
+                            pada {{ formatDate(application.initial_assessment.assessed_at) }}
+                        </div>
+                    </div>
+
+                    <!-- Form penilaian -->
+                    <form v-else-if="initial_assessment_rubric" @submit.prevent="submitAssessment">
+                        <div v-for="criterion in initial_assessment_rubric.criteria" :key="criterion.key" class="mb-3 pb-3 border-bottom">
+                            <label class="fw-semibold small d-block mb-2">{{ criterion.label }}</label>
+
+                            <div v-if="criterion.type === 'single'">
+                                <div v-for="opt in criterion.options" :key="opt.key" class="form-check">
+                                    <input class="form-check-input" type="radio" :name="criterion.key"
+                                        :id="`${criterion.key}_${opt.key}`" :value="opt.key"
+                                        v-model="assessmentAnswers[criterion.key]">
+                                    <label class="form-check-label small" :for="`${criterion.key}_${opt.key}`">
+                                        {{ opt.label }} <span class="text-muted">({{ opt.score }} poin)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div v-else>
+                                <div v-for="opt in criterion.options" :key="opt.key" class="form-check">
+                                    <input class="form-check-input" type="checkbox"
+                                        :id="`${criterion.key}_${opt.key}`" :value="opt.key"
+                                        v-model="assessmentAnswers[criterion.key]">
+                                    <label class="form-check-label small" :for="`${criterion.key}_${opt.key}`">
+                                        {{ opt.label }} <span class="text-muted">({{ opt.score }} poin)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                            <div class="fw-semibold">
+                                Total: <span class="fs-5">{{ computedTotalScore }}</span> / {{ initial_assessment_rubric.threshold }}
+                            </div>
+                            <span class="badge fs-6" :class="computedTotalScore >= initial_assessment_rubric.threshold ? 'bg-success' : 'bg-danger'">
+                                {{ computedTotalScore >= initial_assessment_rubric.threshold ? 'Memenuhi syarat' : 'Belum memenuhi syarat' }}
+                            </span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-gray-800" :disabled="assessmentSaving">
+                                <i class="fa fa-save me-1"></i>{{ assessmentSaving ? 'Menyimpan...' : 'Simpan Penilaian' }}
+                            </button>
+                            <button v-if="application.initial_assessment" type="button" class="btn btn-light border"
+                                @click="showAssessmentForm = false">
+                                Batal
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <!-- Status & aksi -->
             <div class="card border-0 shadow mb-4">
                 <div class="card-header bg-gray-800 text-white fw-semibold">Aksi</div>
@@ -166,77 +245,89 @@
                     <!-- Approve: TTD admin -->
                     <div v-if="application.status === 'submitted'" class="mb-3">
 
-                        <!-- Nama penandatangan -->
-                        <div class="mb-2">
-                            <label class="fw-semibold small">Nama Penandatangan <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-sm mt-1" v-model="adminSignName"
-                                placeholder="contoh: Dr. Agung Yulianto, M.Si.">
+                        <div v-if="!canApprove" class="alert alert-warning border-0 py-2 small mb-3">
+                            <i class="fa fa-exclamation-triangle me-1"></i>
+                            <span v-if="!application.initial_assessment">
+                                Isi <strong>Penilaian Awal Kelayakan (FR.APL.03)</strong> di atas dulu sebelum bisa menyetujui permohonan ini.
+                            </span>
+                            <span v-else>
+                                Pemohon belum memenuhi ambang batas nilai penilaian awal — harus mengikuti training terlebih dahulu sebelum bisa disetujui.
+                            </span>
                         </div>
 
-                        <!-- TTD tersimpan -->
-                        <div v-if="auth_admin?.signature_path" class="mb-2">
-                            <label class="fw-semibold small">Tanda Tangan Admin</label>
-                            <div class="p-2 border rounded bg-white mt-1 d-flex align-items-center gap-3">
-                                <img src="/admin/profile/tanda-tangan" alt="TTD Tersimpan"
-                                    style="max-height:60px; max-width:160px; object-fit:contain">
-                                <div class="flex-fill">
-                                    <span class="badge bg-success small">
-                                        <i class="fa fa-check me-1"></i>TTD Tersimpan
-                                    </span>
-                                    <div class="small text-muted mt-1">Akan digunakan otomatis.</div>
-                                </div>
-                                <button type="button" class="btn btn-sm btn-outline-secondary"
-                                    @click="useSavedSig = false">
-                                    <i class="fa fa-pen me-1"></i>Ganti
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Form TTD baru (muncul jika belum ada TTD / klik Ganti) -->
-                        <div v-if="!auth_admin?.signature_path || !useSavedSig" class="mb-2">
-                            <label class="fw-semibold small">
-                                {{ auth_admin?.signature_path ? 'TTD Baru (akan mengganti yang tersimpan)' : 'Tanda Tangan Admin' }}
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="d-flex gap-1 mt-1 mb-2">
-                                <button type="button" class="btn btn-sm flex-fill"
-                                    :class="adminSigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
-                                    @click="switchAdminSigMode('draw')">
-                                    <i class="fa fa-pen me-1"></i>Gambar
-                                </button>
-                                <button type="button" class="btn btn-sm flex-fill"
-                                    :class="adminSigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
-                                    @click="switchAdminSigMode('upload')">
-                                    <i class="fa fa-upload me-1"></i>Upload
-                                </button>
-                                <button v-if="auth_admin?.signature_path" type="button"
-                                    class="btn btn-sm btn-light border" @click="useSavedSig = true">
-                                    Batal
-                                </button>
+                        <template v-if="canApprove">
+                            <!-- Nama penandatangan -->
+                            <div class="mb-2">
+                                <label class="fw-semibold small">Nama Penandatangan <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-sm mt-1" v-model="adminSignName"
+                                    placeholder="contoh: Dr. Agung Yulianto, M.Si.">
                             </div>
 
-                            <div v-show="adminSigMode === 'draw'">
-                                <div class="border rounded bg-white" style="touch-action:none">
-                                    <canvas ref="adminSigCanvas" style="display:block; width:100%; height:140px; cursor:crosshair"></canvas>
+                            <!-- TTD tersimpan -->
+                            <div v-if="auth_admin?.signature_path" class="mb-2">
+                                <label class="fw-semibold small">Tanda Tangan Admin</label>
+                                <div class="p-2 border rounded bg-white mt-1 d-flex align-items-center gap-3">
+                                    <img src="/admin/profile/tanda-tangan" alt="TTD Tersimpan"
+                                        style="max-height:60px; max-width:160px; object-fit:contain">
+                                    <div class="flex-fill">
+                                        <span class="badge bg-success small">
+                                            <i class="fa fa-check me-1"></i>TTD Tersimpan
+                                        </span>
+                                        <div class="small text-muted mt-1">Akan digunakan otomatis.</div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        @click="useSavedSig = false">
+                                        <i class="fa fa-pen me-1"></i>Ganti
+                                    </button>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-light border mt-1" @click="clearAdminSig">
-                                    <i class="fa fa-eraser me-1"></i>Hapus
-                                </button>
                             </div>
 
-                            <div v-show="adminSigMode === 'upload'">
-                                <input type="file" class="form-control form-control-sm"
-                                    accept="image/png,image/jpeg,image/jpg"
-                                    @change="onAdminSigFileChange">
-                                <div v-if="adminSigFilePreview" class="mt-2">
-                                    <img :src="adminSigFilePreview"
-                                        style="max-height:80px; border:1px solid #ddd; background:#fff; padding:4px">
+                            <!-- Form TTD baru (muncul jika belum ada TTD / klik Ganti) -->
+                            <div v-if="!auth_admin?.signature_path || !useSavedSig" class="mb-2">
+                                <label class="fw-semibold small">
+                                    {{ auth_admin?.signature_path ? 'TTD Baru (akan mengganti yang tersimpan)' : 'Tanda Tangan Admin' }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="d-flex gap-1 mt-1 mb-2">
+                                    <button type="button" class="btn btn-sm flex-fill"
+                                        :class="adminSigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                                        @click="switchAdminSigMode('draw')">
+                                        <i class="fa fa-pen me-1"></i>Gambar
+                                    </button>
+                                    <button type="button" class="btn btn-sm flex-fill"
+                                        :class="adminSigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                                        @click="switchAdminSigMode('upload')">
+                                        <i class="fa fa-upload me-1"></i>Upload
+                                    </button>
+                                    <button v-if="auth_admin?.signature_path" type="button"
+                                        class="btn btn-sm btn-light border" @click="useSavedSig = true">
+                                        Batal
+                                    </button>
+                                </div>
+
+                                <div v-show="adminSigMode === 'draw'">
+                                    <div class="border rounded bg-white" style="touch-action:none">
+                                        <canvas ref="adminSigCanvas" style="display:block; width:100%; height:140px; cursor:crosshair"></canvas>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-light border mt-1" @click="clearAdminSig">
+                                        <i class="fa fa-eraser me-1"></i>Hapus
+                                    </button>
+                                </div>
+
+                                <div v-show="adminSigMode === 'upload'">
+                                    <input type="file" class="form-control form-control-sm"
+                                        accept="image/png,image/jpeg,image/jpg"
+                                        @change="onAdminSigFileChange">
+                                    <div v-if="adminSigFilePreview" class="mt-2">
+                                        <img :src="adminSigFilePreview"
+                                            style="max-height:80px; border:1px solid #ddd; background:#fff; padding:4px">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </template>
 
                         <div class="d-grid gap-2">
-                            <button class="btn btn-success" @click="approve" :disabled="processing">
+                            <button v-if="canApprove" class="btn btn-success" @click="approve" :disabled="processing">
                                 <i class="fa fa-check me-1"></i>
                                 {{ processing ? 'Memproses...' : 'Setujui & Buat Akun Ujian' }}
                             </button>
@@ -427,13 +518,13 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, reactive, ref, nextTick, onMounted, onUnmounted } from 'vue';
+import { computed, reactive, ref, nextTick, onMounted, onUnmounted, watch } from 'vue';
 import SignaturePad from 'signature_pad';
 
 export default {
     layout: LayoutAdmin,
     components: { Head, Link },
-    props: { application: Object, auth_admin: Object, other_sessions: Array },
+    props: { application: Object, auth_admin: Object, other_sessions: Array, initial_assessment_rubric: Object },
 
     setup(props) {
         const processing       = ref(false);
@@ -464,6 +555,75 @@ export default {
                     preserveScroll: true,
                     onSuccess: () => { showChangeBatchModal.value = false; },
                     onFinish:  () => { changeBatchProcessing.value = false; },
+                }
+            );
+        };
+
+        // Penilaian Awal Kelayakan (FR.APL.03)
+        const showAssessmentForm = ref(!props.application.initial_assessment);
+        const assessmentSaving   = ref(false);
+        const assessmentAnswers  = reactive({});
+
+        const initAssessmentAnswers = () => {
+            const existing = props.application.initial_assessment?.answers ?? {};
+            for (const criterion of props.initial_assessment_rubric?.criteria ?? []) {
+                if (criterion.type === 'multi') {
+                    assessmentAnswers[criterion.key] = Array.isArray(existing[criterion.key]) ? [...existing[criterion.key]] : [];
+                } else {
+                    assessmentAnswers[criterion.key] = existing[criterion.key] ?? null;
+                }
+            }
+        };
+        initAssessmentAnswers();
+
+        const openAssessmentForm = () => {
+            initAssessmentAnswers();
+            showAssessmentForm.value = true;
+        };
+
+        const computedTotalScore = computed(() => {
+            if (!props.initial_assessment_rubric) return 0;
+            let total = 0;
+            for (const criterion of props.initial_assessment_rubric.criteria) {
+                const given = assessmentAnswers[criterion.key];
+                if (criterion.type === 'multi') {
+                    const selected = Array.isArray(given) ? given : [];
+                    for (const opt of criterion.options) {
+                        if (selected.includes(opt.key)) total += opt.score;
+                    }
+                } else {
+                    const opt = criterion.options.find(o => o.key === given);
+                    if (opt) total += opt.score;
+                }
+            }
+            return total;
+        });
+
+        const canApprove = computed(() => !!props.application.initial_assessment?.is_eligible);
+
+        // Kanvas TTD admin baru muncul di DOM setelah canApprove jadi true (mis. setelah
+        // penilaian awal disimpan) — onMounted saja tidak cukup, perlu re-init di sini juga.
+        watch(canApprove, async (val) => {
+            if (val) {
+                await nextTick();
+                initAdminPad();
+            }
+        });
+
+        const submitAssessment = () => {
+            const missing = (props.initial_assessment_rubric?.criteria ?? [])
+                .filter(c => c.type === 'single' && !assessmentAnswers[c.key]);
+            if (missing.length) {
+                alert('Lengkapi semua kriteria penilaian terlebih dahulu: ' + missing.map(c => c.label).join(', '));
+                return;
+            }
+            assessmentSaving.value = true;
+            router.post(`/admin/applications/${props.application.id}/penilaian-awal`,
+                { answers: { ...assessmentAnswers } },
+                {
+                    preserveScroll: true,
+                    onSuccess: () => { showAssessmentForm.value = false; },
+                    onFinish:  () => { assessmentSaving.value = false; },
                 }
             );
         };
@@ -670,6 +830,8 @@ export default {
             openResetPasswordModal, closeResetPasswordModal, submitResetPassword,
             showChangeBatchModal, selectedSessionId, changeBatchProcessing,
             openChangeBatchModal, closeChangeBatchModal, submitChangeBatch,
+            showAssessmentForm, assessmentSaving, assessmentAnswers,
+            openAssessmentForm, computedTotalScore, canApprove, submitAssessment,
         };
     },
 }

@@ -87,6 +87,11 @@ class AssessmentApplication extends Model
         return $this->belongsTo(User::class, 'asesor_verified_by');
     }
 
+    public function initialAssessment()
+    {
+        return $this->hasOne(InitialAssessment::class);
+    }
+
     public function documents()
     {
         return $this->hasMany(ApplicationDocument::class);

@@ -66,6 +66,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/applications',                                        [\App\Http\Controllers\Admin\ApplicationController::class, 'index'])->name('admin.applications.index');
         Route::get('/applications/export',                                 [\App\Http\Controllers\Admin\ApplicationController::class, 'export'])->name('admin.applications.export');
         Route::get('/applications/{application}',                          [\App\Http\Controllers\Admin\ApplicationController::class, 'show'])->name('admin.applications.show');
+        Route::post('/applications/{application}/penilaian-awal',          [\App\Http\Controllers\Admin\ApplicationController::class, 'saveInitialAssessment'])->name('admin.applications.initialAssessment');
         Route::post('/applications/{application}/approve',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'approve'])->name('admin.applications.approve');
         Route::post('/applications/{application}/reject',                  [\App\Http\Controllers\Admin\ApplicationController::class, 'reject'])->name('admin.applications.reject');
         Route::post('/applications/{application}/reissue',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'reissueStudent'])->name('admin.applications.reissue');
