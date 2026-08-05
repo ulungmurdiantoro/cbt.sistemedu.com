@@ -164,14 +164,9 @@
 
                     <!-- Ringkasan (sudah dinilai, tidak sedang diedit) -->
                     <div v-if="application.initial_assessment && !showAssessmentForm">
-                        <div class="d-flex align-items-center gap-3 mb-2 flex-wrap">
+                        <div class="mb-2">
                             <span class="badge fs-6" :class="application.initial_assessment.is_eligible ? 'bg-success' : 'bg-danger'">
-                                {{ application.initial_assessment.total_score }} / {{ application.initial_assessment.threshold }}
-                            </span>
-                            <span class="fw-semibold" :class="application.initial_assessment.is_eligible ? 'text-success' : 'text-danger'">
-                                {{ application.initial_assessment.is_eligible
-                                    ? 'Memenuhi syarat — bisa langsung uji kompetensi (jalur portofolio)'
-                                    : 'Belum memenuhi syarat — harus mengikuti training terlebih dahulu' }}
+                                {{ resultSentence(application.initial_assessment.total_score, application.initial_assessment.threshold) }}
                             </span>
                         </div>
                         <div class="small text-muted">
@@ -208,12 +203,9 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                            <div class="fw-semibold">
-                                Total: <span class="fs-5">{{ computedTotalScore }}</span> / {{ initial_assessment_rubric.threshold }}
-                            </div>
+                        <div class="mb-3">
                             <span class="badge fs-6" :class="computedTotalScore >= initial_assessment_rubric.threshold ? 'bg-success' : 'bg-danger'">
-                                {{ computedTotalScore >= initial_assessment_rubric.threshold ? 'Memenuhi syarat' : 'Belum memenuhi syarat' }}
+                                {{ resultSentence(computedTotalScore, initial_assessment_rubric.threshold) }}
                             </span>
                         </div>
 
@@ -601,6 +593,17 @@ export default {
 
         const canApprove = computed(() => !!props.application.initial_assessment?.is_eligible);
 
+        // Kalimat hasil penilaian, meniru persis format keterangan di dokumen FR.APL.03
+        // (mis. "nilai ≥ 8 = bisa langsung uji kompetensi melalui jalur portofolio").
+        const resultSentence = (score, threshold) => {
+            const passed = score >= threshold;
+            const comparison = passed ? `≥ ${threshold}` : `< ${threshold}`;
+            const outcome = passed
+                ? 'bisa langsung uji kompetensi melalui jalur portofolio'
+                : 'harus training dulu';
+            return `Nilai ${score} (${comparison}) = ${outcome}`;
+        };
+
         // Kanvas TTD admin baru muncul di DOM setelah canApprove jadi true (mis. setelah
         // penilaian awal disimpan) — onMounted saja tidak cukup, perlu re-init di sini juga.
         watch(canApprove, async (val) => {
@@ -831,7 +834,7 @@ export default {
             showChangeBatchModal, selectedSessionId, changeBatchProcessing,
             openChangeBatchModal, closeChangeBatchModal, submitChangeBatch,
             showAssessmentForm, assessmentSaving, assessmentAnswers,
-            openAssessmentForm, computedTotalScore, canApprove, submitAssessment,
+            openAssessmentForm, computedTotalScore, canApprove, submitAssessment, resultSentence,
         };
     },
 }
