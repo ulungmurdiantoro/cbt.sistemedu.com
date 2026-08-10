@@ -85,10 +85,16 @@ class RemoveSignatureBackgrounds extends Command
             }
 
             try {
-                $raw = $disk->get($path);
-
                 $backupPath = 'signature-backups/' . $path;
-                if (!$disk->exists($backupPath)) {
+
+                // Kalau sudah pernah diproses sebelumnya, pakai cadangan (file asli
+                // yang belum diapa-apakan) sebagai sumber — supaya menjalankan
+                // command ini berkali-kali (mis. setelah algoritma diperbaiki)
+                // selalu memproses dari gambar asli, bukan dari hasil proses lama.
+                if ($disk->exists($backupPath)) {
+                    $raw = $disk->get($backupPath);
+                } else {
+                    $raw = $disk->get($path);
                     $disk->put($backupPath, $raw);
                 }
 
