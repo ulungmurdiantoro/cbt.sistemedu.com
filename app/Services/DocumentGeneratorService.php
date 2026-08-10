@@ -596,7 +596,7 @@ class DocumentGeneratorService
         if ($ttdPath) {
             $info = @getimagesize($ttdPath);
             if ($info && $info[0] > 0 && $info[1] > 0) {
-                [$boxWmm, $boxHmm] = [65, 22];
+                [$boxWmm, $boxHmm] = [100, 34];
                 $aspect = $info[0] / $info[1];
                 if ($aspect > ($boxWmm / $boxHmm)) {
                     $ttdWidthMm  = $boxWmm;
