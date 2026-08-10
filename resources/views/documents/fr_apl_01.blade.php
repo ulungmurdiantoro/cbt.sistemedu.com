@@ -30,11 +30,6 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
 
 .page-break { page-break-before: always; }
 
-/* Kotak centang digambar via CSS (bukan glyph Unicode ☐/☑) — Cambria tidak
-   punya karakter ballot-box, jadi pakai border + "X" polos supaya konsisten
-   di font apa pun. */
-.chk { display: inline-block; width: 9pt; height: 9pt; border: 1pt solid #000; text-align: center; font-size: 8pt; line-height: 8pt; vertical-align: middle; font-weight: bold; }
-
 .rekom-table { width: 100%; border-collapse: collapse; margin-top: 8pt; font-size: 9.5pt; }
 .rekom-table td { border: 0.75pt solid #000; padding: 5pt 6pt; vertical-align: top; }
 .rekom-label { font-weight: bold; }
@@ -122,11 +117,11 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
     </tr>
     <tr>
         <td colspan="2"></td><td>:</td>
-        <td><span class="chk">{{ $tujuanAsesmen === 'Sertifikasi Ulang' ? '' : 'X' }}</span> Sertifikasi</td>
+        <td><img src="{{ $tujuanAsesmen === 'Sertifikasi Ulang' ? $checkboxEmptyPath : $checkboxCheckedPath }}" style="width:9pt;height:9pt;vertical-align:middle;"> Sertifikasi</td>
     </tr>
     <tr>
         <td colspan="2"></td><td></td>
-        <td><span class="chk">{{ $tujuanAsesmen === 'Sertifikasi Ulang' ? 'X' : '' }}</span> Sertifikasi Ulang</td>
+        <td><img src="{{ $tujuanAsesmen === 'Sertifikasi Ulang' ? $checkboxCheckedPath : $checkboxEmptyPath }}" style="width:9pt;height:9pt;vertical-align:middle;"> Sertifikasi Ulang</td>
     </tr>
 </table>
 
@@ -151,9 +146,9 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
             <tr>
                 <td class="bukti-num">{{ $i + 1 }}</td>
                 <td>{{ $bukti['label'] }}</td>
-                <td class="bukti-check"><span class="chk">{{ $bukti['status'] === 'verified' ? 'X' : '' }}</span></td>
-                <td class="bukti-check"><span class="chk">{{ $bukti['status'] === 'rejected' ? 'X' : '' }}</span></td>
-                <td class="bukti-check"><span class="chk">{{ $bukti['status'] === 'none' ? 'X' : '' }}</span></td>
+                <td class="bukti-check"><img src="{{ $bukti['status'] === 'verified' ? $checkboxCheckedPath : $checkboxEmptyPath }}" style="width:9pt;height:9pt;vertical-align:middle;"></td>
+                <td class="bukti-check"><img src="{{ $bukti['status'] === 'rejected' ? $checkboxCheckedPath : $checkboxEmptyPath }}" style="width:9pt;height:9pt;vertical-align:middle;"></td>
+                <td class="bukti-check"><img src="{{ $bukti['status'] === 'none' ? $checkboxCheckedPath : $checkboxEmptyPath }}" style="width:9pt;height:9pt;vertical-align:middle;"></td>
             </tr>
         @endforeach
     </tbody>

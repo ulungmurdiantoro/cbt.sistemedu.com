@@ -313,7 +313,7 @@ class DocumentGeneratorService
         $headerHtml = '<div style="text-align:right;">'
             . ($logo['path'] ? '<img src="' . $logo['path'] . '" style="width:' . $logo['w'] . 'mm;height:' . $logo['h'] . 'mm;">' : '')
             . '</div>';
-        $footerHtml = '<div style="font-size:8pt;color:#444;">' . e($revLabel) . '</div>';
+        $footerHtml = '<div style="width:100%;font-size:8pt;color:#444;text-align:right;">' . e($revLabel) . '</div>';
 
         $mpdf->SetHTMLHeader($headerHtml);
         $mpdf->SetHTMLFooter($footerHtml);
@@ -767,6 +767,8 @@ class DocumentGeneratorService
             'tanggalAdmin'    => $application->approved_at ? Carbon::parse($application->approved_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
             'ttdAsesor'       => $this->ttdBox($application->asesor_signature_path),
             'tanggalAsesor'   => $application->asesor_verified_at ? Carbon::parse($application->asesor_verified_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'checkboxEmptyPath'   => $this->asset('checkbox_empty'),
+            'checkboxCheckedPath' => $this->asset('checkbox_checked'),
         ])->render();
 
         return $this->renderFormWithLogoHeader($html, 'FR.APL.01 Rev.02');
@@ -809,6 +811,8 @@ class DocumentGeneratorService
             'tanggalAsesor'  => $application->asesor_verified_at ? Carbon::parse($application->asesor_verified_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
             'ttdAsesi'       => $this->ttdBox($application->signature_path),
             'tanggalAsesi'   => $application->pakta_signed_at ? Carbon::parse($application->pakta_signed_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'checkboxEmptyPath'   => $this->asset('checkbox_empty'),
+            'checkboxCheckedPath' => $this->asset('checkbox_checked'),
         ])->render();
 
         return $this->renderFormWithLogoHeader($html, 'FR.AK.01 Rev.02');

@@ -23,11 +23,6 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
 .sub-list { margin: 1pt 0 4pt 26pt; }
 .sub-list li { text-align: justify; margin-bottom: 1pt; }
 
-/* Kotak centang digambar via CSS (bukan glyph Unicode ☐/☑) — Cambria tidak
-   punya karakter ballot-box. Semua di sini kosong (belum ada data per-jenis
-   bukti di sistem), sama seperti tampilan on-screen pakta integritas. */
-.chk { display: inline-block; width: 9pt; height: 9pt; border: 1pt solid #000; text-align: center; font-size: 8pt; line-height: 8pt; vertical-align: middle; font-weight: bold; }
-
 .page-break { page-break-before: always; }
 
 .penutup-box { border: 0.75pt solid #000; padding: 6pt; margin-top: 8pt; text-align: justify; }
@@ -69,10 +64,10 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
     </tr>
     <tr>
         <td class="info-label" rowspan="3">Bukti yang akan dikumpulkan</td><td colspan="2" rowspan="3">:</td>
-        <td><span class="chk"></span> TL : Verifikasi Portofolio &nbsp;&nbsp;&nbsp; <span class="chk">X</span> L : Observasi Langsung</td>
+        <td><img src="{{ $checkboxEmptyPath }}" style="width:9pt;height:9pt;vertical-align:middle;"> TL : Verifikasi Portofolio &nbsp;&nbsp;&nbsp; <img src="{{ $checkboxCheckedPath }}" style="width:9pt;height:9pt;vertical-align:middle;"> L : Observasi Langsung</td>
     </tr>
-    <tr><td><span class="chk">X</span> T : Hasil Tes Tulis</td></tr>
-    <tr><td><span class="chk">X</span> T : Hasil Wawancara</td></tr>
+    <tr><td><img src="{{ $checkboxCheckedPath }}" style="width:9pt;height:9pt;vertical-align:middle;"> T : Hasil Tes Tulis</td></tr>
+    <tr><td><img src="{{ $checkboxCheckedPath }}" style="width:9pt;height:9pt;vertical-align:middle;"> T : Hasil Wawancara</td></tr>
     <tr>
         <td class="info-label" rowspan="3">Pelaksanaan asesmen disepakati pada</td><td colspan="2" rowspan="3">:</td>
         <td>Hari/Tanggal &nbsp;&nbsp; : {{ $hariTanggal }}</td>
@@ -185,6 +180,8 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
     <div class="klausul-title">6. Pencabutan atau Penangguhan Sertifikasi</div>
     <div class="klausul-body">Jika saya tidak dapat lagi memenuhi kompetensi yang diwajibkan dalam jangka waktu yang ditentukan, sertifikat kompetensi dapat ditangguhkan atau dicabut berdasarkan keputusan LSP Edukasi Global Cendekia.</div>
 </div>
+
+<div class="page-break"></div>
 
 <div class="penutup-box">Dengan menandatangani formulir ini, LSP Edukasi Global Cendekia, Asesor dan Pemohon menyatakan setuju untuk mematuhi ketentuan ketidakberpihakan, kerahasiaan, dan keamanan yang disebutkan di atas dan untuk menjaga integritas proses sertifikasi.</div>
 

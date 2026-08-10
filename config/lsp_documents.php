@@ -40,6 +40,8 @@ return [
         'bg_sertif_kan'             => 'resources/lsp-assets/bg-sertifikat-kan.png',
         'bg_sertif_tanpa_kan'       => 'resources/lsp-assets/bg-sertifikat-tanpa-kan.png',
         'bg_sertifikat'             => 'resources/lsp-assets/bg-sertifikat.png',
+        'checkbox_empty'            => 'resources/lsp-assets/checkbox-empty.png',
+        'checkbox_checked'          => 'resources/lsp-assets/checkbox-checked.png',
     ],
 
     /* ---------------------------------------------------------------
