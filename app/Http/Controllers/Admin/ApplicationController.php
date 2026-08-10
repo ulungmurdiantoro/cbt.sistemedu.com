@@ -110,8 +110,6 @@ class ApplicationController extends Controller
 
     public function saveInitialAssessment(Request $request, AssessmentApplication $application)
     {
-        abort_if(!$application->isSubmitted(), 422, 'Hanya permohonan berstatus submitted yang dapat dinilai.');
-
         $request->validate([
             'answers' => 'required|array',
         ]);

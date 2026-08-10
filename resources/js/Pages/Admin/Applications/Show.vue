@@ -151,11 +151,11 @@
         <!-- Kolom aksi -->
         <div class="col-lg-8">
 
-            <!-- Penilaian Awal Kelayakan (FR.APL.03) -->
-            <div class="card border-0 shadow mb-4" v-if="application.status === 'submitted' || application.initial_assessment">
+            <!-- Penilaian Awal Kelayakan (FR.APL.03) — selalu bisa diakses, tidak terikat status -->
+            <div class="card border-0 shadow mb-4">
                 <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center">
                     <span>Penilaian Awal Kelayakan (FR.APL.03)</span>
-                    <button v-if="application.initial_assessment && application.status === 'submitted' && !showAssessmentForm"
+                    <button v-if="application.initial_assessment && !showAssessmentForm"
                         type="button" class="btn btn-sm btn-outline-light" @click="openAssessmentForm">
                         <i class="fa fa-pen me-1"></i>Ubah Penilaian
                     </button>
