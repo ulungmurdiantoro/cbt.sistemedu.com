@@ -59,6 +59,28 @@ class DocumentGeneratorService
         return ['path' => $path, 'w' => round($w, 1), 'h' => round($h, 1)];
     }
 
+    /**
+     * Ukuran tampil (mm) untuk gambar dengan lebar tetap (dipakai untuk logo
+     * header berulang) — tinggi dihitung dari rasio aspek asli gambar.
+     *
+     * @return array{path: ?string, w: float, h: float}
+     */
+    private function fixedWidthImageBox(string $path, float $widthMm): array
+    {
+        if (!file_exists($path)) {
+            return ['path' => null, 'w' => $widthMm, 'h' => 15];
+        }
+
+        $normalized = str_replace('\\', '/', $path);
+        $info       = @getimagesize($path);
+
+        if (!$info || $info[0] <= 0 || $info[1] <= 0) {
+            return ['path' => $normalized, 'w' => $widthMm, 'h' => 15];
+        }
+
+        return ['path' => $normalized, 'w' => $widthMm, 'h' => round($widthMm * $info[1] / $info[0], 1)];
+    }
+
     // ── Date formatting — English ordinal ──────────────────────────────
     // e.g. "8th May 2026"
     private function heldOnEn(Carbon $dt): string
@@ -245,10 +267,10 @@ class DocumentGeneratorService
         $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
     }
 
-    // ── mPDF factory — untuk formulir (FR.APL.03, dst) ──────────────────
-    private function makeMpdfForm(): Mpdf
+    // ── mPDF factory — untuk formulir (FR.APL.01, FR.AK.01, FR.APL.03) ──
+    private function makeMpdfForm(array $marginOverrides = []): Mpdf
     {
-        return new Mpdf([
+        return new Mpdf(array_merge([
             'mode'          => 'utf-8',
             'format'        => 'A4',
             'orientation'   => 'P',
@@ -256,7 +278,48 @@ class DocumentGeneratorService
             'margin_bottom' => 8,
             'margin_left'   => 13,
             'margin_right'  => 13,
+            'fontDir'       => [
+                base_path('vendor/mpdf/mpdf/ttfonts'),
+                resource_path('fonts'),
+            ],
+            'fontdata'      => [
+                'cambria' => [
+                    'R'  => 'Cambria.ttf',
+                    'B'  => 'Cambria Bold.ttf',
+                    'I'  => 'Cambria Italic.ttf',
+                    'BI' => 'Cambria Bold Italic.ttf',
+                ],
+            ],
+            'default_font'  => 'cambria',
+        ], $marginOverrides));
+    }
+
+    // ── Render form dengan header logo & footer nomor revisi berulang tiap halaman ──
+    private function renderFormWithLogoHeader(string $html, string $revLabel): string
+    {
+        $logo         = $this->fixedWidthImageBox($this->asset('logo_edukia'), 32);
+        $marginHeader = 5;
+        $marginTop    = $marginHeader + $logo['h'] + 4;
+        $marginFooter = 5;
+        $marginBottom = 14;
+
+        $mpdf = $this->makeMpdfForm([
+            'margin_header' => $marginHeader,
+            'margin_top'    => $marginTop,
+            'margin_footer' => $marginFooter,
+            'margin_bottom' => $marginBottom,
         ]);
+
+        $headerHtml = '<div style="text-align:right;">'
+            . ($logo['path'] ? '<img src="' . $logo['path'] . '" style="width:' . $logo['w'] . 'mm;height:' . $logo['h'] . 'mm;">' : '')
+            . '</div>';
+        $footerHtml = '<div style="font-size:8pt;color:#444;">' . e($revLabel) . '</div>';
+
+        $mpdf->SetHTMLHeader($headerHtml);
+        $mpdf->SetHTMLFooter($footerHtml);
+        $mpdf->WriteHTML($html);
+
+        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
     }
 
     // ── PDF cache helper ────────────────────────────────────────────────
@@ -704,12 +767,9 @@ class DocumentGeneratorService
             'tanggalAdmin'    => $application->approved_at ? Carbon::parse($application->approved_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
             'ttdAsesor'       => $this->ttdBox($application->asesor_signature_path),
             'tanggalAsesor'   => $application->asesor_verified_at ? Carbon::parse($application->asesor_verified_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
-            'logoEdukiaPath'  => $this->asset('logo_edukia'),
         ])->render();
 
-        $mpdf = $this->makeMpdfForm();
-        $mpdf->WriteHTML($html);
-        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+        return $this->renderFormWithLogoHeader($html, 'FR.APL.01 Rev.02');
     }
 
     // ═══════════════════════════════════════════════════════════════════
@@ -749,11 +809,8 @@ class DocumentGeneratorService
             'tanggalAsesor'  => $application->asesor_verified_at ? Carbon::parse($application->asesor_verified_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
             'ttdAsesi'       => $this->ttdBox($application->signature_path),
             'tanggalAsesi'   => $application->pakta_signed_at ? Carbon::parse($application->pakta_signed_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
-            'logoEdukiaPath' => $this->asset('logo_edukia'),
         ])->render();
 
-        $mpdf = $this->makeMpdfForm();
-        $mpdf->WriteHTML($html);
-        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+        return $this->renderFormWithLogoHeader($html, 'FR.AK.01 Rev.02');
     }
 }

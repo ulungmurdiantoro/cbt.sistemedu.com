@@ -5,7 +5,7 @@
 <title>FR.APL.03 - {{ $namaPeserta }}</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; color: #000; }
+body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 11pt; color: #000; }
 
 .kop-table { width: 100%; border-collapse: collapse; margin-bottom: 0; }
 .kop-table td { vertical-align: middle; padding: 0; }

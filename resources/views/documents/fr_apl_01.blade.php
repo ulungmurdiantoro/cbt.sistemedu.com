@@ -5,13 +5,7 @@
 <title>FR.APL.01 - {{ $namaPeserta }}</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 9.5pt; color: #000; }
-
-.kop-table { width: 100%; border-collapse: collapse; margin-bottom: 4pt; }
-.kop-table td { vertical-align: middle; padding: 0; }
-.kop-rev { font-size: 8pt; color: #444; }
-.kop-logo { text-align: right; }
-.kop-logo img { width: 32mm; height: auto; }
+body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; color: #000; }
 
 .title { font-size: 11pt; font-weight: bold; margin-bottom: 8pt; }
 .section-title { font-weight: bold; margin: 8pt 0 3pt; font-size: 10pt; }
@@ -36,6 +30,11 @@ body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 9.5pt; color: #
 
 .page-break { page-break-before: always; }
 
+/* Kotak centang digambar via CSS (bukan glyph Unicode ☐/☑) — Cambria tidak
+   punya karakter ballot-box, jadi pakai border + "X" polos supaya konsisten
+   di font apa pun. */
+.chk { display: inline-block; width: 9pt; height: 9pt; border: 1pt solid #000; text-align: center; font-size: 8pt; line-height: 8pt; vertical-align: middle; font-weight: bold; }
+
 .rekom-table { width: 100%; border-collapse: collapse; margin-top: 8pt; font-size: 9.5pt; }
 .rekom-table td { border: 0.75pt solid #000; padding: 5pt 6pt; vertical-align: top; }
 .rekom-label { font-weight: bold; }
@@ -45,17 +44,6 @@ body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 9.5pt; color: #
 </style>
 </head>
 <body>
-
-<table class="kop-table">
-    <tr>
-        <td><span class="kop-rev">FR.APL.01 Rev.02</span></td>
-        <td class="kop-logo">
-            @if(file_exists($logoEdukiaPath))
-                <img src="{{ $logoEdukiaPath }}" style="width:32mm;">
-            @endif
-        </td>
-    </tr>
-</table>
 
 <div class="title">FR.APL.01. PERMOHONAN SERTIFIKASI KOMPETENSI</div>
 
@@ -134,11 +122,11 @@ body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 9.5pt; color: #
     </tr>
     <tr>
         <td colspan="2"></td><td>:</td>
-        <td>{{ $tujuanAsesmen === 'Sertifikasi Ulang' ? '☐' : '☑' }} Sertifikasi</td>
+        <td><span class="chk">{{ $tujuanAsesmen === 'Sertifikasi Ulang' ? '' : 'X' }}</span> Sertifikasi</td>
     </tr>
     <tr>
         <td colspan="2"></td><td></td>
-        <td>{{ $tujuanAsesmen === 'Sertifikasi Ulang' ? '☑' : '☐' }} Sertifikasi Ulang</td>
+        <td><span class="chk">{{ $tujuanAsesmen === 'Sertifikasi Ulang' ? 'X' : '' }}</span> Sertifikasi Ulang</td>
     </tr>
 </table>
 
@@ -163,9 +151,9 @@ body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 9.5pt; color: #
             <tr>
                 <td class="bukti-num">{{ $i + 1 }}</td>
                 <td>{{ $bukti['label'] }}</td>
-                <td class="bukti-check">{{ $bukti['status'] === 'verified' ? '☑' : '☐' }}</td>
-                <td class="bukti-check">{{ $bukti['status'] === 'rejected' ? '☑' : '☐' }}</td>
-                <td class="bukti-check">{{ $bukti['status'] === 'none' ? '☑' : '☐' }}</td>
+                <td class="bukti-check"><span class="chk">{{ $bukti['status'] === 'verified' ? 'X' : '' }}</span></td>
+                <td class="bukti-check"><span class="chk">{{ $bukti['status'] === 'rejected' ? 'X' : '' }}</span></td>
+                <td class="bukti-check"><span class="chk">{{ $bukti['status'] === 'none' ? 'X' : '' }}</span></td>
             </tr>
         @endforeach
     </tbody>

@@ -5,13 +5,7 @@
 <title>FR.AK.01 - {{ $namaPeserta }}</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 9.5pt; color: #000; }
-
-.kop-table { width: 100%; border-collapse: collapse; margin-bottom: 4pt; }
-.kop-table td { vertical-align: middle; padding: 0; }
-.kop-rev { font-size: 8pt; color: #444; }
-.kop-logo { text-align: right; }
-.kop-logo img { width: 32mm; height: auto; }
+body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; color: #000; }
 
 .title { font-size: 11pt; font-weight: bold; margin-bottom: 8pt; }
 .intro-box { border: 0.75pt solid #000; padding: 5pt 6pt; margin-bottom: 0; text-align: justify; }
@@ -29,6 +23,11 @@ body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 9.5pt; color: #
 .sub-list { margin: 1pt 0 4pt 26pt; }
 .sub-list li { text-align: justify; margin-bottom: 1pt; }
 
+/* Kotak centang digambar via CSS (bukan glyph Unicode ☐/☑) — Cambria tidak
+   punya karakter ballot-box. Semua di sini kosong (belum ada data per-jenis
+   bukti di sistem), sama seperti tampilan on-screen pakta integritas. */
+.chk { display: inline-block; width: 9pt; height: 9pt; border: 1pt solid #000; text-align: center; font-size: 8pt; line-height: 8pt; vertical-align: middle; font-weight: bold; }
+
 .page-break { page-break-before: always; }
 
 .penutup-box { border: 0.75pt solid #000; padding: 6pt; margin-top: 8pt; text-align: justify; }
@@ -41,17 +40,6 @@ body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 9.5pt; color: #
 </style>
 </head>
 <body>
-
-<table class="kop-table">
-    <tr>
-        <td><span class="kop-rev">FR.AK.01 Rev.02</span></td>
-        <td class="kop-logo">
-            @if(file_exists($logoEdukiaPath))
-                <img src="{{ $logoEdukiaPath }}" style="width:32mm;">
-            @endif
-        </td>
-    </tr>
-</table>
 
 <div class="title">FR.AK.01. PERSETUJUAN ASESMEN, KETIDAKBERPIHAKAN, KERAHASIAAN DAN KEAMANAN SERTIFIKASI</div>
 
@@ -80,12 +68,11 @@ body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 9.5pt; color: #
         <td>{{ $namaPeserta }}</td>
     </tr>
     <tr>
-        <td class="info-label" rowspan="4">Bukti yang akan dikumpulkan</td><td colspan="2" rowspan="4">:</td>
-        <td>☐ TL : Verifikasi Portofolio &nbsp;&nbsp;&nbsp; ☐ L : Observasi Langsung</td>
+        <td class="info-label" rowspan="3">Bukti yang akan dikumpulkan</td><td colspan="2" rowspan="3">:</td>
+        <td><span class="chk"></span> TL : Verifikasi Portofolio &nbsp;&nbsp;&nbsp; <span class="chk">X</span> L : Observasi Langsung</td>
     </tr>
-    <tr><td>☐ T : Hasil Tes Tulis</td></tr>
-    <tr><td>☐ T : Hasil Tes Lisan</td></tr>
-    <tr><td>☐ T : Hasil Wawancara</td></tr>
+    <tr><td><span class="chk">X</span> T : Hasil Tes Tulis</td></tr>
+    <tr><td><span class="chk">X</span> T : Hasil Wawancara</td></tr>
     <tr>
         <td class="info-label" rowspan="3">Pelaksanaan asesmen disepakati pada</td><td colspan="2" rowspan="3">:</td>
         <td>Hari/Tanggal &nbsp;&nbsp; : {{ $hariTanggal }}</td>
