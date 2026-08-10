@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Support\SignatureImageProcessor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -130,20 +131,18 @@ class UserController extends Controller
         $disk = Storage::disk('private');
         $dir  = 'user-signatures/' . $user->id;
         $now  = now()->format('YmdHis');
+        $path = $dir . '/sig_' . $now . '.png';
 
         if ($request->hasFile('signature_file')) {
-            $ext  = $request->file('signature_file')->getClientOriginalExtension() ?: 'png';
-            $path = $dir . '/sig_' . $now . '.' . strtolower($ext);
-            $disk->put($path, file_get_contents($request->file('signature_file')->getRealPath()));
+            $raw = file_get_contents($request->file('signature_file')->getRealPath());
+            $disk->put($path, SignatureImageProcessor::removeBackground($raw));
             return $path;
         }
 
         $data = $request->signature_data;
         if (preg_match('/^data:image\/(png|jpe?g);base64,(.+)$/', $data, $m)) {
-            $ext     = $m[1] === 'jpg' ? 'jpeg' : $m[1];
             $decoded = base64_decode($m[2]);
-            $path    = $dir . '/sig_' . $now . '.' . $ext;
-            $disk->put($path, $decoded);
+            $disk->put($path, SignatureImageProcessor::removeBackground($decoded));
             return $path;
         }
 

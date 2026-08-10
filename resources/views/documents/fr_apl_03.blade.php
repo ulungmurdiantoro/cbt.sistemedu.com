@@ -51,7 +51,8 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
 .ttd-table { width: 100%; border-collapse: collapse; margin-top: 6pt; }
 .ttd-table td { vertical-align: top; padding: 0; }
 .ttd-right { width: 55%; text-align: center; font-size: 10pt; line-height: 1.5; }
-.ttd-img img { height: 16mm; width: auto; margin: 4pt 0; }
+.ttd-img { height: 14mm; margin: 3pt 0; }
+.ttd-img img { max-height: 14mm; max-width: 45mm; width: auto; height: auto; }
 .ttd-name { font-weight: bold; margin-top: 4pt; text-decoration: underline; }
 </style>
 </head>

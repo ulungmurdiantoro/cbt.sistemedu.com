@@ -10,6 +10,7 @@ use App\Mail\ApplicationSubmittedMail;
 use App\Models\AssessmentApplication;
 use App\Models\ExamSession;
 use App\Models\Participant;
+use App\Support\SignatureImageProcessor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -285,12 +286,13 @@ class ApplicationController extends Controller
     // Simpan tanda tangan ke private disk, kembalikan path-nya
     private function storeSignature(Request $request, string $prefix): string
     {
+        $name = $prefix . '_' . time() . '.png';
+
         if ($request->filled('signature_data')) {
             $request->validate(['signature_data' => 'required|string']);
-            $raw  = preg_replace('/^data:image\/\w+;base64,/', '', $request->signature_data);
-            $raw  = base64_decode($raw);
-            $name = $prefix . '_' . time() . '.png';
-            Storage::disk('private')->put('signatures/' . $name, $raw);
+            $raw = preg_replace('/^data:image\/\w+;base64,/', '', $request->signature_data);
+            $raw = base64_decode($raw);
+            Storage::disk('private')->put('signatures/' . $name, SignatureImageProcessor::removeBackground($raw));
             return 'signatures/' . $name;
         }
 
@@ -302,9 +304,9 @@ class ApplicationController extends Controller
         $realMime = $finfo->file($file->getRealPath());
         abort_if(!in_array($realMime, ['image/jpeg', 'image/png']), 422, 'Format file tidak valid.');
 
-        $ext  = $file->getClientOriginalExtension();
-        $name = $prefix . '_' . time() . '.' . $ext;
-        return $file->storeAs('signatures', $name, 'private');
+        $raw = SignatureImageProcessor::removeBackground(file_get_contents($file->getRealPath()));
+        Storage::disk('private')->put('signatures/' . $name, $raw);
+        return 'signatures/' . $name;
     }
 
     private function authorizeApplication(AssessmentApplication $application): void

@@ -18,6 +18,7 @@ use App\Models\InitialAssessment;
 use App\Models\Student;
 use App\Services\DocumentGeneratorService;
 use App\Support\InitialAssessmentRubric;
+use App\Support\SignatureImageProcessor;
 use App\Models\StudentReissueLog;
 use Illuminate\Http\Request;
 use App\Mail\ApplicationApprovedMail;
@@ -534,24 +535,22 @@ class ApplicationController extends Controller
      */
     private function storeAdminSignature(Request $request, AssessmentApplication $application): string
     {
-        $disk    = Storage::disk('private');
-        $dir     = 'admin-signatures/' . $application->id;
-        $now     = now()->format('YmdHis');
+        $disk = Storage::disk('private');
+        $dir  = 'admin-signatures/' . $application->id;
+        $now  = now()->format('YmdHis');
+        $path = $dir . '/admin_' . $now . '.png';
 
         if ($request->hasFile('admin_signature_file')) {
-            $ext  = $request->file('admin_signature_file')->getClientOriginalExtension() ?: 'png';
-            $path = $dir . '/admin_' . $now . '.' . strtolower($ext);
-            $disk->put($path, file_get_contents($request->file('admin_signature_file')->getRealPath()));
+            $raw = file_get_contents($request->file('admin_signature_file')->getRealPath());
+            $disk->put($path, SignatureImageProcessor::removeBackground($raw));
             return $path;
         }
 
         // Format data URL: "data:image/png;base64,iVBORw0..."
         $data = $request->admin_signature_data;
         if (preg_match('/^data:image\/(png|jpe?g);base64,(.+)$/', $data, $m)) {
-            $ext     = $m[1] === 'jpg' ? 'jpeg' : $m[1];
             $decoded = base64_decode($m[2]);
-            $path    = $dir . '/admin_' . $now . '.' . $ext;
-            $disk->put($path, $decoded);
+            $disk->put($path, SignatureImageProcessor::removeBackground($decoded));
             return $path;
         }
 
