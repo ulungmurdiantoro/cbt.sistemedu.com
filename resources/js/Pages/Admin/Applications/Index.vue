@@ -46,6 +46,10 @@
                     <a :href="exportUrl" class="btn btn-sm btn-success ms-1">
                         <i class="fa fa-file-excel me-1"></i>Export Excel
                     </a>
+                    <a :href="exportDokumenUrl" class="btn btn-sm btn-info ms-1" title="Perlu filter Skema"
+                        :class="{ 'disabled': !filterForm.classroom_id }">
+                        <i class="fa fa-file-archive me-1"></i>Export Dokumen (ZIP)
+                    </a>
                 </div>
             </form>
         </div>
@@ -156,13 +160,22 @@ export default {
             return '/admin/applications/export' + (qs ? `?${qs}` : '');
         });
 
+        const exportDokumenUrl = computed(() => {
+            const params = new URLSearchParams();
+            Object.entries(filterForm).forEach(([key, value]) => {
+                if (value) params.append(key, value);
+            });
+            const qs = params.toString();
+            return '/admin/applications/export-dokumen' + (qs ? `?${qs}` : '');
+        });
+
         const formatDate = (dt) => new Date(dt).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' });
 
         const statusLabel = (s) => ({ draft:'Draft', submitted:'Disubmit', approved:'Disetujui', rejected:'Ditolak' }[s] ?? s);
         // tone badge senada dengan Blueprint §4
         const statusTone = (s) => ({ draft:'neutral', submitted:'secondary', approved:'success', rejected:'danger' }[s] ?? 'neutral');
 
-        return { filterForm, applyFilter, resetFilter, exportUrl, formatDate, statusLabel, statusTone };
+        return { filterForm, applyFilter, resetFilter, exportUrl, exportDokumenUrl, formatDate, statusLabel, statusTone };
     },
 }
 </script>

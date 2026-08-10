@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\AssessmentApplication;
 use App\Models\ClassroomCompetencyUnit;
 use App\Models\GradingScheme;
 use App\Models\ParticipantResult;
+use App\Support\InitialAssessmentRubric;
 use BaconQrCode\Common\ErrorCorrectionLevel;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
@@ -208,6 +210,20 @@ class DocumentGeneratorService
 
         $mpdf->SetDefaultBodyCSS('background', 'url("' . str_replace('\\', '/', $path) . '")');
         $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
+    }
+
+    // ── mPDF factory — untuk formulir (FR.APL.03, dst) ──────────────────
+    private function makeMpdfForm(): Mpdf
+    {
+        return new Mpdf([
+            'mode'          => 'utf-8',
+            'format'        => 'A4',
+            'orientation'   => 'P',
+            'margin_top'    => 8,
+            'margin_bottom' => 8,
+            'margin_left'   => 13,
+            'margin_right'  => 13,
+        ]);
     }
 
     // ── PDF cache helper ────────────────────────────────────────────────
@@ -542,5 +558,36 @@ class DocumentGeneratorService
             'documents/sp/' . md5($result->sp_number) . '_' . $hash . '.pdf',
             fn() => $this->generateSp($result)
         );
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // FR.APL.03 — Standar Kriteria dan Penilaian Awal Pemohon
+    // ═══════════════════════════════════════════════════════════════════
+
+    public function generateFrApl03(AssessmentApplication $application): string
+    {
+        $application->loadMissing(['participant', 'classroom', 'initialAssessment.assessor']);
+
+        $assessment = $application->initialAssessment;
+        abort_if(!$assessment, 422, 'Permohonan ini belum memiliki Penilaian Awal Kelayakan (FR.APL.03).');
+
+        $rubric = InitialAssessmentRubric::for($application->classroom_id);
+
+        $html = View::make('documents.fr_apl_03', [
+            'application'     => $application,
+            'assessment'      => $assessment,
+            'rubric'          => $rubric,
+            'namaPeserta'     => $application->participant?->name ?? $application->snapshot_pribadi['name'] ?? '-',
+            'namaSkema'       => $application->classroom?->title ?? '-',
+            'resultSentence'  => InitialAssessmentRubric::resultSentence($assessment->total_score, $assessment->threshold),
+            'tanggalPeriksa'  => Carbon::parse($assessment->assessed_at)->locale('id')->isoFormat('DD MMMM YYYY'),
+            'namaPenilai'     => $assessment->assessor?->name ?? '-',
+            'lsp'             => config('lsp_documents.lsp'),
+            'logoEdukiaPath'  => $this->asset('logo_edukia'),
+        ])->render();
+
+        $mpdf = $this->makeMpdfForm();
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
     }
 }

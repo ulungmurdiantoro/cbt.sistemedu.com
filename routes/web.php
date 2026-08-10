@@ -65,8 +65,10 @@ Route::prefix('admin')->group(function () {
         // Permohonan sertifikasi
         Route::get('/applications',                                        [\App\Http\Controllers\Admin\ApplicationController::class, 'index'])->name('admin.applications.index');
         Route::get('/applications/export',                                 [\App\Http\Controllers\Admin\ApplicationController::class, 'export'])->name('admin.applications.export');
+        Route::get('/applications/export-dokumen',                         [\App\Http\Controllers\Admin\ApplicationController::class, 'exportDokumen'])->name('admin.applications.exportDokumen');
         Route::get('/applications/{application}',                          [\App\Http\Controllers\Admin\ApplicationController::class, 'show'])->name('admin.applications.show');
         Route::post('/applications/{application}/penilaian-awal',          [\App\Http\Controllers\Admin\ApplicationController::class, 'saveInitialAssessment'])->name('admin.applications.initialAssessment');
+        Route::get('/applications/{application}/fr-apl-03',                [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl03'])->name('admin.applications.frApl03');
         Route::post('/applications/{application}/approve',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'approve'])->name('admin.applications.approve');
         Route::post('/applications/{application}/reject',                  [\App\Http\Controllers\Admin\ApplicationController::class, 'reject'])->name('admin.applications.reject');
         Route::post('/applications/{application}/reissue',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'reissueStudent'])->name('admin.applications.reissue');
@@ -86,6 +88,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/users/{user}/edit',  [\App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.users.edit');
         Route::put('/users/{user}',       [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.users.update');
         Route::delete('/users/{user}',    [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
+        Route::post('/users/{user}/tanda-tangan', [\App\Http\Controllers\Admin\UserController::class, 'saveSignature'])->name('admin.users.signature.save');
+        Route::get('/users/{user}/tanda-tangan',  [\App\Http\Controllers\Admin\UserController::class, 'serveSignature'])->name('admin.users.signature.serve');
 
         // Laporan nilai
         Route::get('/reports',            [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');

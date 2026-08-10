@@ -16,6 +16,7 @@ use App\Models\ExamSession;
 use App\Models\Grade;
 use App\Models\InitialAssessment;
 use App\Models\Student;
+use App\Services\DocumentGeneratorService;
 use App\Support\InitialAssessmentRubric;
 use App\Models\StudentReissueLog;
 use Illuminate\Http\Request;
@@ -71,6 +72,79 @@ class ApplicationController extends Controller
         ]);
 
         return Excel::download(new ApplicationsExport($applications), Str::slug(implode('_', $filenameParts)) . '.xlsx');
+    }
+
+    public function exportDokumen(Request $request)
+    {
+        abort_if(!$request->classroom_id, 422, 'Pilih skema terlebih dahulu untuk export dokumen.');
+
+        $applications = $this->filteredQuery($request)
+            ->with(['participant', 'classroom', 'documents', 'initialAssessment.assessor'])
+            ->orderBy('id')
+            ->get();
+
+        abort_if($applications->isEmpty(), 422, 'Tidak ada permohonan yang cocok dengan filter.');
+
+        $generator = app(DocumentGeneratorService::class);
+
+        $tmpDir = storage_path('app/tmp');
+        if (!is_dir($tmpDir)) {
+            mkdir($tmpDir, 0755, true);
+        }
+        $zipPath = $tmpDir . '/export_dokumen_' . Str::random(12) . '.zip';
+
+        $zip = new \ZipArchive();
+        $zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        foreach ($applications as $i => $app) {
+            $no         = str_pad($i + 1, 2, '0', STR_PAD_LEFT);
+            $nama       = $app->participant?->name ?? ('Peserta ' . $no);
+            $folderName = str_replace(['/', '\\'], '-', $no . '. ' . $nama);
+
+            foreach ($app->documents as $doc) {
+                if (!Storage::disk('private')->exists($doc->file_path)) {
+                    continue;
+                }
+                $zip->addFile(
+                    Storage::disk('private')->path($doc->file_path),
+                    "Dokumen Persyaratan Peserta/{$folderName}/{$doc->original_filename}"
+                );
+            }
+
+            if ($app->initialAssessment) {
+                $pdf = $generator->generateFrApl03($app);
+                $zip->addFromString(
+                    "FR.APL.03 Standar Kriteria dan Penilaian Awal Pemohon/Versi Pdf/{$folderName} - FR.APL.03 Standar Kriteria dan Penilaian Awal Pemohon.pdf",
+                    $pdf
+                );
+            }
+        }
+
+        $zip->close();
+
+        $zipNameParts = array_filter([
+            'export_dokumen',
+            Classroom::find($request->classroom_id)?->classrooms_code,
+            $request->kode_batch ? 'batch' . $request->kode_batch : null,
+        ]);
+
+        $zipName = Str::slug(implode('_', $zipNameParts)) . '.zip';
+
+        return response()->download($zipPath, $zipName)->deleteFileAfterSend(true);
+    }
+
+    public function downloadFrApl03(AssessmentApplication $application)
+    {
+        $pdf = app(DocumentGeneratorService::class)->generateFrApl03($application);
+
+        $application->loadMissing('participant');
+        $nama     = $application->participant?->name ?? 'Peserta';
+        $filename = $nama . ' - FR.APL.03 Standar Kriteria dan Penilaian Awal Pemohon.pdf';
+
+        return response($pdf, 200, [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . str_replace('"', '', $filename) . '"',
+        ]);
     }
 
     public function show(AssessmentApplication $application)

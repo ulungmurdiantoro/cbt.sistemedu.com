@@ -4,10 +4,21 @@
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-4 mb-2 mb-md-0">
                 <Link href="/admin/users/create" class="btn btn-primary border-0 shadow">
                     <i class="fa fa-plus-circle me-1"></i> Tambah User
                 </Link>
+            </div>
+            <div class="col-md-4 offset-md-4">
+                <form @submit.prevent="applySearch">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 shadow" v-model="search"
+                            placeholder="Cari nama, email, atau kode...">
+                        <button type="submit" class="btn btn-dark border-0 shadow">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -76,16 +87,24 @@ import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
     components: { Head, Link, Pagination, StatusBadge },
     props: {
-        users: Object,
+        users:   Object,
+        filters: Object,
     },
 
-    setup() {
+    setup(props) {
+        const search = ref(props.filters?.q ?? '');
+
+        const applySearch = () => {
+            router.get('/admin/users', { q: search.value }, { preserveState: true });
+        };
+
         const destroy = (user) => {
             Swal.fire({
                 title: 'Hapus user?',
@@ -103,7 +122,7 @@ export default {
             });
         };
 
-        return { destroy };
+        return { search, applySearch, destroy };
     },
 }
 </script>

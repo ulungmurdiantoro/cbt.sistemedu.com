@@ -169,10 +169,13 @@
                                 {{ resultSentence(application.initial_assessment.total_score, application.initial_assessment.threshold) }}
                             </span>
                         </div>
-                        <div class="small text-muted">
+                        <div class="small text-muted mb-2">
                             Dinilai oleh {{ application.initial_assessment.assessor?.name ?? '—' }}
                             pada {{ formatDate(application.initial_assessment.assessed_at) }}
                         </div>
+                        <a :href="`/admin/applications/${application.id}/fr-apl-03`" class="btn btn-sm btn-info" target="_blank">
+                            <i class="fa fa-file-pdf me-1"></i>Download FR.APL.03 (PDF)
+                        </a>
                     </div>
 
                     <!-- Form penilaian -->

@@ -17,3 +17,7 @@ yarn-error.log
 /.idea
 /.vscode
 public/build
+
+# Folder dokumen batch peserta (data pribadi asli - ijazah, SK, dsb) —
+# jangan pernah dikomit ke repo.
+/*BATCH*/
