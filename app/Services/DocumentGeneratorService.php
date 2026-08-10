@@ -566,12 +566,27 @@ class DocumentGeneratorService
 
     public function generateFrApl03(AssessmentApplication $application): string
     {
-        $application->loadMissing(['participant', 'classroom', 'initialAssessment.assessor']);
+        $application->loadMissing(['participant', 'classroom', 'initialAssessment.assessor', 'approver']);
 
         $assessment = $application->initialAssessment;
         abort_if(!$assessment, 422, 'Permohonan ini belum memiliki Penilaian Awal Kelayakan (FR.APL.03).');
 
         $rubric = InitialAssessmentRubric::for($application->classroom_id);
+
+        // "Diperiksa Oleh" merujuk pada admin yang MENYETUJUI permohonan (TTD approve),
+        // bukan yang mengisi form penilaian awal — fallback ke penilai kalau belum disetujui.
+        $namaPenilai = $application->admin_signature_name
+            ?: $application->approver?->name
+            ?: $assessment->assessor?->name
+            ?: '-';
+
+        $tanggalPeriksa = $application->approved_at
+            ? Carbon::parse($application->approved_at)->locale('id')->isoFormat('DD MMMM YYYY')
+            : Carbon::parse($assessment->assessed_at)->locale('id')->isoFormat('DD MMMM YYYY');
+
+        $ttdPath = $application->admin_signature_path && Storage::disk('private')->exists($application->admin_signature_path)
+            ? str_replace('\\', '/', Storage::disk('private')->path($application->admin_signature_path))
+            : null;
 
         $html = View::make('documents.fr_apl_03', [
             'application'     => $application,
@@ -580,8 +595,9 @@ class DocumentGeneratorService
             'namaPeserta'     => $application->participant?->name ?? $application->snapshot_pribadi['name'] ?? '-',
             'namaSkema'       => $application->classroom?->title ?? '-',
             'resultSentence'  => InitialAssessmentRubric::resultSentence($assessment->total_score, $assessment->threshold),
-            'tanggalPeriksa'  => Carbon::parse($assessment->assessed_at)->locale('id')->isoFormat('DD MMMM YYYY'),
-            'namaPenilai'     => $assessment->assessor?->name ?? '-',
+            'tanggalPeriksa'  => $tanggalPeriksa,
+            'namaPenilai'     => $namaPenilai,
+            'ttdPath'         => $ttdPath,
             'lsp'             => config('lsp_documents.lsp'),
             'logoEdukiaPath'  => $this->asset('logo_edukia'),
         ])->render();
