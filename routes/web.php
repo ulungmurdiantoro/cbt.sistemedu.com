@@ -69,6 +69,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/applications/{application}',                          [\App\Http\Controllers\Admin\ApplicationController::class, 'show'])->name('admin.applications.show');
         Route::post('/applications/{application}/penilaian-awal',          [\App\Http\Controllers\Admin\ApplicationController::class, 'saveInitialAssessment'])->name('admin.applications.initialAssessment');
         Route::get('/applications/{application}/fr-apl-03',                [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl03'])->name('admin.applications.frApl03');
+        Route::get('/applications/{application}/fr-apl-01',                [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl01'])->name('admin.applications.frApl01');
+        Route::get('/applications/{application}/fr-ak-01',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrAk01'])->name('admin.applications.frAk01');
         Route::post('/applications/{application}/approve',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'approve'])->name('admin.applications.approve');
         Route::post('/applications/{application}/reject',                  [\App\Http\Controllers\Admin\ApplicationController::class, 'reject'])->name('admin.applications.reject');
         Route::post('/applications/{application}/reissue',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'reissueStudent'])->name('admin.applications.reissue');

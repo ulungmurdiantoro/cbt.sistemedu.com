@@ -80,7 +80,7 @@ class ApplicationController extends Controller
         abort_if(!$request->classroom_id, 422, 'Pilih skema terlebih dahulu untuk export dokumen.');
 
         $applications = $this->filteredQuery($request)
-            ->with(['participant', 'classroom', 'documents', 'initialAssessment.assessor'])
+            ->with(['participant', 'classroom.documentRequirements', 'documents', 'examSession', 'approver', 'asesorVerifier', 'initialAssessment.assessor'])
             ->orderBy('id')
             ->get();
 
@@ -112,6 +112,16 @@ class ApplicationController extends Controller
                 );
             }
 
+            $zip->addFromString(
+                "FR.APL.01 Permohonan Sertifikasi/Versi Pdf/{$folderName} - FR.APL.01 Permohonan Sertifikasi.pdf",
+                $generator->generateFrApl01($app)
+            );
+
+            $zip->addFromString(
+                "FR.AK.01 Persetujuan Asesmen & Kerahasiaan/Versi Pdf/{$folderName} - FR.AK.01 Persetujuan Asesmen & Kerahasiaan.pdf",
+                $generator->generateFrAk01($app)
+            );
+
             if ($app->initialAssessment) {
                 $pdf = $generator->generateFrApl03($app);
                 $zip->addFromString(
@@ -137,10 +147,26 @@ class ApplicationController extends Controller
     public function downloadFrApl03(AssessmentApplication $application)
     {
         $pdf = app(DocumentGeneratorService::class)->generateFrApl03($application);
+        return $this->pdfDownloadResponse($pdf, $application, 'FR.APL.03 Standar Kriteria dan Penilaian Awal Pemohon');
+    }
 
+    public function downloadFrApl01(AssessmentApplication $application)
+    {
+        $pdf = app(DocumentGeneratorService::class)->generateFrApl01($application);
+        return $this->pdfDownloadResponse($pdf, $application, 'FR.APL.01 Permohonan Sertifikasi');
+    }
+
+    public function downloadFrAk01(AssessmentApplication $application)
+    {
+        $pdf = app(DocumentGeneratorService::class)->generateFrAk01($application);
+        return $this->pdfDownloadResponse($pdf, $application, 'FR.AK.01 Persetujuan Asesmen & Kerahasiaan');
+    }
+
+    private function pdfDownloadResponse(string $pdf, AssessmentApplication $application, string $docLabel)
+    {
         $application->loadMissing('participant');
         $nama     = $application->participant?->name ?? 'Peserta';
-        $filename = $nama . ' - FR.APL.03 Standar Kriteria dan Penilaian Awal Pemohon.pdf';
+        $filename = $nama . ' - ' . $docLabel . '.pdf';
 
         return response($pdf, 200, [
             'Content-Type'        => 'application/pdf',

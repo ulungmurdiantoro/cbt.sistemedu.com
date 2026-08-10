@@ -32,11 +32,19 @@
 
             <!-- Info sertifikasi -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center">
+                <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <span>Data Sertifikasi</span>
-                    <button v-if="other_sessions?.length" class="btn btn-sm btn-warning" @click="openChangeBatchModal">
-                        <i class="fa fa-exchange-alt me-1"></i>Ganti Batch
-                    </button>
+                    <div class="d-flex gap-1">
+                        <a :href="`/admin/applications/${application.id}/fr-apl-01`" class="btn btn-sm btn-info" target="_blank">
+                            <i class="fa fa-file-pdf me-1"></i>FR.APL.01
+                        </a>
+                        <a :href="`/admin/applications/${application.id}/fr-ak-01`" class="btn btn-sm btn-info" target="_blank">
+                            <i class="fa fa-file-pdf me-1"></i>FR.AK.01
+                        </a>
+                        <button v-if="other_sessions?.length" class="btn btn-sm btn-warning" @click="openChangeBatchModal">
+                            <i class="fa fa-exchange-alt me-1"></i>Ganti Batch
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-sm mb-0 detail-table" style="table-layout:fixed;width:100%">

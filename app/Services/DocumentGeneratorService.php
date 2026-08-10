@@ -26,6 +26,39 @@ class DocumentGeneratorService
         return base_path(config("lsp_documents.assets.{$key}"));
     }
 
+    /**
+     * Siapkan path (normalisasi slash) + ukuran tampil (mm, fit-to-box, jaga rasio
+     * aspek) untuk sebuah gambar TTD tersimpan di disk privat. Dihitung eksplisit
+     * di PHP karena mPDF tidak selalu menyusutkan gambar besar dengan benar hanya
+     * lewat CSS max-width/max-height.
+     *
+     * @return array{path: ?string, w: ?float, h: ?float}
+     */
+    private function ttdBox(?string $signaturePath, float $boxWmm = 65, float $boxHmm = 22): array
+    {
+        if (!$signaturePath || !Storage::disk('private')->exists($signaturePath)) {
+            return ['path' => null, 'w' => null, 'h' => null];
+        }
+
+        $path = str_replace('\\', '/', Storage::disk('private')->path($signaturePath));
+        $info = @getimagesize($path);
+
+        if (!$info || $info[0] <= 0 || $info[1] <= 0) {
+            return ['path' => null, 'w' => null, 'h' => null];
+        }
+
+        $aspect = $info[0] / $info[1];
+        if ($aspect > ($boxWmm / $boxHmm)) {
+            $w = $boxWmm;
+            $h = $boxWmm / $aspect;
+        } else {
+            $h = $boxHmm;
+            $w = $boxHmm * $aspect;
+        }
+
+        return ['path' => $path, 'w' => round($w, 1), 'h' => round($h, 1)];
+    }
+
     // ── Date formatting — English ordinal ──────────────────────────────
     // e.g. "8th May 2026"
     private function heldOnEn(Carbon $dt): string
@@ -584,29 +617,7 @@ class DocumentGeneratorService
             ? Carbon::parse($application->approved_at)->locale('id')->isoFormat('DD MMMM YYYY')
             : Carbon::parse($assessment->assessed_at)->locale('id')->isoFormat('DD MMMM YYYY');
 
-        $ttdPath = $application->admin_signature_path && Storage::disk('private')->exists($application->admin_signature_path)
-            ? str_replace('\\', '/', Storage::disk('private')->path($application->admin_signature_path))
-            : null;
-
-        // Hitung ukuran tampil TTD secara eksplisit (fit-to-box, jaga rasio aspek) di PHP,
-        // bukan mengandalkan max-width/max-height mPDF — untuk foto TTD beresolusi besar
-        // (mis. hasil kamera HP beribu-ribu piksel), mPDF tidak selalu menyusutkannya dengan benar.
-        $ttdWidthMm  = null;
-        $ttdHeightMm = null;
-        if ($ttdPath) {
-            $info = @getimagesize($ttdPath);
-            if ($info && $info[0] > 0 && $info[1] > 0) {
-                [$boxWmm, $boxHmm] = [100, 34];
-                $aspect = $info[0] / $info[1];
-                if ($aspect > ($boxWmm / $boxHmm)) {
-                    $ttdWidthMm  = $boxWmm;
-                    $ttdHeightMm = $boxWmm / $aspect;
-                } else {
-                    $ttdHeightMm = $boxHmm;
-                    $ttdWidthMm  = $boxHmm * $aspect;
-                }
-            }
-        }
+        $ttd = $this->ttdBox($application->admin_signature_path, 100, 34);
 
         $html = View::make('documents.fr_apl_03', [
             'application'     => $application,
@@ -617,11 +628,128 @@ class DocumentGeneratorService
             'resultSentence'  => InitialAssessmentRubric::resultSentence($assessment->total_score, $assessment->threshold),
             'tanggalPeriksa'  => $tanggalPeriksa,
             'namaPenilai'     => $namaPenilai,
-            'ttdPath'         => $ttdPath,
-            'ttdWidthMm'      => $ttdWidthMm,
-            'ttdHeightMm'     => $ttdHeightMm,
+            'ttdPath'         => $ttd['path'],
+            'ttdWidthMm'      => $ttd['w'],
+            'ttdHeightMm'     => $ttd['h'],
             'lsp'             => config('lsp_documents.lsp'),
             'logoEdukiaPath'  => $this->asset('logo_edukia'),
+        ])->render();
+
+        $mpdf = $this->makeMpdfForm();
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // FR.APL.01 — Permohonan Sertifikasi Kompetensi
+    // ═══════════════════════════════════════════════════════════════════
+
+    public function generateFrApl01(AssessmentApplication $application): string
+    {
+        $application->loadMissing(['participant', 'classroom.documentRequirements', 'documents', 'approver']);
+
+        $participant = $application->participant;
+
+        $pribadi = $application->snapshot_pribadi ?? [
+            'name'                   => $participant?->name,
+            'nik'                    => $participant?->nik,
+            'tempat_lahir'           => $participant?->tempat_lahir,
+            'tanggal_lahir'          => $participant?->tanggal_lahir?->format('Y-m-d'),
+            'jenis_kelamin'          => $participant?->jenis_kelamin,
+            'kebangsaan'             => $participant?->kebangsaan,
+            'alamat_rumah'           => $participant?->alamat_rumah,
+            'kode_pos_rumah'         => $participant?->kode_pos_rumah,
+            'telp_rumah'             => $participant?->telp_rumah,
+            'hp'                     => $participant?->hp,
+            'email'                  => $participant?->email,
+            'kualifikasi_pendidikan' => $participant?->kualifikasi_pendidikan,
+        ];
+
+        $pekerjaan = $application->snapshot_pekerjaan ?? [
+            'institusi'       => $participant?->institusi,
+            'jabatan'         => $participant?->jabatan,
+            'alamat_kantor'   => $participant?->alamat_kantor,
+            'kode_pos_kantor' => $participant?->kode_pos_kantor,
+            'telp_kantor'     => $participant?->telp_kantor,
+            'fax_kantor'      => $participant?->fax_kantor,
+            'email_kantor'    => $participant?->email_kantor,
+        ];
+
+        $docsByReq = $application->documents->keyBy('classroom_document_requirement_id');
+        $buktiList = ($application->classroom?->documentRequirements ?? collect())
+            ->map(function ($req) use ($docsByReq) {
+                $doc = $docsByReq->get($req->id);
+                return ['label' => $req->label, 'status' => $doc?->status ?? 'none'];
+            })
+            ->values()
+            ->all();
+
+        $namaAsesor = $application->asesor_signature_name ?: $application->asesorVerifier?->name ?: '-';
+
+        $html = View::make('documents.fr_apl_01', [
+            'pribadi'         => $pribadi,
+            'pekerjaan'       => $pekerjaan,
+            'tanggalLahir'    => !empty($pribadi['tanggal_lahir']) ? Carbon::parse($pribadi['tanggal_lahir'])->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'namaPeserta'     => $pribadi['name'] ?? '-',
+            'namaSkema'       => $application->classroom?->title ?? '-',
+            'kodeSkema'       => $application->classroom?->kode_skema ?? '-',
+            'tujuanAsesmen'   => $application->tujuan_asesmen ?? 'Sertifikasi',
+            'buktiList'       => $buktiList,
+            'diterima'        => $application->isApproved(),
+            'namaAdmin'       => $application->admin_signature_name ?: $application->approver?->name ?: '-',
+            'namaAsesor'      => $namaAsesor,
+            'ttdPemohon'      => $this->ttdBox($application->signature_form_path),
+            'tanggalPemohon'  => $application->submitted_at ? Carbon::parse($application->submitted_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'ttdAdmin'        => $this->ttdBox($application->admin_signature_path),
+            'tanggalAdmin'    => $application->approved_at ? Carbon::parse($application->approved_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'ttdAsesor'       => $this->ttdBox($application->asesor_signature_path),
+            'tanggalAsesor'   => $application->asesor_verified_at ? Carbon::parse($application->asesor_verified_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'logoEdukiaPath'  => $this->asset('logo_edukia'),
+        ])->render();
+
+        $mpdf = $this->makeMpdfForm();
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // FR.AK.01 — Persetujuan Asesmen, Ketidakberpihakan, Kerahasiaan
+    // ═══════════════════════════════════════════════════════════════════
+
+    public function generateFrAk01(AssessmentApplication $application): string
+    {
+        $application->loadMissing(['participant', 'classroom', 'examSession']);
+
+        $session = $application->examSession;
+        $start   = $session?->start_time ? Carbon::parse($session->start_time) : null;
+        $end     = $session?->end_time ? Carbon::parse($session->end_time) : null;
+
+        $hariTanggal = $start ? $start->locale('id')->isoFormat('dddd, DD MMMM YYYY') : '-';
+
+        $waktu = '-';
+        if ($start && $end) {
+            $waktu = $start->isSameDay($end)
+                ? $start->format('H.i') . ' – ' . $end->format('H.i') . ' WIB'
+                : $start->locale('id')->isoFormat('DD MMM YYYY, H.mm') . ' s/d ' . $end->locale('id')->isoFormat('DD MMM YYYY, H.mm') . ' WIB';
+        }
+
+        $namaAsesor = $application->asesor_signature_name ?: $application->asesorVerifier?->name ?: '-';
+
+        $html = View::make('documents.fr_ak_01', [
+            'namaPeserta'    => $application->participant?->name ?? $application->snapshot_pribadi['name'] ?? '-',
+            'namaSkema'      => $application->classroom?->title ?? '-',
+            'kodeSkema'      => $application->classroom?->kode_skema ?? '-',
+            'tuk'            => $application->tempat_ujian ?? '-',
+            'namaAsesor'     => $namaAsesor,
+            'hariTanggal'    => $hariTanggal,
+            'waktu'          => $waktu,
+            'ttdLsp'         => $this->ttdBox($application->admin_signature_path),
+            'tanggalLsp'     => $application->approved_at ? Carbon::parse($application->approved_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'ttdAsesor'      => $this->ttdBox($application->asesor_signature_path),
+            'tanggalAsesor'  => $application->asesor_verified_at ? Carbon::parse($application->asesor_verified_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'ttdAsesi'       => $this->ttdBox($application->signature_path),
+            'tanggalAsesi'   => $application->pakta_signed_at ? Carbon::parse($application->pakta_signed_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'logoEdukiaPath' => $this->asset('logo_edukia'),
         ])->render();
 
         $mpdf = $this->makeMpdfForm();
