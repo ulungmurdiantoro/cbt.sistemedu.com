@@ -790,9 +790,7 @@ class DocumentGeneratorService
 
         $waktu = '-';
         if ($start && $end) {
-            $waktu = $start->isSameDay($end)
-                ? $start->format('H.i') . ' – ' . $end->format('H.i') . ' WIB'
-                : $start->locale('id')->isoFormat('DD MMM YYYY, H.mm') . ' s/d ' . $end->locale('id')->isoFormat('DD MMM YYYY, H.mm') . ' WIB';
+            $waktu = $start->format('H.i') . ' – ' . $end->format('H.i') . ' WIB';
         }
 
         $namaAsesor = $application->asesor_signature_name ?: $application->asesorVerifier?->name ?: '-';
