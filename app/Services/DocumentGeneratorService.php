@@ -588,6 +588,26 @@ class DocumentGeneratorService
             ? str_replace('\\', '/', Storage::disk('private')->path($application->admin_signature_path))
             : null;
 
+        // Hitung ukuran tampil TTD secara eksplisit (fit-to-box, jaga rasio aspek) di PHP,
+        // bukan mengandalkan max-width/max-height mPDF — untuk foto TTD beresolusi besar
+        // (mis. hasil kamera HP beribu-ribu piksel), mPDF tidak selalu menyusutkannya dengan benar.
+        $ttdWidthMm  = null;
+        $ttdHeightMm = null;
+        if ($ttdPath) {
+            $info = @getimagesize($ttdPath);
+            if ($info && $info[0] > 0 && $info[1] > 0) {
+                [$boxWmm, $boxHmm] = [45, 14];
+                $aspect = $info[0] / $info[1];
+                if ($aspect > ($boxWmm / $boxHmm)) {
+                    $ttdWidthMm  = $boxWmm;
+                    $ttdHeightMm = $boxWmm / $aspect;
+                } else {
+                    $ttdHeightMm = $boxHmm;
+                    $ttdWidthMm  = $boxHmm * $aspect;
+                }
+            }
+        }
+
         $html = View::make('documents.fr_apl_03', [
             'application'     => $application,
             'assessment'      => $assessment,
@@ -598,6 +618,8 @@ class DocumentGeneratorService
             'tanggalPeriksa'  => $tanggalPeriksa,
             'namaPenilai'     => $namaPenilai,
             'ttdPath'         => $ttdPath,
+            'ttdWidthMm'      => $ttdWidthMm,
+            'ttdHeightMm'     => $ttdHeightMm,
             'lsp'             => config('lsp_documents.lsp'),
             'logoEdukiaPath'  => $this->asset('logo_edukia'),
         ])->render();
