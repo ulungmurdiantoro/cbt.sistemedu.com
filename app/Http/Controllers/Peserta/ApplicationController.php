@@ -187,7 +187,10 @@ class ApplicationController extends Controller
 
         abort_if(!$path || !Storage::disk('private')->exists($path), 404);
 
-        return response()->file(Storage::disk('private')->path($path));
+        return response()->file(Storage::disk('private')->path($path), [
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+            'Pragma'        => 'no-cache',
+        ]);
     }
 
     // Step 3b: revisi permohonan yang ditolak (reset ke draft)

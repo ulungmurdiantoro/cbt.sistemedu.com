@@ -546,14 +546,21 @@ class ApplicationController extends Controller
 
         abort_if(!$path || !Storage::disk('private')->exists($path), 404);
 
-        return response()->file(Storage::disk('private')->path($path));
+        return response()->file(Storage::disk('private')->path($path), $this->noCacheHeaders());
     }
 
     public function serveAdminDefaultSignature()
     {
         $user = auth()->user();
         abort_if(!$user->signature_path || !Storage::disk('private')->exists($user->signature_path), 404);
-        return response()->file(Storage::disk('private')->path($user->signature_path));
+        return response()->file(Storage::disk('private')->path($user->signature_path), $this->noCacheHeaders());
+    }
+
+    // TTD bisa diganti kapan saja (path unik per unggahan, tapi URL preview tetap
+    // sama) — cegah browser menampilkan gambar lama dari cache.
+    private function noCacheHeaders(): array
+    {
+        return ['Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0', 'Pragma' => 'no-cache'];
     }
 
     /**

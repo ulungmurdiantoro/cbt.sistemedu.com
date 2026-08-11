@@ -197,7 +197,7 @@ class DocumentVerificationController extends Controller
             404
         );
 
-        return response()->file(Storage::disk('private')->path($application->asesor_signature_path));
+        return response()->file(Storage::disk('private')->path($application->asesor_signature_path), $this->noCacheHeaders());
     }
 
     public function serveDefaultSignature()
@@ -205,7 +205,14 @@ class DocumentVerificationController extends Controller
         $user = auth()->user();
         abort_if(!$user->signature_path || !Storage::disk('private')->exists($user->signature_path), 404);
 
-        return response()->file(Storage::disk('private')->path($user->signature_path));
+        return response()->file(Storage::disk('private')->path($user->signature_path), $this->noCacheHeaders());
+    }
+
+    // TTD bisa diganti kapan saja (path unik per unggahan, tapi URL preview tetap
+    // sama) — cegah browser menampilkan gambar lama dari cache.
+    private function noCacheHeaders(): array
+    {
+        return ['Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0', 'Pragma' => 'no-cache'];
     }
 
     private function storeAsesorSignature(Request $request, AssessmentApplication $application): string

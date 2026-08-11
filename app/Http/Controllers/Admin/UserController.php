@@ -123,7 +123,10 @@ class UserController extends Controller
     {
         abort_if(!$user->signature_path || !Storage::disk('private')->exists($user->signature_path), 404);
 
-        return response()->file(Storage::disk('private')->path($user->signature_path));
+        return response()->file(Storage::disk('private')->path($user->signature_path), [
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+            'Pragma'        => 'no-cache',
+        ]);
     }
 
     private function storeUserSignature(Request $request, User $user): string
