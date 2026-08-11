@@ -538,10 +538,11 @@ class ApplicationController extends Controller
     public function serveSignature(AssessmentApplication $application, string $type)
     {
         $path = match ($type) {
-            'form'  => $application->signature_form_path,
-            'pakta' => $application->signature_path,
-            'admin' => $application->admin_signature_path,
-            default => null,
+            'form'   => $application->signature_form_path,
+            'pakta'  => $application->signature_path,
+            'admin'  => $application->admin_signature_path,
+            'asesor' => $application->asesor_signature_path,
+            default  => null,
         };
 
         abort_if(!$path || !Storage::disk('private')->exists($path), 404);

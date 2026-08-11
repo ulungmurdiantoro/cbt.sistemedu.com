@@ -4,9 +4,14 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link href="/admin/penilaian" class="btn btn-md btn-primary border-0 shadow mb-3">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                </Link>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <Link href="/admin/penilaian" class="btn btn-md btn-primary border-0 shadow">
+                        <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
+                    </Link>
+                    <Link :href="`/admin/penilaian/${exam_session.id}/dokumen`" class="btn btn-md btn-outline-primary border shadow-sm">
+                        <i class="fa fa-folder-open me-2"></i> Verifikasi Dokumen Peserta
+                    </Link>
+                </div>
 
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">

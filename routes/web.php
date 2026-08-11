@@ -108,6 +108,16 @@ Route::prefix('admin')->group(function () {
         Route::get('/penilaian/{exam_session_id}',             [\App\Http\Controllers\Admin\PenilaianController::class, 'show'])->name('admin.penilaian.show');
         Route::post('/penilaian/{exam_session_id}/penugasan',  [\App\Http\Controllers\Admin\PenilaianController::class, 'saveAssignments'])->name('admin.penilaian.saveAssignments');
 
+        // Verifikasi dokumen peserta (admin) — sama seperti portal asesor, tapi admin
+        // bisa buka peserta manapun di sesi ini; TTD tetap dibubuhkan atas nama asesor
+        // yang ditugaskan lewat Penugasan Asesor, bukan admin yang login.
+        Route::get('/penilaian/{exam_session_id}/dokumen',                                [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'index'])->name('admin.penilaian.dokumen.index');
+        Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}',                   [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'show'])->name('admin.penilaian.dokumen.show');
+        Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/verify',  [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'verify'])->name('admin.penilaian.dokumen.verify');
+        Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/download', [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'download'])->name('admin.penilaian.dokumen.download');
+        Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/verifikasi-akhir', [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'finalVerify'])->name('admin.penilaian.dokumen.finalVerify');
+        Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/tanda-tangan-asesor', [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'serveAssignedSignature'])->name('admin.penilaian.dokumen.signature.serve');
+
         // Rekap hasil & finalisasi
         Route::get('/results',                                         [\App\Http\Controllers\Admin\ResultController::class, 'index'])->name('admin.results.index');
         Route::get('/results/{examSession}',                           [\App\Http\Controllers\Admin\ResultController::class, 'show'])->name('admin.results.show');
