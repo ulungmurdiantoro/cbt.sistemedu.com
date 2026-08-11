@@ -58,6 +58,7 @@ class DocumentVerificationController extends Controller
                 'verified'      => $verified,
                 'rejected'      => $rejected,
                 'pending'       => $pending,
+                'asesor_verified_at' => $app?->asesor_verified_at,
             ];
         });
 

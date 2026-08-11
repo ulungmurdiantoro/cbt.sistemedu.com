@@ -20,19 +20,25 @@
 
             <!-- Summary -->
             <div class="row g-3 mb-3">
-                <div class="col-4">
+                <div class="col-3">
+                    <div class="card border-0 shadow text-center py-2">
+                        <div class="fs-4 fw-bold text-primary">{{ finalVerified }}</div>
+                        <div class="small text-muted">Sudah Verifikasi Akhir</div>
+                    </div>
+                </div>
+                <div class="col-3">
                     <div class="card border-0 shadow text-center py-2">
                         <div class="fs-4 fw-bold text-success">{{ allVerified }}</div>
                         <div class="small text-muted">Semua Lengkap</div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="card border-0 shadow text-center py-2">
                         <div class="fs-4 fw-bold text-warning">{{ hasRejected }}</div>
                         <div class="small text-muted">Ada Ditolak</div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="card border-0 shadow text-center py-2">
                         <div class="fs-4 fw-bold text-secondary">{{ notSubmitted }}</div>
                         <div class="small text-muted">Belum Submit</div>
@@ -52,15 +58,16 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th style="width:5%">#</th>
-                                    <th style="width:15%">No. Peserta</th>
+                                    <th style="width:13%">No. Peserta</th>
                                     <th>Nama</th>
-                                    <th class="text-center" style="width:15%">Status Aplikasi</th>
-                                    <th class="text-center" style="width:20%">Dokumen</th>
+                                    <th class="text-center" style="width:13%">Status Aplikasi</th>
+                                    <th class="text-center" style="width:18%">Dokumen</th>
+                                    <th class="text-center" style="width:15%">Verifikasi Akhir</th>
                                     <th class="text-center" style="width:10%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(row, i) in rows" :key="row.student_id">
+                                <tr v-for="(row, i) in rows" :key="row.student_id" :class="{ 'table-success bg-opacity-10': row.asesor_verified_at }">
                                     <td>{{ i + 1 }}</td>
                                     <td class="fw-bold">{{ row.no_participant }}</td>
                                     <td>{{ row.name }}</td>
@@ -87,16 +94,26 @@
                                         <span v-else class="text-muted small">—</span>
                                     </td>
                                     <td class="text-center">
+                                        <span v-if="row.asesor_verified_at" class="badge bg-primary" :title="row.asesor_verified_at">
+                                            <i class="fa fa-check-double me-1"></i>Sudah ({{ formatDate(row.asesor_verified_at) }})
+                                        </span>
+                                        <span v-else-if="row.app_id" class="badge bg-secondary">
+                                            Belum
+                                        </span>
+                                        <span v-else class="text-muted small">—</span>
+                                    </td>
+                                    <td class="text-center">
                                         <Link v-if="row.app_id"
                                             :href="`/asesor/penilaian/${exam_session.id}/dokumen/${row.student_id}`"
-                                            class="btn btn-sm btn-primary border-0">
-                                            <i class="fa fa-folder-open me-1"></i> Periksa
+                                            class="btn btn-sm border-0"
+                                            :class="row.asesor_verified_at ? 'btn-outline-secondary' : 'btn-primary'">
+                                            <i class="fa fa-folder-open me-1"></i> {{ row.asesor_verified_at ? 'Lihat' : 'Periksa' }}
                                         </Link>
                                         <span v-else class="text-muted small">—</span>
                                     </td>
                                 </tr>
                                 <tr v-if="rows.length === 0">
-                                    <td colspan="6" class="text-center text-muted py-4">Tidak ada peserta.</td>
+                                    <td colspan="7" class="text-center text-muted py-4">Tidak ada peserta.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -125,8 +142,14 @@ export default {
         const allVerified   = computed(() => props.rows.filter(r => r.app_id && r.verified > 0 && r.pending === 0 && r.rejected === 0).length);
         const hasRejected   = computed(() => props.rows.filter(r => r.rejected > 0).length);
         const notSubmitted  = computed(() => props.rows.filter(r => !r.app_id || r.app_status === 'draft').length);
+        const finalVerified = computed(() => props.rows.filter(r => r.asesor_verified_at).length);
 
-        return { allVerified, hasRejected, notSubmitted };
+        const formatDate = (value) => {
+            if (!value) return '-';
+            return new Date(value).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+        };
+
+        return { allVerified, hasRejected, notSubmitted, finalVerified, formatDate };
     },
 }
 </script>
