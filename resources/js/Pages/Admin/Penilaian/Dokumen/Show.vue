@@ -149,11 +149,50 @@
                             <Link :href="`/admin/penilaian/${exam_session.id}`" class="alert-link">Atur di menu Penugasan Asesor</Link>.
                         </div>
 
-                        <!-- Asesor yang ditugaskan belum punya TTD tersimpan -->
-                        <div v-else-if="!assigned_asesor.signature_path" class="alert alert-warning border-0 mb-0">
-                            <i class="fa fa-exclamation-triangle me-2"></i>
-                            Asesor yang ditugaskan (<strong>{{ assigned_asesor.name }}</strong>) belum memiliki TTD tersimpan.
-                            <Link :href="`/admin/users/${assigned_asesor.id}/edit`" class="alert-link">Atur TTD di menu Kelola User</Link>.
+                        <!-- Asesor yang ditugaskan belum punya TTD tersimpan: input langsung di sini -->
+                        <div v-else-if="!assigned_asesor.signature_path">
+                            <div class="alert alert-warning border-0 mb-3">
+                                <i class="fa fa-exclamation-triangle me-2"></i>
+                                Asesor yang ditugaskan (<strong>{{ assigned_asesor.name }}</strong>) belum memiliki TTD tersimpan.
+                                Input TTD-nya di bawah ini untuk menyimpan sebagai TTD default asesor tersebut.
+                            </div>
+
+                            <div class="d-flex gap-1 mb-2">
+                                <button type="button" class="btn btn-sm flex-fill"
+                                    :class="asesorSigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                                    @click="switchAsesorSigMode('draw')">
+                                    <i class="fa fa-pen me-1"></i>Gambar
+                                </button>
+                                <button type="button" class="btn btn-sm flex-fill"
+                                    :class="asesorSigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                                    @click="switchAsesorSigMode('upload')">
+                                    <i class="fa fa-upload me-1"></i>Upload
+                                </button>
+                            </div>
+
+                            <div v-show="asesorSigMode === 'draw'">
+                                <div class="border rounded bg-white" style="touch-action:none">
+                                    <canvas ref="asesorSigCanvas" style="display:block; width:100%; height:140px; cursor:crosshair"></canvas>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-light border mt-1" @click="clearAsesorSig">
+                                    <i class="fa fa-eraser me-1"></i>Hapus
+                                </button>
+                            </div>
+
+                            <div v-show="asesorSigMode === 'upload'">
+                                <input type="file" class="form-control form-control-sm"
+                                    accept="image/png,image/jpeg,image/jpg" @change="onAsesorSigFileChange">
+                                <div v-if="asesorSigFilePreview" class="mt-2">
+                                    <img :src="asesorSigFilePreview"
+                                        style="max-height:80px; border:1px solid #ddd; background:#fff; padding:4px">
+                                </div>
+                            </div>
+
+                            <div class="d-grid mt-3">
+                                <button class="btn btn-primary" :disabled="asesorSigSaving" @click="submitAsesorSignature">
+                                    <i class="fa fa-save me-1"></i>{{ asesorSigSaving ? 'Menyimpan...' : 'Simpan TTD Asesor' }}
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Siap ditandatangani atas nama asesor yang ditugaskan -->
@@ -203,7 +242,8 @@
 <script>
 import LayoutAdmin from '../../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, ref, reactive } from 'vue';
+import { computed, ref, reactive, nextTick, onMounted, onUnmounted } from 'vue';
+import SignaturePad from 'signature_pad';
 
 export default {
     layout: LayoutAdmin,
@@ -222,6 +262,96 @@ export default {
 
         const showFinalConfirm = ref(false);
         const finalSaving      = ref(false);
+
+        // Input TTD asesor langsung dari halaman ini (dipakai kalau asesor yang
+        // ditugaskan belum punya TTD tersimpan) — simpan lewat endpoint yang sama
+        // dengan Kelola User supaya jadi TTD default asesor tersebut juga.
+        const asesorSigMode        = ref('draw');
+        const asesorSigCanvas      = ref(null);
+        const asesorSigFile        = ref(null);
+        const asesorSigFilePreview = ref(null);
+        const asesorSigSaving      = ref(false);
+        let   asesorSigPad         = null;
+        let   asesorResizeTimer    = null;
+
+        const needsAsesorSigInput = computed(() =>
+            props.application && !props.application.asesor_verified_at &&
+            props.assigned_asesor && !props.assigned_asesor.signature_path
+        );
+
+        const initAsesorSigPad = () => {
+            if (!asesorSigCanvas.value) return;
+            const canvas    = asesorSigCanvas.value;
+            const container = canvas.parentElement;
+            const ratio     = Math.max(window.devicePixelRatio || 1, 1);
+            const savedData = asesorSigPad?.toData() ?? [];
+            canvas.width    = (container?.clientWidth || canvas.offsetWidth) * ratio;
+            canvas.height   = canvas.offsetHeight * ratio;
+            canvas.getContext('2d').scale(ratio, ratio);
+            asesorSigPad    = new SignaturePad(canvas, { backgroundColor: 'rgb(255,255,255)' });
+            if (savedData.length) asesorSigPad.fromData(savedData);
+        };
+
+        const handleAsesorResize = () => {
+            clearTimeout(asesorResizeTimer);
+            asesorResizeTimer = setTimeout(initAsesorSigPad, 200);
+        };
+
+        onMounted(async () => {
+            if (needsAsesorSigInput.value) {
+                await nextTick();
+                initAsesorSigPad();
+                window.addEventListener('resize', handleAsesorResize);
+            }
+        });
+
+        onUnmounted(() => {
+            window.removeEventListener('resize', handleAsesorResize);
+            clearTimeout(asesorResizeTimer);
+        });
+
+        const switchAsesorSigMode = async (mode) => {
+            asesorSigMode.value = mode;
+            if (mode === 'draw') { await nextTick(); initAsesorSigPad(); }
+        };
+
+        const clearAsesorSig = () => asesorSigPad?.clear();
+
+        const onAsesorSigFileChange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            asesorSigFile.value        = file;
+            asesorSigFilePreview.value = URL.createObjectURL(file);
+        };
+
+        const submitAsesorSignature = () => {
+            const fd = new FormData();
+
+            if (asesorSigMode.value === 'draw') {
+                if (!asesorSigPad || asesorSigPad.isEmpty()) {
+                    alert('Tanda tangan wajib digambar atau upload file terlebih dahulu.');
+                    return;
+                }
+                fd.append('signature_data', asesorSigPad.toDataURL('image/png'));
+            } else {
+                if (!asesorSigFile.value) {
+                    alert('Pilih file tanda tangan terlebih dahulu.');
+                    return;
+                }
+                fd.append('signature_file', asesorSigFile.value);
+            }
+
+            asesorSigSaving.value = true;
+            router.post(
+                `/admin/users/${props.assigned_asesor.id}/tanda-tangan`,
+                fd,
+                {
+                    forceFormData:  true,
+                    preserveScroll: true,
+                    onFinish: () => { asesorSigSaving.value = false; },
+                }
+            );
+        };
 
         const formatDateTime = (dt) => dt
             ? new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
@@ -294,6 +424,8 @@ export default {
             submitVerify,
             showFinalConfirm, finalSaving,
             formatDateTime, submitFinalVerify,
+            asesorSigMode, asesorSigCanvas, asesorSigFile, asesorSigFilePreview, asesorSigSaving,
+            switchAsesorSigMode, clearAsesorSig, onAsesorSigFileChange, submitAsesorSignature,
         };
     },
 }
