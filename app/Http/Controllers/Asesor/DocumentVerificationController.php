@@ -42,9 +42,9 @@ class DocumentVerificationController extends Controller
         $rows = $students->map(function ($student) use ($applications) {
             $app = $applications->get($student->id);
             $total    = $app?->classroom?->documentRequirements?->count() ?? 0;
-            $verified = $app?->documents?->where('status', 'verified')->count() ?? 0;
-            $rejected = $app?->documents?->where('status', 'rejected')->count() ?? 0;
-            $pending  = $app?->documents?->where('status', 'pending')->count() ?? 0;
+            $verified = $app?->documents?->where('asesor_status', 'verified')->count() ?? 0;
+            $rejected = $app?->documents?->where('asesor_status', 'rejected')->count() ?? 0;
+            $pending  = $app?->documents?->where('asesor_status', 'pending')->count() ?? 0;
             $uploaded = $app?->documents?->count() ?? 0;
 
             return [
@@ -106,8 +106,8 @@ class DocumentVerificationController extends Controller
             ->firstOrFail();
 
         $doc->update([
-            'status'         => $request->status,
-            'reviewer_notes' => $request->reviewer_notes,
+            'asesor_status'         => $request->status,
+            'asesor_reviewer_notes' => $request->reviewer_notes,
         ]);
 
         return back()->with('success', 'Status dokumen berhasil diperbarui.');

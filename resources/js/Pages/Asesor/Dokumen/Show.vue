@@ -79,13 +79,16 @@
                                     class="btn btn-sm btn-outline-primary" target="_blank">
                                     <i class="fa fa-download me-1"></i> Unduh
                                 </a>
+                                <span class="badge bg-light text-dark border small">
+                                    Kelengkapan (Admin): {{ badgeLabel({ asesor_status: getDoc(req.id).status }) }}
+                                </span>
                             </div>
 
-                            <!-- Catatan reviewer sebelumnya -->
-                            <div v-if="getDoc(req.id).reviewer_notes"
+                            <!-- Catatan asesor sebelumnya -->
+                            <div v-if="getDoc(req.id).asesor_reviewer_notes"
                                 class="alert py-2 small mb-3"
-                                :class="getDoc(req.id).status === 'rejected' ? 'alert-danger' : 'alert-info'">
-                                <i class="fa fa-comment me-1"></i>{{ getDoc(req.id).reviewer_notes }}
+                                :class="getDoc(req.id).asesor_status === 'rejected' ? 'alert-danger' : 'alert-info'">
+                                <i class="fa fa-comment me-1"></i>{{ getDoc(req.id).asesor_reviewer_notes }}
                             </div>
 
                             <!-- Form verifikasi -->
@@ -375,17 +378,17 @@ export default {
 
         const docStatusClass = (doc) => {
             if (!doc) return 'bg-light';
-            return { pending: 'bg-light', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' }[doc.status] ?? 'bg-light';
+            return { pending: 'bg-light', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' }[doc.asesor_status] ?? 'bg-light';
         };
 
         const badgeClass = (doc) => {
             if (!doc) return 'bg-secondary';
-            return { pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' }[doc.status] ?? 'bg-secondary';
+            return { pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' }[doc.asesor_status] ?? 'bg-secondary';
         };
 
         const badgeLabel = (doc) => {
             if (!doc) return 'Belum Upload';
-            return { pending: 'Menunggu', verified: 'Terverifikasi', rejected: 'Ditolak' }[doc.status] ?? doc.status;
+            return { pending: 'Menunggu', verified: 'Terverifikasi', rejected: 'Ditolak' }[doc.asesor_status] ?? doc.asesor_status;
         };
 
         const submitVerify = (docId, reqId, status) => {

@@ -18,6 +18,8 @@ class ApplicationDocument extends Model
         'file_size',
         'status',
         'reviewer_notes',
+        'asesor_status',
+        'asesor_reviewer_notes',
     ];
 
     public function application()
