@@ -25,11 +25,11 @@
                                 </tr>
                                 <tr>
                                     <td class="fw-bold">Ujian</td>
-                                    <td>{{ exam_session.examPg?.title ?? exam_session.examEsai?.title ?? '-' }}</td>
+                                    <td>{{ exam_session.exam_pg?.title ?? exam_session.exam_esai?.title ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="fw-bold">Skema</td>
-                                    <td>{{ exam_session.examPg?.classroom?.title ?? exam_session.examEsai?.classroom?.title ?? '-' }}</td>
+                                    <td>{{ exam_session.exam_pg?.classroom?.title ?? exam_session.exam_esai?.classroom?.title ?? '-' }}</td>
                                 </tr>
                             </tbody>
                         </table>

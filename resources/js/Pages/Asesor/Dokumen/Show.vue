@@ -31,7 +31,7 @@
                                     :class="application.status === 'approved' ? 'bg-success' : application.status === 'submitted' ? 'bg-warning text-dark' : 'bg-secondary'">
                                     {{ statusLabel(application.status) }}
                                 </span>
-                                <span class="badge bg-light text-dark border">
+                                <span class="badge bg-secondary">
                                     {{ doneCount }} / {{ totalReq }} terverifikasi
                                 </span>
                             </template>
@@ -79,7 +79,7 @@
                                     class="btn btn-sm btn-outline-primary" target="_blank">
                                     <i class="fa fa-download me-1"></i> Unduh
                                 </a>
-                                <span class="badge bg-light text-dark border small">
+                                <span class="badge bg-secondary small">
                                     Kelengkapan (Admin): {{ badgeLabel({ asesor_status: getDoc(req.id).status }) }}
                                 </span>
                             </div>
@@ -365,7 +365,7 @@ export default {
         );
 
         const doneCount = computed(() =>
-            props.application?.documents?.filter(d => d.status === 'verified').length ?? 0
+            props.application?.documents?.filter(d => d.asesor_status === 'verified').length ?? 0
         );
 
         const getDoc = (reqId) =>
