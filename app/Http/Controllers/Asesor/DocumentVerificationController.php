@@ -180,7 +180,8 @@ class DocumentVerificationController extends Controller
             'asesor_signature_name' => $sigName,
         ]);
 
-        return back()->with('success', 'Verifikasi akhir berhasil ditandatangani.');
+        return redirect()->route('asesor.dokumen.index', $examSessionId)
+            ->with('success', 'Verifikasi akhir berhasil ditandatangani.');
     }
 
     public function serveFinalSignature(int $examSessionId, int $studentId)
