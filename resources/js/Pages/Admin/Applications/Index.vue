@@ -46,10 +46,17 @@
                     <a :href="exportUrl" class="btn btn-sm btn-success ms-1">
                         <i class="fa fa-file-excel me-1"></i>Export Excel
                     </a>
-                    <a :href="exportDokumenUrl" class="btn btn-sm btn-info ms-1" title="Perlu filter Skema"
-                        :class="{ 'disabled': !filterForm.classroom_id }">
-                        <i class="fa fa-file-archive me-1"></i>Export Dokumen (ZIP)
-                    </a>
+                    <button type="button" class="btn btn-sm btn-info ms-1" title="Perlu filter Skema"
+                        :disabled="!filterForm.classroom_id || exportingDokumen"
+                        @click="startExportDokumen">
+                        <span v-if="exportingDokumen">
+                            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                            Menyiapkan ZIP...
+                        </span>
+                        <span v-else>
+                            <i class="fa fa-file-archive me-1"></i>Export Dokumen (ZIP)
+                        </span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -123,7 +130,7 @@ import LayoutAdmin from '../../../Layouts/Admin.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import Pagination from '../../../Components/Pagination.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { reactive, computed } from 'vue';
+import { reactive, computed, ref, onBeforeUnmount } from 'vue';
 
 export default {
     layout: LayoutAdmin,
@@ -160,14 +167,52 @@ export default {
             return '/admin/applications/export' + (qs ? `?${qs}` : '');
         });
 
-        const exportDokumenUrl = computed(() => {
+        // ZIP dibangun sinkron di server (mPDF per peserta) jadi bisa lama untuk
+        // banyak peserta. Karena unduhannya lewat navigasi biasa (bukan XHR), tidak
+        // ada event "selesai" yang bisa didengar JS — jadi kita titip token lewat
+        // cookie: server men-set cookie ini di respons SETELAH ZIP selesai dibuat,
+        // dan di sini kita polling document.cookie untuk tahu kapan berhenti loading.
+        const exportingDokumen = ref(false);
+        let exportPollTimer   = null;
+        let exportSafetyTimer = null;
+
+        const clearExportTimers = () => {
+            clearInterval(exportPollTimer);
+            clearTimeout(exportSafetyTimer);
+            exportPollTimer = null;
+            exportSafetyTimer = null;
+        };
+
+        const startExportDokumen = () => {
+            if (!filterForm.classroom_id || exportingDokumen.value) return;
+
+            const token = 'dl' + Date.now() + Math.random().toString(36).slice(2);
             const params = new URLSearchParams();
             Object.entries(filterForm).forEach(([key, value]) => {
                 if (value) params.append(key, value);
             });
-            const qs = params.toString();
-            return '/admin/applications/export-dokumen' + (qs ? `?${qs}` : '');
-        });
+            params.append('download_token', token);
+
+            exportingDokumen.value = true;
+            window.location.href = '/admin/applications/export-dokumen?' + params.toString();
+
+            exportPollTimer = setInterval(() => {
+                if (document.cookie.includes('fileDownloadToken=' + token)) {
+                    document.cookie = 'fileDownloadToken=; Max-Age=0; path=/';
+                    exportingDokumen.value = false;
+                    clearExportTimers();
+                }
+            }, 500);
+
+            // Jaga-jaga kalau cookie gagal terdeteksi (mis. koneksi terputus) —
+            // jangan biarkan tombol terkunci loading selamanya.
+            exportSafetyTimer = setTimeout(() => {
+                exportingDokumen.value = false;
+                clearExportTimers();
+            }, 10 * 60 * 1000);
+        };
+
+        onBeforeUnmount(clearExportTimers);
 
         const formatDate = (dt) => new Date(dt).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' });
 
@@ -175,7 +220,11 @@ export default {
         // tone badge senada dengan Blueprint §4
         const statusTone = (s) => ({ draft:'neutral', submitted:'secondary', approved:'success', rejected:'danger' }[s] ?? 'neutral');
 
-        return { filterForm, applyFilter, resetFilter, exportUrl, exportDokumenUrl, formatDate, statusLabel, statusTone };
+        return {
+            filterForm, applyFilter, resetFilter, exportUrl,
+            exportingDokumen, startExportDokumen,
+            formatDate, statusLabel, statusTone,
+        };
     },
 }
 </script>

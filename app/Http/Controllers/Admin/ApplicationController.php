@@ -141,7 +141,22 @@ class ApplicationController extends Controller
 
         $zipName = Str::slug(implode('_', $zipNameParts)) . '.zip';
 
-        return response()->download($zipPath, $zipName)->deleteFileAfterSend(true);
+        $response = response()->download($zipPath, $zipName)->deleteFileAfterSend(true);
+
+        // Generate ZIP butuh waktu lama (mPDF per peserta) — halaman admin memakai
+        // cookie ini sebagai sinyal "server sudah selesai" untuk menghentikan
+        // indikator loading, karena unduhan file lewat navigasi biasa (bukan XHR)
+        // tidak punya event "selesai" yang bisa didengar langsung dari JS.
+        // response()->download() mengembalikan BinaryFileResponse (Symfony) yang
+        // tidak punya helper withCookie() milik Laravel — pakai Cookie::queue()
+        // supaya tetap ditempel oleh middleware AddQueuedCookiesToResponse.
+        if ($request->filled('download_token') && preg_match('/^[A-Za-z0-9_-]{1,64}$/', $request->download_token)) {
+            \Illuminate\Support\Facades\Cookie::queue(
+                cookie('fileDownloadToken', $request->download_token, 1, null, null, false, false)
+            );
+        }
+
+        return $response;
     }
 
     public function downloadFrApl03(AssessmentApplication $application)

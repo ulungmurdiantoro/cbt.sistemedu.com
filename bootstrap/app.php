@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
         ]);
+        // Dibaca langsung oleh JS (document.cookie) sebagai sinyal "download ZIP
+        // selesai di-generate server" — harus mentah, tidak dienkripsi.
+        $middleware->encryptCookies(except: ['fileDownloadToken']);
         $middleware->alias([
             'student'     => \App\Http\Middleware\AuthStudent::class,
             'participant' => \App\Http\Middleware\AuthParticipant::class,
