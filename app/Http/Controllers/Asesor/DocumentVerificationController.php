@@ -126,10 +126,8 @@ class DocumentVerificationController extends Controller
 
         abort_if(!Storage::disk('private')->exists($doc->file_path), 404);
 
-        return response()->download(
-            Storage::disk('private')->path($doc->file_path),
-            $doc->original_filename
-        );
+        // Preview inline (bukan paksa unduh) — hindari file menumpuk di folder Downloads reviewer.
+        return Storage::disk('private')->response($doc->file_path, $doc->original_filename);
     }
 
     public function finalVerify(Request $request, int $examSessionId, int $studentId)

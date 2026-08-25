@@ -77,7 +77,7 @@
                                 </div>
                                 <a :href="`/asesor/penilaian/${exam_session.id}/dokumen/${student.id}/${getDoc(req.id).id}/download`"
                                     class="btn btn-sm btn-outline-primary" target="_blank">
-                                    <i class="fa fa-download me-1"></i> Unduh
+                                    <i class="fa fa-eye me-1"></i> Preview
                                 </a>
                                 <span class="badge bg-secondary small">
                                     Kelengkapan (Admin): {{ badgeLabel({ asesor_status: getDoc(req.id).status }) }}

@@ -70,7 +70,7 @@
                                 </div>
                                 <a :href="`/manager/dokumen/${exam_session.id}/${student.id}/${getDoc(req.id).id}/download`"
                                     class="btn btn-sm btn-outline-primary" target="_blank">
-                                    <i class="fa fa-download me-1"></i> Unduh
+                                    <i class="fa fa-eye me-1"></i> Preview
                                 </a>
                             </div>
 
