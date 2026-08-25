@@ -141,7 +141,11 @@
                             <div>
                                 <span class="badge bg-success mb-1"><i class="fa fa-lock me-1"></i>Terverifikasi &amp; Terkunci</span>
                                 <div class="small mt-1"><i class="fa fa-user me-1 text-muted"></i>{{ application.asesor_signature_name }}</div>
-                                <div class="small text-muted">{{ formatDateTime(application.asesor_verified_at) }}</div>
+                                <div class="mt-1">
+                                    <span v-if="application.asesor_rekomendasi === 'K'" class="badge bg-success">Rekomendasi: Kompeten</span>
+                                    <span v-else-if="application.asesor_rekomendasi === 'BK'" class="badge bg-danger">Rekomendasi: Belum Kompeten</span>
+                                </div>
+                                <div class="small text-muted mt-1">{{ formatDateTime(application.asesor_verified_at) }}</div>
                             </div>
                         </div>
 
@@ -151,6 +155,22 @@
                                 Verifikasi akhir menandakan seluruh dokumen peserta ini telah Anda periksa.
                                 Setelah ditandatangani, tidak dapat diubah lagi.
                             </p>
+
+                            <div class="mb-2">
+                                <label class="fw-semibold small">Rekomendasi (Laporan Asesmen) <span class="text-danger">*</span></label>
+                                <div class="d-flex gap-2 mt-1">
+                                    <button type="button" class="btn btn-sm flex-fill"
+                                        :class="rekomendasi === 'K' ? 'btn-success' : 'btn-light border'"
+                                        @click="rekomendasi = 'K'">
+                                        <i class="fa fa-check me-1"></i>Kompeten
+                                    </button>
+                                    <button type="button" class="btn btn-sm flex-fill"
+                                        :class="rekomendasi === 'BK' ? 'btn-danger' : 'btn-light border'"
+                                        @click="rekomendasi = 'BK'">
+                                        <i class="fa fa-times me-1"></i>Belum Kompeten
+                                    </button>
+                                </div>
+                            </div>
 
                             <div class="mb-2">
                                 <label class="fw-semibold small">Nama Penandatangan <span class="text-danger">*</span></label>
@@ -267,6 +287,7 @@ export default {
         const sigFile         = ref(null);
         const sigFilePreview  = ref(null);
         const signName        = ref(props.auth_asesor?.signature_name ?? '');
+        const rekomendasi      = ref(null); // 'K' | 'BK'
         const useSavedSig     = ref(!!props.auth_asesor?.signature_path);
         const showFinalConfirm = ref(false);
         const finalSaving     = ref(false);
@@ -323,6 +344,10 @@ export default {
             : '—';
 
         const submitFinalVerify = () => {
+            if (!rekomendasi.value) {
+                alert('Pilih rekomendasi (Kompeten / Belum Kompeten) terlebih dahulu.');
+                return;
+            }
             if (!signName.value) {
                 alert('Nama penandatangan wajib diisi.');
                 return;
@@ -330,6 +355,7 @@ export default {
 
             const fd = new FormData();
             fd.append('signature_name', signName.value);
+            fd.append('asesor_rekomendasi', rekomendasi.value);
 
             if (!useSavedSig.value) {
                 if (sigMode.value === 'draw') {
@@ -413,7 +439,7 @@ export default {
             totalReq, doneCount, getDoc,
             statusLabel, docStatusClass, badgeClass, badgeLabel,
             submitVerify,
-            sigMode, sigCanvas, sigFile, sigFilePreview, signName, useSavedSig,
+            sigMode, sigCanvas, sigFile, sigFilePreview, signName, rekomendasi, useSavedSig,
             showFinalConfirm, finalSaving,
             switchSigMode, clearSig, onSigFileChange, formatDateTime, submitFinalVerify,
         };

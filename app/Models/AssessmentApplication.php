@@ -37,6 +37,14 @@ class AssessmentApplication extends Model
         'asesor_verified_at',
         'asesor_signature_path',
         'asesor_signature_name',
+        'asesor_rekomendasi',
+        'materai_status',
+        'materai_order_id',
+        'materai_amount',
+        'materai_paid_at',
+        'materai_stamped_at',
+        'materai_document_path',
+        'materai_failure_reason',
     ];
 
     protected function casts(): array
@@ -49,6 +57,9 @@ class AssessmentApplication extends Model
             'approved_at'        => 'datetime',
             'pakta_signed_at'    => 'datetime',
             'asesor_verified_at' => 'datetime',
+            'materai_amount'     => 'float',
+            'materai_paid_at'    => 'datetime',
+            'materai_stamped_at' => 'datetime',
         ];
     }
 

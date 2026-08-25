@@ -16,9 +16,6 @@
                 <button class="btn btn-sm btn-success text-white fw-semibold" @click="distribute" :disabled="!hasFinalized">
                     <i class="fa fa-paper-plane me-1"></i> Kirim ke Peserta
                 </button>
-                <button class="btn btn-sm btn-warning text-dark fw-semibold" @click="confirmFinalize" :disabled="allFinalized">
-                    <i class="fa fa-lock me-1"></i> Finalisasi Semua
-                </button>
             </div>
         </div>
 
@@ -32,9 +29,15 @@
             Komposisi nilai belum diatur untuk skema ini. Menggunakan default (PG 40%, Esai 35%, Wawancara 25%).
         </div>
 
+        <div class="alert alert-secondary py-2 small border-0 mb-3">
+            <i class="fa fa-lock me-1"></i>
+            Finalisasi kelulusan sekarang jadi wewenang <strong>Manager Sertifikasi</strong> (Portal Manager Sertifikasi).
+            Halaman ini hanya untuk memantau &amp; mengirim dokumen yang sudah difinalisasi.
+        </div>
+
         <!-- Flash -->
-        <div v-if="$page.props.flash?.success" class="alert alert-success py-2 small border-0 mb-3">
-            {{ $page.props.flash.success }}
+        <div v-if="$page.props.session?.success" class="alert alert-success py-2 small border-0 mb-3">
+            {{ $page.props.session.success }}
         </div>
 
         <!-- Table -->
@@ -199,7 +202,6 @@ export default {
     },
 
     setup(props) {
-        const allFinalized  = computed(() => props.rows.length > 0 && props.rows.every(r => r.is_finalized));
         const hasFinalized  = computed(() => props.rows.some(r => r.is_finalized));
 
         const nilaiColor = (row) => {
@@ -210,23 +212,6 @@ export default {
 
         // Format nilai dua desimal (Blueprint: 87.50), aman untuk null.
         const fmt = (v) => (v === null || v === undefined || v === '') ? '—' : Number(v).toFixed(2);
-
-        const confirmFinalize = () => {
-            Swal.fire({
-                title: 'Finalisasi Hasil?',
-                html: 'Nilai akan dikunci dan nomor SK / Sertifikat akan diterbitkan.<br><strong>Tindakan ini tidak dapat dibatalkan.</strong>',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#1f2937',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, Finalisasi',
-                cancelButtonText: 'Batal',
-            }).then(result => {
-                if (result.isConfirmed) {
-                    router.post(`/admin/results/${props.exam_session.id}/finalize`);
-                }
-            });
-        };
 
         const distribute = () => {
             Swal.fire({
@@ -244,7 +229,7 @@ export default {
             });
         };
 
-        return { allFinalized, hasFinalized, nilaiColor, fmt, confirmFinalize, distribute };
+        return { hasFinalized, nilaiColor, fmt, distribute };
     },
 }
 </script>

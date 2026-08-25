@@ -7,16 +7,12 @@ use App\Models\ExamSession;
 use App\Models\ParticipantResult;
 use App\Models\Student;
 use App\Services\DocumentGeneratorService;
-use App\Services\NumberingService;
 use App\Services\ResultCalculatorService;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ResultController extends Controller
 {
     public function __construct(
         private ResultCalculatorService $calculator,
-        private NumberingService $numbering,
     ) {}
 
     public function index()
@@ -72,45 +68,9 @@ class ResultController extends Controller
         ]);
     }
 
-    public function finalize(ExamSession $examSession)
-    {
-        $examSession->load(['examPg.classroom', 'examEsai.classroom']);
-
-        $classroomId = $examSession->referenceExam?->classroom_id;
-        $classroom   = $classroomId ? \App\Models\Classroom::find($classroomId) : null;
-
-        $results = ParticipantResult::where('exam_session_id', $examSession->id)
-            ->where('is_finalized', false)
-            ->get();
-
-        DB::transaction(function () use ($results, $classroom, $classroomId, $examSession) {
-            foreach ($results as $result) {
-                $skNum = $this->numbering->nextSkNumber();
-                $spNum = $this->numbering->nextSpNumber();
-
-                $sertifikatNum = null;
-                if ($result->keputusan === 'LULUS' && $classroom) {
-                    $sertifikatNum = $this->numbering->nextSertifikatNumber(
-                        $classroom->kode_skema ?? '',
-                        $examSession->kode_batch ?? '',
-                        $classroomId
-                    );
-                }
-
-                $result->update([
-                    'is_finalized'      => true,
-                    'finalized_at'      => now(),
-                    'finalized_by'      => Auth::id(),
-                    'sk_number'         => $skNum,
-                    'sp_number'         => $spNum,
-                    'sertifikat_number' => $sertifikatNum,
-                    'valid_until'       => now()->addYears(config('lsp.sertifikat_valid_years', 3)),
-                ]);
-            }
-        });
-
-        return redirect()->back()->with('success', 'Hasil berhasil difinalisasi.');
-    }
+    // Finalisasi nilai dipindah ke Manager\SertifikasiController — kelulusan
+    // & penerbitan sertifikat sekarang jadi wewenang Manager Sertifikasi,
+    // bukan admin biasa.
 
     public function downloadSp(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)
     {

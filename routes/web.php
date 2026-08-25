@@ -121,7 +121,6 @@ Route::prefix('admin')->group(function () {
         // Rekap hasil & finalisasi
         Route::get('/results',                                         [\App\Http\Controllers\Admin\ResultController::class, 'index'])->name('admin.results.index');
         Route::get('/results/{examSession}',                           [\App\Http\Controllers\Admin\ResultController::class, 'show'])->name('admin.results.show');
-        Route::post('/results/{examSession}/finalize',                 [\App\Http\Controllers\Admin\ResultController::class, 'finalize'])->name('admin.results.finalize');
         Route::post('/results/{examSession}/distribute',               [\App\Http\Controllers\Admin\ResultController::class, 'distribute'])->name('admin.results.distribute');
         Route::get('/results/{examSession}/download-sp/{student}',     [\App\Http\Controllers\Admin\ResultController::class, 'downloadSp'])->name('admin.results.download-sp');
         Route::get('/results/{examSession}/download-sk/{student}',     [\App\Http\Controllers\Admin\ResultController::class, 'downloadSk'])->name('admin.results.download-sk');
@@ -154,6 +153,17 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
     Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/tanda-tangan',       [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'serveFinalSignature'])->name('asesor.dokumen.signature.serve');
 
     Route::get('/profile/tanda-tangan', [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'serveDefaultSignature'])->name('asesor.profile.signature');
+
+});
+
+// ─── Portal Manager Sertifikasi ────────────────────────────────────────────────
+
+Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
+
+    Route::get('/dashboard', \App\Http\Controllers\Manager\DashboardController::class)->name('manager.dashboard');
+
+    Route::get('/sertifikasi/{examSession}',          [\App\Http\Controllers\Manager\SertifikasiController::class, 'show'])->name('manager.sertifikasi.show');
+    Route::post('/sertifikasi/{examSession}/finalize', [\App\Http\Controllers\Manager\SertifikasiController::class, 'finalize'])->name('manager.sertifikasi.finalize');
 
 });
 
@@ -234,6 +244,9 @@ Route::prefix('peserta')->middleware('participant')->group(function () {
     Route::get('/aplikasi/{application}/pakta',  [App\Http\Controllers\Peserta\ApplicationController::class, 'showPakta'])->name('peserta.application.pakta');
     Route::post('/aplikasi/{application}/pakta', [App\Http\Controllers\Peserta\ApplicationController::class, 'savePakta'])->name('peserta.application.pakta.save');
 
+    Route::get('/aplikasi/{application}/materai',      [App\Http\Controllers\Peserta\MateraiController::class, 'show'])->name('peserta.application.materai');
+    Route::post('/aplikasi/{application}/materai/bayar', [App\Http\Controllers\Peserta\MateraiController::class, 'pay'])->name('peserta.application.materai.pay');
+
     Route::get('/aplikasi/{application}/dokumen',                         [App\Http\Controllers\Peserta\DocumentController::class, 'index'])->name('peserta.application.documents');
     Route::post('/aplikasi/{application}/dokumen',                        [App\Http\Controllers\Peserta\DocumentController::class, 'upload'])->name('peserta.application.documents.upload');
     Route::get('/aplikasi/{application}/dokumen/{document}/download',     [App\Http\Controllers\Peserta\DocumentController::class, 'download'])->name('peserta.application.documents.download');
@@ -248,3 +261,8 @@ Route::prefix('peserta')->middleware('participant')->group(function () {
     Route::post('/remidi/{sessionId}',                      [App\Http\Controllers\Peserta\ResultController::class, 'startRemidi'])->name('peserta.remidi.start');
 
 });
+
+// Webhook server-to-server Midtrans — di luar guard 'participant' & CSRF
+// (lihat pengecualian di bootstrap/app.php), Midtrans yang memanggil ini
+// langsung, bukan browser peserta.
+Route::post('/materai/notification', [App\Http\Controllers\Peserta\MateraiController::class, 'notification'])->name('materai.notification');
