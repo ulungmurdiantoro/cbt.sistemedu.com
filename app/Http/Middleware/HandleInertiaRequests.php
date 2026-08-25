@@ -44,7 +44,7 @@ class HandleInertiaRequests extends Middleware
             ],
             //user authenticated
             'auth' => [
-                'user'        => auth()->user() ?? null,
+                'user'        => fn () => tap(auth()->user(), fn ($u) => $u?->setAttribute('roles', $u->roleValues())),
                 'student'     => auth()->guard('student')->user() ?? null,
                 'participant' => auth()->guard('participant')->user() ?? null,
             ],

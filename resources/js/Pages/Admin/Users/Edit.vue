@@ -31,11 +31,20 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Role <span class="text-danger">*</span></label>
-                                <select v-model="form.role" class="form-select">
-                                    <option value="admin">Admin</option>
-                                    <option value="asesor">Asesor</option>
-                                </select>
-                                <div v-if="errors.role" class="text-danger small mt-1">{{ errors.role }}</div>
+                                <div class="form-text small mb-1">Satu user bisa punya lebih dari satu role.</div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="admin" v-model="form.roles" id="role-admin">
+                                    <label class="form-check-label" for="role-admin">Admin</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="asesor" v-model="form.roles" id="role-asesor">
+                                    <label class="form-check-label" for="role-asesor">Asesor</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="manager_sertifikasi" v-model="form.roles" id="role-manager">
+                                    <label class="form-check-label" for="role-manager">Manager Sertifikasi</label>
+                                </div>
+                                <div v-if="errors.roles" class="text-danger small mt-1">{{ errors.roles }}</div>
                             </div>
 
                             <hr>
@@ -63,7 +72,7 @@
                 </div>
 
                 <!-- Tanda Tangan Asesor -->
-                <div class="card border-0 shadow mt-4" v-if="form.role === 'asesor'">
+                <div class="card border-0 shadow mt-4" v-if="form.roles.includes('asesor')">
                     <div class="card-header bg-gray-800 text-white fw-semibold">
                         <i class="fa fa-signature me-2"></i>Tanda Tangan Asesor
                     </div>
@@ -159,7 +168,7 @@ export default {
             users_code:            props.user.users_code ?? '',
             name:                  props.user.name,
             email:                 props.user.email,
-            role:                  props.user.role,
+            roles:                 [...(props.user.role_values ?? [])],
             password:              '',
             password_confirmation: '',
         });
@@ -200,7 +209,7 @@ export default {
             resizeTimer = setTimeout(initSigPad, 200);
         };
 
-        const sigPadVisible = () => form.role === 'asesor' && (!props.user.signature_path || editingSig.value);
+        const sigPadVisible = () => form.roles.includes('asesor') && (!props.user.signature_path || editingSig.value);
 
         onMounted(async () => {
             if (sigPadVisible()) {
@@ -215,7 +224,7 @@ export default {
             clearTimeout(resizeTimer);
         });
 
-        watch([() => form.role, editingSig], async () => {
+        watch([() => [...form.roles], editingSig], async () => {
             if (sigPadVisible()) {
                 await nextTick();
                 initSigPad();

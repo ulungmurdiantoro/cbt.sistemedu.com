@@ -10,7 +10,7 @@ class EnsureManagerSertifikasi
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->role !== UserRole::ManagerSertifikasi) {
+        if (!auth()->check() || !auth()->user()->hasRole(UserRole::ManagerSertifikasi)) {
             return redirect('/login');
         }
 

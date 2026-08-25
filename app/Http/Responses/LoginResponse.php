@@ -11,12 +11,17 @@ class LoginResponse implements LoginResponseContract
     {
         $user = auth()->user();
 
-        if ($user?->role === UserRole::Asesor) {
-            return redirect()->route('asesor.dashboard');
+        // User bisa punya lebih dari satu role — prioritas: admin > manager sertifikasi > asesor.
+        if ($user?->hasRole(UserRole::Admin)) {
+            return redirect()->route('admin.dashboard');
         }
 
-        if ($user?->role === UserRole::ManagerSertifikasi) {
+        if ($user?->hasRole(UserRole::ManagerSertifikasi)) {
             return redirect()->route('manager.dashboard');
+        }
+
+        if ($user?->hasRole(UserRole::Asesor)) {
+            return redirect()->route('asesor.dashboard');
         }
 
         return redirect()->route('admin.dashboard');

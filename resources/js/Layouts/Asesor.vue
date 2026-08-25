@@ -48,6 +48,20 @@
                     </Link>
                 </li>
 
+                <template v-if="otherPortals.length">
+                    <li role="separator" class="dropdown-divider mt-2 mb-2 border-gray-700"></li>
+                    <li class="nav-item" v-for="portal in otherPortals" :key="portal.href">
+                        <Link :href="portal.href" class="nav-link d-flex justify-content-between">
+                            <span>
+                                <span class="sidebar-icon">
+                                    <i class="fa fa-right-left me-2"></i>
+                                </span>
+                                <span class="sidebar-text">{{ portal.label }}</span>
+                            </span>
+                        </Link>
+                    </li>
+                </template>
+
                 <li role="separator" class="dropdown-divider mt-2 mb-2 border-gray-700"></li>
 
                 <li class="nav-item" :class="{ 'active': $page.url.startsWith('/asesor/logout') }">
@@ -87,9 +101,21 @@
 </template>
 
 <script>
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 
 export default {
     components: { Link },
+    setup() {
+        const page = usePage();
+        const otherPortals = computed(() => {
+            const roles = page.props.auth?.user?.roles ?? [];
+            const portals = [];
+            if (roles.includes('admin')) portals.push({ href: '/admin/dashboard', label: 'Portal Admin' });
+            if (roles.includes('manager_sertifikasi')) portals.push({ href: '/manager/dashboard', label: 'Portal Manager Sertifikasi' });
+            return portals;
+        });
+        return { otherPortals };
+    },
 }
 </script>

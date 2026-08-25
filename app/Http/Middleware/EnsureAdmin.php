@@ -10,7 +10,7 @@ class EnsureAdmin
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->role !== UserRole::Admin) {
+        if (!auth()->check() || !auth()->user()->hasRole(UserRole::Admin)) {
             return redirect('/login');
         }
 

@@ -15,7 +15,7 @@
                                 <label class="form-label fw-semibold">Kode User <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <input v-model="form.users_code" type="text" class="form-control" placeholder="otomatis ter-generate">
-                                    <button type="button" class="btn btn-outline-secondary" @click="form.users_code = generateCode(form.role)" title="Generate ulang">
+                                    <button type="button" class="btn btn-outline-secondary" @click="form.users_code = generateCode(form.roles)" title="Generate ulang">
                                         <i class="fa fa-refresh"></i> Generate Ulang
                                     </button>
                                 </div>
@@ -37,11 +37,20 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Role <span class="text-danger">*</span></label>
-                                <select v-model="form.role" class="form-select">
-                                    <option value="admin">Admin</option>
-                                    <option value="asesor">Asesor</option>
-                                </select>
-                                <div v-if="errors.role" class="text-danger small mt-1">{{ errors.role }}</div>
+                                <div class="form-text small mb-1">Satu user bisa punya lebih dari satu role.</div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="admin" v-model="form.roles" id="role-admin">
+                                    <label class="form-check-label" for="role-admin">Admin</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="asesor" v-model="form.roles" id="role-asesor">
+                                    <label class="form-check-label" for="role-asesor">Asesor</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="manager_sertifikasi" v-model="form.roles" id="role-manager">
+                                    <label class="form-check-label" for="role-manager">Manager Sertifikasi</label>
+                                </div>
+                                <div v-if="errors.roles" class="text-danger small mt-1">{{ errors.roles }}</div>
                             </div>
 
                             <div class="mb-3">
@@ -85,8 +94,14 @@ export default {
         const processing = ref(false);
 
         // Random alphanumeric: tanpa karakter ambigu (I, O, 0, 1) supaya tidak salah ketik
-        const generateCode = (role) => {
-            const prefix = role === 'admin' ? 'ADM' : 'ASR';
+        // Prefix kode mengikuti role dengan prioritas tertinggi: admin > manager_sertifikasi > asesor
+        const prefixForRoles = (roles) => {
+            if (roles.includes('admin')) return 'ADM';
+            if (roles.includes('manager_sertifikasi')) return 'MGR';
+            return 'ASR';
+        };
+        const generateCode = (roles) => {
+            const prefix = prefixForRoles(roles);
             const chars  = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
             let suffix   = '';
             for (let i = 0; i < 6; i++) {
@@ -96,20 +111,20 @@ export default {
         };
 
         const form = reactive({
-            users_code:            generateCode('asesor'),
+            users_code:            generateCode(['asesor']),
             name:                  '',
             email:                 '',
-            role:                  'asesor',
+            roles:                 ['asesor'],
             password:              '',
             password_confirmation: '',
         });
 
         // Regenerate kode tiap kali role berubah (kecuali user sudah ubah manual prefix-nya)
-        watch(() => form.role, (newRole, oldRole) => {
-            const oldPrefix = oldRole === 'admin' ? 'ADM-' : 'ASR-';
+        watch(() => [...form.roles], (newRoles, oldRoles) => {
+            const oldPrefix = prefixForRoles(oldRoles) + '-';
             // Hanya regenerate jika kode saat ini masih dalam format auto (prefix sesuai role lama)
             if (form.users_code.startsWith(oldPrefix)) {
-                form.users_code = generateCode(newRole);
+                form.users_code = generateCode(newRoles);
             }
         });
 

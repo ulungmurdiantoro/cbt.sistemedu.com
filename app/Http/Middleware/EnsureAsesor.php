@@ -10,7 +10,7 @@ class EnsureAsesor
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->role !== UserRole::Asesor) {
+        if (!auth()->check() || !auth()->user()->hasRole(UserRole::Asesor)) {
             return redirect('/login');
         }
 

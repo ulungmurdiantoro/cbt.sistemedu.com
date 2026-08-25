@@ -52,7 +52,8 @@
                                 </td>
                                 <td class="small">{{ user.email }}</td>
                                 <td class="text-center">
-                                    <StatusBadge :tone="user.role === 'admin' ? 'accent' : 'success'" :label="user.role === 'admin' ? 'Admin' : 'Asesor'" />
+                                    <StatusBadge v-for="r in user.role_values" :key="r"
+                                        :tone="roleTone(r)" :label="roleLabel(r)" class="me-1 mb-1" />
                                 </td>
                                 <td class="text-center">
                                     <Link :href="`/admin/users/${user.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-1">
@@ -101,6 +102,9 @@ export default {
     setup(props) {
         const search = ref(props.filters?.q ?? '');
 
+        const roleLabel = (r) => ({ admin: 'Admin', asesor: 'Asesor', manager_sertifikasi: 'Manager Sertifikasi' }[r] ?? r);
+        const roleTone  = (r) => ({ admin: 'accent', asesor: 'success', manager_sertifikasi: 'secondary' }[r] ?? 'neutral');
+
         const applySearch = () => {
             router.get('/admin/users', { q: search.value }, { preserveState: true });
         };
@@ -122,7 +126,7 @@ export default {
             });
         };
 
-        return { search, applySearch, destroy };
+        return { search, applySearch, destroy, roleLabel, roleTone };
     },
 }
 </script>

@@ -26,7 +26,7 @@ class PenilaianController extends Controller
             ->orderBy('end_time', 'desc')
             ->get();
 
-        $asesors = User::where('role', 'asesor')->orderBy('name')->get();
+        $asesors = User::whereHas('roleAssignments', fn ($q) => $q->where('role', 'asesor'))->orderBy('name')->get();
 
         return inertia('Admin/Penilaian/Index', [
             'exam_sessions' => $exam_sessions,
@@ -38,7 +38,7 @@ class PenilaianController extends Controller
     {
         $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($exam_session_id);
 
-        $asesors = User::where('role', 'asesor')->orderBy('name')->get();
+        $asesors = User::whereHas('roleAssignments', fn ($q) => $q->where('role', 'asesor'))->orderBy('name')->get();
 
         // Ambil semua siswa yang terdaftar di sesi ini via exam_groups
         $student_ids = ExamGroup::where('exam_session_id', $exam_session_id)

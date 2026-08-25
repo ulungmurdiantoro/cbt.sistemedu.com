@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::orderBy('role')->orderBy('name')
+        $users = User::with('roleAssignments')->orderBy('name')
             ->when($request->q, function ($query) use ($request) {
                 $query->where(function ($sub) use ($request) {
                     $sub->where('name', 'like', '%' . $request->q . '%')
@@ -24,7 +24,7 @@ class UserController extends Controller
             })
             ->paginate(15)
             ->withQueryString();
-        $users->each(fn($u) => $u->makeVisible(['users_code']));
+        $users->each(fn($u) => $u->makeVisible(['users_code'])->setAttribute('role_values', $u->roleValues()));
 
         return inertia('Admin/Users/Index', [
             'users'   => $users,
@@ -43,24 +43,26 @@ class UserController extends Controller
             'users_code' => 'required|string|max:50|unique:users,users_code',
             'name'       => 'required|string|max:255',
             'email'      => 'required|email|unique:users,email',
-            'role'       => 'required|in:admin,asesor',
+            'roles'      => 'required|array|min:1',
+            'roles.*'    => 'in:admin,asesor,manager_sertifikasi',
             'password'   => 'required|string|min:8|confirmed',
         ]);
 
-        User::create([
+        $user = User::create([
             'users_code' => $request->users_code,
             'name'       => $request->name,
             'email'      => $request->email,
-            'role'       => $request->role,
             'password'   => Hash::make($request->password),
         ]);
+        $user->syncRoles($request->roles);
 
         return redirect()->route('admin.users.index')->with('success', 'User berhasil ditambahkan.');
     }
 
     public function edit(User $user)
     {
-        $user->makeVisible(['users_code', 'signature_path', 'signature_name']);
+        $user->makeVisible(['users_code', 'signature_path', 'signature_name'])
+            ->setAttribute('role_values', $user->roleValues());
         return inertia('Admin/Users/Edit', ['user' => $user]);
     }
 
@@ -70,7 +72,8 @@ class UserController extends Controller
             'users_code' => ['required', 'string', 'max:50', Rule::unique('users', 'users_code')->ignore($user->id)],
             'name'       => 'required|string|max:255',
             'email'      => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
-            'role'       => 'required|in:admin,asesor',
+            'roles'      => 'required|array|min:1',
+            'roles.*'    => 'in:admin,asesor,manager_sertifikasi',
             'password'   => 'nullable|string|min:8|confirmed',
         ]);
 
@@ -78,7 +81,6 @@ class UserController extends Controller
             'users_code' => $request->users_code,
             'name'       => $request->name,
             'email'      => $request->email,
-            'role'       => $request->role,
         ];
 
         if ($request->filled('password')) {
@@ -86,6 +88,7 @@ class UserController extends Controller
         }
 
         $user->update($data);
+        $user->syncRoles($request->roles);
 
         return redirect()->route('admin.users.index')->with('success', 'User berhasil diperbarui.');
     }
