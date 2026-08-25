@@ -30,8 +30,9 @@ class SertifikasiController extends Controller
     {
         $examSession->load(['examPg.classroom', 'examEsai.classroom']);
 
-        $results = $this->calculator->recalcForSession($examSession);
-        $studentIds = collect($results)->pluck('student_id');
+        $results = \Illuminate\Database\Eloquent\Collection::make($this->calculator->recalcForSession($examSession));
+        $results->load('manager:id,name');
+        $studentIds = $results->pluck('student_id');
 
         $students = Student::whereIn('id', $studentIds)->with('participant')->get()->keyBy('id');
 
@@ -74,6 +75,7 @@ class SertifikasiController extends Controller
                 'apl03_score'        => $assessment?->total_score,
 
                 // Laporan Asesmen — asesor & rekomendasi
+                'asesor_id'          => $assignment?->asesor?->id,
                 'asesor_name'        => $assignment?->asesor?->name,
                 'asesor_verified_at' => $application?->asesor_verified_at,
                 'asesor_rekomendasi' => $application?->asesor_rekomendasi,
@@ -85,6 +87,10 @@ class SertifikasiController extends Controller
                 'nilai_akhir'     => $r->nilai_akhir,
                 'keputusan'       => $r->keputusan,
                 'is_finalized'    => $r->is_finalized,
+
+                // Verifikasi Manager Sertifikasi — syarat wajib sebelum finalisasi
+                'manager_verified_at' => $r->manager_verified_at,
+                'manager_verified_by' => $r->manager?->name,
             ];
         })->sortBy('name')->values();
 
@@ -92,6 +98,24 @@ class SertifikasiController extends Controller
             'exam_session' => $examSession,
             'rows'         => $rows,
         ]);
+    }
+
+    /** Manager mencentang/membatalkan centang "sudah diverifikasi" untuk satu peserta. */
+    public function toggleVerify(ExamSession $examSession, int $studentId)
+    {
+        $result = ParticipantResult::where('exam_session_id', $examSession->id)
+            ->where('student_id', $studentId)
+            ->firstOrFail();
+
+        abort_if($result->is_finalized, 422, 'Peserta ini sudah difinalisasi, verifikasi tidak bisa diubah.');
+
+        if ($result->manager_verified_at) {
+            $result->update(['manager_verified_at' => null, 'manager_verified_by' => null]);
+        } else {
+            $result->update(['manager_verified_at' => now(), 'manager_verified_by' => Auth::id()]);
+        }
+
+        return back()->with('success', 'Status verifikasi berhasil diperbarui.');
     }
 
     public function finalize(ExamSession $examSession)
@@ -104,6 +128,17 @@ class SertifikasiController extends Controller
         $results = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('is_finalized', false)
             ->get();
+
+        abort_if(
+            $results->isEmpty(),
+            422,
+            'Tidak ada peserta yang perlu difinalisasi.'
+        );
+        abort_if(
+            $results->whereNull('manager_verified_at')->isNotEmpty(),
+            422,
+            'Semua peserta harus diverifikasi Manager Sertifikasi sebelum finalisasi.'
+        );
 
         DB::transaction(function () use ($results, $classroom, $classroomId, $examSession) {
             foreach ($results as $result) {

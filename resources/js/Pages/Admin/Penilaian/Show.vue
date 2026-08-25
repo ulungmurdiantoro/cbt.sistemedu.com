@@ -77,6 +77,11 @@
                                                     {{ a.name }}
                                                 </option>
                                             </select>
+                                            <a v-if="savedAssignMap[row.student_id]"
+                                                :href="`/dokumen/laporan-asesmen/${exam_session.id}/${savedAssignMap[row.student_id]}/download`"
+                                                target="_blank" class="d-inline-block small mt-1" title="Download FR.AK.05">
+                                                <i class="fa fa-file-pdf me-1"></i>FR.AK.05
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -113,6 +118,7 @@ export default {
         return {
             saving: false,
             successMsg: '',
+            savedAssignMap: assignMap,
             form: this.students.map(s => ({
                 student_id: s.id,
                 user_id: assignMap[s.id] ?? null,

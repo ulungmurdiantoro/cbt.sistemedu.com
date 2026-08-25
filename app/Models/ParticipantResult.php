@@ -17,6 +17,8 @@ class ParticipantResult extends Model
         'nilai_wawancara',
         'nilai_akhir',
         'keputusan',
+        'manager_verified_at',
+        'manager_verified_by',
         'is_finalized',
         'finalized_at',
         'finalized_by',
@@ -31,8 +33,9 @@ class ParticipantResult extends Model
     protected function casts(): array
     {
         return [
-            'is_finalized'   => 'boolean',
-            'finalized_at'   => 'datetime',
+            'is_finalized'         => 'boolean',
+            'finalized_at'         => 'datetime',
+            'manager_verified_at'  => 'datetime',
             'distributed_at' => 'datetime',
             'valid_until'    => 'datetime',
             'nilai_pg'       => 'float',
@@ -55,5 +58,10 @@ class ParticipantResult extends Model
     public function finalizer()
     {
         return $this->belongsTo(User::class, 'finalized_by');
+    }
+
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_verified_by');
     }
 }

@@ -152,9 +152,17 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
     Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/verifikasi-akhir',  [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'finalVerify'])->name('asesor.dokumen.finalVerify');
     Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/tanda-tangan',       [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'serveFinalSignature'])->name('asesor.dokumen.signature.serve');
 
+    Route::get('/penilaian/{exam_session_id}/laporan-asesmen',  [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'show'])->name('asesor.laporan_asesmen.show');
+    Route::post('/penilaian/{exam_session_id}/laporan-asesmen', [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'store'])->name('asesor.laporan_asesmen.store');
+
     Route::get('/profile/tanda-tangan', [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'serveDefaultSignature'])->name('asesor.profile.signature');
 
 });
+
+// FR.AK.05 diunduh oleh asesor pemilik laporan, admin, atau manager sertifikasi — dicek di controller.
+Route::get('/dokumen/laporan-asesmen/{exam_session_id}/{asesor_user_id}/download', [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'download'])
+    ->middleware(['auth'])
+    ->name('laporan_asesmen.download');
 
 // ─── Portal Manager Sertifikasi ────────────────────────────────────────────────
 
@@ -164,6 +172,10 @@ Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
 
     Route::get('/sertifikasi/{examSession}',          [\App\Http\Controllers\Manager\SertifikasiController::class, 'show'])->name('manager.sertifikasi.show');
     Route::post('/sertifikasi/{examSession}/finalize', [\App\Http\Controllers\Manager\SertifikasiController::class, 'finalize'])->name('manager.sertifikasi.finalize');
+    Route::post('/sertifikasi/{examSession}/verifikasi/{studentId}', [\App\Http\Controllers\Manager\SertifikasiController::class, 'toggleVerify'])->name('manager.sertifikasi.toggle_verify');
+
+    Route::get('/dokumen/{examSessionId}/{studentId}',              [\App\Http\Controllers\Manager\DokumenController::class, 'show'])->name('manager.dokumen.show');
+    Route::get('/dokumen/{examSessionId}/{studentId}/{docId}/download', [\App\Http\Controllers\Manager\DokumenController::class, 'download'])->name('manager.dokumen.download');
 
 });
 

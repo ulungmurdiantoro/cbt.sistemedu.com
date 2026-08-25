@@ -12,7 +12,8 @@
                 <h5 class="mb-0 fw-bold">{{ exam_session.title }}</h5>
                 <p class="mb-0 small text-muted">Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}</p>
             </div>
-            <button class="btn btn-sm btn-warning text-dark fw-semibold" @click="confirmFinalize" :disabled="allFinalized">
+            <button class="btn btn-sm btn-warning text-dark fw-semibold" @click="confirmFinalize" :disabled="allFinalized || !allVerified"
+                :title="!allVerified && !allFinalized ? 'Semua peserta harus dicentang Verifikasi terlebih dahulu' : ''">
                 <i class="fa fa-lock me-1"></i> Finalisasi Semua
             </button>
         </div>
@@ -20,6 +21,7 @@
         <div class="alert alert-info py-2 small border-0 mb-3">
             <i class="fa fa-info-circle me-1"></i>
             Tinjau kelengkapan FR.APL.01, kelayakan FR.APL.03, dan laporan asesmen (rekomendasi asesor) sebelum finalisasi.
+            Centang <strong>Verifikasi</strong> untuk tiap peserta setelah ditinjau — semua peserta harus dicentang sebelum "Finalisasi Semua" bisa diklik.
             Finalisasi mengunci nilai &amp; menerbitkan nomor SK/Sertifikat berdasarkan nilai akhir vs KKM.
         </div>
 
@@ -43,6 +45,7 @@
                                 <th class="border-0 text-center">Wawancara</th>
                                 <th class="border-0 text-center">Nilai Akhir</th>
                                 <th class="border-0 text-center">Keputusan</th>
+                                <th class="border-0 text-center">Verifikasi</th>
                                 <th class="border-0 text-center">Status</th>
                             </tr>
                         </thead>
@@ -62,6 +65,10 @@
                                     <span v-else class="badge bg-warning text-dark">
                                         {{ row.apl01_verified }} / {{ row.apl01_total }}
                                     </span>
+                                    <a :href="`/manager/dokumen/${exam_session.id}/${row.student_id}`"
+                                        target="_blank" class="d-block small mt-1" title="Lihat Dokumen">
+                                        <i class="fa fa-eye me-1"></i>Lihat Dokumen
+                                    </a>
                                 </td>
 
                                 <!-- FR.APL.03 -->
@@ -82,6 +89,10 @@
                                     <span v-if="row.asesor_rekomendasi === 'K'" class="badge bg-success mt-1">Kompeten</span>
                                     <span v-else-if="row.asesor_rekomendasi === 'BK'" class="badge bg-danger mt-1">Belum Kompeten</span>
                                     <span v-else class="badge bg-secondary mt-1">Belum ada rekomendasi</span>
+                                    <a v-if="row.asesor_id" :href="`/dokumen/laporan-asesmen/${exam_session.id}/${row.asesor_id}/download`"
+                                        target="_blank" class="d-block small mt-1" title="Download FR.AK.05">
+                                        <i class="fa fa-file-pdf me-1"></i>FR.AK.05
+                                    </a>
                                 </td>
 
                                 <td class="text-center num">{{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}</td>
@@ -97,6 +108,15 @@
                                     <span v-else class="text-muted small">—</span>
                                 </td>
                                 <td class="text-center">
+                                    <div class="form-check d-flex justify-content-center mb-0">
+                                        <input class="form-check-input" type="checkbox"
+                                            :checked="!!row.manager_verified_at"
+                                            :disabled="row.is_finalized || togglingId === row.student_id"
+                                            @change="toggleVerify(row)">
+                                    </div>
+                                    <div v-if="row.manager_verified_at" class="small text-muted mt-1">{{ row.manager_verified_by }}</div>
+                                </td>
+                                <td class="text-center">
                                     <span v-if="row.is_finalized" class="badge text-white" style="background-color:#212529;">
                                         <i class="fa fa-lock me-1"></i>Final
                                     </span>
@@ -104,7 +124,7 @@
                                 </td>
                             </tr>
                             <tr v-if="rows.length === 0">
-                                <td colspan="11" class="text-center text-muted py-4">Belum ada peserta terdaftar di sesi ini.</td>
+                                <td colspan="12" class="text-center text-muted py-4">Belum ada peserta terdaftar di sesi ini.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -119,7 +139,7 @@
 import LayoutManager from '../../../Layouts/Manager.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import Swal from 'sweetalert2';
 
 export default {
@@ -132,6 +152,9 @@ export default {
 
     setup(props) {
         const allFinalized = computed(() => props.rows.length > 0 && props.rows.every(r => r.is_finalized));
+        const allVerified  = computed(() => props.rows.length > 0 && props.rows.every(r => r.is_finalized || r.manager_verified_at));
+
+        const togglingId = ref(null);
 
         const nilaiColor = (row) => {
             if (row.keputusan === 'LULUS') return 'text-success';
@@ -140,6 +163,19 @@ export default {
         };
 
         const fmt = (v) => (v === null || v === undefined || v === '') ? '—' : Number(v).toFixed(2);
+
+        const toggleVerify = (row) => {
+            togglingId.value = row.student_id;
+            router.post(
+                `/manager/sertifikasi/${props.exam_session.id}/verifikasi/${row.student_id}`,
+                {},
+                {
+                    preserveScroll: true,
+                    preserveState:  true,
+                    onFinish: () => { togglingId.value = null; },
+                }
+            );
+        };
 
         const confirmFinalize = () => {
             Swal.fire({
@@ -158,7 +194,7 @@ export default {
             });
         };
 
-        return { allFinalized, nilaiColor, fmt, confirmFinalize };
+        return { allFinalized, allVerified, togglingId, nilaiColor, fmt, toggleVerify, confirmFinalize };
     },
 }
 </script>
