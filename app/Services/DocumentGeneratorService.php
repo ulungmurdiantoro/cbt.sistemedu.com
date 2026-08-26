@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\AsesmenReport;
 use App\Models\AssessmentApplication;
 use App\Models\ClassroomCompetencyUnit;
 use App\Models\GradingScheme;
@@ -820,35 +821,39 @@ class DocumentGeneratorService
     // FR.AK.05 — Laporan Asesmen
     // ═══════════════════════════════════════════════════════════════════
 
-    public function generateFrAk05(\App\Models\ExamSession $examSession, \App\Models\User $asesor, array $rows): string
+    public function generateFrAk05(AsesmenReport $report, array $rows): string
     {
-        $examSession->loadMissing(['examPg.classroom', 'examEsai.classroom']);
-        $classroom = $examSession->referenceExam?->classroom;
+        $report->loadMissing(['examSession.examPg.classroom', 'examSession.examEsai.classroom', 'asesor']);
+
+        $session   = $report->examSession;
+        $classroom = $session?->referenceExam?->classroom;
 
         $studentIds = collect($rows)->pluck('student_id');
         $tuk = AssessmentApplication::whereIn('student_id', $studentIds)
-            ->where('exam_session_id', $examSession->id)
+            ->where('exam_session_id', $session?->id)
             ->whereNotNull('tempat_ujian')
             ->value('tempat_ujian');
 
-        $tanggalAsesmen = $examSession->start_time
-            ? $this->heldOnId(Carbon::parse($examSession->start_time))
-            : '-';
+        $tanggalAsesmen = $report->tanggal_asesmen
+            ? Carbon::parse($report->tanggal_asesmen)->locale('id')->isoFormat('dddd, DD MMMM YYYY')
+            : ($session?->start_time ? $this->heldOnId(Carbon::parse($session->start_time)) : '-');
 
-        $tanggalTtd = Carbon::now()->locale('id')->isoFormat('DD MMMM YYYY');
+        $tanggalTtd = $report->submitted_at
+            ? Carbon::parse($report->submitted_at)->locale('id')->isoFormat('DD MMMM YYYY')
+            : Carbon::now()->locale('id')->isoFormat('DD MMMM YYYY');
 
         $html = View::make('documents.fr_ak_05', [
             'namaSkema'      => $classroom?->title ?? '-',
             'kodeSkema'      => $classroom?->kode_skema ?? '-',
             'tuk'            => $tuk ?? '-',
-            'namaAsesor'     => $asesor->name ?? '-',
+            'namaAsesor'     => $report->asesor?->name ?? '-',
             'tanggalAsesmen' => $tanggalAsesmen,
             'rows'           => $rows,
-            'aspekNegatifPositif' => '-',
-            'pencatatanPenolakan' => '-',
-            'saranPerbaikan'      => '-',
-            'catatan'             => '-',
-            'ttdAsesor'      => $this->ttdBox($asesor->signature_path),
+            'aspekNegatifPositif' => $report->aspek_negatif_positif ?: '-',
+            'pencatatanPenolakan' => $report->pencatatan_penolakan ?: '-',
+            'saranPerbaikan'      => $report->saran_perbaikan ?: '-',
+            'catatan'             => $report->catatan ?: '-',
+            'ttdAsesor'      => $this->ttdBox($report->asesor?->signature_path),
             'tanggalTtd'     => $tanggalTtd,
             'checkboxEmptyPath'   => $this->asset('checkbox_empty'),
             'checkboxCheckedPath' => $this->asset('checkbox_checked'),

@@ -92,15 +92,50 @@
                     </div>
                 </div>
 
-                <div v-if="rows.length" class="card border-0 shadow">
-                    <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-2">
-                        <div class="small text-muted">
-                            <i class="fa fa-info-circle me-1"></i>
-                            PDF FR.AK.05 dibuat otomatis dari rekomendasi di atas beserta tanggal sesi ujian.
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <h6 class="mb-3"><i class="fa fa-pen me-2"></i>Catatan Laporan Asesmen</h6>
+                        <div class="small text-muted mb-3">
+                            Kolom di bawah sudah diisi teks contoh yang umum dipakai — silakan diedit sesuai kondisi sesi ini, atau langsung disimpan apa adanya.
                         </div>
-                        <a :href="downloadUrl" target="_blank" class="btn btn-outline-dark border">
-                            <i class="fa fa-file-pdf me-1"></i> Download PDF FR.AK.05
-                        </a>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Tanggal Pelaksanaan Asesmen</label>
+                            <input type="date" v-model="form.tanggal_asesmen" class="form-control" style="max-width:220px">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Aspek Negatif dan Positif dalam Asesmen</label>
+                            <textarea v-model="form.aspek_negatif_positif" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Pencatatan Penolakan Hasil Asesmen</label>
+                            <textarea v-model="form.pencatatan_penolakan" class="form-control" rows="2"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Saran Perbaikan (Asesor/Personil Terkait)</label>
+                            <textarea v-model="form.saran_perbaikan" class="form-control" rows="2"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Catatan</label>
+                            <textarea v-model="form.catatan" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button @click="save" :disabled="saving" class="btn btn-success border-0 shadow">
+                                <i class="fa fa-save me-1"></i>
+                                {{ saving ? 'Menyimpan...' : 'Simpan Laporan' }}
+                            </button>
+                            <a v-if="report" :href="downloadUrl" target="_blank" class="btn btn-outline-dark border">
+                                <i class="fa fa-file-pdf me-1"></i> Download PDF
+                            </a>
+                            <span v-else class="align-self-center small text-muted">
+                                Simpan laporan terlebih dahulu untuk bisa mengunduh PDF.
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -120,16 +155,30 @@ export default {
     props: {
         exam_session: Object,
         rows:         Array,
+        report:       Object,
     },
 
     data() {
         const rekForm = {};
         this.rows.forEach(r => { rekForm[r.student_id] = r.rekomendasi; });
 
+        // Teks contoh diambil dari format resmi FR.AK.05 — dipakai sebagai isian awal
+        // supaya asesor tidak mulai dari kosong, tinggal disesuaikan atau langsung disimpan.
+        const defaultAspek = 'Peserta mampu mengerjakan semua ujian tulis dengan lancar, mempresentasikan penugasan sesuai ketentuan yang diinformasikan dan menjawab pertanyaan asesor sesuai dengan pemahaman dan pengalaman.';
+        const defaultCatatan = 'Seluruh peserta dapat mengikuti semua rangkaian kegiatan dan mengerjakan ujian, sehingga direkomendasikan untuk mendapatkan sertifikat kegiatan sertifikasi.';
+
         return {
+            saving: false,
             savingRekomendasi: false,
             successMsg: '',
             rekForm,
+            form: {
+                tanggal_asesmen:       this.report?.tanggal_asesmen ?? this.exam_session.start_time?.slice(0, 10) ?? '',
+                aspek_negatif_positif: this.report?.aspek_negatif_positif ?? defaultAspek,
+                pencatatan_penolakan:  this.report?.pencatatan_penolakan ?? '-',
+                saran_perbaikan:       this.report?.saran_perbaikan ?? '-',
+                catatan:               this.report?.catatan ?? defaultCatatan,
+            },
         };
     },
 
@@ -140,6 +189,19 @@ export default {
     },
 
     methods: {
+        save() {
+            this.saving = true;
+            router.post(
+                `/asesor/penilaian/${this.exam_session.id}/laporan-asesmen`,
+                this.form,
+                {
+                    preserveScroll: true,
+                    onSuccess: () => { this.successMsg = 'Laporan Asesmen berhasil disimpan.'; },
+                    onFinish:  () => { this.saving = false; },
+                }
+            );
+        },
+
         saveRekomendasi() {
             this.savingRekomendasi = true;
             const rekomendasi = this.rows.map(r => ({
