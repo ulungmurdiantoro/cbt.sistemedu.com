@@ -26,7 +26,7 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
 
 .catatan-table { width: 100%; border-collapse: collapse; }
 .catatan-table td { border: 0.75pt solid #000; padding: 6pt; vertical-align: top; }
-.catatan-label { font-weight: bold; width: 35%; }
+.catatan-label { width: 35%; }
 .asesor-table { width: 100%; border-collapse: collapse; }
 .asesor-table td { padding: 3pt 0; vertical-align: top; }
 .asesor-row-label { width: 30%; font-weight: normal; }
@@ -102,7 +102,7 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
 <table class="catatan-table">
     <tr>
         <td class="catatan-label">
-            Catatan :<br><br>
+            <strong>Catatan :</strong><br><br>
             {{ $catatan }}
         </td>
         <td>
