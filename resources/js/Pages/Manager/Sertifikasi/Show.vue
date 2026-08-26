@@ -38,6 +38,7 @@
                                 <th class="border-0" style="width:3%">No.</th>
                                 <th class="border-0">Peserta</th>
                                 <th class="border-0 text-center">FR.APL.01</th>
+                                <th class="border-0 text-center">Dokumen Persyaratan</th>
                                 <th class="border-0 text-center">FR.APL.03</th>
                                 <th class="border-0">Laporan Asesmen</th>
                                 <th class="border-0 text-center">PG</th>
@@ -65,13 +66,17 @@
                                     <span v-else class="badge bg-warning text-dark">
                                         {{ row.apl01_verified }} / {{ row.apl01_total }}
                                     </span>
-                                    <a :href="`/manager/dokumen/${exam_session.id}/${row.student_id}`"
-                                        target="_blank" class="d-block small mt-1" title="Lihat Dokumen">
-                                        <i class="fa fa-eye me-1"></i>Lihat Dokumen
-                                    </a>
                                     <a v-if="row.application_id" :href="`/manager/applications/${row.application_id}/fr-apl-01`"
                                         target="_blank" class="d-block small mt-1" title="Generate FR.APL.01">
                                         <i class="fa fa-file-pdf me-1"></i>FR.APL.01
+                                    </a>
+                                </td>
+
+                                <!-- Dokumen Persyaratan -->
+                                <td class="text-center">
+                                    <a :href="`/manager/dokumen/${exam_session.id}/${row.student_id}`"
+                                        target="_blank" class="d-block small" title="Lihat Dokumen">
+                                        <i class="fa fa-eye me-1"></i>Lihat Dokumen
                                     </a>
                                 </td>
 
@@ -132,7 +137,7 @@
                                 </td>
                             </tr>
                             <tr v-if="rows.length === 0">
-                                <td colspan="12" class="text-center text-muted py-4">Belum ada peserta terdaftar di sesi ini.</td>
+                                <td colspan="13" class="text-center text-muted py-4">Belum ada peserta terdaftar di sesi ini.</td>
                             </tr>
                         </tbody>
                     </table>
