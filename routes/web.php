@@ -177,6 +177,11 @@ Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
     Route::get('/dokumen/{examSessionId}/{studentId}',              [\App\Http\Controllers\Manager\DokumenController::class, 'show'])->name('manager.dokumen.show');
     Route::get('/dokumen/{examSessionId}/{studentId}/{docId}/download', [\App\Http\Controllers\Manager\DokumenController::class, 'download'])->name('manager.dokumen.download');
 
+    // Generate FR.APL.01 / FR.APL.03 — controller sama persis dengan Admin, supaya
+    // dokumennya identik; hanya middleware aksesnya yang beda (manager, bukan admin).
+    Route::get('/applications/{application}/fr-apl-01', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl01'])->name('manager.applications.frApl01');
+    Route::get('/applications/{application}/fr-apl-03', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl03'])->name('manager.applications.frApl03');
+
 });
 
 // ─── Portal Siswa (ujian) ────────────────────────────────────────────────────

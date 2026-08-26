@@ -69,6 +69,10 @@
                                         target="_blank" class="d-block small mt-1" title="Lihat Dokumen">
                                         <i class="fa fa-eye me-1"></i>Lihat Dokumen
                                     </a>
+                                    <a v-if="row.application_id" :href="`/manager/applications/${row.application_id}/fr-apl-01`"
+                                        target="_blank" class="d-block small mt-1" title="Generate FR.APL.01">
+                                        <i class="fa fa-file-pdf me-1"></i>FR.APL.01
+                                    </a>
                                 </td>
 
                                 <!-- FR.APL.03 -->
@@ -78,6 +82,10 @@
                                         <i class="fa fa-check me-1"></i>Layak ({{ row.apl03_score }})
                                     </span>
                                     <span v-else class="badge bg-danger">Tidak Layak ({{ row.apl03_score }})</span>
+                                    <a v-if="row.apl03_done && row.application_id" :href="`/manager/applications/${row.application_id}/fr-apl-03`"
+                                        target="_blank" class="d-block small mt-1" title="Generate FR.APL.03">
+                                        <i class="fa fa-file-pdf me-1"></i>FR.APL.03
+                                    </a>
                                 </td>
 
                                 <!-- Laporan Asesmen -->

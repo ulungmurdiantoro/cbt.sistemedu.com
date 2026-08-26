@@ -61,6 +61,7 @@ class SertifikasiController extends Controller
             return [
                 'result_id'          => $r->id,
                 'student_id'         => $r->student_id,
+                'application_id'     => $application?->id,
                 'no_participant'     => $student?->no_participant,
                 'name'               => $student?->name,
 
