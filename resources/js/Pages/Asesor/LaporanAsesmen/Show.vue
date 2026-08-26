@@ -34,37 +34,61 @@
 
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">
-                        <h6 class="mb-3"><i class="fa fa-table me-2"></i>Rekomendasi Asesi</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0"><i class="fa fa-table me-2"></i>Rekomendasi Asesi</h6>
+                            <button v-if="rows.length" @click="saveRekomendasi" :disabled="savingRekomendasi"
+                                class="btn btn-sm btn-success border-0 shadow">
+                                <i class="fa fa-save me-1"></i>
+                                {{ savingRekomendasi ? 'Menyimpan...' : 'Simpan Rekomendasi' }}
+                            </button>
+                        </div>
                         <div v-if="rows.length === 0" class="alert alert-info mb-0">
                             Tidak ada peserta yang ditugaskan di sesi ini.
                         </div>
-                        <div v-else class="table-responsive">
-                            <table class="table table-bordered table-sm align-middle mb-0">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th class="text-center" style="width:5%">No.</th>
-                                        <th>Nama Asesi</th>
-                                        <th class="text-center" style="width:12%">Rekomendasi</th>
-                                        <th>Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(row, i) in rows" :key="row.student_id">
-                                        <td class="text-center">{{ i + 1 }}</td>
-                                        <td>{{ row.name }}</td>
-                                        <td class="text-center">
-                                            <span v-if="row.rekomendasi === 'K'" class="badge bg-success">Kompeten</span>
-                                            <span v-else-if="row.rekomendasi === 'BK'" class="badge bg-danger">Belum Kompeten</span>
-                                            <span v-else class="badge bg-secondary">Belum diisi</span>
-                                        </td>
-                                        <td class="small">{{ row.keterangan }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="small text-muted mt-2">
-                            Rekomendasi K/BK diisi lewat halaman <Link :href="`/asesor/penilaian/${exam_session.id}/dokumen`">Dokumen</Link> saat Verifikasi Akhir per peserta.
-                        </div>
+                        <template v-else>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-sm align-middle mb-0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th class="text-center" style="width:5%">No.</th>
+                                            <th>Nama Asesi</th>
+                                            <th class="text-center" style="width:16%">Rekomendasi</th>
+                                            <th>Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(row, i) in rows" :key="row.student_id">
+                                            <td class="text-center">{{ i + 1 }}</td>
+                                            <td>{{ row.name }}</td>
+                                            <td class="text-center">
+                                                <div v-if="row.is_finalized">
+                                                    <span v-if="row.rekomendasi === 'K'" class="badge bg-success">Kompeten</span>
+                                                    <span v-else-if="row.rekomendasi === 'BK'" class="badge bg-danger">Belum Kompeten</span>
+                                                    <span v-else class="badge bg-secondary">Belum diisi</span>
+                                                    <div class="small text-muted mt-1"><i class="fa fa-lock me-1"></i>Terkunci</div>
+                                                </div>
+                                                <div v-else-if="!row.application_id" class="text-muted small fst-italic">
+                                                    Tidak ada aplikasi
+                                                </div>
+                                                <div v-else class="btn-group btn-group-sm" role="group">
+                                                    <button type="button" class="btn"
+                                                        :class="rekForm[row.student_id] === 'K' ? 'btn-success' : 'btn-outline-success'"
+                                                        @click="rekForm[row.student_id] = 'K'">K</button>
+                                                    <button type="button" class="btn"
+                                                        :class="rekForm[row.student_id] === 'BK' ? 'btn-danger' : 'btn-outline-danger'"
+                                                        @click="rekForm[row.student_id] = 'BK'">BK</button>
+                                                </div>
+                                            </td>
+                                            <td class="small">{{ row.keterangan }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="small text-muted mt-2">
+                                Rekomendasi K/BK terpisah dari Verifikasi Akhir dokumen — bisa diisi/diubah kapan saja
+                                setelah nilai esai/wawancara selesai dinilai, sampai sesi ini difinalisasi Manager Sertifikasi.
+                            </div>
+                        </template>
                     </div>
                 </div>
 
@@ -132,9 +156,14 @@ export default {
     },
 
     data() {
+        const rekForm = {};
+        this.rows.forEach(r => { rekForm[r.student_id] = r.rekomendasi; });
+
         return {
             saving: false,
+            savingRekomendasi: false,
             successMsg: '',
+            rekForm,
             form: {
                 tanggal_asesmen:       this.report?.tanggal_asesmen ?? '',
                 aspek_negatif_positif: this.report?.aspek_negatif_positif ?? '',
@@ -161,6 +190,23 @@ export default {
                     preserveScroll: true,
                     onSuccess: () => { this.successMsg = 'Laporan Asesmen berhasil disimpan.'; },
                     onFinish:  () => { this.saving = false; },
+                }
+            );
+        },
+
+        saveRekomendasi() {
+            this.savingRekomendasi = true;
+            const rekomendasi = this.rows.map(r => ({
+                student_id: r.student_id,
+                value:      this.rekForm[r.student_id] ?? null,
+            }));
+            router.post(
+                `/asesor/penilaian/${this.exam_session.id}/laporan-asesmen/rekomendasi`,
+                { rekomendasi },
+                {
+                    preserveScroll: true,
+                    onSuccess: () => { this.successMsg = 'Rekomendasi berhasil disimpan.'; },
+                    onFinish:  () => { this.savingRekomendasi = false; },
                 }
             );
         },

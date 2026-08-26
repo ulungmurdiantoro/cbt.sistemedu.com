@@ -157,7 +157,6 @@ class DocumentVerificationController extends Controller
             'signature_name'      => 'nullable|string|max:255',
             'signature_data'      => 'nullable|string',
             'signature_file'      => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
-            'asesor_rekomendasi'  => 'required|in:K,BK',
         ]);
 
         if ($hasNewSig) {
@@ -177,7 +176,6 @@ class DocumentVerificationController extends Controller
             'asesor_verified_at'    => now(),
             'asesor_signature_path' => $sigPath,
             'asesor_signature_name' => $sigName,
-            'asesor_rekomendasi'    => $request->asesor_rekomendasi,
         ]);
 
         return redirect()->route('asesor.dokumen.index', $examSessionId)

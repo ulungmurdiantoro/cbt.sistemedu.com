@@ -144,6 +144,7 @@
                                 <div class="mt-1">
                                     <span v-if="application.asesor_rekomendasi === 'K'" class="badge bg-success">Rekomendasi: Kompeten</span>
                                     <span v-else-if="application.asesor_rekomendasi === 'BK'" class="badge bg-danger">Rekomendasi: Belum Kompeten</span>
+                                    <span v-else class="badge bg-secondary">Rekomendasi belum diisi asesor</span>
                                 </div>
                                 <div class="small text-muted mt-1">{{ formatDateTime(application.asesor_verified_at) }}</div>
                             </div>
@@ -208,23 +209,9 @@
                                 Verifikasi akhir menandakan seluruh dokumen peserta ini telah diperiksa.
                                 Tanda tangan akan dibubuhkan atas nama asesor yang ditugaskan — bukan admin.
                                 Setelah ditandatangani, tidak dapat diubah lagi.
+                                Rekomendasi Kompeten/Belum Kompeten diisi terpisah oleh asesor di halaman Laporan Asesmen,
+                                setelah nilai esai/wawancara selesai dinilai.
                             </p>
-
-                            <div class="mb-3">
-                                <label class="fw-semibold small">Rekomendasi (Laporan Asesmen) <span class="text-danger">*</span></label>
-                                <div class="d-flex gap-2 mt-1">
-                                    <button type="button" class="btn btn-sm flex-fill"
-                                        :class="rekomendasi === 'K' ? 'btn-success' : 'btn-light border'"
-                                        @click="rekomendasi = 'K'">
-                                        <i class="fa fa-check me-1"></i>Kompeten
-                                    </button>
-                                    <button type="button" class="btn btn-sm flex-fill"
-                                        :class="rekomendasi === 'BK' ? 'btn-danger' : 'btn-light border'"
-                                        @click="rekomendasi = 'BK'">
-                                        <i class="fa fa-times me-1"></i>Belum Kompeten
-                                    </button>
-                                </div>
-                            </div>
 
                             <div class="p-2 border rounded bg-white mb-3 d-flex align-items-center gap-3">
                                 <img :src="`/admin/penilaian/${exam_session.id}/dokumen/${student.id}/tanda-tangan-asesor`"
@@ -237,7 +224,7 @@
                             </div>
 
                             <div v-if="!showFinalConfirm" class="d-grid mt-3">
-                                <button class="btn btn-success" :disabled="!rekomendasi" @click="showFinalConfirm = true">
+                                <button class="btn btn-success" @click="showFinalConfirm = true">
                                     <i class="fa fa-signature me-1"></i>Tandatangani sebagai {{ assigned_asesor.name }}
                                 </button>
                             </div>
@@ -285,7 +272,6 @@ export default {
 
         const showFinalConfirm = ref(false);
         const finalSaving      = ref(false);
-        const rekomendasi      = ref(null); // 'K' | 'BK'
 
         // Input TTD asesor langsung dari halaman ini (dipakai kalau asesor yang
         // ditugaskan belum punya TTD tersimpan) — simpan lewat endpoint yang sama
@@ -385,7 +371,7 @@ export default {
             finalSaving.value = true;
             router.post(
                 `/admin/penilaian/${props.exam_session.id}/dokumen/${props.student.id}/verifikasi-akhir`,
-                { asesor_rekomendasi: rekomendasi.value },
+                {},
                 {
                     preserveScroll: true,
                     onFinish: () => { finalSaving.value = false; },
@@ -446,7 +432,7 @@ export default {
             totalReq, doneCount, getDoc,
             statusLabel, docStatusClass, badgeClass, badgeLabel,
             submitVerify,
-            showFinalConfirm, finalSaving, rekomendasi,
+            showFinalConfirm, finalSaving,
             formatDateTime, submitFinalVerify,
             asesorSigMode, asesorSigCanvas, asesorSigFile, asesorSigFilePreview, asesorSigSaving,
             switchAsesorSigMode, clearAsesorSig, onAsesorSigFileChange, submitAsesorSignature,

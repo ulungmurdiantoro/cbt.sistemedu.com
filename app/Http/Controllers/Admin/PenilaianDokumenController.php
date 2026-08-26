@@ -148,10 +148,6 @@ class PenilaianDokumenController extends Controller
     {
         abort_unless($this->sessionStudentIds($examSessionId)->contains($studentId), 404);
 
-        $request->validate([
-            'asesor_rekomendasi' => 'required|in:K,BK',
-        ]);
-
         $application = AssessmentApplication::where('student_id', $studentId)
             ->where('exam_session_id', $examSessionId)
             ->firstOrFail();
@@ -173,7 +169,6 @@ class PenilaianDokumenController extends Controller
             'asesor_verified_at'    => now(),
             'asesor_signature_path' => $asesor->signature_path,
             'asesor_signature_name' => $asesor->signature_name ?: $asesor->name,
-            'asesor_rekomendasi'    => $request->asesor_rekomendasi,
         ]);
 
         return redirect()->route('admin.penilaian.dokumen.index', $examSessionId)
