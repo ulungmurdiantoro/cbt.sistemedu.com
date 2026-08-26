@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Asesor;
 
 use App\Http\Controllers\Controller;
-use App\Models\AsesmenReport;
 use App\Models\AsesorAssignment;
 use App\Models\AssessmentApplication;
 use App\Models\ExamSession;
 use App\Models\ParticipantResult;
 use App\Models\Student;
+use App\Models\User;
 use App\Services\DocumentGeneratorService;
 use Illuminate\Http\Request;
 
@@ -66,43 +66,10 @@ class LaporanAsesmenController extends Controller
 
         $examSession = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($examSessionId);
 
-        $report = AsesmenReport::where('exam_session_id', $examSessionId)
-            ->where('user_id', auth()->id())
-            ->first();
-
         return inertia('Asesor/LaporanAsesmen/Show', [
-            'exam_session'   => $examSession,
-            'rows'           => $this->buildRows($examSessionId, auth()->id()),
-            'report'         => $report,
+            'exam_session' => $examSession,
+            'rows'         => $this->buildRows($examSessionId, auth()->id()),
         ]);
-    }
-
-    public function store(Request $request, int $examSessionId)
-    {
-        $studentIds = $this->assignedStudentIds($examSessionId, auth()->id());
-        abort_if($studentIds->isEmpty(), 403, 'Anda tidak ditugaskan pada sesi ini.');
-
-        $request->validate([
-            'tanggal_asesmen'       => 'nullable|date',
-            'aspek_negatif_positif' => 'nullable|string',
-            'pencatatan_penolakan'  => 'nullable|string',
-            'saran_perbaikan'       => 'nullable|string',
-            'catatan'               => 'nullable|string',
-        ]);
-
-        AsesmenReport::updateOrCreate(
-            ['exam_session_id' => $examSessionId, 'user_id' => auth()->id()],
-            [
-                'tanggal_asesmen'       => $request->tanggal_asesmen,
-                'aspek_negatif_positif' => $request->aspek_negatif_positif,
-                'pencatatan_penolakan'  => $request->pencatatan_penolakan,
-                'saran_perbaikan'       => $request->saran_perbaikan,
-                'catatan'               => $request->catatan,
-                'submitted_at'          => now(),
-            ]
-        );
-
-        return back()->with('success', 'Laporan Asesmen berhasil disimpan.');
     }
 
     /**
@@ -143,25 +110,22 @@ class LaporanAsesmenController extends Controller
 
     /**
      * Download FR.AK.05, diakses oleh asesor yang bersangkutan, admin, atau manager sertifikasi.
+     * Dibuat langsung dari rekomendasi & data sesi — tidak perlu form/"laporan" terpisah.
      */
     public function download(int $examSessionId, int $asesorUserId, DocumentGeneratorService $generator)
     {
-        $user   = auth()->user();
-        $isSelf = $user->hasRole(\App\Enums\UserRole::Asesor) && $user->id === $asesorUserId;
+        $user    = auth()->user();
+        $isSelf  = $user->hasRole(\App\Enums\UserRole::Asesor) && $user->id === $asesorUserId;
         $isStaff = $user->hasRole(\App\Enums\UserRole::Admin) || $user->hasRole(\App\Enums\UserRole::ManagerSertifikasi);
         abort_unless($isSelf || $isStaff, 403);
 
         $examSession = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($examSessionId);
+        $asesor      = User::findOrFail($asesorUserId);
 
-        $report = AsesmenReport::where('exam_session_id', $examSessionId)
-            ->where('user_id', $asesorUserId)
-            ->first();
-        abort_if(!$report, 404, 'Laporan Asesmen belum diisi oleh asesor ini.');
+        $rows = $this->buildRows($examSessionId, $asesorUserId);
+        abort_if(empty($rows), 404, 'Asesor ini tidak ditugaskan ke peserta manapun di sesi tersebut.');
 
-        $report->setRelation('examSession', $examSession);
-        $report->setRelation('asesor', \App\Models\User::find($asesorUserId));
-
-        $pdf = $generator->generateFrAk05($report, $this->buildRows($examSessionId, $asesorUserId));
+        $pdf = $generator->generateFrAk05($examSession, $asesor, $rows);
 
         return response($pdf, 200, [
             'Content-Type'        => 'application/pdf',
