@@ -33,6 +33,18 @@ class SaveApplicationFormRequest extends FormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'required' => 'Kolom :attribute wajib diisi.',
+            'string'   => 'Kolom :attribute harus berupa teks.',
+            'max'      => 'Kolom :attribute maksimal :max karakter.',
+            'date'     => 'Kolom :attribute harus berupa tanggal yang valid.',
+            'in'       => 'Pilihan :attribute tidak valid.',
+            'email'    => 'Kolom :attribute harus berupa alamat email yang valid.',
+        ];
+    }
+
     public function attributes(): array
     {
         return [
@@ -43,10 +55,18 @@ class SaveApplicationFormRequest extends FormRequest
             'jenis_kelamin'          => 'jenis kelamin',
             'kebangsaan'             => 'kebangsaan',
             'alamat_rumah'           => 'alamat rumah',
+            'kode_pos_rumah'         => 'kode pos',
+            'telp_rumah'             => 'telepon rumah',
             'hp'                     => 'nomor HP',
+            'email_alt'              => 'email alternatif',
             'kualifikasi_pendidikan' => 'kualifikasi pendidikan',
             'institusi'              => 'institusi',
             'jabatan'                => 'jabatan',
+            'alamat_kantor'          => 'alamat kantor',
+            'kode_pos_kantor'        => 'kode pos kantor',
+            'telp_kantor'            => 'telepon kantor',
+            'fax_kantor'             => 'fax',
+            'email_kantor'           => 'email kantor',
         ];
     }
 }

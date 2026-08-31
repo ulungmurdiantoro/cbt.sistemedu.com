@@ -25,6 +25,12 @@
     <div v-if="$page.props.session.error" class="alert alert-danger border-0 shadow mb-3">
         {{ $page.props.session.error }}
     </div>
+    <div v-if="hasErrors" class="alert alert-danger border-0 shadow mb-3">
+        <strong><i class="fa fa-exclamation-triangle me-1"></i>Ada isian yang perlu diperbaiki:</strong>
+        <ul class="mb-0 mt-1">
+            <li v-for="(msg, field) in errors" :key="field">{{ msg }}</li>
+        </ul>
+    </div>
 
     <form @submit.prevent="submit">
         <!-- Bagian 1a: Data Pribadi -->
@@ -99,10 +105,12 @@
                     <div class="col-md-3 mb-3">
                         <label class="fw-semibold small">Kode Pos</label>
                         <input type="text" class="form-control" v-model="form.kode_pos_rumah" placeholder="12345">
+                        <div v-if="errors.kode_pos_rumah" class="text-danger small mt-1">{{ errors.kode_pos_rumah }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="fw-semibold small">Telp Rumah</label>
                         <input type="text" class="form-control" v-model="form.telp_rumah">
+                        <div v-if="errors.telp_rumah" class="text-danger small mt-1">{{ errors.telp_rumah }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="fw-semibold small">HP / WA <span class="text-danger">*</span></label>
@@ -112,6 +120,7 @@
                     <div class="col-md-3 mb-3">
                         <label class="fw-semibold small">Email Alt.</label>
                         <input type="email" class="form-control" v-model="form.email_alt">
+                        <div v-if="errors.email_alt" class="text-danger small mt-1">{{ errors.email_alt }}</div>
                     </div>
                 </div>
             </div>
@@ -137,22 +146,27 @@
                     <div class="col-md-12 mb-3">
                         <label class="fw-semibold small">Alamat Kantor</label>
                         <textarea class="form-control" rows="2" v-model="form.alamat_kantor"></textarea>
+                        <div v-if="errors.alamat_kantor" class="text-danger small mt-1">{{ errors.alamat_kantor }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="fw-semibold small">Kode Pos Kantor</label>
                         <input type="text" class="form-control" v-model="form.kode_pos_kantor">
+                        <div v-if="errors.kode_pos_kantor" class="text-danger small mt-1">{{ errors.kode_pos_kantor }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="fw-semibold small">Telp Kantor</label>
                         <input type="text" class="form-control" v-model="form.telp_kantor">
+                        <div v-if="errors.telp_kantor" class="text-danger small mt-1">{{ errors.telp_kantor }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="fw-semibold small">Fax</label>
                         <input type="text" class="form-control" v-model="form.fax_kantor">
+                        <div v-if="errors.fax_kantor" class="text-danger small mt-1">{{ errors.fax_kantor }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="fw-semibold small">Email Kantor</label>
                         <input type="email" class="form-control" v-model="form.email_kantor">
+                        <div v-if="errors.email_kantor" class="text-danger small mt-1">{{ errors.email_kantor }}</div>
                     </div>
                 </div>
             </div>
@@ -399,6 +413,8 @@ export default {
             },
         });
 
+        const hasErrors = computed(() => Object.keys(props.errors || {}).length > 0);
+
         const submit = () => {
             processing.value = true;
             router.put(`/peserta/aplikasi/${props.application.id}/form`, form, {
@@ -407,7 +423,7 @@ export default {
         };
 
         return {
-            form, processing, submit, currentYear, tanggalLahirDate,
+            form, processing, submit, currentYear, tanggalLahirDate, hasErrors,
             sigMode, sigCanvas, sigFile, sigFilePreview, savingSig,
             switchSigMode, clearSig, saveSigDrawn, onSigFileChange, saveSigUpload,
         };
