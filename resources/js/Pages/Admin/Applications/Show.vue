@@ -605,12 +605,12 @@ export default {
         const canApprove = computed(() => !!props.application.initial_assessment?.is_eligible);
 
         // Kalimat hasil penilaian, meniru persis format keterangan di dokumen FR.APL.03
-        // (mis. "nilai ≥ 8 = bisa langsung uji kompetensi melalui jalur portofolio").
+        // (mis. "nilai ≥ 8 = bisa langsung uji kompetensi").
         const resultSentence = (score, threshold) => {
             const passed = score >= threshold;
             const comparison = passed ? `≥ ${threshold}` : `< ${threshold}`;
             const outcome = passed
-                ? 'bisa langsung uji kompetensi melalui jalur portofolio'
+                ? 'bisa langsung uji kompetensi'
                 : 'harus training dulu';
             return `Nilai ${score} (${comparison}) = ${outcome}`;
         };

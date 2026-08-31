@@ -375,7 +375,7 @@ class InitialAssessmentRubric
         $passed     = $score >= $threshold;
         $comparison = $passed ? "\u{2265} {$threshold}" : "< {$threshold}";
         $outcome    = $passed
-            ? 'bisa langsung uji kompetensi melalui jalur portofolio'
+            ? 'bisa langsung uji kompetensi'
             : 'harus training dulu';
 
         return "Nilai {$score} ({$comparison}) = {$outcome}";
