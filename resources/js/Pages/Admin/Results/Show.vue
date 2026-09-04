@@ -31,7 +31,7 @@
 
         <div class="alert alert-secondary py-2 small border-0 mb-3">
             <i class="fa fa-lock me-1"></i>
-            Finalisasi kelulusan sekarang jadi wewenang <strong>Manager Sertifikasi</strong> (Portal Manager Sertifikasi).
+            Finalisasi kelulusan sekarang jadi wewenang <strong>Pengambil Keputusan</strong> (Portal Pengambil Keputusan).
             Halaman ini hanya untuk memantau &amp; mengirim dokumen yang sudah difinalisasi.
         </div>
 

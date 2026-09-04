@@ -185,7 +185,8 @@ class ApplicationController extends Controller
 
         return response($pdf, 200, [
             'Content-Type'        => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="' . str_replace('"', '', $filename) . '"',
+            // Preview inline (bukan paksa unduh) — dokumen langsung tampil di tab baru.
+            'Content-Disposition' => 'inline; filename="' . str_replace('"', '', $filename) . '"',
         ]);
     }
 

@@ -85,6 +85,28 @@ class NumberingService
         });
     }
 
+    /** Format: KEP/EDUKIA/I-2026/001 */
+    public function nextKeputusanNumber(): string
+    {
+        return DB::transaction(function () {
+            $year = now()->year;
+
+            $counter = NumberingCounter::lockForUpdate()
+                ->firstOrCreate(
+                    ['type' => 'keputusan', 'scope' => null, 'year' => $year],
+                    ['last_number' => 0]
+                );
+
+            $counter->increment('last_number');
+            $counter->refresh();
+
+            $n     = str_pad($counter->last_number, 3, '0', STR_PAD_LEFT);
+            $bulan = $this->toRoman(now()->month);
+
+            return "KEP/EDUKIA/{$bulan}-{$year}/{$n}";
+        });
+    }
+
     private function toRoman(int $month): string
     {
         return ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'][$month - 1];

@@ -107,7 +107,7 @@ class LaporanAsesmenController extends Controller
 
     /**
      * Simpan rekomendasi K/BK per peserta — terpisah dari Verifikasi Akhir dokumen.
-     * Bisa diisi/diubah asesor kapan saja sebelum sesi difinalisasi Manager Sertifikasi.
+     * Bisa diisi/diubah asesor kapan saja sebelum sesi difinalisasi Pengambil Keputusan.
      */
     public function storeRekomendasi(Request $request, int $examSessionId)
     {
@@ -130,7 +130,7 @@ class LaporanAsesmenController extends Controller
 
             // Keamanan: hanya peserta yang ditugaskan ke asesor ini.
             if (!$studentIds->contains($studentId)) continue;
-            // Sudah difinalisasi Manager Sertifikasi — rekomendasi tidak boleh diubah lagi.
+            // Sudah difinalisasi Pengambil Keputusan — rekomendasi tidak boleh diubah lagi.
             if ($finalized->contains($studentId)) continue;
 
             AssessmentApplication::where('student_id', $studentId)

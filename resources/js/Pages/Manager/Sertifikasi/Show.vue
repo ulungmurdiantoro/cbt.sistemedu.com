@@ -12,6 +12,10 @@
                 <h5 class="mb-0 fw-bold">{{ exam_session.title }}</h5>
                 <p class="mb-0 small text-muted">Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}</p>
             </div>
+            <a v-if="exam_session.keputusan_number" :href="`/manager/sertifikasi/${exam_session.id}/keputusan`"
+                target="_blank" class="btn btn-sm btn-outline-dark border">
+                <i class="fa fa-file-pdf me-1"></i> Keputusan Sertifikasi
+            </a>
             <button class="btn btn-sm btn-warning text-dark fw-semibold" @click="confirmFinalize" :disabled="allFinalized || !allVerified"
                 :title="!allVerified && !allFinalized ? 'Semua peserta harus dicentang Verifikasi terlebih dahulu' : ''">
                 <i class="fa fa-lock me-1"></i> Finalisasi Semua
@@ -77,6 +81,10 @@
                                     <a :href="`/manager/dokumen/${exam_session.id}/${row.student_id}`"
                                         target="_blank" class="d-block small" title="Lihat Dokumen">
                                         <i class="fa fa-eye me-1"></i>Lihat Dokumen
+                                    </a>
+                                    <a v-if="row.application_id" :href="`/manager/applications/${row.application_id}/fr-ak-01`"
+                                        target="_blank" class="d-block small mt-1" title="Generate FR.AK.01">
+                                        <i class="fa fa-file-pdf me-1"></i>FR.AK.01
                                     </a>
                                 </td>
 

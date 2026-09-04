@@ -14,7 +14,7 @@ use App\Services\ResultCalculatorService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-// Manager Sertifikasi meninjau semua bahan penentuan kelulusan sebelum
+// Pengambil Keputusan meninjau semua bahan penentuan kelulusan sebelum
 // finalisasi: kelengkapan dokumen (FR.APL.01), kelayakan awal (FR.APL.03),
 // laporan asesmen (nama asesor + rekomendasi Kompeten/Belum Kompeten), dan
 // nilai PG/Esai/Wawancara/Akhir. Wewenang finalisasi dipindah ke sini dari
@@ -89,7 +89,7 @@ class SertifikasiController extends Controller
                 'keputusan'       => $r->keputusan,
                 'is_finalized'    => $r->is_finalized,
 
-                // Verifikasi Manager Sertifikasi — syarat wajib sebelum finalisasi
+                // Verifikasi Pengambil Keputusan — syarat wajib sebelum finalisasi
                 'manager_verified_at' => $r->manager_verified_at,
                 'manager_verified_by' => $r->manager?->name,
             ];
@@ -138,7 +138,7 @@ class SertifikasiController extends Controller
         abort_if(
             $results->whereNull('manager_verified_at')->isNotEmpty(),
             422,
-            'Semua peserta harus diverifikasi Manager Sertifikasi sebelum finalisasi.'
+            'Semua peserta harus diverifikasi Pengambil Keputusan sebelum finalisasi.'
         );
 
         DB::transaction(function () use ($results, $classroom, $classroomId, $examSession) {
@@ -165,8 +165,30 @@ class SertifikasiController extends Controller
                     'valid_until'       => now()->addYears(config('lsp.sertifikat_valid_years', 3)),
                 ]);
             }
+
+            // Satu nomor Keputusan Sertifikasi per sesi, diterbitkan sekali saja.
+            if (!$examSession->keputusan_number) {
+                $examSession->update([
+                    'keputusan_number'    => $this->numbering->nextKeputusanNumber(),
+                    'keputusan_issued_at' => now(),
+                    'keputusan_issued_by' => Auth::id(),
+                ]);
+            }
         });
 
         return redirect()->back()->with('success', 'Finalisasi nilai berhasil — sertifikat siap diterbitkan untuk peserta yang LULUS.');
+    }
+
+    /** Unduh berita acara Keputusan Sertifikasi satu sesi (setelah difinalisasi). */
+    public function downloadKeputusan(ExamSession $examSession, \App\Services\DocumentGeneratorService $generator)
+    {
+        abort_if(!$examSession->keputusan_number, 404, 'Sesi ini belum difinalisasi.');
+
+        $pdf = $generator->generateKeputusanSertifikasi($examSession);
+
+        return response($pdf, 200, [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="Keputusan Sertifikasi - ' . str_replace('"', '', $examSession->title) . '.pdf"',
+        ]);
     }
 }

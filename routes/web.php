@@ -145,18 +145,9 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
     Route::get('/penilaian/{exam_session_id}/wawancara',  [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'show'])->name('asesor.wawancara.show');
     Route::post('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'store'])->name('asesor.wawancara.store');
 
-    Route::get('/penilaian/{exam_session_id}/dokumen',                            [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'index'])->name('asesor.dokumen.index');
-    Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}',               [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'show'])->name('asesor.dokumen.show');
-    Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/verify',   [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'verify'])->name('asesor.dokumen.verify');
-    Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/download',  [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'download'])->name('asesor.dokumen.download');
-    Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/verifikasi-akhir',  [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'finalVerify'])->name('asesor.dokumen.finalVerify');
-    Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/tanda-tangan',       [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'serveFinalSignature'])->name('asesor.dokumen.signature.serve');
-
     Route::get('/penilaian/{exam_session_id}/laporan-asesmen',  [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'show'])->name('asesor.laporan_asesmen.show');
     Route::post('/penilaian/{exam_session_id}/laporan-asesmen', [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'store'])->name('asesor.laporan_asesmen.store');
     Route::post('/penilaian/{exam_session_id}/laporan-asesmen/rekomendasi', [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'storeRekomendasi'])->name('asesor.laporan_asesmen.rekomendasi');
-
-    Route::get('/profile/tanda-tangan', [\App\Http\Controllers\Asesor\DocumentVerificationController::class, 'serveDefaultSignature'])->name('asesor.profile.signature');
 
 });
 
@@ -165,7 +156,7 @@ Route::get('/dokumen/laporan-asesmen/{exam_session_id}/{asesor_user_id}/download
     ->middleware(['auth'])
     ->name('laporan_asesmen.download');
 
-// ─── Portal Manager Sertifikasi ────────────────────────────────────────────────
+// ─── Portal Pengambil Keputusan ────────────────────────────────────────────────
 
 Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
 
@@ -174,6 +165,7 @@ Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
     Route::get('/sertifikasi/{examSession}',          [\App\Http\Controllers\Manager\SertifikasiController::class, 'show'])->name('manager.sertifikasi.show');
     Route::post('/sertifikasi/{examSession}/finalize', [\App\Http\Controllers\Manager\SertifikasiController::class, 'finalize'])->name('manager.sertifikasi.finalize');
     Route::post('/sertifikasi/{examSession}/verifikasi/{studentId}', [\App\Http\Controllers\Manager\SertifikasiController::class, 'toggleVerify'])->name('manager.sertifikasi.toggle_verify');
+    Route::get('/sertifikasi/{examSession}/keputusan', [\App\Http\Controllers\Manager\SertifikasiController::class, 'downloadKeputusan'])->name('manager.sertifikasi.keputusan');
 
     Route::get('/dokumen/{examSessionId}/{studentId}',              [\App\Http\Controllers\Manager\DokumenController::class, 'show'])->name('manager.dokumen.show');
     Route::get('/dokumen/{examSessionId}/{studentId}/{docId}/download', [\App\Http\Controllers\Manager\DokumenController::class, 'download'])->name('manager.dokumen.download');
@@ -182,6 +174,7 @@ Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
     // dokumennya identik; hanya middleware aksesnya yang beda (manager, bukan admin).
     Route::get('/applications/{application}/fr-apl-01', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl01'])->name('manager.applications.frApl01');
     Route::get('/applications/{application}/fr-apl-03', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl03'])->name('manager.applications.frApl03');
+    Route::get('/applications/{application}/fr-ak-01', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrAk01'])->name('manager.applications.frAk01');
 
 });
 

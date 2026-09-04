@@ -69,7 +69,7 @@ class ResultController extends Controller
     }
 
     // Finalisasi nilai dipindah ke Manager\SertifikasiController — kelulusan
-    // & penerbitan sertifikat sekarang jadi wewenang Manager Sertifikasi,
+    // & penerbitan sertifikat sekarang jadi wewenang Pengambil Keputusan,
     // bukan admin biasa.
 
     public function downloadSp(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)

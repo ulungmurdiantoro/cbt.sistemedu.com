@@ -43,10 +43,6 @@
                     :class="variant === 'completed' ? 'btn btn-sm btn-outline-success' : 'btn btn-sm btn-success border-0 shadow'">
                     <i class="fa fa-comments me-1"></i> Wawancara
                 </Link>
-                <Link :href="'/asesor/penilaian/' + session.id + '/dokumen'"
-                    :class="variant === 'completed' ? 'btn btn-sm btn-outline-warning text-dark' : 'btn btn-sm btn-warning border-0 shadow text-dark'">
-                    <i class="fa fa-folder-open me-1"></i> Dokumen
-                </Link>
                 <Link :href="'/asesor/penilaian/' + session.id + '/laporan-asesmen'"
                     :class="variant === 'completed' ? 'btn btn-sm btn-outline-dark' : 'btn btn-sm btn-dark border-0 shadow'">
                     <i class="fa fa-file-alt me-1"></i> Laporan

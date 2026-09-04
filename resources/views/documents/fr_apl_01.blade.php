@@ -186,25 +186,17 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
 
     <tr>
         <td rowspan="3"><strong>Catatan :</strong></td>
-        <td style="width:32%"><strong>Admin LSP :</strong></td>
-        <td><strong>Asesor :</strong></td>
+        <td colspan="2"><strong>Admin LSP :</strong></td>
     </tr>
     <tr>
-        <td>{{ $namaAdmin }}</td>
-        <td>{{ $namaAsesor }}</td>
+        <td colspan="2">{{ $namaAdmin }}</td>
     </tr>
     <tr>
-        <td class="ttd-cell">
+        <td colspan="2" class="ttd-cell">
             @if($ttdAdmin['path'])
                 <div class="ttd-img"><img src="{{ $ttdAdmin['path'] }}" style="width:{{ $ttdAdmin['w'] }}mm;height:{{ $ttdAdmin['h'] }}mm;"></div>
             @endif
             <div>{{ $tanggalAdmin }}</div>
-        </td>
-        <td class="ttd-cell">
-            @if($ttdAsesor['path'])
-                <div class="ttd-img"><img src="{{ $ttdAsesor['path'] }}" style="width:{{ $ttdAsesor['w'] }}mm;height:{{ $ttdAsesor['h'] }}mm;"></div>
-            @endif
-            <div>{{ $tanggalAsesor }}</div>
         </td>
     </tr>
 </table>

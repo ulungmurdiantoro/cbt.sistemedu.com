@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
         <a class="navbar-brand me-lg-5" href="/manager/dashboard">
-            <span class="fw-bold text-white">MANAGER SERTIFIKASI</span>
+            <span class="fw-bold text-white">PENGAMBIL KEPUTUSAN</span>
         </a>
         <div class="d-flex align-items-center">
             <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
@@ -26,7 +26,7 @@
                                     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
                                 </svg>
                             </span>
-                            <span class="sidebar-text fw-bold">MANAGER SERTIFIKASI</span>
+                            <span class="sidebar-text fw-bold">PENGAMBIL KEPUTUSAN</span>
                         </span>
                     </span>
                 </li>
@@ -89,7 +89,7 @@
                 <div class="d-flex justify-content-between w-100">
                     <div class="d-flex align-items-center">
                         <span class="text-white fw-bold ms-3">
-                            <i class="fa fa-user-tie me-1"></i> {{ $page.props.auth?.user?.name ?? 'Manager Sertifikasi' }}
+                            <i class="fa fa-user-tie me-1"></i> {{ $page.props.auth?.user?.name ?? 'Pengambil Keputusan' }}
                         </span>
                     </div>
                 </div>

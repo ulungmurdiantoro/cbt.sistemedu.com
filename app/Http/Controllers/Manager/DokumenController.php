@@ -11,7 +11,7 @@ use App\Models\ExamSession;
 use App\Models\Student;
 use Illuminate\Support\Facades\Storage;
 
-// Versi Manager Sertifikasi (lihat saja) dari Admin\PenilaianDokumenController —
+// Versi Pengambil Keputusan (lihat saja) dari Admin\PenilaianDokumenController —
 // tidak ada tombol verifikasi/tolak per dokumen atau Verifikasi Akhir di sini,
 // itu tetap wewenang admin/asesor. Manager hanya meninjau berkas yang sudah ada.
 class DokumenController extends Controller

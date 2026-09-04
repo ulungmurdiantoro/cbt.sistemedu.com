@@ -5,8 +5,10 @@ namespace App\Services;
 use App\Models\AsesmenReport;
 use App\Models\AssessmentApplication;
 use App\Models\ClassroomCompetencyUnit;
+use App\Models\ExamSession;
 use App\Models\GradingScheme;
 use App\Models\ParticipantResult;
+use App\Models\User;
 use App\Support\InitialAssessmentRubric;
 use BaconQrCode\Common\ErrorCorrectionLevel;
 use BaconQrCode\Renderer\ImageRenderer;
@@ -748,8 +750,6 @@ class DocumentGeneratorService
             ->values()
             ->all();
 
-        $namaAsesor = $application->asesor_signature_name ?: $application->asesorVerifier?->name ?: '-';
-
         $html = View::make('documents.fr_apl_01', [
             'pribadi'         => $pribadi,
             'pekerjaan'       => $pekerjaan,
@@ -761,13 +761,10 @@ class DocumentGeneratorService
             'buktiList'       => $buktiList,
             'diterima'        => $application->isApproved(),
             'namaAdmin'       => $application->admin_signature_name ?: $application->approver?->name ?: '-',
-            'namaAsesor'      => $namaAsesor,
             'ttdPemohon'      => $this->ttdBox($application->signature_form_path),
             'tanggalPemohon'  => $application->submitted_at ? Carbon::parse($application->submitted_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
             'ttdAdmin'        => $this->ttdBox($application->admin_signature_path),
             'tanggalAdmin'    => $application->approved_at ? Carbon::parse($application->approved_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
-            'ttdAsesor'       => $this->ttdBox($application->asesor_signature_path),
-            'tanggalAsesor'   => $application->asesor_verified_at ? Carbon::parse($application->asesor_verified_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
             'checkboxEmptyPath'   => $this->asset('checkbox_empty'),
             'checkboxCheckedPath' => $this->asset('checkbox_checked'),
         ])->render();
@@ -860,5 +857,68 @@ class DocumentGeneratorService
         ])->render();
 
         return $this->renderFormWithLogoHeader($html, 'FR.AK.05 Rev.02');
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // Keputusan Sertifikasi — berita acara satu sesi ujian, diterbitkan
+    // Pengambil Keputusan saat Finalisasi Semua.
+    // ═══════════════════════════════════════════════════════════════════
+
+    public function generateKeputusanSertifikasi(ExamSession $examSession): string
+    {
+        $examSession->loadMissing(['examPg.classroom', 'examEsai.classroom', 'keputusanIssuer']);
+        $classroom = $examSession->referenceExam?->classroom;
+
+        $results = ParticipantResult::where('exam_session_id', $examSession->id)
+            ->where('is_finalized', true)
+            ->with('student')
+            ->get()
+            ->sortBy(fn ($r) => $r->student?->name);
+
+        $studentIds = $results->pluck('student_id');
+
+        $applications = AssessmentApplication::whereIn('student_id', $studentIds)
+            ->where('exam_session_id', $examSession->id)
+            ->with(['classroom.documentRequirements', 'documents'])
+            ->get()
+            ->keyBy('student_id');
+
+        $tanggalAsesmen = $examSession->start_time ? Carbon::parse($examSession->start_time)->format('d-m-Y') : '-';
+
+        $rows = $results->map(function ($r) use ($applications, $classroom, $tanggalAsesmen) {
+            $student = $r->student;
+            $app     = $applications->get($r->student_id);
+
+            $totalDoc    = $app?->classroom?->documentRequirements?->count() ?? 0;
+            $verifiedDoc = $app?->documents?->where('status', 'verified')->count() ?? 0;
+            $aplikasi    = ($totalDoc > 0 && $verifiedDoc === $totalDoc) ? 'Memenuhi' : 'Tidak Memenuhi';
+
+            return [
+                'nama_skema'      => $classroom?->title ?? '-',
+                'nama_peserta'    => $student?->name ?? '-',
+                'tanggal_asesmen' => $tanggalAsesmen,
+                'aplikasi'        => $aplikasi,
+                'hasil_asesmen'   => $app?->asesor_rekomendasi ?? '-',
+                'keputusan'       => $r->keputusan === 'LULUS' ? 'Diterbitkan Sertifikat' : 'Tidak Diterbitkan Sertifikat',
+            ];
+        })->values()->all();
+
+        $issuer = $examSession->keputusanIssuer;
+
+        $html = View::make('documents.keputusan_sertifikasi', [
+            'nomor'                   => $examSession->keputusan_number ?? '-',
+            'hari'                    => $examSession->keputusan_issued_at ? Carbon::parse($examSession->keputusan_issued_at)->locale('id')->isoFormat('dddd') : '-',
+            'tanggal'                 => $examSession->keputusan_issued_at ? Carbon::parse($examSession->keputusan_issued_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'rows'                    => $rows,
+            'namaPenanggungjawab'     => $issuer?->name ?? '-',
+            'jabatanPenanggungjawab'  => 'Pengambil Keputusan',
+            'ttdPenanggungjawab'      => $this->ttdBox($issuer?->signature_path),
+            'lsp'                     => config('lsp_documents.lsp'),
+            'logoEdukiaPath'          => $this->asset('logo_edukia'),
+        ])->render();
+
+        $mpdf = $this->makeMpdfSp();
+        $mpdf->WriteHTML($html);
+        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
     }
 }

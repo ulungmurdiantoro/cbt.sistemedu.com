@@ -22,12 +22,16 @@ class ExamSession extends Model
         'konteks_asesmen',
         'tempat_ujian',
         'kode_batch',
+        'keputusan_number',
+        'keputusan_issued_at',
+        'keputusan_issued_by',
     ];
 
     protected function casts(): array
     {
         return [
-            'has_wawancara' => 'boolean',
+            'has_wawancara'       => 'boolean',
+            'keputusan_issued_at' => 'datetime',
         ];
     }
 
@@ -65,5 +69,10 @@ class ExamSession extends Model
     public function scopeActive($query)
     {
         return $query->where('end_time', '>', now());
+    }
+
+    public function keputusanIssuer()
+    {
+        return $this->belongsTo(User::class, 'keputusan_issued_by');
     }
 }

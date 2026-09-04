@@ -1,5 +1,5 @@
 <template>
-    <Head><title>Dashboard Manager Sertifikasi</title></Head>
+    <Head><title>Dashboard Pengambil Keputusan</title></Head>
 
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
@@ -7,7 +7,7 @@
 
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">
-                        <h5 class="mb-1"><i class="fa fa-award me-2"></i>Dashboard Manager Sertifikasi</h5>
+                        <h5 class="mb-1"><i class="fa fa-award me-2"></i>Dashboard Pengambil Keputusan</h5>
                         <p class="text-muted mb-0 small">
                             Tinjau kelengkapan dokumen, laporan asesmen, dan nilai peserta sebelum finalisasi kelulusan.
                         </p>

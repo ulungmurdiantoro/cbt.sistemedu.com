@@ -102,7 +102,7 @@ export default {
     setup(props) {
         const search = ref(props.filters?.q ?? '');
 
-        const roleLabel = (r) => ({ admin: 'Admin', asesor: 'Asesor', manager_sertifikasi: 'Manager Sertifikasi' }[r] ?? r);
+        const roleLabel = (r) => ({ admin: 'Admin', asesor: 'Asesor', manager_sertifikasi: 'Pengambil Keputusan' }[r] ?? r);
         const roleTone  = (r) => ({ admin: 'accent', asesor: 'success', manager_sertifikasi: 'secondary' }[r] ?? 'neutral');
 
         const applySearch = () => {
