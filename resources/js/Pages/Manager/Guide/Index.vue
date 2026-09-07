@@ -32,7 +32,7 @@
                                     <li>Buka <code>/login</code>, masuk dengan akun Pengambil Keputusan.</li>
                                     <li>Sistem otomatis mengarahkan ke <code>/manager/dashboard</code>.</li>
                                 </ol>
-                                <div class="alert alert-light border small mb-0">
+                                <div class="note-box small mb-0">
                                     <i class="fa fa-circle-info me-1 text-muted"></i>
                                     Kalau akun Anda punya peran lain juga, tautan pindah portal muncul di menu samping — tidak perlu keluar untuk berpindah.
                                 </div>
@@ -49,7 +49,7 @@
                         </h2>
                         <div id="m2" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
                             <div class="accordion-body">
-                                <p class="mb-0">Daftar seluruh sesi ujian, aktif maupun sudah selesai — semuanya bisa ditinjau, tidak ada batasan waktu. Tiap baris menunjukkan skema, jumlah peserta, dan status <span class="badge bg-success">Aktif</span> / <span class="badge bg-secondary">Selesai</span>. Klik <span class="badge bg-dark">Tinjau</span> pada sesi yang ingin diproses.</p>
+                                <p class="mb-0">Daftar seluruh sesi ujian, aktif maupun sudah selesai — semuanya bisa ditinjau, tidak ada batasan waktu. Tiap baris menunjukkan skema, jumlah peserta, dan status <span class="badge bg-success">Aktif</span> / <span class="badge bg-secondary">Selesai</span>. Klik <span class="badge bg-gray-800 text-white">Tinjau</span> pada sesi yang ingin diproses.</p>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                                     <table class="table table-sm table-bordered mb-0">
                                         <tbody>
                                             <tr><td style="width:180px" class="fw-semibold">FR.APL.01</td><td><span class="badge bg-success">Lengkap</span> jika semua dokumen persyaratan sudah terverifikasi, atau hitungan <em>x/y</em> jika belum.</td></tr>
-                                            <tr><td class="fw-semibold">Dokumen Persyaratan</td><td>Tautan <span class="badge bg-light text-dark border">Lihat Dokumen</span> — buka daftar berkas peserta, mode baca saja.</td></tr>
+                                            <tr><td class="fw-semibold">Dokumen Persyaratan</td><td>Tautan <span class="badge bg-gray-200 text-gray-800 border">Lihat Dokumen</span> — buka daftar berkas peserta, mode baca saja.</td></tr>
                                             <tr><td class="fw-semibold">FR.APL.03</td><td><span class="badge bg-success">Layak</span> atau <span class="badge bg-danger">Tidak Layak</span> beserta skor penilaian awal.</td></tr>
                                             <tr><td class="fw-semibold">Laporan Asesmen</td><td>Nama asesor yang ditugaskan, badge <span class="badge bg-success">Kompeten</span>/<span class="badge bg-danger">Belum Kompeten</span>, dan tautan unduh FR.AK.05.</td></tr>
                                             <tr><td class="fw-semibold">PG &middot; Esai &middot; Wawancara &middot; Nilai Akhir</td><td>Rincian nilai per komponen dan hasil akhir gabungannya.</td></tr>
@@ -76,11 +76,11 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="alert alert-light border small mb-2">
+                                <div class="note-box small mb-2">
                                     Kolom <strong>FR.APL.01</strong> dan <strong>FR.APL.03</strong> berisi data yang <em>sudah</em> diverifikasi sebelumnya (oleh admin, saat memproses pendaftaran) — di halaman ini Anda hanya meninjau ulang, bukan mengulang verifikasinya dari nol.
                                 </div>
                                 <p class="fw-semibold mb-1">Pratinjau Berita Acara sebelum memutuskan</p>
-                                <p class="small text-muted mb-0">Tombol <span class="badge bg-light text-dark border">Preview Keputusan</span> di kanan atas selalu tersedia, berapa pun peserta yang sudah dicentang — membuka draf lengkap Berita Acara Keputusan Sertifikasi untuk seluruh peserta sesi ini di tab baru, ditandai jelas sebagai <strong>pratinjau</strong>.</p>
+                                <p class="small text-muted mb-0">Tombol <span class="badge bg-gray-200 text-gray-800 border">Preview Keputusan</span> di kanan atas selalu tersedia, berapa pun peserta yang sudah dicentang — membuka draf lengkap Berita Acara Keputusan Sertifikasi untuk seluruh peserta sesi ini di tab baru, ditandai jelas sebagai <strong>pratinjau</strong>.</p>
                             </div>
                         </div>
                     </div>
@@ -118,9 +118,9 @@
                             <div class="accordion-body">
                                 <p class="small text-muted mb-2">Tindakan penutup: mengunci nilai dan menerbitkan nomor dokumen resmi — tapi <strong>hanya untuk peserta yang sudah dicentang Verifikasi</strong>, bukan otomatis seluruh sesi.</p>
                                 <ol class="mb-2">
-                                    <li>Cek sekali lagi lewat <span class="badge bg-light text-dark border">Preview Keputusan</span> kalau perlu (langkah 3).</li>
-                                    <li>Klik <span class="badge bg-warning text-dark">Finalisasi Semua</span> di kanan atas.</li>
-                                    <li>Konfirmasi lewat dialog yang muncul dengan <span class="badge bg-dark">Ya, Finalisasi</span>.</li>
+                                    <li>Cek sekali lagi lewat <span class="badge bg-gray-200 text-gray-800 border">Preview Keputusan</span> kalau perlu (langkah 3).</li>
+                                    <li>Klik <span class="badge bg-warning text-gray-800">Finalisasi Semua</span> di kanan atas.</li>
+                                    <li>Konfirmasi lewat dialog yang muncul dengan <span class="badge bg-gray-800 text-white">Ya, Finalisasi</span>.</li>
                                 </ol>
                                 <div class="alert alert-danger small mb-0">
                                     <strong>Tidak bisa dibatalkan untuk peserta yang difinalisasi.</strong> Nilai &amp; keputusan mereka terkunci, nomor SK dan SP otomatis diterbitkan, dan nomor Sertifikat khusus untuk yang berstatus LULUS. Peserta yang <em>belum</em> dicentang tidak ikut terpengaruh — tetap Draft, aman difinalisasi di kesempatan lain.
@@ -140,9 +140,9 @@
                             <div class="accordion-body">
                                 <p class="small text-muted mb-2">Baris yang sudah final berubah statusnya dan tidak bisa diverifikasi ulang — baris lain di sesi yang sama boleh saja masih Draft, itu normal.</p>
                                 <ul class="mb-0">
-                                    <li>Kolom <strong>Status</strong> berubah dari <span class="badge bg-secondary">Draft</span> menjadi <span class="badge bg-dark">Final</span>, per peserta.</li>
+                                    <li>Kolom <strong>Status</strong> berubah dari <span class="badge bg-secondary">Draft</span> menjadi <span class="badge bg-gray-800 text-white">Final</span>, per peserta.</li>
                                     <li>Kotak centang Verifikasi ikut terkunci untuk baris yang sudah final — tidak bisa diklik lagi.</li>
-                                    <li>Satu sesi wajar berisi campuran <span class="badge bg-dark">Final</span> dan <span class="badge bg-secondary">Draft</span> sekaligus — sisa peserta Draft cukup dicentang &amp; difinalisasi lagi kapan pun mereka siap.</li>
+                                    <li>Satu sesi wajar berisi campuran <span class="badge bg-gray-800 text-white">Final</span> dan <span class="badge bg-secondary">Draft</span> sekaligus — sisa peserta Draft cukup dicentang &amp; difinalisasi lagi kapan pun mereka siap.</li>
                                     <li>Pengiriman dokumen (SK/SP/Sertifikat) ke peserta ditangani lewat halaman <strong>Rekap Hasil</strong> di Portal Admin — tugas Pengambil Keputusan berhenti sampai keputusan diterbitkan.</li>
                                 </ul>
                             </div>
@@ -192,3 +192,21 @@ export default {
     components: { Head },
 }
 </script>
+
+<style scoped>
+/* Bootstrap build ini tidak mendefinisikan --bs-accordion-bg / bg-light / text-dark,
+   jadi accordion & badge netral perlu warna eksplisit supaya tidak transparan/pudar. */
+.accordion-item { background-color: #fff; border-color: #dee2e6; }
+.accordion-button { background-color: #fff; color: #1f2937; font-weight: 600; box-shadow: none; }
+.accordion-button:not(.collapsed) { background-color: #1f2937; color: #fff; }
+.accordion-button:not(.collapsed)::after { filter: invert(1) brightness(2); }
+.accordion-button:focus { box-shadow: none; }
+.accordion-body { background-color: #fff; color: #374151; }
+.note-box {
+    background-color: #eef2f7;
+    border-left: 3px solid #9ca3af;
+    border-radius: .375rem;
+    padding: .65rem 1rem;
+    color: #374151;
+}
+</style>

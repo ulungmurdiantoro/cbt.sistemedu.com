@@ -32,7 +32,7 @@
                                     <li>Buka <code>/login</code>, masukkan email dan kata sandi akun asesor Anda.</li>
                                     <li>Sistem otomatis membawa Anda ke <code>/asesor/dashboard</code> setelah berhasil masuk.</li>
                                 </ol>
-                                <div class="alert alert-light border small mb-0">
+                                <div class="note-box small mb-0">
                                     <i class="fa fa-circle-info me-1 text-muted"></i>
                                     Kalau akun Anda juga punya peran lain (mis. Pengambil Keputusan), tautan
                                     <strong>Portal Pengambil Keputusan</strong> muncul di menu samping — pindah portal tanpa perlu keluar.
@@ -54,10 +54,10 @@
                                 <div class="table-responsive">
                                     <table class="table table-sm table-bordered mb-0">
                                         <tbody>
-                                            <tr><td style="width:160px"><span class="badge bg-light text-dark border">Esai</span></td><td>Beri nilai jawaban esai seluruh peserta di sesi ini.</td></tr>
-                                            <tr><td><span class="badge bg-light text-dark border">Wawancara</span></td><td>Isi penilaian wawancara per peserta.</td></tr>
-                                            <tr><td><span class="badge bg-light text-dark border">Dokumen</span></td><td>Periksa &amp; verifikasi dokumen persyaratan (FR.APL.01).</td></tr>
-                                            <tr><td><span class="badge bg-light text-dark border">Laporan</span></td><td>Isi rekomendasi Kompeten/Belum Kompeten &amp; unduh FR.AK.05.</td></tr>
+                                            <tr><td style="width:160px"><span class="badge bg-gray-200 text-gray-800 border">Esai</span></td><td>Beri nilai jawaban esai seluruh peserta di sesi ini.</td></tr>
+                                            <tr><td><span class="badge bg-gray-200 text-gray-800 border">Wawancara</span></td><td>Isi penilaian wawancara per peserta.</td></tr>
+                                            <tr><td><span class="badge bg-gray-200 text-gray-800 border">Dokumen</span></td><td>Periksa &amp; verifikasi dokumen persyaratan (FR.APL.01).</td></tr>
+                                            <tr><td><span class="badge bg-gray-200 text-gray-800 border">Laporan</span></td><td>Isi rekomendasi Kompeten/Belum Kompeten &amp; unduh FR.AK.05.</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -119,17 +119,17 @@
                         <div id="s5" class="accordion-collapse collapse" data-bs-parent="#panduanAsesor">
                             <div class="accordion-body">
                                 <p class="fw-semibold mb-1">Per dokumen</p>
-                                <p class="small text-muted">Klik <span class="badge bg-light text-dark border">Preview</span> untuk membuka berkas langsung di tab baru — tidak perlu diunduh dulu. Setelah diperiksa, pilih <span class="badge bg-success">Terima</span> atau <span class="badge bg-danger">Tolak</span> <span class="text-muted">(sertakan alasan penolakan)</span>.</p>
+                                <p class="small text-muted">Klik <span class="badge bg-gray-200 text-gray-800 border">Preview</span> untuk membuka berkas langsung di tab baru — tidak perlu diunduh dulu. Setelah diperiksa, pilih <span class="badge bg-success">Terima</span> atau <span class="badge bg-danger">Tolak</span> <span class="text-muted">(sertakan alasan penolakan)</span>.</p>
 
                                 <p class="fw-semibold mb-1 mt-3">Verifikasi Akhir — mengunci pemeriksaan</p>
                                 <ol class="mb-2">
-                                    <li>Isi nama penandatangan, lalu gambar TTD langsung (<span class="badge bg-light text-dark border">Gambar TTD</span>) atau unggah gambar tanda tangan (<span class="badge bg-light text-dark border">Upload Gambar TTD</span>). TTD tersimpan otomatis dipakai lagi di sesi-sesi berikutnya.</li>
+                                    <li>Isi nama penandatangan, lalu gambar TTD langsung (<span class="badge bg-gray-200 text-gray-800 border">Gambar TTD</span>) atau unggah gambar tanda tangan (<span class="badge bg-gray-200 text-gray-800 border">Upload Gambar TTD</span>). TTD tersimpan otomatis dipakai lagi di sesi-sesi berikutnya.</li>
                                     <li>Klik <span class="badge bg-success">Simpan Verifikasi Akhir</span>, konfirmasi dengan <span class="badge bg-success">Ya, Tandatangani</span>.</li>
                                 </ol>
                                 <div class="alert alert-secondary small mb-2">
                                     <strong>Terkunci setelah ditandatangani</strong> — status berubah jadi <span class="badge bg-success">Terverifikasi &amp; Terkunci</span> dan tidak bisa diubah lagi sendiri lewat aplikasi.
                                 </div>
-                                <div class="alert alert-light border small mb-0">
+                                <div class="note-box small mb-0">
                                     Verifikasi dokumen ini <strong>tidak lagi meminta rekomendasi Kompeten/Belum Kompeten</strong> — itu langkah terpisah, ada di langkah 6 (Laporan), karena rekomendasi baru masuk akal diberikan setelah nilai esai &amp; wawancara selesai.
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                                 <p class="small text-muted">Empat kolom narasi (Aspek Negatif &amp; Positif, Pencatatan Penolakan, Saran Perbaikan, Catatan) sudah terisi teks contoh yang lazim dipakai — sunting seperlunya atau simpan apa adanya. Klik <span class="badge bg-success">Simpan Laporan</span>.</p>
 
                                 <p class="fw-semibold mb-1 mt-3">Unduh FR.AK.05</p>
-                                <p class="small text-muted mb-0">Setelah laporan tersimpan, tombol <span class="badge bg-light text-dark border">Download PDF</span> aktif — dokumen resmi FR.AK.05 berisi tabel rekomendasi, catatan, serta tanda tangan Anda.</p>
+                                <p class="small text-muted mb-0">Setelah laporan tersimpan, tombol <span class="badge bg-gray-200 text-gray-800 border">Download PDF</span> aktif — dokumen resmi FR.AK.05 berisi tabel rekomendasi, catatan, serta tanda tangan Anda.</p>
                             </div>
                         </div>
                     </div>
@@ -177,3 +177,21 @@ export default {
     components: { Head },
 }
 </script>
+
+<style scoped>
+/* Bootstrap build ini tidak mendefinisikan --bs-accordion-bg / bg-light / text-dark,
+   jadi accordion & badge netral perlu warna eksplisit supaya tidak transparan/pudar. */
+.accordion-item { background-color: #fff; border-color: #dee2e6; }
+.accordion-button { background-color: #fff; color: #1f2937; font-weight: 600; box-shadow: none; }
+.accordion-button:not(.collapsed) { background-color: #1f2937; color: #fff; }
+.accordion-button:not(.collapsed)::after { filter: invert(1) brightness(2); }
+.accordion-button:focus { box-shadow: none; }
+.accordion-body { background-color: #fff; color: #374151; }
+.note-box {
+    background-color: #eef2f7;
+    border-left: 3px solid #9ca3af;
+    border-radius: .375rem;
+    padding: .65rem 1rem;
+    color: #374151;
+}
+</style>
