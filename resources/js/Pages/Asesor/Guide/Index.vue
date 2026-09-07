@@ -17,7 +17,7 @@
                     </div>
                 </div>
 
-                <div class="accordion shadow-sm" id="panduanAsesor">
+                <div class="accordion" id="panduanAsesor">
 
                     <!-- 1 -->
                     <div class="accordion-item">
@@ -180,13 +180,27 @@ export default {
 
 <style scoped>
 /* Bootstrap build ini tidak mendefinisikan --bs-accordion-bg / bg-light / text-dark,
-   jadi accordion & badge netral perlu warna eksplisit supaya tidak transparan/pudar. */
-.accordion-item { background-color: #fff; border-color: #dee2e6; }
-.accordion-button { background-color: #fff; color: #1f2937; font-weight: 600; box-shadow: none; }
+   jadi tiap bagian dijadikan kartu putih solid sendiri-sendiri (senada kartu "Panduan"
+   di atas) — tidak ada elemen yang transparan lagi. */
+.accordion-item {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+    margin-bottom: 14px;
+    overflow: hidden;
+}
+.accordion-item:last-child { margin-bottom: 0; }
+.accordion-button {
+    background-color: #ffffff;
+    color: #1f2937;
+    font-weight: 600;
+    box-shadow: none;
+}
 .accordion-button:not(.collapsed) { background-color: #1f2937; color: #fff; }
 .accordion-button:not(.collapsed)::after { filter: invert(1) brightness(2); }
 .accordion-button:focus { box-shadow: none; }
-.accordion-body { background-color: #fff; color: #374151; }
+.accordion-body { background-color: #ffffff; color: #374151; }
 .note-box {
     background-color: #eef2f7;
     border-left: 3px solid #9ca3af;
