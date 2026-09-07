@@ -16,7 +16,7 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
 .kop-alamat { font-size: 10.5pt; margin-top: 2pt; line-height: 1.35; }
 .kop-garis-atas { width: 100%; height: 1.5pt; background-color: #000; margin: 3pt 0 6pt; font-size: 0; line-height: 0; }
 
-.content-wrap { margin-left: 4mm; margin-right: 4mm; }
+.content-wrap { margin-left: 0; margin-right: 0; }
 
 .text-center { text-align: center; }
 .fw-bold { font-weight: bold; }
@@ -99,16 +99,16 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
 <table class="hasil-table">
     <thead>
         <tr>
-            <th rowspan="2" style="width:6%;white-space:nowrap;">No.</th>
-            <th rowspan="2">Nama Skema</th>
-            <th rowspan="2">Nama Peserta</th>
-            <th rowspan="2" style="width:11%">Tanggal Asesmen/ Remidi</th>
+            <th rowspan="2" style="width:5%;white-space:nowrap;">No.</th>
+            <th rowspan="2" style="width:22%">Nama Skema</th>
+            <th rowspan="2" style="width:19%">Nama Peserta</th>
+            <th rowspan="2" style="width:14%">Tanggal Asesmen/ Remidi</th>
             <th colspan="2">Pertimbangan</th>
-            <th rowspan="2" style="width:12%">Keputusan Sertifikasi</th>
+            <th rowspan="2" style="width:15%">Keputusan Sertifikasi</th>
         </tr>
         <tr>
-            <th style="width:10%">Aplikasi Permohonan</th>
-            <th style="width:9%">Hasil Asesmen*)</th>
+            <th style="width:13%">Aplikasi Permohonan</th>
+            <th style="width:12%">Hasil Asesmen*)</th>
         </tr>
     </thead>
     <tbody>

@@ -237,6 +237,34 @@ class DocumentGeneratorService
         ]);
     }
 
+    // ── mPDF factory — untuk Keputusan Sertifikasi (margin lebih sempit,
+    //    tabel hasil butuh lebih banyak ruang supaya kata tidak terpotong) ──
+    private function makeMpdfKeputusan(): Mpdf
+    {
+        return new Mpdf([
+            'mode'          => 'utf-8',
+            'format'        => 'A4',
+            'orientation'   => 'P',
+            'margin_top'    => 10,
+            'margin_bottom' => 12,
+            'margin_left'   => 10,
+            'margin_right'  => 10,
+            'fontDir'       => [
+                base_path('vendor/mpdf/mpdf/ttfonts'),
+                resource_path('fonts'),
+            ],
+            'fontdata'      => [
+                'cambria' => [
+                    'R'  => 'Cambria.ttf',
+                    'B'  => 'Cambria Bold.ttf',
+                    'I'  => 'Cambria Italic.ttf',
+                    'BI' => 'Cambria Bold Italic.ttf',
+                ],
+            ],
+            'default_font'  => 'cambria',
+        ]);
+    }
+
     // ── mPDF factory — untuk Sertifikat (pakai font Radley) ─────────────
     private function makeMpdfSertifikat(): Mpdf
     {
@@ -934,7 +962,7 @@ class DocumentGeneratorService
             'logoEdukiaPath'          => $this->asset('logo_edukia'),
         ])->render();
 
-        $mpdf = $this->makeMpdfSp();
+        $mpdf = $this->makeMpdfKeputusan();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
     }
