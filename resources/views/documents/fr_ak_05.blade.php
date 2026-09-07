@@ -27,8 +27,8 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
 .catatan-table { width: 100%; border-collapse: collapse; }
 .catatan-table td { border: 0.75pt solid #000; padding: 6pt; vertical-align: top; }
 .catatan-label { width: 35%; }
-.asesor-table { width: 100%; border-collapse: collapse; }
-.asesor-table td { border: 0.75pt solid #000; padding: 8pt 10pt; vertical-align: top; }
+.asesor-table { width: 100%; border-collapse: collapse; border: none; }
+.asesor-table td { border: none; padding: 8pt 10pt; vertical-align: top; }
 .asesor-table td.asesor-title { font-weight: bold; }
 .asesor-row-label { width: 30%; font-weight: normal; }
 .asesor-ttd-cell { padding-top: 12pt; padding-bottom: 16pt; }
