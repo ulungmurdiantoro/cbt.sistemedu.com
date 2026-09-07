@@ -12,12 +12,16 @@
                 <h5 class="mb-0 fw-bold">{{ exam_session.title }}</h5>
                 <p class="mb-0 small text-muted">Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}</p>
             </div>
+            <a v-if="rows.length" :href="`/manager/sertifikasi/${exam_session.id}/keputusan/preview`"
+                target="_blank" class="btn btn-sm btn-outline-secondary border">
+                <i class="fa fa-eye me-1"></i> Preview Keputusan
+            </a>
             <a v-if="exam_session.keputusan_number" :href="`/manager/sertifikasi/${exam_session.id}/keputusan`"
                 target="_blank" class="btn btn-sm btn-outline-dark border">
                 <i class="fa fa-file-pdf me-1"></i> Keputusan Sertifikasi
             </a>
-            <button class="btn btn-sm btn-warning text-dark fw-semibold" @click="confirmFinalize" :disabled="allFinalized || !allVerified"
-                :title="!allVerified && !allFinalized ? 'Semua peserta harus dicentang Verifikasi terlebih dahulu' : ''">
+            <button class="btn btn-sm btn-warning text-dark fw-semibold" @click="confirmFinalize" :disabled="!hasFinalizableRows"
+                :title="!hasFinalizableRows ? 'Centang Verifikasi minimal satu peserta terlebih dahulu' : ''">
                 <i class="fa fa-lock me-1"></i> Finalisasi Semua
             </button>
         </div>
@@ -25,8 +29,9 @@
         <div class="alert alert-info py-2 small border-0 mb-3">
             <i class="fa fa-info-circle me-1"></i>
             Tinjau kelengkapan FR.APL.01, kelayakan FR.APL.03, dan laporan asesmen (rekomendasi asesor) sebelum finalisasi.
-            Centang <strong>Verifikasi</strong> untuk tiap peserta setelah ditinjau — semua peserta harus dicentang sebelum "Finalisasi Semua" bisa diklik.
-            Finalisasi mengunci nilai &amp; menerbitkan nomor SK/Sertifikat berdasarkan nilai akhir vs KKM.
+            Centang <strong>Verifikasi</strong> untuk peserta yang sudah siap — hanya peserta yang tercentang yang akan difinalisasi.
+            Peserta yang belum dicentang (mis. berhalangan hadir) tetap Draft dan bisa difinalisasi belakangan, mis. saat ikut batch susulan.
+            Pakai <strong>Preview Keputusan</strong> untuk melihat draf berita acara sebelum benar-benar difinalisasi.
         </div>
 
         <div v-if="$page.props.session?.success" class="alert alert-success py-2 small border-0 mb-3">
@@ -173,7 +178,7 @@ export default {
 
     setup(props) {
         const allFinalized = computed(() => props.rows.length > 0 && props.rows.every(r => r.is_finalized));
-        const allVerified  = computed(() => props.rows.length > 0 && props.rows.every(r => r.is_finalized || r.manager_verified_at));
+        const hasFinalizableRows = computed(() => props.rows.some(r => !r.is_finalized && r.manager_verified_at));
 
         const togglingId = ref(null);
 
@@ -201,7 +206,7 @@ export default {
         const confirmFinalize = () => {
             Swal.fire({
                 title: 'Finalisasi Kelulusan?',
-                html: 'Nilai akan dikunci dan nomor SK / Sertifikat akan diterbitkan untuk peserta yang LULUS.<br><strong>Tindakan ini tidak dapat dibatalkan.</strong>',
+                html: 'Hanya peserta yang sudah dicentang <strong>Verifikasi</strong> yang akan difinalisasi — nilai dikunci dan nomor SK / Sertifikat diterbitkan untuk yang LULUS. Peserta yang belum dicentang tetap Draft.<br><strong>Tindakan ini tidak dapat dibatalkan untuk peserta yang difinalisasi.</strong>',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#1f2937',
@@ -215,7 +220,7 @@ export default {
             });
         };
 
-        return { allFinalized, allVerified, togglingId, nilaiColor, fmt, toggleVerify, confirmFinalize };
+        return { allFinalized, hasFinalizableRows, togglingId, nilaiColor, fmt, toggleVerify, confirmFinalize };
     },
 }
 </script>

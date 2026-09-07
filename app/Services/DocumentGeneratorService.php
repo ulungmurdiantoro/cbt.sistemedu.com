@@ -864,16 +864,23 @@ class DocumentGeneratorService
     // Pengambil Keputusan saat Finalisasi Semua.
     // ═══════════════════════════════════════════════════════════════════
 
-    public function generateKeputusanSertifikasi(ExamSession $examSession): string
+    public function generateKeputusanSertifikasi(ExamSession $examSession, bool $preview = false): string
     {
         $examSession->loadMissing(['examPg.classroom', 'examEsai.classroom', 'keputusanIssuer']);
         $classroom = $examSession->referenceExam?->classroom;
 
-        $results = ParticipantResult::where('exam_session_id', $examSession->id)
-            ->where('is_finalized', true)
-            ->with('student')
-            ->get()
-            ->sortBy(fn ($r) => $r->student?->name);
+        $query = ParticipantResult::where('exam_session_id', $examSession->id)->with('student');
+
+        if ($preview) {
+            // Gambaran hasil KALAU "Finalisasi Semua" diklik sekarang: peserta yang
+            // sudah final (kalau ada dari finalisasi sebagian sebelumnya) + yang
+            // sudah dicentang Verifikasi tapi belum difinalisasi.
+            $query->where(fn ($q) => $q->where('is_finalized', true)->orWhereNotNull('manager_verified_at'));
+        } else {
+            $query->where('is_finalized', true);
+        }
+
+        $results = $query->get()->sortBy(fn ($r) => $r->student?->name);
 
         $studentIds = $results->pluck('student_id');
 
@@ -909,16 +916,20 @@ class DocumentGeneratorService
             ];
         })->values()->all();
 
-        $issuer = $examSession->keputusanIssuer;
+        // Preview: belum ada nomor/tanggal/penanggungjawab resmi (belum difinalisasi),
+        // jadi pakai placeholder + user yang sedang login sebagai gambaran.
+        $issuer = $preview ? auth()->user() : $examSession->keputusanIssuer;
+        $issuedAt = $preview ? now() : $examSession->keputusan_issued_at;
 
         $html = View::make('documents.keputusan_sertifikasi', [
-            'nomor'                   => $examSession->keputusan_number ?? '-',
-            'hari'                    => $examSession->keputusan_issued_at ? Carbon::parse($examSession->keputusan_issued_at)->locale('id')->isoFormat('dddd') : '-',
-            'tanggal'                 => $examSession->keputusan_issued_at ? Carbon::parse($examSession->keputusan_issued_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'preview'                 => $preview,
+            'nomor'                   => $preview ? '(Preview — belum diterbitkan)' : ($examSession->keputusan_number ?? '-'),
+            'hari'                    => $issuedAt ? Carbon::parse($issuedAt)->locale('id')->isoFormat('dddd') : '-',
+            'tanggal'                 => $issuedAt ? Carbon::parse($issuedAt)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
             'rows'                    => $rows,
             'namaPenanggungjawab'     => $issuer?->name ?? '-',
             'jabatanPenanggungjawab'  => 'Pengambil Keputusan',
-            'ttdPenanggungjawab'      => $this->ttdBox($issuer?->signature_path),
+            'ttdPenanggungjawab'      => $preview ? ['path' => null, 'w' => null, 'h' => null] : $this->ttdBox($issuer?->signature_path),
             'lsp'                     => config('lsp_documents.lsp'),
             'logoEdukiaPath'          => $this->asset('logo_edukia'),
         ])->render();

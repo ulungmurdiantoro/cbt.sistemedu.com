@@ -71,6 +71,12 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 11pt; c
 
 <div class="content-wrap">
 
+@if($preview ?? false)
+<div class="text-center fw-bold" style="font-size:11pt; color:#b3283d; border:1pt dashed #b3283d; padding:4pt; margin-top:8pt;">
+    PRATINJAU — DOKUMEN INI BELUM DITERBITKAN (belum difinalisasi)
+</div>
+@endif
+
 <div class="text-center fw-bold mt-3" style="font-size:13pt;">
     <span class="underline">KEPUTUSAN SERTIFIKASI</span>
 </div>

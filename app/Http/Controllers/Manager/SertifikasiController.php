@@ -132,19 +132,18 @@ class SertifikasiController extends Controller
         $classroomId = $examSession->referenceExam?->classroom_id;
         $classroom   = $classroomId ? Classroom::find($classroomId) : null;
 
+        // Hanya peserta yang sudah dicentang Verifikasi yang difinalisasi. Peserta
+        // yang belum (mis. berhalangan hadir & akan ikut batch susulan) dilewati —
+        // tetap Draft, bisa difinalisasi belakangan setelah diverifikasi.
         $results = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('is_finalized', false)
+            ->whereNotNull('manager_verified_at')
             ->get();
 
         abort_if(
             $results->isEmpty(),
             422,
-            'Tidak ada peserta yang perlu difinalisasi.'
-        );
-        abort_if(
-            $results->whereNull('manager_verified_at')->isNotEmpty(),
-            422,
-            'Semua peserta harus diverifikasi Pengambil Keputusan sebelum finalisasi.'
+            'Tidak ada peserta yang sudah diverifikasi untuk difinalisasi. Centang Verifikasi minimal satu peserta terlebih dahulu.'
         );
 
         DB::transaction(function () use ($results, $classroom, $classroomId, $examSession) {
@@ -182,7 +181,7 @@ class SertifikasiController extends Controller
             }
         });
 
-        return redirect()->back()->with('success', 'Finalisasi nilai berhasil — sertifikat siap diterbitkan untuk peserta yang LULUS.');
+        return redirect()->back()->with('success', $results->count() . ' peserta berhasil difinalisasi — sertifikat siap diterbitkan untuk yang LULUS. Peserta yang belum diverifikasi tetap berstatus Draft dan bisa difinalisasi belakangan.');
     }
 
     /** Unduh berita acara Keputusan Sertifikasi satu sesi (setelah difinalisasi). */
@@ -195,6 +194,22 @@ class SertifikasiController extends Controller
         return response($pdf, 200, [
             'Content-Type'        => 'application/pdf',
             'Content-Disposition' => 'inline; filename="Keputusan Sertifikasi - ' . str_replace('"', '', $examSession->title) . '.pdf"',
+        ]);
+    }
+
+    /**
+     * Preview berita acara Keputusan Sertifikasi SEBELUM finalisasi — pakai
+     * peserta yang sudah diverifikasi (belum tentu jadi peserta yang benar-benar
+     * difinalisasi kalau ada yang dicentang/dilepas lagi setelah preview ini).
+     * Nomor & tanggal masih placeholder karena belum benar-benar diterbitkan.
+     */
+    public function previewKeputusan(ExamSession $examSession, \App\Services\DocumentGeneratorService $generator)
+    {
+        $pdf = $generator->generateKeputusanSertifikasi($examSession, preview: true);
+
+        return response($pdf, 200, [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="Preview Keputusan Sertifikasi - ' . str_replace('"', '', $examSession->title) . '.pdf"',
         ]);
     }
 }

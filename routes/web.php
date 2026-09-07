@@ -166,6 +166,7 @@ Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
     Route::post('/sertifikasi/{examSession}/finalize', [\App\Http\Controllers\Manager\SertifikasiController::class, 'finalize'])->name('manager.sertifikasi.finalize');
     Route::post('/sertifikasi/{examSession}/verifikasi/{studentId}', [\App\Http\Controllers\Manager\SertifikasiController::class, 'toggleVerify'])->name('manager.sertifikasi.toggle_verify');
     Route::get('/sertifikasi/{examSession}/keputusan', [\App\Http\Controllers\Manager\SertifikasiController::class, 'downloadKeputusan'])->name('manager.sertifikasi.keputusan');
+    Route::get('/sertifikasi/{examSession}/keputusan/preview', [\App\Http\Controllers\Manager\SertifikasiController::class, 'previewKeputusan'])->name('manager.sertifikasi.keputusan.preview');
 
     Route::get('/dokumen/{examSessionId}/{studentId}',              [\App\Http\Controllers\Manager\DokumenController::class, 'show'])->name('manager.dokumen.show');
     Route::get('/dokumen/{examSessionId}/{studentId}/{docId}/download', [\App\Http\Controllers\Manager\DokumenController::class, 'download'])->name('manager.dokumen.download');
