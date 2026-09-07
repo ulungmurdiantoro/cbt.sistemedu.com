@@ -138,7 +138,16 @@
                                 </span>
                                 <span v-if="app.result.attempt > 1" class="badge bg-warning text-dark">Remidi</span>
                             </div>
-                            <div v-if="app.result.distributed_at" class="d-flex gap-2 flex-wrap">
+                            <div v-if="app.result.distributed_at && app.result.keputusan === 'LULUS' && app.result.materai_status !== 'stamped'" class="alert alert-warning p-2 small mb-2">
+                                <i class="fa fa-stamp me-1"></i>
+                                <template v-if="app.result.materai_status === 'processing'">Materai e-meterai FR.AK.14 sedang diproses. SK & Sertifikat akan bisa diunduh setelah selesai.</template>
+                                <template v-else-if="app.result.materai_status === 'failed'">Pembubuhan materai FR.AK.14 gagal. Silakan buka halaman FR.AK.14 untuk mencoba lagi.</template>
+                                <template v-else>Lengkapi FR.AK.14 (tanda tangan + materai elektronik) terlebih dahulu sebelum mengunduh SK & Sertifikat.</template>
+                                <Link :href="`/peserta/hasil/${app.exam_session_id}/${app.student_id}/fr-ak-14`" class="btn btn-sm btn-warning mt-2 d-block" style="width:fit-content">
+                                    <i class="fa fa-pen me-1"></i> Buka FR.AK.14
+                                </Link>
+                            </div>
+                            <div v-else-if="app.result.distributed_at" class="d-flex gap-2 flex-wrap">
                                 <a :href="`/peserta/hasil/${app.exam_session_id}/${app.student_id}/sk`"
                                    target="_blank" class="btn btn-sm btn-outline-dark">
                                     <i class="fa fa-file-alt me-1"></i> Download SK

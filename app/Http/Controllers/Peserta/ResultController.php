@@ -21,6 +21,12 @@ class ResultController extends Controller
             ->whereHas('student', fn($q) => $q->where('participant_id', $participant->id))
             ->firstOrFail();
 
+        // FR.AK.14 hanya berlaku untuk peserta yang LULUS (surat pernyataan
+        // pemegang sertifikat) — yang tidak lulus tetap bebas unduh SK-nya.
+        if ($result->keputusan === 'LULUS') {
+            abort_if($result->materai_status !== 'stamped', 422, 'Tanda tangani dan selesaikan e-meterai FR.AK.14 terlebih dahulu.');
+        }
+
         $pdf      = $generator->skPdf($result);
         $filename = 'SK_' . $result->student?->no_participant . '.pdf';
 
@@ -39,6 +45,8 @@ class ResultController extends Controller
             ->where('keputusan', 'LULUS')
             ->whereHas('student', fn($q) => $q->where('participant_id', $participant->id))
             ->firstOrFail();
+
+        abort_if($result->materai_status !== 'stamped', 422, 'Tanda tangani dan selesaikan e-meterai FR.AK.14 terlebih dahulu.');
 
         $pdf      = $generator->sertifikatPdf($result);
         $filename = 'Sertifikat_' . $result->student?->no_participant . '.pdf';

@@ -14,10 +14,14 @@
             </nav>
             <h5 class="fw-bold">Materai Elektronik FR.AK.01</h5>
             <p class="text-muted small">
-                Materai elektronik resmi (Peruri e-Meterai) dibubuhkan pada bagian tanda tangan Anda
-                di dokumen FR.AK.01. Biaya materai ditanggung oleh peserta.
+                Materai elektronik resmi (Peruri e-Meterai) dibubuhkan otomatis pada bagian tanda tangan Anda
+                di dokumen FR.AK.01, tanpa biaya.
             </p>
         </div>
+    </div>
+
+    <div v-if="$page.props.session.success" class="alert alert-success border-0 shadow mb-3">
+        {{ $page.props.session.success }}
     </div>
 
     <div class="card border-0 shadow">
@@ -32,33 +36,26 @@
                 </p>
             </template>
 
-            <!-- Sudah dibayar, menunggu pembubuhan -->
-            <template v-else-if="application.materai_status === 'paid'">
-                <i class="fa fa-hourglass-half text-warning" style="font-size:3rem"></i>
-                <h6 class="fw-bold mt-3">Pembayaran Berhasil</h6>
-                <p class="text-muted small mb-0">
-                    Materai sedang diproses untuk dibubuhkan ke dokumen. Silakan cek kembali beberapa saat lagi.
-                </p>
+            <!-- Gagal -->
+            <template v-else-if="application.materai_status === 'failed'">
+                <i class="fa fa-exclamation-triangle text-danger" style="font-size:3rem"></i>
+                <h6 class="fw-bold mt-3">Pembubuhan Materai Gagal</h6>
+                <p class="text-muted small mb-3">{{ application.materai_failure_reason }}</p>
+                <button class="btn btn-primary px-4" :disabled="retrying" @click="retry">
+                    <span v-if="retrying"><span class="spinner-border spinner-border-sm me-1"></span>Memproses...</span>
+                    <span v-else><i class="fa fa-redo me-1"></i>Coba Lagi</span>
+                </button>
             </template>
 
-            <!-- Gagal -->
+            <!-- Sedang diproses (default/none/pending_payment) -->
             <template v-else>
-                <template v-if="application.materai_status === 'failed'">
-                    <div class="alert alert-danger border-0 text-start mb-4">
-                        <i class="fa fa-exclamation-triangle me-1"></i>
-                        Pembayaran sebelumnya tidak berhasil ({{ application.materai_failure_reason }}). Silakan coba lagi.
-                    </div>
-                </template>
-
-                <i class="fa fa-stamp text-primary" style="font-size:3rem"></i>
-                <h6 class="fw-bold mt-3 mb-1">Materai Belum Dibayar</h6>
-                <p class="text-muted small">
-                    Biaya materai elektronik: <strong>Rp {{ formatRupiah(price) }}</strong>
+                <i class="fa fa-hourglass-half text-warning" style="font-size:3rem"></i>
+                <h6 class="fw-bold mt-3">Materai Sedang Diproses</h6>
+                <p class="text-muted small mb-0">
+                    Pembubuhan materai elektronik dilakukan otomatis di latar belakang. Silakan cek kembali beberapa saat lagi.
                 </p>
-
-                <button class="btn btn-primary px-4 mt-2" :disabled="paying" @click="pay">
-                    <span v-if="paying"><span class="spinner-border spinner-border-sm me-1"></span>Menyiapkan pembayaran...</span>
-                    <span v-else><i class="fa fa-credit-card me-1"></i>Bayar Materai</span>
+                <button class="btn btn-sm btn-light border mt-3" @click="reload">
+                    <i class="fa fa-sync me-1"></i> Muat Ulang Status
                 </button>
             </template>
 
@@ -69,76 +66,32 @@
 <script>
 import LayoutPeserta from '../../../Layouts/Peserta.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { ref, onMounted, onUnmounted } from 'vue';
-import axios from 'axios';
+import { ref } from 'vue';
 
 export default {
     layout: LayoutPeserta,
     components: { Head, Link },
     props: {
-        application:    Object,
-        client_key:     String,
-        is_production:  Boolean,
-        price:          [Number, String],
+        application: Object,
     },
 
     setup(props) {
-        const paying = ref(false);
-        let snapScript = null;
+        const retrying = ref(false);
 
-        onMounted(() => {
-            snapScript = document.createElement('script');
-            snapScript.src = props.is_production
-                ? 'https://app.midtrans.com/snap/snap.js'
-                : 'https://app.sandbox.midtrans.com/snap/snap.js';
-            snapScript.setAttribute('data-client-key', props.client_key);
-            document.head.appendChild(snapScript);
-        });
-
-        onUnmounted(() => {
-            if (snapScript) document.head.removeChild(snapScript);
-        });
-
-        const pay = async () => {
-            paying.value = true;
-            try {
-                const { data } = await axios.post(`/peserta/aplikasi/${props.application.id}/materai/bayar`);
-
-                if (!window.snap) {
-                    alert('Snap.js belum siap dimuat, coba muat ulang halaman.');
-                    paying.value = false;
-                    return;
-                }
-
-                window.snap.pay(data.snap_token, {
-                    onSuccess: () => {
-                        // Status resmi diperbarui lewat webhook Midtrans (async) —
-                        // reload halaman ini untuk ambil status terbaru dari server.
-                        router.reload({ preserveScroll: true, onFinish: () => { paying.value = false; } });
-                    },
-                    onPending: () => {
-                        router.reload({ preserveScroll: true, onFinish: () => { paying.value = false; } });
-                    },
-                    onError: () => {
-                        paying.value = false;
-                        alert('Pembayaran gagal. Silakan coba lagi.');
-                    },
-                    onClose: () => {
-                        paying.value = false;
-                    },
-                });
-            } catch (e) {
-                paying.value = false;
-                alert(e.response?.data?.message ?? 'Gagal menyiapkan pembayaran, coba lagi.');
-            }
+        const retry = () => {
+            retrying.value = true;
+            router.post(`/peserta/aplikasi/${props.application.id}/materai/retry`, {}, {
+                onFinish: () => { retrying.value = false; },
+            });
         };
 
-        const formatRupiah = (n) => new Intl.NumberFormat('id-ID').format(n ?? 0);
         const formatDate = (dt) => dt
             ? new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
             : '—';
 
-        return { paying, pay, formatRupiah, formatDate };
+        const reload = () => router.reload({ preserveScroll: true });
+
+        return { retrying, retry, formatDate, reload };
     },
 }
 </script>

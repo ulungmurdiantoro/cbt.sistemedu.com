@@ -28,6 +28,12 @@ class ParticipantResult extends Model
         'distributed_at',
         'valid_until',
         'attempt',
+        'fr_ak_14_signature_path',
+        'fr_ak_14_signed_at',
+        'materai_status',
+        'materai_stamped_at',
+        'materai_document_path',
+        'materai_failure_reason',
     ];
 
     protected function casts(): array
@@ -42,6 +48,8 @@ class ParticipantResult extends Model
             'nilai_esai'     => 'float',
             'nilai_wawancara'=> 'float',
             'nilai_akhir'    => 'float',
+            'fr_ak_14_signed_at' => 'datetime',
+            'materai_stamped_at' => 'datetime',
         ];
     }
 

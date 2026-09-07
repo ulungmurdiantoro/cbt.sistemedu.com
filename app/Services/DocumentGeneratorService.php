@@ -843,6 +843,28 @@ class DocumentGeneratorService
     }
 
     // ═══════════════════════════════════════════════════════════════════
+    // FR.AK.14 — Surat Pernyataan Pemegang Sertifikat
+    // ═══════════════════════════════════════════════════════════════════
+
+    public function generateFrAk14(ParticipantResult $result): string
+    {
+        $result->loadMissing(['student.participant', 'examSession.examPg.classroom', 'examSession.examEsai.classroom']);
+
+        $classroom = $result->examSession?->referenceExam?->classroom;
+
+        $html = View::make('documents.fr_ak_14', [
+            'namaPeserta'  => $result->student?->name ?? '-',
+            'nik'          => $result->student?->participant?->nik ?? '-',
+            'namaSkema'    => $classroom?->title ?? '-',
+            'noSertifikat' => $result->sertifikat_number ?? '-',
+            'ttdAsesi'     => $this->ttdBox($result->fr_ak_14_signature_path),
+            'tanggalTtd'   => $result->fr_ak_14_signed_at ? Carbon::parse($result->fr_ak_14_signed_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+        ])->render();
+
+        return $this->renderFormWithLogoHeader($html, 'FR.AK.14 Rev.02');
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
     // FR.AK.05 — Laporan Asesmen
     // ═══════════════════════════════════════════════════════════════════
 

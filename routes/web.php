@@ -138,6 +138,7 @@ Route::prefix('admin')->group(function () {
 Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
 
     Route::get('/dashboard', \App\Http\Controllers\Asesor\DashboardController::class)->name('asesor.dashboard');
+    Route::get('/panduan', fn () => inertia('Asesor/Guide/Index'))->name('asesor.panduan');
 
     Route::get('/penilaian/{exam_session_id}/esai',      [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'show'])->name('asesor.esai.show');
     Route::post('/penilaian/{exam_session_id}/esai',     [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'store'])->name('asesor.esai.store');
@@ -161,6 +162,7 @@ Route::get('/dokumen/laporan-asesmen/{exam_session_id}/{asesor_user_id}/download
 Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
 
     Route::get('/dashboard', \App\Http\Controllers\Manager\DashboardController::class)->name('manager.dashboard');
+    Route::get('/panduan', fn () => inertia('Manager/Guide/Index'))->name('manager.panduan');
 
     Route::get('/sertifikasi/{examSession}',          [\App\Http\Controllers\Manager\SertifikasiController::class, 'show'])->name('manager.sertifikasi.show');
     Route::post('/sertifikasi/{examSession}/finalize', [\App\Http\Controllers\Manager\SertifikasiController::class, 'finalize'])->name('manager.sertifikasi.finalize');
@@ -256,8 +258,8 @@ Route::prefix('peserta')->middleware('participant')->group(function () {
     Route::get('/aplikasi/{application}/pakta',  [App\Http\Controllers\Peserta\ApplicationController::class, 'showPakta'])->name('peserta.application.pakta');
     Route::post('/aplikasi/{application}/pakta', [App\Http\Controllers\Peserta\ApplicationController::class, 'savePakta'])->name('peserta.application.pakta.save');
 
-    Route::get('/aplikasi/{application}/materai',      [App\Http\Controllers\Peserta\MateraiController::class, 'show'])->name('peserta.application.materai');
-    Route::post('/aplikasi/{application}/materai/bayar', [App\Http\Controllers\Peserta\MateraiController::class, 'pay'])->name('peserta.application.materai.pay');
+    Route::get('/aplikasi/{application}/materai',       [App\Http\Controllers\Peserta\MateraiController::class, 'show'])->name('peserta.application.materai');
+    Route::post('/aplikasi/{application}/materai/retry', [App\Http\Controllers\Peserta\MateraiController::class, 'retry'])->name('peserta.application.materai.retry');
 
     Route::get('/aplikasi/{application}/dokumen',                         [App\Http\Controllers\Peserta\DocumentController::class, 'index'])->name('peserta.application.documents');
     Route::post('/aplikasi/{application}/dokumen',                        [App\Http\Controllers\Peserta\DocumentController::class, 'upload'])->name('peserta.application.documents.upload');
@@ -272,9 +274,9 @@ Route::prefix('peserta')->middleware('participant')->group(function () {
     Route::get('/hasil/{sessionId}/{studentId}/sertifikat', [App\Http\Controllers\Peserta\ResultController::class, 'downloadSertifikat'])->name('peserta.hasil.sertifikat');
     Route::post('/remidi/{sessionId}',                      [App\Http\Controllers\Peserta\ResultController::class, 'startRemidi'])->name('peserta.remidi.start');
 
-});
+    Route::get('/hasil/{sessionId}/{studentId}/fr-ak-14',              [App\Http\Controllers\Peserta\FrAk14Controller::class, 'show'])->name('peserta.hasil.frak14');
+    Route::post('/hasil/{sessionId}/{studentId}/fr-ak-14',             [App\Http\Controllers\Peserta\FrAk14Controller::class, 'sign'])->name('peserta.hasil.frak14.sign');
+    Route::get('/hasil/{sessionId}/{studentId}/fr-ak-14/tanda-tangan', [App\Http\Controllers\Peserta\FrAk14Controller::class, 'serveSignature'])->name('peserta.hasil.frak14.signature');
+    Route::post('/hasil/{sessionId}/{studentId}/fr-ak-14/retry',       [App\Http\Controllers\Peserta\FrAk14Controller::class, 'retry'])->name('peserta.hasil.frak14.retry');
 
-// Webhook server-to-server Midtrans — di luar guard 'participant' & CSRF
-// (lihat pengecualian di bootstrap/app.php), Midtrans yang memanggil ini
-// langsung, bukan browser peserta.
-Route::post('/materai/notification', [App\Http\Controllers\Peserta\MateraiController::class, 'notification'])->name('materai.notification');
+});

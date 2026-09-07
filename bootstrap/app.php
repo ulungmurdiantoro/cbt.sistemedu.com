@@ -18,9 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
         // Dibaca langsung oleh JS (document.cookie) sebagai sinyal "download ZIP
         // selesai di-generate server" — harus mentah, tidak dienkripsi.
         $middleware->encryptCookies(except: ['fileDownloadToken']);
-        // Webhook server-to-server Midtrans — dipanggil langsung oleh Midtrans,
-        // tidak punya token CSRF sesi browser.
-        $middleware->validateCsrfTokens(except: ['materai/notification']);
         $middleware->alias([
             'student'     => \App\Http\Middleware\AuthStudent::class,
             'participant' => \App\Http\Middleware\AuthParticipant::class,

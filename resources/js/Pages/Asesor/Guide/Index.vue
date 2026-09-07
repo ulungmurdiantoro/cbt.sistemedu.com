@@ -1,0 +1,179 @@
+<template>
+    <Head><title>Panduan Asesor</title></Head>
+
+    <div class="container-fluid mb-5 mt-4">
+        <div class="row">
+            <div class="col-lg-10 col-xl-9 mx-auto">
+
+                <!-- Header -->
+                <div class="card border-0 shadow mb-4">
+                    <div class="card-body">
+                        <h5 class="mb-1"><i class="fa fa-life-ring me-2 text-primary"></i>Panduan Asesor</h5>
+                        <p class="text-muted mb-0 small">
+                            Tugas Anda ada di tiga sisi: memberi nilai (esai &amp; wawancara), memeriksa keabsahan dokumen
+                            peserta, lalu menyatakan rekomendasi Kompeten/Belum Kompeten lewat Laporan Asesmen —
+                            sebelum diteruskan ke Pengambil Keputusan untuk keputusan akhir.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion shadow-sm" id="panduanAsesor">
+
+                    <!-- 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#s1">
+                                <span class="badge bg-primary me-2">1</span> Masuk ke portal
+                            </button>
+                        </h2>
+                        <div id="s1" class="accordion-collapse collapse show" data-bs-parent="#panduanAsesor">
+                            <div class="accordion-body">
+                                <ol class="mb-2">
+                                    <li>Buka <code>/login</code>, masukkan email dan kata sandi akun asesor Anda.</li>
+                                    <li>Sistem otomatis membawa Anda ke <code>/asesor/dashboard</code> setelah berhasil masuk.</li>
+                                </ol>
+                                <div class="alert alert-light border small mb-0">
+                                    <i class="fa fa-circle-info me-1 text-muted"></i>
+                                    Kalau akun Anda juga punya peran lain (mis. Pengambil Keputusan), tautan
+                                    <strong>Portal Pengambil Keputusan</strong> muncul di menu samping — pindah portal tanpa perlu keluar.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#s2">
+                                <span class="badge bg-primary me-2">2</span> Dashboard tugas
+                            </button>
+                        </h2>
+                        <div id="s2" class="accordion-collapse collapse" data-bs-parent="#panduanAsesor">
+                            <div class="accordion-body">
+                                <p>Semua sesi ujian yang peserta-nya sudah ditugaskan ke Anda muncul di sini, dipisah tab <span class="badge bg-success">Sesi Aktif</span> dan <span class="badge bg-secondary">Sesi Selesai</span>. Tiap kartu sesi punya empat tombol aksi:</p>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered mb-0">
+                                        <tbody>
+                                            <tr><td style="width:160px"><span class="badge bg-light text-dark border">Esai</span></td><td>Beri nilai jawaban esai seluruh peserta di sesi ini.</td></tr>
+                                            <tr><td><span class="badge bg-light text-dark border">Wawancara</span></td><td>Isi penilaian wawancara per peserta.</td></tr>
+                                            <tr><td><span class="badge bg-light text-dark border">Dokumen</span></td><td>Periksa &amp; verifikasi dokumen persyaratan (FR.APL.01).</td></tr>
+                                            <tr><td><span class="badge bg-light text-dark border">Laporan</span></td><td>Isi rekomendasi Kompeten/Belum Kompeten &amp; unduh FR.AK.05.</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#s3">
+                                <span class="badge bg-primary me-2">3</span> Menilai esai
+                            </button>
+                        </h2>
+                        <div id="s3" class="accordion-collapse collapse" data-bs-parent="#panduanAsesor">
+                            <div class="accordion-body">
+                                <p class="small text-muted mb-2">Satu tabel, satu baris per peserta — semua jawaban esai sesi itu langsung terlihat berdampingan.</p>
+                                <ol class="mb-0">
+                                    <li>Isi nilai (0–100) untuk tiap jawaban di kolom masing-masing. Kolom <strong>Total</strong> terisi otomatis, rata-rata dari semua nilai yang sudah diisi pada baris itu.</li>
+                                    <li>Baris paling bawah menunjukkan rata-rata sesi per kolom — sekilas melihat sebaran nilai kelas.</li>
+                                    <li>Setelah semua terisi, klik <span class="badge bg-success">Simpan Semua Nilai</span> — satu klik menyimpan seluruh tabel sekaligus.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#s4">
+                                <span class="badge bg-primary me-2">4</span> Menilai wawancara
+                            </button>
+                        </h2>
+                        <div id="s4" class="accordion-collapse collapse" data-bs-parent="#panduanAsesor">
+                            <div class="accordion-body">
+                                <p class="small text-muted mb-2">Empat kriteria tetap dinilai per peserta, dengan bobot yang sudah baku.</p>
+                                <div class="table-responsive mb-2">
+                                    <table class="table table-sm table-bordered mb-0">
+                                        <tbody>
+                                            <tr><td style="width:40px" class="fw-bold text-center">A</td><td>Gaya Wawancara</td></tr>
+                                            <tr><td class="fw-bold text-center">B</td><td>Penguasaan Materi</td></tr>
+                                            <tr><td class="fw-bold text-center">C</td><td>Kemampuan Menghadapi Pertanyaan</td></tr>
+                                            <tr><td class="fw-bold text-center">D</td><td>Hasil Pengerjaan Worksheet Ujian Keterampilan</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p class="mb-0"><strong>Total</strong> dihitung otomatis: <code>(A + B + C + D) &times; 0,075</code>. Kolom Catatan tersedia untuk komentar bebas per peserta. Klik <span class="badge bg-success">Simpan Semua Nilai</span> saat selesai.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#s5">
+                                <span class="badge bg-primary me-2">5</span> Verifikasi dokumen
+                            </button>
+                        </h2>
+                        <div id="s5" class="accordion-collapse collapse" data-bs-parent="#panduanAsesor">
+                            <div class="accordion-body">
+                                <p class="fw-semibold mb-1">Per dokumen</p>
+                                <p class="small text-muted">Klik <span class="badge bg-light text-dark border">Preview</span> untuk membuka berkas langsung di tab baru — tidak perlu diunduh dulu. Setelah diperiksa, pilih <span class="badge bg-success">Terima</span> atau <span class="badge bg-danger">Tolak</span> <span class="text-muted">(sertakan alasan penolakan)</span>.</p>
+
+                                <p class="fw-semibold mb-1 mt-3">Verifikasi Akhir — mengunci pemeriksaan</p>
+                                <ol class="mb-2">
+                                    <li>Isi nama penandatangan, lalu gambar TTD langsung (<span class="badge bg-light text-dark border">Gambar TTD</span>) atau unggah gambar tanda tangan (<span class="badge bg-light text-dark border">Upload Gambar TTD</span>). TTD tersimpan otomatis dipakai lagi di sesi-sesi berikutnya.</li>
+                                    <li>Klik <span class="badge bg-success">Simpan Verifikasi Akhir</span>, konfirmasi dengan <span class="badge bg-success">Ya, Tandatangani</span>.</li>
+                                </ol>
+                                <div class="alert alert-secondary small mb-2">
+                                    <strong>Terkunci setelah ditandatangani</strong> — status berubah jadi <span class="badge bg-success">Terverifikasi &amp; Terkunci</span> dan tidak bisa diubah lagi sendiri lewat aplikasi.
+                                </div>
+                                <div class="alert alert-light border small mb-0">
+                                    Verifikasi dokumen ini <strong>tidak lagi meminta rekomendasi Kompeten/Belum Kompeten</strong> — itu langkah terpisah, ada di langkah 6 (Laporan), karena rekomendasi baru masuk akal diberikan setelah nilai esai &amp; wawancara selesai.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#s6">
+                                <span class="badge bg-primary me-2">6</span> Rekomendasi &amp; Laporan Asesmen (FR.AK.05)
+                            </button>
+                        </h2>
+                        <div id="s6" class="accordion-collapse collapse" data-bs-parent="#panduanAsesor">
+                            <div class="accordion-body">
+                                <p class="fw-semibold mb-1">Isi rekomendasi per peserta</p>
+                                <p class="small text-muted">Untuk tiap baris di tabel <strong>Rekomendasi Asesi</strong>, klik salah satu: <span class="badge bg-success">K &middot; Kompeten</span> atau <span class="badge bg-danger">BK &middot; Belum Kompeten</span>. Klik <span class="badge bg-success">Simpan Rekomendasi</span> untuk menyimpan seluruh tabel — rekomendasi ini <strong>masih bisa diubah kapan saja</strong> sampai Pengambil Keputusan memfinalisasi peserta tersebut, setelah itu baris terkait terkunci.</p>
+
+                                <p class="fw-semibold mb-1 mt-3">Lengkapi catatan laporan</p>
+                                <p class="small text-muted">Empat kolom narasi (Aspek Negatif &amp; Positif, Pencatatan Penolakan, Saran Perbaikan, Catatan) sudah terisi teks contoh yang lazim dipakai — sunting seperlunya atau simpan apa adanya. Klik <span class="badge bg-success">Simpan Laporan</span>.</p>
+
+                                <p class="fw-semibold mb-1 mt-3">Unduh FR.AK.05</p>
+                                <p class="small text-muted mb-0">Setelah laporan tersimpan, tombol <span class="badge bg-light text-dark border">Download PDF</span> aktif — dokumen resmi FR.AK.05 berisi tabel rekomendasi, catatan, serta tanda tangan Anda.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p class="text-muted small text-center mt-4">
+                    Selesai sampai di sini, berkas peserta di sesi tersebut siap ditinjau oleh Pengambil Keputusan.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import LayoutAsesor from '../../../Layouts/Asesor.vue';
+import { Head } from '@inertiajs/vue3';
+
+export default {
+    layout: LayoutAsesor,
+    components: { Head },
+}
+</script>
