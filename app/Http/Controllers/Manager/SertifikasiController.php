@@ -53,8 +53,14 @@ class SertifikasiController extends Controller
             $application = $applications->get($r->student_id);
             $assignment  = $assignments->get($r->student_id);
 
-            $totalDoc    = $application?->classroom?->documentRequirements?->count() ?? 0;
-            $verifiedDoc = $application?->documents?->where('status', 'verified')->count() ?? 0;
+            // FR.APL.01 dihitung dari dokumen WAJIB saja — persyaratan opsional tidak
+            // boleh menghalangi status "Lengkap".
+            $requiredReqIds = $application?->classroom?->documentRequirements
+                ?->where('is_required', true)->pluck('id') ?? collect();
+            $totalDoc    = $requiredReqIds->count();
+            $verifiedDoc = $application?->documents
+                ?->whereIn('classroom_document_requirement_id', $requiredReqIds)
+                ->where('status', 'verified')->count() ?? 0;
 
             $assessment = $application?->initialAssessment;
 

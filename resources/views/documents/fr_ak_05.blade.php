@@ -28,9 +28,11 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
 .catatan-table td { border: 0.75pt solid #000; padding: 6pt; vertical-align: top; }
 .catatan-label { width: 35%; }
 .asesor-table { width: 100%; border-collapse: collapse; }
-.asesor-table td { padding: 3pt 0; vertical-align: top; }
+.asesor-table td { border: 0.75pt solid #000; padding: 8pt 10pt; vertical-align: top; }
+.asesor-table td.asesor-title { font-weight: bold; }
 .asesor-row-label { width: 30%; font-weight: normal; }
-.ttd-img { display: block; margin-top: 3pt; }
+.asesor-ttd-cell { padding-top: 12pt; padding-bottom: 16pt; }
+.ttd-img { display: block; margin: 6pt 0 10pt; }
 </style>
 </head>
 <body>
@@ -107,18 +109,18 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
         </td>
         <td>
             <table class="asesor-table">
-                <tr><td colspan="2" style="font-weight:bold;">Asesor :</td></tr>
+                <tr><td colspan="2" class="asesor-title">Asesor :</td></tr>
                 <tr>
                     <td class="asesor-row-label">Nama</td>
                     <td>{{ $namaAsesor }}</td>
                 </tr>
                 <tr>
-                    <td class="asesor-row-label">Tanda tangan/<br>Tanggal</td>
-                    <td>
+                    <td class="asesor-row-label asesor-ttd-cell">Tanda tangan/<br>Tanggal</td>
+                    <td class="asesor-ttd-cell">
                         @if($ttdAsesor['path'])
                             <img class="ttd-img" src="{{ $ttdAsesor['path'] }}" style="width:{{ $ttdAsesor['w'] }}mm;height:{{ $ttdAsesor['h'] }}mm;">
                         @endif
-                        <div style="margin-top:4pt;">{{ $tanggalTtd }}</div>
+                        <div>{{ $tanggalTtd }}</div>
                     </td>
                 </tr>
             </table>

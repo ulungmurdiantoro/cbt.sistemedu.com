@@ -889,8 +889,14 @@ class DocumentGeneratorService
             $student = $r->student;
             $app     = $applications->get($r->student_id);
 
-            $totalDoc    = $app?->classroom?->documentRequirements?->count() ?? 0;
-            $verifiedDoc = $app?->documents?->where('status', 'verified')->count() ?? 0;
+            // Sama seperti kolom FR.APL.01 di halaman Tinjau Sertifikasi — hitung
+            // dokumen WAJIB saja, persyaratan opsional tidak dihitung.
+            $requiredReqIds = $app?->classroom?->documentRequirements
+                ?->where('is_required', true)->pluck('id') ?? collect();
+            $totalDoc    = $requiredReqIds->count();
+            $verifiedDoc = $app?->documents
+                ?->whereIn('classroom_document_requirement_id', $requiredReqIds)
+                ->where('status', 'verified')->count() ?? 0;
             $aplikasi    = ($totalDoc > 0 && $verifiedDoc === $totalDoc) ? 'Memenuhi' : 'Tidak Memenuhi';
 
             return [
