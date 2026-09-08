@@ -48,6 +48,17 @@
                     </Link>
                 </li>
 
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/asesor/cv') }">
+                    <Link href="/asesor/cv" class="nav-link d-flex justify-content-between">
+                        <span>
+                            <span class="sidebar-icon">
+                                <i class="fa fa-id-badge me-2"></i>
+                            </span>
+                            <span class="sidebar-text">CV Saya</span>
+                        </span>
+                    </Link>
+                </li>
+
                 <li class="nav-item" :class="{ 'active': $page.url.startsWith('/asesor/panduan') }">
                     <Link href="/asesor/panduan" class="nav-link d-flex justify-content-between">
                         <span>

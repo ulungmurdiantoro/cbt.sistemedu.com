@@ -59,6 +59,10 @@
                                     <Link :href="`/admin/users/${user.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-1">
                                         <i class="fa fa-pencil-alt"></i>
                                     </Link>
+                                    <a v-if="user.role_values.includes('asesor')" :href="`/admin/users/${user.id}/cv/pdf`" target="_blank"
+                                        class="btn btn-sm btn-outline-dark border me-1" title="Unduh CV">
+                                        <i class="fa fa-id-badge"></i>
+                                    </a>
                                     <button
                                         v-if="user.id !== $page.props.auth.user.id"
                                         @click="destroy(user)"

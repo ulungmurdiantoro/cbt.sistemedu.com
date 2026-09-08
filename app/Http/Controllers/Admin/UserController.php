@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\DocumentGeneratorService;
 use App\Support\SignatureImageProcessor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -130,6 +131,17 @@ class UserController extends Controller
             'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
             'Pragma'        => 'no-cache',
         ]);
+    }
+
+    public function downloadAsesorCv(User $user, DocumentGeneratorService $generator)
+    {
+        abort_unless($user->isAsesor(), 404);
+
+        $pdf = $generator->generateCvAsesor($user);
+
+        return response($pdf, 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="CV_' . str_replace(' ', '_', $user->name) . '.pdf"');
     }
 
     private function storeUserSignature(Request $request, User $user): string

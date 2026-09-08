@@ -92,6 +92,7 @@ Route::prefix('admin')->group(function () {
         Route::delete('/users/{user}',    [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
         Route::post('/users/{user}/tanda-tangan', [\App\Http\Controllers\Admin\UserController::class, 'saveSignature'])->name('admin.users.signature.save');
         Route::get('/users/{user}/tanda-tangan',  [\App\Http\Controllers\Admin\UserController::class, 'serveSignature'])->name('admin.users.signature.serve');
+        Route::get('/users/{user}/cv/pdf',        [\App\Http\Controllers\Admin\UserController::class, 'downloadAsesorCv'])->name('admin.users.cv.pdf');
 
         // Laporan nilai
         Route::get('/reports',            [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');
@@ -139,6 +140,11 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
 
     Route::get('/dashboard', \App\Http\Controllers\Asesor\DashboardController::class)->name('asesor.dashboard');
     Route::get('/panduan', fn () => inertia('Asesor/Guide/Index'))->name('asesor.panduan');
+
+    Route::get('/cv',      [\App\Http\Controllers\Asesor\CvController::class, 'show'])->name('asesor.cv.show');
+    Route::post('/cv',     [\App\Http\Controllers\Asesor\CvController::class, 'save'])->name('asesor.cv.save');
+    Route::get('/cv/pdf',  [\App\Http\Controllers\Asesor\CvController::class, 'downloadPdf'])->name('asesor.cv.pdf');
+    Route::get('/cv/foto', [\App\Http\Controllers\Asesor\CvController::class, 'servePhoto'])->name('asesor.cv.photo');
 
     Route::get('/penilaian/{exam_session_id}/esai',      [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'show'])->name('asesor.esai.show');
     Route::post('/penilaian/{exam_session_id}/esai',     [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'store'])->name('asesor.esai.store');

@@ -865,6 +865,39 @@ class DocumentGeneratorService
     }
 
     // ═══════════════════════════════════════════════════════════════════
+    // CV Asesor
+    // ═══════════════════════════════════════════════════════════════════
+
+    public function generateCvAsesor(User $asesor): string
+    {
+        $cv = $asesor->cv;
+
+        $html = View::make('documents.cv_asesor', [
+            'namaLengkap'           => $asesor->name,
+            'email'                 => $asesor->email,
+            'tempatTanggalLahir'    => $cv?->tempat_tanggal_lahir ?: '-',
+            'jenisKelamin'          => $cv?->jenis_kelamin ?: '-',
+            'alamatRumah'           => $cv?->alamat_rumah ?: '-',
+            'namaInstitusi'         => $cv?->nama_institusi ?: '-',
+            'alamatInstitusi'       => $cv?->alamat_institusi ?: '-',
+            'noHandphone'           => $cv?->no_handphone ?: '-',
+            'pendidikanFormal'      => $cv?->pendidikan_formal ?? [],
+            'pelatihan'             => $cv?->pelatihan ?? [],
+            'pengalamanKerja'       => $cv?->pengalaman_kerja ?? [],
+            'keahlian'              => $cv?->keahlian ?? [],
+            'pengalamanProfesional' => $cv?->pengalaman_profesional ?? [],
+            'sertifikasiKompetensi' => $cv?->sertifikasi_kompetensi ?? [],
+            'foto'                  => $this->ttdBox($cv?->photo_path, 45, 60),
+        ])->render();
+
+        $mpdf = $this->makeMpdfSk();
+        $mpdf->SetHTMLFooter('<div style="text-align:center;font-size:8pt;font-style:italic;color:#444;">LSP EDUKASI GLOBAL CENDEKIA</div>');
+        $mpdf->WriteHTML($html);
+
+        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
     // FR.AK.05 — Laporan Asesmen
     // ═══════════════════════════════════════════════════════════════════
 
