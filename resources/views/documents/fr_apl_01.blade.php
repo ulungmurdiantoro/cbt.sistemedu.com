@@ -186,7 +186,7 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
 
     <tr>
         <td rowspan="3"><strong>Catatan :</strong></td>
-        <td colspan="2"><strong>Admin LSP :</strong></td>
+        <td colspan="2"><strong>Pengkaji Permohonan :</strong></td>
     </tr>
     <tr>
         <td colspan="2">{{ $namaAdmin }}</td>
