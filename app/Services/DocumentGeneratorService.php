@@ -184,9 +184,9 @@ class DocumentGeneratorService
     }
 
     // ── mPDF factory — untuk SK (Cambria, margin standar dokumen) ────
-    private function makeMpdfSk(): Mpdf
+    private function makeMpdfSk(array $marginOverrides = []): Mpdf
     {
-        return new Mpdf([
+        return new Mpdf(array_merge([
             'mode'          => 'utf-8',
             'format'        => 'A4',
             'orientation'   => 'P',
@@ -207,7 +207,7 @@ class DocumentGeneratorService
                 ],
             ],
             'default_font'  => 'cambria',
-        ]);
+        ], $marginOverrides));
     }
 
     // ── mPDF factory — untuk SP (Cambria, margin sesuai referensi dokumen) ──
@@ -890,7 +890,10 @@ class DocumentGeneratorService
             'foto'                  => $this->ttdBox($cv?->photo_path, 45, 60),
         ])->render();
 
-        $mpdf = $this->makeMpdfSk();
+        $mpdf = $this->makeMpdfSk([
+            'margin_footer' => 5,
+            'margin_bottom' => 14,
+        ]);
         $mpdf->SetHTMLFooter('<div style="text-align:center;font-size:8pt;font-style:italic;color:#444;">LSP EDUKASI GLOBAL CENDEKIA</div>');
         $mpdf->WriteHTML($html);
 
