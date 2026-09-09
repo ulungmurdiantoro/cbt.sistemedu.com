@@ -9,6 +9,7 @@ use App\Http\Requests\RejectApplicationRequest;
 use App\Http\Requests\VerifyDocumentRequest;
 use App\Models\Answer;
 use App\Models\AnswerEssay;
+use App\Models\AsesorAssignment;
 use App\Models\AssessmentApplication;
 use App\Models\Classroom;
 use App\Models\ExamGroup;
@@ -428,6 +429,29 @@ class ApplicationController extends Controller
                 $firstExamGroup ??= $eg;
             }
             $newExamGroup = $firstExamGroup;
+
+            // Pindahkan penugasan asesor dari student lama ke student baru — supaya
+            // tidak nyangkut menunjuk ke akun yang sudah dinonaktifkan, dan asesor
+            // tidak melihat 2 baris nama yang sama (lama + baru) saat menilai.
+            if ($oldStudent) {
+                $oldAssignments = AsesorAssignment::where('exam_session_id', $application->exam_session_id)
+                    ->where('student_id', $oldStudent->id)
+                    ->get();
+
+                foreach ($oldAssignments as $assignment) {
+                    $alreadyAssignedToNew = AsesorAssignment::where('user_id', $assignment->user_id)
+                        ->where('exam_session_id', $application->exam_session_id)
+                        ->where('student_id', $newStudent->id)
+                        ->exists();
+
+                    if ($alreadyAssignedToNew) {
+                        // Asesor ini sudah punya penugasan ke student baru juga — cukup buang yang lama.
+                        $assignment->delete();
+                    } else {
+                        $assignment->update(['student_id' => $newStudent->id]);
+                    }
+                }
+            }
 
             // log reissue
             StudentReissueLog::create([
