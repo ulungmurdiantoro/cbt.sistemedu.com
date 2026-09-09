@@ -46,9 +46,10 @@
                             <tr>
                                 <th class="border-0" style="width:3%">No.</th>
                                 <th class="border-0">Peserta</th>
-                                <th class="border-0 text-center">FR.APL.01</th>
                                 <th class="border-0 text-center">Dokumen Persyaratan</th>
+                                <th class="border-0 text-center">FR.APL.01</th>
                                 <th class="border-0 text-center">FR.APL.03</th>
+                                <th class="border-0 text-center">FR.AK.01</th>
                                 <th class="border-0">Laporan Asesmen</th>
                                 <th class="border-0 text-center">PG</th>
                                 <th class="border-0 text-center">Esai</th>
@@ -67,6 +68,14 @@
                                     <div class="text-muted small">{{ row.no_participant }}</div>
                                 </td>
 
+                                <!-- Dokumen Persyaratan -->
+                                <td class="text-center">
+                                    <a :href="`/manager/dokumen/${exam_session.id}/${row.student_id}`"
+                                        target="_blank" class="d-block small" title="Lihat Dokumen">
+                                        <i class="fa fa-eye me-1"></i>Lihat Dokumen
+                                    </a>
+                                </td>
+
                                 <!-- FR.APL.01 -->
                                 <td class="text-center">
                                     <span v-if="row.apl01_complete" class="badge bg-success">
@@ -81,18 +90,6 @@
                                     </a>
                                 </td>
 
-                                <!-- Dokumen Persyaratan -->
-                                <td class="text-center">
-                                    <a :href="`/manager/dokumen/${exam_session.id}/${row.student_id}`"
-                                        target="_blank" class="d-block small" title="Lihat Dokumen">
-                                        <i class="fa fa-eye me-1"></i>Lihat Dokumen
-                                    </a>
-                                    <a v-if="row.application_id" :href="`/manager/applications/${row.application_id}/fr-ak-01`"
-                                        target="_blank" class="d-block small mt-1" title="Generate FR.AK.01">
-                                        <i class="fa fa-file-pdf me-1"></i>FR.AK.01
-                                    </a>
-                                </td>
-
                                 <!-- FR.APL.03 -->
                                 <td class="text-center">
                                     <span v-if="!row.apl03_done" class="badge bg-secondary">Belum</span>
@@ -104,6 +101,15 @@
                                         target="_blank" class="d-block small mt-1" title="Generate FR.APL.03">
                                         <i class="fa fa-file-pdf me-1"></i>FR.APL.03
                                     </a>
+                                </td>
+
+                                <!-- FR.AK.01 -->
+                                <td class="text-center">
+                                    <a v-if="row.application_id" :href="`/manager/applications/${row.application_id}/fr-ak-01`"
+                                        target="_blank" class="d-block small" title="Generate FR.AK.01">
+                                        <i class="fa fa-file-pdf me-1"></i>FR.AK.01
+                                    </a>
+                                    <span v-else class="text-muted small">—</span>
                                 </td>
 
                                 <!-- Laporan Asesmen -->
@@ -150,7 +156,7 @@
                                 </td>
                             </tr>
                             <tr v-if="rows.length === 0">
-                                <td colspan="13" class="text-center text-muted py-4">Belum ada peserta terdaftar di sesi ini.</td>
+                                <td colspan="14" class="text-center text-muted py-4">Belum ada peserta terdaftar di sesi ini.</td>
                             </tr>
                         </tbody>
                     </table>
