@@ -23,19 +23,12 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#m1">
-                                <span class="badge bg-primary me-2">1</span> Masuk ke portal
+                                <span class="badge bg-primary me-2">1</span> Dashboard sesi
                             </button>
                         </h2>
                         <div id="m1" class="accordion-collapse collapse show" data-bs-parent="#panduanManager">
                             <div class="accordion-body">
-                                <ol class="mb-2">
-                                    <li>Buka <code>/login</code>, masuk dengan akun Pengambil Keputusan.</li>
-                                    <li>Sistem otomatis mengarahkan ke <code>/manager/dashboard</code>.</li>
-                                </ol>
-                                <div class="note-box small mb-0">
-                                    <i class="fa fa-circle-info me-1 text-muted"></i>
-                                    Kalau akun Anda punya peran lain juga, tautan pindah portal muncul di menu samping — tidak perlu keluar untuk berpindah.
-                                </div>
+                                <p class="mb-0">Daftar seluruh sesi ujian, aktif maupun sudah selesai — semuanya bisa ditinjau, tidak ada batasan waktu. Tiap baris menunjukkan skema, jumlah peserta, dan status <span class="badge bg-success">Aktif</span> / <span class="badge bg-secondary">Selesai</span>. Klik <span class="badge bg-gray-800 text-white">Tinjau</span> pada sesi yang ingin diproses.</p>
                             </div>
                         </div>
                     </div>
@@ -44,24 +37,10 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m2">
-                                <span class="badge bg-primary me-2">2</span> Dashboard sesi
+                                <span class="badge bg-primary me-2">2</span> Meninjau kelengkapan &amp; preview keputusan
                             </button>
                         </h2>
                         <div id="m2" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
-                            <div class="accordion-body">
-                                <p class="mb-0">Daftar seluruh sesi ujian, aktif maupun sudah selesai — semuanya bisa ditinjau, tidak ada batasan waktu. Tiap baris menunjukkan skema, jumlah peserta, dan status <span class="badge bg-success">Aktif</span> / <span class="badge bg-secondary">Selesai</span>. Klik <span class="badge bg-gray-800 text-white">Tinjau</span> pada sesi yang ingin diproses.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 3 -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m3">
-                                <span class="badge bg-primary me-2">3</span> Meninjau kelengkapan &amp; preview keputusan
-                            </button>
-                        </h2>
-                        <div id="m3" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
                             <div class="accordion-body">
                                 <p class="small text-muted mb-2">Halaman peninjauan menampilkan satu baris per peserta dengan enam kelompok informasi berdampingan — semua yang perlu diketahui sebelum meluluskan seseorang, dalam satu layar.</p>
                                 <div class="table-responsive mb-2">
@@ -85,14 +64,14 @@
                         </div>
                     </div>
 
-                    <!-- 4 -->
+                    <!-- 3 -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m4">
-                                <span class="badge bg-primary me-2">4</span> Mencentang verifikasi
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m3">
+                                <span class="badge bg-primary me-2">3</span> Mencentang verifikasi
                             </button>
                         </h2>
-                        <div id="m4" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
+                        <div id="m3" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
                             <div class="accordion-body">
                                 <p class="small text-muted mb-2">Setelah meninjau kelima kelompok informasi untuk seorang peserta dan menganggapnya beres, tandai lewat kolom paling kanan — per peserta, tidak perlu menunggu satu sesi selesai ditinjau semua.</p>
                                 <ol class="mb-2">
@@ -107,18 +86,18 @@
                         </div>
                     </div>
 
-                    <!-- 5 -->
+                    <!-- 4 -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m5">
-                                <span class="badge bg-primary me-2">5</span> Finalisasi kelulusan
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m4">
+                                <span class="badge bg-primary me-2">4</span> Finalisasi kelulusan
                             </button>
                         </h2>
-                        <div id="m5" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
+                        <div id="m4" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
                             <div class="accordion-body">
                                 <p class="small text-muted mb-2">Tindakan penutup: mengunci nilai dan menerbitkan nomor dokumen resmi — tapi <strong>hanya untuk peserta yang sudah dicentang Verifikasi</strong>, bukan otomatis seluruh sesi.</p>
                                 <ol class="mb-2">
-                                    <li>Cek sekali lagi lewat <span class="badge bg-gray-200 text-gray-800 border">Preview Keputusan</span> kalau perlu (langkah 3).</li>
+                                    <li>Cek sekali lagi lewat <span class="badge bg-gray-200 text-gray-800 border">Preview Keputusan</span> kalau perlu (langkah 2).</li>
                                     <li>Klik <span class="badge bg-warning text-gray-800">Finalisasi Semua</span> di kanan atas.</li>
                                     <li>Konfirmasi lewat dialog yang muncul dengan <span class="badge bg-gray-800 text-white">Ya, Finalisasi</span>.</li>
                                 </ol>
@@ -129,14 +108,14 @@
                         </div>
                     </div>
 
-                    <!-- 6 -->
+                    <!-- 5 -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m6">
-                                <span class="badge bg-primary me-2">6</span> Setelah finalisasi
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m5">
+                                <span class="badge bg-primary me-2">5</span> Setelah finalisasi
                             </button>
                         </h2>
-                        <div id="m6" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
+                        <div id="m5" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
                             <div class="accordion-body">
                                 <p class="small text-muted mb-2">Baris yang sudah final berubah statusnya dan tidak bisa diverifikasi ulang — baris lain di sesi yang sama boleh saja masih Draft, itu normal.</p>
                                 <ul class="mb-0">
@@ -149,14 +128,14 @@
                         </div>
                     </div>
 
-                    <!-- 7 -->
+                    <!-- 6 -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m7">
-                                <span class="badge bg-primary me-2">7</span> Materai elektronik peserta
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#m6">
+                                <span class="badge bg-primary me-2">6</span> Materai elektronik peserta
                             </button>
                         </h2>
-                        <div id="m7" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
+                        <div id="m6" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
                             <div class="accordion-body">
                                 <p class="small text-muted mb-2">Sesuatu yang berjalan di luar portal ini, tapi berguna diketahui saat peserta bertanya kenapa dokumennya belum bisa diunduh.</p>
 
