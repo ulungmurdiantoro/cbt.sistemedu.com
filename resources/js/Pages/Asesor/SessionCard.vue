@@ -47,6 +47,10 @@
                     :class="variant === 'completed' ? 'btn btn-sm btn-outline-dark' : 'btn btn-sm btn-dark border-0 shadow'">
                     <i class="fa fa-file-alt me-1"></i> Laporan
                 </Link>
+                <Link :href="'/asesor/penilaian/' + session.id + '/ttd-ak01'"
+                    :class="variant === 'completed' ? 'btn btn-sm btn-outline-warning' : 'btn btn-sm btn-warning border-0 shadow'">
+                    <i class="fa fa-signature me-1"></i> TTD AK.01
+                </Link>
             </div>
         </div>
     </div>

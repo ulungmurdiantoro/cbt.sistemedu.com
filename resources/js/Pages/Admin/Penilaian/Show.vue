@@ -9,7 +9,7 @@
                         <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
                     </Link>
                     <Link :href="`/admin/penilaian/${exam_session.id}/dokumen`" class="btn btn-md btn-outline-primary border shadow-sm">
-                        <i class="fa fa-folder-open me-2"></i> Verifikasi Dokumen Peserta
+                        <i class="fa fa-signature me-2"></i> TTD AK.01 Asesor
                     </Link>
                 </div>
 

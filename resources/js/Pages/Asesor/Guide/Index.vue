@@ -10,9 +10,10 @@
                     <div class="card-body">
                         <h5 class="mb-1"><i class="fa fa-life-ring me-2 text-primary"></i>Panduan Asesor</h5>
                         <p class="text-muted mb-0 small">
-                            Tugas Anda ada di tiga sisi: memberi nilai (esai &amp; wawancara), memeriksa keabsahan dokumen
-                            peserta, lalu menyatakan rekomendasi Kompeten/Belum Kompeten lewat Laporan Asesmen —
-                            sebelum diteruskan ke Pengambil Keputusan untuk keputusan akhir.
+                            Tugas Anda ada di tiga sisi: memberi nilai (esai &amp; wawancara), menandatangani AK.01 untuk
+                            peserta yang ditugaskan, lalu menyatakan rekomendasi Kompeten/Belum Kompeten lewat Laporan Asesmen —
+                            sebelum diteruskan ke Pengambil Keputusan untuk keputusan akhir. Verifikasi kelengkapan dokumen
+                            persyaratan (FR.APL.01) bukan tugas Anda — itu ditangani admin di alur pendaftaran.
                         </p>
                     </div>
                 </div>
@@ -34,8 +35,8 @@
                                         <tbody>
                                             <tr><td style="width:160px"><span class="badge bg-gray-200 text-gray-800 border">Esai</span></td><td>Beri nilai jawaban esai seluruh peserta di sesi ini.</td></tr>
                                             <tr><td><span class="badge bg-gray-200 text-gray-800 border">Wawancara</span></td><td>Isi penilaian wawancara per peserta.</td></tr>
-                                            <tr><td><span class="badge bg-gray-200 text-gray-800 border">Dokumen</span></td><td>Periksa &amp; verifikasi dokumen persyaratan (FR.APL.01).</td></tr>
                                             <tr><td><span class="badge bg-gray-200 text-gray-800 border">Laporan</span></td><td>Isi rekomendasi Kompeten/Belum Kompeten &amp; unduh FR.AK.05.</td></tr>
+                                            <tr><td><span class="badge bg-gray-200 text-gray-800 border">TTD AK.01</span></td><td>Tandatangani FR.AK.01 sendiri untuk tiap peserta yang ditugaskan.</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -91,24 +92,22 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#s4">
-                                <span class="badge bg-primary me-2">4</span> Verifikasi dokumen
+                                <span class="badge bg-primary me-2">4</span> TTD AK.01
                             </button>
                         </h2>
                         <div id="s4" class="accordion-collapse collapse" data-bs-parent="#panduanAsesor">
                             <div class="accordion-body">
-                                <p class="fw-semibold mb-1">Per dokumen</p>
-                                <p class="small text-muted">Klik <span class="badge bg-gray-200 text-gray-800 border">Preview</span> untuk membuka berkas langsung di tab baru — tidak perlu diunduh dulu. Setelah diperiksa, pilih <span class="badge bg-success">Terima</span> atau <span class="badge bg-danger">Tolak</span> <span class="text-muted">(sertakan alasan penolakan)</span>.</p>
-
-                                <p class="fw-semibold mb-1 mt-3">Verifikasi Akhir — mengunci pemeriksaan</p>
+                                <p class="small text-muted mb-2">
+                                    Membubuhkan tanda tangan Anda di FR.AK.01 (Persetujuan Asesmen, Ketidakberpihakan, Kerahasiaan)
+                                    untuk peserta yang ditugaskan kepada Anda — dilakukan sendiri, tanpa perlu admin.
+                                    Verifikasi kelengkapan dokumen persyaratan (FR.APL.01) bukan tugas Anda — itu ditangani admin di alur pendaftaran.
+                                </p>
                                 <ol class="mb-2">
-                                    <li>Isi nama penandatangan, lalu gambar TTD langsung (<span class="badge bg-gray-200 text-gray-800 border">Gambar TTD</span>) atau unggah gambar tanda tangan (<span class="badge bg-gray-200 text-gray-800 border">Upload Gambar TTD</span>). TTD tersimpan otomatis dipakai lagi di sesi-sesi berikutnya.</li>
-                                    <li>Klik <span class="badge bg-success">Simpan Verifikasi Akhir</span>, konfirmasi dengan <span class="badge bg-success">Ya, Tandatangani</span>.</li>
+                                    <li>Kalau belum punya TTD tersimpan, isi dulu di kartu <strong>Tanda Tangan Anda</strong> di bagian atas halaman ini (gambar atau upload) — tersimpan otomatis dipakai lagi untuk sesi-sesi berikutnya dan juga FR.AK.05.</li>
+                                    <li>Klik <span class="badge bg-success">Tandatangani</span> pada baris peserta yang dituju, lalu konfirmasi.</li>
                                 </ol>
-                                <div class="alert alert-secondary small mb-2">
-                                    <strong>Terkunci setelah ditandatangani</strong> — status berubah jadi <span class="badge bg-success">Terverifikasi &amp; Terkunci</span> dan tidak bisa diubah lagi sendiri lewat aplikasi.
-                                </div>
-                                <div class="note-box small mb-0">
-                                    Verifikasi dokumen ini <strong>tidak lagi meminta rekomendasi Kompeten/Belum Kompeten</strong> — itu langkah terpisah, ada di langkah 5 (Laporan), karena rekomendasi baru masuk akal diberikan setelah nilai esai &amp; wawancara selesai.
+                                <div class="alert alert-secondary small mb-0">
+                                    <strong>Tidak bisa dibatalkan setelah ditandatangani</strong> — status berubah jadi <span class="badge bg-success">Sudah</span> dan tidak bisa ditandatangani ulang lewat aplikasi.
                                 </div>
                             </div>
                         </div>

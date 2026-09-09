@@ -1,5 +1,5 @@
 <template>
-    <Head><title>Verifikasi Dokumen — {{ exam_session.title }}</title></Head>
+    <Head><title>TTD AK.01 Asesor — {{ exam_session.title }}</title></Head>
     <div class="container-fluid mb-5 mt-4">
         <div class="col-12">
 
@@ -10,7 +10,7 @@
             <!-- Info sesi -->
             <div class="card border-0 shadow mb-3">
                 <div class="card-body py-3">
-                    <h6 class="fw-bold mb-2"><i class="fa fa-folder-open me-2"></i>Verifikasi Dokumen Peserta (Admin)</h6>
+                    <h6 class="fw-bold mb-2"><i class="fa fa-signature me-2"></i>TTD AK.01 Asesor (Admin)</h6>
                     <div class="row small">
                         <div class="col-md-6"><span class="text-muted">Sesi:</span> {{ exam_session.title }}</div>
                         <div class="col-md-6"><span class="text-muted">Skema:</span> {{ exam_session.exam_pg?.classroom?.title ?? exam_session.exam_esai?.classroom?.title ?? '-' }}</div>
@@ -20,8 +20,9 @@
 
             <div class="alert alert-info border-0 shadow-sm small mb-3">
                 <i class="fa fa-info-circle me-1"></i>
-                Verifikasi akhir yang dilakukan dari halaman ini tetap dicatat & ditandatangani atas nama
-                <strong>asesor yang ditugaskan</strong> ke masing-masing peserta (menu Penugasan Asesor) — bukan atas nama admin.
+                Verifikasi dokumen persyaratan (FR.APL.01) dilakukan lewat menu <strong>Permohonan</strong>, terpisah dari halaman ini.
+                Di sini hanya untuk membubuhkan tanda tangan AK.01 — tetap dicatat & ditandatangani atas nama
+                <strong>asesor yang ditugaskan</strong> ke masing-masing peserta (menu Penugasan Asesor), bukan atas nama admin.
             </div>
 
             <!-- Summary -->
@@ -29,25 +30,13 @@
                 <div class="col-3">
                     <div class="card border-0 shadow text-center py-2">
                         <div class="fs-4 fw-bold text-primary">{{ finalVerified }}</div>
-                        <div class="small text-muted">Sudah Verifikasi Akhir</div>
+                        <div class="small text-muted">Sudah TTD AK.01</div>
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="card border-0 shadow text-center py-2">
-                        <div class="fs-4 fw-bold text-success">{{ allVerified }}</div>
-                        <div class="small text-muted">Semua Lengkap</div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card border-0 shadow text-center py-2">
-                        <div class="fs-4 fw-bold text-warning">{{ hasRejected }}</div>
-                        <div class="small text-muted">Ada Ditolak</div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card border-0 shadow text-center py-2">
-                        <div class="fs-4 fw-bold text-secondary">{{ notSubmitted }}</div>
-                        <div class="small text-muted">Belum Submit</div>
+                        <div class="fs-4 fw-bold text-secondary">{{ rows.length - finalVerified }}</div>
+                        <div class="small text-muted">Belum TTD AK.01</div>
                     </div>
                 </div>
             </div>
@@ -66,10 +55,9 @@
                                     <th style="width:5%">#</th>
                                     <th style="width:12%">No. Peserta</th>
                                     <th>Nama</th>
-                                    <th style="width:13%">Asesor Ditugaskan</th>
-                                    <th class="text-center" style="width:12%">Status Aplikasi</th>
-                                    <th class="text-center" style="width:16%">Dokumen</th>
-                                    <th class="text-center" style="width:14%">Verifikasi Akhir</th>
+                                    <th style="width:16%">Asesor Ditugaskan</th>
+                                    <th class="text-center" style="width:14%">Status Aplikasi</th>
+                                    <th class="text-center" style="width:16%">TTD AK.01</th>
                                     <th class="text-center" style="width:10%">Aksi</th>
                                 </tr>
                             </thead>
@@ -90,21 +78,6 @@
                                         <span v-else-if="row.app_status === 'rejected'" class="badge bg-danger">Ditolak</span>
                                     </td>
                                     <td class="text-center">
-                                        <template v-if="row.app_id">
-                                            <span class="badge bg-success me-1" v-if="row.verified > 0">
-                                                <i class="fa fa-check me-1"></i>{{ row.verified }} OK
-                                            </span>
-                                            <span class="badge bg-danger me-1" v-if="row.rejected > 0">
-                                                <i class="fa fa-times me-1"></i>{{ row.rejected }} Ditolak
-                                            </span>
-                                            <span class="badge bg-warning text-dark me-1" v-if="row.pending > 0">
-                                                {{ row.pending }} Menunggu
-                                            </span>
-                                            <span class="text-muted small" v-if="row.uploaded === 0">Belum ada dokumen</span>
-                                        </template>
-                                        <span v-else class="text-muted small">—</span>
-                                    </td>
-                                    <td class="text-center">
                                         <span v-if="row.asesor_verified_at" class="badge bg-primary" :title="row.asesor_verified_at">
                                             <i class="fa fa-check-double me-1"></i>Sudah ({{ formatDate(row.asesor_verified_at) }})
                                         </span>
@@ -118,13 +91,13 @@
                                             :href="`/admin/penilaian/${exam_session.id}/dokumen/${row.student_id}`"
                                             class="btn btn-sm border-0"
                                             :class="row.asesor_verified_at ? 'btn-outline-secondary' : 'btn-primary'">
-                                            <i class="fa fa-folder-open me-1"></i> {{ row.asesor_verified_at ? 'Lihat' : 'Periksa' }}
+                                            <i class="fa fa-signature me-1"></i> {{ row.asesor_verified_at ? 'Lihat' : 'Tandatangani' }}
                                         </Link>
                                         <span v-else class="text-muted small">—</span>
                                     </td>
                                 </tr>
                                 <tr v-if="rows.length === 0">
-                                    <td colspan="8" class="text-center text-muted py-4">Tidak ada peserta.</td>
+                                    <td colspan="7" class="text-center text-muted py-4">Tidak ada peserta.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -150,9 +123,6 @@ export default {
     },
 
     setup(props) {
-        const allVerified   = computed(() => props.rows.filter(r => r.app_id && r.verified > 0 && r.pending === 0 && r.rejected === 0).length);
-        const hasRejected   = computed(() => props.rows.filter(r => r.rejected > 0).length);
-        const notSubmitted  = computed(() => props.rows.filter(r => !r.app_id || r.app_status === 'draft').length);
         const finalVerified = computed(() => props.rows.filter(r => r.asesor_verified_at).length);
 
         const formatDate = (value) => {
@@ -160,7 +130,7 @@ export default {
             return new Date(value).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
         };
 
-        return { allVerified, hasRejected, notSubmitted, finalVerified, formatDate };
+        return { finalVerified, formatDate };
     },
 }
 </script>

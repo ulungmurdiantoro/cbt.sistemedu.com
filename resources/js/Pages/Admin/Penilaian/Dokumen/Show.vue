@@ -1,5 +1,5 @@
 <template>
-    <Head><title>Verifikasi Dokumen — {{ student.name }}</title></Head>
+    <Head><title>TTD AK.01 — {{ student.name }}</title></Head>
     <div class="container-fluid mb-5 mt-4">
         <div class="col-lg-10 col-xl-9 mx-auto">
 

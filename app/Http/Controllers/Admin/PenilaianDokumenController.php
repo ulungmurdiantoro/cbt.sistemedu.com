@@ -42,7 +42,6 @@ class PenilaianDokumenController extends Controller
 
         $applications = AssessmentApplication::whereIn('student_id', $studentIds)
             ->where('exam_session_id', $examSessionId)
-            ->with(['documents.requirement', 'classroom.documentRequirements'])
             ->get()
             ->keyBy('student_id');
 
@@ -55,23 +54,12 @@ class PenilaianDokumenController extends Controller
             $app    = $applications->get($student->id);
             $assign = $assignments->get($student->id);
 
-            $total    = $app?->classroom?->documentRequirements?->count() ?? 0;
-            $verified = $app?->documents?->where('asesor_status', 'verified')->count() ?? 0;
-            $rejected = $app?->documents?->where('asesor_status', 'rejected')->count() ?? 0;
-            $pending  = $app?->documents?->where('asesor_status', 'pending')->count() ?? 0;
-            $uploaded = $app?->documents?->count() ?? 0;
-
             return [
                 'student_id'         => $student->id,
                 'no_participant'     => $student->no_participant,
                 'name'               => $student->name,
                 'app_id'             => $app?->id,
                 'app_status'         => $app?->status,
-                'total_req'          => $total,
-                'uploaded'           => $uploaded,
-                'verified'           => $verified,
-                'rejected'           => $rejected,
-                'pending'            => $pending,
                 'asesor_verified_at' => $app?->asesor_verified_at,
                 'assigned_asesor'    => $assign?->asesor?->name,
             ];
@@ -92,7 +80,6 @@ class PenilaianDokumenController extends Controller
 
         $application = AssessmentApplication::where('student_id', $studentId)
             ->where('exam_session_id', $examSessionId)
-            ->with(['documents.requirement', 'classroom.documentRequirements'])
             ->first();
 
         $assignment = $this->assignedAsesor($examSessionId, $studentId);
