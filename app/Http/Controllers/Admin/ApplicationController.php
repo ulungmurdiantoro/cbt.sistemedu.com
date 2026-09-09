@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ApplicationController extends Controller
@@ -448,11 +449,15 @@ class ApplicationController extends Controller
             'exam_session_id' => 'required|exists:exam_sessions,id',
         ]);
 
-        abort_if($request->exam_session_id == $application->exam_session_id, 422, 'Peserta sudah berada di batch ini.');
+        if ($request->exam_session_id == $application->exam_session_id) {
+            throw ValidationException::withMessages(['exam_session_id' => 'Peserta sudah berada di batch ini.']);
+        }
 
         $newSession = ExamSession::with('examPg', 'examEsai')->findOrFail($request->exam_session_id);
 
-        abort_if($newSession->referenceExam?->classroom_id !== $application->classroom_id, 422, 'Sesi yang dipilih bukan untuk skema yang sama.');
+        if ($newSession->referenceExam?->classroom_id !== $application->classroom_id) {
+            throw ValidationException::withMessages(['exam_session_id' => 'Sesi yang dipilih bukan untuk skema yang sama.']);
+        }
 
         $oldSession = ExamSession::find($application->exam_session_id);
         $oldExamIds = array_filter([$oldSession?->exam_id_pg, $oldSession?->exam_id_esai]);
@@ -474,7 +479,9 @@ class ApplicationController extends Controller
                     ->whereIn('exam_id', $oldExamIds)
                     ->exists();
 
-            abort_if($hasActivity, 422, 'Peserta sudah memiliki jawaban/nilai tersimpan di batch saat ini, tidak bisa dipindahkan otomatis.');
+            if ($hasActivity) {
+                throw ValidationException::withMessages(['exam_session_id' => 'Peserta sudah memiliki jawaban/nilai tersimpan di batch saat ini, tidak bisa dipindahkan otomatis.']);
+            }
         }
 
         DB::transaction(function () use ($application, $newSession) {

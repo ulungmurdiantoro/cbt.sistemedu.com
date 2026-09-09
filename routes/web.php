@@ -156,6 +156,9 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
     Route::post('/penilaian/{exam_session_id}/laporan-asesmen', [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'store'])->name('asesor.laporan_asesmen.store');
     Route::post('/penilaian/{exam_session_id}/laporan-asesmen/rekomendasi', [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'storeRekomendasi'])->name('asesor.laporan_asesmen.rekomendasi');
 
+    Route::post('/tanda-tangan', [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'saveSignature'])->name('asesor.tanda_tangan.save');
+    Route::get('/tanda-tangan',  [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'serveSignature'])->name('asesor.tanda_tangan.serve');
+
 });
 
 // FR.AK.05 diunduh oleh asesor pemilik laporan, admin, atau manager sertifikasi — dicek di controller.

@@ -498,6 +498,9 @@
                         Akun ujian (<strong>{{ application.student?.no_participant }}</strong>) sudah dibuat. Akun akan otomatis
                         dipindahkan ke batch baru, selama peserta belum mengerjakan ujian di batch saat ini.
                     </div>
+                    <div v-if="changeBatchError" class="alert alert-danger border-0 py-2 small mb-3">
+                        <i class="fa fa-times-circle me-1"></i>{{ changeBatchError }}
+                    </div>
                     <label class="fw-semibold small">Batch Baru</label>
                     <select class="form-control mt-1" v-model="selectedSessionId">
                         <option :value="null" disabled>-- Pilih batch --</option>
@@ -542,9 +545,11 @@ export default {
         const showChangeBatchModal  = ref(false);
         const selectedSessionId     = ref(null);
         const changeBatchProcessing = ref(false);
+        const changeBatchError      = ref(null);
 
         const openChangeBatchModal = () => {
             selectedSessionId.value = null;
+            changeBatchError.value = null;
             showChangeBatchModal.value = true;
         };
         const closeChangeBatchModal = () => { showChangeBatchModal.value = false; };
@@ -552,11 +557,13 @@ export default {
         const submitChangeBatch = () => {
             if (!selectedSessionId.value) return;
             changeBatchProcessing.value = true;
+            changeBatchError.value = null;
             router.post(`/admin/applications/${props.application.id}/ganti-batch`,
                 { exam_session_id: selectedSessionId.value },
                 {
                     preserveScroll: true,
                     onSuccess: () => { showChangeBatchModal.value = false; },
+                    onError:   (errors) => { changeBatchError.value = errors.exam_session_id ?? 'Gagal memindahkan batch.'; },
                     onFinish:  () => { changeBatchProcessing.value = false; },
                 }
             );
@@ -842,7 +849,7 @@ export default {
             switchAdminSigMode, clearAdminSig, onAdminSigFileChange,
             showResetPasswordModal, resetPasswordProcessing, resetPasswordForm, resetPasswordErrors,
             openResetPasswordModal, closeResetPasswordModal, submitResetPassword,
-            showChangeBatchModal, selectedSessionId, changeBatchProcessing,
+            showChangeBatchModal, selectedSessionId, changeBatchProcessing, changeBatchError,
             openChangeBatchModal, closeChangeBatchModal, submitChangeBatch,
             showAssessmentForm, assessmentSaving, assessmentAnswers,
             openAssessmentForm, computedTotalScore, canApprove, submitAssessment, resultSentence,
