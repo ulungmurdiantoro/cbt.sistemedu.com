@@ -6,14 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Jobs\StampFrAk01Job;
 use App\Models\AssessmentApplication;
 
-// Materai elektronik FR.AK.01 — khusus bagian tanda tangan peserta (asesi).
-// Gratis untuk peserta: begitu pakta ditandatangani (ApplicationController::
-// savePakta), StampFrAk01Job otomatis dijalankan di background. Controller
+// Materai elektronik FR.AK.01 — gratis untuk peserta, dibubuhkan otomatis
+// hanya setelah ketiga tanda tangan lengkap: Asesi (savePakta), LSP/Admin
+// (ApplicationController::approve), dan Asesor (PenilaianDokumenController::
+// finalVerify / TtdAk01Controller::sign) — lihat AssessmentApplication::
+// maybeTriggerAk01Stamping(), dipanggil dari ketiga titik tersebut. Controller
 // ini murni untuk menampilkan status & memicu ulang kalau gagal.
 //
 // Catatan: kolom materai_status memakai enum lama (peninggalan alur bayar
 // Midtrans yang sudah dihapus) — nilai 'pending_payment'/'paid' sekarang
 // dipakai ulang untuk berarti "sedang diproses", bukan berarti pembayaran.
+// Status 'none' berarti belum ketiga tanda tangan lengkap — bisa berlangsung
+// lama (menunggu approval & penugasan asesor), bukan berarti macet.
 class MateraiController extends Controller
 {
     private function authorizeApplication(AssessmentApplication $application): void

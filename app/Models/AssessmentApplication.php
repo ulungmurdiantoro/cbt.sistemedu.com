@@ -132,4 +132,23 @@ class AssessmentApplication extends Model
     {
         return $this->status === ApplicationStatus::Rejected;
     }
+
+    /**
+     * Bubuhkan e-meterai FR.AK.01 hanya setelah ketiga tanda tangan lengkap —
+     * Asesi (signature_path), LSP/admin (admin_signature_path), dan Asesor
+     * (asesor_signature_path). Dipanggil setiap salah satu dari ketiganya baru
+     * diisi (savePakta, approve, finalVerify/TtdAk01), tapi hanya benar-benar
+     * memicu job sekali — pada saat yang TERAKHIR dari ketiganya terpenuhi.
+     */
+    public function maybeTriggerAk01Stamping(): void
+    {
+        if ($this->materai_status !== 'none') {
+            return; // sudah pernah dipicu (pending_payment/paid/stamped) atau gagal — retry ditangani terpisah
+        }
+
+        if ($this->signature_path && $this->admin_signature_path && $this->asesor_signature_path) {
+            $this->update(['materai_status' => 'pending_payment']);
+            \App\Jobs\StampFrAk01Job::dispatch($this->id);
+        }
+    }
 }

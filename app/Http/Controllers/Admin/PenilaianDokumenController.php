@@ -158,6 +158,10 @@ class PenilaianDokumenController extends Controller
             'asesor_signature_name' => $asesor->signature_name ?: $asesor->name,
         ]);
 
+        // Meterai FR.AK.01 baru dibubuhkan setelah ketiga tanda tangan lengkap
+        // (Asesi + LSP/admin + Asesor) — lihat AssessmentApplication::maybeTriggerAk01Stamping().
+        $application->maybeTriggerAk01Stamping();
+
         return redirect()->route('admin.penilaian.dokumen.index', $examSessionId)
             ->with('success', 'Verifikasi akhir berhasil ditandatangani atas nama ' . $asesor->name . '.');
     }

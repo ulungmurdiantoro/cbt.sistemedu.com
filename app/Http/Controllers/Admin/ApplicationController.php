@@ -347,6 +347,10 @@ class ApplicationController extends Controller
             ]);
         });
 
+        // Meterai FR.AK.01 baru dibubuhkan setelah ketiga tanda tangan lengkap
+        // (Asesi + LSP/admin + Asesor) — lihat AssessmentApplication::maybeTriggerAk01Stamping().
+        $application->maybeTriggerAk01Stamping();
+
         try {
             $application->load(['participant', 'classroom', 'examSession', 'student']);
             Mail::to($application->participant->email)->send(new ApplicationApprovedMail($application));

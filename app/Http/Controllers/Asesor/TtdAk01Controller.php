@@ -96,6 +96,10 @@ class TtdAk01Controller extends Controller
             'asesor_signature_name' => $asesor->signature_name ?: $asesor->name,
         ]);
 
+        // Meterai FR.AK.01 baru dibubuhkan setelah ketiga tanda tangan lengkap
+        // (Asesi + LSP/admin + Asesor) — lihat AssessmentApplication::maybeTriggerAk01Stamping().
+        $application->maybeTriggerAk01Stamping();
+
         return back()->with('success', 'AK.01 berhasil ditandatangani atas nama Anda.');
     }
 }

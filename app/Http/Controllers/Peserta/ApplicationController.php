@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Peserta\Concerns\StoresSignatures;
 use App\Http\Requests\SaveApplicationFormRequest;
 use App\Http\Requests\StoreSkemaRequest;
-use App\Jobs\StampFrAk01Job;
 use App\Mail\ApplicationSubmittedMail;
 use App\Models\AssessmentApplication;
 use App\Models\ExamSession;
@@ -171,13 +170,14 @@ class ApplicationController extends Controller
         $application->update([
             'signature_path'  => $path,
             'pakta_signed_at' => now(),
-            'materai_status'  => 'pending_payment', // dipakai kembali sebagai penanda "sedang diproses" — lihat catatan di MateraiController
         ]);
 
-        StampFrAk01Job::dispatch($application->id);
+        // Meterai FR.AK.01 baru dibubuhkan setelah ketiga tanda tangan lengkap
+        // (Asesi + LSP/admin + Asesor) — lihat AssessmentApplication::maybeTriggerAk01Stamping().
+        $application->maybeTriggerAk01Stamping();
 
         return redirect()->route('peserta.application.documents', $application->id)
-            ->with('success', 'Pakta integritas berhasil ditandatangani. Materai elektronik sedang diproses otomatis.');
+            ->with('success', 'Pakta integritas berhasil ditandatangani.');
     }
 
     // Sajikan file tanda tangan secara privat (hanya pemilik permohonan)

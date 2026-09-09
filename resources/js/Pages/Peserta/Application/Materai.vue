@@ -47,7 +47,18 @@
                 </button>
             </template>
 
-            <!-- Sedang diproses (default/none/pending_payment) -->
+            <!-- Menunggu TTD Admin & Asesor lengkap dulu -->
+            <template v-else-if="application.materai_status === 'none'">
+                <i class="fa fa-hourglass-start text-secondary" style="font-size:3rem"></i>
+                <h6 class="fw-bold mt-3">Menunggu Verifikasi Selesai</h6>
+                <p class="text-muted small mb-0">
+                    Materai baru dibubuhkan setelah tanda tangan Anda, LSP (Admin), dan Asesor lengkap semua di dokumen ini —
+                    biasanya menunggu proses persetujuan permohonan dan penugasan asesor selesai lebih dulu.
+                    Ini bisa memakan waktu, tidak perlu berulang kali dicek.
+                </p>
+            </template>
+
+            <!-- Sedang diproses (pending_payment/paid) -->
             <template v-else>
                 <i class="fa fa-hourglass-half text-warning" style="font-size:3rem"></i>
                 <h6 class="fw-bold mt-3">Materai Sedang Diproses</h6>
