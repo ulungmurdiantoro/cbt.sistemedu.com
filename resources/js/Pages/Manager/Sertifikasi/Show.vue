@@ -70,24 +70,25 @@
 
                                 <!-- Dokumen Persyaratan -->
                                 <td class="text-center">
-                                    <a :href="`/manager/dokumen/${exam_session.id}/${row.student_id}`"
-                                        target="_blank" class="d-block small" title="Lihat Dokumen">
-                                        <i class="fa fa-eye me-1"></i>Lihat Dokumen
-                                    </a>
-                                </td>
-
-                                <!-- FR.APL.01 -->
-                                <td class="text-center">
                                     <span v-if="row.apl01_complete" class="badge bg-success">
                                         <i class="fa fa-check me-1"></i>Lengkap
                                     </span>
                                     <span v-else class="badge bg-warning text-dark">
                                         {{ row.apl01_verified }} / {{ row.apl01_total }}
                                     </span>
+                                    <a :href="`/manager/dokumen/${exam_session.id}/${row.student_id}`"
+                                        target="_blank" class="d-block small mt-1" title="Lihat Dokumen">
+                                        <i class="fa fa-eye me-1"></i>Lihat Dokumen
+                                    </a>
+                                </td>
+
+                                <!-- FR.APL.01 -->
+                                <td class="text-center">
                                     <a v-if="row.application_id" :href="`/manager/applications/${row.application_id}/fr-apl-01`"
-                                        target="_blank" class="d-block small mt-1" title="Generate FR.APL.01">
+                                        target="_blank" class="d-block small" title="Generate FR.APL.01">
                                         <i class="fa fa-file-pdf me-1"></i>FR.APL.01
                                     </a>
+                                    <span v-else class="text-muted small">—</span>
                                 </td>
 
                                 <!-- FR.APL.03 -->
