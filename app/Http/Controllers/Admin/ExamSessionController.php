@@ -188,8 +188,24 @@ class ExamSessionController extends Controller
             $exam_session->exam_id_esai,
         ]);
 
+        // Nama peserta yang SUDAH ter-enroll di sesi ini (dinormalisasi) — dipakai
+        // untuk mencegah 1 orang masuk 2x lewat 2 record Student berbeda.
+        $enrolledNames = Student::whereIn('id', ExamGroup::where('exam_session_id', $exam_session->id)->distinct()->pluck('student_id'))
+            ->pluck('name')
+            ->map(fn ($n) => preg_replace('/\s+/', ' ', trim(mb_strtolower($n))))
+            ->all();
+
+        $skipped = [];
+
         foreach ($request->student_id as $student_id) {
-            Student::findOrFail($student_id); // validasi student ada
+            $student = Student::findOrFail($student_id); // validasi student ada
+
+            $normName = preg_replace('/\s+/', ' ', trim(mb_strtolower($student->name)));
+            if (in_array($normName, $enrolledNames, true)) {
+                $skipped[] = $student->name;
+                continue;
+            }
+            $enrolledNames[] = $normName;
 
             foreach ($examIds as $exam_id) {
                 $exists = ExamGroup::where([
@@ -207,6 +223,16 @@ class ExamSessionController extends Controller
                     ]);
                 }
             }
+        }
+
+        if (!empty($skipped)) {
+            $names = collect($skipped)->unique()->values();
+            // Peserta yang tidak bentrok tetap ter-enroll di atas; yang bentrok
+            // dilaporkan sebagai error inline supaya admin sadar ada nama kembar.
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'student_id' => $names->count() . ' peserta dilewati karena nama yang sama sudah terdaftar di sesi ini: '
+                    . $names->implode(', ') . '. Kalau memang orang berbeda, ubah dulu namanya agar tidak persis sama.',
+            ]);
         }
 
         return redirect()->route('admin.exam_sessions.show', $exam_session->id);

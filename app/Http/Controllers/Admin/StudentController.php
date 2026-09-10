@@ -191,9 +191,17 @@ class StudentController extends Controller
         ]);
 
         // import data
-        Excel::import(new StudentsImport(), $request->file('file'));
+        $import = new StudentsImport();
+        Excel::import($import, $request->file('file'));
+
+        $msg = 'Data peserta berhasil diimpor.';
+        if (!empty($import->skipped)) {
+            $names = collect($import->skipped)->unique()->values();
+            $msg .= ' ' . $names->count() . ' baris dilewati karena namanya sudah terdaftar di skema yang sama: '
+                . $names->implode(', ') . '.';
+        }
 
         //redirect
-        return redirect()->route('admin.students.index');
+        return redirect()->route('admin.students.index')->with('success', $msg);
     }
 }

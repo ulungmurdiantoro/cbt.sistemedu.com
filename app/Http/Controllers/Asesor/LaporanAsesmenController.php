@@ -18,9 +18,15 @@ class LaporanAsesmenController extends Controller
 {
     private function assignedStudentIds(int $examSessionId, int $userId): \Illuminate\Support\Collection
     {
-        return AsesorAssignment::where('user_id', $userId)
+        $ids = AsesorAssignment::where('user_id', $userId)
             ->where('exam_session_id', $examSessionId)
             ->pluck('student_id');
+
+        // Sembunyikan akun peserta yang sudah dinonaktifkan (mis. akun lama hasil
+        // re-issue) supaya nama tidak tampil dobel di Laporan Asesmen & FR.AK.05.
+        return Student::whereIn('id', $ids)
+            ->where('is_active', true)
+            ->pluck('id');
     }
 
     private function buildRows(int $examSessionId, int $userId): array

@@ -451,6 +451,15 @@ class ApplicationController extends Controller
                         $assignment->update(['student_id' => $newStudent->id]);
                     }
                 }
+
+                // Buang enrollment (ExamGroup) student lama di sesi ini — sudah
+                // digantikan ExamGroup student baru. Kalau dibiarkan, student lama
+                // tetap muncul di roster Tinjau Sertifikasi (yang ambil dari
+                // ExamGroup). Jawaban ujian lama tidak tersentuh (terhubung lewat
+                // student_id + exam_session_id, bukan exam_group_id).
+                ExamGroup::where('exam_session_id', $application->exam_session_id)
+                    ->where('student_id', $oldStudent->id)
+                    ->delete();
             }
 
             // log reissue

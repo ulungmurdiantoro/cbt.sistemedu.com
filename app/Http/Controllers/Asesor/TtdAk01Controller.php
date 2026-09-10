@@ -21,9 +21,15 @@ class TtdAk01Controller extends Controller
 {
     private function assignedStudentIds(int $examSessionId, int $userId): \Illuminate\Support\Collection
     {
-        return AsesorAssignment::where('user_id', $userId)
+        $ids = AsesorAssignment::where('user_id', $userId)
             ->where('exam_session_id', $examSessionId)
             ->pluck('student_id');
+
+        // Sembunyikan akun peserta yang sudah dinonaktifkan (mis. akun lama hasil
+        // re-issue) supaya nama tidak tampil dobel di daftar TTD AK.01.
+        return Student::whereIn('id', $ids)
+            ->where('is_active', true)
+            ->pluck('id');
     }
 
     public function show(int $examSessionId)
@@ -71,6 +77,12 @@ class TtdAk01Controller extends Controller
                 ->exists(),
             403,
             'Peserta ini tidak ditugaskan kepada Anda.'
+        );
+
+        abort_unless(
+            Student::where('id', $studentId)->where('is_active', true)->exists(),
+            404,
+            'Akun peserta ini sudah tidak aktif (mis. digantikan akun baru hasil re-issue).'
         );
 
         $application = AssessmentApplication::where('student_id', $studentId)

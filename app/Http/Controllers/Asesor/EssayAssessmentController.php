@@ -28,6 +28,12 @@ class EssayAssessmentController extends Controller
 
         abort_if($assigned_student_ids->isEmpty(), 403, 'Anda tidak ditugaskan pada sesi ini.');
 
+        // Sembunyikan akun peserta yang sudah dinonaktifkan (mis. akun lama hasil
+        // re-issue) supaya nama tidak tampil dobel saat menilai.
+        $assigned_student_ids = \App\Models\Student::whereIn('id', $assigned_student_ids)
+            ->where('is_active', true)
+            ->pluck('id');
+
         // Soal-soal esai
         $essays = Essay::where('exam_id', $esaiExamId)
             ->orderBy('id')

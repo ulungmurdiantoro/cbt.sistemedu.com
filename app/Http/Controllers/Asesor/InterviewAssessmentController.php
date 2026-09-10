@@ -34,6 +34,12 @@ class InterviewAssessmentController extends Controller
 
         abort_if($assigned_student_ids->isEmpty(), 403, 'Anda tidak ditugaskan pada sesi ini.');
 
+        // Sembunyikan akun peserta yang sudah dinonaktifkan (mis. akun lama hasil
+        // re-issue) supaya nama tidak tampil dobel saat menilai.
+        $assigned_student_ids = Student::whereIn('id', $assigned_student_ids)
+            ->where('is_active', true)
+            ->pluck('id');
+
         $students = Student::whereIn('id', $assigned_student_ids)
             ->orderBy('no_participant')
             ->get();

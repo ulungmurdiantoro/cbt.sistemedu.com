@@ -8,6 +8,7 @@ use App\Models\Grade;
 use App\Models\GradingScheme;
 use App\Models\InterviewAssessment;
 use App\Models\ParticipantResult;
+use App\Models\Student;
 
 class ResultCalculatorService
 {
@@ -32,6 +33,13 @@ class ResultCalculatorService
         $studentIds = $session->exam_groups
             ->pluck('student_id')
             ->unique()
+            ->values();
+
+        // Abaikan akun peserta yang sudah dinonaktifkan (mis. akun lama hasil
+        // re-issue) supaya tidak muncul dobel di halaman Tinjau Sertifikasi.
+        $studentIds = Student::whereIn('id', $studentIds)
+            ->where('is_active', true)
+            ->pluck('id')
             ->values();
 
         // Batch fetch — hindari n+1 query per peserta
