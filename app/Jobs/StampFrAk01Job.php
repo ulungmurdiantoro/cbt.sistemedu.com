@@ -45,16 +45,24 @@ class StampFrAk01Job implements ShouldQueue
                 'namafile' => 'FR-AK-01-' . $application->code . '.pdf',
             ]);
 
+            // Tabel TTD (LSP / Asesor / Asesi) selalu di HALAMAN TERAKHIR dokumen
+            // (setelah page-break), tapi nomornya bisa 2 atau 3 tergantung panjang
+            // isi klausul per peserta — jadi target halamannya dihitung dinamis,
+            // jangan dipatok angka.
+            $lastPage = $this->pdfPageCount($pdf);
+
             $stamped = $peruri->stamp($pdf, $sn['qrBase64'], [
                 'refToken'         => $sn['sn'],
                 'reason'           => 'Persetujuan Asesmen FR.AK.01',
-                // Posisi QR di pojok kanan bawah, dekat blok TTD Asesi.
-                // Dikalibrasi lewat https://e-form.peruri.co.id/pdfviewer/
-                'visLLX'           => 380,
-                'visLLY'           => 60,
-                'visURX'           => 480,
-                'visURY'           => 160,
-                'visSignaturePage' => 2,
+                // Meterai ditaruh DI SAMPING KIRI kotak TTD Asesi (baris paling
+                // bawah tabel TTD), tidak menimpa gambar tanda tangan.
+                // Koordinat PDF (origin kiri-bawah), perlu 1x uji stempel nyata
+                // untuk kalibrasi halus.
+                'visLLX'           => 150,
+                'visLLY'           => 560,
+                'visURX'           => 235,
+                'visURY'           => 645,
+                'visSignaturePage' => $lastPage,
             ]);
 
             $path = "materai/fr-ak-01/{$application->id}.pdf";
@@ -74,5 +82,16 @@ class StampFrAk01Job implements ShouldQueue
 
             throw $e;
         }
+    }
+
+    /** Hitung jumlah halaman dari bytes PDF hasil mPDF. */
+    private function pdfPageCount(string $pdf): int
+    {
+        if (preg_match('/\/Type\s*\/Pages\b[^>]*?\/Count\s+(\d+)/s', $pdf, $m)) {
+            return max(1, (int) $m[1]);
+        }
+        // fallback: hitung objek /Type /Page (bukan /Pages)
+        $pages = preg_match_all('/\/Type\s*\/Page(?![s])/', $pdf);
+        return max(1, $pages);
     }
 }
