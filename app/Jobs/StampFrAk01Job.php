@@ -56,12 +56,12 @@ class StampFrAk01Job implements ShouldQueue
                 'reason'           => 'Persetujuan Asesmen FR.AK.01',
                 // Meterai ditaruh DI SAMPING KIRI kotak TTD Asesi (baris paling
                 // bawah tabel TTD), tidak menimpa gambar tanda tangan.
-                // Koordinat PDF (origin kiri-bawah). Iterasi 2: turun 1 baris —
-                // sebelumnya sejajar baris Asesor, sekarang diarahkan ke Asesi.
+                // Koordinat PDF (origin kiri-bawah). Iterasi 3: dari 470 (kelewat
+                // rendah) dinaikkan ~30pt supaya pas sejajar baris Asesi.
                 'visLLX'           => 150,
-                'visLLY'           => 470,
+                'visLLY'           => 500,
                 'visURX'           => 235,
-                'visURY'           => 555,
+                'visURY'           => 585,
                 'visSignaturePage' => $lastPage,
             ]);
 

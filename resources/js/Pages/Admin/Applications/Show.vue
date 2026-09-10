@@ -388,7 +388,7 @@
                         </div>
 
                         <div v-else-if="['pending_payment','paid'].includes(application.materai_status)" class="alert alert-info p-2 small mb-2">
-                            <i class="fa fa-spinner fa-spin me-1"></i>Sedang diproses — muat ulang halaman beberapa saat lagi.
+                            <i class="fa fa-spinner fa-spin me-1"></i>Sedang diproses — halaman akan memperbarui sendiri.
                         </div>
 
                         <template v-else>
@@ -862,6 +862,23 @@ export default {
                 onFinish: () => { processing.value = false; },
             });
         };
+
+        // Pembubuhan jalan di background (queue) ~10-15 detik. Selama status masih
+        // "diproses", halaman otomatis di-refresh tiap 4 detik sampai hasilnya
+        // keluar — jadi admin tidak perlu refresh manual.
+        let materaiPollTimer = null;
+        const stopMateraiPoll = () => { if (materaiPollTimer) { clearInterval(materaiPollTimer); materaiPollTimer = null; } };
+        const startMateraiPoll = () => {
+            stopMateraiPoll();
+            materaiPollTimer = setInterval(() => {
+                router.reload({ only: ['application'], preserveScroll: true, preserveState: true });
+            }, 4000);
+        };
+        watch(() => props.application.materai_status, (s) => {
+            if (['pending_payment', 'paid'].includes(s)) startMateraiPoll();
+            else stopMateraiPoll();
+        }, { immediate: true });
+        onUnmounted(stopMateraiPoll);
 
         const reissue = () => {
             processing.value = true;
