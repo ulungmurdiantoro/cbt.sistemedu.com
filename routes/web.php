@@ -76,6 +76,8 @@ Route::prefix('admin')->group(function () {
         Route::post('/applications/{application}/approve',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'approve'])->name('admin.applications.approve');
         Route::post('/applications/{application}/reject',                  [\App\Http\Controllers\Admin\ApplicationController::class, 'reject'])->name('admin.applications.reject');
         Route::delete('/applications/{application}',                       [\App\Http\Controllers\Admin\ApplicationController::class, 'destroy'])->name('admin.applications.destroy');
+        Route::post('/applications/{application}/materai',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'stampMaterai'])->name('admin.applications.materai');
+        Route::get('/applications/{application}/materai/download',         [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadMaterai'])->name('admin.applications.materai.download');
         Route::post('/applications/{application}/reissue',                 [\App\Http\Controllers\Admin\ApplicationController::class, 'reissueStudent'])->name('admin.applications.reissue');
         Route::post('/applications/{application}/ganti-batch',             [\App\Http\Controllers\Admin\ApplicationController::class, 'changeBatch'])->name('admin.applications.changeBatch');
         Route::post('/applications/{application}/documents/{doc}/verify',  [\App\Http\Controllers\Admin\ApplicationController::class, 'verifyDocument'])->name('admin.applications.documents.verify');

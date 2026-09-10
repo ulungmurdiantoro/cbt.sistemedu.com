@@ -21,6 +21,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Pembubuhan otomatis
+    |--------------------------------------------------------------------------
+    | true  = materai FR.AK.01 dibubuhkan otomatis begitu ketiga TTD lengkap.
+    | false = MANUAL — admin membubuhkan lewat tombol di halaman permohonan
+    |         (admin/applications/{id}). Berguna untuk kontrol biaya / tracking,
+    |         atau saat menangani backlog dokumen lama.
+    */
+    'auto_stamp' => env('MATERAI_AUTO_STAMP', true),
+
+    /*
+    |--------------------------------------------------------------------------
     | Peruri e-Meterai (PJPU) — mode On-Premise
     |--------------------------------------------------------------------------
     | Dokumen tidak diupload ke server Peruri. Login & Generate Serial Number

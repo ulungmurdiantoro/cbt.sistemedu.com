@@ -146,6 +146,12 @@ class AssessmentApplication extends Model
             return; // sudah pernah dipicu (pending_payment/paid/stamped) atau gagal — retry ditangani terpisah
         }
 
+        // Mode manual (MATERAI_AUTO_STAMP=false): jangan dispatch otomatis —
+        // admin membubuhkan lewat tombol di halaman permohonan.
+        if (!config('materai.auto_stamp', true)) {
+            return;
+        }
+
         if ($this->signature_path && $this->admin_signature_path && $this->asesor_signature_path) {
             $this->update(['materai_status' => 'pending_payment']);
             \App\Jobs\StampFrAk01Job::dispatch($this->id);

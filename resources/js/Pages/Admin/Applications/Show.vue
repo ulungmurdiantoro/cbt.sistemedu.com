@@ -375,6 +375,41 @@
                         Disetujui oleh {{ application.approver?.name }} pada {{ formatDate(application.approved_at) }}
                     </div>
 
+                    <!-- Materai e-meterai FR.AK.01 -->
+                    <div v-if="application.status === 'approved'" class="mt-3 pt-3 border-top">
+                        <div class="small fw-semibold mb-2"><i class="fa fa-stamp me-1"></i>Materai FR.AK.01</div>
+
+                        <div v-if="application.materai_status === 'stamped'" class="alert alert-success p-2 small mb-2">
+                            <i class="fa fa-check-circle me-1"></i>Sudah dibubuhkan
+                            <span v-if="application.materai_stamped_at" class="text-muted"> &middot; {{ formatDate(application.materai_stamped_at) }}</span>
+                            <a :href="`/admin/applications/${application.id}/materai/download`" target="_blank" class="d-block mt-1">
+                                <i class="fa fa-file-pdf me-1"></i>Lihat dokumen bermaterai
+                            </a>
+                        </div>
+
+                        <div v-else-if="['pending_payment','paid'].includes(application.materai_status)" class="alert alert-info p-2 small mb-2">
+                            <i class="fa fa-spinner fa-spin me-1"></i>Sedang diproses — muat ulang halaman beberapa saat lagi.
+                        </div>
+
+                        <template v-else>
+                            <div v-if="application.materai_status === 'failed'" class="alert alert-danger p-2 small mb-2">
+                                <strong>Gagal:</strong> {{ application.materai_failure_reason || 'tidak diketahui' }}
+                            </div>
+                            <div v-if="!materaiTtdLengkap" class="alert alert-warning border-0 p-2 small mb-2">
+                                Menunggu tanda tangan lengkap:
+                                <span v-if="!application.signature_path">Asesi </span>
+                                <span v-if="!application.admin_signature_path">LSP </span>
+                                <span v-if="!application.asesor_signature_path">Asesor</span>
+                            </div>
+                            <button class="btn btn-dark btn-sm w-100" :disabled="!materaiTtdLengkap || processing" @click="stampMateraiNow">
+                                <i class="fa fa-stamp me-1"></i>
+                                {{ application.materai_status === 'failed' ? 'Coba Bubuhkan Lagi' : 'Bubuhkan Materai' }}
+                            </button>
+                        </template>
+
+                        <div v-if="materaiError" class="text-danger small mt-1">{{ materaiError }}</div>
+                    </div>
+
                     <!-- Hapus permohonan (belum disetujui) -->
                     <div v-if="application.status !== 'approved'" class="d-grid mt-3 pt-3 border-top">
                         <button class="btn btn-outline-danger btn-sm" :disabled="processing" @click="destroyApplication">
@@ -811,6 +846,23 @@ export default {
             });
         };
 
+        const materaiError = ref('');
+        const materaiTtdLengkap = computed(() =>
+            !!props.application.signature_path &&
+            !!props.application.admin_signature_path &&
+            !!props.application.asesor_signature_path
+        );
+        const stampMateraiNow = () => {
+            if (!confirm('Bubuhkan e-meterai pada FR.AK.01 sekarang? Ini memakai 1 kuota meterai.')) return;
+            processing.value = true;
+            materaiError.value = '';
+            router.post(`/admin/applications/${props.application.id}/materai`, {}, {
+                preserveScroll: true,
+                onError: (e) => { materaiError.value = e.materai ?? 'Gagal memproses materai.'; },
+                onFinish: () => { processing.value = false; },
+            });
+        };
+
         const reissue = () => {
             processing.value = true;
             router.post(`/admin/applications/${props.application.id}/reissue`, { reason: reissueReason.value }, {
@@ -863,6 +915,7 @@ export default {
             processing, showRejectForm, showReissueModal, rejectNotes, reissueReason,
             rejectDocId, rejectDocNotes,
             approve, reject, reissue, destroyApplication, openRejectDoc, verifyDoc,
+            materaiError, materaiTtdLengkap, stampMateraiNow,
             adminSigMode, adminSigCanvas, adminSigFile, adminSigFilePreview,
             adminSignName, useSavedSig,
             switchAdminSigMode, clearAdminSig, onAdminSigFileChange,

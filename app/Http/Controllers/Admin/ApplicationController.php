@@ -415,6 +415,46 @@ class ApplicationController extends Controller
             ->with('success', 'Permohonan berhasil dihapus.');
     }
 
+    /**
+     * Bubuhkan e-meterai FR.AK.01 secara MANUAL (klik admin) — dipakai saat
+     * MATERAI_AUTO_STAMP=false, atau untuk mengulang yang gagal. Job idempoten
+     * (skip kalau sudah 'stamped').
+     */
+    public function stampMaterai(AssessmentApplication $application)
+    {
+        if (!$application->signature_path || !$application->admin_signature_path || !$application->asesor_signature_path) {
+            throw ValidationException::withMessages([
+                'materai' => 'Ketiga tanda tangan (Asesi, LSP, Asesor) harus lengkap dulu sebelum materai dibubuhkan.',
+            ]);
+        }
+        if ($application->materai_status === 'stamped') {
+            throw ValidationException::withMessages(['materai' => 'Materai FR.AK.01 sudah dibubuhkan.']);
+        }
+        if (in_array($application->materai_status, ['pending_payment', 'paid'], true)) {
+            throw ValidationException::withMessages(['materai' => 'Materai sedang diproses. Tunggu sebentar lalu muat ulang halaman.']);
+        }
+
+        $application->update(['materai_status' => 'pending_payment', 'materai_failure_reason' => null]);
+        \App\Jobs\StampFrAk01Job::dispatch($application->id);
+
+        return back()->with('success', 'Pembubuhan materai FR.AK.01 diproses. Muat ulang halaman beberapa saat lagi untuk melihat hasilnya.');
+    }
+
+    /** Tampilkan/unduh FR.AK.01 yang sudah dibubuhi materai. */
+    public function downloadMaterai(AssessmentApplication $application)
+    {
+        abort_if(
+            $application->materai_status !== 'stamped' || !$application->materai_document_path,
+            404,
+            'Materai FR.AK.01 belum dibubuhkan.'
+        );
+        abort_unless(Storage::disk('private')->exists($application->materai_document_path), 404);
+
+        return response()->file(Storage::disk('private')->path($application->materai_document_path), [
+            'Content-Disposition' => 'inline; filename="FR.AK.01 (materai) - ' . str_replace('"', '', (string) $application->code) . '.pdf"',
+        ]);
+    }
+
     public function reissueStudent(Request $request, AssessmentApplication $application)
     {
         abort_if(!$application->isApproved(), 422, 'Hanya permohonan yang sudah disetujui yang dapat di-reissue.');
