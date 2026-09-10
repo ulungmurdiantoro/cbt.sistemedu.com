@@ -96,6 +96,11 @@
                         <div id="m4" class="accordion-collapse collapse" data-bs-parent="#panduanManager">
                             <div class="accordion-body">
                                 <p class="small text-muted mb-2">Tindakan penutup: mengunci nilai dan menerbitkan nomor dokumen resmi — tapi <strong>hanya untuk peserta yang sudah dicentang Verifikasi</strong>, bukan otomatis seluruh sesi.</p>
+                                <div class="alert alert-warning small mb-2">
+                                    <i class="fa fa-signature me-1"></i>
+                                    Pastikan tanda tangan Anda sudah tersimpan di menu <span class="badge bg-gray-200 text-gray-800 border">Tanda Tangan Saya</span> sebelum finalisasi —
+                                    TTD itu yang dibubuhkan otomatis pada Berita Acara Keputusan Sertifikasi. Kalau belum, kotak TTD di dokumen akan kosong.
+                                </div>
                                 <ol class="mb-2">
                                     <li>Cek sekali lagi lewat <span class="badge bg-gray-200 text-gray-800 border">Preview Keputusan</span> kalau perlu (langkah 2).</li>
                                     <li>Klik <span class="badge bg-warning text-gray-800">Finalisasi Semua</span> di kanan atas.</li>

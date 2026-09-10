@@ -176,6 +176,10 @@ Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
     Route::get('/dashboard', \App\Http\Controllers\Manager\DashboardController::class)->name('manager.dashboard');
     Route::get('/panduan', fn () => inertia('Manager/Guide/Index'))->name('manager.panduan');
 
+    Route::get('/tanda-tangan',        [\App\Http\Controllers\Manager\SignatureController::class, 'show'])->name('manager.signature.show');
+    Route::post('/tanda-tangan',       [\App\Http\Controllers\Manager\SignatureController::class, 'save'])->name('manager.signature.save');
+    Route::get('/tanda-tangan/gambar', [\App\Http\Controllers\Manager\SignatureController::class, 'serve'])->name('manager.signature.serve');
+
     Route::get('/sertifikasi/{examSession}',          [\App\Http\Controllers\Manager\SertifikasiController::class, 'show'])->name('manager.sertifikasi.show');
     Route::post('/sertifikasi/{examSession}/finalize', [\App\Http\Controllers\Manager\SertifikasiController::class, 'finalize'])->name('manager.sertifikasi.finalize');
     Route::post('/sertifikasi/{examSession}/verifikasi/{studentId}', [\App\Http\Controllers\Manager\SertifikasiController::class, 'toggleVerify'])->name('manager.sertifikasi.toggle_verify');

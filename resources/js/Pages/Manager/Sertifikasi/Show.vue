@@ -34,6 +34,13 @@
             Pakai <strong>Preview Keputusan</strong> untuk melihat draf berita acara sebelum benar-benar difinalisasi.
         </div>
 
+        <div v-if="!has_signature" class="alert alert-warning py-2 small border-0 mb-3">
+            <i class="fa fa-exclamation-triangle me-1"></i>
+            Anda belum punya tanda tangan tersimpan — kotak TTD pada Keputusan Sertifikasi akan kosong.
+            <Link href="/manager/tanda-tangan" class="alert-link">Simpan tanda tangan Anda dulu</Link>
+            sebelum finalisasi.
+        </div>
+
         <div v-if="$page.props.session?.success" class="alert alert-success py-2 small border-0 mb-3">
             {{ $page.props.session.success }}
         </div>
@@ -179,8 +186,9 @@ export default {
     layout: LayoutManager,
     components: { Head, Link, StatusBadge },
     props: {
-        exam_session: Object,
-        rows:         Array,
+        exam_session:  Object,
+        rows:          Array,
+        has_signature: Boolean,
     },
 
     setup(props) {
@@ -211,9 +219,12 @@ export default {
         };
 
         const confirmFinalize = () => {
+            const sigWarning = props.has_signature
+                ? ''
+                : '<br><br><span style="color:#b45309"><strong>Perhatian:</strong> Anda belum menyimpan tanda tangan — kotak TTD pada Keputusan Sertifikasi akan kosong.</span>';
             Swal.fire({
                 title: 'Finalisasi Kelulusan?',
-                html: 'Hanya peserta yang sudah dicentang <strong>Verifikasi</strong> yang akan difinalisasi — nilai dikunci dan nomor SK / Sertifikat diterbitkan untuk yang LULUS. Peserta yang belum dicentang tetap Draft.<br><strong>Tindakan ini tidak dapat dibatalkan untuk peserta yang difinalisasi.</strong>',
+                html: 'Hanya peserta yang sudah dicentang <strong>Verifikasi</strong> yang akan difinalisasi — nilai dikunci dan nomor SK / Sertifikat diterbitkan untuk yang LULUS. Peserta yang belum dicentang tetap Draft.<br><strong>Tindakan ini tidak dapat dibatalkan untuk peserta yang difinalisasi.</strong>' + sigWarning,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#1f2937',

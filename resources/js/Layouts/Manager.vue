@@ -48,6 +48,17 @@
                     </Link>
                 </li>
 
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/manager/tanda-tangan') }">
+                    <Link href="/manager/tanda-tangan" class="nav-link d-flex justify-content-between">
+                        <span>
+                            <span class="sidebar-icon">
+                                <i class="fa fa-signature me-2"></i>
+                            </span>
+                            <span class="sidebar-text">Tanda Tangan Saya</span>
+                        </span>
+                    </Link>
+                </li>
+
                 <li class="nav-item" :class="{ 'active': $page.url.startsWith('/manager/panduan') }">
                     <Link href="/manager/panduan" class="nav-link d-flex justify-content-between">
                         <span>

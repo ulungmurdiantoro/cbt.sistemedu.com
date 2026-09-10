@@ -102,8 +102,9 @@ class SertifikasiController extends Controller
         })->sortBy('name')->values();
 
         return inertia('Manager/Sertifikasi/Show', [
-            'exam_session' => $examSession,
-            'rows'         => $rows,
+            'exam_session'  => $examSession,
+            'rows'          => $rows,
+            'has_signature' => (bool) auth()->user()->signature_path,
         ]);
     }
 
