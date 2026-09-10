@@ -169,10 +169,11 @@
 
 <script>
 import LayoutManager from '../../../Layouts/Manager.vue';
+import guideLayout from '../../../Layouts/guideLayout';
 import { Head } from '@inertiajs/vue3';
 
 export default {
-    layout: LayoutManager,
+    layout: guideLayout(LayoutManager),
     components: { Head },
 }
 </script>

@@ -41,10 +41,15 @@
                         </div>
                     </form>
 
-                    <div class="text-center mt-4 pt-3 border-top">
-                        <Link href="/peserta/panduan" class="text-decoration-none small text-muted">
-                            <i class="fa fa-book-open me-1"></i> Panduan Pendaftaran Sertifikasi
-                        </Link>
+                    <div class="mt-4 pt-3 border-top">
+                        <p class="small text-muted text-center mb-2">
+                            <i class="fa fa-book-open me-1"></i> Panduan penggunaan
+                        </p>
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <Link href="/panduan/admin" class="btn btn-sm btn-outline-secondary border">Admin</Link>
+                            <Link href="/panduan/asesor" class="btn btn-sm btn-outline-secondary border">Asesor</Link>
+                            <Link href="/panduan/pengambil-keputusan" class="btn btn-sm btn-outline-secondary border">Pengambil Keputusan</Link>
+                        </div>
                     </div>
                 </div>
             </div>

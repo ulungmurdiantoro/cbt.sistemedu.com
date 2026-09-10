@@ -221,6 +221,19 @@
                     </Link>
                 </li>
 
+                <li role="separator" class="dropdown-divider mt-3 mb-2 border-gray-700"></li>
+
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/panduan') }">
+                    <Link href="/admin/panduan" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                            <i class="fa fa-life-ring me-2"></i>
+                        </span>
+                        <span class="sidebar-text">Panduan</span>
+                    </span>
+                    </Link>
+                </li>
+
             </ul>
         </div>
     </nav>

@@ -147,10 +147,11 @@
 
 <script>
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
+import guideLayout from '../../../Layouts/guideLayout';
 import { Head } from '@inertiajs/vue3';
 
 export default {
-    layout: LayoutAsesor,
+    layout: guideLayout(LayoutAsesor),
     components: { Head },
 }
 </script>

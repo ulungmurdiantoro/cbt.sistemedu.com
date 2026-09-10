@@ -13,6 +13,8 @@ Route::prefix('admin')->group(function () {
         // Blueprint UI/UX — referensi gaya & master prompt agar semua menu admin senada
         Route::get('/blueprint', fn () => inertia('Admin/Blueprint/Index'))->name('admin.blueprint');
 
+        Route::get('/panduan', fn () => inertia('Admin/Guide/Index'))->name('admin.panduan');
+
         Route::resource('/lessons',   \App\Http\Controllers\Admin\LessonController::class,   ['as' => 'admin']);
         Route::resource('/classrooms', \App\Http\Controllers\Admin\ClassroomController::class, ['as' => 'admin']);
 
@@ -243,6 +245,13 @@ Route::prefix('student')->middleware('student')->group(function () {
     Route::get('/essay-migas-result/{essay_group_id}',     [\App\Http\Controllers\Student\EssayMigasController::class, 'resultEssay'])->name('student.essaysmigas.resultEssay');
 
 });
+
+// ─── Panduan staf (publik — bisa dibaca dari halaman /login sebelum masuk) ────
+// Komponennya sama dengan yang ada di dalam portal; layout-nya otomatis polos
+// saat belum login (lihat resources/js/Layouts/guideLayout.js).
+Route::get('/panduan/admin',               fn () => inertia('Admin/Guide/Index'))->name('panduan.admin');
+Route::get('/panduan/asesor',              fn () => inertia('Asesor/Guide/Index'))->name('panduan.asesor');
+Route::get('/panduan/pengambil-keputusan', fn () => inertia('Manager/Guide/Index'))->name('panduan.manager');
 
 // ─── Portal Peserta Sertifikasi ──────────────────────────────────────────────
 
