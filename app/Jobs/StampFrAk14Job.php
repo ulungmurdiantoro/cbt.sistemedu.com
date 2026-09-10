@@ -54,7 +54,9 @@ class StampFrAk14Job implements ShouldQueue
                 'visLLY'           => 60,
                 'visURX'           => 480,
                 'visURY'           => 160,
-                'visSignaturePage' => 2,
+                // Blok TTD peserta selalu di halaman terakhir dokumen — nomornya
+                // dihitung dinamis, tidak dipatok.
+                'visSignaturePage' => $this->pdfPageCount($pdf),
             ]);
 
             $path = "materai/fr-ak-14/{$result->id}.pdf";
@@ -74,5 +76,15 @@ class StampFrAk14Job implements ShouldQueue
 
             throw $e;
         }
+    }
+
+    /** Hitung jumlah halaman dari bytes PDF hasil mPDF. */
+    private function pdfPageCount(string $pdf): int
+    {
+        if (preg_match('/\/Type\s*\/Pages\b[^>]*?\/Count\s+(\d+)/s', $pdf, $m)) {
+            return max(1, (int) $m[1]);
+        }
+        $pages = preg_match_all('/\/Type\s*\/Page(?![s])/', $pdf);
+        return max(1, $pages);
     }
 }
