@@ -109,9 +109,16 @@
                                 </div>
                             </td>
                             <td class="text-center">
-                                <Link :href="`/admin/applications/${app.id}`" class="btn btn-sm btn-info">
-                                    <i class="fa fa-eye"></i>
-                                </Link>
+                                <div class="d-flex gap-1 justify-content-center">
+                                    <Link :href="`/admin/applications/${app.id}`" class="btn btn-sm btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </Link>
+                                    <button v-if="app.status !== 'approved'" class="btn btn-sm btn-danger"
+                                        :disabled="deletingId === app.id" title="Hapus permohonan"
+                                        @click="destroyApplication(app)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -156,6 +163,18 @@ export default {
         const resetFilter = () => {
             filterForm.q = ''; filterForm.status = ''; filterForm.classroom_id = ''; filterForm.kode_batch = '';
             router.get('/admin/applications');
+        };
+
+        const deletingId = ref(null);
+        const destroyApplication = (app) => {
+            const label = { draft:'Draft', submitted:'Disubmit', approved:'Disetujui', rejected:'Ditolak' }[app.status] ?? app.status;
+            if (!confirm(`Hapus permohonan "${app.participant?.name ?? '-'}" (${label})?\n\nDokumen yang diunggah ikut terhapus permanen dan tidak bisa dikembalikan.`)) return;
+            deletingId.value = app.id;
+            router.delete(`/admin/applications/${app.id}`, {
+                preserveScroll: true,
+                onError: (e) => alert(e.delete ?? 'Gagal menghapus permohonan.'),
+                onFinish: () => { deletingId.value = null; },
+            });
         };
 
         const exportUrl = computed(() => {
@@ -223,6 +242,7 @@ export default {
         return {
             filterForm, applyFilter, resetFilter, exportUrl,
             exportingDokumen, startExportDokumen,
+            deletingId, destroyApplication,
             formatDate, statusLabel, statusTone,
         };
     },

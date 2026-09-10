@@ -374,6 +374,16 @@
                     <div v-if="application.status === 'approved'" class="text-muted small">
                         Disetujui oleh {{ application.approver?.name }} pada {{ formatDate(application.approved_at) }}
                     </div>
+
+                    <!-- Hapus permohonan (belum disetujui) -->
+                    <div v-if="application.status !== 'approved'" class="d-grid mt-3 pt-3 border-top">
+                        <button class="btn btn-outline-danger btn-sm" :disabled="processing" @click="destroyApplication">
+                            <i class="fa fa-trash me-1"></i> Hapus Permohonan
+                        </button>
+                        <div class="text-muted mt-1" style="font-size:0.72rem">
+                            Menghapus permohonan beserta dokumen yang diunggah, permanen.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -792,6 +802,15 @@ export default {
             });
         };
 
+        const destroyApplication = () => {
+            if (!confirm('Hapus permohonan ini secara permanen?\n\nDokumen yang diunggah ikut terhapus dan tidak bisa dikembalikan.')) return;
+            processing.value = true;
+            router.delete(`/admin/applications/${props.application.id}`, {
+                onError: (e) => alert(e.delete ?? 'Gagal menghapus permohonan.'),
+                onFinish: () => { processing.value = false; },
+            });
+        };
+
         const reissue = () => {
             processing.value = true;
             router.post(`/admin/applications/${props.application.id}/reissue`, { reason: reissueReason.value }, {
@@ -843,7 +862,7 @@ export default {
             statusLabel, statusBadge, formatDate,
             processing, showRejectForm, showReissueModal, rejectNotes, reissueReason,
             rejectDocId, rejectDocNotes,
-            approve, reject, reissue, openRejectDoc, verifyDoc,
+            approve, reject, reissue, destroyApplication, openRejectDoc, verifyDoc,
             adminSigMode, adminSigCanvas, adminSigFile, adminSigFilePreview,
             adminSignName, useSavedSig,
             switchAdminSigMode, clearAdminSig, onAdminSigFileChange,

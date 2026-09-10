@@ -381,6 +381,40 @@ class ApplicationController extends Controller
         return back()->with('success', 'Permohonan ditolak. Peserta akan diberitahu.');
     }
 
+    /**
+     * Hapus permohonan (draft / submitted / rejected). Permohonan yang sudah
+     * DISETUJUI tidak bisa dihapus di sini — sudah punya akun ujian, enrollment,
+     * kemungkinan nilai & materai; batalkan lewat jalur lain kalau memang perlu.
+     */
+    public function destroy(AssessmentApplication $application)
+    {
+        if ($application->isApproved()) {
+            throw ValidationException::withMessages([
+                'delete' => 'Permohonan yang sudah disetujui tidak bisa dihapus. Sudah ada akun ujian & data terkait.',
+            ]);
+        }
+
+        DB::transaction(function () use ($application) {
+            // Hapus berkas fisik; baris DB (application_documents, initial_assessments)
+            // ikut terhapus otomatis lewat cascade foreign key.
+            foreach ($application->documents as $doc) {
+                if ($doc->file_path) {
+                    Storage::disk('private')->delete($doc->file_path);
+                }
+            }
+            foreach (['signature_form_path', 'signature_path'] as $sigCol) {
+                if ($application->{$sigCol}) {
+                    Storage::disk('private')->delete($application->{$sigCol});
+                }
+            }
+
+            $application->delete();
+        });
+
+        return redirect()->route('admin.applications.index')
+            ->with('success', 'Permohonan berhasil dihapus.');
+    }
+
     public function reissueStudent(Request $request, AssessmentApplication $application)
     {
         abort_if(!$application->isApproved(), 422, 'Hanya permohonan yang sudah disetujui yang dapat di-reissue.');
