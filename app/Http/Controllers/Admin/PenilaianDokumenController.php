@@ -22,7 +22,10 @@ class PenilaianDokumenController extends Controller
 {
     private function sessionStudentIds(int $examSessionId): \Illuminate\Support\Collection
     {
-        return ExamGroup::where('exam_session_id', $examSessionId)->pluck('student_id')->unique();
+        $ids = ExamGroup::where('exam_session_id', $examSessionId)->pluck('student_id')->unique();
+
+        // Akun nonaktif (akun lama hasil re-issue / merge duplikat) tidak ikut.
+        return Student::whereIn('id', $ids)->where('is_active', true)->pluck('id');
     }
 
     private function assignedAsesor(int $examSessionId, int $studentId): ?AsesorAssignment

@@ -17,9 +17,12 @@ class PenilaianController extends Controller
     {
         $exam_sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             // Satu peserta bisa punya 2 baris exam_groups (PG + Esai) dalam satu
-            // sesi, jadi hitung student_id yang unik, bukan jumlah baris.
+            // sesi, jadi hitung student_id yang unik, bukan jumlah baris. Akun
+            // nonaktif (akun lama hasil re-issue / merge) tidak ikut dihitung.
             ->withCount(['exam_groups as exam_groups_count' => function ($q) {
-                $q->select(DB::raw('count(distinct student_id)'));
+                $q->join('students', 'students.id', '=', 'exam_groups.student_id')
+                    ->where('students.is_active', true)
+                    ->select(DB::raw('count(distinct exam_groups.student_id)'));
             }])
             ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
             ->orderByRaw('CASE WHEN end_time > NOW() THEN end_time END ASC')
@@ -40,11 +43,14 @@ class PenilaianController extends Controller
 
         $asesors = User::whereHas('roleAssignments', fn ($q) => $q->where('role', 'asesor'))->orderBy('name')->get();
 
-        // Ambil semua siswa yang terdaftar di sesi ini via exam_groups
+        // Ambil semua siswa yang terdaftar di sesi ini via exam_groups.
+        // Akun nonaktif (mis. akun lama hasil re-issue / merge duplikat) tidak
+        // ditampilkan supaya nama tidak muncul dobel di penugasan asesor.
         $student_ids = ExamGroup::where('exam_session_id', $exam_session_id)
             ->pluck('student_id');
 
         $students = Student::whereIn('id', $student_ids)
+            ->where('is_active', true)
             ->orderBy('no_participant')
             ->get();
 
