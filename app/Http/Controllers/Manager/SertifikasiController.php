@@ -139,6 +139,11 @@ class SertifikasiController extends Controller
         $results = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('is_finalized', false)
             ->whereNotNull('manager_verified_at')
+            // Abaikan akun peserta yang sudah dinonaktifkan (akun lama hasil
+            // re-issue/merge duplikat) — kalau tidak, baris manager_verified_at
+            // lama yang menempel di akun mati bisa ikut menghabiskan nomor
+            // SK/SP resmi untuk orang yang sudah tidak relevan lagi.
+            ->whereHas('student', fn ($q) => $q->where('is_active', true))
             ->get();
 
         abort_if(

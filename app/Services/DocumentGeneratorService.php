@@ -955,7 +955,13 @@ class DocumentGeneratorService
         $examSession->loadMissing(['examPg.classroom', 'examEsai.classroom', 'keputusanIssuer']);
         $classroom = $examSession->referenceExam?->classroom;
 
-        $query = ParticipantResult::where('exam_session_id', $examSession->id)->with('student');
+        // Abaikan akun peserta yang sudah dinonaktifkan (mis. akun lama hasil
+        // re-issue/merge duplikat) — baris participant_results-nya bisa saja masih
+        // menyimpan manager_verified_at/is_finalized lama dari sebelum akun itu
+        // digantikan, dan itu tidak boleh ikut muncul di dokumen ini.
+        $query = ParticipantResult::where('exam_session_id', $examSession->id)
+            ->whereHas('student', fn ($q) => $q->where('is_active', true))
+            ->with('student');
 
         if ($preview) {
             // Gambaran hasil KALAU "Finalisasi Semua" diklik sekarang: peserta yang
