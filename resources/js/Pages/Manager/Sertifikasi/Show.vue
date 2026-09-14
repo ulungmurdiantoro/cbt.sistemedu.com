@@ -83,10 +83,10 @@
                                     <span v-else class="badge bg-warning text-dark">
                                         {{ row.apl01_verified }} / {{ row.apl01_total }}
                                     </span>
-                                    <a :href="`/manager/dokumen/${exam_session.id}/${row.student_id}`"
-                                        target="_blank" class="d-block small mt-1" title="Lihat Dokumen">
+                                    <button type="button" class="btn btn-link btn-sm p-0 d-block mt-1" style="font-size:inherit"
+                                        @click="openDokumenModal(row)">
                                         <i class="fa fa-eye me-1"></i>Lihat Dokumen
-                                    </a>
+                                    </button>
                                 </td>
 
                                 <!-- FR.APL.01 -->
@@ -172,6 +172,101 @@
             </div>
         </div>
 
+        <!-- Modal: Lihat Dokumen Peserta -->
+        <div v-if="dokumenModal.open" class="modal d-block" style="background:rgba(0,0,0,.5)">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title fw-bold mb-0">
+                            <i class="fa fa-folder-open me-2"></i>Dokumen — {{ dokumenModal.data?.student?.name ?? dokumenModal.rowName }}
+                        </h6>
+                        <button class="btn-close" @click="closeDokumenModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div v-if="dokumenModal.loading" class="text-center text-muted py-4">
+                            <i class="fa fa-spinner fa-spin me-1"></i> Memuat...
+                        </div>
+                        <div v-else-if="dokumenModal.error" class="alert alert-danger border-0 mb-0">{{ dokumenModal.error }}</div>
+                        <template v-else-if="dokumenModal.data">
+                            <div class="small text-muted mb-3">
+                                No. Peserta: <span class="fw-semibold">{{ dokumenModal.data.student?.no_participant }}</span>
+                            </div>
+
+                            <div v-if="!dokumenModal.data.application" class="alert alert-warning border-0 mb-0">
+                                <i class="fa fa-exclamation-triangle me-2"></i>
+                                Peserta ini belum mengajukan permohonan sertifikasi untuk sesi ini.
+                            </div>
+
+                            <template v-else>
+                                <div v-for="req in dokumenModal.data.application.classroom.document_requirements" :key="req.id"
+                                    class="card border mb-2">
+                                    <div class="card-header d-flex justify-content-between align-items-center py-2"
+                                        :class="docStatusClass(getModalDoc(req.id))">
+                                        <span class="fw-semibold small">
+                                            {{ req.label }}
+                                            <span v-if="req.is_required" class="text-danger">*</span>
+                                        </span>
+                                        <span class="badge" :class="badgeClass(getModalDoc(req.id))">
+                                            {{ badgeLabel(getModalDoc(req.id)) }}
+                                        </span>
+                                    </div>
+                                    <div class="card-body py-2">
+                                        <div v-if="req.description" class="small text-muted mb-2">{{ req.description }}</div>
+                                        <div v-if="!getModalDoc(req.id)" class="text-muted small fst-italic">
+                                            <i class="fa fa-exclamation-circle me-1"></i>Peserta belum mengupload dokumen ini.
+                                        </div>
+                                        <template v-else>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div>
+                                                    <i class="fa fa-file me-1 text-primary"></i>
+                                                    <span class="small fw-semibold">{{ getModalDoc(req.id).original_filename }}</span>
+                                                </div>
+                                                <a :href="`/manager/dokumen/${exam_session.id}/${dokumenModal.data.student.id}/${getModalDoc(req.id).id}/download`"
+                                                    class="btn btn-sm btn-outline-primary" target="_blank">
+                                                    <i class="fa fa-eye me-1"></i> Preview
+                                                </a>
+                                            </div>
+                                            <div v-if="getModalDoc(req.id).asesor_reviewer_notes"
+                                                class="alert py-2 small mt-2 mb-0"
+                                                :class="getModalDoc(req.id).asesor_status === 'rejected' ? 'alert-danger' : 'alert-info'">
+                                                <i class="fa fa-comment me-1"></i>{{ getModalDoc(req.id).asesor_reviewer_notes }}
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+
+                                <div class="card border mb-0">
+                                    <div class="card-header bg-gray-800 text-white fw-semibold py-2">
+                                        <i class="fa fa-signature me-2"></i>Laporan Asesmen / Verifikasi Akhir
+                                    </div>
+                                    <div class="card-body">
+                                        <div v-if="dokumenModal.data.application.asesor_verified_at">
+                                            <span class="badge bg-success mb-1"><i class="fa fa-lock me-1"></i>Terverifikasi &amp; Terkunci</span>
+                                            <div class="small mt-1"><i class="fa fa-user me-1 text-muted"></i>{{ dokumenModal.data.application.asesor_signature_name }}</div>
+                                            <div class="mt-1">
+                                                <span v-if="dokumenModal.data.application.asesor_rekomendasi === 'K'" class="badge bg-success">Rekomendasi: Kompeten</span>
+                                                <span v-else-if="dokumenModal.data.application.asesor_rekomendasi === 'BK'" class="badge bg-danger">Rekomendasi: Belum Kompeten</span>
+                                            </div>
+                                        </div>
+                                        <div v-else-if="!dokumenModal.data.assigned_asesor" class="alert alert-warning border-0 mb-0">
+                                            <i class="fa fa-exclamation-triangle me-2"></i>Peserta ini belum memiliki penugasan asesor.
+                                        </div>
+                                        <div v-else class="alert alert-secondary border-0 mb-0">
+                                            <i class="fa fa-hourglass-half me-2"></i>
+                                            Menunggu Verifikasi Akhir oleh asesor yang ditugaskan (<strong>{{ dokumenModal.data.assigned_asesor }}</strong>).
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-light border btn-sm" @click="closeDokumenModal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -179,7 +274,7 @@
 import LayoutManager from '../../../Layouts/Manager.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import Swal from 'sweetalert2';
 
 export default {
@@ -238,7 +333,48 @@ export default {
             });
         };
 
-        return { allFinalized, hasFinalizableRows, togglingId, nilaiColor, fmt, toggleVerify, confirmFinalize };
+        // Modal "Lihat Dokumen" — dimuat via fetch supaya tetap di halaman
+        // Tinjau Sertifikasi ini, tidak pindah ke halaman terpisah.
+        const dokumenModal = reactive({ open: false, loading: false, error: '', data: null, rowName: '' });
+
+        const openDokumenModal = (row) => {
+            dokumenModal.open = true;
+            dokumenModal.loading = true;
+            dokumenModal.error = '';
+            dokumenModal.data = null;
+            dokumenModal.rowName = row.name;
+
+            fetch(`/manager/dokumen/${props.exam_session.id}/${row.student_id}/data`, {
+                headers: { 'Accept': 'application/json' },
+            })
+                .then(res => { if (!res.ok) throw new Error('Gagal memuat dokumen peserta.'); return res.json(); })
+                .then(data => { dokumenModal.data = data; })
+                .catch(e => { dokumenModal.error = e.message || 'Gagal memuat dokumen peserta.'; })
+                .finally(() => { dokumenModal.loading = false; });
+        };
+
+        const closeDokumenModal = () => { dokumenModal.open = false; };
+
+        const getModalDoc = (reqId) =>
+            dokumenModal.data?.application?.documents?.find(d => d.classroom_document_requirement_id === reqId) ?? null;
+
+        const docStatusClass = (doc) => {
+            if (!doc) return 'bg-light';
+            return ({ pending: 'bg-light', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' })[doc.asesor_status] ?? 'bg-light';
+        };
+        const badgeClass = (doc) => {
+            if (!doc) return 'bg-secondary';
+            return ({ pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' })[doc.asesor_status] ?? 'bg-secondary';
+        };
+        const badgeLabel = (doc) => {
+            if (!doc) return 'Belum Upload';
+            return ({ pending: 'Menunggu', verified: 'Terverifikasi', rejected: 'Ditolak' })[doc.asesor_status] ?? doc.asesor_status;
+        };
+
+        return {
+            allFinalized, hasFinalizableRows, togglingId, nilaiColor, fmt, toggleVerify, confirmFinalize,
+            dokumenModal, openDokumenModal, closeDokumenModal, getModalDoc, docStatusClass, badgeClass, badgeLabel,
+        };
     },
 }
 </script>

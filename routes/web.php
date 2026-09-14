@@ -192,6 +192,7 @@ Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
     Route::get('/sertifikasi/{examSession}/keputusan/preview', [\App\Http\Controllers\Manager\SertifikasiController::class, 'previewKeputusan'])->name('manager.sertifikasi.keputusan.preview');
 
     Route::get('/dokumen/{examSessionId}/{studentId}',              [\App\Http\Controllers\Manager\DokumenController::class, 'show'])->name('manager.dokumen.show');
+    Route::get('/dokumen/{examSessionId}/{studentId}/data',         [\App\Http\Controllers\Manager\DokumenController::class, 'data'])->name('manager.dokumen.data');
     Route::get('/dokumen/{examSessionId}/{studentId}/{docId}/download', [\App\Http\Controllers\Manager\DokumenController::class, 'download'])->name('manager.dokumen.download');
 
     // Generate FR.APL.01 / FR.APL.03 — controller sama persis dengan Admin, supaya

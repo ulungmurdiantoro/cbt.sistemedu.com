@@ -46,6 +46,33 @@ class DokumenController extends Controller
         ]);
     }
 
+    /**
+     * Sama seperti show(), tapi JSON polos — dipakai halaman Tinjau Sertifikasi
+     * untuk menampilkan dokumen peserta lewat modal, tanpa pindah halaman.
+     */
+    public function data(int $examSessionId, int $studentId)
+    {
+        abort_unless($this->sessionStudentIds($examSessionId)->contains($studentId), 404);
+
+        $student = Student::findOrFail($studentId);
+
+        $application = AssessmentApplication::where('student_id', $studentId)
+            ->where('exam_session_id', $examSessionId)
+            ->with(['documents.requirement', 'classroom.documentRequirements'])
+            ->first();
+
+        $assignment = AsesorAssignment::where('exam_session_id', $examSessionId)
+            ->where('student_id', $studentId)
+            ->with('asesor:id,name')
+            ->first();
+
+        return response()->json([
+            'student'         => $student,
+            'application'     => $application,
+            'assigned_asesor' => $assignment?->asesor?->name,
+        ]);
+    }
+
     public function download(int $examSessionId, int $studentId, int $docId)
     {
         abort_unless($this->sessionStudentIds($examSessionId)->contains($studentId), 404);
