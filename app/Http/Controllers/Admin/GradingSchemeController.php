@@ -37,7 +37,6 @@ class GradingSchemeController extends Controller
             'proporsi_pg'       => 'required|numeric|min:0|max:100',
             'nilai_kelulusan'   => 'required|numeric|min:0|max:100',
             'bobot_wawancara'   => 'required|numeric|min:0|max:100',
-            'faktor_wawancara'  => 'required|numeric|min:0|max:1',
         ]);
 
         $total = round($data['bobot_ujian_tulis'] + $data['bobot_wawancara'], 2);

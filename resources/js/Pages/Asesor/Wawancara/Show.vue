@@ -142,7 +142,7 @@
                                 <div class="col-md-6"><span class="fw-semibold">(C) Pertanyaan</span> — Kemampuan Menghadapi Pertanyaan</div>
                                 <div class="col-md-6"><span class="fw-semibold">(D) Worksheet</span> — Hasil Pengerjaan Worksheet Ujian Keterampilan</div>
                             </div>
-                            <div class="mt-1">* Total = (A + B + C + D) × {{ bobot }}</div>
+                            <div class="mt-1">* Total = rata-rata (A + B + C + D) — bobot {{ (bobot * 100).toFixed(1) }}% baru diterapkan saat menghitung Nilai Akhir</div>
                         </div>
                     </div>
                 </div>
@@ -197,9 +197,13 @@ export default {
         },
 
         calcTotal(g, p, k, h) {
+            // Rata-rata 4 kriteria (skala 0-100) — SEJAJAR dengan nilai PG & esai.
+            // Bobot wawancara diterapkan sekali saat Nilai Akhir dihitung, bukan
+            // di sini (dulu double-weighting lewat faktor_wawancara).
             const vals = [g, p, k, h].filter(v => v !== null && v !== '' && !isNaN(v));
-            const sum  = vals.reduce((acc, v) => acc + Number(v), 0);
-            return Math.round(sum * this.bobot * 100) / 100;
+            if (!vals.length) return 0;
+            const avg = vals.reduce((acc, v) => acc + Number(v), 0) / vals.length;
+            return Math.round(avg * 100) / 100;
         },
 
         recalcTotal(i) {

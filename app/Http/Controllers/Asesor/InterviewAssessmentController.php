@@ -12,7 +12,15 @@ use App\Models\Student;
 
 class InterviewAssessmentController extends Controller
 {
-    private function getFaktorWawancara(int $examSessionId): float
+    /**
+     * Bobot wawancara sebagai pecahan (mis. 30% -> 0.30), murni untuk tampilan
+     * "Bobot: X% dari total nilai ujian" di halaman penilaian. Nilai_wawancara
+     * yang disimpan di sini SELALU skala 0-100 mentah (rata-rata 4 kriteria) —
+     * bobot ini baru diterapkan sekali oleh ResultCalculatorService saat
+     * menghitung nilai_akhir. Jangan dikalikan lagi di sini (dulu ada bug
+     * double-weighting lewat faktor_wawancara — lihat riwayat commit).
+     */
+    private function getBobotWawancaraFraction(int $examSessionId): float
     {
         $session     = ExamSession::find($examSessionId);
         $classroomId = $session?->referenceExam?->classroom_id;
@@ -20,7 +28,7 @@ class InterviewAssessmentController extends Controller
             ? GradingScheme::where('classroom_id', $classroomId)->first()
             : null;
 
-        return $scheme?->faktor_wawancara ?? 0.075;
+        return (float) ($scheme?->bobot_wawancara ?? 30) / 100;
     }
 
     public function show(int $exam_session_id)
@@ -53,7 +61,7 @@ class InterviewAssessmentController extends Controller
             'exam_session' => $exam_session,
             'students'     => $students,
             'assessments'  => $assessments,
-            'bobot'        => $this->getFaktorWawancara($exam_session_id),
+            'bobot'        => $this->getBobotWawancaraFraction($exam_session_id),
         ]);
     }
 
@@ -66,8 +74,6 @@ class InterviewAssessmentController extends Controller
             ->pluck('student_id')
             ->all();
 
-        $faktor = $this->getFaktorWawancara($exam_session_id);
-
         foreach ($request->assessments as $item) {
             abort_unless(
                 in_array($item['student_id'], $assigned_student_ids),
@@ -75,12 +81,17 @@ class InterviewAssessmentController extends Controller
                 'Anda tidak ditugaskan untuk menilai peserta ini.'
             );
 
-            $sum = collect([
+            // total_nilai = rata-rata 4 kriteria (skala 0-100), SEJAJAR dengan
+            // nilai_pg & nilai_esai — bobot_wawancara diterapkan sekali oleh
+            // ResultCalculatorService, bukan di sini (dulu dikali faktor_wawancara
+            // lagi di sini -> bobot wawancara kepakai dua kali).
+            $vals = collect([
                 $item['gaya_wawancara'],
                 $item['penguasaan_materi'],
                 $item['kemampuan_hadapi_pertanyaan'],
                 $item['hasil_worksheet'],
-            ])->filter(fn($v) => $v !== null)->sum();
+            ])->filter(fn($v) => $v !== null);
+            $avg = $vals->count() > 0 ? round($vals->avg(), 2) : null;
 
             InterviewAssessment::updateOrCreate(
                 [
@@ -93,7 +104,7 @@ class InterviewAssessmentController extends Controller
                     'penguasaan_materi'           => $item['penguasaan_materi'],
                     'kemampuan_hadapi_pertanyaan' => $item['kemampuan_hadapi_pertanyaan'],
                     'hasil_worksheet'             => $item['hasil_worksheet'],
-                    'total_nilai'                 => round($sum * $faktor, 2),
+                    'total_nilai'                 => $avg,
                     'catatan'                     => $item['catatan'] ?? null,
                 ]
             );
