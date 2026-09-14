@@ -174,7 +174,7 @@
 
         <!-- Modal: Lihat Dokumen Peserta -->
         <div v-if="dokumenModal.open" class="modal d-block" style="background:rgba(0,0,0,.5)">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h6 class="modal-title fw-bold mb-0">
@@ -226,10 +226,10 @@
                                                     <i class="fa fa-eye me-1"></i> Preview
                                                 </a>
                                             </div>
-                                            <div v-if="getModalDoc(req.id).asesor_reviewer_notes"
+                                            <div v-if="getModalDoc(req.id).reviewer_notes"
                                                 class="alert py-2 small mt-2 mb-0"
-                                                :class="getModalDoc(req.id).asesor_status === 'rejected' ? 'alert-danger' : 'alert-info'">
-                                                <i class="fa fa-comment me-1"></i>{{ getModalDoc(req.id).asesor_reviewer_notes }}
+                                                :class="getModalDoc(req.id).status === 'rejected' ? 'alert-danger' : 'alert-info'">
+                                                <i class="fa fa-comment me-1"></i>{{ getModalDoc(req.id).reviewer_notes }}
                                             </div>
                                         </template>
                                     </div>
@@ -360,15 +360,15 @@ export default {
 
         const docStatusClass = (doc) => {
             if (!doc) return 'bg-light';
-            return ({ pending: 'bg-light', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' })[doc.asesor_status] ?? 'bg-light';
+            return ({ pending: 'bg-light', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' })[doc.status] ?? 'bg-light';
         };
         const badgeClass = (doc) => {
             if (!doc) return 'bg-secondary';
-            return ({ pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' })[doc.asesor_status] ?? 'bg-secondary';
+            return ({ pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' })[doc.status] ?? 'bg-secondary';
         };
         const badgeLabel = (doc) => {
             if (!doc) return 'Belum Upload';
-            return ({ pending: 'Menunggu', verified: 'Terverifikasi', rejected: 'Ditolak' })[doc.asesor_status] ?? doc.asesor_status;
+            return ({ pending: 'Menunggu', verified: 'Terverifikasi', rejected: 'Ditolak' })[doc.status] ?? doc.status;
         };
 
         return {

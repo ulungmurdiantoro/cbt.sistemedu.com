@@ -74,10 +74,10 @@
                                 </a>
                             </div>
 
-                            <div v-if="getDoc(req.id).asesor_reviewer_notes"
+                            <div v-if="getDoc(req.id).reviewer_notes"
                                 class="alert py-2 small mt-3 mb-0"
-                                :class="getDoc(req.id).asesor_status === 'rejected' ? 'alert-danger' : 'alert-info'">
-                                <i class="fa fa-comment me-1"></i>{{ getDoc(req.id).asesor_reviewer_notes }}
+                                :class="getDoc(req.id).status === 'rejected' ? 'alert-danger' : 'alert-info'">
+                                <i class="fa fa-comment me-1"></i>{{ getDoc(req.id).reviewer_notes }}
                             </div>
                         </template>
                     </div>
@@ -135,7 +135,7 @@ export default {
             return this.application?.classroom?.document_requirements?.length ?? 0;
         },
         doneCount() {
-            return this.application?.documents?.filter(d => d.asesor_status === 'verified').length ?? 0;
+            return this.application?.documents?.filter(d => d.status === 'verified').length ?? 0;
         },
     },
 
@@ -148,15 +148,15 @@ export default {
         },
         docStatusClass(doc) {
             if (!doc) return 'bg-light';
-            return ({ pending: 'bg-light', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' })[doc.asesor_status] ?? 'bg-light';
+            return ({ pending: 'bg-light', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' })[doc.status] ?? 'bg-light';
         },
         badgeClass(doc) {
             if (!doc) return 'bg-secondary';
-            return ({ pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' })[doc.asesor_status] ?? 'bg-secondary';
+            return ({ pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' })[doc.status] ?? 'bg-secondary';
         },
         badgeLabel(doc) {
             if (!doc) return 'Belum Upload';
-            return ({ pending: 'Menunggu', verified: 'Terverifikasi', rejected: 'Ditolak' })[doc.asesor_status] ?? doc.asesor_status;
+            return ({ pending: 'Menunggu', verified: 'Terverifikasi', rejected: 'Ditolak' })[doc.status] ?? doc.status;
         },
         formatDateTime(dt) {
             return dt ? new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
