@@ -99,7 +99,7 @@ class SertifikasiController extends Controller
                 'manager_verified_at' => $r->manager_verified_at,
                 'manager_verified_by' => $r->manager?->name,
             ];
-        })->sortBy('name')->values();
+        })->sortBy('no_participant')->values();
 
         return inertia('Manager/Sertifikasi/Show', [
             'exam_session'  => $examSession,

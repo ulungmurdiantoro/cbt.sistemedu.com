@@ -54,7 +54,7 @@ class ResultController extends Controller
                 'distributed_at'    => $r->distributed_at,
                 'attempt'           => $r->attempt,
             ];
-        })->sortBy('name')->values();
+        })->sortBy('no_participant')->values();
 
         $classroomId = $examSession->referenceExam?->classroom_id;
         $scheme = $classroomId

@@ -966,7 +966,7 @@ class DocumentGeneratorService
             $query->where('is_finalized', true);
         }
 
-        $results = $query->get()->sortBy(fn ($r) => $r->student?->name);
+        $results = $query->get()->sortBy(fn ($r) => $r->student?->no_participant);
 
         $studentIds = $results->pluck('student_id');
 

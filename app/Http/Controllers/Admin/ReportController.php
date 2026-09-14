@@ -48,6 +48,8 @@ class ReportController extends Controller
             ? Grade::with('student', 'exam.classroom', 'exam_session')
                 ->where('exam_session_id', $exam_session->id)
                 ->get()
+                ->sortBy(fn ($g) => $g->student?->no_participant)
+                ->values()
             : [];
 
         return inertia('Admin/Reports/Index', [

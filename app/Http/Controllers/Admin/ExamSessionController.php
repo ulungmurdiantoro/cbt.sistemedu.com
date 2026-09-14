@@ -75,6 +75,7 @@ class ExamSessionController extends Controller
 
         $students = Student::whereIn('id', $enrolled_ids)
             ->with('classroom')
+            ->orderBy('no_participant')
             ->paginate(10);
 
         return inertia('Admin/ExamSessions/Show', [
@@ -166,6 +167,7 @@ class ExamSessionController extends Controller
             ->where('classroom_id', $referenceExam->classroom_id)
             ->whereNotIn('id', $enrolled_ids)
             ->where('created_at', '>=', now()->subMonth())
+            ->orderBy('no_participant')
             ->get();
 
         return inertia('Admin/ExamGroups/Create', [
