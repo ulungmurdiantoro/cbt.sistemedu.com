@@ -83,7 +83,7 @@
                                     <span v-else class="badge bg-warning text-dark">
                                         {{ row.apl01_verified }} / {{ row.apl01_total }}
                                     </span>
-                                    <button type="button" class="btn btn-link btn-sm p-0 d-block mt-1" style="font-size:inherit"
+                                    <button type="button" class="btn btn-link btn-sm p-0 d-block w-100 text-center mt-1" style="font-size:inherit"
                                         @click="openDokumenModal(row)">
                                         <i class="fa fa-eye me-1"></i>Lihat Dokumen
                                     </button>
