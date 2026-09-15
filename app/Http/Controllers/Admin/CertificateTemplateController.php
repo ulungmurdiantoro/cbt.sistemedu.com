@@ -100,7 +100,7 @@ class CertificateTemplateController extends Controller
         $result->valid_until       = Carbon::now()->addYears(3);
         $result->sk_number         = 'PREVIEW/SK-SP/LSP-EDUKIA/VI/2026';
         $result->sertifikat_number = $type === 'sertifikat' ? 'PRV-001-06-2026-00001' : null;
-        $result->sp_number         = $type === 'sp' ? 'PREVIEW/SP/LSP-EDUKIA/VI/2026' : null;
+        $result->sp_number         = $type === 'sp' ? 'PREVIEW/SPT/EDUKIA/VI/2026' : null;
         $result->attempt           = 1;
         $result->setRelation('student', $student);
         $result->setRelation('examSession', $session);
