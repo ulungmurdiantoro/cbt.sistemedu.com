@@ -12,7 +12,7 @@
                 <h5 class="mb-0 fw-bold">{{ exam_session.title }}</h5>
                 <p class="mb-0 small text-muted">Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}</p>
             </div>
-            <a v-if="rows.length" :href="`/manager/sertifikasi/${exam_session.id}/keputusan/preview`"
+            <a v-if="rows.length && !exam_session.keputusan_number" :href="`/manager/sertifikasi/${exam_session.id}/keputusan/preview`"
                 target="_blank" class="btn btn-sm btn-outline-secondary border">
                 <i class="fa fa-eye me-1"></i> Preview Keputusan
             </a>
