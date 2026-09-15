@@ -365,7 +365,7 @@ body { font-family: cambria, serif; font-size: 12pt; color: #000; line-height: 1
             <td style="background-color:{{ $statusKompeten === 'Kompeten' ? '#c6efce' : '#ffc7ce' }};">
                 <strong>{{ strtoupper($statusKompeten) }}</strong>
             </td>
-            <td>{{ $kategoriLabel }}</td>
+            <td style="font-size:9.5pt; padding-left:2pt; padding-right:2pt;">{{ $kategoriLabel }}</td>
         </tr>
     </tbody>
 </table>
