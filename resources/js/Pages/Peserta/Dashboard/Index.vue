@@ -162,10 +162,16 @@
                                 </div>
                             </div>
                             <div v-else-if="app.result.sp_distributed_at">
-                                <a :href="`/peserta/hasil/${app.exam_session_id}/${app.student_id}/sp`"
-                                   target="_blank" class="btn btn-sm btn-outline-secondary">
-                                    <i class="fa fa-envelope-open me-1"></i> Download SP
-                                </a>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <a :href="`/peserta/hasil/${app.exam_session_id}/${app.student_id}/sp`"
+                                       target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="fa fa-envelope-open me-1"></i> Download SP
+                                    </a>
+                                    <a href="https://tinyurl.com/UmpanbalikAsesmen-Edukia"
+                                       target="_blank" class="btn btn-sm btn-outline-success">
+                                        <i class="fa fa-comment-dots me-1"></i> Isi Umpan Balik Asesmen
+                                    </a>
+                                </div>
                                 <div class="small text-muted mt-2">
                                     <i class="fa fa-info-circle me-1"></i>
                                     Mohon periksa data pada SP (terutama nama Anda). Segera hubungi LSP jika ada yang perlu

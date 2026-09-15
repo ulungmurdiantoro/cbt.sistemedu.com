@@ -43,6 +43,9 @@
 
         <p>SK dan Sertifikat resmi akan menyusul dikirimkan terpisah setelah masa koreksi ini berakhir.</p>
 
+        <p>Mohon luangkan waktu untuk mengisi umpan balik asesmen kami:
+            <a href="https://tinyurl.com/UmpanbalikAsesmen-Edukia">https://tinyurl.com/UmpanbalikAsesmen-Edukia</a></p>
+
         <a href="{{ url('/peserta/dashboard') }}" class="btn">Buka Dashboard</a>
     </div>
     <div class="footer">
