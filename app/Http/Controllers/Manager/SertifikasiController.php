@@ -173,7 +173,10 @@ class SertifikasiController extends Controller
                     'sk_number'         => $skNum,
                     'sp_number'         => $spNum,
                     'sertifikat_number' => $sertifikatNum,
-                    'valid_until'       => now()->addYears(config('lsp.sertifikat_valid_years', 3)),
+                    // Masa berlaku 3 tahun dihitung inklusif tanggal terbit — jadi berakhir
+                    // sehari SEBELUM tanggal ulang tahun ke-3 (mis. terbit 14 Sep 2026 ->
+                    // berlaku sampai 13 Sep 2029, bukan 14 Sep 2029).
+                    'valid_until'       => now()->addYears(config('lsp.sertifikat_valid_years', 3))->subDay(),
                 ]);
             }
 

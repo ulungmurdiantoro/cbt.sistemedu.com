@@ -97,7 +97,7 @@ class CertificateTemplateController extends Controller
         $result->keputusan         = 'LULUS';
         $result->is_finalized      = true;
         $result->finalized_at      = Carbon::now();
-        $result->valid_until       = Carbon::now()->addYears(3);
+        $result->valid_until       = Carbon::now()->addYears(3)->subDay();
         $result->sk_number         = 'PREVIEW/SK-SP/LSP-EDUKIA/VI/2026';
         $result->sertifikat_number = $type === 'sertifikat' ? 'PRV-001-06-2026-00001' : null;
         $result->sp_number         = $type === 'sp' ? 'PREVIEW/SPT/EDUKIA/VI/2026' : null;
