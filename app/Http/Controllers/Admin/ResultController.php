@@ -124,8 +124,13 @@ class ResultController extends Controller
     /** Tahap 1 — kirim SP saja, supaya peserta bisa mengajukan revisi (mis. typo nama) sebelum SK/Sertifikat resmi terbit. */
     public function distributeSp(ExamSession $examSession)
     {
+        // Abaikan akun peserta yang sudah dinonaktifkan (akun lama hasil
+        // re-issue/merge duplikat) — baris participant_results-nya bisa saja
+        // masih is_finalized=false dan tidak boleh ikut memblokir pengiriman
+        // untuk seluruh sesi.
         $unfinalized = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('is_finalized', false)
+            ->whereHas('student', fn ($q) => $q->where('is_active', true))
             ->count();
 
         if ($unfinalized > 0) {
@@ -142,6 +147,7 @@ class ResultController extends Controller
     {
         $unfinalized = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('is_finalized', false)
+            ->whereHas('student', fn ($q) => $q->where('is_active', true))
             ->count();
 
         if ($unfinalized > 0) {
