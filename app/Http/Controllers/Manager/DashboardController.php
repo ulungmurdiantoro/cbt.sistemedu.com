@@ -16,6 +16,12 @@ class DashboardController extends Controller
             ->withCount(['participantResults as participant_results_count' => function ($q) {
                 $q->whereHas('student', fn ($s) => $s->where('is_active', true));
             }])
+            // Progres peninjauan (centang Verifikasi) — dipakai untuk badge
+            // Belum/Sebagian/Sudah Ditinjau di dashboard.
+            ->withCount(['participantResults as reviewed_count' => function ($q) {
+                $q->whereHas('student', fn ($s) => $s->where('is_active', true))
+                    ->whereNotNull('manager_verified_at');
+            }])
             ->orderByDesc('end_time')
             ->get();
 

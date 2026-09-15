@@ -28,6 +28,7 @@
                                         <th>Skema</th>
                                         <th class="text-center" style="width:10%">Peserta</th>
                                         <th class="text-center" style="width:12%">Status</th>
+                                        <th class="text-center" style="width:14%">Peninjauan</th>
                                         <th class="text-center" style="width:12%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -45,13 +46,24 @@
                                             <span v-else class="badge bg-secondary">Selesai</span>
                                         </td>
                                         <td class="text-center">
+                                            <span v-if="reviewStatus(s) === 'none'" class="badge bg-danger">
+                                                <i class="fa fa-times-circle me-1"></i>Belum Ditinjau
+                                            </span>
+                                            <span v-else-if="reviewStatus(s) === 'partial'" class="badge bg-warning text-dark">
+                                                <i class="fa fa-hourglass-half me-1"></i>Sebagian ({{ s.reviewed_count }}/{{ s.participant_results_count }})
+                                            </span>
+                                            <span v-else class="badge bg-success">
+                                                <i class="fa fa-check-circle me-1"></i>Sudah Ditinjau
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
                                             <Link :href="`/manager/sertifikasi/${s.id}`" class="btn btn-sm btn-primary border-0 shadow">
                                                 <i class="fa fa-clipboard-check me-1"></i> Tinjau
                                             </Link>
                                         </td>
                                     </tr>
                                     <tr v-if="allSessions.length === 0">
-                                        <td colspan="6" class="text-center text-muted py-5">
+                                        <td colspan="7" class="text-center text-muted py-5">
                                             <i class="fa fa-award fa-2x d-block mb-2 text-gray-300"></i>
                                             Belum ada sesi ujian.
                                         </td>
@@ -87,7 +99,13 @@ export default {
             ? new Date(dt).toLocaleDateString('id-ID', { dateStyle: 'medium' })
             : '—';
 
-        return { allSessions, classroomTitle, formatDate };
+        const reviewStatus = (s) => {
+            if (!s.participant_results_count || s.reviewed_count === 0) return 'none';
+            if (s.reviewed_count < s.participant_results_count) return 'partial';
+            return 'full';
+        };
+
+        return { allSessions, classroomTitle, formatDate, reviewStatus };
     },
 }
 </script>
