@@ -52,6 +52,7 @@ class ResultController extends Controller
                 'sp_number'         => $r->sp_number,
                 'sertifikat_number' => $r->sertifikat_number,
                 'distributed_at'    => $r->distributed_at,
+                'sp_distributed_at' => $r->sp_distributed_at,
                 'attempt'           => $r->attempt,
             ];
         })->sortBy('no_participant')->values();
@@ -120,6 +121,23 @@ class ResultController extends Controller
             ->header('Content-Disposition', "inline; filename=\"{$filename}\"");
     }
 
+    /** Tahap 1 — kirim SP saja, supaya peserta bisa mengajukan revisi (mis. typo nama) sebelum SK/Sertifikat resmi terbit. */
+    public function distributeSp(ExamSession $examSession)
+    {
+        $unfinalized = ParticipantResult::where('exam_session_id', $examSession->id)
+            ->where('is_finalized', false)
+            ->count();
+
+        if ($unfinalized > 0) {
+            return redirect()->back()->withErrors(['distribute' => 'Finalisasi semua peserta terlebih dahulu.']);
+        }
+
+        \App\Jobs\DistributeSpJob::dispatch($examSession->id);
+
+        return redirect()->back()->with('success', 'Pengiriman SP dijadwalkan dan akan dikirim segera.');
+    }
+
+    /** Tahap 2 — kirim SK & Sertifikat (dokumen final). */
     public function distribute(ExamSession $examSession)
     {
         $unfinalized = ParticipantResult::where('exam_session_id', $examSession->id)
@@ -132,6 +150,6 @@ class ResultController extends Controller
 
         \App\Jobs\DistributeResultsJob::dispatch($examSession->id);
 
-        return redirect()->back()->with('success', 'Distribusi dokumen dijadwalkan dan akan dikirim segera.');
+        return redirect()->back()->with('success', 'Distribusi SK & Sertifikat dijadwalkan dan akan dikirim segera.');
     }
 }

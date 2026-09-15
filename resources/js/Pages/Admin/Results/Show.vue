@@ -12,10 +12,18 @@
                 <h5 class="mb-0 fw-bold">{{ exam_session.title }}</h5>
                 <p class="mb-0 small text-muted">Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}</p>
             </div>
-            <div class="d-flex gap-2">
-                <button class="btn btn-sm btn-success text-white fw-semibold" @click="distribute" :disabled="!hasFinalized">
-                    <i class="fa fa-paper-plane me-1"></i> Kirim ke Peserta
-                </button>
+            <div class="d-flex flex-column align-items-end gap-1">
+                <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-success fw-semibold" @click="distributeSp" :disabled="!hasFinalized">
+                        <i class="fa fa-paper-plane me-1"></i> 1. Kirim SP
+                    </button>
+                    <button class="btn btn-sm btn-success text-white fw-semibold" @click="distribute" :disabled="!hasFinalized">
+                        <i class="fa fa-paper-plane me-1"></i> 2. Kirim SK &amp; Sertifikat
+                    </button>
+                </div>
+                <div class="small text-muted">
+                    SP terkirim: {{ spSentCount }}/{{ finalizedCount }} &bull; SK/Sertifikat terkirim: {{ finalSentCount }}/{{ finalizedCount }}
+                </div>
             </div>
         </div>
 
@@ -202,7 +210,10 @@ export default {
     },
 
     setup(props) {
-        const hasFinalized  = computed(() => props.rows.some(r => r.is_finalized));
+        const hasFinalized    = computed(() => props.rows.some(r => r.is_finalized));
+        const finalizedCount  = computed(() => props.rows.filter(r => r.is_finalized).length);
+        const spSentCount     = computed(() => props.rows.filter(r => r.sp_distributed_at).length);
+        const finalSentCount  = computed(() => props.rows.filter(r => r.distributed_at).length);
 
         const nilaiColor = (row) => {
             if (row.keputusan === 'LULUS') return 'text-success';
@@ -213,10 +224,28 @@ export default {
         // Format nilai dua desimal (Blueprint: 87.50), aman untuk null.
         const fmt = (v) => (v === null || v === undefined || v === '') ? '—' : Number(v).toFixed(2);
 
-        const distribute = () => {
+        const distributeSp = () => {
             Swal.fire({
-                title: 'Kirim Hasil ke Peserta?',
-                html: 'SK dan Sertifikat akan dikirim ke email dan dashboard peserta yang sudah difinalisasi.',
+                title: 'Kirim SP ke Peserta?',
+                html: 'Surat Pernyataan (SP) akan dikirim ke email peserta yang sudah difinalisasi, supaya mereka bisa memeriksa & mengajukan revisi (mis. typo nama) sebelum SK &amp; Sertifikat resmi diterbitkan.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#1f2937',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya, Kirim SP',
+            }).then(result => {
+                if (result.isConfirmed) {
+                    router.post(`/admin/results/${props.exam_session.id}/distribute-sp`);
+                }
+            });
+        };
+
+        const distribute = () => {
+            const belumSp = finalizedCount.value - spSentCount.value;
+            Swal.fire({
+                title: 'Kirim SK & Sertifikat ke Peserta?',
+                html: 'SK dan Sertifikat akan dikirim ke email dan dashboard peserta yang sudah difinalisasi.'
+                    + (belumSp > 0 ? `<br><br><span class="text-warning"><i class="fa fa-exclamation-triangle"></i> ${belumSp} peserta belum dikirimi SP — pastikan sudah diberi kesempatan mengajukan revisi sebelum lanjut.</span>` : ''),
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#1f2937',
@@ -229,7 +258,7 @@ export default {
             });
         };
 
-        return { hasFinalized, nilaiColor, fmt, distribute };
+        return { hasFinalized, finalizedCount, spSentCount, finalSentCount, nilaiColor, fmt, distributeSp, distribute };
     },
 }
 </script>

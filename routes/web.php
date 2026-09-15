@@ -127,6 +127,7 @@ Route::prefix('admin')->group(function () {
         // Rekap hasil & finalisasi
         Route::get('/results',                                         [\App\Http\Controllers\Admin\ResultController::class, 'index'])->name('admin.results.index');
         Route::get('/results/{examSession}',                           [\App\Http\Controllers\Admin\ResultController::class, 'show'])->name('admin.results.show');
+        Route::post('/results/{examSession}/distribute-sp',             [\App\Http\Controllers\Admin\ResultController::class, 'distributeSp'])->name('admin.results.distribute-sp');
         Route::post('/results/{examSession}/distribute',               [\App\Http\Controllers\Admin\ResultController::class, 'distribute'])->name('admin.results.distribute');
         Route::get('/results/{examSession}/download-sp/{student}',     [\App\Http\Controllers\Admin\ResultController::class, 'downloadSp'])->name('admin.results.download-sp');
         Route::get('/results/{examSession}/download-sk/{student}',     [\App\Http\Controllers\Admin\ResultController::class, 'downloadSk'])->name('admin.results.download-sk');
