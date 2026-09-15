@@ -17,7 +17,26 @@ class ResultController extends Controller
 
     public function index()
     {
-        $sessions = ExamSession::withCount('participantResults')
+        $sessions = ExamSession::withCount([
+                // Hanya hitung akun peserta yang masih aktif — konsisten dengan
+                // Tinjau Sertifikasi & Dashboard Pengambil Keputusan (akun lama
+                // hasil re-issue/merge duplikat tidak ikut dihitung).
+                'participantResults as participant_results_count' => function ($q) {
+                    $q->whereHas('student', fn ($s) => $s->where('is_active', true));
+                },
+                'participantResults as reviewed_count' => function ($q) {
+                    $q->whereHas('student', fn ($s) => $s->where('is_active', true))
+                        ->whereNotNull('manager_verified_at');
+                },
+                'participantResults as sp_sent_count' => function ($q) {
+                    $q->whereHas('student', fn ($s) => $s->where('is_active', true))
+                        ->whereNotNull('sp_distributed_at');
+                },
+                'participantResults as final_sent_count' => function ($q) {
+                    $q->whereHas('student', fn ($s) => $s->where('is_active', true))
+                        ->whereNotNull('distributed_at');
+                },
+            ])
             ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
             ->orderByRaw('CASE WHEN end_time > NOW() THEN end_time END ASC')
             ->orderBy('end_time', 'desc')
