@@ -11,6 +11,26 @@ use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
+    /** SP (tahap 1) — bisa diunduh peserta begitu admin mengirim SP, sebelum SK/Sertifikat terbit. */
+    public function downloadSp(int $sessionId, int $studentId, DocumentGeneratorService $generator)
+    {
+        $participant = Auth::guard('participant')->user();
+
+        $result = ParticipantResult::where('exam_session_id', $sessionId)
+            ->where('student_id', $studentId)
+            ->where('is_finalized', true)
+            ->whereNotNull('sp_distributed_at')
+            ->whereHas('student', fn($q) => $q->where('participant_id', $participant->id))
+            ->firstOrFail();
+
+        $pdf      = $generator->spPdf($result);
+        $filename = 'SP_' . $result->student?->no_participant . '.pdf';
+
+        return response($pdf, 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', "inline; filename=\"{$filename}\"");
+    }
+
     public function downloadSk(int $sessionId, int $studentId, DocumentGeneratorService $generator)
     {
         $participant = Auth::guard('participant')->user();
@@ -18,6 +38,10 @@ class ResultController extends Controller
         $result = ParticipantResult::where('exam_session_id', $sessionId)
             ->where('student_id', $studentId)
             ->where('is_finalized', true)
+            // SK & Sertifikat baru boleh diunduh peserta setelah admin benar-benar
+            // mengirimkannya (tahap 2) — bukan langsung begitu difinalisasi, supaya
+            // masa koreksi SP (tahap 1) tidak bisa dilewati lewat URL langsung.
+            ->whereNotNull('distributed_at')
             ->whereHas('student', fn($q) => $q->where('participant_id', $participant->id))
             ->firstOrFail();
 
@@ -43,6 +67,7 @@ class ResultController extends Controller
             ->where('student_id', $studentId)
             ->where('is_finalized', true)
             ->where('keputusan', 'LULUS')
+            ->whereNotNull('distributed_at')
             ->whereHas('student', fn($q) => $q->where('participant_id', $participant->id))
             ->firstOrFail();
 

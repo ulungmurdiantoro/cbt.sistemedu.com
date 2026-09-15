@@ -161,6 +161,17 @@
                                     Berlaku hingga {{ app.result.valid_until.split('T')[0] }}
                                 </div>
                             </div>
+                            <div v-else-if="app.result.sp_distributed_at">
+                                <a :href="`/peserta/hasil/${app.exam_session_id}/${app.student_id}/sp`"
+                                   target="_blank" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fa fa-envelope-open me-1"></i> Download SP
+                                </a>
+                                <div class="small text-muted mt-2">
+                                    <i class="fa fa-info-circle me-1"></i>
+                                    Mohon periksa data pada SP (terutama nama Anda). Segera hubungi LSP jika ada yang perlu
+                                    dikoreksi — SK &amp; Sertifikat akan menyusul dikirimkan terpisah.
+                                </div>
+                            </div>
                             <div v-else class="text-muted small"><i class="fa fa-clock me-1"></i>Dokumen sedang diproses admin.</div>
 
                             <!-- Tombol Remidi -->

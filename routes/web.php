@@ -300,6 +300,7 @@ Route::prefix('peserta')->middleware('participant')->group(function () {
     Route::post('/aplikasi/{application}/revisi',             [App\Http\Controllers\Peserta\ApplicationController::class, 'revisi'])->name('peserta.application.revisi');
     Route::post('/aplikasi/{application}/submit',             [App\Http\Controllers\Peserta\ApplicationController::class, 'submit'])->name('peserta.application.submit');
 
+    Route::get('/hasil/{sessionId}/{studentId}/sp',         [App\Http\Controllers\Peserta\ResultController::class, 'downloadSp'])->name('peserta.hasil.sp');
     Route::get('/hasil/{sessionId}/{studentId}/sk',         [App\Http\Controllers\Peserta\ResultController::class, 'downloadSk'])->name('peserta.hasil.sk');
     Route::get('/hasil/{sessionId}/{studentId}/sertifikat', [App\Http\Controllers\Peserta\ResultController::class, 'downloadSertifikat'])->name('peserta.hasil.sertifikat');
     Route::post('/remidi/{sessionId}',                      [App\Http\Controllers\Peserta\ResultController::class, 'startRemidi'])->name('peserta.remidi.start');

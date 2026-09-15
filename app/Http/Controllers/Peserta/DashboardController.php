@@ -47,6 +47,8 @@ class DashboardController extends Controller
                     'keputusan'        => $result->keputusan,
                     'is_finalized'     => $result->is_finalized,
                     'distributed_at'   => $result->distributed_at,
+                    'sp_number'        => $result->sp_number,
+                    'sp_distributed_at' => $result->sp_distributed_at,
                     'sk_number'        => $result->sk_number,
                     'sertifikat_number'=> $result->sertifikat_number,
                     'valid_until'      => $result->valid_until,
