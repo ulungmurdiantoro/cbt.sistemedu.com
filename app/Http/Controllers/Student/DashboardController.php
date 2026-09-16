@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Models\Grade;
 use App\Models\ExamGroup;
+use App\Models\StudentTask;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -18,10 +19,21 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $student = auth()->guard('student')->user()->load('classroom');
+
         //get exam groups
         $exam_groups = ExamGroup::with('exam', 'exam_session', 'student.classroom')
-            ->where('student_id', auth()->guard('student')->user()->id)
+            ->where('student_id', $student->id)
             ->get();
+
+        //wajib upload tugas sebelum ujian, kecuali skema yang dikecualikan
+        //(lihat Student::requiresTugas) — tugas ini nantinya dilihat asesor
+        //saat menilai wawancara peserta
+        $requires_tugas = $student->requiresTugas();
+
+        $tugas_by_session = $requires_tugas
+            ? StudentTask::where('student_id', $student->id)->get()->keyBy('exam_session_id')
+            : collect();
 
         //define variable array
         $data = [];
@@ -60,7 +72,9 @@ class DashboardController extends Controller
 
         //return with inertia
         return inertia('Student/Dashboard/Index', [
-            'exam_groups' => $data,
+            'exam_groups'       => $data,
+            'requires_tugas'    => $requires_tugas,
+            'tugas_by_session'  => $tugas_by_session,
         ]);
     }
 }

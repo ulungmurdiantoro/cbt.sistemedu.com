@@ -61,6 +61,7 @@
                                     <tr>
                                         <th class="text-center" style="min-width:100px">No Peserta</th>
                                         <th style="min-width:160px">Nama</th>
+                                        <th class="text-center" style="min-width:90px">Tugas</th>
                                         <th class="text-center" style="min-width:100px" title="Gaya Wawancara">(A) Gaya</th>
                                         <th class="text-center" style="min-width:110px" title="Penguasaan Materi">(B) Penguasaan</th>
                                         <th class="text-center" style="min-width:110px" title="Kemampuan Menghadapi Pertanyaan">(C) Pertanyaan</th>
@@ -75,6 +76,16 @@
                                             {{ students[i]?.no_participant ?? '-' }}
                                         </td>
                                         <td>{{ students[i]?.name ?? '-' }}</td>
+
+                                        <td class="text-center">
+                                            <a v-if="students[i] && tugas[students[i].id]"
+                                                :href="`/asesor/penilaian/${exam_session.id}/wawancara/tugas/${students[i].id}`"
+                                                target="_blank"
+                                                class="btn btn-sm btn-outline-primary">
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                            <span v-else class="text-muted">-</span>
+                                        </td>
 
                                         <td class="text-center">
                                             <input type="number" min="0" max="100" step="0.01"
@@ -122,7 +133,7 @@
                                 </tbody>
                                 <tfoot class="table-secondary">
                                     <tr>
-                                        <td colspan="2" class="fw-bold">Rata-rata Sesi</td>
+                                        <td colspan="3" class="fw-bold">Rata-rata Sesi</td>
                                         <td class="text-center fw-bold">{{ colAvg('gaya_wawancara') }}</td>
                                         <td class="text-center fw-bold">{{ colAvg('penguasaan_materi') }}</td>
                                         <td class="text-center fw-bold">{{ colAvg('kemampuan_hadapi_pertanyaan') }}</td>
@@ -164,6 +175,7 @@ export default {
         exam_session: Object,
         students: Array,
         assessments: Object,
+        tugas: Object,
         bobot: Number,
     },
 

@@ -19,6 +19,10 @@ class EssayMigasController extends BaseExamController
             return redirect()->route('student.dashboard');
         }
 
+        if ($redirect = $this->tugasRedirectIfRequired($exam_group)) {
+            return $redirect;
+        }
+
         return inertia('Student/EssaysMigas/Confirmation', [
             'exam_group' => $exam_group,
             'grade'      => $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id),
@@ -31,6 +35,10 @@ class EssayMigasController extends BaseExamController
 
         if (!$exam_group) {
             return redirect()->route('student.dashboard');
+        }
+
+        if ($redirect = $this->tugasRedirectIfRequired($exam_group)) {
+            return $redirect;
         }
 
         $examId    = (int) $exam_group->exam->id;

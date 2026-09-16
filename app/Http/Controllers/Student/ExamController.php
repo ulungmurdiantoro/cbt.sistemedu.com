@@ -15,6 +15,10 @@ class ExamController extends BaseExamController
     {
         $exam_group = $this->examGroup((int) $id);
 
+        if ($redirect = $this->tugasRedirectIfRequired($exam_group)) {
+            return $redirect;
+        }
+
         $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
 
         return inertia('Student/Exams/Confirmation', [
@@ -26,6 +30,10 @@ class ExamController extends BaseExamController
     public function startExam($id)
     {
         $exam_group = $this->examGroup((int) $id);
+
+        if ($redirect = $this->tugasRedirectIfRequired($exam_group)) {
+            return $redirect;
+        }
 
         $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
         $grade->start_time = Carbon::now();

@@ -10,6 +10,14 @@ class Student extends Authenticatable
     use HasFactory;
 
     /**
+     * Kode skema (classrooms.classrooms_code) yang dikecualikan dari wajib
+     * upload tugas sebelum ujian: Lifting Engineer for Medium Lifting (LEM),
+     * Lifting Engineer for Heavy & Critical Lifting (LHC), 2D Lifting
+     * Designer (LDT), 3D Lifting Designer (DLD).
+     */
+    private const TUGAS_EXEMPT_CLASSROOM_CODES = ['LEM', 'LHC', 'LDT', 'DLD'];
+
+    /**
      * fillable
      *
      * @var array
@@ -28,6 +36,19 @@ class Student extends Authenticatable
     public function classroom()
     {
         return $this->belongsTo(Classroom::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(StudentTask::class);
+    }
+
+    /**
+     * Apakah peserta ini wajib mengunggah tugas sebelum mengerjakan ujian.
+     */
+    public function requiresTugas(): bool
+    {
+        return ! in_array($this->classroom?->classrooms_code, self::TUGAS_EXEMPT_CLASSROOM_CODES, true);
     }
 
     public function participant()

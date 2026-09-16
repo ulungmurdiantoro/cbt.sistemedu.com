@@ -157,6 +157,7 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
 
     Route::get('/penilaian/{exam_session_id}/wawancara',  [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'show'])->name('asesor.wawancara.show');
     Route::post('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'store'])->name('asesor.wawancara.store');
+    Route::get('/penilaian/{exam_session_id}/wawancara/tugas/{student_id}', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'downloadTugas'])->name('asesor.wawancara.tugas.download');
 
     Route::get('/penilaian/{exam_session_id}/laporan-asesmen',  [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'show'])->name('asesor.laporan_asesmen.show');
     Route::post('/penilaian/{exam_session_id}/laporan-asesmen', [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'store'])->name('asesor.laporan_asesmen.store');
@@ -218,6 +219,9 @@ Route::post('/students/login', \App\Http\Controllers\Student\LoginController::cl
 Route::prefix('student')->middleware('student')->group(function () {
 
     Route::get('/dashboard', App\Http\Controllers\Student\DashboardController::class)->name('student.dashboard');
+
+    Route::get('/tugas/{exam_session_id}', [\App\Http\Controllers\Student\StudentTaskController::class, 'show'])->name('student.tugas.show');
+    Route::post('/tugas',                  [\App\Http\Controllers\Student\StudentTaskController::class, 'store'])->name('student.tugas.store');
 
     // Pilihan ganda
     Route::get('/exam-confirmation/{id}',        [\App\Http\Controllers\Student\ExamController::class, 'confirmation'])->name('student.exams.confirmation');

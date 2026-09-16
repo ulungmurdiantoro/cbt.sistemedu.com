@@ -42,8 +42,16 @@
                         </table>
                     </div>
                     
+                    <!-- wajib upload tugas sebelum ujian (kecuali skema yang dikecualikan) -->
+                    <div v-if="requires_tugas && !tugas_by_session[data.exam_group.exam_session.id] && data.grade.end_time == null">
+                        <div class="alert alert-warning border-0 shadow mb-2">
+                            <i class="fa fa-exclamation-triangle me-2"></i> Anda wajib mengunggah tugas sebelum dapat mengerjakan ujian ini.
+                        </div>
+                        <Link :href="`/student/tugas/${data.exam_group.exam_session.id}`" class="btn btn-md btn-warning border-0 shadow w-100 text-white">Upload Tugas</Link>
+                    </div>
+
                     <!-- cek waktu selesai -->
-                    <div v-if="data.grade.end_time == null">
+                    <div v-else-if="data.grade.end_time == null">
 
                         <!-- cek apakah ujian sudah dimulai, tapi waktu masih ada -->
                         <div v-if="examTimeRangeChecker(data.exam_group.exam_session.start_time, data.exam_group.exam_session.end_time)">
@@ -129,7 +137,9 @@
         //register props
         props: {
             exam_groups: Array,
-            auth: Object
+            auth: Object,
+            requires_tugas: Boolean,
+            tugas_by_session: Object,
         }
 
     }

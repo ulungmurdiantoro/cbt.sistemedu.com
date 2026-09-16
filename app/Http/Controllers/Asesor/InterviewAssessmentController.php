@@ -9,6 +9,8 @@ use App\Models\ExamSession;
 use App\Models\GradingScheme;
 use App\Models\InterviewAssessment;
 use App\Models\Student;
+use App\Models\StudentTask;
+use Illuminate\Support\Facades\Storage;
 
 class InterviewAssessmentController extends Controller
 {
@@ -57,12 +59,38 @@ class InterviewAssessmentController extends Controller
             ->get()
             ->keyBy('student_id');
 
+        $tugas = StudentTask::where('exam_session_id', $exam_session_id)
+            ->whereIn('student_id', $assigned_student_ids)
+            ->get()
+            ->keyBy('student_id');
+
         return inertia('Asesor/Wawancara/Show', [
             'exam_session' => $exam_session,
             'students'     => $students,
             'assessments'  => $assessments,
+            'tugas'        => $tugas,
             'bobot'        => $this->getBobotWawancaraFraction($exam_session_id),
         ]);
+    }
+
+    public function downloadTugas(int $exam_session_id, int $student_id)
+    {
+        $asesor = auth()->user();
+
+        $assigned = AsesorAssignment::where('user_id', $asesor->id)
+            ->where('exam_session_id', $exam_session_id)
+            ->where('student_id', $student_id)
+            ->exists();
+
+        abort_unless($assigned, 403, 'Anda tidak ditugaskan untuk menilai peserta ini.');
+
+        $task = StudentTask::where('exam_session_id', $exam_session_id)
+            ->where('student_id', $student_id)
+            ->first();
+
+        abort_if(!$task || !Storage::disk('private')->exists($task->file_path), 404, 'Tugas tidak ditemukan.');
+
+        return Storage::disk('private')->response($task->file_path, $task->original_filename);
     }
 
     public function store(StoreInterviewAssessmentRequest $request, int $exam_session_id)
