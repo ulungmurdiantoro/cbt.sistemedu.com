@@ -45,21 +45,17 @@
                     <!-- status tugas (wajib upload sebelum ujian, kecuali skema yang dikecualikan) -->
                     <!-- selalu tampil supaya peserta bisa kembali mengganti tugas kapan saja -->
                     <div v-if="requires_tugas" class="mb-2">
-
-                        <!-- belum upload: satu-satunya aksi di kartu ini adalah upload tugas -->
-                        <div v-if="!tugas_by_session[data.exam_group.exam_session.id]">
-                            <div class="alert alert-warning border-0 shadow mb-2 py-2 px-3">
-                                <i class="fa fa-exclamation-triangle me-2"></i> Anda wajib mengunggah tugas sebelum dapat mengerjakan ujian ini.
-                            </div>
-                            <Link :href="`/student/tugas/${data.exam_group.exam_session.id}`" class="btn btn-md btn-warning border-0 shadow w-100 text-white">Upload Tugas</Link>
-                        </div>
-
-                        <!-- sudah upload: Kerjakan/Lanjut Kerjakan jadi tombol utama, ganti tugas cukup link kecil -->
-                        <div v-else class="alert alert-success border-0 shadow mb-0 py-2 px-3">
+                        <div v-if="tugas_by_session[data.exam_group.exam_session.id]" class="alert alert-success border-0 shadow mb-2 py-2 px-3">
                             <i class="fa fa-check-circle me-2"></i> Tugas sudah diunggah.
-                            <Link :href="`/student/tugas/${data.exam_group.exam_session.id}`" class="ms-1">Ganti tugas</Link>
                         </div>
-
+                        <div v-else class="alert alert-warning border-0 shadow mb-2 py-2 px-3">
+                            <i class="fa fa-exclamation-triangle me-2"></i> Anda wajib mengunggah tugas sebelum dapat mengerjakan ujian ini.
+                        </div>
+                        <Link :href="`/student/tugas/${data.exam_group.exam_session.id}`"
+                            class="btn btn-md border-0 shadow w-100"
+                            :class="tugas_by_session[data.exam_group.exam_session.id] ? 'btn-outline-secondary' : 'btn-warning text-white'">
+                            {{ tugas_by_session[data.exam_group.exam_session.id] ? 'Lihat / Ganti Tugas' : 'Upload Tugas' }}
+                        </Link>
                     </div>
 
                     <!-- cek waktu selesai -->
