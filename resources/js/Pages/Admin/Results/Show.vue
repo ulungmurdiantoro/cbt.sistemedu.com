@@ -247,13 +247,18 @@ export default {
                 html: 'SK dan Sertifikat akan dikirim ke email dan dashboard peserta yang sudah difinalisasi.'
                     + (belumSp > 0 ? `<br><br><span class="text-warning"><i class="fa fa-exclamation-triangle"></i> ${belumSp} peserta belum dikirimi SP — pastikan sudah diberi kesempatan mengajukan revisi sebelum lanjut.</span>` : ''),
                 icon: 'question',
+                input: 'checkbox',
+                inputValue: 0,
+                inputPlaceholder: 'Sertakan logo KAN pada SK & Sertifikat',
                 showCancelButton: true,
                 confirmButtonColor: '#1f2937',
                 cancelButtonText: 'Batal',
                 confirmButtonText: 'Ya, Kirim',
             }).then(result => {
                 if (result.isConfirmed) {
-                    router.post(`/admin/results/${props.exam_session.id}/distribute`);
+                    router.post(`/admin/results/${props.exam_session.id}/distribute`, {
+                        kan: !!result.value,
+                    });
                 }
             });
         };

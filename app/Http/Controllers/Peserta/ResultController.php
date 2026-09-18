@@ -51,7 +51,9 @@ class ResultController extends Controller
             abort_if($result->materai_status !== 'stamped', 422, 'Tanda tangani dan selesaikan e-meterai FR.AK.14 terlebih dahulu.');
         }
 
-        $pdf      = $generator->skPdf($result);
+        // Pakai varian yang sama seperti yang benar-benar dikirim admin (with_kan),
+        // supaya file yang diunduh ulang peserta konsisten dengan yang diterima via email.
+        $pdf      = $generator->skPdf($result, (bool) $result->with_kan);
         $filename = 'SK_' . $result->student?->no_participant . '.pdf';
 
         return response($pdf, 200)
@@ -73,7 +75,9 @@ class ResultController extends Controller
 
         abort_if($result->materai_status !== 'stamped', 422, 'Tanda tangani dan selesaikan e-meterai FR.AK.14 terlebih dahulu.');
 
-        $pdf      = $generator->sertifikatPdf($result);
+        // Pakai varian yang sama seperti yang benar-benar dikirim admin (with_kan),
+        // supaya file yang diunduh ulang peserta konsisten dengan yang diterima via email.
+        $pdf      = $generator->sertifikatPdf($result, (bool) $result->with_kan);
         $filename = 'Sertifikat_' . $result->student?->no_participant . '.pdf';
 
         return response($pdf, 200)

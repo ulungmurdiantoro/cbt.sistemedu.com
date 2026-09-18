@@ -173,8 +173,19 @@ class ResultController extends Controller
             return redirect()->back()->withErrors(['distribute' => 'Finalisasi semua peserta terlebih dahulu.']);
         }
 
+        $withKan = request()->boolean('kan');
+
+        // Simpan pilihan KAN dulu sebelum dispatch — SendResultMailJob & download
+        // peserta di dashboard-nya sendiri membaca flag ini supaya varian yang
+        // benar-benar terkirim via email selalu konsisten dengan yang bisa
+        // diunduh ulang oleh peserta (bukan selalu default tanpa-KAN).
+        ParticipantResult::where('exam_session_id', $examSession->id)
+            ->where('is_finalized', true)
+            ->whereNull('distributed_at')
+            ->update(['with_kan' => $withKan]);
+
         \App\Jobs\DistributeResultsJob::dispatch($examSession->id);
 
-        return redirect()->back()->with('success', 'Distribusi SK & Sertifikat dijadwalkan dan akan dikirim segera.');
+        return redirect()->back()->with('success', 'Distribusi SK & Sertifikat dijadwalkan dan akan dikirim segera' . ($withKan ? ' (dengan logo KAN).' : '.'));
     }
 }
