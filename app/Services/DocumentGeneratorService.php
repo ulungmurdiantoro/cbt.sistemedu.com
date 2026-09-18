@@ -379,8 +379,11 @@ class DocumentGeneratorService
 
         $startDt    = $session?->start_time ? Carbon::parse($session->start_time) : Carbon::now();
         $heldOn     = $this->heldOnEn($startDt);
-        $certDate   = $result->finalized_at ? $this->heldOnEn(Carbon::parse($result->finalized_at)) : $this->heldOnEn(Carbon::now());
-        $validUntil = $result->valid_until  ? $this->heldOnEn(Carbon::parse($result->valid_until))  : '-';
+        // Certification date & Valid until mengikuti tanggal SK/Sertifikat benar-benar
+        // DIKIRIM (distributed_at), bukan tanggal finalisasi PENGAMBIL KEPUTUSAN — supaya
+        // preview sebelum dikirim tidak menampilkan tanggal resmi yang belum pasti.
+        $certDate   = $result->distributed_at ? $this->heldOnEn(Carbon::parse($result->distributed_at)) : $this->heldOnEn(Carbon::now());
+        $validUntil = $result->valid_until    ? $this->heldOnEn(Carbon::parse($result->valid_until))    : '-';
 
         $classroomId     = $classroom?->id;
         $competencyUnits = $classroomId
@@ -509,7 +512,11 @@ class DocumentGeneratorService
             file_exists($bgBelakang) ? filemtime($bgBelakang) : '',
         ]);
 
-        $cacheKey = 'documents/sertifikat/' . md5($result->sertifikat_number . '|' . ($withKan ? 'kan' : 'tanpa') . '|' . $templateVersion) . '.pdf';
+        // distributed_at ikut jadi bagian cache key: sebelum resmi dikirim, PDF yang
+        // di-preview/download admin memakai tanggal placeholder (lihat generateSertifikat)
+        // dan TIDAK BOLEH menempel selamanya di cache begitu tanggal resmi sudah terbit.
+        $distributedFingerprint = $result->distributed_at?->timestamp ?? 'belum-dikirim';
+        $cacheKey = 'documents/sertifikat/' . md5($result->sertifikat_number . '|' . ($withKan ? 'kan' : 'tanpa') . '|' . $templateVersion . '|' . $distributedFingerprint) . '.pdf';
 
         return $this->cachedPdf(
             $cacheKey,
@@ -532,12 +539,17 @@ class DocumentGeneratorService
         $pnds      = config('lsp_documents.penandatangan');
         $skConf    = config('lsp_documents.sk');
 
-        $startDt       = $session?->start_time ? Carbon::parse($session->start_time) : Carbon::now();
-        $finalizedDt   = $result->finalized_at ? Carbon::parse($result->finalized_at) : Carbon::now();
+        $startDt = $session?->start_time ? Carbon::parse($session->start_time) : Carbon::now();
+
+        // Tanggal SK mengikuti tanggal SK & Sertifikat benar-benar DIKIRIM
+        // (distributed_at), bukan tanggal finalisasi PENGAMBIL KEPUTUSAN — SK
+        // dan Sertifikat dikirim bersamaan lewat aksi "2. Kirim SK & Sertifikat"
+        // (SendResultMailJob), jadi memakai field yang sama dengan Sertifikat.
+        $distributedDt = $result->distributed_at ? Carbon::parse($result->distributed_at) : Carbon::now();
 
         $hariTanggalUjian = $this->heldOnId($startDt);
-        $tglDitetapkan    = $finalizedDt->locale('id')->isoFormat('DD MMMM YYYY');
-        $certDate         = $this->heldOnId($finalizedDt);
+        $tglDitetapkan    = $distributedDt->locale('id')->isoFormat('DD MMMM YYYY');
+        $certDate         = $this->heldOnId($distributedDt);
 
         $namaSkema = $classroom?->title ?? '-';
         $nilaiAkhir = (float) ($result->nilai_akhir ?? 0);
@@ -625,8 +637,12 @@ class DocumentGeneratorService
             md5_file(__FILE__)
         ), 0, 8);
         $suffix = $withKan ? '_kan' : '';
+        // distributed_at ikut jadi bagian cache key — sebelum resmi dikirim, PDF yang
+        // di-preview/download admin memakai tanggal placeholder (lihat generateSk) dan
+        // TIDAK BOLEH menempel selamanya di cache begitu tanggal resmi sudah terbit.
+        $distributedFingerprint = $result->distributed_at?->timestamp ?? 'belum-dikirim';
         return $this->cachedPdf(
-            'documents/sk/' . md5($result->sk_number) . '_' . $hash . $suffix . '.pdf',
+            'documents/sk/' . md5($result->sk_number . '|' . $distributedFingerprint) . '_' . $hash . $suffix . '.pdf',
             fn() => $this->generateSk($result, $withKan)
         );
     }
@@ -652,6 +668,10 @@ class DocumentGeneratorService
 
         $startDt = $session?->start_time ? Carbon::parse($session->start_time) : Carbon::now();
 
+        // Tanggal surat mengikuti tanggal SP benar-benar DIKIRIM (sp_distributed_at),
+        // bukan tanggal finalisasi PENGAMBIL KEPUTUSAN maupun waktu PDF di-render.
+        $tglSuratDt = $result->sp_distributed_at ? Carbon::parse($result->sp_distributed_at) : Carbon::now();
+
         $html = View::make('documents.sp', [
             'result'         => $result,
             'student'        => $student,
@@ -659,7 +679,7 @@ class DocumentGeneratorService
             'session'        => $session,
             'scheme'         => $scheme,
             'spNumber'       => $result->sp_number ?? '-',
-            'tglSurat'       => Carbon::now()->locale('id')->isoFormat('DD MMMM YYYY'),
+            'tglSurat'       => $tglSuratDt->locale('id')->isoFormat('DD MMMM YYYY'),
             'heldOn'         => $this->heldOnId($startDt),
             'statusKompeten' => $this->statusKompeten($result->keputusan ?? ''),
             'lsp'            => $lsp,
@@ -681,8 +701,12 @@ class DocumentGeneratorService
             md5_file(resource_path('views/documents/sp.blade.php')) .
             md5_file(__FILE__)
         ), 0, 8);
+        // sp_distributed_at ikut jadi bagian cache key — sebelum resmi dikirim, PDF yang
+        // di-preview/download admin memakai tanggal placeholder (lihat generateSp) dan
+        // TIDAK BOLEH menempel selamanya di cache begitu SP resmi dikirim.
+        $distributedFingerprint = $result->sp_distributed_at?->timestamp ?? 'belum-dikirim';
         return $this->cachedPdf(
-            'documents/sp/' . md5($result->sp_number) . '_' . $hash . '.pdf',
+            'documents/sp/' . md5($result->sp_number . '|' . $distributedFingerprint) . '_' . $hash . '.pdf',
             fn() => $this->generateSp($result)
         );
     }

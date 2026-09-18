@@ -173,10 +173,11 @@ class SertifikasiController extends Controller
                     'sk_number'         => $skNum,
                     'sp_number'         => $spNum,
                     'sertifikat_number' => $sertifikatNum,
-                    // Masa berlaku 3 tahun dihitung inklusif tanggal terbit — jadi berakhir
-                    // sehari SEBELUM tanggal ulang tahun ke-3 (mis. terbit 14 Sep 2026 ->
-                    // berlaku sampai 13 Sep 2029, bukan 14 Sep 2029).
-                    'valid_until'       => now()->addYears(config('lsp.sertifikat_valid_years', 3))->subDay(),
+                    // valid_until SENGAJA belum dihitung di sini — Certification date &
+                    // Valid until pada Sertifikat mengikuti tanggal SK/Sertifikat benar-benar
+                    // DIKIRIM (distributed_at), bukan tanggal finalisasi PENGAMBIL KEPUTUSAN,
+                    // karena bisa ada jeda waktu antara finalisasi & pengiriman resmi (tahap
+                    // "Kirim SK & Sertifikat"). Dihitung di SendResultMailJob saat itu terjadi.
                 ]);
             }
 
