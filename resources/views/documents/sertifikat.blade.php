@@ -141,7 +141,6 @@ body {
 @php
     $renderPage = $renderPage ?? 'all';
     $schemeEn   = $classroom?->title_en ?? $classroom?->title ?? '';
-    $schemeName = $classroom?->title ?? '';
     $kodeSkema  = $classroom?->kode_skema ?? '';
     $hasGelar   = !empty($classroom?->gelar);
     $ordinal    = function ($date) {
@@ -192,7 +191,7 @@ body {
     @endif
 
     <div class="cert-based-label" style="margin-top:{{ $sp3 }};font-size:{{ $fsSchemeLabel }}">The Certification Based on Scheme :</div>
-    <div class="cert-scheme-name" style="margin-top:{{ $sp7 }};font-size:{{ $fsScheme }}">{{ $schemeName }}</div>
+    <div class="cert-scheme-name" style="margin-top:{{ $sp7 }};font-size:{{ $fsScheme }}">{{ $schemeEn }}</div>
     @if($kodeSkema)
         <div class="cert-scheme-kode" style="margin-top:{{ $sp8 }};font-size:{{ $fsNoskema }}">{{ $kodeSkema }}</div>
     @endif
