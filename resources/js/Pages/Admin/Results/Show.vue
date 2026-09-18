@@ -248,7 +248,7 @@ export default {
                     + (belumSp > 0 ? `<br><br><span class="text-warning"><i class="fa fa-exclamation-triangle"></i> ${belumSp} peserta belum dikirimi SP — pastikan sudah diberi kesempatan mengajukan revisi sebelum lanjut.</span>` : ''),
                 icon: 'question',
                 input: 'checkbox',
-                inputValue: 0,
+                inputValue: 1,
                 inputPlaceholder: 'Sertakan logo KAN pada SK & Sertifikat',
                 showCancelButton: true,
                 confirmButtonColor: '#1f2937',
