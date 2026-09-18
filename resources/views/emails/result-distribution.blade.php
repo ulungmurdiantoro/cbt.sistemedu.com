@@ -44,8 +44,7 @@
             @endif
         </div>
 
-        <p>Dokumen terlampir pada email ini.
-            Anda juga dapat mengunduhnya melalui dashboard peserta.</p>
+        <p>Dokumen {{ $result->keputusan === 'LULUS' ? 'SK dan Sertifikat' : 'SK' }} dapat Anda unduh melalui dashboard peserta.</p>
 
         @if($result->keputusan === 'TIDAK_LULUS')
         <p>Jika Anda memenuhi syarat, Anda dapat mengikuti <strong>ujian remidi</strong> melalui dashboard peserta.</p>

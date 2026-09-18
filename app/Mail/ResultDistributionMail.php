@@ -3,10 +3,8 @@
 namespace App\Mail;
 
 use App\Models\ParticipantResult;
-use App\Services\DocumentGeneratorService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -33,24 +31,10 @@ class ResultDistributionMail extends Mailable
         ]);
     }
 
+    // Notifikasi saja — SK & Sertifikat tidak dilampirkan, peserta mengunduhnya
+    // sendiri lewat dashboard (lihat emails/result-distribution.blade.php).
     public function attachments(): array
     {
-        $generator   = app(DocumentGeneratorService::class);
-        $result      = $this->result;
-        $attachments = [];
-
-        $withKan = (bool) $result->with_kan;
-
-        $skPdf = $generator->skPdf($result, $withKan);
-        $attachments[] = Attachment::fromData(fn() => $skPdf, 'SK_' . $result->student?->no_participant . '.pdf')
-            ->withMime('application/pdf');
-
-        if ($result->keputusan === 'LULUS' && $result->sertifikat_number) {
-            $sertPdf = $generator->sertifikatPdf($result, $withKan);
-            $attachments[] = Attachment::fromData(fn() => $sertPdf, 'Sertifikat_' . $result->student?->no_participant . '.pdf')
-                ->withMime('application/pdf');
-        }
-
-        return $attachments;
+        return [];
     }
 }

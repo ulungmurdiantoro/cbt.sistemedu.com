@@ -100,9 +100,13 @@ body { font-family: cambria, serif; font-size: 12pt; color: #000; line-height: 1
         . 'dan sertifikasi langsung dinyatakan : <strong>' . $statusKompeten . '/Lulus</strong><br>'
         . 'dengan Kategori: <strong>' . e($kategoriLabel) . '</strong>';
 
-    $kedua = 'Kepada peserta Uji Kompetensi yang dinyatakan Kompeten/Lulus berhak '
-        . 'mencantumkan gelar non akademik <strong>' . e($gelar) . ' (' . e($titleEn) . ')</strong> '
-        . 'di belakang nama selama masa berlakunya sertifikat';
+    $kedua = empty($gelar)
+        ? 'Kepada peserta Uji Kompetensi yang dinyatakan Lulus/ Kompeten berhak '
+            . 'menggunakan sertifikat sertifikasi sebagai alat bukti keahlian sesuai '
+            . 'jenis skema sertifikasinya selama masa berlakunya sertifikat'
+        : 'Kepada peserta Uji Kompetensi yang dinyatakan Kompeten/Lulus berhak '
+            . 'mencantumkan gelar non akademik <strong>' . e($gelar) . ' (' . e($titleEn) . ')</strong> '
+            . 'di belakang nama selama masa berlakunya sertifikat';
 
     $ketiga = 'Sehubungan dengan hal tersebut pada poin PERTAMA ditetapkan sebagai peserta '
         . 'Uji Kompetensi ' . e($skema) . ' Perguruan Tinggi melalui Keputusan Ketua '
