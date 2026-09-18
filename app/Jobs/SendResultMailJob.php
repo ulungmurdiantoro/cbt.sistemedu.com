@@ -44,17 +44,23 @@ class SendResultMailJob implements ShouldQueue
             return;
         }
 
-        Mail::to($email)->send(new ResultDistributionMail($result));
-
         // Certification date & Valid until pada Sertifikat mengikuti tanggal
         // dikirimnya SK/Sertifikat ini (bukan tanggal finalisasi PENGAMBIL
         // KEPUTUSAN) — masa berlaku 3 tahun dihitung inklusif tanggal terbit,
         // jadi berakhir sehari SEBELUM tanggal ulang tahun ke-3 (mis. terbit
         // 15 Sep 2026 -> berlaku sampai 14 Sep 2029, bukan 15 Sep 2029).
+        //
+        // Di-set di memory DULU (belum disimpan) supaya isi email — termasuk
+        // baris "Berlaku Hingga" — sudah terisi benar saat dirender & dikirim.
+        // Baru disimpan permanen SETELAH kirim berhasil, supaya kalau
+        // pengiriman gagal (exception di atas), baris ini tidak keliru
+        // tertandai "sudah terdistribusi" (jaga idempotensi retry job ini).
         $now = now();
-        $result->update([
-            'distributed_at' => $now,
-            'valid_until'    => $now->copy()->addYears(config('lsp.sertifikat_valid_years', 3))->subDay(),
-        ]);
+        $result->distributed_at = $now;
+        $result->valid_until    = $now->copy()->addYears(config('lsp.sertifikat_valid_years', 3))->subDay();
+
+        Mail::to($email)->send(new ResultDistributionMail($result));
+
+        $result->save();
     }
 }
