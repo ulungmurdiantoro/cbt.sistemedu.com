@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Exceptions\PeruriStampingException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 /**
@@ -84,8 +85,22 @@ class PeruriService
         }
 
         if (!$response->ok() || ($body['statusCode'] ?? null) !== '00') {
+            Log::error('Peruri Generate SN gagal', [
+                'http_status' => $response->status(),
+                'response'    => Str::limit($response->body(), 1000),
+                'doc'         => $doc,
+            ]);
+
+            // `message` bisa kosong / respons bukan JSON (mis. halaman error
+            // gateway) — sertakan status HTTP, statusCode & cuplikan body supaya
+            // penyebabnya tetap terbaca di materai_failure_reason.
+            $detail = trim((string) ($body['message'] ?? ''));
+            if ($detail === '') {
+                $detail = Str::limit(trim(strip_tags($response->body())), 200) ?: 'respons kosong';
+            }
+
             throw new PeruriStampingException(
-                'Generate Serial Number Peruri gagal: ' . ($body['message'] ?? $response->status())
+                "Generate Serial Number Peruri gagal: {$detail} (HTTP {$response->status()}, statusCode " . ($body['statusCode'] ?? '-') . ')'
             );
         }
 
