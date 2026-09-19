@@ -266,6 +266,18 @@ ganti `ENV: STAGING` → `PROD` di `docker-compose.yml` (lalu
 `PERURI_LOGIN_URL`/`GENERATE_SN_URL`/`JENISDOC_URL` versi production di
 `.env` (lalu `php artisan config:clear`).
 
+> **Saklar utama `MATERAI_ENABLED`** (default `false`): selama `false`, semua
+> pembubuhan materai FR.AK.01 & FR.AK.14 mati (tidak ada job/panggilan Peruri,
+> tombol & status materai disembunyikan) dan peserta cukup menandatangani
+> FR.AK.14 untuk bisa mengunduh SK & Sertifikat. Set `true` **hanya** setelah
+> kredensial + URL production terpasang dan `ENV: PROD` aktif — materai dari
+> staging Peruri adalah spesimen. Sisa dokumen bermaterai spesimen dibersihkan
+> dengan `php artisan materai:reset-specimen --dry-run` (lalu tanpa `--dry-run`);
+> perintah ini menolak jalan kalau `MATERAI_ENABLED=true`. Setelah `true`,
+> FR.AK.14 yang sudah TTD tapi belum bermaterai muncul dengan tombol "Bubuhkan
+> Materai" di halaman peserta (SK & Sertifikat terkunci lagi sampai selesai),
+> dan FR.AK.01 dibubuhkan lewat tombol admin di halaman permohonan.
+
 ---
 
 ## Bagian 5 — Perawatan & pemecahan masalah

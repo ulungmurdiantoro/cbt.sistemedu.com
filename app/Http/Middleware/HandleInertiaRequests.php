@@ -42,6 +42,8 @@ class HandleInertiaRequests extends Middleware
                 'success'   => fn () => $request->session()->get('success'),
                 'error'     => fn () => $request->session()->get('error'),
             ],
+            // saklar utama e-meterai (config/materai.php) — UI menyembunyikan fitur materai kalau false
+            'materaiEnabled' => (bool) config('materai.enabled'),
             //user authenticated
             'auth' => [
                 'user'        => fn () => tap(auth()->user(), fn ($u) => $u?->setAttribute('roles', $u->roleValues())),

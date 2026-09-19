@@ -376,7 +376,7 @@
                     </div>
 
                     <!-- Materai e-meterai FR.AK.01 -->
-                    <div v-if="application.status === 'approved'" class="mt-3 pt-3 border-top">
+                    <div v-if="application.status === 'approved' && $page.props.materaiEnabled" class="mt-3 pt-3 border-top">
                         <div class="small fw-semibold mb-2"><i class="fa fa-stamp me-1"></i>Materai FR.AK.01</div>
 
                         <div v-if="application.materai_status === 'stamped'" class="alert alert-success p-2 small mb-2">

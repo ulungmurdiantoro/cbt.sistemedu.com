@@ -67,6 +67,17 @@ class ParticipantResult extends Model
         return $this->belongsTo(Student::class);
     }
 
+    /**
+     * FR.AK.14 dianggap selesai (syarat unduh SK & Sertifikat): materai ON →
+     * harus sudah 'stamped'; materai OFF → cukup peserta sudah menandatangani.
+     */
+    public function frAk14Completed(): bool
+    {
+        return config('materai.enabled')
+            ? $this->materai_status === 'stamped'
+            : $this->fr_ak_14_signed_at !== null;
+    }
+
     public function finalizer()
     {
         return $this->belongsTo(User::class, 'finalized_by');

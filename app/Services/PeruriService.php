@@ -91,10 +91,12 @@ class PeruriService
                 'doc'         => $doc,
             ]);
 
-            // `message` bisa kosong / respons bukan JSON (mis. halaman error
-            // gateway) — sertakan status HTTP, statusCode & cuplikan body supaya
+            // Alasan sebenarnya biasanya ada di result.err (mis. "Saldo Tidak
+            // Cukup/ Tidak ditemukan"), sedangkan `message` cuma "error". Bisa
+            // juga kosong / respons bukan JSON (mis. halaman error gateway) —
+            // sertakan status HTTP, statusCode & cuplikan body supaya
             // penyebabnya tetap terbaca di materai_failure_reason.
-            $detail = trim((string) ($body['message'] ?? ''));
+            $detail = trim((string) ($body['result']['err'] ?? $body['message'] ?? ''));
             if ($detail === '') {
                 $detail = Str::limit(trim(strip_tags($response->body())), 200) ?: 'respons kosong';
             }

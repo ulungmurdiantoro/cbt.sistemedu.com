@@ -56,11 +56,19 @@ class FrAk14Controller extends Controller
 
         $path = $this->storeSignature($request, 'ttd_frak14_' . $result->id);
 
-        $result->update([
+        $data = [
             'fr_ak_14_signature_path' => $path,
             'fr_ak_14_signed_at'      => now(),
-            'materai_status'          => 'processing',
-        ]);
+        ];
+
+        // Materai dimatikan (config/materai.php 'enabled') → TTD saja sudah cukup.
+        if (!config('materai.enabled')) {
+            $result->update($data);
+
+            return back()->with('success', 'FR.AK.14 berhasil ditandatangani. SK dan Sertifikat sudah bisa diunduh dari Dashboard.');
+        }
+
+        $result->update($data + ['materai_status' => 'processing']);
 
         StampFrAk14Job::dispatch($result->id);
 
@@ -83,8 +91,16 @@ class FrAk14Controller extends Controller
 
     public function retry(int $sessionId, int $studentId)
     {
+        abort_unless(config('materai.enabled'), 404);
+
         $result = $this->findResult($sessionId, $studentId);
-        abort_unless($result->materai_status === 'failed', 422, 'Materai tidak dalam status gagal.');
+        // 'none' + sudah TTD = dokumen yang materai spesimennya di-reset
+        // (materai:reset-specimen) dan perlu dibubuhi ulang.
+        abort_unless(
+            $result->fr_ak_14_signed_at && in_array($result->materai_status, ['failed', 'none'], true),
+            422,
+            'Materai tidak dalam status yang bisa dicoba ulang.'
+        );
 
         $result->update(['materai_status' => 'processing', 'materai_failure_reason' => null]);
         StampFrAk14Job::dispatch($result->id);

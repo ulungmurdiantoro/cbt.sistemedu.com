@@ -30,6 +30,7 @@ class MateraiController extends Controller
 
     public function show(AssessmentApplication $application)
     {
+        abort_unless(config('materai.enabled'), 404);
         $this->authorizeApplication($application);
         abort_if(!$application->pakta_signed_at, 422, 'Tanda tangani pakta integritas terlebih dahulu.');
 
@@ -42,6 +43,7 @@ class MateraiController extends Controller
 
     public function retry(AssessmentApplication $application)
     {
+        abort_unless(config('materai.enabled'), 404);
         $this->authorizeApplication($application);
         abort_unless($application->materai_status === 'failed', 422, 'Materai tidak dalam status gagal.');
 

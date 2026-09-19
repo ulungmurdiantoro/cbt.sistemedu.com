@@ -142,6 +142,10 @@ class AssessmentApplication extends Model
      */
     public function maybeTriggerAk01Stamping(): void
     {
+        if (!config('materai.enabled')) {
+            return; // saklar utama materai mati — lihat config/materai.php
+        }
+
         if ($this->materai_status !== 'none') {
             return; // sudah pernah dipicu (pending_payment/paid/stamped) atau gagal — retry ditangani terpisah
         }

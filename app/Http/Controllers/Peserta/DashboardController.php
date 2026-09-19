@@ -54,6 +54,7 @@ class DashboardController extends Controller
                     'valid_until'      => $result->valid_until,
                     'attempt'          => $result->attempt,
                     'fr_ak_14_signed_at'     => $result->fr_ak_14_signed_at,
+                    'fr_ak_14_completed'     => $result->frAk14Completed(),
                     'materai_status'         => $result->materai_status,
                     'materai_failure_reason' => $result->materai_failure_reason,
                 ] : null);

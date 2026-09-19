@@ -21,6 +21,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Saklar utama e-meterai
+    |--------------------------------------------------------------------------
+    | false = SEMUA pembubuhan materai (FR.AK.01 & FR.AK.14) dimatikan: tidak
+    |         ada job yang dijalankan, tombol/status materai disembunyikan, dan
+    |         gembok unduhan SK & Sertifikat cukup meminta peserta menandatangani
+    |         FR.AK.14 (tanpa materai).
+    | true  = alur lengkap dengan Peruri. Aktifkan HANYA setelah kredensial &
+    |         URL production terpasang — di staging Peruri materainya spesimen.
+    */
+    'enabled' => (bool) env('MATERAI_ENABLED', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Pembubuhan otomatis
     |--------------------------------------------------------------------------
     | true  = materai FR.AK.01 dibubuhkan otomatis begitu ketiga TTD lengkap.

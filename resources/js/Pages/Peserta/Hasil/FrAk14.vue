@@ -13,8 +13,10 @@
             </nav>
             <h5 class="fw-bold">FR.AK.14 — Surat Pernyataan Pemegang Sertifikat</h5>
             <p class="text-muted small">
-                Baca seluruh pernyataan di bawah, lalu tandatangani. Materai elektronik dibubuhkan otomatis
-                (gratis) setelah tanda tangan tersimpan. SK dan Sertifikat baru bisa diunduh setelah langkah ini selesai.
+                Baca seluruh pernyataan di bawah, lalu tandatangani.
+                <template v-if="$page.props.materaiEnabled">Materai elektronik dibubuhkan otomatis
+                (gratis) setelah tanda tangan tersimpan. </template>
+                SK dan Sertifikat baru bisa diunduh setelah langkah ini selesai.
             </p>
         </div>
     </div>
@@ -138,7 +140,15 @@
     <!-- Status materai (setelah tanda tangan) -->
     <div class="card border-0 shadow mb-5" v-else>
         <div class="card-body p-4 text-center">
-            <template v-if="result.materai_status === 'stamped'">
+            <template v-if="!$page.props.materaiEnabled">
+                <i class="fa fa-check-circle text-success" style="font-size:3rem"></i>
+                <h6 class="fw-bold mt-3">FR.AK.14 Sudah Ditandatangani</h6>
+                <p class="text-muted small mb-3">
+                    Ditandatangani pada {{ formatDate(result.fr_ak_14_signed_at) }}. SK dan Sertifikat sudah bisa diunduh dari Dashboard.
+                </p>
+                <Link href="/peserta/dashboard" class="btn btn-success"><i class="fa fa-arrow-left me-1"></i>Kembali ke Dashboard</Link>
+            </template>
+            <template v-else-if="result.materai_status === 'stamped'">
                 <i class="fa fa-check-circle text-success" style="font-size:3rem"></i>
                 <h6 class="fw-bold mt-3">Materai Sudah Dibubuhkan</h6>
                 <p class="text-muted small mb-3">
@@ -146,13 +156,17 @@
                 </p>
                 <Link href="/peserta/dashboard" class="btn btn-success"><i class="fa fa-arrow-left me-1"></i>Kembali ke Dashboard</Link>
             </template>
-            <template v-else-if="result.materai_status === 'failed'">
+            <template v-else-if="['failed', 'none'].includes(result.materai_status)">
                 <i class="fa fa-exclamation-triangle text-danger" style="font-size:3rem"></i>
-                <h6 class="fw-bold mt-3">Pembubuhan Materai Gagal</h6>
-                <p class="text-muted small mb-3">{{ result.materai_failure_reason }}</p>
+                <h6 class="fw-bold mt-3">{{ result.materai_status === 'failed' ? 'Pembubuhan Materai Gagal' : 'Materai Belum Dibubuhkan' }}</h6>
+                <p class="text-muted small mb-3">
+                    {{ result.materai_status === 'failed'
+                        ? result.materai_failure_reason
+                        : 'FR.AK.14 sudah ditandatangani, tetapi materai elektronik belum dibubuhkan.' }}
+                </p>
                 <button class="btn btn-primary px-4" :disabled="retrying" @click="retry">
                     <span v-if="retrying"><span class="spinner-border spinner-border-sm me-1"></span>Memproses...</span>
-                    <span v-else><i class="fa fa-redo me-1"></i>Coba Lagi</span>
+                    <span v-else><i class="fa fa-redo me-1"></i>{{ result.materai_status === 'failed' ? 'Coba Lagi' : 'Bubuhkan Materai' }}</span>
                 </button>
             </template>
             <template v-else>

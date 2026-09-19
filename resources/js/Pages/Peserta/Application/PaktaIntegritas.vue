@@ -307,7 +307,7 @@
         <Link :href="`/peserta/aplikasi/${application.id}/form`" class="btn btn-light border">
             <i class="fa fa-arrow-left me-1"></i> Kembali ke Formulir
         </Link>
-        <Link v-if="application.pakta_signed_at" :href="`/peserta/aplikasi/${application.id}/materai`" class="btn btn-light border">
+        <Link v-if="application.pakta_signed_at && $page.props.materaiEnabled" :href="`/peserta/aplikasi/${application.id}/materai`" class="btn btn-light border">
             <i class="fa fa-stamp me-1"></i> Status Materai Elektronik
         </Link>
         <Link v-if="application.pakta_signed_at" :href="`/peserta/aplikasi/${application.id}/dokumen`" class="btn btn-success">

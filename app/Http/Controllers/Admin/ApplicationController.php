@@ -422,6 +422,8 @@ class ApplicationController extends Controller
      */
     public function stampMaterai(AssessmentApplication $application)
     {
+        abort_unless(config('materai.enabled'), 404);
+
         if (!$application->signature_path || !$application->admin_signature_path || !$application->asesor_signature_path) {
             throw ValidationException::withMessages([
                 'materai' => 'Ketiga tanda tangan (Asesi, LSP, Asesor) harus lengkap dulu sebelum materai dibubuhkan.',
@@ -443,6 +445,7 @@ class ApplicationController extends Controller
     /** Tampilkan/unduh FR.AK.01 yang sudah dibubuhi materai. */
     public function downloadMaterai(AssessmentApplication $application)
     {
+        abort_unless(config('materai.enabled'), 404);
         abort_if(
             $application->materai_status !== 'stamped' || !$application->materai_document_path,
             404,

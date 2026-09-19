@@ -30,6 +30,12 @@ class StampFrAk01Job implements ShouldQueue
 
     public function handle(DocumentGeneratorService $generator, PeruriService $peruri): void
     {
+        // Materai dimatikan: job yang masih tersisa di antrian jangan sampai
+        // menghabiskan saldo Peruri / menstempel dokumen.
+        if (!config('materai.enabled')) {
+            return;
+        }
+
         $application = AssessmentApplication::find($this->applicationId);
 
         if (!$application || $application->materai_status === 'stamped') {

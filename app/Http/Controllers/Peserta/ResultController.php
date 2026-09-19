@@ -48,7 +48,7 @@ class ResultController extends Controller
         // FR.AK.14 hanya berlaku untuk peserta yang LULUS (surat pernyataan
         // pemegang sertifikat) — yang tidak lulus tetap bebas unduh SK-nya.
         if ($result->keputusan === 'LULUS') {
-            abort_if($result->materai_status !== 'stamped', 422, 'Tanda tangani dan selesaikan e-meterai FR.AK.14 terlebih dahulu.');
+            abort_unless($result->frAk14Completed(), 422, 'Selesaikan FR.AK.14 terlebih dahulu.');
         }
 
         // Pakai varian yang sama seperti yang benar-benar dikirim admin (with_kan),
@@ -73,7 +73,7 @@ class ResultController extends Controller
             ->whereHas('student', fn($q) => $q->where('participant_id', $participant->id))
             ->firstOrFail();
 
-        abort_if($result->materai_status !== 'stamped', 422, 'Tanda tangani dan selesaikan e-meterai FR.AK.14 terlebih dahulu.');
+        abort_unless($result->frAk14Completed(), 422, 'Selesaikan FR.AK.14 terlebih dahulu.');
 
         // Pakai varian yang sama seperti yang benar-benar dikirim admin (with_kan),
         // supaya file yang diunduh ulang peserta konsisten dengan yang diterima via email.
