@@ -143,7 +143,7 @@
                                 <template v-if="app.result.materai_status === 'processing'">Materai e-meterai FR.AK.14 sedang diproses. SK & Sertifikat akan bisa diunduh setelah selesai.</template>
                                 <template v-else-if="app.result.materai_status === 'failed'">Pembubuhan materai FR.AK.14 gagal. Silakan buka halaman FR.AK.14 untuk mencoba lagi.</template>
                                 <template v-else-if="$page.props.materaiEnabled && app.result.fr_ak_14_signed_at">FR.AK.14 sudah ditandatangani tetapi materai elektronik belum dibubuhkan. Silakan buka halaman FR.AK.14 untuk membubuhkannya.</template>
-                                <template v-else-if="$page.props.materaiEnabled">Lengkapi FR.AK.14 (tanda tangan + materai elektronik) terlebih dahulu sebelum mengunduh SK & Sertifikat.</template>
+                                <template v-else-if="$page.props.materaiEnabled && !app.result.materai_exempt">Lengkapi FR.AK.14 (tanda tangan + materai elektronik) terlebih dahulu sebelum mengunduh SK & Sertifikat.</template>
                                 <template v-else>Tandatangani FR.AK.14 terlebih dahulu sebelum mengunduh SK & Sertifikat.</template>
                                 <Link :href="`/peserta/hasil/${app.exam_session_id}/${app.student_id}/fr-ak-14`" class="btn btn-sm btn-warning mt-2 d-block" style="width:fit-content">
                                     <i class="fa fa-pen me-1"></i> Buka FR.AK.14

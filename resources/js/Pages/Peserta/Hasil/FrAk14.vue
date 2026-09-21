@@ -14,7 +14,7 @@
             <h5 class="fw-bold">FR.AK.14 — Surat Pernyataan Pemegang Sertifikat</h5>
             <p class="text-muted small">
                 Baca seluruh pernyataan di bawah, lalu tandatangani.
-                <template v-if="$page.props.materaiEnabled">Materai elektronik dibubuhkan otomatis
+                <template v-if="$page.props.materaiEnabled && !result.materai_exempt">Materai elektronik dibubuhkan otomatis
                 (gratis) setelah tanda tangan tersimpan. </template>
                 SK dan Sertifikat baru bisa diunduh setelah langkah ini selesai.
             </p>
@@ -140,7 +140,7 @@
     <!-- Status materai (setelah tanda tangan) -->
     <div class="card border-0 shadow mb-5" v-else>
         <div class="card-body p-4 text-center">
-            <template v-if="!$page.props.materaiEnabled">
+            <template v-if="!$page.props.materaiEnabled || result.materai_exempt">
                 <i class="fa fa-check-circle text-success" style="font-size:3rem"></i>
                 <h6 class="fw-bold mt-3">FR.AK.14 Sudah Ditandatangani</h6>
                 <p class="text-muted small mb-3">

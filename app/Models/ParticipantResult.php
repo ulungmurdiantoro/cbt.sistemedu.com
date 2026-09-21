@@ -68,14 +68,28 @@ class ParticipantResult extends Model
     }
 
     /**
-     * FR.AK.14 dianggap selesai (syarat unduh SK & Sertifikat): materai ON →
-     * harus sudah 'stamped'; materai OFF → cukup peserta sudah menandatangani.
+     * Peserta di sesi ujian sebelum materai.first_session_id dibebaskan dari
+     * materai FR.AK.14 (tetap harus TTD) — apa pun status TTD/materainya.
+     */
+    public function frAk14ExemptFromMaterai(): bool
+    {
+        $first = config('materai.first_session_id');
+
+        return $first !== null && $this->exam_session_id < (int) $first;
+    }
+
+    /**
+     * FR.AK.14 dianggap selesai (syarat unduh SK & Sertifikat): cukup sudah
+     * ditandatangani kalau materai OFF atau pesertanya dibebaskan (sesi lama);
+     * selain itu harus sudah 'stamped'.
      */
     public function frAk14Completed(): bool
     {
-        return config('materai.enabled')
-            ? $this->materai_status === 'stamped'
-            : $this->fr_ak_14_signed_at !== null;
+        if (!config('materai.enabled') || $this->frAk14ExemptFromMaterai()) {
+            return $this->fr_ak_14_signed_at !== null;
+        }
+
+        return $this->materai_status === 'stamped';
     }
 
     public function finalizer()

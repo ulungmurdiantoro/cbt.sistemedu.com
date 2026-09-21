@@ -42,6 +42,11 @@ class StampFrAk14Job implements ShouldQueue
             return; // idempotent
         }
 
+        // Peserta sesi lama (materai.first_session_id) dibebaskan dari materai — jangan buang saldo.
+        if ($result->frAk14ExemptFromMaterai()) {
+            return;
+        }
+
         try {
             $pdf = $generator->generateFrAk14($result);
 

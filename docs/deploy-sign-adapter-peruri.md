@@ -273,10 +273,18 @@ ganti `ENV: STAGING` → `PROD` di `docker-compose.yml` (lalu
 > kredensial + URL production terpasang dan `ENV: PROD` aktif — materai dari
 > staging Peruri adalah spesimen. Sisa dokumen bermaterai spesimen dibersihkan
 > dengan `php artisan materai:reset-specimen --dry-run` (lalu tanpa `--dry-run`);
-> perintah ini menolak jalan kalau `MATERAI_ENABLED=true`. Setelah `true`,
-> FR.AK.14 yang sudah TTD tapi belum bermaterai muncul dengan tombol "Bubuhkan
-> Materai" di halaman peserta (SK & Sertifikat terkunci lagi sampai selesai),
-> dan FR.AK.01 dibubuhkan lewat tombol admin di halaman permohonan.
+> perintah ini menolak jalan kalau `MATERAI_ENABLED=true`.
+>
+> **Pembebasan per sesi (`MATERAI_FIRST_SESSION_ID`)**: peserta di sesi ujian
+> ber-ID **lebih kecil** dari angka ini bebas materai FR.AK.14 selamanya, kapan
+> pun mereka TTD — tetap wajib TTD, tapi tidak dibubuhi (tidak memakai saldo)
+> dan tidak terkunci meski `MATERAI_ENABLED=true`; setelah TTD mereka bisa
+> mengunduh SK & Sertifikat. Peserta di sesi ini dan sesudahnya wajib materai:
+> setelah TTD, tombol "Bubuhkan Materai"/pembubuhan otomatis berjalan dan SK &
+> Sertifikat terkunci sampai selesai. **Isi angka ini SEBELUM
+> `MATERAI_ENABLED=true`** — kalau kosong tidak ada yang dibebaskan dan semua
+> peserta lulus ikut terkunci. FR.AK.01 tidak terpengaruh — dibubuhkan lewat
+> tombol admin di halaman permohonan (dan tidak menggembok unduhan).
 
 ---
 

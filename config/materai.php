@@ -34,6 +34,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Sesi ujian pertama yang WAJIB materai FR.AK.14
+    |--------------------------------------------------------------------------
+    | Peserta di sesi ujian dengan ID LEBIH KECIL dari angka ini dibebaskan dari
+    | materai selamanya, kapan pun mereka menandatangani FR.AK.14: tidak
+    | dibubuhi (tidak memakai saldo), tapi tetap harus TTD, dan setelah TTD bisa
+    | mengunduh SK & Sertifikat. Peserta di sesi ini dan sesudahnya wajib materai
+    | (hanya kalau 'enabled' = true). Kosong = tanpa pembebasan — SET SEBELUM
+    | mengaktifkan 'enabled', kalau tidak semua peserta lulus ikut terkunci.
+    */
+    'first_session_id' => env('MATERAI_FIRST_SESSION_ID') ?: null,
+
+    /*
+    |--------------------------------------------------------------------------
     | Pembubuhan otomatis
     |--------------------------------------------------------------------------
     | true  = materai FR.AK.01 dibubuhkan otomatis begitu ketiga TTD lengkap.

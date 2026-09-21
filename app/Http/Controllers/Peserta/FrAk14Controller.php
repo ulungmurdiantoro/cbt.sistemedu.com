@@ -45,7 +45,7 @@ class FrAk14Controller extends Controller
             'noSertifikat' => $result->sertifikat_number,
             'result'       => $result->only([
                 'fr_ak_14_signed_at', 'materai_status', 'materai_stamped_at', 'materai_failure_reason',
-            ]),
+            ]) + ['materai_exempt' => $result->frAk14ExemptFromMaterai()],
         ]);
     }
 
@@ -56,19 +56,18 @@ class FrAk14Controller extends Controller
 
         $path = $this->storeSignature($request, 'ttd_frak14_' . $result->id);
 
-        $data = [
+        $result->update([
             'fr_ak_14_signature_path' => $path,
             'fr_ak_14_signed_at'      => now(),
-        ];
+        ]);
 
-        // Materai dimatikan (config/materai.php 'enabled') → TTD saja sudah cukup.
-        if (!config('materai.enabled')) {
-            $result->update($data);
-
+        // Materai dimatikan (config/materai.php 'enabled'), atau peserta dari
+        // sesi lama (materai.first_session_id, dibebaskan) → TTD saja sudah cukup.
+        if (!config('materai.enabled') || $result->frAk14ExemptFromMaterai()) {
             return back()->with('success', 'FR.AK.14 berhasil ditandatangani. SK dan Sertifikat sudah bisa diunduh dari Dashboard.');
         }
 
-        $result->update($data + ['materai_status' => 'processing']);
+        $result->update(['materai_status' => 'processing']);
 
         StampFrAk14Job::dispatch($result->id);
 
@@ -94,6 +93,7 @@ class FrAk14Controller extends Controller
         abort_unless(config('materai.enabled'), 404);
 
         $result = $this->findResult($sessionId, $studentId);
+        abort_if($result->frAk14ExemptFromMaterai(), 422, 'FR.AK.14 ini dibebaskan dari materai.');
         // 'none' + sudah TTD = dokumen yang materai spesimennya di-reset
         // (materai:reset-specimen) dan perlu dibubuhi ulang.
         abort_unless(
