@@ -113,6 +113,35 @@ class PeruriService
     }
 
     /**
+     * Sisa saldo (kuota) e-meterai akun Peruri — endpoint "Check Saldo Pos" yang
+     * ada di host yang sama dengan login (backendservice / backendservicestg).
+     * Hanya membaca, tidak memakai saldo.
+     *
+     * @return array{saldo: int, notstamp: int}
+     */
+    public function saldo(): array
+    {
+        $url = 'https://' . parse_url((string) config('materai.peruri.login_url'), PHP_URL_HOST) . '/function/saldopos';
+
+        // Token kadaluarsa/invalid (status "01") — login ulang sekali lalu coba lagi.
+        $response = Http::timeout(30)->withToken($this->login())->get($url);
+        if (($response->json('status')) === '01') {
+            $response = Http::timeout(30)->withToken($this->login(forceFresh: true))->get($url);
+        }
+
+        $result = $response->json('result');
+
+        if (!$response->ok() || !is_array($result) || ($result['status'] ?? null) !== '00') {
+            throw new PeruriStampingException(
+                'Cek saldo Peruri gagal: ' . (is_string($result) ? $result : Str::limit(trim(strip_tags($response->body())), 200))
+                . " (HTTP {$response->status()})"
+            );
+        }
+
+        return ['saldo' => (int) ($result['saldo'] ?? 0), 'notstamp' => (int) ($result['notstamp'] ?? 0)];
+    }
+
+    /**
      * Bubuhkan e-meterai pada satu dokumen PDF lewat container Sign Adapter
      * lokal, kembalikan bytes PDF yang sudah distempel.
      *
