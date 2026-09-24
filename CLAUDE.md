@@ -192,7 +192,7 @@ Aturan di `Student\BaseExamController` (dipakai PG, Essay, Essay Migas):
   (`Question::STUDENT_COLUMNS`, `Essay::STUDENT_COLUMNS`); `is_correct`/`score` disembunyikan.
   Setiap query baru di halaman siswa wajib memakai `questionForStudent()` / `essayForStudent()`.
 - **Timer dijaga server.** `grades.duration` (sisa ms) hanya boleh berkurang (`syncDuration`), dan dibatasi
-  jam dinding `start_time + durasi ujian + GRACE_MINUTES (30)` (`remainingMs`). Timer klien berhenti saat
+  jam dinding `start_time + durasi ujian + GRACE_MINUTES (60)` (`remainingMs`). Timer klien berhenti saat
   peserta offline, jadi toleransi ini menampung gangguan koneksi.
 - Mulai ujian hanya sekali (tidak reset `start_time` / acak ulang soal); jawaban ditolak setelah
   `end_time` terisi atau waktu habis (`acceptsAnswers`); mengakhiri dua kali tidak menimpa nilai.

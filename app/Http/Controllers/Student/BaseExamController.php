@@ -14,7 +14,7 @@ use Illuminate\Http\RedirectResponse;
 abstract class BaseExamController extends Controller
 {
     /** Toleransi (menit) di atas durasi ujian untuk gangguan koneksi peserta. */
-    protected const GRACE_MINUTES = 30;
+    protected const GRACE_MINUTES = 60;
 
     protected function studentId(): int
     {

@@ -149,11 +149,15 @@ class ExamSecurityTest extends TestCase
         $ctx = $this->pgExam();
         $this->get("/student/exam-start/{$ctx['group']->id}");
 
-        // Durasi 60 menit + toleransi 30 menit; klien "membekukan" timernya.
-        $this->travel(91)->minutes();
-        $this->answer($ctx, 3, duration: 3_600_000);
+        // Durasi 60 menit + toleransi 60 menit; klien "membekukan" timernya
+        // (mis. logout lalu kembali) sehingga sisa waktu tersimpan tetap 60 menit.
+        $this->travel(119)->minutes();
+        $this->answer($ctx, 2, duration: 3_600_000);
+        $this->assertSame(2, (int) Answer::where('student_id', $ctx['student']->id)->first()->answer);
 
-        $this->assertSame(0, (int) Answer::where('student_id', $ctx['student']->id)->first()->answer);
+        $this->travel(2)->minutes();
+        $this->answer($ctx, 3, duration: 3_600_000);
+        $this->assertSame(2, (int) Answer::where('student_id', $ctx['student']->id)->first()->answer);
     }
 
     public function test_ending_twice_does_not_overwrite_result(): void
