@@ -9,6 +9,9 @@ class AnswerEssay extends Model
 {
     use HasFactory;
 
+    /** Kolom hasil penilaian asesor — tidak dikirim ke halaman ujian peserta. */
+    public const ASSESSMENT_COLUMNS = ['is_correct', 'score', 'assessed_by', 'assessed_at'];
+
     /**
      * fillable
      *

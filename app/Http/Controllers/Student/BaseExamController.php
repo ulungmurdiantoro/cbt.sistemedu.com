@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Student;
 
+use Carbon\Carbon;
+use App\Models\Essay;
 use App\Models\Grade;
+use App\Models\Question;
 use App\Models\ExamGroup;
 use App\Models\StudentTask;
 use App\Http\Controllers\Controller;
@@ -10,6 +13,9 @@ use Illuminate\Http\RedirectResponse;
 
 abstract class BaseExamController extends Controller
 {
+    /** Toleransi (menit) di atas durasi ujian untuk gangguan koneksi peserta. */
+    protected const GRACE_MINUTES = 30;
+
     protected function studentId(): int
     {
         return (int) auth()->guard('student')->user()->id;
@@ -62,5 +68,63 @@ abstract class BaseExamController extends Controller
         return Grade::where('id', $gradeId)
             ->where('student_id', $this->studentId())
             ->firstOrFail();
+    }
+
+    /**
+     * Sisa waktu (ms) menurut server. grades.duration dikurangi oleh timer klien
+     * (berhenti saat peserta offline), jadi dibatasi lagi dengan jam dinding:
+     * start_time + durasi ujian + toleransi gangguan koneksi.
+     */
+    protected function remainingMs(Grade $grade): int
+    {
+        $stored = max(0, (int) $grade->duration);
+
+        if (! $grade->start_time) {
+            return $stored;
+        }
+
+        $deadline = Carbon::parse($grade->start_time)
+            ->addMinutes((int) $grade->exam->duration + self::GRACE_MINUTES);
+
+        return (int) min($stored, max(0, now()->diffInMilliseconds($deadline, false)));
+    }
+
+    /** Ujian sedang berjalan: sudah dimulai, belum diakhiri, dan waktu masih ada. */
+    protected function acceptsAnswers(?Grade $grade): bool
+    {
+        return $grade
+            && $grade->start_time !== null
+            && $grade->end_time === null
+            && $this->remainingMs($grade) > 0;
+    }
+
+    /** Durasi dari klien hanya boleh mengurangi sisa waktu, tidak pernah menambah. */
+    protected function syncDuration(Grade $grade, mixed $reported): void
+    {
+        if (! is_numeric($reported)) {
+            return;
+        }
+
+        $grade->duration = max(0, min((int) $reported, (int) $grade->duration));
+        $grade->save();
+    }
+
+    /** Grade untuk dikirim ke halaman ujian, dengan duration = sisa waktu versi server. */
+    protected function gradeForTimer(Grade $grade): Grade
+    {
+        $grade->duration = $this->remainingMs($grade);
+
+        return $grade;
+    }
+
+    /** Kolom relasi soal yang aman dikirim ke browser peserta (tanpa kunci jawaban). */
+    protected function questionForStudent(): \Closure
+    {
+        return fn ($q) => $q->select(Question::STUDENT_COLUMNS);
+    }
+
+    protected function essayForStudent(): \Closure
+    {
+        return fn ($q) => $q->select(Essay::STUDENT_COLUMNS);
     }
 }

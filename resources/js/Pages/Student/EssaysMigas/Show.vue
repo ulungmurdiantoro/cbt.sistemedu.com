@@ -86,7 +86,8 @@
           <!-- Upload 1 file (hanya jika tidak ada soal uraian) -->
           <div v-if="!hasEssayQuestion" class="mt-4 p-3" style="border:1px solid rgba(0,0,0,.1);border-radius:14px;">
             <div class="fw-bold mb-2">Upload Jawaban Ujian (1 File)</div>
-            <input type="file" class="form-control" @change="onFileChange" />
+            <input type="file" class="form-control" :accept="file_accept" @change="onFileChange" />
+            <div class="small text-muted mt-1">Tipe file: {{ file_accept }} — maks. 20 MB.</div>
             <div class="small text-muted mt-2" v-if="selectedFile">
               File dipilih: <strong>{{ selectedFile.name }}</strong> ({{ formatBytes(selectedFile.size) }})
             </div>
@@ -177,6 +178,7 @@ export default {
     all_essays:       Array,
     duration:         Object,
     existing_file:    Object,
+    file_accept:      String,
   },
 
   setup(props) {

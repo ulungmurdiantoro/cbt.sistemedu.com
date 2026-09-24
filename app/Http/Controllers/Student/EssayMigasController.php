@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Student;
 
 use App\Models\AnswerEssay;
 use App\Models\Essay;
+use App\Support\AnswerFile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class EssayMigasController extends BaseExamController
@@ -45,10 +45,18 @@ class EssayMigasController extends BaseExamController
         $sessionId = (int) $exam_group->exam_session->id;
 
         $grade = $this->currentGrade($examId, $sessionId);
-        if ($grade) {
-            $grade->start_time = Carbon::now();
-            $grade->save();
+
+        if (!$grade || $grade->end_time) {
+            return redirect()->route('student.dashboard');
         }
+
+        // Sudah dimulai: lanjutkan tanpa mereset waktu atau mengacak ulang soal.
+        if ($grade->start_time) {
+            return redirect()->route('student.essaysmigas.show', ['id' => (int) $exam_group->id, 'page' => 1]);
+        }
+
+        $grade->start_time = Carbon::now();
+        $grade->save();
 
         $essays = $exam_group->exam->random_essay === 'Y'
             ? Essay::where('exam_id', $examId)->inRandomOrder()->get()
@@ -105,12 +113,19 @@ class EssayMigasController extends BaseExamController
         $examId    = (int) $exam_group->exam->id;
         $sessionId = (int) $exam_group->exam_session->id;
 
-        $all_essays = AnswerEssay::with('essay')
+        $grade = $this->currentGrade($examId, $sessionId);
+
+        if (!$grade || $grade->end_time) {
+            return redirect()->route('student.essaysmigas.resultEssay', ['essay_group_id' => (int) $exam_group->id]);
+        }
+
+        $all_essays = AnswerEssay::with(['essay' => $this->essayForStudent()])
             ->where('student_id', $this->studentId())
             ->where('exam_id', $examId)
             ->where('exam_session_id', $sessionId)
             ->orderBy('essay_order', 'ASC')
-            ->get();
+            ->get()
+            ->each->makeHidden(AnswerEssay::ASSESSMENT_COLUMNS);
 
         $essay_answered = AnswerEssay::where('student_id', $this->studentId())
             ->where('exam_id', $examId)
@@ -118,12 +133,13 @@ class EssayMigasController extends BaseExamController
             ->whereNotNull('answer')
             ->count();
 
-        $essay_active = AnswerEssay::with('essay.exam')
+        $essay_active = AnswerEssay::with(['essay' => $this->essayForStudent(), 'essay.exam'])
             ->where('student_id', $this->studentId())
             ->where('exam_id', $examId)
             ->where('exam_session_id', $sessionId)
             ->where('essay_order', (int) $page)
-            ->first();
+            ->first()
+            ?->makeHidden(AnswerEssay::ASSESSMENT_COLUMNS);
 
         $answer_order = ($essay_active && $essay_active->answer_order)
             ? explode(',', $essay_active->answer_order)
@@ -137,13 +153,7 @@ class EssayMigasController extends BaseExamController
             ->first();
 
         if ($existing?->answer) {
-            $path         = $existing->answer;
-            $existingFile = [
-                'path' => $path,
-                'url'  => asset('storage/' . $path),
-                'name' => basename($path),
-                'size' => Storage::disk('public')->exists($path) ? Storage::disk('public')->size($path) : null,
-            ];
+            $existingFile = $this->fileInfo($existing->answer, $examId, $sessionId);
         }
 
         return inertia('Student/EssaysMigas/Show', [
@@ -156,16 +166,19 @@ class EssayMigasController extends BaseExamController
             'essay_answered'  => $essay_answered,
             'essay_active'    => $essay_active,
             'answer_order'    => $answer_order,
-            'duration'        => $this->currentGrade($examId, $sessionId),
+            'duration'        => $this->gradeForTimer($grade),
             'existing_file'   => $existingFile,
+            'file_accept'     => AnswerFile::accept(),
         ]);
     }
 
     public function updateDuration(Request $request, $grade_id)
     {
         $grade = $this->ownedGrade((int) $grade_id);
-        $grade->duration = $request->duration;
-        $grade->save();
+
+        if ($grade->end_time === null) {
+            $this->syncDuration($grade, $request->duration);
+        }
 
         return response()->json(['success' => true]);
     }
@@ -188,19 +201,13 @@ class EssayMigasController extends BaseExamController
 
         $existingFile = null;
         if ($existing?->answer) {
-            $path         = $existing->answer;
-            $existingFile = [
-                'path' => $path,
-                'url'  => asset('storage/' . $path),
-                'name' => basename($path),
-                'size' => Storage::disk('public')->exists($path) ? Storage::disk('public')->size($path) : null,
-            ];
+            $existingFile = $this->fileInfo($existing->answer, $examId, $sessionId);
         }
 
         return inertia('Student/EssayMigasUpload', [
             'exam_id'         => $examId,
             'exam_session_id' => $sessionId,
-            'duration'        => ['duration' => (int) ($grade->duration ?? 0), 'id' => (int) $grade->id],
+            'duration'        => ['duration' => $this->remainingMs($grade), 'id' => (int) $grade->id],
             'all_essays'      => Essay::where('exam_id', $examId)->get(),
             'existing_file'   => $existingFile,
         ]);
@@ -212,8 +219,8 @@ class EssayMigasController extends BaseExamController
             'exam_id'         => ['required', 'integer'],
             'exam_session_id' => ['required', 'integer'],
             'duration'        => ['nullable'],
-            'file'            => ['required', 'file', 'max:20480'],
-        ]);
+            'file'            => AnswerFile::rules(),
+        ], AnswerFile::messages());
 
         $examId    = (int) $request->exam_id;
         $sessionId = (int) $request->exam_session_id;
@@ -223,17 +230,13 @@ class EssayMigasController extends BaseExamController
             return response()->json(['success' => false, 'message' => 'Grade tidak ditemukan.'], 404);
         }
 
-        if ($request->filled('duration')) {
-            $grade->duration = $request->duration;
-            $grade->save();
+        if (!$this->acceptsAnswers($grade)) {
+            return response()->json(['success' => false, 'message' => 'Waktu ujian sudah habis atau ujian telah diakhiri.'], 422);
         }
 
-        $file         = $request->file('file');
-        $originalName = $file->getClientOriginalName();
-        $extension    = $file->getClientOriginalExtension();
-        $safeName     = Str::slug(pathinfo($originalName, PATHINFO_FILENAME));
-        $filename     = $safeName . '-' . now()->format('YmdHis') . '-' . Str::random(6) . ($extension ? '.' . $extension : '');
-        $directory    = "essay_migas_answers/{$examId}/{$sessionId}/{$this->studentId()}";
+        $this->syncDuration($grade, $request->duration);
+
+        $file = $request->file('file');
 
         $old = AnswerEssay::where('exam_id', $examId)
             ->where('exam_session_id', $sessionId)
@@ -241,12 +244,9 @@ class EssayMigasController extends BaseExamController
             ->whereNotNull('answer')
             ->value('answer');
 
-        if ($old && Storage::disk('public')->exists($old)) {
-            Storage::disk('public')->delete($old);
-        }
+        AnswerFile::delete($old);
 
-        $storedPath = $file->storeAs($directory, $filename, 'public');
-        $fileUrl    = asset('storage/' . $storedPath);
+        $storedPath = AnswerFile::store($file, "essay_migas_answers/{$examId}/{$sessionId}/{$this->studentId()}");
 
         $essayIds = Essay::where('exam_id', $examId)->pluck('id');
         foreach ($essayIds as $essayId) {
@@ -259,7 +259,12 @@ class EssayMigasController extends BaseExamController
         return response()->json([
             'success' => true,
             'message' => 'File jawaban berhasil diupload.',
-            'file'    => ['name' => $originalName, 'path' => $storedPath, 'url' => $fileUrl, 'size' => $file->getSize()],
+            'file'    => [
+                'name' => $file->getClientOriginalName(),
+                'path' => $storedPath,
+                'url'  => route('student.essaysmigas.download', [$examId, $sessionId]),
+                'size' => $file->getSize(),
+            ],
         ]);
     }
 
@@ -271,11 +276,7 @@ class EssayMigasController extends BaseExamController
             ->whereNotNull('answer')
             ->value('answer');
 
-        if (!$path || !Storage::disk('public')->exists($path)) {
-            abort(404, 'File tidak ditemukan');
-        }
-
-        return Storage::disk('public')->download($path, basename($path));
+        return AnswerFile::download($path);
     }
 
     public function endEssay(Request $request)
@@ -290,7 +291,7 @@ class EssayMigasController extends BaseExamController
         $sessionId = (int) $request->exam_session_id;
 
         $grade = $this->currentGrade($examId, $sessionId);
-        if ($grade) {
+        if ($grade && $grade->end_time === null) {
             $grade->end_time      = Carbon::now();
             $grade->total_correct = AnswerEssay::where('exam_id', $examId)
                 ->where('exam_session_id', $sessionId)
@@ -330,6 +331,14 @@ class EssayMigasController extends BaseExamController
             'duration'        => 'nullable',
         ]);
 
+        $grade = $this->currentGrade((int) $request->exam_id, (int) $request->exam_session_id);
+
+        if (!$this->acceptsAnswers($grade)) {
+            return response()->json(['success' => false, 'message' => 'Waktu ujian sudah habis atau ujian telah diakhiri.'], 422);
+        }
+
+        $this->syncDuration($grade, $request->duration);
+
         AnswerEssay::updateOrCreate(
             [
                 'student_id'      => $this->studentId(),
@@ -345,5 +354,15 @@ class EssayMigasController extends BaseExamController
         );
 
         return response()->json(['success' => true, 'message' => 'Jawaban berhasil disimpan.']);
+    }
+
+    private function fileInfo(string $path, int $examId, int $sessionId): array
+    {
+        return [
+            'path' => $path,
+            'url'  => route('student.essaysmigas.download', [$examId, $sessionId]),
+            'name' => basename($path),
+            'size' => AnswerFile::size($path),
+        ];
     }
 }

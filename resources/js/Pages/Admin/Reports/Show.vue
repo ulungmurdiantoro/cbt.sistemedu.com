@@ -138,7 +138,7 @@
                 <!-- =========================
                      ESSAY MIGAS
                      - kolom kanan: tampilkan 1 jawaban saja
-                     - berupa LINK download file dari /storage/<path dari DB>
+                     - berupa LINK download file lewat /admin/essay-migas/{id}/download
                 ========================== -->
                 <div v-else-if="grade.exam.type == 'Essay Migas'">
                     <div class="row">
@@ -336,9 +336,13 @@
              * Contoh DB:
              * "essay_migas_answers/27/77/484/simulasi-...pdf"
              */
-            essayMigasPath() {
+            essayMigasAnswer() {
                 const list = this.grade?.essaysanswers?.data || [];
-                const found = list.find(x => x.student_id == this.grade?.student?.id) || list[0];
+                return list.find(x => x.student_id == this.grade?.student?.id) || list[0] || null;
+            },
+
+            essayMigasPath() {
+                const found = this.essayMigasAnswer;
 
                 if (!found || !found.answer) return "";
 
@@ -353,12 +357,12 @@
             },
 
             /**
-             * URL publik: /storage/<path dari DB>
-             * Jadi: /storage/essay_migas_answers/27/77/484/xxx.pdf
+             * File jawaban disimpan di disk private — diunduh lewat route admin
+             * (bukan /storage publik), lihat ReportController::downloadEssayMigas.
              */
             essayMigasDownloadUrl() {
                 if (!this.essayMigasPath) return "#";
-                return `/storage/${encodeURI(this.essayMigasPath)}`;
+                return `/admin/essay-migas/${this.essayMigasAnswer.id}/download`;
             },
         },
 

@@ -34,7 +34,8 @@
 
                     <form @submit.prevent="upload">
                         <div class="mb-3">
-                            <input type="file" class="form-control" ref="fileInput" @change="onFileChange">
+                            <input type="file" class="form-control" ref="fileInput" :accept="file_accept" @change="onFileChange">
+                            <div class="small text-muted mt-1">Tipe file: {{ file_accept }} — maks. 20 MB.</div>
                         </div>
 
                         <div class="progress mb-3" v-if="uploading" style="height:20px">
@@ -80,6 +81,7 @@
         props: {
             exam_session: Object,
             existing_file: Object,
+            file_accept:   String,
         },
 
         data() {

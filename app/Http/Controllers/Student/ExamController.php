@@ -36,6 +36,16 @@ class ExamController extends BaseExamController
         }
 
         $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
+
+        if (!$grade || $grade->end_time) {
+            return redirect()->route('student.dashboard');
+        }
+
+        // Sudah dimulai: lanjutkan tanpa mereset waktu atau mengacak ulang soal.
+        if ($grade->start_time) {
+            return redirect()->route('student.exams.show', ['id' => $exam_group->id, 'page' => 1]);
+        }
+
         $grade->start_time = Carbon::now();
         $grade->save();
 
@@ -95,26 +105,37 @@ class ExamController extends BaseExamController
             return redirect()->route('student.dashboard');
         }
 
-        $all_questions = Answer::with('question')
+        $all_questions = Answer::with(['question' => $this->questionForStudent()])
             ->where('student_id', $this->studentId())
             ->where('exam_id', $exam_group->exam->id)
+            ->where('exam_session_id', $exam_group->exam_session->id)
             ->orderBy('question_order', 'ASC')
-            ->get();
+            ->get()
+            ->each->makeHidden('is_correct');
 
         $question_answered = Answer::where('student_id', $this->studentId())
             ->where('exam_id', $exam_group->exam->id)
+            ->where('exam_session_id', $exam_group->exam_session->id)
             ->where('answer', '!=', 0)
             ->count();
 
-        $question_active = Answer::with('question.exam')
+        $question_active = Answer::with(['question' => $this->questionForStudent(), 'question.exam'])
             ->where('student_id', $this->studentId())
             ->where('exam_id', $exam_group->exam->id)
+            ->where('exam_session_id', $exam_group->exam_session->id)
             ->where('question_order', $page)
-            ->first();
+            ->first()
+            ?->makeHidden('is_correct');
 
         $answer_order = $question_active ? explode(',', $question_active->answer_order) : [];
 
-        $duration = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
+        $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
+
+        if (!$grade || $grade->end_time) {
+            return redirect()->route('student.exams.resultExam', $exam_group->id);
+        }
+
+        $duration = $this->gradeForTimer($grade);
 
         return inertia('Student/Exams/Show', [
             'id'                => (int) $id,
@@ -131,8 +152,10 @@ class ExamController extends BaseExamController
     public function updateDuration(Request $request, $grade_id)
     {
         $grade = $this->ownedGrade((int) $grade_id);
-        $grade->duration = $request->duration;
-        $grade->save();
+
+        if ($grade->end_time === null) {
+            $this->syncDuration($grade, $request->duration);
+        }
 
         return response()->json(['success' => true]);
     }
@@ -141,14 +164,13 @@ class ExamController extends BaseExamController
     {
         $grade = $this->currentGrade((int) $request->exam_id, (int) $request->exam_session_id);
 
-        if (!$grade) {
-            return redirect()->back();
+        if (!$this->acceptsAnswers($grade)) {
+            return redirect()->back()->with('error', 'Waktu ujian sudah habis atau ujian telah diakhiri.');
         }
 
-        $grade->duration = $request->duration;
-        $grade->save();
+        $this->syncDuration($grade, $request->duration);
 
-        $question = Question::find($request->question_id);
+        $question = Question::where('exam_id', $grade->exam_id)->find($request->question_id);
         $result   = ($question && $question->answer == $request->answer) ? 'Y' : 'N';
 
         $answer = Answer::where('exam_id', $request->exam_id)
@@ -168,6 +190,17 @@ class ExamController extends BaseExamController
 
     public function endExam(Request $request)
     {
+        $grade = $this->currentGrade((int) $request->exam_id, (int) $request->exam_session_id);
+
+        if (!$grade) {
+            return redirect()->route('student.dashboard');
+        }
+
+        // Sudah diakhiri sebelumnya: jangan timpa waktu selesai & nilai.
+        if ($grade->end_time) {
+            return redirect()->route('student.exams.resultExam', $request->exam_group_id);
+        }
+
         $count_answer   = Answer::where('exam_id', $request->exam_id)
             ->where('exam_session_id', $request->exam_session_id)
             ->where('student_id', $this->studentId())
@@ -175,8 +208,6 @@ class ExamController extends BaseExamController
             ->count();
 
         $count_question = Question::where('exam_id', $request->exam_id)->count();
-
-        $grade = $this->currentGrade((int) $request->exam_id, (int) $request->exam_session_id);
 
         $grade->end_time      = Carbon::now();
         $grade->total_correct = $count_answer;

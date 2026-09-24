@@ -15,6 +15,7 @@ use App\Exports\GradesEssayExport;
 use App\Exports\GradesEssayMigasExport;
 use App\Exports\GradesSessionExport;
 use App\Http\Controllers\Controller;
+use App\Support\AnswerFile;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
@@ -70,6 +71,12 @@ class ReportController extends Controller
         return inertia('Admin/Reports/Show', [
             'grade' => $grade,
         ]);
+    }
+
+    /** Unduh file jawaban Essay Migas (disk private). */
+    public function downloadEssayMigas(int $answer_essay_id)
+    {
+        return AnswerFile::download(AnswerEssay::findOrFail($answer_essay_id)->answer);
     }
 
     public function export(Request $request)

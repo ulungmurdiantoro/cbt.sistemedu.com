@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Models\ExamGroup;
 use App\Models\ExamSession;
 use App\Models\StudentTask;
+use App\Support\AnswerFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class StudentTaskController extends BaseExamController
 {
@@ -28,6 +29,7 @@ class StudentTaskController extends BaseExamController
                 'name'        => $task->original_filename,
                 'uploaded_at' => $task->uploaded_at,
             ] : null,
+            'file_accept'   => AnswerFile::accept(),
         ]);
     }
 
@@ -35,8 +37,8 @@ class StudentTaskController extends BaseExamController
     {
         $request->validate([
             'exam_session_id' => ['required', 'integer', 'exists:exam_sessions,id'],
-            'file'            => ['required', 'file', 'max:20480'],
-        ]);
+            'file'            => AnswerFile::rules(),
+        ], AnswerFile::messages());
 
         $student = auth()->guard('student')->user()->load('classroom');
 
@@ -44,12 +46,14 @@ class StudentTaskController extends BaseExamController
 
         $sessionId = (int) $request->exam_session_id;
 
+        abort_unless(
+            ExamGroup::where('student_id', $this->studentId())->where('exam_session_id', $sessionId)->exists(),
+            403,
+            'Anda tidak terdaftar pada sesi ini.'
+        );
+
         $file         = $request->file('file');
         $originalName = $file->getClientOriginalName();
-        $extension    = $file->getClientOriginalExtension();
-        $safeName     = Str::slug(pathinfo($originalName, PATHINFO_FILENAME));
-        $filename     = $safeName . '-' . now()->format('YmdHis') . '-' . Str::random(6) . ($extension ? '.' . $extension : '');
-        $directory    = "student_tasks/{$sessionId}/{$this->studentId()}";
 
         $existing = StudentTask::where('student_id', $this->studentId())
             ->where('exam_session_id', $sessionId)
@@ -59,7 +63,7 @@ class StudentTaskController extends BaseExamController
             Storage::disk('private')->delete($existing->file_path);
         }
 
-        $storedPath = $file->storeAs($directory, $filename, 'private');
+        $storedPath = AnswerFile::store($file, "student_tasks/{$sessionId}/{$this->studentId()}");
 
         StudentTask::updateOrCreate(
             ['student_id' => $this->studentId(), 'exam_session_id' => $sessionId],

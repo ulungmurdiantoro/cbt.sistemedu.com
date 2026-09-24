@@ -9,6 +9,11 @@ class Question extends Model
 {
     use HasFactory;
 
+    /** Kolom yang boleh dikirim ke browser peserta — tanpa kunci jawaban. */
+    public const STUDENT_COLUMNS = [
+        'id', 'exam_id', 'question', 'option_1', 'option_2', 'option_3', 'option_4', 'option_5',
+    ];
+
     /**
      * fillable
      *

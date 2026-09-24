@@ -33,6 +33,16 @@ class EssayController extends BaseExamController
         }
 
         $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
+
+        if (!$grade || $grade->end_time) {
+            return redirect()->route('student.dashboard');
+        }
+
+        // Sudah dimulai: lanjutkan tanpa mereset waktu atau mengacak ulang soal.
+        if ($grade->start_time) {
+            return redirect()->route('student.essays.show', ['id' => $exam_group->id, 'page' => 1]);
+        }
+
         $grade->start_time = Carbon::now();
         $grade->save();
 
@@ -89,22 +99,33 @@ class EssayController extends BaseExamController
             return redirect()->route('student.dashboard');
         }
 
-        $all_essays = AnswerEssay::with('essay')
+        $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
+
+        if (!$grade || $grade->end_time) {
+            return redirect()->route('student.essays.resultEssay', $exam_group->id);
+        }
+
+        $all_essays = AnswerEssay::with(['essay' => $this->essayForStudent()])
             ->where('student_id', $this->studentId())
             ->where('exam_id', $exam_group->exam->id)
+            ->where('exam_session_id', $exam_group->exam_session->id)
             ->orderBy('essay_order', 'ASC')
-            ->get();
+            ->get()
+            ->each->makeHidden(AnswerEssay::ASSESSMENT_COLUMNS);
 
         $essay_answered = AnswerEssay::where('student_id', $this->studentId())
             ->where('exam_id', $exam_group->exam->id)
+            ->where('exam_session_id', $exam_group->exam_session->id)
             ->whereNotNull('answer')
             ->count();
 
-        $essay_active = AnswerEssay::with('essay.exam')
+        $essay_active = AnswerEssay::with(['essay' => $this->essayForStudent(), 'essay.exam'])
             ->where('student_id', $this->studentId())
             ->where('exam_id', $exam_group->exam->id)
+            ->where('exam_session_id', $exam_group->exam_session->id)
             ->where('essay_order', $page)
-            ->first();
+            ->first()
+            ?->makeHidden(AnswerEssay::ASSESSMENT_COLUMNS);
 
         $answer_order = $essay_active ? explode(',', $essay_active->answer_order) : [];
 
@@ -116,15 +137,17 @@ class EssayController extends BaseExamController
             'essay_answered' => $essay_answered,
             'essay_active'   => $essay_active,
             'answer_order'   => $answer_order,
-            'duration'       => $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id),
+            'duration'       => $this->gradeForTimer($grade),
         ]);
     }
 
     public function updateDuration(Request $request, $grade_id)
     {
         $grade = $this->ownedGrade((int) $grade_id);
-        $grade->duration = $request->duration;
-        $grade->save();
+
+        if ($grade->end_time === null) {
+            $this->syncDuration($grade, $request->duration);
+        }
 
         return response()->json(['success' => true]);
     }
@@ -133,12 +156,11 @@ class EssayController extends BaseExamController
     {
         $grade = $this->currentGrade((int) $request->exam_id, (int) $request->exam_session_id);
 
-        if (!$grade) {
-            return redirect()->back();
+        if (!$this->acceptsAnswers($grade)) {
+            return redirect()->back()->with('error', 'Waktu ujian sudah habis atau ujian telah diakhiri.');
         }
 
-        $grade->duration = $request->duration;
-        $grade->save();
+        $this->syncDuration($grade, $request->duration);
 
         $answer = AnswerEssay::where('exam_id', $request->exam_id)
             ->where('exam_session_id', $request->exam_session_id)
@@ -158,8 +180,14 @@ class EssayController extends BaseExamController
     {
         $grade = $this->currentGrade((int) $request->exam_id, (int) $request->exam_session_id);
 
-        $grade->end_time = Carbon::now();
-        $grade->save();
+        if (!$grade) {
+            return redirect()->route('student.dashboard');
+        }
+
+        if ($grade->end_time === null) {
+            $grade->end_time = Carbon::now();
+            $grade->save();
+        }
 
         return redirect()->route('student.essays.resultEssay', $request->exam_group_id);
     }

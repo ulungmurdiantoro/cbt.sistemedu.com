@@ -108,6 +108,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/reports/export-pdf-2', [\App\Http\Controllers\Admin\ReportController::class, 'exportPdf'])->name('admin.reports.export-pdf-2');
         Route::get('/reports/{id}',       [\App\Http\Controllers\Admin\ReportController::class, 'show'])->name('admin.reports.show');
         Route::get('/reports/essays/{id}', [\App\Http\Controllers\Admin\ReportController::class, 'essayShow'])->name('admin.reports.essayShow');
+        Route::get('/essay-migas/{answer_essay_id}/download', [\App\Http\Controllers\Admin\ReportController::class, 'downloadEssayMigas'])->name('admin.essay_migas.download');
 
         // Penugasan asesor
         Route::get('/penilaian',                               [\App\Http\Controllers\Admin\PenilaianController::class, 'index'])->name('admin.penilaian.index');

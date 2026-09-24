@@ -10,16 +10,12 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 class GradesEssayMigasExport implements FromCollection, WithMapping, WithHeadings, WithTitle
 {
     protected $grades;
-    protected string $baseUrl;
     protected string $title;
 
     public function __construct($grades, string $title = 'Esai Migas')
     {
         $this->grades = $grades;
         $this->title = $title;
-
-        // base URL download file
-        $this->baseUrl = 'https://lsp-cbt.sistemedu.com/storage/';
     }
 
     public function title(): string
@@ -46,18 +42,16 @@ class GradesEssayMigasExport implements FromCollection, WithMapping, WithHeading
         /**
          * ESSAY MIGAS:
          * semua jawaban sama → ambil 1 saja
-         * DB menyimpan path:
-         * essay_migas_answers/27/77/484/xxx.pdf
+         * File ada di disk private → link ke route unduh admin (perlu login admin).
          */
         $answer = collect($grades->answersEssay ?? [])
+            ->where('exam_id', $grades->exam_id)
+            ->where('exam_session_id', $grades->exam_session_id)
+            ->whereNotNull('answer')
             ->first();
 
-        if ($answer && !empty($answer->answer)) {
-            // normalisasi path
-            $path = ltrim(str_replace('\\', '/', trim($answer->answer)), '/');
-
-            // gabungkan jadi URL publik
-            $row[] = $this->baseUrl . $path;
+        if ($answer) {
+            $row[] = route('admin.essay_migas.download', $answer->id);
         } else {
             $row[] = '';
         }
