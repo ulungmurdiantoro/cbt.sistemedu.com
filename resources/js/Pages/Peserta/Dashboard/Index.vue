@@ -159,7 +159,16 @@
                                    target="_blank" class="btn btn-sm btn-outline-primary">
                                     <i class="fa fa-certificate me-1"></i> Download Sertifikat
                                 </a>
-                                <div v-if="app.result.valid_until" class="small text-muted align-self-center">
+                                <a v-if="app.result.sp_distributed_at"
+                                   :href="`/peserta/hasil/${app.exam_session_id}/${app.student_id}/sp`"
+                                   target="_blank" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fa fa-envelope-open me-1"></i> Download SP
+                                </a>
+                                <a href="https://tinyurl.com/UmpanbalikAsesmen-Edukia"
+                                   target="_blank" class="btn btn-sm btn-outline-success">
+                                    <i class="fa fa-comment-dots me-1"></i> Isi Umpan Balik Asesmen
+                                </a>
+                                <div v-if="app.result.valid_until" class="small text-muted align-self-center w-100">
                                     Berlaku hingga {{ app.result.valid_until.split('T')[0] }}
                                 </div>
                             </div>
