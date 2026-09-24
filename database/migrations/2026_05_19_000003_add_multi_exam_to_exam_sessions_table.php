@@ -18,6 +18,11 @@ return new class extends Migration
         });
 
         // migrate existing exam_id to the appropriate new column based on exam type
+        // (UPDATE ... JOIN khusus MySQL; DB baru/SQLite untuk test belum punya data)
+        if (\DB::getDriverName() !== 'mysql') {
+            return;
+        }
+
         \DB::statement("
             UPDATE exam_sessions es
             JOIN exams e ON e.id = es.exam_id
