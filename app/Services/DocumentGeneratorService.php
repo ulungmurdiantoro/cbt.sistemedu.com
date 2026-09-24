@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Mpdf\Mpdf;
 
 class DocumentGeneratorService
@@ -1065,5 +1066,60 @@ class DocumentGeneratorService
         $mpdf = $this->makeMpdfKeputusan();
         $mpdf->WriteHTML($html);
         return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    }
+
+    /**
+     * ZIP berisi dokumen persyaratan + FR.APL.01 / FR.AK.01 / FR.APL.03 semua
+     * permohonan. Mengembalikan path file sementara — hapus setelah dikirim.
+     *
+     * @param  iterable<AssessmentApplication>  $applications
+     */
+    public function applicationsZip(iterable $applications): string
+    {
+        $tmpDir = storage_path('app/tmp');
+        if (!is_dir($tmpDir)) {
+            mkdir($tmpDir, 0755, true);
+        }
+        $zipPath = $tmpDir . '/export_dokumen_' . Str::random(12) . '.zip';
+
+        $zip = new \ZipArchive();
+        $zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        foreach (collect($applications)->values() as $i => $app) {
+            $no         = str_pad($i + 1, 2, '0', STR_PAD_LEFT);
+            $nama       = $app->participant?->name ?? ('Peserta ' . $no);
+            $folderName = str_replace(['/', '\\'], '-', $no . '. ' . $nama);
+
+            foreach ($app->documents as $doc) {
+                if (!Storage::disk('private')->exists($doc->file_path)) {
+                    continue;
+                }
+                $zip->addFile(
+                    Storage::disk('private')->path($doc->file_path),
+                    "Dokumen Persyaratan Peserta/{$folderName}/{$doc->original_filename}"
+                );
+            }
+
+            $zip->addFromString(
+                "FR.APL.01 Permohonan Sertifikasi/Versi Pdf/{$folderName} - FR.APL.01 Permohonan Sertifikasi.pdf",
+                $this->generateFrApl01($app)
+            );
+
+            $zip->addFromString(
+                "FR.AK.01 Persetujuan Asesmen & Kerahasiaan/Versi Pdf/{$folderName} - FR.AK.01 Persetujuan Asesmen & Kerahasiaan.pdf",
+                $this->generateFrAk01($app)
+            );
+
+            if ($app->initialAssessment) {
+                $zip->addFromString(
+                    "FR.APL.03 Standar Kriteria dan Penilaian Awal Pemohon/Versi Pdf/{$folderName} - FR.APL.03 Standar Kriteria dan Penilaian Awal Pemohon.pdf",
+                    $this->generateFrApl03($app)
+                );
+            }
+        }
+
+        $zip->close();
+
+        return $zipPath;
     }
 }

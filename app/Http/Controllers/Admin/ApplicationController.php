@@ -7,20 +7,14 @@ use App\Exports\ApplicationsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RejectApplicationRequest;
 use App\Http\Requests\VerifyDocumentRequest;
-use App\Models\Answer;
-use App\Models\AnswerEssay;
-use App\Models\AsesorAssignment;
 use App\Models\AssessmentApplication;
 use App\Models\Classroom;
-use App\Models\ExamGroup;
 use App\Models\ExamSession;
-use App\Models\Grade;
 use App\Models\InitialAssessment;
-use App\Models\Student;
 use App\Services\DocumentGeneratorService;
+use App\Services\StudentEnrollmentService;
 use App\Support\InitialAssessmentRubric;
 use App\Support\SignatureImageProcessor;
-use App\Models\StudentReissueLog;
 use Illuminate\Http\Request;
 use App\Mail\ApplicationApprovedMail;
 use App\Mail\ApplicationRejectedMail;
@@ -88,52 +82,7 @@ class ApplicationController extends Controller
 
         abort_if($applications->isEmpty(), 422, 'Tidak ada permohonan yang cocok dengan filter.');
 
-        $generator = app(DocumentGeneratorService::class);
-
-        $tmpDir = storage_path('app/tmp');
-        if (!is_dir($tmpDir)) {
-            mkdir($tmpDir, 0755, true);
-        }
-        $zipPath = $tmpDir . '/export_dokumen_' . Str::random(12) . '.zip';
-
-        $zip = new \ZipArchive();
-        $zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-
-        foreach ($applications as $i => $app) {
-            $no         = str_pad($i + 1, 2, '0', STR_PAD_LEFT);
-            $nama       = $app->participant?->name ?? ('Peserta ' . $no);
-            $folderName = str_replace(['/', '\\'], '-', $no . '. ' . $nama);
-
-            foreach ($app->documents as $doc) {
-                if (!Storage::disk('private')->exists($doc->file_path)) {
-                    continue;
-                }
-                $zip->addFile(
-                    Storage::disk('private')->path($doc->file_path),
-                    "Dokumen Persyaratan Peserta/{$folderName}/{$doc->original_filename}"
-                );
-            }
-
-            $zip->addFromString(
-                "FR.APL.01 Permohonan Sertifikasi/Versi Pdf/{$folderName} - FR.APL.01 Permohonan Sertifikasi.pdf",
-                $generator->generateFrApl01($app)
-            );
-
-            $zip->addFromString(
-                "FR.AK.01 Persetujuan Asesmen & Kerahasiaan/Versi Pdf/{$folderName} - FR.AK.01 Persetujuan Asesmen & Kerahasiaan.pdf",
-                $generator->generateFrAk01($app)
-            );
-
-            if ($app->initialAssessment) {
-                $pdf = $generator->generateFrApl03($app);
-                $zip->addFromString(
-                    "FR.APL.03 Standar Kriteria dan Penilaian Awal Pemohon/Versi Pdf/{$folderName} - FR.APL.03 Standar Kriteria dan Penilaian Awal Pemohon.pdf",
-                    $pdf
-                );
-            }
-        }
-
-        $zip->close();
+        $zipPath = app(DocumentGeneratorService::class)->applicationsZip($applications);
 
         $zipNameParts = array_filter([
             'export_dokumen',
@@ -253,7 +202,7 @@ class ApplicationController extends Controller
         return back()->with('success', 'Penilaian awal kelayakan berhasil disimpan.');
     }
 
-    public function approve(Request $request, AssessmentApplication $application)
+    public function approve(Request $request, AssessmentApplication $application, StudentEnrollmentService $enrollment)
     {
         abort_if(!$application->isSubmitted(), 422, 'Hanya permohonan berstatus submitted yang dapat disetujui.');
 
@@ -295,46 +244,9 @@ class ApplicationController extends Controller
             }
         }
 
-        DB::transaction(function () use ($application, $sigPath, $sigName) {
-            $participant = $application->participant;
-
-            // cek apakah sudah ada student aktif untuk participant + classroom yang sama
-            // (misal: skema sama, sesi berbeda → reuse student yang sama)
-            $student = Student::where('participant_id', $participant->id)
-                ->where('classroom_id', $application->classroom_id)
-                ->where('is_active', true)
-                ->first();
-
-            if (!$student) {
-                $student = Student::create([
-                    'participant_id' => $participant->id,
-                    'classroom_id'   => $application->classroom_id,
-                    'no_participant' => $this->generateNoParticipant($application),
-                    'name'           => $participant->name,
-                    'position'       => $participant->jabatan ?? '-',
-                    'institution'    => $participant->institusi ?? '-',
-                    'gender'         => $participant->jenis_kelamin ?? 'L',
-                    'is_active'      => true,
-                ]);
-            }
-
-            // buat exam_group untuk semua ujian di sesi ini (PG dan/atau Esai)
-            $examIds = array_filter([
-                $application->examSession->exam_id_pg,
-                $application->examSession->exam_id_esai,
-            ]);
-
-            $firstExamGroup = null;
-            foreach ($examIds as $examId) {
-                $eg = ExamGroup::create([
-                    'exam_groups_code' => 'EG-' . strtoupper(Str::random(8)),
-                    'exam_id'          => $examId,
-                    'exam_session_id'  => $application->exam_session_id,
-                    'student_id'       => $student->id,
-                ]);
-                $firstExamGroup ??= $eg;
-            }
-            $examGroup = $firstExamGroup;
+        DB::transaction(function () use ($application, $sigPath, $sigName, $enrollment) {
+            $student   = $enrollment->findOrCreateStudent($application);
+            $examGroup = $enrollment->enroll($student->id, $application->examSession);
 
             $application->update([
                 'student_id'           => $student->id,
@@ -458,7 +370,7 @@ class ApplicationController extends Controller
         ]);
     }
 
-    public function reissueStudent(Request $request, AssessmentApplication $application)
+    public function reissueStudent(Request $request, AssessmentApplication $application, StudentEnrollmentService $enrollment)
     {
         abort_if(!$application->isApproved(), 422, 'Hanya permohonan yang sudah disetujui yang dapat di-reissue.');
 
@@ -466,98 +378,12 @@ class ApplicationController extends Controller
             'reason' => 'nullable|string|max:500',
         ]);
 
-        DB::transaction(function () use ($application, $request) {
-            $oldStudent = $application->student;
-
-            // nonaktifkan student lama
-            if ($oldStudent) {
-                $oldStudent->update(['is_active' => false]);
-            }
-
-            $participant   = $application->participant;
-            $noParticipant = $this->generateNoParticipant($application);
-
-            // student baru
-            $newStudent = Student::create([
-                'participant_id' => $participant->id,
-                'classroom_id'   => $application->classroom_id,
-                'no_participant' => $noParticipant,
-                'name'           => $participant->name,
-                'position'       => $participant->jabatan ?? '-',
-                'institution'    => $participant->institusi ?? '-',
-                'gender'         => $participant->jenis_kelamin ?? 'L',
-                'is_active'      => true,
-            ]);
-
-            // exam_group baru untuk semua ujian di sesi ini (PG dan/atau Esai)
-            $examIds = array_filter([
-                $application->examSession->exam_id_pg,
-                $application->examSession->exam_id_esai,
-            ]);
-
-            $firstExamGroup = null;
-            foreach ($examIds as $examId) {
-                $eg = ExamGroup::create([
-                    'exam_groups_code' => 'EG-' . strtoupper(Str::random(8)),
-                    'exam_id'          => $examId,
-                    'exam_session_id'  => $application->exam_session_id,
-                    'student_id'       => $newStudent->id,
-                ]);
-                $firstExamGroup ??= $eg;
-            }
-            $newExamGroup = $firstExamGroup;
-
-            // Pindahkan penugasan asesor dari student lama ke student baru — supaya
-            // tidak nyangkut menunjuk ke akun yang sudah dinonaktifkan, dan asesor
-            // tidak melihat 2 baris nama yang sama (lama + baru) saat menilai.
-            if ($oldStudent) {
-                $oldAssignments = AsesorAssignment::where('exam_session_id', $application->exam_session_id)
-                    ->where('student_id', $oldStudent->id)
-                    ->get();
-
-                foreach ($oldAssignments as $assignment) {
-                    $alreadyAssignedToNew = AsesorAssignment::where('user_id', $assignment->user_id)
-                        ->where('exam_session_id', $application->exam_session_id)
-                        ->where('student_id', $newStudent->id)
-                        ->exists();
-
-                    if ($alreadyAssignedToNew) {
-                        // Asesor ini sudah punya penugasan ke student baru juga — cukup buang yang lama.
-                        $assignment->delete();
-                    } else {
-                        $assignment->update(['student_id' => $newStudent->id]);
-                    }
-                }
-
-                // Buang enrollment (ExamGroup) student lama di sesi ini — sudah
-                // digantikan ExamGroup student baru. Kalau dibiarkan, student lama
-                // tetap muncul di roster Tinjau Sertifikasi (yang ambil dari
-                // ExamGroup). Jawaban ujian lama tidak tersentuh (terhubung lewat
-                // student_id + exam_session_id, bukan exam_group_id).
-                ExamGroup::where('exam_session_id', $application->exam_session_id)
-                    ->where('student_id', $oldStudent->id)
-                    ->delete();
-            }
-
-            // log reissue
-            StudentReissueLog::create([
-                'assessment_application_id' => $application->id,
-                'old_student_id'            => $oldStudent?->id,
-                'new_student_id'            => $newStudent->id,
-                'reason'                    => $request->reason,
-                'reissued_by'               => auth()->id(),
-            ]);
-
-            $application->update([
-                'student_id'    => $newStudent->id,
-                'exam_group_id' => $newExamGroup?->id,
-            ]);
-        });
+        $enrollment->reissue($application, $request->reason, auth()->id());
 
         return back()->with('success', 'Akun ujian baru berhasil dibuat.');
     }
 
-    public function changeBatch(Request $request, AssessmentApplication $application)
+    public function changeBatch(Request $request, AssessmentApplication $application, StudentEnrollmentService $enrollment)
     {
         $request->validate([
             'exam_session_id' => 'required|exists:exam_sessions,id',
@@ -573,57 +399,14 @@ class ApplicationController extends Controller
             throw ValidationException::withMessages(['exam_session_id' => 'Sesi yang dipilih bukan untuk skema yang sama.']);
         }
 
-        $oldSession = ExamSession::find($application->exam_session_id);
-        $oldExamIds = array_filter([$oldSession?->exam_id_pg, $oldSession?->exam_id_esai]);
-
         // Kalau peserta sudah punya akun ujian (approved) dan sudah mulai mengerjakan
         // (ada nilai/jawaban tersimpan di batch lama), batch tidak boleh dipindah otomatis
         // supaya data hasil ujian tidak jadi yatim/tidak konsisten.
-        if ($application->student_id && $oldExamIds) {
-            $hasActivity = Grade::where('student_id', $application->student_id)
-                    ->where('exam_session_id', $application->exam_session_id)
-                    ->whereIn('exam_id', $oldExamIds)
-                    ->exists()
-                || Answer::where('student_id', $application->student_id)
-                    ->where('exam_session_id', $application->exam_session_id)
-                    ->whereIn('exam_id', $oldExamIds)
-                    ->exists()
-                || AnswerEssay::where('student_id', $application->student_id)
-                    ->where('exam_session_id', $application->exam_session_id)
-                    ->whereIn('exam_id', $oldExamIds)
-                    ->exists();
-
-            if ($hasActivity) {
-                throw ValidationException::withMessages(['exam_session_id' => 'Peserta sudah memiliki jawaban/nilai tersimpan di batch saat ini, tidak bisa dipindahkan otomatis.']);
-            }
+        if ($enrollment->hasExamActivity($application)) {
+            throw ValidationException::withMessages(['exam_session_id' => 'Peserta sudah memiliki jawaban/nilai tersimpan di batch saat ini, tidak bisa dipindahkan otomatis.']);
         }
 
-        DB::transaction(function () use ($application, $newSession) {
-            if ($application->student_id) {
-                ExamGroup::where('exam_session_id', $application->exam_session_id)
-                    ->where('student_id', $application->student_id)
-                    ->delete();
-
-                $examIds = array_filter([$newSession->exam_id_pg, $newSession->exam_id_esai]);
-                $firstExamGroup = null;
-                foreach ($examIds as $examId) {
-                    $eg = ExamGroup::create([
-                        'exam_groups_code' => 'EG-' . strtoupper(Str::random(8)),
-                        'exam_id'          => $examId,
-                        'exam_session_id'  => $newSession->id,
-                        'student_id'       => $application->student_id,
-                    ]);
-                    $firstExamGroup ??= $eg;
-                }
-                $application->exam_group_id = $firstExamGroup?->id;
-            }
-
-            $application->exam_session_id = $newSession->id;
-            $application->konteks_asesmen = $newSession->konteks_asesmen;
-            $application->tempat_ujian    = $newSession->tempat_ujian;
-            $application->kode_batch      = $newSession->kode_batch ?? '-';
-            $application->save();
-        });
+        $enrollment->moveToSession($application, $newSession);
 
         return back()->with('success', 'Batch peserta berhasil dipindahkan ke ' . $newSession->title . ' (Batch ' . $newSession->kode_batch . ').');
     }
@@ -726,31 +509,5 @@ class ApplicationController extends Controller
         }
 
         abort(422, 'Format tanda tangan tidak valid.');
-    }
-
-    private function generateNoParticipant(AssessmentApplication $application): string
-    {
-        $kodeSkema = $application->classroom->kode_skema ?? '';
-        $kode      = substr($kodeSkema, 7, 3) ?: 'SKM';
-        $batch     = $application->kode_batch ?? '-';
-        $year      = now()->year;
-        $prefix    = $kode . '.' . $batch . '.' . $year . '.';
-
-        // Ambil nomor urut tertinggi yang SUDAH benar-benar dipakai untuk kombinasi
-        // kode+batch+tahun ini, baru +1 — jangan hitung jumlah permohonan (bisa bentrok
-        // kalau ada permohonan yang batch-nya berubah, ditolak lalu direset, dst).
-        $lastNumber = Student::where('no_participant', 'like', $prefix . '%')
-            ->get(['no_participant'])
-            ->map(fn ($s) => (int) substr($s->no_participant, strlen($prefix)))
-            ->max() ?? 0;
-
-        $next = $lastNumber + 1;
-
-        // Pengaman tambahan kalau masih bentrok (mis. ada nomor yang diinput manual).
-        while (Student::where('no_participant', $prefix . str_pad($next, 5, '0', STR_PAD_LEFT))->exists()) {
-            $next++;
-        }
-
-        return $prefix . str_pad($next, 5, '0', STR_PAD_LEFT);
     }
 }
