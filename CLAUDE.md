@@ -199,6 +199,12 @@ Aturan di `Student\BaseExamController` (dipakai PG, Essay, Essay Migas):
 - Jendela sesi (`exam_sessions.start_time/end_time`) **tidak** dicek di server: `APP_TIMEZONE` default UTC
   sedangkan jam sesi diinput waktu lokal.
 
+**Jawaban esai (HTML dari Quill 2) dibersihkan saat disimpan**: cast `App\Casts\SanitizedHtml` pada
+`AnswerEssay::answer` → `App\Support\RichText::clean()` (HTMLPurifier). Jawaban ini dirender `v-html` di
+halaman asesor/admin dan `{!! !!}` di PDF laporan, jadi script, event handler, iframe, `javascript:` dan
+gambar non-`data:` dibuang. Menulis kolom ini lewat Query Builder `->update()` melewati cast — jangan.
+Ubah daftar tag di `RichText` → naikkan `HTML.DefinitionRev`.
+
 File upload peserta (Essay Migas & tugas) lewat `App\Support\AnswerFile`: tipe dibatasi
 (pdf, office, gambar, zip/rar; maks 20 MB) dan disimpan di disk **`private`**, diunduh lewat controller
 (`student.essaysmigas.download`, `admin.essay_migas.download`). File lama di disk `public`

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\SanitizedHtml;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +32,15 @@ class AnswerEssay extends Model
         'assessed_by',
         'assessed_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            // Jawaban esai (HTML dari Quill) dirender v-html di halaman asesor & admin
+            // serta di PDF laporan — dibersihkan saat disimpan untuk mencegah XSS.
+            'answer' => SanitizedHtml::class,
+        ];
+    }
 
     /**
      * question
