@@ -25,18 +25,26 @@ app/
   Http/
     Controllers/
       Admin/         ← semua controller admin
-      Asesor/        ← controller portal asesor (baru)
-      Student/       ← controller ujian siswa
+      Asesor/        ← controller portal asesor
+      Manager/       ← controller portal pengambil keputusan sertifikasi
+      Student/       ← controller ujian siswa (BaseExamController: timer & penjaga jawaban)
       Peserta/       ← controller portal peserta sertifikasi
     Middleware/
       AuthStudent.php
       AuthParticipant.php
-      EnsureAsesor.php    ← (baru) cek role asesor
+      EnsureAdmin.php / EnsureAsesor.php / EnsureManagerSertifikasi.php
     Responses/
-      LoginResponse.php   ← (baru) redirect post-login sesuai role
+      LoginResponse.php   ← redirect post-login sesuai role
       LogoutResponse.php
+  Services/
+    DocumentGeneratorService.php  ← semua PDF (FR.APL/FR.AK, SK, sertifikat) + ZIP export dokumen
+    StudentEnrollmentService.php  ← buat akun ujian, enrollment ExamGroup, reissue, pindah batch
+    ResultCalculatorService.php   ← nilai akhir (PG + esai + wawancara, berbobot)
+    PeruriService.php / MidtransService.php  ← e-meterai
+  Support/
+    AnswerFile.php        ← upload file jawaban peserta (tipe diizinkan, disk private)
   Models/
-    User.php              ← memiliki kolom role enum(admin, asesor)
+    User.php              ← role lewat tabel user_roles (hasRole())
     Student.php
     Exam.php
     ExamSession.php
@@ -80,18 +88,24 @@ resources/js/
 
 | Guard | Model | Login URL | Redirect setelah login |
 |---|---|---|---|
-| `web` (admin) | `User` | `/login` (Fortify) | `/admin/dashboard` |
-| `web` (asesor) | `User` (role=asesor) | `/login` (Fortify) | `/asesor/dashboard` |
-| `student` | `Student` | `/` | `/student/dashboard` |
+| `web` (admin) | `User` (role admin) | `/login` (Fortify) | `/admin/dashboard` |
+| `web` (asesor) | `User` (role asesor) | `/login` (Fortify) | `/asesor/dashboard` |
+| `web` (manager) | `User` (role manager_sertifikasi) | `/login` (Fortify) | `/manager/dashboard` |
+| `student` | `Student` | `/` (hanya No. Peserta, tanpa password) | `/student/dashboard` |
 | `participant` | `Participant` | `/peserta/login` | `/peserta/dashboard` |
 
 Middleware alias (di `bootstrap/app.php`):
 - `auth` → Fortify default (guard web)
+- `admin` → `EnsureAdmin`, `asesor` → `EnsureAsesor`, `manager` → `EnsureManagerSertifikasi`
 - `student` → `AuthStudent`
 - `participant` → `AuthParticipant`
-- `asesor` → `EnsureAsesor` (cek `auth()->user()->role === 'asesor'`)
 
-Role asesor ditentukan oleh kolom `users.role` enum `('admin', 'asesor')`.
+Role disimpan di tabel **`user_roles`** (`user_id`, `role` enum `admin|asesor|manager_sertifikasi`) —
+satu user bisa punya beberapa role. Cek dengan `$user->hasRole(UserRole::Asesor)` (enum `App\Enums\UserRole`).
+Kolom `users.role` sudah dihapus (migrasi `2026_08_25_000001`).
+
+Login siswa (`Student\LoginController`) membatasi 10 percobaan **gagal** per IP per menit
+(login yang berhasil tidak dihitung — satu ruang ujian sering di balik satu IP/NAT).
 
 ---
 
@@ -108,11 +122,6 @@ Role asesor ditentukan oleh kolom `users.role` enum `('admin', 'asesor')`.
 ## Skema Database Kunci
 
 ### Tabel yang Dimodifikasi (fitur asesor)
-
-**`users`** — tambah kolom:
-```
-role  enum('admin','asesor')  default 'admin'
-```
 
 **`answer_essays`** — tambah kolom:
 ```
@@ -159,7 +168,9 @@ Tabel horizontal, satu baris per peserta:
 ```
 No Peserta | Nama | Jawaban 1 | Nilai 1 | Jawaban 2 | Nilai 2 | ... | Total Nilai
 ```
-- **Total Nilai** = rata-rata semua nilai jawaban (dihitung di frontend, disimpan ke `grades.grade`)
+- **Total Nilai** = rata-rata nilai jawaban yang sudah dinilai (nilai 0 ikut dihitung). Frontend
+  hanya menampilkan; server menghitung ulang dari `answer_essays.score`
+  (`EssayAssessmentController::averageScore`) lalu menyimpan ke `grades.grade`
 - Baris footer: rata-rata per kolom nilai + rata-rata sesi
 - Tombol **Simpan Semua Nilai** mengirim semua nilai sekaligus (POST)
 
@@ -168,9 +179,30 @@ Tabel kriteria tetap, satu baris per peserta:
 ```
 No Peserta | Nama | Gaya Wawancara | Penguasaan Materi | Kemampuan Menghadapi Pertanyaan | Hasil Pengerjaan Worksheet Ujian Keterampilan | Total Nilai | Catatan
 ```
-- **Total Nilai** = (sum 4 kriteria) × 0.075
-  - Contoh: 88 + 86 + 86 + 88 = 348 × 0.075 = **26.1**
-- Konstanta bobot: `InterviewAssessmentController::BOBOT = 0.075`
+- **Total Nilai** = rata-rata 4 kriteria (skala 0–100), sejajar dengan nilai PG & esai
+  - Contoh: (88 + 86 + 86 + 88) / 4 = **87**
+- Bobot wawancara diterapkan **sekali** di `ResultCalculatorService` (bukan di controller)
+
+---
+
+## Keamanan Ujian Siswa
+
+Aturan di `Student\BaseExamController` (dipakai PG, Essay, Essay Migas):
+- **Kunci jawaban tidak boleh sampai ke browser.** Relasi soal dimuat dengan kolom terbatas
+  (`Question::STUDENT_COLUMNS`, `Essay::STUDENT_COLUMNS`); `is_correct`/`score` disembunyikan.
+  Setiap query baru di halaman siswa wajib memakai `questionForStudent()` / `essayForStudent()`.
+- **Timer dijaga server.** `grades.duration` (sisa ms) hanya boleh berkurang (`syncDuration`), dan dibatasi
+  jam dinding `start_time + durasi ujian + GRACE_MINUTES (30)` (`remainingMs`). Timer klien berhenti saat
+  peserta offline, jadi toleransi ini menampung gangguan koneksi.
+- Mulai ujian hanya sekali (tidak reset `start_time` / acak ulang soal); jawaban ditolak setelah
+  `end_time` terisi atau waktu habis (`acceptsAnswers`); mengakhiri dua kali tidak menimpa nilai.
+- Jendela sesi (`exam_sessions.start_time/end_time`) **tidak** dicek di server: `APP_TIMEZONE` default UTC
+  sedangkan jam sesi diinput waktu lokal.
+
+File upload peserta (Essay Migas & tugas) lewat `App\Support\AnswerFile`: tipe dibatasi
+(pdf, office, gambar, zip/rar; maks 20 MB) dan disimpan di disk **`private`**, diunduh lewat controller
+(`student.essaysmigas.download`, `admin.essay_migas.download`). File lama di disk `public`
+dipindah dengan `php artisan answer-files:move-private` (`--dry-run` untuk cek dulu).
 
 ---
 
@@ -218,8 +250,20 @@ npm run build   # atau npm run dev
 Untuk membuat akun asesor pertama (via tinker):
 ```php
 php artisan tinker
-User::create(['users_code' => 'ASR001', 'name' => 'Nama Asesor', 'email' => 'asesor@contoh.com', 'role' => 'asesor', 'password' => bcrypt('password')]);
+$u = User::create(['users_code' => 'ASR001', 'name' => 'Nama Asesor', 'email' => 'asesor@contoh.com', 'password' => bcrypt('password')]);
+$u->roleAssignments()->create(['role' => 'asesor']);
 ```
+
+### Test
+
+```bash
+php artisan test   # SQLite in-memory (phpunit.xml), tidak menyentuh DB lokal
+```
+- Fixture bersama: `tests/Feature/Concerns/CreatesExamFixtures.php`. Login peserta di test pakai
+  `actingAsStudent()` — bukan `actingAs($s, 'student')`, karena itu mengganti guard default.
+- Migrasi harus bisa jalan di SQLite: SQL khusus MySQL dibungkus `if (DB::getDriverName() !== 'mysql') return;`.
+- CI (`.github/workflows/ci.yml`) menjalankan build frontend + test. Pint **tidak** dipaksakan — codebase
+  memakai perataan `=>` yang tidak sesuai preset Pint.
 
 ---
 
@@ -231,3 +275,5 @@ User::create(['users_code' => 'ASR001', 'name' => 'Nama Asesor', 'email' => 'ase
 | `app/Exports/GradesEssayExport.php` | Export Excel nilai esai (sudah pakai `score` nyata) |
 | `resources/js/Components/Sidebar.vue` | Navigasi sidebar admin (ada menu Penugasan Asesor) |
 | `config/auth.php` | Definisi guards: web, student, participant |
+| `config/materai.php` | E-meterai Peruri: `MATERAI_ENABLED` (saklar utama), `MATERAI_AUTO_STAMP`, `MATERAI_FIRST_SESSION_ID` (pembebasan FR.AK.14) |
+| `app/Jobs/StampFrAk01Job.php`, `StampFrAk14Job.php` | Pembubuhan e-meterai (idempoten) |
