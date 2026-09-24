@@ -10,6 +10,7 @@ use App\Models\ExamSession;
 use App\Models\Grade;
 use App\Models\ParticipantResult;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EssayAssessmentController extends Controller
 {
@@ -102,29 +103,47 @@ class EssayAssessmentController extends Controller
                 403,
                 'Anda tidak ditugaskan untuk menilai peserta ini.'
             );
-
-            $scores = collect($student_row['answers'])->pluck('score')->filter()->values();
-            $avg = $scores->count() > 0 ? round($scores->avg(), 2) : null;
-
-            foreach ($student_row['answers'] as $item) {
-                AnswerEssay::where('id', $item['answer_essay_id'])
-                    ->where('exam_session_id', $exam_session_id)
-                    ->where('student_id', $student_row['student_id'])
-                    ->update([
-                        'score'       => $item['score'],
-                        'assessed_by' => $asesor->id,
-                        'assessed_at' => now(),
-                    ]);
-            }
-
-            if ($avg !== null) {
-                Grade::where('exam_id', $esaiExamId)
-                    ->where('exam_session_id', $exam_session_id)
-                    ->where('student_id', $student_row['student_id'])
-                    ->update(['grade' => $avg]);
-            }
         }
 
+        DB::transaction(function () use ($request, $asesor, $exam_session_id, $esaiExamId) {
+            foreach ($request->scores as $student_row) {
+                foreach ($student_row['answers'] as $item) {
+                    AnswerEssay::where('id', $item['answer_essay_id'])
+                        ->where('exam_id', $esaiExamId)
+                        ->where('exam_session_id', $exam_session_id)
+                        ->where('student_id', $student_row['student_id'])
+                        ->update([
+                            'score'       => $item['score'],
+                            'assessed_by' => $asesor->id,
+                            'assessed_at' => now(),
+                        ]);
+                }
+
+                // Total dihitung ulang dari nilai tersimpan (nilai 0 ikut dihitung),
+                // bukan dari angka kiriman browser.
+                $avg = self::averageScore($esaiExamId, $exam_session_id, (int) $student_row['student_id']);
+
+                if ($avg !== null) {
+                    Grade::where('exam_id', $esaiExamId)
+                        ->where('exam_session_id', $exam_session_id)
+                        ->where('student_id', $student_row['student_id'])
+                        ->update(['grade' => $avg]);
+                }
+            }
+        });
+
         return back()->with('success', 'Nilai esai berhasil disimpan.');
+    }
+
+    /** Rata-rata nilai jawaban esai yang sudah dinilai; null bila belum ada yang dinilai. */
+    public static function averageScore(?int $examId, int $sessionId, int $studentId): ?float
+    {
+        $scores = AnswerEssay::where('exam_id', $examId)
+            ->where('exam_session_id', $sessionId)
+            ->where('student_id', $studentId)
+            ->whereNotNull('score')
+            ->pluck('score');
+
+        return $scores->isEmpty() ? null : round($scores->avg(), 2);
     }
 }
