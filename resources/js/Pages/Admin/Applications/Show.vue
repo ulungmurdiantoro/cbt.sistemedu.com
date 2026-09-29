@@ -893,7 +893,7 @@ export default {
         const verifyDoc = (docId, status, notes) => {
             router.post(`/admin/applications/${props.application.id}/documents/${docId}/verify`,
                 { status, reviewer_notes: notes },
-                { onSuccess: () => { rejectDocId.value = null; } }
+                { preserveScroll: true, onSuccess: () => { rejectDocId.value = null; } }
             );
         };
 
