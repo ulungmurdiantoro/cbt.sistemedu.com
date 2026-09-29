@@ -8,6 +8,7 @@ use App\Models\Exam;
 use App\Models\Student;
 use App\Models\ExamGroup;
 use App\Models\ExamSession;
+use App\Models\ParticipantResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -146,7 +147,11 @@ class ExamSessionController extends Controller
 
     public function destroy($id)
     {
-        ExamSession::findOrFail($id)->delete();
+        $session = ExamSession::findOrFail($id);
+
+        ParticipantResult::preventLosingNumbers(ParticipantResult::where('exam_session_id', $session->id), 'Sesi ini');
+
+        $session->delete();
 
         return redirect()->route('admin.exam_sessions.index');
     }

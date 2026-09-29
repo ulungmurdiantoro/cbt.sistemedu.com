@@ -212,6 +212,18 @@ dipindah dengan `php artisan answer-files:move-private` (`--dry-run` untuk cek d
 
 ---
 
+## Penomoran SK / SP
+
+`NumberingService` memakai counter global per tahun di `numbering_counters` (lintas sesi). Nomor dibagikan
+saat Pengambil Keputusan klik Finalisasi, urut No. Peserta. Aturan supaya nomor tidak loncat:
+- Peserta remidi **memakai ulang** nomor SK/SP lamanya (`RemidiService` tidak mengosongkannya).
+- Sesi / peserta / skema yang sudah memegang nomor tidak bisa dihapus (`ParticipantResult::preventLosingNumbers`).
+- Nomor disimpan tanpa spasi (mutator di `ParticipantResult`).
+- Jangan ubah nomor/counter lewat SQL manual. Pakai `numbering:audit` (cek celah), `numbering:renumber-session`
+  (nomori ulang satu sesi + sesuaikan counter) dan `numbering:normalize` (buang spasi) — semua punya `--dry-run`.
+
+---
+
 ## Routes Baru
 
 ```php

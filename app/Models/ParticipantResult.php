@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\ValidationException;
 
 class ParticipantResult extends Model
 {
@@ -55,6 +58,44 @@ class ParticipantResult extends Model
             'fr_ak_14_signed_at' => 'datetime',
             'materai_stamped_at' => 'datetime',
         ];
+    }
+
+    // Nomor resmi tidak pernah mengandung spasi — mis. "SPT/EDUKIA /IX" hasil
+    // ketikan manual dirapikan saat disimpan.
+    protected function skNumber(): Attribute
+    {
+        return Attribute::make(set: fn ($value) => self::cleanNumber($value));
+    }
+
+    protected function spNumber(): Attribute
+    {
+        return Attribute::make(set: fn ($value) => self::cleanNumber($value));
+    }
+
+    public static function cleanNumber(?string $value): ?string
+    {
+        return $value === null ? null : preg_replace('/\s+/', '', $value);
+    }
+
+    /** Baris yang sudah memegang nomor SK/SP resmi. */
+    public function scopeNumbered(Builder $query): Builder
+    {
+        return $query->where(fn ($q) => $q->whereNotNull('sk_number')->orWhereNotNull('sp_number'));
+    }
+
+    /**
+     * Tolak penghapusan yang lewat cascade FK ikut menghapus baris bernomor
+     * SK/SP resmi — nomornya hilang tanpa jejak dan penomoran jadi loncat.
+     */
+    public static function preventLosingNumbers(Builder $results, string $subject): void
+    {
+        $count = $results->numbered()->count();
+
+        if ($count > 0) {
+            throw ValidationException::withMessages([
+                'delete' => "{$subject} sudah memegang {$count} nomor SK/SP resmi, jadi tidak bisa dihapus (nomornya akan ikut hilang dan penomoran loncat).",
+            ]);
+        }
     }
 
     public function examSession()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Classroom;
+use App\Models\ParticipantResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
@@ -122,6 +123,12 @@ class ClassroomController extends Controller
     {
         //get classroom
         $classroom = Classroom::findOrFail($id);
+
+        // Menghapus skema ikut menghapus peserta (cascade) beserta hasilnya.
+        ParticipantResult::preventLosingNumbers(
+            ParticipantResult::whereHas('student', fn ($q) => $q->where('classroom_id', $classroom->id)),
+            'Peserta skema ini'
+        );
 
         //delete classroom
         $classroom->delete();

@@ -143,8 +143,9 @@ class AuditNumbering extends Command
     private function auditAnomalies(Collection $rows): void
     {
         $checks = [
-            'Punya nomor tapi belum/tidak lagi final (sisa remidi?)' => $rows->filter(fn ($r) => !$r->is_finalized),
-            'Remidi (attempt 2) — nomor lama sudah hangus saat remidi dimulai' => $rows->filter(fn ($r) => $r->attempt >= 2),
+            'Punya nomor tapi belum/tidak lagi final (remidi berjalan?)' => $rows->filter(fn ($r) => !$r->is_finalized),
+            'Remidi (attempt 2) — cek nomor lama tidak hangus' => $rows->filter(fn ($r) => $r->attempt >= 2),
+            'Nomor mengandung spasi (rapikan: numbering:normalize)' => $rows->filter(fn ($r) => preg_match('/\s/', $r->sp_number . $r->sk_number)),
             'Akun peserta nonaktif (re-issue) tapi memegang nomor' => $rows->filter(fn ($r) => !$r->is_active),
             'Final tapi SP kosong' => $rows->filter(fn ($r) => $r->is_finalized && !$r->sp_number),
             'Final tapi SK kosong' => $rows->filter(fn ($r) => $r->is_finalized && !$r->sk_number),

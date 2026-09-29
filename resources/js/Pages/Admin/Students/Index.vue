@@ -157,14 +157,15 @@
                     .then((result) => {
                         if (result.isConfirmed) {
 
-                            router.delete(`/admin/students/${id}`);
-
-                            Swal.fire({
-                                title: 'Deleted!',
-                                text: 'Peserta Berhasil Dihapus!.',
-                                icon: 'success',
-                                timer: 2000,
-                                showConfirmButton: false,
+                            router.delete(`/admin/students/${id}`, {
+                                onSuccess: () => Swal.fire({
+                                    title: 'Deleted!',
+                                    text: 'Peserta Berhasil Dihapus!.',
+                                    icon: 'success',
+                                    timer: 2000,
+                                    showConfirmButton: false,
+                                }),
+                                onError: (e) => Swal.fire({ title: 'Tidak bisa dihapus', text: e.delete ?? 'Gagal menghapus peserta.', icon: 'error' }),
                             });
                         }
                     })

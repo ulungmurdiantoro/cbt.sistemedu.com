@@ -144,7 +144,11 @@ class SertifikasiController extends Controller
             // lama yang menempel di akun mati bisa ikut menghabiskan nomor
             // SK/SP resmi untuk orang yang sudah tidak relevan lagi.
             ->whereHas('student', fn ($q) => $q->where('is_active', true))
-            ->get();
+            ->with('student:id,no_participant')
+            ->get()
+            // Nomor SK/SP dibagikan urut No. Peserta, bukan urutan baris di DB.
+            ->sortBy(fn ($r) => $r->student->no_participant)
+            ->values();
 
         abort_if(
             $results->isEmpty(),
@@ -154,8 +158,10 @@ class SertifikasiController extends Controller
 
         DB::transaction(function () use ($results, $classroom, $classroomId, $examSession) {
             foreach ($results as $result) {
-                $skNum = $this->numbering->nextSkNumber();
-                $spNum = $this->numbering->nextSpNumber();
+                // Peserta remidi masih memegang nomor dari finalisasi pertama —
+                // pakai ulang supaya nomor lama tidak hangus dan urutan tidak loncat.
+                $skNum = $result->sk_number ?: $this->numbering->nextSkNumber();
+                $spNum = $result->sp_number ?: $this->numbering->nextSpNumber();
 
                 $sertifikatNum = null;
                 if ($result->keputusan === 'LULUS' && $classroom) {

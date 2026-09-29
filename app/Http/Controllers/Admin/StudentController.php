@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Student;
 use App\Models\Classroom;
+use App\Models\ParticipantResult;
 use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
 use App\Http\Controllers\Controller;
@@ -160,6 +161,8 @@ class StudentController extends Controller
     {
         //get student
         $student = Student::findOrFail($id);
+
+        ParticipantResult::preventLosingNumbers(ParticipantResult::where('student_id', $student->id), 'Peserta ini');
 
         //delete student
         $student->delete();

@@ -146,14 +146,15 @@
                 .then((result) => {
                     if (result.isConfirmed) {
 
-                        router.delete(`/admin/classrooms/${id}`);
-
-                        Swal.fire({
-                            title: 'Deleted!',
-                            text: 'Skema Berhasil Dihapus!.',
-                            icon: 'success',
-                            timer: 2000,
-                            showConfirmButton: false,
+                        router.delete(`/admin/classrooms/${id}`, {
+                            onSuccess: () => Swal.fire({
+                                title: 'Deleted!',
+                                text: 'Skema Berhasil Dihapus!.',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false,
+                            }),
+                            onError: (e) => Swal.fire({ title: 'Tidak bisa dihapus', text: e.delete ?? 'Gagal menghapus skema.', icon: 'error' }),
                         });
                     }
                 })

@@ -154,8 +154,10 @@ export default {
                 confirmButtonText: 'Yes, delete it!',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    router.delete(`/admin/exam_sessions/${id}`);
-                    Swal.fire({ title: 'Deleted!', text: 'Sesi Ujian Berhasil Dihapus!', icon: 'success', timer: 2000, showConfirmButton: false });
+                    router.delete(`/admin/exam_sessions/${id}`, {
+                        onSuccess: () => Swal.fire({ title: 'Deleted!', text: 'Sesi Ujian Berhasil Dihapus!', icon: 'success', timer: 2000, showConfirmButton: false }),
+                        onError: (e) => Swal.fire({ title: 'Tidak bisa dihapus', text: e.delete ?? 'Gagal menghapus sesi ujian.', icon: 'error' }),
+                    });
                 }
             });
         };
