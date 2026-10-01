@@ -124,6 +124,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/download', [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'download'])->name('admin.penilaian.dokumen.download');
         Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/verifikasi-akhir', [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'finalVerify'])->name('admin.penilaian.dokumen.finalVerify');
         Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}/tanda-tangan-asesor', [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'serveAssignedSignature'])->name('admin.penilaian.dokumen.signature.serve');
+        Route::post('/penilaian/{exam_session_id}/dokumen-materai',                       [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'stampMateraiBulk'])->name('admin.penilaian.dokumen.materaiBulk');
+        Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/materai',          [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'stampMaterai'])->name('admin.penilaian.dokumen.materai');
 
         // Rekap hasil & finalisasi
         Route::get('/results',                                         [\App\Http\Controllers\Admin\ResultController::class, 'index'])->name('admin.results.index');

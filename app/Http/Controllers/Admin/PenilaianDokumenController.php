@@ -58,13 +58,17 @@ class PenilaianDokumenController extends Controller
             $assign = $assignments->get($student->id);
 
             return [
-                'student_id'         => $student->id,
-                'no_participant'     => $student->no_participant,
-                'name'               => $student->name,
-                'app_id'             => $app?->id,
-                'app_status'         => $app?->status,
-                'asesor_verified_at' => $app?->asesor_verified_at,
-                'assigned_asesor'    => $assign?->asesor?->name,
+                'student_id'             => $student->id,
+                'no_participant'         => $student->no_participant,
+                'name'                   => $student->name,
+                'app_id'                 => $app?->id,
+                'app_status'             => $app?->status,
+                'asesor_verified_at'     => $app?->asesor_verified_at,
+                'assigned_asesor'        => $assign?->asesor?->name,
+                'ttd_lengkap'            => (bool) $app?->hasAllAk01Signatures(),
+                'materai_status'         => $app?->materai_status,
+                'materai_stamped_at'     => $app?->materai_stamped_at,
+                'materai_failure_reason' => $app?->materai_failure_reason,
             ];
         });
 
@@ -167,6 +171,46 @@ class PenilaianDokumenController extends Controller
 
         return redirect()->route('admin.penilaian.dokumen.index', $examSessionId)
             ->with('success', 'Verifikasi akhir berhasil ditandatangani atas nama ' . $asesor->name . '.');
+    }
+
+    // Bubuhkan materai FR.AK.01 satu peserta — sama dengan tombol di halaman Permohonan,
+    // supaya admin tidak perlu membuka permohonan satu per satu.
+    public function stampMaterai(int $examSessionId, int $studentId)
+    {
+        abort_unless(config('materai.enabled'), 404);
+        abort_unless($this->sessionStudentIds($examSessionId)->contains($studentId), 404);
+
+        $application = AssessmentApplication::where('student_id', $studentId)
+            ->where('exam_session_id', $examSessionId)
+            ->firstOrFail();
+
+        if (!$application->queueAk01Stamping()) {
+            return back()->with('error', $application->hasAllAk01Signatures()
+                ? 'Materai FR.AK.01 sudah dibubuhkan atau sedang diproses.'
+                : 'Ketiga tanda tangan (Asesi, LSP, Asesor) harus lengkap dulu sebelum materai dibubuhkan.');
+        }
+
+        return back()->with('success', 'Pembubuhan materai FR.AK.01 diproses.');
+    }
+
+    // Bubuhkan materai FR.AK.01 semua peserta sesi ini yang TTD-nya sudah lengkap
+    // dan belum bermaterai (yang gagal ikut dicoba lagi).
+    public function stampMateraiBulk(int $examSessionId)
+    {
+        abort_unless(config('materai.enabled'), 404);
+
+        $applications = AssessmentApplication::whereIn('student_id', $this->sessionStudentIds($examSessionId))
+            ->where('exam_session_id', $examSessionId)
+            ->whereIn('materai_status', ['none', 'failed'])
+            ->get();
+
+        $queued = $applications->filter(fn ($app) => $app->queueAk01Stamping())->count();
+
+        if ($queued === 0) {
+            return back()->with('error', 'Tidak ada peserta yang siap dibubuhi materai (TTD lengkap & belum bermaterai).');
+        }
+
+        return back()->with('success', "Pembubuhan materai FR.AK.01 diproses untuk {$queued} peserta.");
     }
 
     public function serveAssignedSignature(int $examSessionId, int $studentId)

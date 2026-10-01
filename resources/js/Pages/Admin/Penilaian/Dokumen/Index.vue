@@ -18,6 +18,13 @@
                 </div>
             </div>
 
+            <div v-if="$page.props.session.success" class="alert alert-success border-0 shadow mb-3">
+                {{ $page.props.session.success }}
+            </div>
+            <div v-if="$page.props.session.error" class="alert alert-danger border-0 shadow mb-3">
+                {{ $page.props.session.error }}
+            </div>
+
             <div class="alert alert-info border-0 shadow-sm small mb-3">
                 <i class="fa fa-info-circle me-1"></i>
                 Verifikasi dokumen persyaratan (FR.APL.01) dilakukan lewat menu <strong>Permohonan</strong>, terpisah dari halaman ini.
@@ -39,13 +46,25 @@
                         <div class="small text-muted">Belum TTD AK.01</div>
                     </div>
                 </div>
+                <div class="col-3" v-if="$page.props.materaiEnabled">
+                    <div class="card border-0 shadow text-center py-2">
+                        <div class="fs-4 fw-bold text-success">{{ stampedCount }}</div>
+                        <div class="small text-muted">Sudah Bermaterai</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Tabel peserta -->
             <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-semibold">
-                    <i class="fa fa-users me-2"></i>Daftar Peserta
-                    <span class="badge bg-light text-dark ms-2">{{ rows.length }}</span>
+                <div class="card-header bg-gray-800 text-white fw-semibold d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <span>
+                        <i class="fa fa-users me-2"></i>Daftar Peserta
+                        <span class="badge bg-gray-200 text-gray-800 ms-2">{{ rows.length }}</span>
+                    </span>
+                    <button v-if="$page.props.materaiEnabled" type="button" class="btn btn-sm btn-secondary"
+                        :disabled="readyToStamp.length === 0 || processing" @click="stampAll">
+                        <i class="fa fa-stamp me-1"></i>Bubuhkan Materai ({{ readyToStamp.length }})
+                    </button>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -58,6 +77,7 @@
                                     <th style="width:16%">Asesor Ditugaskan</th>
                                     <th class="text-center" style="width:14%">Status Aplikasi</th>
                                     <th class="text-center" style="width:16%">TTD AK.01</th>
+                                    <th v-if="$page.props.materaiEnabled" class="text-center" style="width:14%">Materai FR.AK.01</th>
                                     <th class="text-center" style="width:10%">Aksi</th>
                                 </tr>
                             </thead>
@@ -86,6 +106,29 @@
                                         </span>
                                         <span v-else class="text-muted small">—</span>
                                     </td>
+                                    <td v-if="$page.props.materaiEnabled" class="text-center">
+                                        <span v-if="!row.app_id" class="text-muted small">—</span>
+                                        <template v-else-if="row.materai_status === 'stamped'">
+                                            <StatusBadge tone="success" :title="formatDate(row.materai_stamped_at)">Sudah</StatusBadge>
+                                            <a :href="`/admin/applications/${row.app_id}/materai/download`" target="_blank"
+                                                class="ms-1" title="Lihat dokumen bermaterai">
+                                                <i class="fa fa-file-pdf"></i>
+                                            </a>
+                                        </template>
+                                        <StatusBadge v-else-if="isProcessing(row)" tone="accent">
+                                            <i class="fa fa-spinner fa-spin me-1"></i>Diproses
+                                        </StatusBadge>
+                                        <StatusBadge v-else-if="!row.ttd_lengkap" tone="neutral" title="Menunggu TTD Asesi, LSP & Asesor lengkap">
+                                            Menunggu TTD
+                                        </StatusBadge>
+                                        <template v-else>
+                                            <StatusBadge v-if="row.materai_status === 'failed'" tone="danger"
+                                                :title="row.materai_failure_reason || 'tidak diketahui'" class="me-1">Gagal</StatusBadge>
+                                            <button type="button" class="btn btn-sm btn-dark border-0" :disabled="processing" @click="stampOne(row)">
+                                                <i class="fa fa-stamp me-1"></i>{{ row.materai_status === 'failed' ? 'Ulangi' : 'Bubuhkan' }}
+                                            </button>
+                                        </template>
+                                    </td>
                                     <td class="text-center">
                                         <Link v-if="row.app_id"
                                             :href="`/admin/penilaian/${exam_session.id}/dokumen/${row.student_id}`"
@@ -97,7 +140,7 @@
                                     </td>
                                 </tr>
                                 <tr v-if="rows.length === 0">
-                                    <td colspan="7" class="text-center text-muted py-4">Tidak ada peserta.</td>
+                                    <td :colspan="$page.props.materaiEnabled ? 8 : 7" class="text-center text-muted py-4">Tidak ada peserta.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -111,26 +154,72 @@
 
 <script>
 import LayoutAdmin from '../../../../Layouts/Admin.vue';
-import { Head, Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import StatusBadge from '../../../../Components/StatusBadge.vue';
+import { Head, Link, router } from '@inertiajs/vue3';
+import { computed, onUnmounted, ref, watch } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { Head, Link, StatusBadge },
     props: {
         exam_session: Object,
         rows: Array,
     },
 
     setup(props) {
+        const processing = ref(false);
+
         const finalVerified = computed(() => props.rows.filter(r => r.asesor_verified_at).length);
+        const stampedCount  = computed(() => props.rows.filter(r => r.materai_status === 'stamped').length);
+
+        const isProcessing = (row) => ['pending_payment', 'paid'].includes(row.materai_status);
+        const readyToStamp = computed(() => props.rows.filter(r =>
+            r.app_id && r.ttd_lengkap && ['none', 'failed'].includes(r.materai_status)
+        ));
 
         const formatDate = (value) => {
             if (!value) return '-';
             return new Date(value).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
         };
 
-        return { finalVerified, formatDate };
+        const post = (url) => {
+            processing.value = true;
+            router.post(url, {}, {
+                preserveScroll: true,
+                onFinish: () => { processing.value = false; },
+            });
+        };
+
+        const stampOne = (row) => {
+            if (!confirm(`Bubuhkan e-meterai FR.AK.01 untuk ${row.name}? Ini memakai 1 kuota meterai.`)) return;
+            post(`/admin/penilaian/${props.exam_session.id}/dokumen/${row.student_id}/materai`);
+        };
+
+        const stampAll = () => {
+            const n = readyToStamp.value.length;
+            if (!confirm(`Bubuhkan e-meterai FR.AK.01 untuk ${n} peserta yang TTD-nya sudah lengkap? Ini memakai ${n} kuota meterai.`)) return;
+            post(`/admin/penilaian/${props.exam_session.id}/dokumen-materai`);
+        };
+
+        // Pembubuhan jalan di background (queue). Selama masih ada yang "Diproses",
+        // tabel dimuat ulang tiap 4 detik sampai hasilnya keluar.
+        let pollTimer = null;
+        const stopPoll = () => { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } };
+        watch(() => props.rows.some(isProcessing), (anyProcessing) => {
+            if (anyProcessing && !pollTimer) {
+                pollTimer = setInterval(() => {
+                    router.reload({ only: ['rows'], preserveScroll: true, preserveState: true });
+                }, 4000);
+            } else if (!anyProcessing) {
+                stopPoll();
+            }
+        }, { immediate: true });
+        onUnmounted(stopPoll);
+
+        return {
+            processing, finalVerified, stampedCount, readyToStamp,
+            isProcessing, formatDate, stampOne, stampAll,
+        };
     },
 }
 </script>

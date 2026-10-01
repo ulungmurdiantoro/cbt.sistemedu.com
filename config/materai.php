@@ -51,7 +51,8 @@ return [
     |--------------------------------------------------------------------------
     | true  = materai FR.AK.01 dibubuhkan otomatis begitu ketiga TTD lengkap.
     | false = MANUAL — admin membubuhkan lewat tombol di halaman permohonan
-    |         (admin/applications/{id}). Berguna untuk kontrol biaya / tracking,
+    |         (admin/applications/{id}) atau per sesi, satu-satu maupun sekaligus,
+    |         di admin/penilaian/{sesi}/dokumen. Berguna untuk kontrol biaya / tracking,
     |         atau saat menangani backlog dokumen lama.
     */
     'auto_stamp' => env('MATERAI_AUTO_STAMP', true),

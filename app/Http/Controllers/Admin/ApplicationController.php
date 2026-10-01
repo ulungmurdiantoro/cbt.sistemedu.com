@@ -336,7 +336,7 @@ class ApplicationController extends Controller
     {
         abort_unless(config('materai.enabled'), 404);
 
-        if (!$application->signature_path || !$application->admin_signature_path || !$application->asesor_signature_path) {
+        if (!$application->hasAllAk01Signatures()) {
             throw ValidationException::withMessages([
                 'materai' => 'Ketiga tanda tangan (Asesi, LSP, Asesor) harus lengkap dulu sebelum materai dibubuhkan.',
             ]);
@@ -344,12 +344,9 @@ class ApplicationController extends Controller
         if ($application->materai_status === 'stamped') {
             throw ValidationException::withMessages(['materai' => 'Materai FR.AK.01 sudah dibubuhkan.']);
         }
-        if (in_array($application->materai_status, ['pending_payment', 'paid'], true)) {
+        if (!$application->queueAk01Stamping()) {
             throw ValidationException::withMessages(['materai' => 'Materai sedang diproses. Tunggu sebentar lalu muat ulang halaman.']);
         }
-
-        $application->update(['materai_status' => 'pending_payment', 'materai_failure_reason' => null]);
-        \App\Jobs\StampFrAk01Job::dispatch($application->id);
 
         return back()->with('success', 'Pembubuhan materai FR.AK.01 diproses. Muat ulang halaman beberapa saat lagi untuk melihat hasilnya.');
     }

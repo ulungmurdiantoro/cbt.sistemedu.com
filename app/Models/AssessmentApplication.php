@@ -151,14 +151,44 @@ class AssessmentApplication extends Model
         }
 
         // Mode manual (MATERAI_AUTO_STAMP=false): jangan dispatch otomatis —
-        // admin membubuhkan lewat tombol di halaman permohonan.
+        // admin membubuhkan lewat tombol di halaman permohonan / Penilaian > Dokumen.
         if (!config('materai.auto_stamp', true)) {
             return;
         }
 
-        if ($this->signature_path && $this->admin_signature_path && $this->asesor_signature_path) {
-            $this->update(['materai_status' => 'pending_payment']);
-            \App\Jobs\StampFrAk01Job::dispatch($this->id);
+        $this->queueAk01Stamping();
+    }
+
+    /** Asesi (signature_path), LSP/admin (admin_signature_path) dan Asesor (asesor_signature_path). */
+    public function hasAllAk01Signatures(): bool
+    {
+        return $this->signature_path && $this->admin_signature_path && $this->asesor_signature_path;
+    }
+
+    /**
+     * Antrekan pembubuhan materai FR.AK.01. Status diklaim secara atomik (hanya dari
+     * none/failed) supaya klik ganda / bubuhkan massal tidak mendispatch dua job —
+     * job yang sama-sama jalan akan memakai dua kuota meterai.
+     *
+     * @return bool false kalau TTD belum lengkap, sudah dibubuhkan, atau sedang diproses
+     */
+    public function queueAk01Stamping(): bool
+    {
+        if (!config('materai.enabled') || !$this->hasAllAk01Signatures()) {
+            return false;
         }
+
+        $claimed = static::whereKey($this->id)
+            ->whereIn('materai_status', ['none', 'failed'])
+            ->update(['materai_status' => 'pending_payment', 'materai_failure_reason' => null]);
+
+        if (!$claimed) {
+            return false;
+        }
+
+        $this->forceFill(['materai_status' => 'pending_payment', 'materai_failure_reason' => null])->syncOriginal();
+        \App\Jobs\StampFrAk01Job::dispatch($this->id);
+
+        return true;
     }
 }
