@@ -28,6 +28,7 @@ class ApplicationController extends Controller
 
         $activeSessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
             ->active()
+            ->orderBy('start_time')
             ->get();
 
         // group by classroom_id, hasilkan 1 entry per skema dengan list sesinya
@@ -74,7 +75,13 @@ class ApplicationController extends Controller
             return back()->with('error', 'Anda sudah mendaftar untuk sesi ujian ini.');
         }
 
-        $session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($request->exam_session_id);
+        $session = ExamSession::with('examPg.classroom', 'examEsai.classroom')
+            ->active()
+            ->find($request->exam_session_id);
+
+        if (!$session) {
+            return back()->with('error', 'Sesi ujian ini sudah ditutup.');
+        }
 
         $application = AssessmentApplication::create([
             'code'            => 'APL-' . strtoupper(Str::random(8)),

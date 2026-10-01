@@ -24,29 +24,35 @@
     </div>
 
     <div class="row" v-else>
-        <!-- Daftar skema (1 card per skema) -->
+        <!-- Daftar skema (1 card per skema, berisi semua batch/sesi aktifnya) -->
         <div class="col-md-7">
-            <div v-for="skema in skema_list" :key="skema.classroom_id"
-                class="card mb-3 shadow"
-                :class="selectedClassroomId === skema.classroom_id
-                    ? 'border border-primary border-2'
-                    : 'border-0'"
-                :style="allEnrolled(skema) ? '' : 'cursor:pointer'"
-                @click="selectSkema(skema)">
+            <div v-for="skema in skema_list" :key="skema.classroom_id" class="card border-0 shadow mb-3">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <div class="text-muted small mb-1" v-if="skema.kode_skema">
-                                {{ skema.kode_skema }}
+                    <div class="text-muted small mb-1" v-if="skema.kode_skema">
+                        {{ skema.kode_skema }}
+                    </div>
+                    <h6 class="fw-bold mb-3">{{ skema.title }}</h6>
+
+                    <p class="small text-muted mb-2">Pilih batch:</p>
+                    <div v-for="sesi in skema.sessions" :key="sesi.id"
+                        class="rounded p-2 mb-2"
+                        :class="selectedSession?.id === sesi.id
+                            ? 'border border-primary border-2'
+                            : 'border'"
+                        :style="sesi.enrolled ? 'opacity:.65' : 'cursor:pointer'"
+                        @click="selectSession(skema, sesi)">
+                        <div class="d-flex justify-content-between align-items-start gap-2">
+                            <div>
+                                <div class="small fw-semibold">Batch {{ sesi.kode_batch || '-' }}</div>
+                                <div class="small text-muted" v-if="sesi.title">{{ sesi.title }}</div>
+                                <div class="small text-muted">
+                                    <i class="fa fa-calendar me-1"></i>{{ formatDate(sesi.start_time) }} s/d {{ formatDate(sesi.end_time) }}
+                                </div>
                             </div>
-                            <h6 class="fw-bold mb-0">{{ skema.title }}</h6>
-                            <div v-if="enrolledBatches(skema).length" class="small text-muted mt-1">
-                                <i class="fa fa-layer-group me-1"></i>Batch {{ enrolledBatches(skema).join(', ') }}
-                            </div>
+                            <span v-if="sesi.enrolled" class="badge bg-success">Sudah Daftar</span>
+                            <span v-else-if="selectedSession?.id === sesi.id" class="badge bg-primary">Dipilih</span>
+                            <span v-else class="badge bg-gray-200 text-gray-800">Pilih</span>
                         </div>
-                        <span v-if="allEnrolled(skema)" class="badge bg-success">Sudah Daftar</span>
-                        <span v-else-if="selectedClassroomId === skema.classroom_id" class="badge bg-primary">Dipilih</span>
-                        <span v-else class="badge bg-light text-dark border">Pilih</span>
                     </div>
                 </div>
             </div>
@@ -122,31 +128,21 @@ export default {
     },
 
     setup() {
-        const selectedClassroomId = ref(null);
-        const selectedSkema       = ref(null);
-        const selectedSession     = ref(null);
-        const processing          = ref(false);
+        const selectedSkema   = ref(null);
+        const selectedSession = ref(null);
+        const processing      = ref(false);
 
         const form = reactive({
             exam_session_id: null,
             tujuan_asesmen:  'Sertifikasi',
         });
 
-        const allEnrolled = (skema) => skema.sessions.every(s => s.enrolled);
+        const selectSession = (skema, sesi) => {
+            if (sesi.enrolled) return;
 
-        const enrolledBatches = (skema) => skema.sessions.filter(s => s.enrolled).map(s => s.kode_batch);
-
-        const selectSkema = (skema) => {
-            if (allEnrolled(skema)) return;
-
-            // otomatis pilih sesi pertama yang belum didaftar
-            const availableSession = skema.sessions.find(s => !s.enrolled);
-            if (!availableSession) return;
-
-            selectedClassroomId.value = skema.classroom_id;
-            selectedSkema.value       = skema;
-            selectedSession.value     = availableSession;
-            form.exam_session_id      = availableSession.id;
+            selectedSkema.value   = skema;
+            selectedSession.value = sesi;
+            form.exam_session_id  = sesi.id;
         };
 
         const formatDate = (dt) =>
@@ -160,9 +156,9 @@ export default {
         };
 
         return {
-            selectedClassroomId, selectedSkema, selectedSession,
+            selectedSkema, selectedSession,
             form, processing,
-            allEnrolled, enrolledBatches, selectSkema, formatDate, submit,
+            selectSession, formatDate, submit,
         };
     },
 }
