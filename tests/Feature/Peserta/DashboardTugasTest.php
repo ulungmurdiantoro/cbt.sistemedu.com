@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Peserta;
 
+use App\Mail\ApplicationApprovedMail;
 use App\Models\AssessmentApplication;
 use App\Models\ExamGroup;
 use App\Models\Participant;
@@ -144,6 +145,24 @@ class DashboardTugasTest extends TestCase
             ->assertForbidden();
 
         $this->assertSame(0, StudentTask::count());
+    }
+
+    public function test_approval_email_asks_to_upload_tugas_only_when_required(): void
+    {
+        $required = $this->application();
+        $required->load(['participant', 'classroom', 'examSession', 'student']);
+
+        (new ApplicationApprovedMail($required))
+            ->assertSeeInHtml($required->student->no_participant)
+            ->assertSeeInHtml('Wajib Upload Tugas Sebelum Ujian')
+            ->assertSeeInHtml('Upload Tugas di Dashboard');
+
+        $exempt = $this->application('LEM');
+        $exempt->load(['participant', 'classroom', 'examSession', 'student']);
+
+        (new ApplicationApprovedMail($exempt))
+            ->assertDontSeeInHtml('Wajib Upload Tugas')
+            ->assertSeeInHtml('Lihat Dashboard');
     }
 
     public function test_not_shown_for_unapproved_or_exempt_skema(): void
