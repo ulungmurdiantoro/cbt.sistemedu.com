@@ -82,6 +82,12 @@
                                 </div>
                             </div>
 
+                            <div class="form-check form-switch mb-4">
+                                <input class="form-check-input" type="checkbox" id="verifikasi_tuk" v-model="form.verifikasi_tuk">
+                                <label class="form-check-label fw-semibold" for="verifikasi_tuk">Verifikasi TUK Online (FR.TUK.06)</label>
+                                <div class="text-muted small">Pengawas ujian (admin) mengisi checklist verifikasi tiap peserta sebelum &amp; selama ujian. Hanya pencatatan &mdash; tidak mengunci ujian.</div>
+                            </div>
+
                             <button type="submit" class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
                             <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
                         </form>
@@ -114,6 +120,7 @@ export default {
             exam_id_pg:      '',
             exam_id_esai:    '',
             has_wawancara:   false,
+            verifikasi_tuk:  true,
             start_time:      '',
             end_time:        '',
             konteks_asesmen: 'Sertifikasi Person',
@@ -130,6 +137,7 @@ export default {
                 exam_id_pg:      form.exam_id_pg      || null,
                 exam_id_esai:    form.exam_id_esai    || null,
                 has_wawancara:   form.has_wawancara,
+                verifikasi_tuk:  form.verifikasi_tuk,
                 start_time:      form.start_time,
                 end_time:        form.end_time,
                 konteks_asesmen: form.konteks_asesmen,

@@ -8,9 +8,15 @@
                     <Link href="/admin/penilaian" class="btn btn-md btn-primary border-0 shadow">
                         <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
                     </Link>
-                    <Link :href="`/admin/penilaian/${exam_session.id}/dokumen`" class="btn btn-md btn-outline-primary border shadow-sm">
-                        <i class="fa fa-signature me-2"></i> TTD AK.01 Asesor
-                    </Link>
+                    <div class="d-flex flex-wrap gap-2">
+                        <Link v-if="exam_session.verifikasi_tuk" :href="`/admin/penilaian/${exam_session.id}/verifikasi-tuk`"
+                            class="btn btn-md btn-outline-primary border shadow-sm">
+                            <i class="fa fa-clipboard-check me-2"></i> Verifikasi TUK (FR.TUK.06)
+                        </Link>
+                        <Link :href="`/admin/penilaian/${exam_session.id}/dokumen`" class="btn btn-md btn-outline-primary border shadow-sm">
+                            <i class="fa fa-signature me-2"></i> TTD AK.01 Asesor
+                        </Link>
+                    </div>
                 </div>
 
                 <div class="card border-0 shadow mb-4">

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\ApplicationDocument;
 use App\Models\AsesorAssignment;
 use App\Models\AssessmentApplication;
-use App\Models\ExamGroup;
 use App\Models\ExamSession;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -22,10 +21,7 @@ class PenilaianDokumenController extends Controller
 {
     private function sessionStudentIds(int $examSessionId): \Illuminate\Support\Collection
     {
-        $ids = ExamGroup::where('exam_session_id', $examSessionId)->pluck('student_id')->unique();
-
-        // Akun nonaktif (akun lama hasil re-issue / merge duplikat) tidak ikut.
-        return Student::whereIn('id', $ids)->where('is_active', true)->pluck('id');
+        return ExamSession::activeStudentIds($examSessionId);
     }
 
     private function assignedAsesor(int $examSessionId, int $studentId): ?AsesorAssignment

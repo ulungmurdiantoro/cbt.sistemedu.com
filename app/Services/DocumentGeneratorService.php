@@ -8,8 +8,10 @@ use App\Models\ClassroomCompetencyUnit;
 use App\Models\ExamSession;
 use App\Models\GradingScheme;
 use App\Models\ParticipantResult;
+use App\Models\TukVerification;
 use App\Models\User;
 use App\Support\InitialAssessmentRubric;
+use App\Support\TukChecklist;
 use BaconQrCode\Common\ErrorCorrectionLevel;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
@@ -899,6 +901,33 @@ class DocumentGeneratorService
         ])->render();
 
         return $this->renderFormWithLogoHeader($html, 'FR.AK.14 Rev.02');
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // FR.TUK.06 — Checklist Verifikasi TUK Online
+    // ═══════════════════════════════════════════════════════════════════
+
+    public function generateFrTuk06(TukVerification $verification): string
+    {
+        $verification->loadMissing(['student', 'examSession.examPg.classroom', 'examSession.examEsai.classroom']);
+
+        $session = $verification->examSession;
+
+        $html = View::make('documents.fr_tuk_06', [
+            'v'                   => $verification,
+            'namaPeserta'         => $verification->student?->name ?? '-',
+            'namaSkema'           => $session?->referenceExam?->classroom?->title ?? '-',
+            'tanggalAsesmen'      => $verification->tanggal_asesmen ? $verification->tanggal_asesmen->locale('id')->isoFormat('dddd, DD MMMM YYYY') : '',
+            'metodeAsesmen'       => $session?->tempat_ujian ?: 'Online (Zoom Meeting)',
+            'tanggalVerifikasi'   => $verification->verified_at ? $verification->verified_at->locale('id')->isoFormat('DD MMMM YYYY, HH.mm') : '',
+            'sections'            => TukChecklist::sections(),
+            'items'               => $verification->items ?? [],
+            'ttdPengawas'         => $this->ttdBox($verification->pengawas_signature_path, 50, 18),
+            'checkboxEmptyPath'   => $this->asset('checkbox_empty'),
+            'checkboxCheckedPath' => $this->asset('checkbox_checked'),
+        ])->render();
+
+        return $this->renderFormWithLogoHeader($html, 'FR.TUK.06 Rev.0');
     }
 
     // ═══════════════════════════════════════════════════════════════════

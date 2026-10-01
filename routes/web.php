@@ -127,6 +127,12 @@ Route::prefix('admin')->group(function () {
         Route::post('/penilaian/{exam_session_id}/dokumen-materai',                       [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'stampMateraiBulk'])->name('admin.penilaian.dokumen.materaiBulk');
         Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/materai',          [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'stampMaterai'])->name('admin.penilaian.dokumen.materai');
 
+        // FR.TUK.06 — Checklist Verifikasi TUK Online (admin sebagai Pengawas Ujian, hanya pencatatan)
+        Route::get('/penilaian/{exam_session_id}/verifikasi-tuk',                  [\App\Http\Controllers\Admin\TukVerificationController::class, 'index'])->name('admin.penilaian.tuk.index');
+        Route::get('/penilaian/{exam_session_id}/verifikasi-tuk/{student_id}',     [\App\Http\Controllers\Admin\TukVerificationController::class, 'show'])->name('admin.penilaian.tuk.show');
+        Route::post('/penilaian/{exam_session_id}/verifikasi-tuk/{student_id}',    [\App\Http\Controllers\Admin\TukVerificationController::class, 'store'])->name('admin.penilaian.tuk.store');
+        Route::get('/penilaian/{exam_session_id}/verifikasi-tuk/{student_id}/pdf', [\App\Http\Controllers\Admin\TukVerificationController::class, 'pdf'])->name('admin.penilaian.tuk.pdf');
+
         // Rekap hasil & finalisasi
         Route::get('/results',                                         [\App\Http\Controllers\Admin\ResultController::class, 'index'])->name('admin.results.index');
         Route::get('/results/{examSession}',                           [\App\Http\Controllers\Admin\ResultController::class, 'show'])->name('admin.results.show');

@@ -82,6 +82,12 @@
                                 </div>
                             </div>
 
+                            <div class="form-check form-switch mb-4">
+                                <input class="form-check-input" type="checkbox" id="verifikasi_tuk" v-model="form.verifikasi_tuk">
+                                <label class="form-check-label fw-semibold" for="verifikasi_tuk">Verifikasi TUK Online (FR.TUK.06)</label>
+                                <div class="text-muted small">Pengawas ujian (admin) mengisi checklist verifikasi tiap peserta sebelum &amp; selama ujian. Hanya pencatatan &mdash; tidak mengunci ujian.</div>
+                            </div>
+
                             <!-- Window Remidi -->
                             <div class="card border mb-4">
                                 <div class="card-header fw-semibold bg-light">
@@ -135,6 +141,7 @@ export default {
             exam_id_pg:       props.exam_session.exam_id_pg   ?? '',
             exam_id_esai:     props.exam_session.exam_id_esai ?? '',
             has_wawancara:    props.exam_session.has_wawancara ?? false,
+            verifikasi_tuk:   props.exam_session.verifikasi_tuk ?? false,
             start_time:       props.exam_session.start_time,
             end_time:         props.exam_session.end_time,
             remidi_start_at:  props.exam_session.remidi_start_at ?? null,
@@ -153,6 +160,7 @@ export default {
                 exam_id_pg:      form.exam_id_pg      || null,
                 exam_id_esai:    form.exam_id_esai    || null,
                 has_wawancara:   form.has_wawancara,
+                verifikasi_tuk:  form.verifikasi_tuk,
                 start_time:      form.start_time,
                 end_time:        form.end_time,
                 remidi_start_at: form.remidi_start_at || null,

@@ -18,6 +18,7 @@ class StoreExamSessionRequest extends FormRequest
             'exam_id_pg'      => 'nullable|exists:exams,id',
             'exam_id_esai'    => 'nullable|exists:exams,id',
             'has_wawancara'   => 'boolean',
+            'verifikasi_tuk'  => 'boolean',
             'start_time'      => 'required',
             'end_time'        => 'required',
             'konteks_asesmen' => 'required|string|max:255',

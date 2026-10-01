@@ -14,6 +14,7 @@ class ExamSession extends Model
         'exam_id_pg',
         'exam_id_esai',
         'has_wawancara',
+        'verifikasi_tuk',
         'title',
         'start_time',
         'end_time',
@@ -31,6 +32,7 @@ class ExamSession extends Model
     {
         return [
             'has_wawancara'       => 'boolean',
+            'verifikasi_tuk'      => 'boolean',
             'keputusan_issued_at' => 'datetime',
         ];
     }
@@ -54,6 +56,17 @@ class ExamSession extends Model
     public function getReferenceExamAttribute(): ?Exam
     {
         return $this->examPg ?? $this->examEsai;
+    }
+
+    /**
+     * ID peserta yang terdaftar di sesi ini. Akun nonaktif (akun lama hasil
+     * re-issue / merge duplikat) tidak ikut.
+     */
+    public static function activeStudentIds(int $examSessionId): \Illuminate\Support\Collection
+    {
+        $ids = ExamGroup::where('exam_session_id', $examSessionId)->pluck('student_id')->unique();
+
+        return Student::whereIn('id', $ids)->where('is_active', true)->pluck('id');
     }
 
     public function assessmentApplications()

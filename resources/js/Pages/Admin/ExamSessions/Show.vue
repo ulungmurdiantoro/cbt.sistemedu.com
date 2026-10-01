@@ -54,6 +54,13 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td class="fw-bold">Verifikasi TUK (FR.TUK.06)</td>
+                                        <td>
+                                            <StatusBadge v-if="exam_session.verifikasi_tuk" tone="accent">Aktif</StatusBadge>
+                                            <span v-else class="text-muted">—</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td class="fw-bold">Mulai</td>
                                         <td>{{ exam_session.start_time }}</td>
                                     </tr>
@@ -119,12 +126,13 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
+import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination },
+    components: { Head, Link, Pagination, StatusBadge },
     props: {
         errors:       Object,
         exam_session: Object,

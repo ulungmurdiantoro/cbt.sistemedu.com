@@ -224,6 +224,19 @@ saat Pengambil Keputusan klik Finalisasi, urut No. Peserta. Aturan supaya nomor 
 
 ---
 
+## Verifikasi TUK Online (FR.TUK.06)
+
+Checklist per peserta per sesi (`tuk_verifications`), diisi **admin sebagai Pengawas Ujian** di
+`/admin/penilaian/{sesi}/verifikasi-tuk` (tombol muncul di halaman Penugasan Asesor bila saklar sesi
+`exam_sessions.verifikasi_tuk` aktif). **Hanya pencatatan — tidak mengunci ujian peserta.**
+- Daftar kriteria B–F ditanam di `App\Support\TukChecklist`; jawaban disimpan per kunci butir (`B1`…`F6`)
+  di kolom JSON `items`. Jangan ubah urutan/kunci butir yang sudah ada.
+- Pengawas (nama + TTD dari Kelola User) = admin terakhir yang menyimpan. `verified_at` diisi saat
+  kesimpulan verifikasi awal pertama kali disimpan dan tidak bergeser saat F/H/I dilengkapi setelah ujian.
+- PDF: `DocumentGeneratorService::generateFrTuk06()` → view `documents/fr_tuk_06`.
+
+---
+
 ## Routes Baru
 
 ```php
