@@ -46,7 +46,7 @@
                                 <div class="small fw-semibold">Batch {{ sesi.kode_batch || '-' }}</div>
                                 <div class="small text-muted" v-if="sesi.title">{{ sesi.title }}</div>
                                 <div class="small text-muted">
-                                    <i class="fa fa-calendar me-1"></i>{{ formatDate(sesi.start_time) }} s/d {{ formatDate(sesi.end_time) }}
+                                    <i class="fa fa-calendar me-1"></i>Mulai {{ formatDate(sesi.start_time) }}
                                 </div>
                             </div>
                             <span v-if="sesi.enrolled" class="badge bg-success">Sudah Daftar</span>
@@ -77,11 +77,8 @@
                             <td class="small fw-semibold">{{ selectedSession.kode_batch }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted small">Waktu</td>
-                            <td class="small">
-                                {{ formatDate(selectedSession.start_time) }}<br>
-                                <span class="text-muted">s/d {{ formatDate(selectedSession.end_time) }}</span>
-                            </td>
+                            <td class="text-muted small">Mulai</td>
+                            <td class="small">{{ formatDate(selectedSession.start_time) }}</td>
                         </tr>
                         <tr>
                             <td class="text-muted small">Konteks Asesmen</td>
