@@ -173,11 +173,16 @@
                             <tr>
                                 <td class="fw-semibold">Tanda Tangan/Validasi</td>
                                 <td class="small">
-                                    <span v-if="pengawas.has_signature" class="text-success">
-                                        <i class="fa fa-check-circle me-1"></i>TTD Anda dari menu Kelola User dibubuhkan di PDF.
-                                    </span>
+                                    <template v-if="pengawas.has_signature">
+                                        <img src="/admin/profile/tanda-tangan" alt="TTD Pengawas" class="border rounded bg-white d-block mb-1"
+                                            style="max-height:60px;max-width:200px">
+                                        <span class="text-muted">
+                                            TTD admin Anda yang tersimpan — sama dengan TTD saat menyetujui permohonan di menu Permohonan.
+                                        </span>
+                                    </template>
                                     <span v-else class="text-danger">
-                                        <i class="fa fa-exclamation-circle me-1"></i>TTD Anda belum tersimpan — atur di menu Kelola User, kalau tidak PDF tercetak tanpa TTD.
+                                        <i class="fa fa-exclamation-circle me-1"></i>Anda belum punya TTD tersimpan, jadi PDF tercetak tanpa TTD.
+                                        TTD admin dibuat saat menyetujui permohonan di menu Permohonan; setelah itu simpan ulang checklist ini.
                                     </span>
                                 </td>
                             </tr>

@@ -9,6 +9,7 @@ use App\Models\TukVerification;
 use App\Models\User;
 use App\Models\UserRoleAssignment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\Feature\Concerns\CreatesExamFixtures;
@@ -110,6 +111,32 @@ class TukVerificationTest extends TestCase
         $this->assertSame('layak', $v->kesimpulan_akhir);
         $this->assertArrayHasKey('F1', $v->items);
         $this->assertTrue($verifiedAt->equalTo($v->verified_at));
+    }
+
+    public function test_pengawas_signature_is_the_admins_saved_signature(): void
+    {
+        $student = $this->participant('NP-001');
+
+        $this->actingAs($this->admin)->get($this->url($student))
+            ->assertInertia(fn (Assert $page) => $page->where('pengawas.has_signature', false));
+
+        // TTD default admin — disimpan saat menyetujui permohonan di menu Permohonan.
+        Storage::fake('private');
+        Storage::disk('private')->put('admin-signatures/1/admin_1.png', 'png');
+        User::whereKey($this->admin->id)->update(['signature_path' => 'admin-signatures/1/admin_1.png', 'signature_name' => 'Nama TTD Admin']);
+        $this->admin->refresh();
+
+        $this->actingAs($this->admin)->get($this->url($student))
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('pengawas.has_signature', true)
+                ->where('pengawas.name', 'Nama TTD Admin')
+            );
+
+        $this->actingAs($this->admin)->post($this->url($student), ['kesimpulan_awal' => 'layak']);
+
+        $v = TukVerification::firstOrFail();
+        $this->assertSame('admin-signatures/1/admin_1.png', $v->pengawas_signature_path);
+        $this->assertSame('Nama TTD Admin', $v->pengawas_name);
     }
 
     public function test_invalid_answers_are_rejected(): void

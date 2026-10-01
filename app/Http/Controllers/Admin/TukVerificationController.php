@@ -10,12 +10,14 @@ use App\Services\DocumentGeneratorService;
 use App\Support\TukChecklist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 // FR.TUK.06 — Checklist Verifikasi TUK Online. Admin mengisi sebagai Pengawas Ujian,
 // satu checklist per peserta per sesi: bagian A–E & G sebelum ujian, F & H selama/
 // setelah ujian, I validasi. Hanya pencatatan — tidak mengunci ujian peserta.
-// Pengawas yang tercatat (nama + TTD dari Kelola User) = admin terakhir yang menyimpan.
+// Pengawas yang tercatat = admin terakhir yang menyimpan, dengan nama + TTD default admin
+// (users.signature_path/_name — TTD yang dibuat saat menyetujui permohonan di menu Permohonan).
 class TukVerificationController extends Controller
 {
     /** Peserta aktif sesi ini, urut No. Peserta. */
@@ -80,7 +82,7 @@ class TukVerificationController extends Controller
             ],
             'pengawas'        => [
                 'name'          => $user->signature_name ?: $user->name,
-                'has_signature' => (bool) $user->signature_path,
+                'has_signature' => $user->signature_path && Storage::disk('private')->exists($user->signature_path),
             ],
             'next_student_id' => $ids->get($ids->search($studentId) + 1),
         ]);
