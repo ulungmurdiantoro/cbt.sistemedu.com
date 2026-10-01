@@ -128,6 +128,37 @@
                             Permohonan disetujui. Login ujian menggunakan No. Peserta di atas.
                         </div>
 
+                        <!-- Upload tugas (sama dengan student/tugas/{sesi} di portal ujian) -->
+                        <div v-if="app.tugas && !app.result?.is_finalized" class="border rounded p-3 mb-2">
+                            <h6 class="fw-bold small mb-1"><i class="fa fa-upload me-1 text-muted"></i>Upload Tugas</h6>
+                            <p class="small text-muted mb-2">
+                                Wajib diunggah sebelum mengerjakan ujian. Tugas ini diperiksa asesor pada saat ujian wawancara.
+                            </p>
+
+                            <div v-if="app.tugas.file" class="alert alert-success p-2 small mb-2">
+                                <i class="fa fa-check-circle me-1"></i>Sudah diunggah: <strong>{{ app.tugas.file.name }}</strong>
+                                <div v-if="app.tugas.file.uploaded_at" class="text-muted">Diunggah {{ formatDateTime(app.tugas.file.uploaded_at) }}</div>
+                            </div>
+                            <div v-else class="alert alert-warning p-2 small mb-2">
+                                <i class="fa fa-exclamation-triangle me-1"></i>Tugas belum diunggah.
+                            </div>
+
+                            <input type="file" class="form-control form-control-sm" :key="tugasInputKey[app.id]"
+                                :accept="tugas_accept" @change="tugasFiles[app.id] = $event.target.files[0] ?? null">
+                            <div class="small text-muted mt-1">Tipe file: {{ tugas_accept }} — maks. 20 MB.</div>
+
+                            <div v-if="uploadingId === app.id" class="progress mt-2" style="height:16px">
+                                <div class="progress-bar" role="progressbar" :style="{ width: uploadProgress + '%' }">{{ uploadProgress }}%</div>
+                            </div>
+                            <div v-if="tugasErrors[app.id]" class="text-danger small mt-1">{{ tugasErrors[app.id] }}</div>
+
+                            <button type="button" class="btn btn-sm btn-success mt-2"
+                                :disabled="!tugasFiles[app.id] || uploadingId !== null" @click="uploadTugas(app)">
+                                <i class="fa fa-upload me-1"></i>
+                                {{ uploadingId === app.id ? 'Mengunggah...' : (app.tugas.file ? 'Ganti Tugas' : 'Unggah Tugas') }}
+                            </button>
+                        </div>
+
                         <!-- Hasil penilaian (setelah finalisasi) -->
                         <div v-if="app.result && app.result.is_finalized" class="border rounded p-3 mt-2" style="background:#f8fafc">
                             <h6 class="fw-bold small mb-2"><i class="fa fa-chart-bar me-1 text-muted"></i>Hasil Penilaian</h6>
@@ -268,19 +299,51 @@
 <script>
 import LayoutPeserta from '../../../Layouts/Peserta.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 export default {
     layout: LayoutPeserta,
     components: { Head, Link },
     props: {
         applications: Array,
+        tugas_accept: String,
     },
 
     setup() {
         const processing   = ref(false);
         const revisiTarget = ref(null);
         const remidiTarget = ref(null);
+
+        // Upload tugas per permohonan (key = application id)
+        const tugasFiles     = reactive({});
+        const tugasErrors    = reactive({});
+        const tugasInputKey  = reactive({});
+        const uploadingId    = ref(null);
+        const uploadProgress = ref(0);
+
+        const uploadTugas = (app) => {
+            const file = tugasFiles[app.id];
+            if (!file) return;
+
+            uploadingId.value    = app.id;
+            uploadProgress.value = 0;
+            tugasErrors[app.id]  = '';
+
+            router.post(`/peserta/aplikasi/${app.id}/tugas`, { file }, {
+                forceFormData: true,
+                preserveScroll: true,
+                onProgress: (e) => { uploadProgress.value = e?.percentage ?? 0; },
+                onSuccess: () => {
+                    tugasFiles[app.id]    = null;
+                    tugasInputKey[app.id] = (tugasInputKey[app.id] ?? 0) + 1; // kosongkan <input type=file>
+                },
+                onError: (errors) => { tugasErrors[app.id] = errors.file ?? 'Gagal mengunggah tugas.'; },
+                onFinish: () => { uploadingId.value = null; },
+            });
+        };
+
+        const formatDateTime = (dt) =>
+            new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
 
         const statusLabel = (status) => ({
             draft:     'Draft',
@@ -323,7 +386,10 @@ export default {
             });
         };
 
-        return { statusLabel, statusBadge, appSteps, processing, revisiTarget, remidiTarget, openRevisiModal, confirmRevisi, confirmRemidi, doRemidi };
+        return {
+            statusLabel, statusBadge, appSteps, processing, revisiTarget, remidiTarget, openRevisiModal, confirmRevisi, confirmRemidi, doRemidi,
+            tugasFiles, tugasErrors, tugasInputKey, uploadingId, uploadProgress, uploadTugas, formatDateTime,
+        };
     },
 }
 </script>

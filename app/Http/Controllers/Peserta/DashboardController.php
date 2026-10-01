@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Peserta;
 use App\Http\Controllers\Controller;
 use App\Models\AssessmentApplication;
 use App\Models\ParticipantResult;
+use App\Models\StudentTask;
+use App\Support\AnswerFile;
 
 class DashboardController extends Controller
 {
@@ -15,7 +17,7 @@ class DashboardController extends Controller
         $applications = AssessmentApplication::with([
             'classroom.documentRequirements',
             'examSession',
-            'student',
+            'student.classroom',
             'documents.requirement',
         ])
             ->where('participant_id', $participant->id)
@@ -23,6 +25,15 @@ class DashboardController extends Controller
             ->get();
 
         $applications->each(function ($app) {
+            // Tugas wajib sebelum ujian (sama dengan student/tugas/{sesi}) — bisa diunggah dari dashboard.
+            $requiresTugas = $app->isApproved() && $app->exam_session_id && $app->student?->requiresTugas();
+            $task = $requiresTugas
+                ? StudentTask::where('student_id', $app->student_id)->where('exam_session_id', $app->exam_session_id)->first()
+                : null;
+            $app->setAttribute('tugas', $requiresTugas ? [
+                'file' => $task ? ['name' => $task->original_filename, 'uploaded_at' => $task->uploaded_at] : null,
+            ] : null);
+
             $app->setAttribute('docs_required', $app->classroom->documentRequirements->where('is_required', true)->count());
             $app->setAttribute('docs_uploaded', $app->documents->count());
 
@@ -77,6 +88,7 @@ class DashboardController extends Controller
 
         return inertia('Peserta/Dashboard/Index', [
             'applications' => $applications,
+            'tugas_accept' => AnswerFile::accept(),
         ]);
     }
 }

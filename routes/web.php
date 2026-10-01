@@ -312,6 +312,7 @@ Route::prefix('peserta')->middleware('participant')->group(function () {
     Route::get('/aplikasi/{application}/tanda-tangan/{type}', [App\Http\Controllers\Peserta\ApplicationController::class, 'serveSignature'])->name('peserta.application.signature.serve');
     Route::post('/aplikasi/{application}/revisi',             [App\Http\Controllers\Peserta\ApplicationController::class, 'revisi'])->name('peserta.application.revisi');
     Route::post('/aplikasi/{application}/submit',             [App\Http\Controllers\Peserta\ApplicationController::class, 'submit'])->name('peserta.application.submit');
+    Route::post('/aplikasi/{application}/tugas',              [App\Http\Controllers\Peserta\TaskController::class, 'store'])->name('peserta.application.tugas.store');
 
     Route::get('/hasil/{sessionId}/{studentId}/sp',         [App\Http\Controllers\Peserta\ResultController::class, 'downloadSp'])->name('peserta.hasil.sp');
     Route::get('/hasil/{sessionId}/{studentId}/sk',         [App\Http\Controllers\Peserta\ResultController::class, 'downloadSk'])->name('peserta.hasil.sk');

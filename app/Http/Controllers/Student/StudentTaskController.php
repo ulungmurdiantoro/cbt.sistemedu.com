@@ -7,7 +7,6 @@ use App\Models\ExamSession;
 use App\Models\StudentTask;
 use App\Support\AnswerFile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class StudentTaskController extends BaseExamController
 {
@@ -52,28 +51,7 @@ class StudentTaskController extends BaseExamController
             'Anda tidak terdaftar pada sesi ini.'
         );
 
-        $file         = $request->file('file');
-        $originalName = $file->getClientOriginalName();
-
-        $existing = StudentTask::where('student_id', $this->studentId())
-            ->where('exam_session_id', $sessionId)
-            ->first();
-
-        if ($existing && Storage::disk('private')->exists($existing->file_path)) {
-            Storage::disk('private')->delete($existing->file_path);
-        }
-
-        $storedPath = AnswerFile::store($file, "student_tasks/{$sessionId}/{$this->studentId()}");
-
-        StudentTask::updateOrCreate(
-            ['student_id' => $this->studentId(), 'exam_session_id' => $sessionId],
-            [
-                'file_path'         => $storedPath,
-                'original_filename' => $originalName,
-                'file_size'         => $file->getSize(),
-                'uploaded_at'       => now(),
-            ]
-        );
+        StudentTask::storeUpload($this->studentId(), $sessionId, $request->file('file'));
 
         return back()->with('success', 'Tugas berhasil diunggah.');
     }
