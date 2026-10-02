@@ -224,6 +224,17 @@ saat Pengambil Keputusan klik Finalisasi, urut No. Peserta. Aturan supaya nomor 
 
 ---
 
+## Unit Kompetensi per Skema
+
+Daftar unit (kode, judul, urutan) ada di `CompetencyUnitsSeeder::skemas()` dan mengikuti tabel Kemasan pada
+dokumen skema. Untuk database yang sudah berisi data, jangan jalankan seeder (kelas dicocokkan lewat `title`,
+yang di produksi sudah berbeda → kelas dobel). Pakai `php artisan competency-units:sync` (`--dry-run` untuk cek
+dulu): mencocokkan kelas lewat `classrooms_code` (alias kode lama FSI→FMO, ISL→LQO), hanya mengubah kode/judul/urutan
+unit, tidak membuat kelas dan tidak menyentuh `judul_unit_en`/`kode_unit_asli`. Unit dibaca langsung saat PDF
+dibuat — sertifikat/SK yang sudah ter-cache tetap, PDF yang dibuat ulang memakai unit terbaru.
+
+---
+
 ## Verifikasi TUK Online (FR.TUK.06)
 
 Checklist per peserta per sesi (`tuk_verifications`), diisi **admin sebagai Pengawas Ujian** di
