@@ -61,6 +61,11 @@
                             <button type="button" class="btn-close" @click="successMsg = ''"></button>
                         </div>
 
+                        <p class="small text-muted mb-2">
+                            <i class="fa fa-search me-1"></i>Klik kolom asesor lalu ketik namanya untuk mencari ({{ asesors.length }} asesor).
+                            Angka di samping nama = jumlah peserta sesi ini yang sudah ditugaskan ke asesor itu.
+                        </p>
+
                         <div class="table-responsive">
                             <table class="table table-bordered table-sm align-middle mb-0">
                                 <thead class="table-dark">
@@ -77,12 +82,8 @@
                                         <td>{{ students[i]?.no_participant }}</td>
                                         <td>{{ students[i]?.name }}</td>
                                         <td>
-                                            <select v-model="row.user_id" class="form-select form-select-sm">
-                                                <option :value="null">— Belum ditugaskan —</option>
-                                                <option v-for="a in asesors" :key="a.id" :value="a.id">
-                                                    {{ a.name }}
-                                                </option>
-                                            </select>
+                                            <SearchSelect v-model="row.user_id" :options="asesorOptions"
+                                                empty-label="— Belum ditugaskan —" search-placeholder="Ketik nama asesor..." />
                                             <a v-if="savedAssignMap[row.student_id]"
                                                 :href="`/dokumen/laporan-asesmen/${exam_session.id}/${savedAssignMap[row.student_id]}/download`"
                                                 target="_blank" class="d-inline-block small mt-1" title="Download FR.AK.05">
@@ -104,10 +105,11 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
+import SearchSelect from '../../../Components/SearchSelect.vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { Head, Link, SearchSelect },
 
     props: {
         exam_session: Object,
@@ -130,6 +132,20 @@ export default {
                 user_id: assignMap[s.id] ?? null,
             })),
         };
+    },
+
+    computed: {
+        // Pilihan asesor + jumlah peserta sesi ini yang (di form, termasuk yang belum disimpan) ditugaskan kepadanya.
+        asesorOptions() {
+            const load = {};
+            this.form.forEach(r => { if (r.user_id) load[r.user_id] = (load[r.user_id] ?? 0) + 1; });
+
+            return this.asesors.map(a => ({
+                value: a.id,
+                label: a.name,
+                hint:  load[a.id] ? `${load[a.id]} peserta` : '',
+            }));
+        },
     },
 
     methods: {

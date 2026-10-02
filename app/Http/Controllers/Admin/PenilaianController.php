@@ -41,7 +41,8 @@ class PenilaianController extends Controller
     {
         $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($exam_session_id);
 
-        $asesors = User::whereHas('roleAssignments', fn ($q) => $q->where('role', 'asesor'))->orderBy('name')->get();
+        // Hanya id + nama — asesor bisa ratusan, halaman ini cuma butuh untuk pilihan yang bisa dicari.
+        $asesors = User::whereHas('roleAssignments', fn ($q) => $q->where('role', 'asesor'))->orderBy('name')->get(['id', 'name']);
 
         // Ambil semua siswa yang terdaftar di sesi ini via exam_groups.
         // Akun nonaktif (mis. akun lama hasil re-issue / merge duplikat) tidak
