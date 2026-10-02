@@ -6,12 +6,28 @@ use App\Http\Controllers\Controller;
 use App\Models\AsesorCv;
 use App\Services\DocumentGeneratorService;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 // CV Asesor — diisi & diperbarui sendiri oleh asesor lewat portalnya,
 // diterbitkan sebagai PDF resmi LSP. Lihat docs plan "CV Asesor" untuk konteks.
 class CvController extends Controller
 {
+    /**
+     * Bagian CV yang tiap barisnya boleh punya bukti dokumen. Bukti disimpan di baris
+     * JSON-nya sendiri: `bukti => [id, path, name]`. Browser hanya menerima id + nama
+     * (lihat rowsForForm) dan mengirim balik `bukti_id`, jadi path tidak bisa diarahkan
+     * ke file lain di disk private.
+     */
+    private const BUKTI_SECTIONS = [
+        'pendidikan_formal', 'pelatihan', 'pengalaman_kerja', 'pengalaman_profesional', 'sertifikasi_kompetensi',
+    ];
+
+    private const BUKTI_EXTENSIONS = 'pdf,jpg,jpeg,png';
+
+    private const BUKTI_MAX_KB = 5120;
+
     public function show()
     {
         $user = auth()->user();
@@ -25,12 +41,12 @@ class CvController extends Controller
                 'nama_institusi'         => $cv->nama_institusi ?? '',
                 'alamat_institusi'       => $cv->alamat_institusi ?? '',
                 'no_handphone'           => $cv->no_handphone ?? '',
-                'pendidikan_formal'      => $cv->pendidikan_formal ?? [],
-                'pelatihan'              => $cv->pelatihan ?? [],
-                'pengalaman_kerja'       => $cv->pengalaman_kerja ?? [],
+                'pendidikan_formal'      => $this->rowsForForm($cv?->pendidikan_formal),
+                'pelatihan'              => $this->rowsForForm($cv?->pelatihan),
+                'pengalaman_kerja'       => $this->rowsForForm($cv?->pengalaman_kerja),
                 'keahlian'               => $cv->keahlian ?? [],
-                'pengalaman_profesional' => $cv->pengalaman_profesional ?? [],
-                'sertifikasi_kompetensi' => $cv->sertifikasi_kompetensi ?? [],
+                'pengalaman_profesional' => $this->rowsForForm($cv?->pengalaman_profesional),
+                'sertifikasi_kompetensi' => $this->rowsForForm($cv?->sertifikasi_kompetensi),
                 'photo_url'              => ($cv && $cv->photo_path) ? route('asesor.cv.photo') : null,
                 'updated_at'             => $cv?->updated_at,
             ],
@@ -82,6 +98,12 @@ class CvController extends Controller
             'sertifikasi_kompetensi.*.penyelenggara'     => 'nullable|string|max:255',
             'sertifikasi_kompetensi.*.tahun'             => 'nullable|string|max:50',
             'sertifikasi_kompetensi.*.masa_berlaku'      => 'nullable|string|max:50',
+
+            ...$this->buktiRules(),
+        ], [
+            '*.*.bukti_file.max'        => 'Ukuran bukti dokumen maksimal ' . (self::BUKTI_MAX_KB / 1024) . ' MB.',
+            '*.*.bukti_file.mimes'      => 'Bukti dokumen harus berformat PDF, JPG atau PNG.',
+            '*.*.bukti_file.extensions' => 'Bukti dokumen harus berformat PDF, JPG atau PNG.',
         ]);
 
         $data = $request->only([
@@ -93,12 +115,34 @@ class CvController extends Controller
         // supaya tabel PDF tidak dipenuhi baris hampa.
         $notAllBlank = fn($row) => is_array($row) && collect($row)->contains(fn($v) => filled($v));
 
-        $data['pendidikan_formal']      = array_values(array_filter($request->input('pendidikan_formal', []), $notAllBlank));
-        $data['pelatihan']              = array_values(array_filter($request->input('pelatihan', []), $notAllBlank));
-        $data['pengalaman_kerja']       = array_values(array_filter($request->input('pengalaman_kerja', []), $notAllBlank));
-        $data['pengalaman_profesional'] = array_values(array_filter($request->input('pengalaman_profesional', []), $notAllBlank));
-        $data['sertifikasi_kompetensi'] = array_values(array_filter($request->input('sertifikasi_kompetensi', []), $notAllBlank));
-        $data['keahlian']               = array_values(array_filter($request->input('keahlian', []), fn($v) => filled($v)));
+        // Bukti lama yang masih dipakai dicari lewat id-nya; file yang baru diunggah
+        // disimpan dulu, file yang tidak lagi dirujuk baru dihapus setelah CV tersimpan.
+        $oldBukti = $this->buktiById($user->cv()->first());
+
+        foreach (self::BUKTI_SECTIONS as $section) {
+            $rows = [];
+            foreach ($request->input($section, []) as $i => $row) {
+                if (! is_array($row)) {
+                    continue;
+                }
+
+                $file   = $request->file("{$section}.{$i}.bukti_file");
+                $keepId = $row['bukti_id'] ?? null;
+                unset($row['bukti_id'], $row['bukti_file'], $row['bukti']);
+
+                $row['bukti'] = match (true) {
+                    $file !== null                => $this->storeBukti($user->id, $section, $file),
+                    isset($oldBukti[$keepId])     => $oldBukti[$keepId],
+                    default                       => null,
+                };
+
+                $rows[] = $row;
+            }
+
+            $data[$section] = array_values(array_filter($rows, $notAllBlank));
+        }
+
+        $data['keahlian'] = array_values(array_filter($request->input('keahlian', []), fn($v) => filled($v)));
 
         if ($request->hasFile('photo_file')) {
             $existing = $user->cv?->photo_path;
@@ -112,9 +156,74 @@ class CvController extends Controller
             $data['photo_path'] = $path;
         }
 
-        AsesorCv::updateOrCreate(['user_id' => $user->id], $data);
+        $cv = AsesorCv::updateOrCreate(['user_id' => $user->id], $data);
+
+        $stillUsed = $this->buktiById($cv);
+        foreach (array_diff_key($oldBukti, $stillUsed) as $bukti) {
+            Storage::disk('private')->delete($bukti['path']);
+        }
 
         return back()->with('success', 'CV berhasil disimpan.');
+    }
+
+    public function serveBukti(string $id)
+    {
+        $bukti = $this->buktiById(auth()->user()->cv()->first())[$id] ?? null;
+        abort_if(! $bukti || ! Storage::disk('private')->exists($bukti['path']), 404);
+
+        $ext  = strtolower(pathinfo($bukti['path'], PATHINFO_EXTENSION));
+        $mime = $ext === 'pdf' ? 'application/pdf' : ($ext === 'png' ? 'image/png' : 'image/jpeg');
+
+        return Storage::disk('private')->response($bukti['path'], $bukti['name'], [
+            'Content-Type'           => $mime,
+            'Cache-Control'          => 'no-store, private',
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
+    }
+
+    private function buktiRules(): array
+    {
+        $rules = [];
+        foreach (self::BUKTI_SECTIONS as $section) {
+            $rules["{$section}.*.bukti_id"]   = 'nullable|string|max:40';
+            $rules["{$section}.*.bukti_file"] = [
+                'nullable', 'file', 'max:' . self::BUKTI_MAX_KB,
+                'mimes:' . self::BUKTI_EXTENSIONS, 'extensions:' . self::BUKTI_EXTENSIONS,
+            ];
+        }
+
+        return $rules;
+    }
+
+    private function storeBukti(int $userId, string $section, UploadedFile $file): array
+    {
+        $id   = (string) Str::ulid();
+        $ext  = strtolower($file->getClientOriginalExtension());
+        $path = $file->storeAs("asesor-cv/{$userId}/bukti", "{$section}-{$id}.{$ext}", 'private');
+
+        return ['id' => $id, 'path' => $path, 'name' => $file->getClientOriginalName()];
+    }
+
+    /** Semua bukti di CV, dikunci id. */
+    private function buktiById(?AsesorCv $cv): array
+    {
+        return collect(self::BUKTI_SECTIONS)
+            ->flatMap(fn ($section) => $cv?->{$section} ?? [])
+            ->pluck('bukti')
+            ->filter(fn ($bukti) => isset($bukti['id'], $bukti['path']))
+            ->keyBy('id')
+            ->all();
+    }
+
+    /** Baris untuk form: bukti hanya id + nama, path tidak dikirim ke browser. */
+    private function rowsForForm(?array $rows): array
+    {
+        return array_map(function ($row) {
+            $bukti        = $row['bukti'] ?? null;
+            $row['bukti'] = isset($bukti['id']) ? ['id' => $bukti['id'], 'name' => $bukti['name']] : null;
+
+            return $row;
+        }, $rows ?? []);
     }
 
     public function downloadPdf(DocumentGeneratorService $generator)

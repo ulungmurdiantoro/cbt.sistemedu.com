@@ -94,6 +94,7 @@
                                         <th>Sekolah/Institusi</th>
                                         <th>Bidang Ilmu</th>
                                         <th style="width:12%">Tahun Lulus</th>
+                                        <th style="width:190px">Bukti <span class="fw-normal text-muted">(opsional)</span></th>
                                         <th style="width:36px"></th>
                                     </tr>
                                 </thead>
@@ -103,6 +104,7 @@
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.sekolah"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.bidang_ilmu"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.tahun_lulus"></td>
+                                        <td><CvBuktiInput v-model:bukti="row.bukti" v-model:file="row.bukti_file" /></td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-sm btn-outline-danger border-0" @click="removeRow('pendidikan_formal', i)">
                                                 <i class="fa fa-trash"></i>
@@ -112,7 +114,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pendidikan_formal', { jenjang:'', sekolah:'', bidang_ilmu:'', tahun_lulus:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pendidikan_formal', { jenjang:'', sekolah:'', bidang_ilmu:'', tahun_lulus:'', bukti:null, bukti_file:null })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>
@@ -130,6 +132,7 @@
                                         <th style="width:22%">Penyelenggara</th>
                                         <th style="width:12%">Tahun</th>
                                         <th style="width:16%">Lokasi</th>
+                                        <th style="width:190px">Bukti <span class="fw-normal text-muted">(opsional)</span></th>
                                         <th style="width:36px"></th>
                                     </tr>
                                 </thead>
@@ -139,6 +142,7 @@
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.penyelenggara"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.tahun"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.lokasi"></td>
+                                        <td><CvBuktiInput v-model:bukti="row.bukti" v-model:file="row.bukti_file" /></td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-sm btn-outline-danger border-0" @click="removeRow('pelatihan', i)">
                                                 <i class="fa fa-trash"></i>
@@ -148,7 +152,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pelatihan', { judul_kegiatan:'', penyelenggara:'', tahun:'', lokasi:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pelatihan', { judul_kegiatan:'', penyelenggara:'', tahun:'', lokasi:'', bukti:null, bukti_file:null })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>
@@ -166,6 +170,7 @@
                                         <th style="width:14%">Tahun</th>
                                         <th style="width:26%">Perusahaan/Institusi</th>
                                         <th style="width:16%">Lokasi</th>
+                                        <th style="width:190px">Bukti <span class="fw-normal text-muted">(opsional)</span></th>
                                         <th style="width:36px"></th>
                                     </tr>
                                 </thead>
@@ -175,6 +180,7 @@
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.tahun"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.perusahaan"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.lokasi"></td>
+                                        <td><CvBuktiInput v-model:bukti="row.bukti" v-model:file="row.bukti_file" /></td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-sm btn-outline-danger border-0" @click="removeRow('pengalaman_kerja', i)">
                                                 <i class="fa fa-trash"></i>
@@ -184,7 +190,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pengalaman_kerja', { jabatan:'', tahun:'', perusahaan:'', lokasi:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pengalaman_kerja', { jabatan:'', tahun:'', perusahaan:'', lokasi:'', bukti:null, bukti_file:null })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>
@@ -217,6 +223,7 @@
                                         <th>Pengalaman</th>
                                         <th style="width:24%">Penyelenggara</th>
                                         <th style="width:14%">Tahun</th>
+                                        <th style="width:190px">Bukti <span class="fw-normal text-muted">(opsional)</span></th>
                                         <th style="width:36px"></th>
                                     </tr>
                                 </thead>
@@ -225,6 +232,7 @@
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.pengalaman"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.penyelenggara"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.tahun"></td>
+                                        <td><CvBuktiInput v-model:bukti="row.bukti" v-model:file="row.bukti_file" /></td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-sm btn-outline-danger border-0" @click="removeRow('pengalaman_profesional', i)">
                                                 <i class="fa fa-trash"></i>
@@ -234,7 +242,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pengalaman_profesional', { pengalaman:'', penyelenggara:'', tahun:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pengalaman_profesional', { pengalaman:'', penyelenggara:'', tahun:'', bukti:null, bukti_file:null })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>
@@ -253,6 +261,7 @@
                                         <th style="width:18%">Penyelenggara</th>
                                         <th style="width:10%">Tahun</th>
                                         <th style="width:12%">Masa Berlaku</th>
+                                        <th style="width:190px">Bukti <span class="fw-normal text-muted">(opsional)</span></th>
                                         <th style="width:36px"></th>
                                     </tr>
                                 </thead>
@@ -263,6 +272,7 @@
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.penyelenggara"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.tahun"></td>
                                         <td><input type="text" class="form-control form-control-sm" v-model="row.masa_berlaku"></td>
+                                        <td><CvBuktiInput v-model:bukti="row.bukti" v-model:file="row.bukti_file" /></td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-sm btn-outline-danger border-0" @click="removeRow('sertifikasi_kompetensi', i)">
                                                 <i class="fa fa-trash"></i>
@@ -272,10 +282,17 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('sertifikasi_kompetensi', { jenis_sertifikasi:'', bidang_ilmu:'', penyelenggara:'', tahun:'', masa_berlaku:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('sertifikasi_kompetensi', { jenis_sertifikasi:'', bidang_ilmu:'', penyelenggara:'', tahun:'', masa_berlaku:'', bukti:null, bukti_file:null })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>
+                </div>
+
+                <div v-if="Object.keys($page.props.errors).length" class="alert alert-danger border-0">
+                    <div class="fw-bolder mb-1">CV belum tersimpan:</div>
+                    <ul class="mb-0 ps-3">
+                        <li v-for="(msg, key) in $page.props.errors" :key="key">{{ msg }}</li>
+                    </ul>
                 </div>
 
                 <div class="d-flex gap-2 mb-5">
@@ -295,10 +312,11 @@ import LayoutAsesor from '../../../Layouts/Asesor.vue';
 import { Head, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideCv from '../../../Components/Guide/Asesor/Cv.vue';
+import CvBuktiInput from '../../../Components/CvBuktiInput.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, PageGuide, GuideCv },
+    components: { Head, PageGuide, GuideCv, CvBuktiInput },
 
     props: {
         cv: Object,
@@ -308,6 +326,9 @@ export default {
         // Clone dalam-dalam supaya mengedit baris di form tidak ikut memutasi
         // prop `cv` (array/objek di dalamnya masih referensi ke data server).
         const clone = (v) => JSON.parse(JSON.stringify(v));
+        // Baris dengan bukti dokumen: bukti tersimpan {id, name} + slot file baru.
+        const rows = (list, empty) => (list.length ? clone(list) : [empty])
+            .map(row => ({ ...row, bukti: row.bukti ?? null, bukti_file: null }));
 
         return {
             saving: false,
@@ -321,12 +342,12 @@ export default {
                 nama_institusi:         this.cv.nama_institusi,
                 alamat_institusi:       this.cv.alamat_institusi,
                 no_handphone:           this.cv.no_handphone,
-                pendidikan_formal:      this.cv.pendidikan_formal.length ? clone(this.cv.pendidikan_formal) : [{ jenjang:'', sekolah:'', bidang_ilmu:'', tahun_lulus:'' }],
-                pelatihan:              this.cv.pelatihan.length ? clone(this.cv.pelatihan) : [{ judul_kegiatan:'', penyelenggara:'', tahun:'', lokasi:'' }],
-                pengalaman_kerja:       this.cv.pengalaman_kerja.length ? clone(this.cv.pengalaman_kerja) : [{ jabatan:'', tahun:'', perusahaan:'', lokasi:'' }],
+                pendidikan_formal:      rows(this.cv.pendidikan_formal, { jenjang:'', sekolah:'', bidang_ilmu:'', tahun_lulus:'' }),
+                pelatihan:              rows(this.cv.pelatihan, { judul_kegiatan:'', penyelenggara:'', tahun:'', lokasi:'' }),
+                pengalaman_kerja:       rows(this.cv.pengalaman_kerja, { jabatan:'', tahun:'', perusahaan:'', lokasi:'' }),
                 keahlian:               this.cv.keahlian.length ? clone(this.cv.keahlian) : [''],
-                pengalaman_profesional: this.cv.pengalaman_profesional.length ? clone(this.cv.pengalaman_profesional) : [{ pengalaman:'', penyelenggara:'', tahun:'' }],
-                sertifikasi_kompetensi: this.cv.sertifikasi_kompetensi.length ? clone(this.cv.sertifikasi_kompetensi) : [{ jenis_sertifikasi:'', bidang_ilmu:'', penyelenggara:'', tahun:'', masa_berlaku:'' }],
+                pengalaman_profesional: rows(this.cv.pengalaman_profesional, { pengalaman:'', penyelenggara:'', tahun:'' }),
+                sertifikasi_kompetensi: rows(this.cv.sertifikasi_kompetensi, { jenis_sertifikasi:'', bidang_ilmu:'', penyelenggara:'', tahun:'', masa_berlaku:'' }),
             },
         };
     },
@@ -352,9 +373,20 @@ export default {
             const payload = { ...this.form };
             if (this.photoFile) payload.photo_file = this.photoFile;
 
+            // Bukti: kirim id bukti yang dipertahankan + file baru (bila ada), bukan path.
+            ['pendidikan_formal', 'pelatihan', 'pengalaman_kerja', 'pengalaman_profesional', 'sertifikasi_kompetensi']
+                .forEach(section => {
+                    payload[section] = this.form[section].map(({ bukti, bukti_file, ...fields }) => ({
+                        ...fields,
+                        bukti_id: bukti?.id ?? '',
+                        ...(bukti_file ? { bukti_file } : {}),
+                    }));
+                });
+
             router.post('/asesor/cv', payload, {
                 forceFormData: true,
                 preserveScroll: true,
+                preserveState: 'errors',
                 onSuccess: () => { this.successMsg = 'CV berhasil disimpan.'; this.photoFile = null; },
                 onFinish:  () => { this.saving = false; },
             });

@@ -160,6 +160,7 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
     Route::post('/cv',     [\App\Http\Controllers\Asesor\CvController::class, 'save'])->name('asesor.cv.save');
     Route::get('/cv/pdf',  [\App\Http\Controllers\Asesor\CvController::class, 'downloadPdf'])->name('asesor.cv.pdf');
     Route::get('/cv/foto', [\App\Http\Controllers\Asesor\CvController::class, 'servePhoto'])->name('asesor.cv.photo');
+    Route::get('/cv/bukti/{id}', [\App\Http\Controllers\Asesor\CvController::class, 'serveBukti'])->name('asesor.cv.bukti');
 
     Route::get('/penilaian/{exam_session_id}/esai',      [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'show'])->name('asesor.esai.show');
     Route::post('/penilaian/{exam_session_id}/esai',     [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'store'])->name('asesor.esai.store');
