@@ -20,6 +20,8 @@
                     </div>
                 </div>
 
+                <PageGuide storage-key="manager.tanda-tangan"><GuideTandaTangan /></PageGuide>
+
                 <div v-if="successMsg" class="alert alert-success alert-dismissible">
                     {{ successMsg }}
                     <button type="button" class="btn-close" @click="successMsg = ''"></button>
@@ -97,10 +99,12 @@
 import LayoutManager from '../../../Layouts/Manager.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import SignaturePad from 'signature_pad';
+import PageGuide from '../../../Components/PageGuide.vue';
+import GuideTandaTangan from '../../../Components/Guide/Manager/TandaTangan.vue';
 
 export default {
     layout: LayoutManager,
-    components: { Head, Link },
+    components: { Head, Link, PageGuide, GuideTandaTangan },
 
     props: {
         has_signature:  Boolean,

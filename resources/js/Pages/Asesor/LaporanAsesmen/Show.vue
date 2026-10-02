@@ -27,6 +27,8 @@
                     </div>
                 </div>
 
+                <PageGuide storage-key="asesor.laporan"><GuideLaporan /></PageGuide>
+
                 <div v-if="successMsg" class="alert alert-success alert-dismissible">
                     {{ successMsg }}
                     <button type="button" class="btn-close" @click="successMsg = ''"></button>
@@ -210,10 +212,12 @@
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import SignaturePad from 'signature_pad';
+import PageGuide from '../../../Components/PageGuide.vue';
+import GuideLaporan from '../../../Components/Guide/Asesor/LaporanAsesmen.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link },
+    components: { Head, Link, PageGuide, GuideLaporan },
 
     props: {
         exam_session:  Object,

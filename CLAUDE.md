@@ -277,6 +277,9 @@ POST  /asesor/penilaian/{exam_session_id}/wawancara       → asesor.wawancara.s
 - Inertia router: `router.post(url, data, { onSuccess, onFinish })`
 - Nama route: `admin.resource.action`, `asesor.resource.action`
 - Migrasi: timestamp `YYYY_MM_DD_NNNNNN_deskripsi.php`
+- Panduan portal Asesor & Pengambil Keputusan: isi per halaman ada di `resources/js/Components/Guide/{Asesor,Manager}/*.vue`,
+  ditampilkan lewat `<PageGuide storage-key="...">` di atas halaman **dan** dirangkai di `Pages/*/Guide/Index.vue`.
+  Ubah perilaku/tombol halaman → perbarui komponen Guide-nya juga.
 
 ---
 

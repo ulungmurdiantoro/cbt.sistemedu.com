@@ -14,6 +14,8 @@
                     </div>
                 </div>
 
+                <PageGuide storage-key="manager.dashboard"><GuideDashboard /></PageGuide>
+
                 <div class="card border-0 shadow">
                     <div class="card-header bg-gray-800 text-white fw-semibold">
                         <i class="fa fa-list me-2"></i>Sesi Ujian
@@ -83,10 +85,12 @@
 import LayoutManager from '../../Layouts/Manager.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import PageGuide from '../../Components/PageGuide.vue';
+import GuideDashboard from '../../Components/Guide/Manager/Dashboard.vue';
 
 export default {
     layout: LayoutManager,
-    components: { Head, Link },
+    components: { Head, Link, PageGuide, GuideDashboard },
     props: {
         active_sessions:    Array,
         completed_sessions: Array,

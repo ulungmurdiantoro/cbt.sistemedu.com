@@ -35,6 +35,8 @@
                     </div>
                 </div>
 
+                <PageGuide storage-key="asesor.wawancara"><GuideWawancara /></PageGuide>
+
                 <div v-if="students.length === 0" class="alert alert-info">
                     Tidak ada peserta yang ditugaskan di sesi ini.
                 </div>
@@ -166,10 +168,12 @@
 <script>
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
+import PageGuide from '../../../Components/PageGuide.vue';
+import GuideWawancara from '../../../Components/Guide/Asesor/Wawancara.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link },
+    components: { Head, Link, PageGuide, GuideWawancara },
 
     props: {
         exam_session: Object,

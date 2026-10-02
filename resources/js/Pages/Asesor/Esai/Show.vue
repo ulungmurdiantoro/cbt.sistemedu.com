@@ -26,6 +26,8 @@
                     </div>
                 </div>
 
+                <PageGuide storage-key="asesor.esai"><GuideEsai /></PageGuide>
+
                 <div v-if="successMsg" class="alert alert-success alert-dismissible">
                     {{ successMsg }}
                     <button type="button" class="btn-close" @click="successMsg = ''"></button>
@@ -184,10 +186,12 @@
 <script>
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
+import PageGuide from '../../../Components/PageGuide.vue';
+import GuideEsai from '../../../Components/Guide/Asesor/Esai.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link },
+    components: { Head, Link, PageGuide, GuideEsai },
 
     props: {
         exam_session: Object,

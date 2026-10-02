@@ -26,13 +26,7 @@
             </button>
         </div>
 
-        <div class="alert alert-info py-2 small border-0 mb-3">
-            <i class="fa fa-info-circle me-1"></i>
-            Tinjau kelengkapan FR.APL.01, kelayakan FR.APL.03, dan laporan asesmen (rekomendasi asesor) sebelum finalisasi.
-            Centang <strong>Verifikasi</strong> untuk peserta yang sudah siap — hanya peserta yang tercentang yang akan difinalisasi.
-            Peserta yang belum dicentang (mis. berhalangan hadir) tetap Draft dan bisa difinalisasi belakangan, mis. saat ikut batch susulan.
-            Pakai <strong>Preview Keputusan</strong> untuk melihat draf berita acara sebelum benar-benar difinalisasi.
-        </div>
+        <PageGuide storage-key="manager.sertifikasi"><GuideSertifikasi /></PageGuide>
 
         <div v-if="!has_signature" class="alert alert-warning py-2 small border-0 mb-3">
             <i class="fa fa-exclamation-triangle me-1"></i>
@@ -273,13 +267,15 @@
 <script>
 import LayoutManager from '../../../Layouts/Manager.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
+import PageGuide from '../../../Components/PageGuide.vue';
+import GuideSertifikasi from '../../../Components/Guide/Manager/Sertifikasi.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { computed, reactive, ref } from 'vue';
 import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutManager,
-    components: { Head, Link, StatusBadge },
+    components: { Head, Link, StatusBadge, PageGuide, GuideSertifikasi },
     props: {
         exam_session:  Object,
         rows:          Array,

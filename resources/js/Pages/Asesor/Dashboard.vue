@@ -13,6 +13,8 @@
                     </div>
                 </div>
 
+                <PageGuide storage-key="asesor.dashboard"><GuideDashboard /></PageGuide>
+
                 <!-- Tab nav -->
                 <ul class="nav nav-tabs mb-4" style="border-bottom:2px solid #dee2e6;">
                     <li class="nav-item">
@@ -79,10 +81,12 @@ import LayoutAsesor from '../../Layouts/Asesor.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import SessionCard from './SessionCard.vue';
+import PageGuide from '../../Components/PageGuide.vue';
+import GuideDashboard from '../../Components/Guide/Asesor/Dashboard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link, SessionCard },
+    components: { Head, Link, SessionCard, PageGuide, GuideDashboard },
     props: {
         active_sessions:    Array,
         completed_sessions: Array,
