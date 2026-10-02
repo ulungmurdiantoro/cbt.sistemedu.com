@@ -29,13 +29,20 @@ class TukVerificationTest extends TestCase
         $this->session = $this->makeSession($this->makeExam($this->makeClassroom()));
         $this->session->forceFill(['verifikasi_tuk' => true])->save();
 
-        $this->admin = User::forceCreate([
+        $this->admin = $this->user('Admin Pengawas');
+    }
+
+    private function user(string $name, UserRole $role = UserRole::Admin): User
+    {
+        $user = User::forceCreate([
             'users_code' => 'U-' . Str::random(6),
-            'name'       => 'Admin Pengawas',
+            'name'       => $name,
             'email'      => Str::random(8) . '@example.com',
             'password'   => bcrypt('password'),
         ]);
-        UserRoleAssignment::forceCreate(['user_id' => $this->admin->id, 'role' => UserRole::Admin->value]);
+        UserRoleAssignment::forceCreate(['user_id' => $user->id, 'role' => $role->value]);
+
+        return $user;
     }
 
     private function participant(string $noParticipant): Student
@@ -87,6 +94,7 @@ class TukVerificationTest extends TestCase
             ],
             'kesimpulan_awal' => 'layak_perbaikan',
             'catatan_awal'    => 'Pencahayaan diperbaiki sebelum ujian.',
+            'pengawas_id'     => $this->admin->id,
         ])->assertSessionHasNoErrors()->assertSessionHas('success');
 
         $v = TukVerification::firstOrFail();
@@ -105,6 +113,7 @@ class TukVerificationTest extends TestCase
             'kesimpulan_awal'  => 'layak_perbaikan',
             'hasil_pemantauan' => 'tidak_ada',
             'kesimpulan_akhir' => 'layak',
+            'pengawas_id'      => $this->admin->id,
         ])->assertSessionHasNoErrors();
 
         $v->refresh();
@@ -118,9 +127,12 @@ class TukVerificationTest extends TestCase
         $student = $this->participant('NP-001');
 
         $this->actingAs($this->admin)->get($this->url($student))
-            ->assertInertia(fn (Assert $page) => $page->where('pengawas.has_signature', false));
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('default_pengawas_id', $this->admin->id)
+                ->where('pengawas_options.0.has_signature', false)
+            );
 
-        // TTD default admin — disimpan saat menyetujui permohonan di menu Permohonan.
+        // TTD default admin — disimpan saat menyetujui permohonan atau di Kelola User.
         Storage::fake('private');
         Storage::disk('private')->put('admin-signatures/1/admin_1.png', 'png');
         User::whereKey($this->admin->id)->update(['signature_path' => 'admin-signatures/1/admin_1.png', 'signature_name' => 'Nama TTD Admin']);
@@ -128,15 +140,59 @@ class TukVerificationTest extends TestCase
 
         $this->actingAs($this->admin)->get($this->url($student))
             ->assertInertia(fn (Assert $page) => $page
-                ->where('pengawas.has_signature', true)
-                ->where('pengawas.name', 'Nama TTD Admin')
+                ->where('pengawas_options.0.has_signature', true)
+                ->where('pengawas_options.0.name', 'Nama TTD Admin')
             );
 
-        $this->actingAs($this->admin)->post($this->url($student), ['kesimpulan_awal' => 'layak']);
+        $this->actingAs($this->admin)->post($this->url($student), ['kesimpulan_awal' => 'layak', 'pengawas_id' => $this->admin->id]);
 
         $v = TukVerification::firstOrFail();
         $this->assertSame('admin-signatures/1/admin_1.png', $v->pengawas_signature_path);
         $this->assertSame('Nama TTD Admin', $v->pengawas_name);
+    }
+
+    public function test_admin_can_record_another_admin_as_pengawas(): void
+    {
+        $first  = $this->participant('NP-001');
+        $second = $this->participant('NP-002');
+
+        Storage::fake('private');
+        Storage::disk('private')->put('user-signatures/9/sig.png', 'png');
+        $pengawas = $this->user('Budi Pengawas');
+        $pengawas->forceFill(['signature_path' => 'user-signatures/9/sig.png', 'signature_name' => 'Budi Santoso'])->save();
+        $asesor = $this->user('Asesor Saja', UserRole::Asesor);
+
+        // Hanya user ber-role admin yang bisa dipilih.
+        $this->actingAs($this->admin)->get($this->url($first))
+            ->assertInertia(fn (Assert $page) => $page
+                ->has('pengawas_options', 2)
+                ->where('pengawas_options.1.id', $pengawas->id)
+                ->where('pengawas_options.1.name', 'Budi Santoso')
+                ->where('pengawas_options.1.has_signature', true)
+            );
+
+        $this->actingAs($this->admin)->post($this->url($first), ['kesimpulan_awal' => 'layak', 'pengawas_id' => $asesor->id])
+            ->assertSessionHasErrors('pengawas_id');
+        $this->actingAs($this->admin)->post($this->url($first), ['kesimpulan_awal' => 'layak'])
+            ->assertSessionHasErrors('pengawas_id');
+        $this->assertSame(0, TukVerification::count());
+
+        $this->actingAs($this->admin)
+            ->post($this->url($first), ['kesimpulan_awal' => 'layak', 'pengawas_id' => $pengawas->id, 'next' => true])
+            ->assertRedirect($this->url($second));
+
+        $v = TukVerification::firstOrFail();
+        $this->assertSame($pengawas->id, $v->pengawas_id);
+        $this->assertSame('Budi Santoso', $v->pengawas_name);
+        $this->assertSame('user-signatures/9/sig.png', $v->pengawas_signature_path);
+
+        // Peserta berikutnya otomatis memakai pengawas yang terakhir dipilih; checklist yang
+        // sudah ada tetap menampilkan pengawasnya sendiri.
+        $this->actingAs($this->admin)->get($this->url($second))
+            ->assertInertia(fn (Assert $page) => $page->where('default_pengawas_id', $pengawas->id));
+        $this->actingAs($this->admin)->post($this->url($second), ['kesimpulan_awal' => 'layak', 'pengawas_id' => $this->admin->id]);
+        $this->actingAs($this->admin)->get($this->url($first))
+            ->assertInertia(fn (Assert $page) => $page->where('default_pengawas_id', $pengawas->id));
     }
 
     public function test_invalid_answers_are_rejected(): void
@@ -146,6 +202,7 @@ class TukVerificationTest extends TestCase
         $this->actingAs($this->admin)->post($this->url($student), [
             'items'           => ['B1' => ['status' => 'mungkin']],
             'kesimpulan_awal' => 'lulus',
+            'pengawas_id'     => $this->admin->id,
         ])->assertSessionHasErrors(['items.B1.status', 'kesimpulan_awal']);
 
         $this->assertSame(0, TukVerification::count());
@@ -165,7 +222,7 @@ class TukVerificationTest extends TestCase
         $first  = $this->participant('NP-001');
 
         $this->actingAs($this->admin)
-            ->post($this->url($first), ['kesimpulan_awal' => 'layak', 'next' => true])
+            ->post($this->url($first), ['kesimpulan_awal' => 'layak', 'pengawas_id' => $this->admin->id, 'next' => true])
             ->assertRedirect($this->url($second));
 
         $this->actingAs($this->admin)->get($this->url($second))->assertInertia(fn (Assert $page) => $page
@@ -186,6 +243,7 @@ class TukVerificationTest extends TestCase
             'kesimpulan_awal'  => 'tidak_layak',
             'catatan_awal'     => 'Ada orang lain di ruangan <script>alert(1)</script>',
             'kesimpulan_akhir' => 'tidak_layak',
+            'pengawas_id'      => $this->admin->id,
         ]);
 
         $this->actingAs($this->admin)->get("/admin/penilaian/{$this->session->id}/verifikasi-tuk")

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\ExamSession;
 use App\Models\Student;
 use App\Models\TukVerification;
+use App\Models\User;
 use App\Services\DocumentGeneratorService;
 use App\Support\TukChecklist;
 use Illuminate\Http\Request;
@@ -13,11 +15,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
-// FR.TUK.06 — Checklist Verifikasi TUK Online. Admin mengisi sebagai Pengawas Ujian,
+// FR.TUK.06 — Checklist Verifikasi TUK Online. Admin mengisi checklist atas nama Pengawas Ujian,
 // satu checklist per peserta per sesi: bagian A–E & G sebelum ujian, F & H selama/
 // setelah ujian, I validasi. Hanya pencatatan — tidak mengunci ujian peserta.
-// Pengawas yang tercatat = admin terakhir yang menyimpan, dengan nama + TTD default admin
-// (users.signature_path/_name — TTD yang dibuat saat menyetujui permohonan di menu Permohonan).
+// Pengawas Ujian dipilih dari user ber-role admin; nama + TTD-nya (users.signature_path/_name —
+// dibuat di Kelola User atau saat menyetujui permohonan) disalin ke checklist setiap kali disimpan.
 class TukVerificationController extends Controller
 {
     /** Peserta aktif sesi ini, urut No. Peserta. */
@@ -26,6 +28,25 @@ class TukVerificationController extends Controller
         return Student::whereIn('id', ExamSession::activeStudentIds($examSessionId))
             ->orderBy('no_participant')
             ->pluck('id');
+    }
+
+    /** Pengawas Ujian yang bisa dipilih: user ber-role admin, urut nama. */
+    private function pengawasOptions(): Collection
+    {
+        return User::whereHas('roleAssignments', fn ($q) => $q->where('role', UserRole::Admin->value))
+            ->orderBy('name')
+            ->get(['id', 'name', 'signature_name', 'signature_path'])
+            ->map(fn (User $u) => [
+                'id'            => $u->id,
+                'name'          => $u->signature_name ?: $u->name,
+                'has_signature' => $u->signature_path && Storage::disk('private')->exists($u->signature_path),
+            ]);
+    }
+
+    /** Pengawas terakhir yang dipilih admin ini di sesi tersebut — supaya tidak memilih ulang tiap peserta. */
+    private function pengawasSessionKey(int $examSessionId): string
+    {
+        return "tuk_pengawas.{$examSessionId}";
     }
 
     public function index(int $examSessionId)
@@ -64,27 +85,32 @@ class TukVerificationController extends Controller
         $ids = $this->orderedStudentIds($examSessionId);
         abort_unless($ids->contains($studentId), 404);
 
-        $examSession = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($examSessionId);
-        $student     = Student::findOrFail($studentId);
-        $user        = $request->user();
+        $examSession  = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($examSessionId);
+        $student      = Student::findOrFail($studentId);
+        $verification = TukVerification::where('exam_session_id', $examSessionId)->where('student_id', $studentId)->first();
+        $pengawas     = $this->pengawasOptions();
+
+        // Checklist yang sudah ada tetap memakai pengawasnya; checklist baru memakai pengawas
+        // terakhir yang dipilih di sesi ini, atau admin yang login. Bukan admin lagi → pilih ulang.
+        $defaultPengawasId = $verification
+            ? $verification->pengawas_id
+            : $request->session()->get($this->pengawasSessionKey($examSessionId), $request->user()->id);
 
         return inertia('Admin/Penilaian/VerifikasiTuk/Show', [
-            'exam_session'    => $examSession,
-            'student'         => $student->only(['id', 'no_participant', 'name']),
-            'skema'           => $examSession->referenceExam?->classroom?->title,
-            'verification'    => TukVerification::where('exam_session_id', $examSessionId)->where('student_id', $studentId)->first(),
-            'sections'        => TukChecklist::sections(),
-            'options'         => [
+            'exam_session'        => $examSession,
+            'student'             => $student->only(['id', 'no_participant', 'name']),
+            'skema'               => $examSession->referenceExam?->classroom?->title,
+            'verification'        => $verification,
+            'sections'            => TukChecklist::sections(),
+            'options'             => [
                 'kesimpulan_awal'            => TukChecklist::KESIMPULAN_AWAL,
                 'kesimpulan_awal_keterangan' => TukChecklist::KESIMPULAN_AWAL_KETERANGAN,
                 'hasil_pemantauan'           => TukChecklist::HASIL_PEMANTAUAN,
                 'kesimpulan_akhir'           => TukChecklist::KESIMPULAN_AKHIR,
             ],
-            'pengawas'        => [
-                'name'          => $user->signature_name ?: $user->name,
-                'has_signature' => $user->signature_path && Storage::disk('private')->exists($user->signature_path),
-            ],
-            'next_student_id' => $ids->get($ids->search($studentId) + 1),
+            'pengawas_options'    => $pengawas,
+            'default_pengawas_id' => $pengawas->contains('id', $defaultPengawasId) ? $defaultPengawasId : null,
+            'next_student_id'     => $ids->get($ids->search($studentId) + 1),
         ]);
     }
 
@@ -105,6 +131,10 @@ class TukVerificationController extends Controller
             'hasil_pemantauan'  => ['nullable', Rule::in(array_keys(TukChecklist::HASIL_PEMANTAUAN))],
             'uraian_pemantauan' => 'nullable|string|max:2000',
             'kesimpulan_akhir'  => ['nullable', Rule::in(array_keys(TukChecklist::KESIMPULAN_AKHIR))],
+            'pengawas_id'       => ['required', Rule::exists('user_roles', 'user_id')->where('role', UserRole::Admin->value)],
+        ], [
+            'pengawas_id.required' => 'Pilih Nama Pengawas Ujian.',
+            'pengawas_id.exists'   => 'Pengawas Ujian harus user dengan role Admin.',
         ]);
 
         // Simpan hanya butir yang dikenal TukChecklist dan yang terisi.
@@ -117,19 +147,21 @@ class TukVerificationController extends Controller
             ->filter(fn ($item) => $item['status'] || $item['catatan'] !== '')
             ->all();
 
-        $user = $request->user();
+        $pengawas = User::findOrFail($data['pengawas_id']);
+        $request->session()->put($this->pengawasSessionKey($examSessionId), $pengawas->id);
 
         $verification = TukVerification::firstOrNew([
             'exam_session_id' => $examSessionId,
             'student_id'      => $studentId,
         ]);
 
+        // Nama + TTD pengawas terpilih disalin ke checklist setiap kali disimpan.
         $verification->fill([
-            ...collect($data)->except('items')->all(),
+            ...collect($data)->except('items', 'pengawas_id')->all(),
             'items'                   => $items,
-            'pengawas_id'             => $user->id,
-            'pengawas_name'           => $user->signature_name ?: $user->name,
-            'pengawas_signature_path' => $user->signature_path,
+            'pengawas_id'             => $pengawas->id,
+            'pengawas_name'           => $pengawas->signature_name ?: $pengawas->name,
+            'pengawas_signature_path' => $pengawas->signature_path,
         ]);
 
         // Tanggal/Waktu Verifikasi = saat kesimpulan verifikasi awal pertama kali diisi;

@@ -49,10 +49,18 @@
                                 <td><input type="text" class="form-control form-control-sm" v-model="form.lokasi_peserta" placeholder="mis. Rumah, Kota Semarang"></td>
                             </tr>
                             <tr>
-                                <td class="fw-semibold">Nama Pengawas Ujian</td>
+                                <td class="fw-semibold align-middle">Nama Pengawas Ujian</td>
                                 <td>
-                                    {{ pengawas.name }}
-                                    <div class="small text-muted">Dicatat atas nama admin yang menyimpan checklist ini.</div>
+                                    <select class="form-select form-select-sm" style="max-width:360px" v-model="form.pengawas_id">
+                                        <option :value="null" disabled>— Pilih Pengawas Ujian —</option>
+                                        <option v-for="p in pengawas_options" :key="p.id" :value="p.id">
+                                            {{ p.name }}{{ p.has_signature ? '' : ' (belum ada TTD)' }}
+                                        </option>
+                                    </select>
+                                    <div class="small text-muted mt-1">
+                                        Nama &amp; TTD di FR.TUK.06 ikut user yang dipilih. Pengawas baru: tambahkan user role Admin
+                                        beserta TTD-nya di menu <Link href="/admin/users">Users</Link>.
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -153,7 +161,10 @@
                 <div class="card-body">
                     <table class="table table-sm table-bordered mb-0 table-wrap">
                         <tbody>
-                            <tr><td class="fw-semibold" style="width:30%">Nama Pengawas Ujian</td><td>{{ pengawas.name }}</td></tr>
+                            <tr>
+                                <td class="fw-semibold" style="width:30%">Nama Pengawas Ujian</td>
+                                <td>{{ pengawas?.name ?? '-' }}</td>
+                            </tr>
                             <tr>
                                 <td class="fw-semibold">Tanggal/Waktu Verifikasi</td>
                                 <td>
@@ -173,16 +184,15 @@
                             <tr>
                                 <td class="fw-semibold">Tanda Tangan/Validasi</td>
                                 <td class="small">
-                                    <template v-if="pengawas.has_signature">
-                                        <img src="/admin/profile/tanda-tangan" alt="TTD Pengawas" class="border rounded bg-white d-block mb-1"
+                                    <span v-if="!pengawas" class="text-muted">Pilih Nama Pengawas Ujian di bagian A.</span>
+                                    <template v-else-if="pengawas.has_signature">
+                                        <img :src="`/admin/users/${pengawas.id}/tanda-tangan`" alt="TTD Pengawas" class="border rounded bg-white d-block mb-1"
                                             style="max-height:60px;max-width:200px">
-                                        <span class="text-muted">
-                                            TTD admin Anda yang tersimpan — sama dengan TTD saat menyetujui permohonan di menu Permohonan.
-                                        </span>
+                                        <span class="text-muted">TTD tersimpan milik {{ pengawas.name }}.</span>
                                     </template>
                                     <span v-else class="text-danger">
-                                        <i class="fa fa-exclamation-circle me-1"></i>Anda belum punya TTD tersimpan, jadi PDF tercetak tanpa TTD.
-                                        TTD admin dibuat saat menyetujui permohonan di menu Permohonan; setelah itu simpan ulang checklist ini.
+                                        <i class="fa fa-exclamation-circle me-1"></i>{{ pengawas.name }} belum punya TTD tersimpan, jadi PDF tercetak tanpa TTD.
+                                        Tambahkan TTD di menu <Link :href="`/admin/users/${pengawas.id}/edit`">Users → Edit</Link>, lalu simpan ulang checklist ini.
                                     </span>
                                 </td>
                             </tr>
@@ -221,9 +231,10 @@ export default {
         skema:           String,
         verification:    Object,
         sections:        Array,
-        options:         Object,
-        pengawas:        Object,
-        next_student_id: Number,
+        options:             Object,
+        pengawas_options:    Array,
+        default_pengawas_id: Number,
+        next_student_id:     Number,
     },
 
     data() {
@@ -248,11 +259,15 @@ export default {
                 hasil_pemantauan:  v.hasil_pemantauan ?? null,
                 uraian_pemantauan: v.uraian_pemantauan ?? '',
                 kesimpulan_akhir:  v.kesimpulan_akhir ?? null,
+                pengawas_id:       this.default_pengawas_id ?? null,
             },
         };
     },
 
     computed: {
+        pengawas() {
+            return this.pengawas_options.find(p => p.id === this.form.pengawas_id) ?? null;
+        },
         tidakSesuaiSebelumUjian() {
             return this.sections
                 .filter(s => s.key !== 'F')

@@ -71,14 +71,15 @@
                     </div>
                 </div>
 
-                <!-- Tanda Tangan Asesor -->
-                <div class="card border-0 shadow mt-4" v-if="form.roles.includes('asesor')">
+                <!-- Tanda Tangan Asesor / Admin -->
+                <div class="card border-0 shadow mt-4" v-if="hasSignatureRole">
                     <div class="card-header bg-gray-800 text-white fw-semibold">
-                        <i class="fa fa-signature me-2"></i>Tanda Tangan Asesor
+                        <i class="fa fa-signature me-2"></i>Tanda Tangan
                     </div>
                     <div class="card-body">
                         <p class="text-muted small mb-3">
-                            TTD ini akan otomatis dipakai asesor saat menandatangani Verifikasi Akhir dokumen peserta.
+                            <span v-if="form.roles.includes('asesor')">Asesor: dipakai otomatis saat menandatangani Verifikasi Akhir dokumen peserta.<br></span>
+                            <span v-if="form.roles.includes('admin')">Admin: dipakai saat menyetujui permohonan dan sebagai Pengawas Ujian di checklist FR.TUK.06.</span>
                         </p>
 
                         <div v-if="user.signature_path && !editingSig" class="mb-3 p-2 border rounded bg-white d-flex align-items-center gap-3">
@@ -150,7 +151,7 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { reactive, ref, nextTick, onMounted, onUnmounted, watch } from 'vue';
+import { reactive, ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue';
 import SignaturePad from 'signature_pad';
 
 export default {
@@ -180,7 +181,8 @@ export default {
             });
         };
 
-        // Tanda Tangan Asesor
+        // Tanda Tangan (asesor & admin — satu TTD per user, users.signature_path)
+        const hasSignatureRole = computed(() => form.roles.includes('asesor') || form.roles.includes('admin'));
         const editingSig     = ref(false);
         const sigMode        = ref('draw');
         const sigCanvas      = ref(null);
@@ -209,7 +211,7 @@ export default {
             resizeTimer = setTimeout(initSigPad, 200);
         };
 
-        const sigPadVisible = () => form.roles.includes('asesor') && (!props.user.signature_path || editingSig.value);
+        const sigPadVisible = () => hasSignatureRole.value && (!props.user.signature_path || editingSig.value);
 
         onMounted(async () => {
             if (sigPadVisible()) {
@@ -274,7 +276,7 @@ export default {
 
         return {
             form, processing, submit,
-            editingSig, sigMode, sigCanvas, sigFile, sigFilePreview, sigName, sigSaving,
+            hasSignatureRole, editingSig, sigMode, sigCanvas, sigFile, sigFilePreview, sigName, sigSaving,
             switchSigMode, clearSig, onSigFileChange, submitSignature,
         };
     },

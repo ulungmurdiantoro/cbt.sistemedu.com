@@ -231,8 +231,10 @@ Checklist per peserta per sesi (`tuk_verifications`), diisi **admin sebagai Peng
 `exam_sessions.verifikasi_tuk` aktif). **Hanya pencatatan — tidak mengunci ujian peserta.**
 - Daftar kriteria B–F ditanam di `App\Support\TukChecklist`; jawaban disimpan per kunci butir (`B1`…`F6`)
   di kolom JSON `items`. Jangan ubah urutan/kunci butir yang sudah ada.
-- Pengawas = admin terakhir yang menyimpan, dengan TTD default admin (`users.signature_path`, dibuat saat
-  menyetujui permohonan di menu Permohonan). `verified_at` diisi saat
+- Nama Pengawas Ujian dipilih dari dropdown user ber-role admin (bisa lebih dari satu pengawas). Default:
+  pengawas checklist itu, lalu pilihan terakhir admin tsb. di sesi yang sama (session `tuk_pengawas.{sesi}`), lalu
+  admin yang login. Nama + TTD (`users.signature_path`, dibuat di Kelola User atau saat menyetujui permohonan)
+  disalin ke `pengawas_name`/`pengawas_signature_path` setiap kali disimpan. `verified_at` diisi saat
   kesimpulan verifikasi awal pertama kali disimpan dan tidak bergeser saat F/H/I dilengkapi setelah ujian.
 - PDF: `DocumentGeneratorService::generateFrTuk06()` → view `documents/fr_tuk_06`.
 
