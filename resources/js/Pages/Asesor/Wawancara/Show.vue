@@ -86,11 +86,11 @@
                                                     class="btn btn-sm btn-outline-primary me-1">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                                <a :href="`${tugasUrl(students[i])}/unduh`"
+                                                <!-- <a :href="`${tugasUrl(students[i])}/unduh`"
                                                     :title="`Unduh ${tugas[students[i].id].original_filename}`"
                                                     class="btn btn-sm btn-outline-primary">
                                                     <i class="fa fa-download"></i>
-                                                </a>
+                                                </a> -->
                                             </template>
                                             <span v-else class="text-muted">-</span>
                                         </td>
