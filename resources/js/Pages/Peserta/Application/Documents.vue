@@ -45,7 +45,7 @@
                         <tr v-for="(req, i) in requirements" :key="req.id">
                             <td>{{ i + 1 }}</td>
                             <td>
-                                <div class="fw-semibold small">
+                                <div class="fw-bolder small">
                                     {{ req.label }}
                                     <span v-if="req.is_required" class="text-danger">*</span>
                                 </div>
@@ -62,7 +62,7 @@
                             </td>
                             <td>
                                 <span v-if="!req.document" class="badge bg-secondary">Belum Upload</span>
-                                <span v-else-if="req.document.status === 'pending'" class="badge bg-warning text-dark">Menunggu</span>
+                                <span v-else-if="req.document.status === 'pending'" class="badge bg-warning text-gray-800">Menunggu</span>
                                 <span v-else-if="req.document.status === 'verified'" class="badge bg-success">Terverifikasi</span>
                                 <span v-else-if="req.document.status === 'rejected'" class="badge bg-danger">Ditolak</span>
                             </td>
@@ -120,7 +120,7 @@
         <button type="button" class="btn btn-success shadow" @click="openSubmitModal">
             <i class="fa fa-paper-plane me-1"></i> Submit Permohonan
         </button>
-        <Link :href="`/peserta/aplikasi/${application.id}/pakta`" class="btn btn-light border">
+        <Link :href="`/peserta/aplikasi/${application.id}/pakta`" class="btn btn-gray-100 border">
             <i class="fa fa-arrow-left me-1"></i> Kembali ke Pakta Integritas
         </Link>
     </div>
@@ -140,7 +140,7 @@
                     <button class="btn btn-danger" @click="confirmDelete" :disabled="submitting">
                         <i class="fa fa-trash me-1"></i> Hapus
                     </button>
-                    <button class="btn btn-light border" @click="showDeleteModal = false">Batal</button>
+                    <button class="btn btn-gray-100 border" @click="showDeleteModal = false">Batal</button>
                 </div>
             </div>
         </div>
@@ -167,7 +167,7 @@
                                 <i v-else class="fa fa-times-circle text-danger"></i>
                             </span>
                             <div>
-                                <div class="small fw-semibold" :class="item.done ? 'text-success' : 'text-danger'">
+                                <div class="small fw-bolder" :class="item.done ? 'text-success' : 'text-danger'">
                                     {{ item.label }}
                                 </div>
                                 <div v-if="!item.done && item.hint" class="text-muted" style="font-size:0.78rem">
@@ -187,7 +187,7 @@
                         <i class="fa fa-paper-plane me-1"></i>
                         {{ submitting ? 'Menyimpan...' : 'Submit Permohonan' }}
                     </button>
-                    <button class="btn btn-light border" @click="showSubmitModal = false">Tutup</button>
+                    <button class="btn btn-gray-100 border" @click="showSubmitModal = false">Tutup</button>
                 </div>
             </div>
         </div>

@@ -65,7 +65,7 @@
                 <p class="text-muted small mb-0">
                     Pembubuhan materai elektronik dilakukan otomatis di latar belakang. Silakan cek kembali beberapa saat lagi.
                 </p>
-                <button class="btn btn-sm btn-light border mt-3" @click="reload">
+                <button class="btn btn-sm btn-gray-100 border mt-3" @click="reload">
                     <i class="fa fa-sync me-1"></i> Muat Ulang Status
                 </button>
             </template>

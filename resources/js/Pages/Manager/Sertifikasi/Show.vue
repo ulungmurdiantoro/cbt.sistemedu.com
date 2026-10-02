@@ -20,7 +20,7 @@
                 target="_blank" class="btn btn-sm btn-outline-dark border">
                 <i class="fa fa-file-pdf me-1"></i> Keputusan Sertifikasi
             </a>
-            <button class="btn btn-sm btn-warning text-dark fw-semibold" @click="confirmFinalize" :disabled="!hasFinalizableRows"
+            <button class="btn btn-sm btn-warning text-gray-800 fw-bolder" @click="confirmFinalize" :disabled="!hasFinalizableRows"
                 :title="!hasFinalizableRows ? 'Centang Verifikasi minimal satu peserta terlebih dahulu' : ''">
                 <i class="fa fa-lock me-1"></i> Finalisasi Semua
             </button>
@@ -65,7 +65,7 @@
                             <tr v-for="(row, i) in rows" :key="row.student_id">
                                 <td class="text-center">{{ i + 1 }}</td>
                                 <td>
-                                    <div class="fw-semibold">{{ row.name }}</div>
+                                    <div class="fw-bolder">{{ row.name }}</div>
                                     <div class="text-muted small">{{ row.no_participant }}</div>
                                 </td>
 
@@ -74,7 +74,7 @@
                                     <span v-if="row.apl01_complete" class="badge bg-success">
                                         <i class="fa fa-check me-1"></i>Lengkap
                                     </span>
-                                    <span v-else class="badge bg-warning text-dark">
+                                    <span v-else class="badge bg-warning text-gray-800">
                                         {{ row.apl01_verified }} / {{ row.apl01_total }}
                                     </span>
                                     <button type="button" class="btn btn-link btn-sm p-0 d-block w-100 text-center mt-1" style="font-size:inherit"
@@ -183,7 +183,7 @@
                         <div v-else-if="dokumenModal.error" class="alert alert-danger border-0 mb-0">{{ dokumenModal.error }}</div>
                         <template v-else-if="dokumenModal.data">
                             <div class="small text-muted mb-3">
-                                No. Peserta: <span class="fw-semibold">{{ dokumenModal.data.student?.no_participant }}</span>
+                                No. Peserta: <span class="fw-bolder">{{ dokumenModal.data.student?.no_participant }}</span>
                             </div>
 
                             <div v-if="!dokumenModal.data.application" class="alert alert-warning border-0 mb-0">
@@ -196,7 +196,7 @@
                                     class="card border mb-2">
                                     <div class="card-header d-flex justify-content-between align-items-center py-2"
                                         :class="docStatusClass(getModalDoc(req.id))">
-                                        <span class="fw-semibold small">
+                                        <span class="fw-bolder small">
                                             {{ req.label }}
                                             <span v-if="req.is_required" class="text-danger">*</span>
                                         </span>
@@ -213,7 +213,7 @@
                                             <div class="d-flex align-items-center gap-3">
                                                 <div>
                                                     <i class="fa fa-file me-1 text-primary"></i>
-                                                    <span class="small fw-semibold">{{ getModalDoc(req.id).original_filename }}</span>
+                                                    <span class="small fw-bolder">{{ getModalDoc(req.id).original_filename }}</span>
                                                 </div>
                                                 <a :href="`/manager/dokumen/${exam_session.id}/${dokumenModal.data.student.id}/${getModalDoc(req.id).id}/download`"
                                                     class="btn btn-sm btn-outline-primary" target="_blank">
@@ -230,7 +230,7 @@
                                 </div>
 
                                 <div class="card border mb-0">
-                                    <div class="card-header bg-gray-800 text-white fw-semibold py-2">
+                                    <div class="card-header bg-gray-800 text-white fw-bolder py-2">
                                         <i class="fa fa-signature me-2"></i>Laporan Asesmen / Verifikasi Akhir
                                     </div>
                                     <div class="card-body">
@@ -255,7 +255,7 @@
                         </template>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-light border btn-sm" @click="closeDokumenModal">Tutup</button>
+                        <button class="btn btn-gray-100 border btn-sm" @click="closeDokumenModal">Tutup</button>
                     </div>
                 </div>
             </div>
@@ -355,12 +355,12 @@ export default {
             dokumenModal.data?.application?.documents?.find(d => d.classroom_document_requirement_id === reqId) ?? null;
 
         const docStatusClass = (doc) => {
-            if (!doc) return 'bg-light';
-            return ({ pending: 'bg-light', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' })[doc.status] ?? 'bg-light';
+            if (!doc) return 'bg-gray-100';
+            return ({ pending: 'bg-gray-100', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' })[doc.status] ?? 'bg-gray-100';
         };
         const badgeClass = (doc) => {
             if (!doc) return 'bg-secondary';
-            return ({ pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' })[doc.status] ?? 'bg-secondary';
+            return ({ pending: 'bg-warning text-gray-800', verified: 'bg-success', rejected: 'bg-danger' })[doc.status] ?? 'bg-secondary';
         };
         const badgeLabel = (doc) => {
             if (!doc) return 'Belum Upload';

@@ -17,7 +17,7 @@
                 <PageGuide storage-key="manager.dashboard"><GuideDashboard /></PageGuide>
 
                 <div class="card border-0 shadow">
-                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                    <div class="card-header bg-gray-800 text-white fw-bolder">
                         <i class="fa fa-list me-2"></i>Sesi Ujian
                     </div>
                     <div class="card-body p-0">
@@ -38,7 +38,7 @@
                                     <tr v-for="(s, i) in allSessions" :key="s.id">
                                         <td>{{ i + 1 }}</td>
                                         <td>
-                                            <div class="fw-semibold">{{ s.title }}</div>
+                                            <div class="fw-bolder">{{ s.title }}</div>
                                             <div class="text-muted small">{{ formatDate(s.start_time) }} – {{ formatDate(s.end_time) }}</div>
                                         </td>
                                         <td class="small">{{ classroomTitle(s) }}</td>
@@ -51,7 +51,7 @@
                                             <span v-if="reviewStatus(s) === 'none'" class="badge bg-danger">
                                                 <i class="fa fa-times-circle me-1"></i>Belum Ditinjau
                                             </span>
-                                            <span v-else-if="reviewStatus(s) === 'partial'" class="badge bg-warning text-dark">
+                                            <span v-else-if="reviewStatus(s) === 'partial'" class="badge bg-warning text-gray-800">
                                                 <i class="fa fa-hourglass-half me-1"></i>Sebagian ({{ s.reviewed_count }}/{{ s.participant_results_count }})
                                             </span>
                                             <span v-else class="badge bg-success">

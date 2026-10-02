@@ -4,23 +4,23 @@
     </Head>
     <div class="row justify-content-center mt-5">
         <div class="col-12 col-xl-10 col-xxl-9">
-            <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100">
+            <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100">
                 <h4 class="mb-1 fw-bold">Reset Password</h4>
                 <p class="text-muted small mb-4">Masukkan password baru Anda di bawah ini.</p>
 
                 <form @submit.prevent="submit">
                     <div class="form-group mb-3">
-                        <label class="fw-semibold">Email</label>
+                        <label class="fw-bolder">Email</label>
                         <input type="email" class="form-control" :value="form.email" disabled>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="fw-semibold">Password Baru <span class="text-danger">*</span></label>
+                        <label class="fw-bolder">Password Baru <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fa fa-lock"></i></span>
                             <input :type="showPassword ? 'text' : 'password'" class="form-control"
                                 v-model="form.password" placeholder="Minimal 8 karakter">
-                            <button type="button" class="btn btn-light border" @click="showPassword = !showPassword">
+                            <button type="button" class="btn btn-gray-100 border" @click="showPassword = !showPassword">
                                 <i :class="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
                             </button>
                         </div>
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="form-group mb-4">
-                        <label class="fw-semibold">Konfirmasi Password <span class="text-danger">*</span></label>
+                        <label class="fw-bolder">Konfirmasi Password <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fa fa-lock"></i></span>
                             <input :type="showPassword ? 'text' : 'password'" class="form-control"

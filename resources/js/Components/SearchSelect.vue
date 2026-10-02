@@ -19,7 +19,7 @@
             <ul v-if="open" ref="menu" class="dropdown-menu show shadow search-select-menu" :style="menuStyle">
                 <li v-for="(item, i) in items" :key="item.value ?? 'empty'">
                     <button type="button" class="dropdown-item d-flex justify-content-between align-items-center gap-3"
-                        :class="{ 'is-highlighted': i === highlighted, 'fw-bold': item.value === modelValue, 'text-muted': item.value === null }"
+                        :class="{ 'is-highlighted': i === highlighted, 'fw-bolder': item.value === modelValue, 'text-muted': item.value === null }"
                         @mousedown.prevent="choose(i)" @mouseenter="highlighted = i">
                         <span class="text-wrap">
                             <i v-if="item.value === modelValue && item.value !== null" class="fa fa-check text-success me-1"></i>{{ item.label }}

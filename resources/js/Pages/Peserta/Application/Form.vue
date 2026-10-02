@@ -35,28 +35,28 @@
     <form @submit.prevent="submit">
         <!-- Bagian 1a: Data Pribadi -->
         <div class="card border-0 shadow mb-4">
-            <div class="card-header bg-gray-800 text-white fw-semibold">
+            <div class="card-header bg-gray-800 text-white fw-bolder">
                 Bagian 1a — Data Pribadi
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label class="fw-semibold small">Nama Lengkap Beserta Gelar <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">Nama Lengkap Beserta Gelar <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" v-model="form.name" placeholder="contoh: Dr. Budi Santoso, M.Si.">
                         <div v-if="errors.name" class="text-danger small mt-1">{{ errors.name }}</div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="fw-semibold small">No. KTP / NIK / Paspor <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">No. KTP / NIK / Paspor <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" v-model="form.nik" placeholder="16 digit NIK">
                         <div v-if="errors.nik" class="text-danger small mt-1">{{ errors.nik }}</div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="fw-semibold small">Tempat Lahir <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">Tempat Lahir <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" v-model="form.tempat_lahir">
                         <div v-if="errors.tempat_lahir" class="text-danger small mt-1">{{ errors.tempat_lahir }}</div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="fw-semibold small">Tanggal Lahir <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">Tanggal Lahir <span class="text-danger">*</span></label>
                         <Datepicker
                             v-model="tanggalLahirDate"
                             :format="'dd MMMM yyyy'"
@@ -76,7 +76,7 @@
                         <div v-if="errors.tanggal_lahir" class="text-danger small mt-1">{{ errors.tanggal_lahir }}</div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="fw-semibold small">Jenis Kelamin <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">Jenis Kelamin <span class="text-danger">*</span></label>
                         <select class="form-select" v-model="form.jenis_kelamin">
                             <option value="">Pilih</option>
                             <option value="L">Laki-laki</option>
@@ -85,12 +85,12 @@
                         <div v-if="errors.jenis_kelamin" class="text-danger small mt-1">{{ errors.jenis_kelamin }}</div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="fw-semibold small">Kebangsaan <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">Kebangsaan <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" v-model="form.kebangsaan">
                         <div v-if="errors.kebangsaan" class="text-danger small mt-1">{{ errors.kebangsaan }}</div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="fw-semibold small">Kualifikasi Pendidikan <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">Kualifikasi Pendidikan <span class="text-danger">*</span></label>
                         <select class="form-select" v-model="form.kualifikasi_pendidikan">
                             <option value="">Pilih</option>
                             <option v-for="q in ['SD','SMP','SMA','D3','S1','S2','S3']" :key="q" :value="q">{{ q }}</option>
@@ -98,27 +98,27 @@
                         <div v-if="errors.kualifikasi_pendidikan" class="text-danger small mt-1">{{ errors.kualifikasi_pendidikan }}</div>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label class="fw-semibold small">Alamat Rumah <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">Alamat Rumah <span class="text-danger">*</span></label>
                         <textarea class="form-control" rows="2" v-model="form.alamat_rumah"></textarea>
                         <div v-if="errors.alamat_rumah" class="text-danger small mt-1">{{ errors.alamat_rumah }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="fw-semibold small">Kode Pos</label>
+                        <label class="fw-bolder small">Kode Pos</label>
                         <input type="text" class="form-control" v-model="form.kode_pos_rumah" placeholder="12345">
                         <div v-if="errors.kode_pos_rumah" class="text-danger small mt-1">{{ errors.kode_pos_rumah }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="fw-semibold small">Telp Rumah</label>
+                        <label class="fw-bolder small">Telp Rumah</label>
                         <input type="text" class="form-control" v-model="form.telp_rumah">
                         <div v-if="errors.telp_rumah" class="text-danger small mt-1">{{ errors.telp_rumah }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="fw-semibold small">HP / WA <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">HP / WA <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" v-model="form.hp">
                         <div v-if="errors.hp" class="text-danger small mt-1">{{ errors.hp }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="fw-semibold small">Email Alt.</label>
+                        <label class="fw-bolder small">Email Alt.</label>
                         <input type="email" class="form-control" v-model="form.email_alt">
                         <div v-if="errors.email_alt" class="text-danger small mt-1">{{ errors.email_alt }}</div>
                     </div>
@@ -128,43 +128,43 @@
 
         <!-- Bagian 1b: Data Pekerjaan -->
         <div class="card border-0 shadow mb-4">
-            <div class="card-header bg-gray-800 text-white fw-semibold">
+            <div class="card-header bg-gray-800 text-white fw-bolder">
                 Bagian 1b — Data Pekerjaan Sekarang
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="fw-semibold small">Nama Institusi / Perusahaan <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">Nama Institusi / Perusahaan <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" v-model="form.institusi">
                         <div v-if="errors.institusi" class="text-danger small mt-1">{{ errors.institusi }}</div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="fw-semibold small">Jabatan <span class="text-danger">*</span></label>
+                        <label class="fw-bolder small">Jabatan <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" v-model="form.jabatan">
                         <div v-if="errors.jabatan" class="text-danger small mt-1">{{ errors.jabatan }}</div>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label class="fw-semibold small">Alamat Kantor</label>
+                        <label class="fw-bolder small">Alamat Kantor</label>
                         <textarea class="form-control" rows="2" v-model="form.alamat_kantor"></textarea>
                         <div v-if="errors.alamat_kantor" class="text-danger small mt-1">{{ errors.alamat_kantor }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="fw-semibold small">Kode Pos Kantor</label>
+                        <label class="fw-bolder small">Kode Pos Kantor</label>
                         <input type="text" class="form-control" v-model="form.kode_pos_kantor">
                         <div v-if="errors.kode_pos_kantor" class="text-danger small mt-1">{{ errors.kode_pos_kantor }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="fw-semibold small">Telp Kantor</label>
+                        <label class="fw-bolder small">Telp Kantor</label>
                         <input type="text" class="form-control" v-model="form.telp_kantor">
                         <div v-if="errors.telp_kantor" class="text-danger small mt-1">{{ errors.telp_kantor }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="fw-semibold small">Fax</label>
+                        <label class="fw-bolder small">Fax</label>
                         <input type="text" class="form-control" v-model="form.fax_kantor">
                         <div v-if="errors.fax_kantor" class="text-danger small mt-1">{{ errors.fax_kantor }}</div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="fw-semibold small">Email Kantor</label>
+                        <label class="fw-bolder small">Email Kantor</label>
                         <input type="email" class="form-control" v-model="form.email_kantor">
                         <div v-if="errors.email_kantor" class="text-danger small mt-1">{{ errors.email_kantor }}</div>
                     </div>
@@ -174,25 +174,25 @@
 
         <!-- Bagian 2: Data Sertifikasi (read-only dari skema) -->
         <div class="card border-0 shadow mb-4">
-            <div class="card-header bg-gray-800 text-white fw-semibold">
+            <div class="card-header bg-gray-800 text-white fw-bolder">
                 Bagian 2 — Data Sertifikasi
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label class="fw-semibold small">Skema Sertifikasi</label>
+                        <label class="fw-bolder small">Skema Sertifikasi</label>
                         <input type="text" class="form-control" :value="application.classroom.title" disabled>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="fw-semibold small">Tujuan Asesmen</label>
+                        <label class="fw-bolder small">Tujuan Asesmen</label>
                         <input type="text" class="form-control" :value="application.tujuan_asesmen" disabled>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="fw-semibold small">Konteks Asesmen</label>
+                        <label class="fw-bolder small">Konteks Asesmen</label>
                         <input type="text" class="form-control" :value="application.konteks_asesmen" disabled>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="fw-semibold small">Tempat Ujian</label>
+                        <label class="fw-bolder small">Tempat Ujian</label>
                         <input type="text" class="form-control" :value="application.tempat_ujian" disabled>
                     </div>
                 </div>
@@ -201,7 +201,7 @@
 
         <!-- Tanda Tangan FR.APL.01 -->
         <div class="card border-0 shadow mb-4">
-            <div class="card-header bg-gray-800 text-white fw-semibold">
+            <div class="card-header bg-gray-800 text-white fw-bolder">
                 <i class="fa fa-pen me-2"></i>Tanda Tangan Pemohon (FR.APL.01)
                 <span v-if="application.signature_form_path" class="badge bg-success ms-2">
                     <i class="fa fa-check me-1"></i>Sudah Ditandatangani
@@ -223,12 +223,12 @@
 
                 <div class="d-flex gap-2 mb-3">
                     <button type="button" class="btn btn-sm"
-                        :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                        :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-gray-100 border'"
                         @click="switchSigMode('draw')">
                         <i class="fa fa-pen me-1"></i> Gambar TTD
                     </button>
                     <button type="button" class="btn btn-sm"
-                        :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                        :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-gray-100 border'"
                         @click="switchSigMode('upload')">
                         <i class="fa fa-upload me-1"></i> Upload Gambar TTD
                     </button>
@@ -239,7 +239,7 @@
                         <canvas ref="sigCanvas" style="display:block; width:100%; height:160px; cursor:crosshair"></canvas>
                     </div>
                     <div class="d-flex gap-2 mb-2">
-                        <button type="button" class="btn btn-sm btn-light border" @click="clearSig">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="clearSig">
                             <i class="fa fa-eraser me-1"></i> Hapus
                         </button>
                         <button type="button" class="btn btn-sm btn-success" @click="saveSigDrawn" :disabled="savingSig">
@@ -250,7 +250,7 @@
 
                 <div v-show="sigMode === 'upload'">
                     <div class="mb-2">
-                        <label class="fw-semibold small">Pilih file gambar tanda tangan <span class="text-muted">(JPG / PNG, maks. 2 MB)</span></label>
+                        <label class="fw-bolder small">Pilih file gambar tanda tangan <span class="text-muted">(JPG / PNG, maks. 2 MB)</span></label>
                         <input type="file" class="form-control mt-1" accept="image/png,image/jpeg,image/jpg"
                             @change="onSigFileChange">
                     </div>
@@ -268,7 +268,7 @@
             <button type="submit" class="btn btn-gray-800" :disabled="processing">
                 {{ processing ? 'Menyimpan...' : 'Simpan & Lanjut ke Pakta Integritas' }}
             </button>
-            <Link href="/peserta/dashboard" class="btn btn-light border">Kembali</Link>
+            <Link href="/peserta/dashboard" class="btn btn-gray-100 border">Kembali</Link>
         </div>
     </form>
 </template>

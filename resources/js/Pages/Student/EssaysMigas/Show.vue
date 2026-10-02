@@ -14,13 +14,13 @@
                 <span v-if="uploadDone" class="badge rounded-pill bg-success px-3 py-2">
                   <i class="fa fa-check me-1"></i> File sudah diupload
                 </span>
-                <span v-else class="badge rounded-pill bg-warning text-dark px-3 py-2">
+                <span v-else class="badge rounded-pill bg-warning text-gray-800 px-3 py-2">
                   <i class="fa fa-exclamation-circle me-1"></i> File belum diupload
                 </span>
               </div>
               <div class="mt-2 p-2 px-3 d-flex align-items-center gap-2" style="border-radius:12px;border:1px solid rgba(0,0,0,.08);">
                 <i class="fa fa-info-circle"></i>
-                <span class="fw-semibold">
+                <span class="fw-bolder">
                   <template v-if="hasEssayQuestion">
                     Sebagian soal berbentuk <strong>uraian</strong>. Jawaban diketik langsung pada editor.
                   </template>
@@ -53,7 +53,7 @@
 
               <!-- Soal uraian: editor teks -->
               <div v-if="getIsEssay(essayWrap)" class="mt-4">
-                <div class="fw-semibold mb-2">Jawaban Anda</div>
+                <div class="fw-bolder mb-2">Jawaban Anda</div>
                 <QuillEditor
                   :ref="el => setEditorRef(essayWrap, el)"
                   v-model:content="answers[getEssayId(essayWrap)]"

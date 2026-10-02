@@ -43,7 +43,7 @@
                         @click="selectSession(skema, sesi)">
                         <div class="d-flex justify-content-between align-items-start gap-2">
                             <div>
-                                <div class="small fw-semibold">Batch {{ sesi.kode_batch || '-' }}</div>
+                                <div class="small fw-bolder">Batch {{ sesi.kode_batch || '-' }}</div>
                                 <div class="small text-muted" v-if="sesi.title">{{ sesi.title }}</div>
                                 <div class="small text-muted">
                                     <i class="fa fa-calendar me-1"></i>Mulai {{ formatDate(sesi.start_time) }}
@@ -61,11 +61,11 @@
         <!-- Panel detail & pendaftaran -->
         <div class="col-md-5" v-if="selectedSkema">
             <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-semibold">
+                <div class="card-header bg-gray-800 text-white fw-bolder">
                     Konfirmasi Pendaftaran
                 </div>
                 <div class="card-body">
-                    <p class="small fw-semibold mb-1">{{ selectedSkema.title }}</p>
+                    <p class="small fw-bolder mb-1">{{ selectedSkema.title }}</p>
                     <p class="text-muted small mb-3" v-if="selectedSkema.kode_skema">
                         Kode: {{ selectedSkema.kode_skema }}
                     </p>
@@ -74,7 +74,7 @@
                     <table class="table table-sm mb-4 table-wrap">
                         <tr>
                             <td class="text-muted small">Kode Batch</td>
-                            <td class="small fw-semibold">{{ selectedSession.kode_batch }}</td>
+                            <td class="small fw-bolder">{{ selectedSession.kode_batch }}</td>
                         </tr>
                         <tr>
                             <td class="text-muted small">Mulai</td>
@@ -82,17 +82,17 @@
                         </tr>
                         <tr>
                             <td class="text-muted small">Konteks Asesmen</td>
-                            <td class="small fw-semibold">{{ selectedSession.konteks_asesmen }}</td>
+                            <td class="small fw-bolder">{{ selectedSession.konteks_asesmen }}</td>
                         </tr>
                         <tr>
                             <td class="text-muted small">Tempat Ujian</td>
-                            <td class="small fw-semibold">{{ selectedSession.tempat_ujian }}</td>
+                            <td class="small fw-bolder">{{ selectedSession.tempat_ujian }}</td>
                         </tr>
                     </table>
 
                     <form @submit.prevent="submit">
                         <div class="form-group mb-4">
-                            <label class="fw-semibold small">Tujuan Asesmen <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small">Tujuan Asesmen <span class="text-danger">*</span></label>
                             <select class="form-select" v-model="form.tujuan_asesmen">
                                 <option value="Sertifikasi">Sertifikasi</option>
                                 <option value="Sertifikasi Ulang">Sertifikasi Ulang</option>

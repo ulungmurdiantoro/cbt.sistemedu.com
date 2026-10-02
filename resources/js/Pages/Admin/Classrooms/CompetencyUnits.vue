@@ -47,7 +47,7 @@
                                         <span class="badge bg-secondary text-wrap" style="font-size:0.8rem">{{ unit.kode_unit }}</span>
                                     </td>
                                     <td>
-                                        <div class="fw-semibold small text-break">{{ unit.judul_unit }}</div>
+                                        <div class="fw-bolder small text-break">{{ unit.judul_unit }}</div>
                                         <div v-if="unit.judul_unit_en" class="text-muted fst-italic text-break" style="font-size:0.78rem">{{ unit.judul_unit_en }}</div>
                                     </td>
                                     <td>
@@ -71,35 +71,35 @@
         <!-- Form tambah/edit -->
         <div class="col-12 col-lg-5">
             <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-semibold">
+                <div class="card-header bg-gray-800 text-white fw-bolder">
                     {{ editMode ? 'Edit Unit Kompetensi' : 'Tambah Unit Kompetensi' }}
                 </div>
                 <div class="card-body">
                     <form @submit.prevent="saveUnit">
                         <div class="mb-3">
-                            <label class="fw-semibold small">Kode Unit <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small">Kode Unit <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" v-model="form.kode_unit" placeholder="contoh: TIK.OP02.001.01">
                             <div v-if="errors.kode_unit" class="text-danger small mt-1">{{ errors.kode_unit }}</div>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-semibold small">Judul Unit Kompetensi <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small">Judul Unit Kompetensi <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" v-model="form.judul_unit" placeholder="Masukkan judul unit kompetensi">
                             <div v-if="errors.judul_unit" class="text-danger small mt-1">{{ errors.judul_unit }}</div>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-semibold small">Judul Unit Kompetensi (Bahasa Inggris)</label>
+                            <label class="fw-bolder small">Judul Unit Kompetensi (Bahasa Inggris)</label>
                             <input type="text" class="form-control" v-model="form.judul_unit_en" placeholder="Enter competency unit title in English">
                             <div v-if="errors.judul_unit_en" class="text-danger small mt-1">{{ errors.judul_unit_en }}</div>
                         </div>
                         <div class="mb-4">
-                            <label class="fw-semibold small">Urutan</label>
+                            <label class="fw-bolder small">Urutan</label>
                             <input type="number" class="form-control" v-model="form.order" min="0">
                         </div>
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-gray-800 btn-sm" :disabled="saving">
                                 {{ saving ? 'Menyimpan...' : (editMode ? 'Update' : 'Tambah') }}
                             </button>
-                            <button v-if="editMode" type="button" class="btn btn-light btn-sm border" @click="cancelEdit">
+                            <button v-if="editMode" type="button" class="btn btn-gray-100 btn-sm border" @click="cancelEdit">
                                 Batal
                             </button>
                         </div>

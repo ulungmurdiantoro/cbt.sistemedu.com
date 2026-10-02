@@ -33,12 +33,12 @@
                                 <div class="table-responsive mb-2">
                                     <table class="table table-sm table-bordered mb-0">
                                         <tbody>
-                                            <tr><td style="width:190px" class="fw-semibold">Tipe Ujian / Skema / Ujian / Sesi Ujian</td><td>Data master yang harus ada sebelum ujian &amp; sertifikasi bisa jalan.</td></tr>
-                                            <tr><td class="fw-semibold">Peserta</td><td>Akun peserta ujian (login soal), termasuk pembagian ke sesi &amp; batch.</td></tr>
-                                            <tr><td class="fw-semibold">Permohonan</td><td>Pendaftaran sertifikasi peserta — verifikasi dokumen, approve, terbitkan FR.APL.01 / FR.AK.01.</td></tr>
-                                            <tr><td class="fw-semibold">Penugasan Asesor</td><td>Menetapkan asesor per peserta per sesi, plus TTD AK.01 sisi asesor.</td></tr>
-                                            <tr><td class="fw-semibold">Hasil Penilaian / Laporan Nilai</td><td>Rekap nilai PG / Esai / Wawancara dan unduhan dokumen hasil.</td></tr>
-                                            <tr><td class="fw-semibold">Kelola User</td><td>Akun staf: admin, asesor, Pengambil Keputusan — beserta tanda tangannya.</td></tr>
+                                            <tr><td style="width:190px" class="fw-bolder">Tipe Ujian / Skema / Ujian / Sesi Ujian</td><td>Data master yang harus ada sebelum ujian &amp; sertifikasi bisa jalan.</td></tr>
+                                            <tr><td class="fw-bolder">Peserta</td><td>Akun peserta ujian (login soal), termasuk pembagian ke sesi &amp; batch.</td></tr>
+                                            <tr><td class="fw-bolder">Permohonan</td><td>Pendaftaran sertifikasi peserta — verifikasi dokumen, approve, terbitkan FR.APL.01 / FR.AK.01.</td></tr>
+                                            <tr><td class="fw-bolder">Penugasan Asesor</td><td>Menetapkan asesor per peserta per sesi, plus TTD AK.01 sisi asesor.</td></tr>
+                                            <tr><td class="fw-bolder">Hasil Penilaian / Laporan Nilai</td><td>Rekap nilai PG / Esai / Wawancara dan unduhan dokumen hasil.</td></tr>
+                                            <tr><td class="fw-bolder">Kelola User</td><td>Akun staf: admin, asesor, Pengambil Keputusan — beserta tanda tangannya.</td></tr>
                                         </tbody>
                                     </table>
                                 </div>

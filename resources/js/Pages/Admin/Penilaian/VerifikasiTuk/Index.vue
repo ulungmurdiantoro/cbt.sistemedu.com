@@ -59,7 +59,7 @@
 
             <!-- Tabel peserta -->
             <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-semibold">
+                <div class="card-header bg-gray-800 text-white fw-bolder">
                     <i class="fa fa-users me-2"></i>Daftar Peserta
                     <span class="badge bg-gray-200 text-gray-800 ms-2">{{ rows.length }}</span>
                 </div>

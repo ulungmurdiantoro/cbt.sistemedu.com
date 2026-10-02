@@ -27,7 +27,7 @@
 
                         <!-- Info cara mendapat No. Peserta -->
                         <div class="mb-4">
-                            <p class="small fw-semibold mb-3">
+                            <p class="small fw-bolder mb-3">
                                 <i class="fa fa-question-circle me-1"></i>Belum punya No. Peserta?
                             </p>
                             <div v-for="(step, i) in steps" :key="i" class="d-flex gap-2 mb-2 align-items-start">
@@ -72,9 +72,9 @@
 
                         <form @submit.prevent="submit">
                             <div class="mb-4">
-                                <label class="fw-semibold small">No. Peserta</label>
+                                <label class="fw-bolder small">No. Peserta</label>
                                 <div class="input-group mt-1">
-                                    <span class="input-group-text bg-light">
+                                    <span class="input-group-text bg-gray-100">
                                         <i class="fa fa-id-card text-muted"></i>
                                     </span>
                                     <input type="text" class="form-control"
@@ -92,8 +92,8 @@
                             </div>
 
                             <div class="d-grid mb-4">
-                                <button type="submit" class="btn btn-dark" :disabled="processing">
-                                    <i class="fa fa-sign-in me-1"></i>
+                                <button type="submit" class="btn btn-gray-800" :disabled="processing">
+                                    <i class="fa fa-sign-in-alt me-1"></i>
                                     {{ processing ? 'Memproses...' : 'Masuk ke Ujian' }}
                                 </button>
                             </div>
@@ -101,13 +101,13 @@
 
                         <!-- Info box mobile: tampil hanya di layar kecil -->
                         <div class="d-md-none p-3 rounded" style="background:#f8f9fa;border:1px solid #e9ecef">
-                            <p class="small fw-semibold mb-2">
+                            <p class="small fw-bolder mb-2">
                                 <i class="fa fa-info-circle me-1 text-muted"></i>Belum punya No. Peserta?
                             </p>
                             <p class="small text-muted mb-2">
                                 Daftar melalui portal sertifikasi untuk mengajukan permohonan ujian kompetensi.
                             </p>
-                            <a href="/peserta/register" class="btn btn-sm btn-dark">
+                            <a href="/peserta/register" class="btn btn-sm btn-gray-800">
                                 <i class="fa fa-user-plus me-1"></i> Daftar Sertifikasi
                             </a>
                         </div>

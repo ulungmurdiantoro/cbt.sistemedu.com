@@ -76,7 +76,7 @@
                         <Link :href="portal.href" class="nav-link d-flex justify-content-between">
                             <span>
                                 <span class="sidebar-icon">
-                                    <i class="fa fa-right-left me-2"></i>
+                                    <i class="fa fa-exchange-alt me-2"></i>
                                 </span>
                                 <span class="sidebar-text">{{ portal.label }}</span>
                             </span>

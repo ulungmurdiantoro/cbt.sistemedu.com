@@ -32,7 +32,7 @@
 
             <!-- Info sertifikasi -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="card-header bg-gray-800 text-white fw-bolder d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <span>Data Sertifikasi</span>
                     <div class="d-flex gap-1">
                         <a :href="`/admin/applications/${application.id}/fr-apl-01`" class="btn btn-sm btn-info" target="_blank">
@@ -61,7 +61,7 @@
 
             <!-- Data pribadi (dari snapshot atau participant) -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center">
+                <div class="card-header bg-gray-800 text-white fw-bolder d-flex justify-content-between align-items-center">
                     <span>Data Pribadi (FR.APL.01 Bag. 1a)</span>
                     <button v-if="application.participant" class="btn btn-sm btn-warning" @click="openResetPasswordModal">
                         <i class="fa fa-key me-1"></i>Ganti Password Peserta
@@ -80,7 +80,7 @@
 
             <!-- Data pekerjaan -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-semibold">Data Pekerjaan (FR.APL.01 Bag. 1b)</div>
+                <div class="card-header bg-gray-800 text-white fw-bolder">Data Pekerjaan (FR.APL.01 Bag. 1b)</div>
                 <div class="card-body">
                     <table class="table table-sm mb-0 detail-table" style="table-layout:fixed;width:100%">
                         <colgroup><col style="width:200px"><col></colgroup>
@@ -94,7 +94,7 @@
 
             <!-- Tanda Tangan -->
             <div class="card border-0 shadow mb-4" v-if="application.signature_path">
-                <div class="card-header bg-gray-800 text-white fw-semibold">Tanda Tangan Pemohon</div>
+                <div class="card-header bg-gray-800 text-white fw-bolder">Tanda Tangan Pemohon</div>
                 <div class="card-body">
                     <a :href="`/admin/applications/${application.id}/tanda-tangan/pakta`" target="_blank">
                         <img :src="`/admin/applications/${application.id}/tanda-tangan/pakta`" alt="TTD"
@@ -105,7 +105,7 @@
 
             <!-- Dokumen -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-semibold">Bukti Kelengkapan (Bag. 3)</div>
+                <div class="card-header bg-gray-800 text-white fw-bolder">Bukti Kelengkapan (Bag. 3)</div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
@@ -120,7 +120,7 @@
                             <tbody>
                                 <tr v-for="req in application.classroom?.document_requirements" :key="req.id">
                                     <td class="align-middle">
-                                        <div class="fw-semibold small">{{ req.label }} <span v-if="req.is_required" class="text-danger">*</span></div>
+                                        <div class="fw-bolder small">{{ req.label }} <span v-if="req.is_required" class="text-danger">*</span></div>
                                         <div v-if="getDoc(req.id)?.reviewer_notes" class="text-danger small">{{ getDoc(req.id).reviewer_notes }}</div>
                                     </td>
                                     <td class="align-middle">
@@ -129,7 +129,7 @@
                                     </td>
                                     <td class="align-middle">
                                         <a v-if="getDoc(req.id)" :href="`/admin/applications/${application.id}/documents/${getDoc(req.id).id}/preview`"
-                                            target="_blank" rel="noopener" class="btn btn-sm btn-light border" title="Pratinjau dokumen">
+                                            target="_blank" rel="noopener" class="btn btn-sm btn-gray-100 border" title="Pratinjau dokumen">
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     </td>
@@ -161,7 +161,7 @@
 
             <!-- Penilaian Awal Kelayakan (FR.APL.03) — selalu bisa diakses, tidak terikat status -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center">
+                <div class="card-header bg-gray-800 text-white fw-bolder d-flex justify-content-between align-items-center">
                     <span>Penilaian Awal Kelayakan (FR.APL.03)</span>
                     <button v-if="application.initial_assessment && !showAssessmentForm"
                         type="button" class="btn btn-sm btn-outline-light" @click="openAssessmentForm">
@@ -189,7 +189,7 @@
                     <!-- Form penilaian -->
                     <form v-else-if="initial_assessment_rubric" @submit.prevent="submitAssessment">
                         <div v-for="criterion in initial_assessment_rubric.criteria" :key="criterion.key" class="mb-3 pb-3 border-bottom">
-                            <label class="fw-semibold small d-block mb-2">{{ criterion.label }}</label>
+                            <label class="fw-bolder small d-block mb-2">{{ criterion.label }}</label>
 
                             <div v-if="criterion.type === 'single'">
                                 <div v-for="opt in criterion.options" :key="opt.key" class="form-check">
@@ -224,7 +224,7 @@
                             <button type="submit" class="btn btn-gray-800" :disabled="assessmentSaving">
                                 <i class="fa fa-save me-1"></i>{{ assessmentSaving ? 'Menyimpan...' : 'Simpan Penilaian' }}
                             </button>
-                            <button v-if="application.initial_assessment" type="button" class="btn btn-light border"
+                            <button v-if="application.initial_assessment" type="button" class="btn btn-gray-100 border"
                                 @click="showAssessmentForm = false">
                                 Batal
                             </button>
@@ -235,7 +235,7 @@
 
             <!-- Status & aksi -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-semibold">Aksi</div>
+                <div class="card-header bg-gray-800 text-white fw-bolder">Aksi</div>
                 <div class="card-body">
 
                     <!-- Akun ujian (jika sudah approved) -->
@@ -261,14 +261,14 @@
                         <template v-if="canApprove">
                             <!-- Nama penandatangan -->
                             <div class="mb-2">
-                                <label class="fw-semibold small">Nama Penandatangan <span class="text-danger">*</span></label>
+                                <label class="fw-bolder small">Nama Penandatangan <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm mt-1" v-model="adminSignName"
                                     placeholder="contoh: Dr. Agung Yulianto, M.Si.">
                             </div>
 
                             <!-- TTD tersimpan -->
                             <div v-if="auth_admin?.signature_path" class="mb-2">
-                                <label class="fw-semibold small">Tanda Tangan Admin</label>
+                                <label class="fw-bolder small">Tanda Tangan Admin</label>
                                 <div class="p-2 border rounded bg-white mt-1 d-flex align-items-center gap-3">
                                     <img src="/admin/profile/tanda-tangan" alt="TTD Tersimpan"
                                         style="max-height:60px; max-width:160px; object-fit:contain">
@@ -287,23 +287,23 @@
 
                             <!-- Form TTD baru (muncul jika belum ada TTD / klik Ganti) -->
                             <div v-if="!auth_admin?.signature_path || !useSavedSig" class="mb-2">
-                                <label class="fw-semibold small">
+                                <label class="fw-bolder small">
                                     {{ auth_admin?.signature_path ? 'TTD Baru (akan mengganti yang tersimpan)' : 'Tanda Tangan Admin' }}
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="d-flex gap-1 mt-1 mb-2">
                                     <button type="button" class="btn btn-sm flex-fill"
-                                        :class="adminSigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                                        :class="adminSigMode === 'draw' ? 'btn-gray-800' : 'btn-gray-100 border'"
                                         @click="switchAdminSigMode('draw')">
                                         <i class="fa fa-pen me-1"></i>Gambar
                                     </button>
                                     <button type="button" class="btn btn-sm flex-fill"
-                                        :class="adminSigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                                        :class="adminSigMode === 'upload' ? 'btn-gray-800' : 'btn-gray-100 border'"
                                         @click="switchAdminSigMode('upload')">
                                         <i class="fa fa-upload me-1"></i>Upload
                                     </button>
                                     <button v-if="auth_admin?.signature_path" type="button"
-                                        class="btn btn-sm btn-light border" @click="useSavedSig = true">
+                                        class="btn btn-sm btn-gray-100 border" @click="useSavedSig = true">
                                         Batal
                                     </button>
                                 </div>
@@ -312,7 +312,7 @@
                                     <div class="border rounded bg-white" style="touch-action:none">
                                         <canvas ref="adminSigCanvas" style="display:block; width:100%; height:140px; cursor:crosshair"></canvas>
                                     </div>
-                                    <button type="button" class="btn btn-sm btn-light border mt-1" @click="clearAdminSig">
+                                    <button type="button" class="btn btn-sm btn-gray-100 border mt-1" @click="clearAdminSig">
                                         <i class="fa fa-eraser me-1"></i>Hapus
                                     </button>
                                 </div>
@@ -350,7 +350,7 @@
                     <!-- Tampilkan TTD admin setelah approved -->
                     <div v-if="application.status === 'approved' && application.admin_signature_path"
                         class="border rounded p-2 mb-3 bg-white">
-                        <div class="small fw-semibold mb-1 text-muted">TTD Admin</div>
+                        <div class="small fw-bolder mb-1 text-muted">TTD Admin</div>
                         <img :src="`/admin/applications/${application.id}/tanda-tangan/admin`" alt="TTD Admin"
                             style="max-height:80px; max-width:100%; object-fit:contain">
                         <div v-if="application.admin_signature_name" class="small mt-1">
@@ -361,7 +361,7 @@
                     <!-- Re-issue akun ujian -->
                     <div v-if="application.status === 'approved'" class="d-grid gap-2 mb-3">
                         <button class="btn btn-warning" @click="showReissueModal = true">
-                            <i class="fa fa-refresh me-1"></i> Re-issue Akun Ujian
+                            <i class="fa fa-sync me-1"></i> Re-issue Akun Ujian
                         </button>
                     </div>
 
@@ -377,7 +377,7 @@
 
                     <!-- Materai e-meterai FR.AK.01 -->
                     <div v-if="application.status === 'approved' && $page.props.materaiEnabled" class="mt-3 pt-3 border-top">
-                        <div class="small fw-semibold mb-2"><i class="fa fa-stamp me-1"></i>Materai FR.AK.01</div>
+                        <div class="small fw-bolder mb-2"><i class="fa fa-stamp me-1"></i>Materai FR.AK.01</div>
 
                         <div v-if="application.materai_status === 'stamped'" class="alert alert-success p-2 small mb-2">
                             <i class="fa fa-check-circle me-1"></i>Sudah dibubuhkan
@@ -401,7 +401,7 @@
                                 <span v-if="!application.admin_signature_path">LSP </span>
                                 <span v-if="!application.asesor_signature_path">Asesor</span>
                             </div>
-                            <button class="btn btn-dark btn-sm w-100" :disabled="!materaiTtdLengkap || processing" @click="stampMateraiNow">
+                            <button class="btn btn-gray-800 btn-sm w-100" :disabled="!materaiTtdLengkap || processing" @click="stampMateraiNow">
                                 <i class="fa fa-stamp me-1"></i>
                                 {{ application.materai_status === 'failed' ? 'Coba Bubuhkan Lagi' : 'Bubuhkan Materai' }}
                             </button>
@@ -424,7 +424,7 @@
 
             <!-- Riwayat reissue -->
             <div class="card border-0 shadow mb-4" v-if="application.reissue_logs?.length">
-                <div class="card-header bg-gray-800 text-white fw-semibold">Riwayat Re-issue</div>
+                <div class="card-header bg-gray-800 text-white fw-bolder">Riwayat Re-issue</div>
                 <div class="card-body p-0">
                     <table class="table table-sm mb-0">
                         <tr v-for="log in application.reissue_logs" :key="log.id">
@@ -447,7 +447,7 @@
             <div class="modal-content border-0 shadow">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">
-                        <i class="fa fa-refresh text-warning me-2"></i>Re-issue Akun Ujian
+                        <i class="fa fa-sync text-warning me-2"></i>Re-issue Akun Ujian
                     </h6>
                     <button class="btn-close" @click="showReissueModal = false"></button>
                 </div>
@@ -456,16 +456,16 @@
                         <i class="fa fa-exclamation-triangle me-1"></i>
                         Akun ujian lama (<strong>{{ application.student?.no_participant }}</strong>) akan <strong>dinonaktifkan</strong> dan diganti dengan akun baru.
                     </div>
-                    <label class="fw-semibold small">Alasan re-issue <span class="text-muted">(opsional)</span></label>
+                    <label class="fw-bolder small">Alasan re-issue <span class="text-muted">(opsional)</span></label>
                     <textarea class="form-control mt-1" rows="2" v-model="reissueReason"
                         placeholder="mis. akun hilang, salah data, dsb."></textarea>
                 </div>
                 <div class="modal-footer border-0">
                     <button class="btn btn-warning" @click="reissue" :disabled="processing">
-                        <i class="fa fa-refresh me-1"></i>
+                        <i class="fa fa-sync me-1"></i>
                         {{ processing ? 'Memproses...' : 'Konfirmasi Re-issue' }}
                     </button>
-                    <button class="btn btn-light border" @click="showReissueModal = false">Batal</button>
+                    <button class="btn btn-gray-100 border" @click="showReissueModal = false">Batal</button>
                 </div>
             </div>
         </div>
@@ -480,12 +480,12 @@
                     <button class="btn-close" @click="rejectDocId = null"></button>
                 </div>
                 <div class="modal-body">
-                    <label class="fw-semibold small">Alasan penolakan</label>
+                    <label class="fw-bolder small">Alasan penolakan</label>
                     <textarea class="form-control" rows="3" v-model="rejectDocNotes"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger btn-sm" @click="verifyDoc(rejectDocId, 'rejected', rejectDocNotes)">Konfirmasi Tolak</button>
-                    <button class="btn btn-light btn-sm border" @click="rejectDocId = null">Batal</button>
+                    <button class="btn btn-gray-100 btn-sm border" @click="rejectDocId = null">Batal</button>
                 </div>
             </div>
         </div>
@@ -505,12 +505,12 @@
                         ({{ application.participant?.email }})
                     </p>
                     <div class="mb-2">
-                        <label class="fw-semibold small">Password Baru</label>
+                        <label class="fw-bolder small">Password Baru</label>
                         <input type="password" class="form-control mt-1" v-model="resetPasswordForm.password" placeholder="Minimal 8 karakter">
                         <div v-if="resetPasswordErrors.password" class="text-danger small mt-1">{{ resetPasswordErrors.password }}</div>
                     </div>
                     <div class="mb-2">
-                        <label class="fw-semibold small">Ulangi Password Baru</label>
+                        <label class="fw-bolder small">Ulangi Password Baru</label>
                         <input type="password" class="form-control mt-1" v-model="resetPasswordForm.password_confirmation" placeholder="Ulangi password baru">
                     </div>
                 </div>
@@ -519,7 +519,7 @@
                         <i class="fa fa-key me-1"></i>
                         {{ resetPasswordProcessing ? 'Menyimpan...' : 'Ganti Password' }}
                     </button>
-                    <button class="btn btn-light border" @click="closeResetPasswordModal">Batal</button>
+                    <button class="btn btn-gray-100 border" @click="closeResetPasswordModal">Batal</button>
                 </div>
             </div>
         </div>
@@ -546,7 +546,7 @@
                     <div v-if="changeBatchError" class="alert alert-danger border-0 py-2 small mb-3">
                         <i class="fa fa-times-circle me-1"></i>{{ changeBatchError }}
                     </div>
-                    <label class="fw-semibold small">Batch Baru</label>
+                    <label class="fw-bolder small">Batch Baru</label>
                     <select class="form-control mt-1" v-model="selectedSessionId">
                         <option :value="null" disabled>-- Pilih batch --</option>
                         <option v-for="s in other_sessions" :key="s.id" :value="s.id">
@@ -559,7 +559,7 @@
                         <i class="fa fa-exchange-alt me-1"></i>
                         {{ changeBatchProcessing ? 'Menyimpan...' : 'Konfirmasi Ganti Batch' }}
                     </button>
-                    <button class="btn btn-light border" @click="closeChangeBatchModal">Batal</button>
+                    <button class="btn btn-gray-100 border" @click="closeChangeBatchModal">Batal</button>
                 </div>
             </div>
         </div>
@@ -790,9 +790,9 @@ export default {
 
         const getDoc      = (reqId) => props.application.documents?.find(d => d.classroom_document_requirement_id === reqId);
         const docLabel    = (s) => ({ pending: 'Menunggu', verified: 'Terverifikasi', rejected: 'Ditolak' }[s] ?? s);
-        const docBadge    = (s) => ({ pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' }[s] ?? 'bg-secondary');
+        const docBadge    = (s) => ({ pending: 'bg-warning text-gray-800', verified: 'bg-success', rejected: 'bg-danger' }[s] ?? 'bg-secondary');
         const statusLabel = (s) => ({ draft:'Draft', submitted:'Disubmit', approved:'Disetujui', rejected:'Ditolak' }[s] ?? s);
-        const statusBadge = (s) => ({ draft:'bg-secondary', submitted:'bg-warning text-dark', approved:'bg-success', rejected:'bg-danger' }[s]);
+        const statusBadge = (s) => ({ draft:'bg-secondary', submitted:'bg-warning text-gray-800', approved:'bg-success', rejected:'bg-danger' }[s]);
         const formatDate  = (dt) => dt ? new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
 
         const approve = () => {

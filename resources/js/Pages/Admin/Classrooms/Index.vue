@@ -44,11 +44,11 @@
                                     <tr v-for="(classroom, index) in classrooms.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (classrooms.current_page - 1) * classrooms.per_page }}</td>
                                         <td>
-                                            <div class="fw-semibold">{{ classroom.title }}</div>
+                                            <div class="fw-bolder">{{ classroom.title }}</div>
                                             <div v-if="classroom.title_en" class="text-muted fst-italic small">{{ classroom.title_en }}</div>
                                         </td>
                                         <td>
-                                            <div class="fw-semibold">{{ classroom.id }} </div>
+                                            <div class="fw-bolder">{{ classroom.id }} </div>
                                             <div v-if="classroom.kode_skema" class="text-muted fst-italic small">({{ classroom.kode_skema }})</div>
                                         </td>
                                         <td class="text-center">

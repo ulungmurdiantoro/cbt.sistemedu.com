@@ -16,7 +16,7 @@
                                 <i class="fa fa-user me-2"></i>{{ student.name }}
                             </h6>
                             <div class="small text-muted">
-                                No. Peserta: <span class="fw-semibold">{{ student.no_participant }}</span>
+                                No. Peserta: <span class="fw-bolder">{{ student.no_participant }}</span>
                                 &nbsp;|&nbsp; Sesi: {{ exam_session.title }}
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                             <span v-if="!application" class="badge bg-secondary">Belum ada aplikasi</span>
                             <template v-else>
                                 <span class="badge me-1"
-                                    :class="application.status === 'approved' ? 'bg-success' : application.status === 'submitted' ? 'bg-warning text-dark' : 'bg-secondary'">
+                                    :class="application.status === 'approved' ? 'bg-success' : application.status === 'submitted' ? 'bg-warning text-gray-800' : 'bg-secondary'">
                                     {{ statusLabel(application.status) }}
                                 </span>
                                 <span class="badge bg-secondary">
@@ -47,7 +47,7 @@
                     class="card border-0 shadow mb-3">
                     <div class="card-header d-flex justify-content-between align-items-center py-2"
                         :class="docStatusClass(getDoc(req.id))">
-                        <span class="fw-semibold small">
+                        <span class="fw-bolder small">
                             {{ req.label }}
                             <span v-if="req.is_required" class="text-danger">*</span>
                         </span>
@@ -66,7 +66,7 @@
                             <div class="d-flex align-items-center gap-3">
                                 <div>
                                     <i class="fa fa-file me-1 text-primary"></i>
-                                    <span class="small fw-semibold">{{ getDoc(req.id).original_filename }}</span>
+                                    <span class="small fw-bolder">{{ getDoc(req.id).original_filename }}</span>
                                 </div>
                                 <a :href="`/manager/dokumen/${exam_session.id}/${student.id}/${getDoc(req.id).id}/download`"
                                     class="btn btn-sm btn-outline-primary" target="_blank">
@@ -85,7 +85,7 @@
 
                 <!-- Ringkasan Verifikasi Akhir (baca saja) -->
                 <div class="card border-0 shadow mb-3">
-                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                    <div class="card-header bg-gray-800 text-white fw-bolder">
                         <i class="fa fa-signature me-2"></i>Laporan Asesmen / Verifikasi Akhir
                     </div>
                     <div class="card-body">
@@ -147,12 +147,12 @@ export default {
             return ({ draft: 'Draft', submitted: 'Disubmit', approved: 'Disetujui', rejected: 'Ditolak' })[s] ?? s;
         },
         docStatusClass(doc) {
-            if (!doc) return 'bg-light';
-            return ({ pending: 'bg-light', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' })[doc.status] ?? 'bg-light';
+            if (!doc) return 'bg-gray-100';
+            return ({ pending: 'bg-gray-100', verified: 'bg-success bg-opacity-10', rejected: 'bg-danger bg-opacity-10' })[doc.status] ?? 'bg-gray-100';
         },
         badgeClass(doc) {
             if (!doc) return 'bg-secondary';
-            return ({ pending: 'bg-warning text-dark', verified: 'bg-success', rejected: 'bg-danger' })[doc.status] ?? 'bg-secondary';
+            return ({ pending: 'bg-warning text-gray-800', verified: 'bg-success', rejected: 'bg-danger' })[doc.status] ?? 'bg-secondary';
         },
         badgeLabel(doc) {
             if (!doc) return 'Belum Upload';

@@ -19,13 +19,13 @@
                 <ul class="nav nav-tabs mb-4" style="border-bottom:2px solid #dee2e6;">
                     <li class="nav-item">
                         <button
-                            class="nav-link fw-semibold"
+                            class="nav-link fw-bolder"
                             :class="{ active: tab === 'active' }"
                             @click="tab = 'active'"
                             style="border-bottom:3px solid transparent; background-color:#fff;"
                             :style="tab === 'active' ? 'border-bottom-color:#0d6efd; color:#0d6efd; background-color:#fff;' : 'color:#6B7280; background-color:#fff;'"
                         >
-                            <i class="fa fa-circle-dot me-1 text-success"></i>
+                            <i class="fa fa-dot-circle me-1 text-success"></i>
                             Sesi Aktif
                             <span class="badge ms-1" :class="active_sessions.length ? 'bg-success' : 'bg-secondary'">
                                 {{ active_sessions.length }}
@@ -34,7 +34,7 @@
                     </li>
                     <li class="nav-item">
                         <button
-                            class="nav-link fw-semibold"
+                            class="nav-link fw-bolder"
                             :class="{ active: tab === 'completed' }"
                             @click="tab = 'completed'"
                             style="border-bottom:3px solid transparent; background-color:#fff;"

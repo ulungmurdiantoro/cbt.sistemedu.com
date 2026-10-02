@@ -25,7 +25,7 @@
                         <hr style="border-color:rgba(255,255,255,.15)">
 
                         <div class="mb-4">
-                            <p class="small fw-semibold mb-3">
+                            <p class="small fw-bolder mb-3">
                                 <i class="fa fa-list-ol me-1"></i>Alur Pendaftaran
                             </p>
                             <div v-for="(step, i) in steps" :key="i" class="d-flex gap-2 mb-2 align-items-start">
@@ -40,7 +40,7 @@
                         <div class="mt-auto">
                             <Link href="/peserta/login" class="btn btn-sm w-100 mb-2"
                                 style="background:#fff;color:#1f2937;font-weight:600;border:none">
-                                <i class="fa fa-sign-in me-1"></i> Sudah punya akun? Login
+                                <i class="fa fa-sign-in-alt me-1"></i> Sudah punya akun? Login
                             </Link>
                             <Link href="/peserta/panduan" class="btn btn-sm w-100"
                                 style="background:transparent;color:#fff;font-weight:600;border:1px solid rgba(255,255,255,.45)">
@@ -63,9 +63,9 @@
 
                         <form @submit.prevent="submit">
                             <div class="mb-3">
-                                <label class="fw-semibold small">Nama Lengkap</label>
+                                <label class="fw-bolder small">Nama Lengkap</label>
                                 <div class="input-group mt-1">
-                                    <span class="input-group-text bg-light">
+                                    <span class="input-group-text bg-gray-100">
                                         <i class="fa fa-user text-muted"></i>
                                     </span>
                                     <input type="text" class="form-control" v-model="form.name"
@@ -76,9 +76,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="fw-semibold small">Email</label>
+                                <label class="fw-bolder small">Email</label>
                                 <div class="input-group mt-1">
-                                    <span class="input-group-text bg-light">
+                                    <span class="input-group-text bg-gray-100">
                                         <i class="fa fa-envelope text-muted"></i>
                                     </span>
                                     <input type="email" class="form-control" v-model="form.email"
@@ -89,9 +89,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="fw-semibold small">Password</label>
+                                <label class="fw-bolder small">Password</label>
                                 <div class="input-group mt-1">
-                                    <span class="input-group-text bg-light">
+                                    <span class="input-group-text bg-gray-100">
                                         <i class="fa fa-lock text-muted"></i>
                                     </span>
                                     <input :type="showPass ? 'text' : 'password'" class="form-control"
@@ -105,9 +105,9 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="fw-semibold small">Konfirmasi Password</label>
+                                <label class="fw-bolder small">Konfirmasi Password</label>
                                 <div class="input-group mt-1">
-                                    <span class="input-group-text bg-light">
+                                    <span class="input-group-text bg-gray-100">
                                         <i class="fa fa-lock text-muted"></i>
                                     </span>
                                     <input type="password" class="form-control"
@@ -117,7 +117,7 @@
                             </div>
 
                             <div class="d-grid mb-3">
-                                <button type="submit" class="btn btn-dark" :disabled="processing">
+                                <button type="submit" class="btn btn-gray-800" :disabled="processing">
                                     <i class="fa fa-user-plus me-1"></i>
                                     {{ processing ? 'Memproses...' : 'Buat Akun' }}
                                 </button>
@@ -125,16 +125,16 @@
 
                             <p class="text-center small text-muted mb-0">
                                 Sudah punya akun?
-                                <Link href="/peserta/login" class="text-decoration-none fw-semibold">Login di sini</Link>
+                                <Link href="/peserta/login" class="text-decoration-none fw-bolder">Login di sini</Link>
                             </p>
                         </form>
 
                         <!-- Info ujian di mobile -->
                         <div class="d-md-none mt-4 p-3 rounded" style="background:#f8f9fa;border:1px solid #e9ecef">
-                            <p class="small fw-semibold mb-1">
+                            <p class="small fw-bolder mb-1">
                                 <i class="fa fa-desktop me-1 text-muted"></i>Ingin ikut ujian?
                             </p>
-                            <Link href="/" class="btn btn-sm btn-dark mt-1">Login dengan No. Peserta</Link>
+                            <Link href="/" class="btn btn-sm btn-gray-800 mt-1">Login dengan No. Peserta</Link>
                         </div>
                     </div>
 

@@ -148,12 +148,12 @@
                         </div>
 
                         <div class="mt-3 small text-muted border-top pt-2">
-                            <div class="fw-semibold mb-1">Keterangan Kolom:</div>
+                            <div class="fw-bolder mb-1">Keterangan Kolom:</div>
                             <div class="row g-1">
-                                <div class="col-md-6"><span class="fw-semibold">(A) Gaya</span> — Gaya Wawancara</div>
-                                <div class="col-md-6"><span class="fw-semibold">(B) Penguasaan</span> — Penguasaan Materi</div>
-                                <div class="col-md-6"><span class="fw-semibold">(C) Pertanyaan</span> — Kemampuan Menghadapi Pertanyaan</div>
-                                <div class="col-md-6"><span class="fw-semibold">(D) Worksheet</span> — Hasil Pengerjaan Worksheet Ujian Keterampilan</div>
+                                <div class="col-md-6"><span class="fw-bolder">(A) Gaya</span> — Gaya Wawancara</div>
+                                <div class="col-md-6"><span class="fw-bolder">(B) Penguasaan</span> — Penguasaan Materi</div>
+                                <div class="col-md-6"><span class="fw-bolder">(C) Pertanyaan</span> — Kemampuan Menghadapi Pertanyaan</div>
+                                <div class="col-md-6"><span class="fw-bolder">(D) Worksheet</span> — Hasil Pengerjaan Worksheet Ujian Keterampilan</div>
                             </div>
                             <div class="mt-1">* Total = rata-rata (A + B + C + D) — bobot {{ (bobot * 100).toFixed(1) }}% baru diterapkan saat menghitung Nilai Akhir</div>
                         </div>

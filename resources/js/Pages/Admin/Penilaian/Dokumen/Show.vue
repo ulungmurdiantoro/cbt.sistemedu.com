@@ -20,14 +20,14 @@
                                 <i class="fa fa-user me-2"></i>{{ student.name }}
                             </h6>
                             <div class="small text-muted">
-                                No. Peserta: <span class="fw-semibold">{{ student.no_participant }}</span>
+                                No. Peserta: <span class="fw-bolder">{{ student.no_participant }}</span>
                                 &nbsp;|&nbsp; Sesi: {{ exam_session.title }}
                             </div>
                         </div>
                         <div class="col-md-4 text-md-end mt-2 mt-md-0">
                             <span v-if="!application" class="badge bg-secondary">Belum ada aplikasi</span>
                             <span v-else class="badge"
-                                :class="application.status === 'approved' ? 'bg-success' : application.status === 'submitted' ? 'bg-warning text-dark' : 'bg-secondary'">
+                                :class="application.status === 'approved' ? 'bg-success' : application.status === 'submitted' ? 'bg-warning text-gray-800' : 'bg-secondary'">
                                 {{ statusLabel(application.status) }}
                             </span>
                         </div>
@@ -44,7 +44,7 @@
             <template v-else>
                 <!-- Verifikasi Akhir -->
                 <div class="card border-0 shadow mb-3">
-                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                    <div class="card-header bg-gray-800 text-white fw-bolder">
                         <i class="fa fa-signature me-2"></i>Verifikasi Akhir
                     </div>
                     <div class="card-body">
@@ -83,12 +83,12 @@
 
                             <div class="d-flex gap-1 mb-2">
                                 <button type="button" class="btn btn-sm flex-fill"
-                                    :class="asesorSigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                                    :class="asesorSigMode === 'draw' ? 'btn-gray-800' : 'btn-gray-100 border'"
                                     @click="switchAsesorSigMode('draw')">
                                     <i class="fa fa-pen me-1"></i>Gambar
                                 </button>
                                 <button type="button" class="btn btn-sm flex-fill"
-                                    :class="asesorSigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                                    :class="asesorSigMode === 'upload' ? 'btn-gray-800' : 'btn-gray-100 border'"
                                     @click="switchAsesorSigMode('upload')">
                                     <i class="fa fa-upload me-1"></i>Upload
                                 </button>
@@ -98,7 +98,7 @@
                                 <div class="border rounded bg-white" style="touch-action:none">
                                     <canvas ref="asesorSigCanvas" style="display:block; width:100%; height:140px; cursor:crosshair"></canvas>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-light border mt-1" @click="clearAsesorSig">
+                                <button type="button" class="btn btn-sm btn-gray-100 border mt-1" @click="clearAsesorSig">
                                     <i class="fa fa-eraser me-1"></i>Hapus
                                 </button>
                             </div>
@@ -153,7 +153,7 @@
                                     <button class="btn btn-sm btn-success" :disabled="finalSaving" @click="submitFinalVerify">
                                         {{ finalSaving ? 'Menyimpan...' : 'Ya, Tandatangani' }}
                                     </button>
-                                    <button class="btn btn-sm btn-light border" @click="showFinalConfirm = false">Batal</button>
+                                    <button class="btn btn-sm btn-gray-100 border" @click="showFinalConfirm = false">Batal</button>
                                 </div>
                             </div>
                         </div>

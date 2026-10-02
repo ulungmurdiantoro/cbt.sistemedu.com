@@ -70,12 +70,12 @@
                         <template v-for="(step, idx) in appSteps(app)" :key="idx">
                             <div class="d-flex flex-column align-items-center text-center" style="min-width:52px">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center mb-1"
-                                    :class="step.done ? 'bg-success text-white' : 'bg-light border text-muted'"
+                                    :class="step.done ? 'bg-success text-white' : 'bg-gray-100 border text-muted'"
                                     style="width:26px;height:26px;font-size:0.75rem;flex-shrink:0">
                                     <i v-if="step.done" class="fa fa-check"></i>
                                     <span v-else>{{ idx + 1 }}</span>
                                 </div>
-                                <div :class="step.done ? 'text-success fw-semibold' : 'text-muted'">{{ step.label }}</div>
+                                <div :class="step.done ? 'text-success fw-bolder' : 'text-muted'">{{ step.label }}</div>
                             </div>
                             <div v-if="idx < 3" class="flex-fill mt-2 mx-1"
                                 :style="{ borderTop: '2px solid', borderColor: step.done ? '#198754' : '#dee2e6' }">
@@ -167,7 +167,7 @@
                                 <span :class="app.result.keputusan === 'LULUS' ? 'badge bg-success' : 'badge bg-danger'">
                                     {{ app.result.keputusan === 'LULUS' ? 'KOMPETEN' : 'BELUM KOMPETEN' }}
                                 </span>
-                                <span v-if="app.result.attempt > 1" class="badge bg-warning text-dark">Remidi</span>
+                                <span v-if="app.result.attempt > 1" class="badge bg-warning text-gray-800">Remidi</span>
                             </div>
                             <div v-if="app.result.distributed_at && app.result.keputusan === 'LULUS' && !app.result.fr_ak_14_completed" class="alert alert-warning p-2 small mb-2">
                                 <i class="fa fa-stamp me-1"></i>
@@ -262,7 +262,7 @@
                     <button class="btn btn-warning" @click="doRemidi" :disabled="processing">
                         <i class="fa fa-redo me-1"></i>{{ processing ? 'Memproses...' : 'Konfirmasi Remidi' }}
                     </button>
-                    <button class="btn btn-light border" @click="remidiTarget = null">Batal</button>
+                    <button class="btn btn-gray-100 border" @click="remidiTarget = null">Batal</button>
                 </div>
             </div>
         </div>
@@ -289,7 +289,7 @@
                     <button class="btn btn-warning" @click="confirmRevisi" :disabled="processing">
                         <i class="fa fa-edit me-1"></i>{{ processing ? 'Memproses...' : 'Mulai Revisi' }}
                     </button>
-                    <button class="btn btn-light border" @click="revisiTarget = null">Batal</button>
+                    <button class="btn btn-gray-100 border" @click="revisiTarget = null">Batal</button>
                 </div>
             </div>
         </div>
@@ -354,7 +354,7 @@ export default {
 
         const statusBadge = (status) => ({
             draft:     'bg-secondary',
-            submitted: 'bg-warning text-dark',
+            submitted: 'bg-warning text-gray-800',
             approved:  'bg-success',
             rejected:  'bg-danger',
         }[status] ?? 'bg-secondary');

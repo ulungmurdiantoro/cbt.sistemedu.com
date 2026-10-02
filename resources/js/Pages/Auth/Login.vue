@@ -17,14 +17,14 @@
 
                     <form @submit.prevent="submit">
                         <div class="mb-3">
-                            <label class="fw-semibold small">Email</label>
+                            <label class="fw-bolder small">Email</label>
                             <div class="input-group mt-1">
                                 <span class="input-group-text"><i class="fa fa-envelope text-muted"></i></span>
                                 <input type="email" class="form-control" v-model="form.email" placeholder="Email Address">
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label class="fw-semibold small">Password</label>
+                            <label class="fw-bolder small">Password</label>
                             <div class="input-group mt-1">
                                 <span class="input-group-text"><i class="fa fa-lock text-muted"></i></span>
                                 <input type="password" class="form-control" v-model="form.password" placeholder="Password">

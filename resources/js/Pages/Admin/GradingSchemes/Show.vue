@@ -41,7 +41,7 @@
                                 <!-- Ujian Tulis -->
                                 <tr>
                                     <td>
-                                        <div class="fw-semibold small">Ujian Tulis</div>
+                                        <div class="fw-bolder small">Ujian Tulis</div>
                                         <div class="text-muted" style="font-size:0.78rem">
                                             PG {{ form.proporsi_pg }}% &nbsp;+&nbsp; Esai {{ proporsiEsai.toFixed(2) }}%
                                         </div>
@@ -55,17 +55,17 @@
                                 <!-- Ujian Lisan -->
                                 <tr>
                                     <td>
-                                        <div class="fw-semibold small">Ujian Lisan + Keterampilan</div>
+                                        <div class="fw-bolder small">Ujian Lisan + Keterampilan</div>
                                         <div class="text-muted" style="font-size:0.78rem">Wawancara</div>
                                     </td>
                                     <td class="text-center fw-bold">{{ form.bobot_wawancara }}%</td>
                                     <td class="text-center">
-                                        <span class="badge bg-warning text-dark">{{ form.bobot_wawancara }}%</span>
+                                        <span class="badge bg-warning text-gray-800">{{ form.bobot_wawancara }}%</span>
                                     </td>
                                 </tr>
                                 <!-- Total -->
                                 <tr class="table-secondary">
-                                    <td class="fw-semibold small">Total</td>
+                                    <td class="fw-bolder small">Total</td>
                                     <td class="text-center fw-bold"
                                         :class="totalBobot === 100 ? 'text-success' : 'text-danger'">
                                         {{ totalBobot.toFixed(2) }}%
@@ -76,7 +76,7 @@
                                 </tr>
                                 <!-- Nilai Kelulusan -->
                                 <tr>
-                                    <td class="fw-semibold small">Nilai Kelulusan</td>
+                                    <td class="fw-bolder small">Nilai Kelulusan</td>
                                     <td class="text-center fw-bold" colspan="2">{{ form.nilai_kelulusan }}%</td>
                                 </tr>
                             </tbody>
@@ -89,14 +89,14 @@
         <!-- Form edit (kanan) -->
         <div class="col-12 col-lg-5">
             <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-semibold">
+                <div class="card-header bg-gray-800 text-white fw-bolder">
                     Rekapitulasi Hasil Pembobotan Penilaian
                 </div>
                 <div class="card-body">
                     <form @submit.prevent="submit">
 
                         <div class="mb-3">
-                            <label class="fw-semibold small">Bobot Ujian Tulis (PG + Esai) <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small">Bobot Ujian Tulis (PG + Esai) <span class="text-danger">*</span></label>
                             <div class="input-group mt-1">
                                 <input type="number" class="form-control" v-model.number="form.bobot_ujian_tulis"
                                     min="0" max="100" step="0.01" @input="syncBobotLisan">
@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="fw-semibold small">Proporsi PG dalam Ujian Tulis <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small">Proporsi PG dalam Ujian Tulis <span class="text-danger">*</span></label>
                             <div class="input-group mt-1">
                                 <input type="number" class="form-control" v-model.number="form.proporsi_pg"
                                     min="0" max="100" step="0.01">
@@ -115,7 +115,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="fw-semibold small">Bobot Ujian Lisan + Keterampilan <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small">Bobot Ujian Lisan + Keterampilan <span class="text-danger">*</span></label>
                             <div class="input-group mt-1">
                                 <input type="number" class="form-control" v-model.number="form.bobot_wawancara"
                                     min="0" max="100" step="0.01" @input="syncBobotTulis">
@@ -124,7 +124,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="fw-semibold small">Nilai Kelulusan <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small">Nilai Kelulusan <span class="text-danger">*</span></label>
                             <div class="input-group mt-1">
                                 <input type="number" class="form-control" v-model.number="form.nilai_kelulusan"
                                     min="0" max="100" step="0.01">

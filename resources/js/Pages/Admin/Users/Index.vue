@@ -14,7 +14,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control border-0 shadow" v-model="search"
                             placeholder="Cari nama, email, atau kode...">
-                        <button type="submit" class="btn btn-dark border-0 shadow">
+                        <button type="submit" class="btn btn-gray-800 border-0 shadow">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -47,7 +47,7 @@
                                 </td>
                                 <td class="small text-muted">{{ user.users_code }}</td>
                                 <td>
-                                    <span class="fw-semibold">{{ user.name }}</span>
+                                    <span class="fw-bolder">{{ user.name }}</span>
                                     <StatusBadge v-if="user.id === $page.props.auth.user.id" tone="accent" label="Anda" class="ms-1" />
                                 </td>
                                 <td class="small">{{ user.email }}</td>

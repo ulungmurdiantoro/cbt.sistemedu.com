@@ -42,7 +42,7 @@
                                     <template v-for="(session, index) in exam_sessions" :key="session.id">
                                         <!-- Separator sebelum baris pertama yang sudah selesai -->
                                         <tr v-if="isFirstFinished(index)" class="separator-row">
-                                            <td colspan="6" class="py-1 px-3 text-muted small fw-semibold border-0"
+                                            <td colspan="6" class="py-1 px-3 text-muted small fw-bolder border-0"
                                                 style="background:#f8f9fa; border-top:2px dashed #dee2e6 !important;">
                                                 <i class="fa fa-check-circle me-1 text-secondary"></i> Sesi Selesai
                                             </td>
@@ -69,7 +69,7 @@
                                                         <span class="badge bg-success me-1">Esai</span>{{ session.exam_esai.title }}
                                                     </li>
                                                     <li v-if="session.has_wawancara">
-                                                        <span class="badge bg-warning text-dark me-1">Wawancara</span>
+                                                        <span class="badge bg-warning text-gray-800 me-1">Wawancara</span>
                                                     </li>
                                                     <li v-if="!session.exam_pg && !session.exam_esai && !session.has_wawancara"
                                                         class="text-muted">—</li>

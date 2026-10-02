@@ -52,12 +52,12 @@
                         <div v-if="!has_signature || showSigForm" :class="{ 'mt-3': has_signature }">
                             <div class="d-flex gap-1 mb-2" style="max-width:300px">
                                 <button type="button" class="btn btn-sm flex-fill"
-                                    :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                                    :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-gray-100 border'"
                                     @click="switchSigMode('draw')">
                                     <i class="fa fa-pen me-1"></i>Gambar
                                 </button>
                                 <button type="button" class="btn btn-sm flex-fill"
-                                    :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                                    :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-gray-100 border'"
                                     @click="switchSigMode('upload')">
                                     <i class="fa fa-upload me-1"></i>Upload
                                 </button>
@@ -67,7 +67,7 @@
                                 <div class="border rounded bg-white" style="touch-action:none">
                                     <canvas ref="sigCanvas" style="display:block; width:100%; height:140px; cursor:crosshair"></canvas>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-light border mt-1" @click="clearSig">
+                                <button type="button" class="btn btn-sm btn-gray-100 border mt-1" @click="clearSig">
                                     <i class="fa fa-eraser me-1"></i>Hapus
                                 </button>
                             </div>

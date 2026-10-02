@@ -30,7 +30,7 @@
 
                         <div class="row g-3 mb-3">
                             <div class="col-md-4">
-                                <label class="form-label small fw-semibold">Foto Profil</label>
+                                <label class="form-label small fw-bolder">Foto Profil</label>
                                 <div class="d-flex align-items-center gap-3">
                                     <img v-if="photoPreview" :src="photoPreview" alt="Foto"
                                         style="width:80px;height:100px;object-fit:cover;border:1px solid #ddd;background:#fff">
@@ -40,11 +40,11 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label small fw-semibold">Tempat, Tanggal Lahir</label>
+                                <label class="form-label small fw-bolder">Tempat, Tanggal Lahir</label>
                                 <input type="text" class="form-control" v-model="form.tempat_tanggal_lahir" placeholder="mis. Surakarta, 7 Juli 1974">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label small fw-semibold">Jenis Kelamin</label>
+                                <label class="form-label small fw-bolder">Jenis Kelamin</label>
                                 <select class="form-select" v-model="form.jenis_kelamin">
                                     <option value="">-- Pilih --</option>
                                     <option value="Laki-Laki">Laki-Laki</option>
@@ -55,26 +55,26 @@
 
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold">Alamat Rumah</label>
+                                <label class="form-label small fw-bolder">Alamat Rumah</label>
                                 <textarea class="form-control" rows="2" v-model="form.alamat_rumah"></textarea>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold">Alamat Institusi/Kantor</label>
+                                <label class="form-label small fw-bolder">Alamat Institusi/Kantor</label>
                                 <textarea class="form-control" rows="2" v-model="form.alamat_institusi"></textarea>
                             </div>
                         </div>
 
                         <div class="row g-3">
                             <div class="col-md-4">
-                                <label class="form-label small fw-semibold">Nama Institusi/Kantor</label>
+                                <label class="form-label small fw-bolder">Nama Institusi/Kantor</label>
                                 <input type="text" class="form-control" v-model="form.nama_institusi">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label small fw-semibold">Nomor Handphone</label>
+                                <label class="form-label small fw-bolder">Nomor Handphone</label>
                                 <input type="text" class="form-control" v-model="form.no_handphone">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label small fw-semibold">Email</label>
+                                <label class="form-label small fw-bolder">Email</label>
                                 <input type="text" class="form-control" :value="$page.props.auth.user.email" disabled>
                                 <div class="form-text">Email login — ubah lewat pengaturan akun.</div>
                             </div>
@@ -112,7 +112,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-light border" @click="addRow('pendidikan_formal', { jenjang:'', sekolah:'', bidang_ilmu:'', tahun_lulus:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pendidikan_formal', { jenjang:'', sekolah:'', bidang_ilmu:'', tahun_lulus:'' })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>
@@ -148,7 +148,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-light border" @click="addRow('pelatihan', { judul_kegiatan:'', penyelenggara:'', tahun:'', lokasi:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pelatihan', { judul_kegiatan:'', penyelenggara:'', tahun:'', lokasi:'' })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>
@@ -184,7 +184,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-light border" @click="addRow('pengalaman_kerja', { jabatan:'', tahun:'', perusahaan:'', lokasi:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pengalaman_kerja', { jabatan:'', tahun:'', perusahaan:'', lokasi:'' })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>
@@ -200,7 +200,7 @@
                                 <i class="fa fa-trash"></i>
                             </button>
                         </div>
-                        <button type="button" class="btn btn-sm btn-light border" @click="form.keahlian.push('')">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="form.keahlian.push('')">
                             <i class="fa fa-plus me-1"></i> Tambah Keahlian
                         </button>
                     </div>
@@ -234,7 +234,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-light border" @click="addRow('pengalaman_profesional', { pengalaman:'', penyelenggara:'', tahun:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('pengalaman_profesional', { pengalaman:'', penyelenggara:'', tahun:'' })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>
@@ -272,7 +272,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" class="btn btn-sm btn-light border" @click="addRow('sertifikasi_kompetensi', { jenis_sertifikasi:'', bidang_ilmu:'', penyelenggara:'', tahun:'', masa_berlaku:'' })">
+                        <button type="button" class="btn btn-sm btn-gray-100 border" @click="addRow('sertifikasi_kompetensi', { jenis_sertifikasi:'', bidang_ilmu:'', penyelenggara:'', tahun:'', masa_berlaku:'' })">
                             <i class="fa fa-plus me-1"></i> Tambah Baris
                         </button>
                     </div>

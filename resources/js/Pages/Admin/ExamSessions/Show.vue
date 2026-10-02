@@ -49,7 +49,7 @@
                                     <tr>
                                         <td class="fw-bold">Ujian Wawancara</td>
                                         <td>
-                                            <span v-if="exam_session.has_wawancara" class="badge bg-warning text-dark">Aktif</span>
+                                            <span v-if="exam_session.has_wawancara" class="badge bg-warning text-gray-800">Aktif</span>
                                             <span v-else class="text-muted">—</span>
                                         </td>
                                     </tr>

@@ -3,12 +3,12 @@
         <div class="card-body">
             <!-- Badge status -->
             <div class="mb-2">
-                <span v-if="variant === 'active'" class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
-                    <i class="fa fa-circle-dot me-1"></i>Aktif
-                </span>
-                <span v-else class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-1">
+                <StatusBadge v-if="variant === 'active'" tone="success">
+                    <i class="fa fa-dot-circle me-1"></i>Aktif
+                </StatusBadge>
+                <StatusBadge v-else tone="neutral">
                     <i class="fa fa-check-circle me-1"></i>Selesai
-                </span>
+                </StatusBadge>
             </div>
 
             <h6 class="fw-bold mb-1">{{ session.title }}</h6>
@@ -23,7 +23,7 @@
                 <span v-if="session.examEsai">
                     <i v-if="!session.examPg" class="fa fa-book me-1"></i>
                     {{ session.examEsai.title }}
-                    <span class="badge bg-warning text-dark ms-1">{{ session.examEsai.type }}</span>
+                    <span class="badge bg-warning text-gray-800 ms-1">{{ session.examEsai.type }}</span>
                 </span>
             </p>
 
@@ -44,7 +44,7 @@
                     <i class="fa fa-comments me-1"></i> Wawancara
                 </Link>
                 <Link :href="'/asesor/penilaian/' + session.id + '/laporan-asesmen'"
-                    :class="variant === 'completed' ? 'btn btn-sm btn-outline-dark' : 'btn btn-sm btn-dark border-0 shadow'">
+                    :class="variant === 'completed' ? 'btn btn-sm btn-outline-dark' : 'btn btn-sm btn-gray-800 border-0 shadow'">
                     <i class="fa fa-file-alt me-1"></i> Laporan
                 </Link>
                 <Link :href="'/asesor/penilaian/' + session.id + '/ttd-ak01'"
@@ -58,9 +58,10 @@
 
 <script>
 import { Link } from '@inertiajs/vue3';
+import StatusBadge from '../../Components/StatusBadge.vue';
 
 export default {
-    components: { Link },
+    components: { Link, StatusBadge },
     props: {
         session: { type: Object, required: true },
         variant: { type: String, default: 'active' }, // 'active' | 'completed'

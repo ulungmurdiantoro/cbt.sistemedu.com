@@ -97,7 +97,7 @@
                             <li v-for="d in dokumen" :key="d"><i class="fa fa-file"></i>{{ d }}</li>
                         </ul>
                         <div class="pg-hint">
-                            <i class="fa fa-circle-info"></i>
+                            <i class="fa fa-info-circle"></i>
                             Format <strong>PDF / JPG / PNG</strong>, maksimal <strong>5&nbsp;MB</strong> per file.
                             Daftar dokumen persis mengikuti skema yang Anda pilih.
                         </div>

@@ -25,7 +25,7 @@
                             <tr v-for="(s, i) in sessions.data" :key="s.id">
                                 <td class="text-center fw-bold">{{ i + 1 + (sessions.current_page - 1) * sessions.per_page }}</td>
                                 <td>
-                                    <div class="fw-semibold">{{ s.title }}</div>
+                                    <div class="fw-bolder">{{ s.title }}</div>
                                     <div class="text-muted small">{{ s.start_time }} – {{ s.end_time }}</div>
                                 </td>
                                 <td class="small">{{ s.kode_batch }}</td>

@@ -14,10 +14,10 @@
             </div>
             <div class="d-flex flex-column align-items-end gap-1">
                 <div class="d-flex gap-2">
-                    <button class="btn btn-sm btn-outline-success fw-semibold" @click="distributeSp" :disabled="!hasFinalized">
+                    <button class="btn btn-sm btn-outline-success fw-bolder" @click="distributeSp" :disabled="!hasFinalized">
                         <i class="fa fa-paper-plane me-1"></i> 1. Kirim SP
                     </button>
-                    <button class="btn btn-sm btn-success text-white fw-semibold" @click="distribute" :disabled="!hasFinalized">
+                    <button class="btn btn-sm btn-success text-white fw-bolder" @click="distribute" :disabled="!hasFinalized">
                         <i class="fa fa-paper-plane me-1"></i> 2. Kirim SK &amp; Sertifikat
                     </button>
                 </div>
@@ -74,7 +74,7 @@
                                 <td class="small">{{ row.no_participant }}</td>
                                 <td>
                                     {{ row.name }}
-                                    <span v-if="row.attempt > 1" class="badge bg-warning text-dark ms-1 small">Remidi</span>
+                                    <span v-if="row.attempt > 1" class="badge bg-warning text-gray-800 ms-1 small">Remidi</span>
                                 </td>
                                 <td class="text-center num" v-if="exam_session.exam_id_pg">
                                     {{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}
@@ -105,13 +105,13 @@
                                 <td class="small" style="min-width:140px;">
                                     <div v-if="row.is_finalized">
                                         <div v-if="row.sp_number" class="text-muted">
-                                            <span class="fw-semibold">SP:</span> {{ row.sp_number }}
+                                            <span class="fw-bolder">SP:</span> {{ row.sp_number }}
                                         </div>
                                         <div v-if="row.sk_number" class="text-muted">
-                                            <span class="fw-semibold">SK:</span> {{ row.sk_number }}
+                                            <span class="fw-bolder">SK:</span> {{ row.sk_number }}
                                         </div>
                                         <div v-if="row.sertifikat_number" class="text-muted">
-                                            <span class="fw-semibold">Sert:</span> {{ row.sertifikat_number }}
+                                            <span class="fw-bolder">Sert:</span> {{ row.sertifikat_number }}
                                         </div>
                                     </div>
                                     <span v-else class="text-muted">—</span>

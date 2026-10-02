@@ -25,7 +25,7 @@
                         <hr style="border-color:rgba(255,255,255,.15)">
 
                         <div class="mb-4">
-                            <p class="small fw-semibold mb-3">
+                            <p class="small fw-bolder mb-3">
                                 <i class="fa fa-info-circle me-1"></i>Tentang Portal Ini
                             </p>
                             <p class="small mb-0" style="opacity:.8;line-height:1.6">
@@ -64,9 +64,9 @@
 
                         <form @submit.prevent="submit">
                             <div class="mb-3">
-                                <label class="fw-semibold small">Email</label>
+                                <label class="fw-bolder small">Email</label>
                                 <div class="input-group mt-1">
-                                    <span class="input-group-text bg-light">
+                                    <span class="input-group-text bg-gray-100">
                                         <i class="fa fa-envelope text-muted"></i>
                                     </span>
                                     <input type="email" class="form-control" v-model="form.email"
@@ -77,9 +77,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="fw-semibold small">Password</label>
+                                <label class="fw-bolder small">Password</label>
                                 <div class="input-group mt-1">
-                                    <span class="input-group-text bg-light">
+                                    <span class="input-group-text bg-gray-100">
                                         <i class="fa fa-lock text-muted"></i>
                                     </span>
                                     <input :type="showPass ? 'text' : 'password'" class="form-control"
@@ -101,24 +101,24 @@
                             </div>
 
                             <div class="d-grid mb-3">
-                                <button type="submit" class="btn btn-dark" :disabled="processing">
-                                    <i class="fa fa-sign-in me-1"></i>
+                                <button type="submit" class="btn btn-gray-800" :disabled="processing">
+                                    <i class="fa fa-sign-in-alt me-1"></i>
                                     {{ processing ? 'Memproses...' : 'Login' }}
                                 </button>
                             </div>
 
                             <p class="text-center small text-muted mb-0">
                                 Belum punya akun?
-                                <Link href="/peserta/register" class="text-decoration-none fw-semibold">Daftar di sini</Link>
+                                <Link href="/peserta/register" class="text-decoration-none fw-bolder">Daftar di sini</Link>
                             </p>
                         </form>
 
                         <!-- Info ujian di mobile -->
                         <div class="d-md-none mt-4 p-3 rounded" style="background:#f8f9fa;border:1px solid #e9ecef">
-                            <p class="small fw-semibold mb-1">
+                            <p class="small fw-bolder mb-1">
                                 <i class="fa fa-desktop me-1 text-muted"></i>Ingin ikut ujian?
                             </p>
-                            <Link href="/" class="btn btn-sm btn-dark mt-1">Login dengan No. Peserta</Link>
+                            <Link href="/" class="btn btn-sm btn-gray-800 mt-1">Login dengan No. Peserta</Link>
                         </div>
                     </div>
 

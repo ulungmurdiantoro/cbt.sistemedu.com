@@ -11,7 +11,7 @@
                             aria-expanded="false">
                             <div class="media d-flex align-items-center">
                                 <img class="avatar rounded-circle" alt="Image placeholder" :src="`https://ui-avatars.com/api/?name=${$page.props.auth.user.name}&amp;background=4e73df&amp;color=ffffff&amp;size=100`">
-                                <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
+                                <div class="media-body ms-2 text-gray-800 align-items-center d-none d-lg-block">
                                     <span class="mb-0 font-small fw-bold text-gray-900">{{ $page.props.auth.user.name }}</span>
                                 </div>
                             </div>

@@ -13,7 +13,7 @@
             <!-- SP -->
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                    <div class="card-header bg-gray-800 text-white fw-bolder">
                         <i class="fa fa-envelope-open me-2"></i>Surat Pemberitahuan (SP)
                     </div>
                     <div class="card-body">
@@ -31,7 +31,7 @@
             <!-- SK -->
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                    <div class="card-header bg-gray-800 text-white fw-bolder">
                         <i class="fa fa-gavel me-2"></i>Surat Keputusan (SK)
                     </div>
                     <div class="card-body">
@@ -50,7 +50,7 @@
             <!-- Sertifikat -->
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                    <div class="card-header bg-gray-800 text-white fw-bolder">
                         <i class="fa fa-certificate me-2"></i>Sertifikat Kompetensi
                     </div>
                     <div class="card-body">

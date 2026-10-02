@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-md-auto">
                     <button type="submit" class="btn btn-sm btn-gray-800">Filter</button>
-                    <button type="button" class="btn btn-sm btn-light border ms-1" @click="resetFilter">Reset</button>
+                    <button type="button" class="btn btn-sm btn-gray-100 border ms-1" @click="resetFilter">Reset</button>
                     <a :href="exportUrl" class="btn btn-sm btn-success ms-1">
                         <i class="fa fa-file-excel me-1"></i>Export Excel
                     </a>
@@ -85,11 +85,11 @@
                         </tr>
                         <tr v-for="app in applications.data" :key="app.id">
                             <td>
-                                <div class="fw-semibold small">{{ app.participant?.name }}</div>
+                                <div class="fw-bolder small">{{ app.participant?.name }}</div>
                                 <div class="text-muted" style="font-size:0.78rem">{{ app.participant?.email }}</div>
                             </td>
                             <td>
-                                <div class="small fw-semibold text-truncate" style="max-width:340px" :title="app.classroom?.title">
+                                <div class="small fw-bolder text-truncate" style="max-width:340px" :title="app.classroom?.title">
                                     {{ app.classroom?.title ?? '—' }}
                                 </div>
                                 <div class="text-muted text-truncate" style="font-size:0.78rem; max-width:340px" :title="app.exam_session?.title">

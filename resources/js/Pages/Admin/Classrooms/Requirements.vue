@@ -44,7 +44,7 @@
                                 <tr v-for="(req, i) in requirements" :key="req.id">
                                     <td>{{ req.order || i + 1 }}</td>
                                     <td>
-                                        <div class="fw-semibold small text-break">{{ req.label }}</div>
+                                        <div class="fw-bolder small text-break">{{ req.label }}</div>
                                         <div class="text-muted text-break" style="font-size:0.78rem">{{ req.code }}</div>
                                         <div v-if="req.description" class="text-muted text-break" style="font-size:0.78rem">{{ req.description }}</div>
                                     </td>
@@ -74,38 +74,38 @@
         <!-- Form tambah/edit -->
         <div class="col-12 col-lg-5">
             <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-semibold">
+                <div class="card-header bg-gray-800 text-white fw-bolder">
                     {{ editMode ? 'Edit Persyaratan' : 'Tambah Persyaratan' }}
                 </div>
                 <div class="card-body">
                     <form @submit.prevent="saveReq">
                         <div class="mb-3">
-                            <label class="fw-semibold small">Kode <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small">Kode <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" v-model="form.code" placeholder="contoh: ijazah">
                             <div v-if="errors.code" class="text-danger small mt-1">{{ errors.code }}</div>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-semibold small">Label <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small">Label <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" v-model="form.label" placeholder="contoh: Ijazah Pendidikan">
                             <div v-if="errors.label" class="text-danger small mt-1">{{ errors.label }}</div>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-semibold small">Deskripsi</label>
+                            <label class="fw-bolder small">Deskripsi</label>
                             <textarea class="form-control" rows="2" v-model="form.description"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="fw-semibold small">Urutan</label>
+                            <label class="fw-bolder small">Urutan</label>
                             <input type="number" class="form-control" v-model="form.order" min="0">
                         </div>
                         <div class="mb-4 form-check">
                             <input type="checkbox" class="form-check-input" id="is_required" v-model="form.is_required">
-                            <label class="form-check-label fw-semibold small" for="is_required">Dokumen Wajib</label>
+                            <label class="form-check-label fw-bolder small" for="is_required">Dokumen Wajib</label>
                         </div>
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-gray-800 btn-sm" :disabled="saving">
                                 {{ saving ? 'Menyimpan...' : (editMode ? 'Update' : 'Tambah') }}
                             </button>
-                            <button v-if="editMode" type="button" class="btn btn-light btn-sm border" @click="cancelEdit">
+                            <button v-if="editMode" type="button" class="btn btn-gray-100 btn-sm border" @click="cancelEdit">
                                 Batal
                             </button>
                         </div>

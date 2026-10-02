@@ -6,17 +6,17 @@
         <div class="row justify-content-center">
             <div class="col-md-7">
                 <div class="card border-0 shadow">
-                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                    <div class="card-header bg-gray-800 text-white fw-bolder">
                         <i class="fa fa-user-plus me-2"></i> Tambah User Baru
                     </div>
                     <div class="card-body">
                         <form @submit.prevent="submit">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Kode User <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Kode User <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <input v-model="form.users_code" type="text" class="form-control" placeholder="otomatis ter-generate">
                                     <button type="button" class="btn btn-outline-secondary" @click="form.users_code = generateCode(form.roles)" title="Generate ulang">
-                                        <i class="fa fa-refresh"></i> Generate Ulang
+                                        <i class="fa fa-sync"></i> Generate Ulang
                                     </button>
                                 </div>
                                 <div class="form-text small">Kode otomatis berdasarkan role. Anda tetap bisa mengubahnya secara manual.</div>
@@ -24,19 +24,19 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Nama Lengkap <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Nama Lengkap <span class="text-danger">*</span></label>
                                 <input v-model="form.name" type="text" class="form-control" placeholder="Nama lengkap">
                                 <div v-if="errors.name" class="text-danger small mt-1">{{ errors.name }}</div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Email <span class="text-danger">*</span></label>
                                 <input v-model="form.email" type="email" class="form-control" placeholder="email@contoh.com">
                                 <div v-if="errors.email" class="text-danger small mt-1">{{ errors.email }}</div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Role <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Role <span class="text-danger">*</span></label>
                                 <div class="form-text small mb-1">Satu user bisa punya lebih dari satu role.</div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="admin" v-model="form.roles" id="role-admin">
@@ -54,13 +54,13 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Password <span class="text-danger">*</span></label>
                                 <input v-model="form.password" type="password" class="form-control" placeholder="Minimal 8 karakter">
                                 <div v-if="errors.password" class="text-danger small mt-1">{{ errors.password }}</div>
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label fw-semibold">Konfirmasi Password <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Konfirmasi Password <span class="text-danger">*</span></label>
                                 <input v-model="form.password_confirmation" type="password" class="form-control" placeholder="Ulangi password">
                             </div>
 
@@ -68,7 +68,7 @@
                                 <button type="submit" class="btn btn-gray-800" :disabled="processing">
                                     {{ processing ? 'Menyimpan...' : 'Simpan' }}
                                 </button>
-                                <Link href="/admin/users" class="btn btn-light border">Batal</Link>
+                                <Link href="/admin/users" class="btn btn-gray-100 border">Batal</Link>
                             </div>
                         </form>
                     </div>

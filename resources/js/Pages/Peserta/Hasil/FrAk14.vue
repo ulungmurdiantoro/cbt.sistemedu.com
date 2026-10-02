@@ -35,10 +35,10 @@
 
             <p>Yang bertanda tangan dibawah ini:</p>
             <table class="table table-borderless table-sm mb-3 table-wrap" style="font-size:0.88rem">
-                <tr><td style="width:140px" class="fw-semibold">Nama</td><td style="width:10px">:</td><td>{{ namaPeserta }}</td></tr>
-                <tr><td class="fw-semibold">NIK</td><td>:</td><td>{{ nik }}</td></tr>
-                <tr><td class="fw-semibold">Skema</td><td>:</td><td>{{ namaSkema }}</td></tr>
-                <tr><td class="fw-semibold">No. Sertifikat</td><td>:</td><td>{{ noSertifikat }}</td></tr>
+                <tr><td style="width:140px" class="fw-bolder">Nama</td><td style="width:10px">:</td><td>{{ namaPeserta }}</td></tr>
+                <tr><td class="fw-bolder">NIK</td><td>:</td><td>{{ nik }}</td></tr>
+                <tr><td class="fw-bolder">Skema</td><td>:</td><td>{{ namaSkema }}</td></tr>
+                <tr><td class="fw-bolder">No. Sertifikat</td><td>:</td><td>{{ noSertifikat }}</td></tr>
             </table>
 
             <p>Menyatakan bersedia memenuhi ketentuan-ketentuan yang dipersyaratkan dalam Skema Sertifikasi LSP Edukasi Global Cendekia, sebagai berikut:</p>
@@ -77,7 +77,7 @@
             <div class="row mt-4">
                 <div class="col-md-6 offset-md-6 text-center">
                     <div class="small text-muted mb-1">................................., {{ formatTanggal(result.fr_ak_14_signed_at) }}</div>
-                    <div class="small fw-semibold mb-1">Yang menyatakan,</div>
+                    <div class="small fw-bolder mb-1">Yang menyatakan,</div>
                     <div v-if="result.fr_ak_14_signed_at" style="height:80px; display:flex; align-items:center; justify-content:center">
                         <img :src="`/peserta/hasil/${sessionId}/${studentId}/fr-ak-14/tanda-tangan`" style="max-height:74px; max-width:100%; object-fit:contain">
                     </div>
@@ -90,18 +90,18 @@
 
     <!-- Form TTD (hanya jika belum tanda tangan) -->
     <div class="card border-0 shadow mb-4" v-if="!result.fr_ak_14_signed_at">
-        <div class="card-header bg-gray-800 text-white fw-semibold">
+        <div class="card-header bg-gray-800 text-white fw-bolder">
             <i class="fa fa-pen me-2"></i>Tanda Tangan
         </div>
         <div class="card-body">
             <div class="d-flex gap-2 mb-3">
                 <button type="button" class="btn btn-sm"
-                    :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                    :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-gray-100 border'"
                     @click="switchMode('draw')">
                     <i class="fa fa-pen me-1"></i> Gambar TTD
                 </button>
                 <button type="button" class="btn btn-sm"
-                    :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                    :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-gray-100 border'"
                     @click="switchMode('upload')">
                     <i class="fa fa-upload me-1"></i> Upload Gambar TTD
                 </button>
@@ -112,7 +112,7 @@
                     <canvas ref="sigCanvas" style="display:block; width:100%; height:180px; cursor:crosshair"></canvas>
                 </div>
                 <div class="d-flex gap-2 mb-1">
-                    <button type="button" class="btn btn-sm btn-light border" @click="clearCanvas">
+                    <button type="button" class="btn btn-sm btn-gray-100 border" @click="clearCanvas">
                         <i class="fa fa-eraser me-1"></i> Hapus
                     </button>
                     <button type="button" class="btn btn-sm btn-success" @click="saveDrawn" :disabled="saving">
@@ -123,7 +123,7 @@
 
             <div v-show="sigMode === 'upload'">
                 <div class="mb-2">
-                    <label class="fw-semibold small">Pilih file gambar tanda tangan <span class="text-muted">(JPG / PNG, maks. 2 MB)</span></label>
+                    <label class="fw-bolder small">Pilih file gambar tanda tangan <span class="text-muted">(JPG / PNG, maks. 2 MB)</span></label>
                     <input type="file" class="form-control mt-1" accept="image/png,image/jpeg,image/jpg"
                         ref="sigFileInput" @change="onFileChange">
                 </div>
@@ -173,7 +173,7 @@
                 <i class="fa fa-hourglass-half text-warning" style="font-size:3rem"></i>
                 <h6 class="fw-bold mt-3">Materai Sedang Diproses</h6>
                 <p class="text-muted small mb-0">Silakan cek kembali beberapa saat lagi.</p>
-                <button class="btn btn-sm btn-light border mt-3" @click="reload">
+                <button class="btn btn-sm btn-gray-100 border mt-3" @click="reload">
                     <i class="fa fa-sync me-1"></i> Muat Ulang Status
                 </button>
             </template>

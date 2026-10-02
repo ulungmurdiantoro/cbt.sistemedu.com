@@ -56,7 +56,7 @@
 
             <!-- Tabel peserta -->
             <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-semibold d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div class="card-header bg-gray-800 text-white fw-bolder d-flex flex-wrap justify-content-between align-items-center gap-2">
                     <span>
                         <i class="fa fa-users me-2"></i>Daftar Peserta
                         <span class="badge bg-gray-200 text-gray-800 ms-2">{{ rows.length }}</span>
@@ -93,7 +93,7 @@
                                     <td class="text-center">
                                         <span v-if="!row.app_id" class="badge bg-secondary">Belum Mendaftar</span>
                                         <span v-else-if="row.app_status === 'draft'" class="badge bg-secondary">Draft</span>
-                                        <span v-else-if="row.app_status === 'submitted'" class="badge bg-warning text-dark">Disubmit</span>
+                                        <span v-else-if="row.app_status === 'submitted'" class="badge bg-warning text-gray-800">Disubmit</span>
                                         <span v-else-if="row.app_status === 'approved'" class="badge bg-success">Disetujui</span>
                                         <span v-else-if="row.app_status === 'rejected'" class="badge bg-danger">Ditolak</span>
                                     </td>
@@ -124,7 +124,7 @@
                                         <template v-else>
                                             <StatusBadge v-if="row.materai_status === 'failed'" tone="danger"
                                                 :title="row.materai_failure_reason || 'tidak diketahui'" class="me-1">Gagal</StatusBadge>
-                                            <button type="button" class="btn btn-sm btn-dark border-0" :disabled="processing" @click="stampOne(row)">
+                                            <button type="button" class="btn btn-sm btn-gray-800 border-0" :disabled="processing" @click="stampOne(row)">
                                                 <i class="fa fa-stamp me-1"></i>{{ row.materai_status === 'failed' ? 'Ulangi' : 'Bubuhkan' }}
                                             </button>
                                         </template>

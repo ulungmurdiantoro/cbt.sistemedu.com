@@ -6,31 +6,31 @@
         <div class="row justify-content-center">
             <div class="col-md-7">
                 <div class="card border-0 shadow">
-                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                    <div class="card-header bg-gray-800 text-white fw-bolder">
                         <i class="fa fa-user-edit me-2"></i> Edit User
                     </div>
                     <div class="card-body">
                         <form @submit.prevent="submit">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Kode User <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Kode User <span class="text-danger">*</span></label>
                                 <input v-model="form.users_code" type="text" class="form-control">
                                 <div v-if="errors.users_code" class="text-danger small mt-1">{{ errors.users_code }}</div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Nama Lengkap <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Nama Lengkap <span class="text-danger">*</span></label>
                                 <input v-model="form.name" type="text" class="form-control">
                                 <div v-if="errors.name" class="text-danger small mt-1">{{ errors.name }}</div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Email <span class="text-danger">*</span></label>
                                 <input v-model="form.email" type="email" class="form-control">
                                 <div v-if="errors.email" class="text-danger small mt-1">{{ errors.email }}</div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Role <span class="text-danger">*</span></label>
+                                <label class="form-label fw-bolder">Role <span class="text-danger">*</span></label>
                                 <div class="form-text small mb-1">Satu user bisa punya lebih dari satu role.</div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="admin" v-model="form.roles" id="role-admin">
@@ -51,13 +51,13 @@
                             <p class="small text-muted mb-3"><i class="fa fa-info-circle me-1"></i> Kosongkan password jika tidak ingin mengubahnya.</p>
 
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Password Baru</label>
+                                <label class="form-label fw-bolder">Password Baru</label>
                                 <input v-model="form.password" type="password" class="form-control" placeholder="Minimal 8 karakter">
                                 <div v-if="errors.password" class="text-danger small mt-1">{{ errors.password }}</div>
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label fw-semibold">Konfirmasi Password Baru</label>
+                                <label class="form-label fw-bolder">Konfirmasi Password Baru</label>
                                 <input v-model="form.password_confirmation" type="password" class="form-control" placeholder="Ulangi password baru">
                             </div>
 
@@ -65,7 +65,7 @@
                                 <button type="submit" class="btn btn-gray-800" :disabled="processing">
                                     {{ processing ? 'Menyimpan...' : 'Simpan Perubahan' }}
                                 </button>
-                                <Link href="/admin/users" class="btn btn-light border">Batal</Link>
+                                <Link href="/admin/users" class="btn btn-gray-100 border">Batal</Link>
                             </div>
                         </form>
                     </div>
@@ -73,7 +73,7 @@
 
                 <!-- Tanda Tangan Asesor / Admin -->
                 <div class="card border-0 shadow mt-4" v-if="hasSignatureRole">
-                    <div class="card-header bg-gray-800 text-white fw-semibold">
+                    <div class="card-header bg-gray-800 text-white fw-bolder">
                         <i class="fa fa-signature me-2"></i>Tanda Tangan
                     </div>
                     <div class="card-body">
@@ -96,24 +96,24 @@
 
                         <div v-if="!user.signature_path || editingSig">
                             <div class="mb-2">
-                                <label class="fw-semibold small">Nama Penandatangan</label>
+                                <label class="fw-bolder small">Nama Penandatangan</label>
                                 <input type="text" class="form-control form-control-sm mt-1" v-model="sigName"
                                     :placeholder="user.name">
                             </div>
 
                             <div class="d-flex gap-1 mt-1 mb-2">
                                 <button type="button" class="btn btn-sm flex-fill"
-                                    :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                                    :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-gray-100 border'"
                                     @click="switchSigMode('draw')">
                                     <i class="fa fa-pen me-1"></i>Gambar
                                 </button>
                                 <button type="button" class="btn btn-sm flex-fill"
-                                    :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                                    :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-gray-100 border'"
                                     @click="switchSigMode('upload')">
                                     <i class="fa fa-upload me-1"></i>Upload
                                 </button>
                                 <button v-if="user.signature_path" type="button"
-                                    class="btn btn-sm btn-light border" @click="editingSig = false">
+                                    class="btn btn-sm btn-gray-100 border" @click="editingSig = false">
                                     Batal
                                 </button>
                             </div>
@@ -122,7 +122,7 @@
                                 <div class="border rounded bg-white" style="touch-action:none">
                                     <canvas ref="sigCanvas" style="display:block; width:100%; height:140px; cursor:crosshair"></canvas>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-light border mt-1" @click="clearSig">
+                                <button type="button" class="btn btn-sm btn-gray-100 border mt-1" @click="clearSig">
                                     <i class="fa fa-eraser me-1"></i>Hapus
                                 </button>
                             </div>

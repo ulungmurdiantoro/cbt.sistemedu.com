@@ -39,11 +39,11 @@
 
                 <!-- Daftar peserta (master) -->
                 <div v-else class="card border-0 shadow">
-                    <div class="card-header bg-gray-800 text-white fw-semibold d-flex justify-content-between align-items-center">
+                    <div class="card-header bg-gray-800 text-white fw-bolder d-flex justify-content-between align-items-center">
                         <span><i class="fa fa-users me-2"></i>Daftar Peserta</span>
                         <span class="small">
                             Selesai dinilai: {{ fullyScoredCount }} / {{ form.length }}
-                            &nbsp;|&nbsp; Rata-rata: <span class="badge bg-light text-dark">{{ sessionAvg() }}</span>
+                            &nbsp;|&nbsp; Rata-rata: <span class="badge bg-gray-100 text-gray-800">{{ sessionAvg() }}</span>
                         </span>
                     </div>
                     <div class="card-body p-0">
@@ -66,11 +66,11 @@
                                         <td class="fw-bold">{{ students_data[i]?.student?.no_participant ?? '-' }}</td>
                                         <td>
                                             {{ students_data[i]?.student?.name ?? '-' }}
-                                            <span v-if="students_data[i]?.attempt > 1" class="badge bg-warning text-dark ms-1" style="font-size:0.65rem">Remidi</span>
+                                            <span v-if="students_data[i]?.attempt > 1" class="badge bg-warning text-gray-800 ms-1" style="font-size:0.65rem">Remidi</span>
                                         </td>
                                         <td class="text-center">
                                             <span class="badge"
-                                                :class="answeredCount(row) === essays.length ? 'bg-success' : (answeredCount(row) > 0 ? 'bg-warning text-dark' : 'bg-secondary')">
+                                                :class="answeredCount(row) === essays.length ? 'bg-success' : (answeredCount(row) > 0 ? 'bg-warning text-gray-800' : 'bg-secondary')">
                                                 {{ answeredCount(row) }} / {{ essays.length }}
                                             </span>
                                         </td>
@@ -107,9 +107,9 @@
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <h6 class="mb-0 fw-bold">
                         <i class="fa fa-user me-2"></i>{{ currentStudent?.student?.name ?? '-' }}
-                        <span v-if="currentStudent?.attempt > 1" class="badge bg-warning text-dark ms-1">Remidi</span>
+                        <span v-if="currentStudent?.attempt > 1" class="badge bg-warning text-gray-800 ms-1">Remidi</span>
                     </h6>
-                    <button class="btn btn-sm btn-light" @click="closeDrawer">
+                    <button class="btn btn-sm btn-gray-100" @click="closeDrawer">
                         <i class="fa fa-times"></i>
                     </button>
                 </div>
@@ -131,29 +131,29 @@
             <div class="drawer-body">
                 <div v-for="(ans, ai) in currentRow.answers" :key="ans.answer_essay_id ?? ai"
                     class="card border mb-3">
-                    <div class="card-header bg-light fw-semibold d-flex justify-content-between py-2">
+                    <div class="card-header bg-gray-100 fw-bolder d-flex justify-content-between py-2">
                         <span><i class="fa fa-question-circle me-2"></i>Soal {{ ai + 1 }}</span>
-                        <span class="badge bg-dark" v-if="ans.score !== null && ans.score !== ''">
+                        <span class="badge bg-gray-800 text-white" v-if="ans.score !== null && ans.score !== ''">
                             Nilai: {{ ans.score }}
                         </span>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <div class="small fw-semibold text-muted mb-1">PERTANYAAN</div>
-                            <div class="p-2 bg-light rounded" style="line-height:1.6; font-size:0.9rem"
+                            <div class="small fw-bolder text-muted mb-1">PERTANYAAN</div>
+                            <div class="p-2 bg-gray-100 rounded" style="line-height:1.6; font-size:0.9rem"
                                 v-html="essays[ai]?.question || '<em class=\'text-muted\'>—</em>'">
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <div class="small fw-semibold text-muted mb-1">JAWABAN PESERTA</div>
+                            <div class="small fw-bolder text-muted mb-1">JAWABAN PESERTA</div>
                             <div class="p-2 border rounded bg-white" style="line-height:1.6; font-size:0.9rem; min-height:70px"
                                 v-html="ans.answer_text || '<em class=\'text-muted\'>(Peserta tidak menjawab)</em>'">
                             </div>
                         </div>
 
                         <div>
-                            <label class="fw-semibold small mb-1">Nilai (0–100) <span class="text-danger">*</span></label>
+                            <label class="fw-bolder small mb-1">Nilai (0–100) <span class="text-danger">*</span></label>
                             <input type="number" min="0" max="100" step="0.01"
                                 v-model.number="ans.score"
                                 @input="recalcTotal(currentIndex)"
@@ -165,16 +165,16 @@
             </div>
 
             <!-- Footer drawer (sticky): navigasi antar peserta -->
-            <div class="drawer-footer bg-light border-top">
+            <div class="drawer-footer bg-gray-100 border-top">
                 <div class="d-flex justify-content-between gap-2">
-                    <button class="btn btn-light border" :disabled="currentIndex === 0" @click="goPrev">
+                    <button class="btn btn-gray-100 border" :disabled="currentIndex === 0" @click="goPrev">
                         <i class="fa fa-chevron-left me-1"></i> Sebelumnya
                     </button>
                     <button @click="saveAll" :disabled="saving" class="btn btn-success border-0 flex-fill">
                         <i class="fa fa-save me-1"></i>
                         {{ saving ? 'Menyimpan...' : 'Simpan' }}
                     </button>
-                    <button class="btn btn-light border" :disabled="currentIndex >= form.length - 1" @click="goNext">
+                    <button class="btn btn-gray-100 border" :disabled="currentIndex >= form.length - 1" @click="goNext">
                         Berikutnya <i class="fa fa-chevron-right ms-1"></i>
                     </button>
                 </div>

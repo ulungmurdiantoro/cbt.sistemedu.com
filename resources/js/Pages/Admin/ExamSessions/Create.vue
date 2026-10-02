@@ -34,11 +34,11 @@
 
                             <!-- Jenis Ujian -->
                             <div class="card border mb-4">
-                                <div class="card-header fw-semibold bg-light">Jenis Ujian</div>
+                                <div class="card-header fw-bolder bg-gray-100">Jenis Ujian</div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-4 mb-3">
-                                            <label class="fw-semibold small">Ujian Pilihan Ganda</label>
+                                            <label class="fw-bolder small">Ujian Pilihan Ganda</label>
                                             <select class="form-select" v-model="form.exam_id_pg">
                                                 <option value="">— Tidak ada —</option>
                                                 <option v-for="e in examsPG" :key="e.id" :value="e.id">{{ e.title }}</option>
@@ -46,7 +46,7 @@
                                             <div v-if="errors.exam_id_pg" class="alert alert-danger mt-2">{{ errors.exam_id_pg }}</div>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label class="fw-semibold small">Ujian Esai</label>
+                                            <label class="fw-bolder small">Ujian Esai</label>
                                             <select class="form-select" v-model="form.exam_id_esai">
                                                 <option value="">— Tidak ada —</option>
                                                 <option v-for="e in examsEsai" :key="e.id" :value="e.id">{{ e.title }}</option>
@@ -56,7 +56,7 @@
                                         <div class="col-md-4 mb-3 d-flex align-items-end">
                                             <div class="form-check form-switch mb-2">
                                                 <input class="form-check-input" type="checkbox" id="has_wawancara" v-model="form.has_wawancara">
-                                                <label class="form-check-label fw-semibold" for="has_wawancara">Ujian Wawancara</label>
+                                                <label class="form-check-label fw-bolder" for="has_wawancara">Ujian Wawancara</label>
                                                 <div class="text-muted small">Penilaian oleh asesor dengan kriteria tetap</div>
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
 
                             <div class="form-check form-switch mb-4">
                                 <input class="form-check-input" type="checkbox" id="verifikasi_tuk" v-model="form.verifikasi_tuk">
-                                <label class="form-check-label fw-semibold" for="verifikasi_tuk">Verifikasi TUK Online (FR.TUK.06)</label>
+                                <label class="form-check-label fw-bolder" for="verifikasi_tuk">Verifikasi TUK Online (FR.TUK.06)</label>
                                 <div class="text-muted small">Pengawas ujian (admin) mengisi checklist verifikasi tiap peserta sebelum &amp; selama ujian. Hanya pencatatan &mdash; tidak mengunci ujian.</div>
                             </div>
 

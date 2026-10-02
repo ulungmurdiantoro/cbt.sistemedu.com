@@ -15,7 +15,7 @@
                 <span v-if="isSaved" class="badge rounded-pill bg-success px-3 py-2">
                   <i class="fa fa-check me-1"></i> Tersimpan
                 </span>
-                <span v-else class="badge rounded-pill bg-warning text-dark px-3 py-2">
+                <span v-else class="badge rounded-pill bg-warning text-gray-800 px-3 py-2">
                   <i class="fa fa-exclamation-circle me-1"></i> Belum tersimpan
                 </span>
               </div>
@@ -28,7 +28,7 @@
           </div>
           <div class="mt-2 p-2 px-3 d-flex align-items-center" style="background:#EAF4FF;border:1px solid #CFE6FF;border-radius:12px;">
             <i class="fa fa-info-circle text-primary me-2"></i>
-            <span class="fw-semibold">💾 Klik <strong>Simpan Jawaban</strong> setelah selesai mengetik.</span>
+            <span class="fw-bolder">💾 Klik <strong>Simpan Jawaban</strong> setelah selesai mengetik.</span>
           </div>
         </div>
 

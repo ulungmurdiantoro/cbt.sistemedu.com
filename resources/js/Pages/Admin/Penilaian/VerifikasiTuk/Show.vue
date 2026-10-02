@@ -29,27 +29,27 @@
 
             <!-- A. Identitas -->
             <div class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-semibold">A. Identitas Pelaksanaan</div>
+                <div class="card-header bg-gray-800 text-white fw-bolder">A. Identitas Pelaksanaan</div>
                 <div class="card-body">
                     <table class="table table-sm table-bordered mb-0 table-wrap">
                         <tbody>
-                            <tr><td class="fw-semibold" style="width:30%">Nama Peserta</td><td>{{ student.name }}</td></tr>
-                            <tr><td class="fw-semibold">Skema Sertifikasi</td><td>{{ skema || '-' }}</td></tr>
+                            <tr><td class="fw-bolder" style="width:30%">Nama Peserta</td><td>{{ student.name }}</td></tr>
+                            <tr><td class="fw-bolder">Skema Sertifikasi</td><td>{{ skema || '-' }}</td></tr>
                             <tr>
-                                <td class="fw-semibold align-middle">Tanggal Asesmen</td>
+                                <td class="fw-bolder align-middle">Tanggal Asesmen</td>
                                 <td><input type="date" class="form-control form-control-sm" style="max-width:220px" v-model="form.tanggal_asesmen"></td>
                             </tr>
                             <tr>
-                                <td class="fw-semibold align-middle">Waktu</td>
+                                <td class="fw-bolder align-middle">Waktu</td>
                                 <td><input type="text" class="form-control form-control-sm" style="max-width:220px" v-model="form.waktu_asesmen" placeholder="mis. 08.30 – 10.00 WIB"></td>
                             </tr>
-                            <tr><td class="fw-semibold">Metode Asesmen</td><td>{{ exam_session.tempat_ujian || 'Online (Zoom Meeting)' }}</td></tr>
+                            <tr><td class="fw-bolder">Metode Asesmen</td><td>{{ exam_session.tempat_ujian || 'Online (Zoom Meeting)' }}</td></tr>
                             <tr>
-                                <td class="fw-semibold align-middle">Lokasi Peserta</td>
+                                <td class="fw-bolder align-middle">Lokasi Peserta</td>
                                 <td><input type="text" class="form-control form-control-sm" v-model="form.lokasi_peserta" placeholder="mis. Rumah, Kota Semarang"></td>
                             </tr>
                             <tr>
-                                <td class="fw-semibold align-middle">Nama Pengawas Ujian</td>
+                                <td class="fw-bolder align-middle">Nama Pengawas Ujian</td>
                                 <td>
                                     <select class="form-select form-select-sm" style="max-width:360px" v-model="form.pengawas_id">
                                         <option :value="null" disabled>— Pilih Pengawas Ujian —</option>
@@ -70,7 +70,7 @@
 
             <!-- B–F. Kriteria -->
             <div v-for="section in sections" :key="section.key" class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-semibold d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div class="card-header bg-gray-800 text-white fw-bolder d-flex flex-wrap justify-content-between align-items-center gap-2">
                     <span>
                         {{ section.key }}. {{ titleCase(section.title) }}
                         <span class="badge bg-gray-200 text-gray-800 ms-2">{{ section.key === 'F' ? 'Selama ujian' : 'Sebelum ujian' }}</span>
@@ -118,7 +118,7 @@
 
             <!-- G. Kesimpulan verifikasi awal -->
             <div class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-semibold">
+                <div class="card-header bg-gray-800 text-white fw-bolder">
                     G. Kesimpulan Verifikasi Awal
                     <span class="badge bg-gray-200 text-gray-800 ms-2">Sebelum ujian</span>
                 </div>
@@ -134,14 +134,14 @@
                         Ada {{ tidakSesuaiSebelumUjian }} kriteria (B–E) berstatus Tidak Sesuai. Periksa lagi apakah kesimpulannya
                         seharusnya <strong>Layak dengan Perbaikan</strong> atau <strong>Tidak Layak</strong>.
                     </div>
-                    <label class="small fw-semibold mt-2">Catatan ketidaksesuaian / tindakan perbaikan</label>
+                    <label class="small fw-bolder mt-2">Catatan ketidaksesuaian / tindakan perbaikan</label>
                     <textarea class="form-control" rows="2" maxlength="2000" v-model="form.catatan_awal"></textarea>
                 </div>
             </div>
 
             <!-- H. Hasil pemantauan -->
             <div class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-semibold">
+                <div class="card-header bg-gray-800 text-white fw-bolder">
                     H. Hasil Pemantauan Selama Asesmen
                     <span class="badge bg-gray-200 text-gray-800 ms-2">Selama ujian</span>
                 </div>
@@ -150,30 +150,30 @@
                         <input class="form-check-input" type="radio" name="hasil_pemantauan" :id="`pantau_${key}`" :value="key" v-model="form.hasil_pemantauan">
                         <label class="form-check-label" :for="`pantau_${key}`">{{ label }}</label>
                     </div>
-                    <label class="small fw-semibold mt-2">Uraian kejadian dan tindak lanjut</label>
+                    <label class="small fw-bolder mt-2">Uraian kejadian dan tindak lanjut</label>
                     <textarea class="form-control" rows="2" maxlength="2000" v-model="form.uraian_pemantauan"></textarea>
                 </div>
             </div>
 
             <!-- I. Validasi -->
             <div class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-semibold">I. Validasi Pengawas Ujian</div>
+                <div class="card-header bg-gray-800 text-white fw-bolder">I. Validasi Pengawas Ujian</div>
                 <div class="card-body">
                     <table class="table table-sm table-bordered mb-0 table-wrap">
                         <tbody>
                             <tr>
-                                <td class="fw-semibold" style="width:30%">Nama Pengawas Ujian</td>
+                                <td class="fw-bolder" style="width:30%">Nama Pengawas Ujian</td>
                                 <td>{{ pengawas?.name ?? '-' }}</td>
                             </tr>
                             <tr>
-                                <td class="fw-semibold">Tanggal/Waktu Verifikasi</td>
+                                <td class="fw-bolder">Tanggal/Waktu Verifikasi</td>
                                 <td>
                                     <span v-if="verification?.verified_at">{{ formatDateTime(verification.verified_at) }}</span>
                                     <span v-else class="text-muted small">Otomatis saat kesimpulan verifikasi awal pertama kali disimpan.</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="fw-semibold align-middle">Kesimpulan Akhir</td>
+                                <td class="fw-bolder align-middle">Kesimpulan Akhir</td>
                                 <td>
                                     <div v-for="(label, key) in options.kesimpulan_akhir" :key="key" class="form-check form-check-inline mb-0">
                                         <input class="form-check-input" type="radio" name="kesimpulan_akhir" :id="`akhir_${key}`" :value="key" v-model="form.kesimpulan_akhir">
@@ -182,7 +182,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="fw-semibold">Tanda Tangan/Validasi</td>
+                                <td class="fw-bolder">Tanda Tangan/Validasi</td>
                                 <td class="small">
                                     <span v-if="!pengawas" class="text-muted">Pilih Nama Pengawas Ujian di bagian A.</span>
                                     <template v-else-if="pengawas.has_signature">
@@ -202,7 +202,7 @@
             </div>
 
             <!-- Aksi -->
-            <div class="card border-0 shadow sticky-bottom">
+            <div class="card border-0 shadow position-sticky" style="bottom:0; z-index:1020">
                 <div class="card-body py-2 d-flex flex-wrap justify-content-end gap-2">
                     <button type="button" class="btn btn-success border-0" :disabled="saving" @click="save(false)">
                         <i class="fa fa-save me-1"></i>{{ saving ? 'Menyimpan...' : 'Simpan' }}

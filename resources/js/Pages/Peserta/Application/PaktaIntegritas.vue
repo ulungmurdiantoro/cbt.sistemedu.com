@@ -41,7 +41,7 @@
             <!-- Info skema & sesi -->
             <table class="table table-borderless table-sm mb-3 table-wrap" style="font-size:0.88rem">
                 <tr>
-                    <td style="width:180px" class="fw-semibold align-top">Skema Sertifikasi</td>
+                    <td style="width:180px" class="fw-bolder align-top">Skema Sertifikasi</td>
                     <td style="width:10px" class="align-top">:</td>
                     <td>
                         <div>Judul &nbsp;&nbsp;&nbsp;: {{ application.classroom?.title ?? '—' }}</div>
@@ -49,17 +49,17 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="fw-semibold">TUK</td>
+                    <td class="fw-bolder">TUK</td>
                     <td>:</td>
                     <td>{{ application.tempat_ujian ?? '—' }}</td>
                 </tr>
                 <tr>
-                    <td class="fw-semibold">Nama Asesor</td>
+                    <td class="fw-bolder">Nama Asesor</td>
                     <td>:</td>
                     <td class="text-muted fst-italic">—</td>
                 </tr>
                 <tr>
-                    <td class="fw-semibold">Nama Asesi</td>
+                    <td class="fw-bolder">Nama Asesi</td>
                     <td>:</td>
                     <td>{{ participant.name }}</td>
                 </tr>
@@ -67,7 +67,7 @@
 
             <!-- Bukti yang dikumpulkan -->
             <div class="mb-3">
-                <div class="fw-semibold mb-1">Bukti yang akan dikumpulkan :</div>
+                <div class="fw-bolder mb-1">Bukti yang akan dikumpulkan :</div>
                 <table class="table table-borderless table-sm mb-0 table-wrap" style="font-size:0.85rem">
                     <tr><td style="width:30px">☐</td><td><strong>TL</strong> : Verifikasi Portofolio</td></tr>
                     <tr><td>☐</td><td><strong>L</strong> &nbsp;: Observasi Langsung</td></tr>
@@ -78,7 +78,7 @@
 
             <!-- Pelaksanaan asesmen -->
             <div class="mb-4">
-                <div class="fw-semibold mb-1">Pelaksanaan asesmen disepakati pada :</div>
+                <div class="fw-bolder mb-1">Pelaksanaan asesmen disepakati pada :</div>
                 <table class="table table-borderless table-sm mb-0 table-wrap" style="font-size:0.85rem">
                     <tr>
                         <td style="width:140px">Hari / Tanggal</td>
@@ -204,19 +204,19 @@
             <div class="row mt-4">
                 <!-- TTD LSP -->
                 <div class="col-md-4 text-center">
-                    <div class="small fw-semibold mb-1">Tanda tangan LSP Edukasi Global Cendekia</div>
+                    <div class="small fw-bolder mb-1">Tanda tangan LSP Edukasi Global Cendekia</div>
                     <div style="height:80px; border-bottom:1px solid #333; margin-bottom:4px"></div>
                     <div class="small text-muted">Tanggal : ___________________</div>
                 </div>
                 <!-- TTD Asesor -->
                 <div class="col-md-4 text-center">
-                    <div class="small fw-semibold mb-1">Tanda tangan Asesor</div>
+                    <div class="small fw-bolder mb-1">Tanda tangan Asesor</div>
                     <div style="height:80px; border-bottom:1px solid #333; margin-bottom:4px"></div>
                     <div class="small text-muted">Tanggal : ___________________</div>
                 </div>
                 <!-- TTD Asesi -->
                 <div class="col-md-4 text-center">
-                    <div class="small fw-semibold mb-1">Tanda tangan Asesi</div>
+                    <div class="small fw-bolder mb-1">Tanda tangan Asesi</div>
                     <div v-if="application.signature_path" style="height:80px; display:flex; align-items:center; justify-content:center">
                         <img :src="`/peserta/aplikasi/${application.id}/tanda-tangan/pakta`" style="max-height:74px; max-width:100%; object-fit:contain">
                     </div>
@@ -229,7 +229,7 @@
 
     <!-- Form TTD (hanya jika masih draft) -->
     <div class="card border-0 shadow mb-4" v-if="application.status === 'draft'">
-        <div class="card-header bg-gray-800 text-white fw-semibold">
+        <div class="card-header bg-gray-800 text-white fw-bolder">
             <i class="fa fa-pen me-2"></i>Tanda Tangan Asesi
             <span v-if="application.pakta_signed_at" class="badge bg-success ms-2">
                 <i class="fa fa-check me-1"></i>Sudah Ditandatangani
@@ -253,12 +253,12 @@
             <!-- Toggle mode -->
             <div class="d-flex gap-2 mb-3">
                 <button type="button" class="btn btn-sm"
-                    :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-light border'"
+                    :class="sigMode === 'draw' ? 'btn-gray-800' : 'btn-gray-100 border'"
                     @click="switchMode('draw')">
                     <i class="fa fa-pen me-1"></i> Gambar TTD
                 </button>
                 <button type="button" class="btn btn-sm"
-                    :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-light border'"
+                    :class="sigMode === 'upload' ? 'btn-gray-800' : 'btn-gray-100 border'"
                     @click="switchMode('upload')">
                     <i class="fa fa-upload me-1"></i> Upload Gambar TTD
                 </button>
@@ -270,7 +270,7 @@
                     <canvas ref="sigCanvas" style="display:block; width:100%; height:180px; cursor:crosshair"></canvas>
                 </div>
                 <div class="d-flex gap-2 mb-3">
-                    <button type="button" class="btn btn-sm btn-light border" @click="clearCanvas">
+                    <button type="button" class="btn btn-sm btn-gray-100 border" @click="clearCanvas">
                         <i class="fa fa-eraser me-1"></i> Hapus
                     </button>
                     <button type="button" class="btn btn-sm btn-success" @click="saveDrawn" :disabled="saving">
@@ -282,7 +282,7 @@
             <!-- Mode: Upload -->
             <div v-show="sigMode === 'upload'">
                 <div class="mb-2">
-                    <label class="fw-semibold small">Pilih file gambar tanda tangan <span class="text-muted">(JPG / PNG, maks. 2 MB)</span></label>
+                    <label class="fw-bolder small">Pilih file gambar tanda tangan <span class="text-muted">(JPG / PNG, maks. 2 MB)</span></label>
                     <input type="file" class="form-control mt-1" accept="image/png,image/jpeg,image/jpg"
                         ref="sigFileInput" @change="onFileChange">
                 </div>
@@ -304,10 +304,10 @@
     </div>
 
     <div class="d-flex gap-2 mb-5">
-        <Link :href="`/peserta/aplikasi/${application.id}/form`" class="btn btn-light border">
+        <Link :href="`/peserta/aplikasi/${application.id}/form`" class="btn btn-gray-100 border">
             <i class="fa fa-arrow-left me-1"></i> Kembali ke Formulir
         </Link>
-        <Link v-if="application.pakta_signed_at && $page.props.materaiEnabled" :href="`/peserta/aplikasi/${application.id}/materai`" class="btn btn-light border">
+        <Link v-if="application.pakta_signed_at && $page.props.materaiEnabled" :href="`/peserta/aplikasi/${application.id}/materai`" class="btn btn-gray-100 border">
             <i class="fa fa-stamp me-1"></i> Status Materai Elektronik
         </Link>
         <Link v-if="application.pakta_signed_at" :href="`/peserta/aplikasi/${application.id}/dokumen`" class="btn btn-success">

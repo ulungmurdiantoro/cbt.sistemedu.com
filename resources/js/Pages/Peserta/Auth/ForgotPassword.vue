@@ -4,7 +4,7 @@
     </Head>
     <div class="row justify-content-center mt-5">
         <div class="col-12 col-xl-10 col-xxl-9">
-            <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100">
+            <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100">
                 <h4 class="mb-1 fw-bold">Lupa Password</h4>
                 <p class="text-muted small mb-4">Masukkan email Anda dan kami akan mengirimkan link untuk mereset password.</p>
 
@@ -14,7 +14,7 @@
 
                 <form @submit.prevent="submit">
                     <div class="form-group mb-3">
-                        <label class="fw-semibold">Email</label>
+                        <label class="fw-bolder">Email</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                             <input type="email" class="form-control" v-model="email"
@@ -31,7 +31,7 @@
 
                     <p class="text-center small text-muted">
                         Sudah ingat password?
-                        <Link href="/peserta/login" class="text-decoration-none fw-semibold">Login di sini</Link>
+                        <Link href="/peserta/login" class="text-decoration-none fw-bolder">Login di sini</Link>
                     </p>
                 </form>
             </div>
