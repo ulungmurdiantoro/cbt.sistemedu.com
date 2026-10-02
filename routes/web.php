@@ -180,6 +180,7 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
 
     Route::get('/penilaian/{exam_session_id}/ttd-ak01',               [\App\Http\Controllers\Asesor\TtdAk01Controller::class, 'show'])->name('asesor.ttd_ak01.show');
     Route::post('/penilaian/{exam_session_id}/ttd-ak01/{student_id}', [\App\Http\Controllers\Asesor\TtdAk01Controller::class, 'sign'])->name('asesor.ttd_ak01.sign');
+    Route::get('/penilaian/{exam_session_id}/ttd-ak01/{student_id}/preview', [\App\Http\Controllers\Asesor\TtdAk01Controller::class, 'preview'])->name('asesor.ttd_ak01.preview');
 
 });
 

@@ -67,7 +67,7 @@
                                         <th class="text-center" style="width:5%">No.</th>
                                         <th>Nama Peserta</th>
                                         <th class="text-center" style="width:20%">Status AK.01</th>
-                                        <th class="text-center" style="width:16%">Aksi</th>
+                                        <th class="text-center" style="width:24%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -81,13 +81,20 @@
                                             <span v-else-if="!row.app_id" class="text-muted small fst-italic">Belum ada permohonan</span>
                                             <span v-else class="badge bg-secondary">Belum</span>
                                         </td>
-                                        <td class="text-center">
-                                            <button v-if="row.app_id && !row.asesor_verified_at"
-                                                class="btn btn-sm btn-success" :disabled="!has_signature || signing === row.student_id"
-                                                @click="signAk01(row)">
-                                                <i class="fa fa-signature me-1"></i>
-                                                {{ signing === row.student_id ? 'Menyimpan...' : 'Tandatangani' }}
-                                            </button>
+                                        <td class="text-center text-nowrap">
+                                            <template v-if="row.app_id">
+                                                <a :href="`/asesor/penilaian/${exam_session.id}/ttd-ak01/${row.student_id}/preview`"
+                                                    target="_blank" class="btn btn-sm btn-outline-primary"
+                                                    :class="{ 'me-1': !row.asesor_verified_at }" title="Preview dokumen FR.AK.01">
+                                                    <i class="fa fa-eye me-1"></i>Preview
+                                                </a>
+                                                <button v-if="!row.asesor_verified_at"
+                                                    class="btn btn-sm btn-success" :disabled="!has_signature || signing === row.student_id"
+                                                    @click="signAk01(row)">
+                                                    <i class="fa fa-signature me-1"></i>
+                                                    {{ signing === row.student_id ? 'Menyimpan...' : 'Tandatangani' }}
+                                                </button>
+                                            </template>
                                             <span v-else class="text-muted small">—</span>
                                         </td>
                                     </tr>

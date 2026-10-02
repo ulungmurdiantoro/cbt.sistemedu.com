@@ -6,6 +6,9 @@
     <ol class="mb-2 ps-3">
         <li>Pastikan TTD Anda sudah tersimpan. Kalau belum, buat di halaman <strong>Laporan Asesmen</strong>. Tanpa TTD, tombol
             Tandatangani tidak aktif.</li>
+        <li>Klik <span class="badge bg-gray-200 text-gray-800 border"><i class="fa fa-eye"></i> Preview</span> untuk melihat dokumen
+            FR.AK.01 peserta di tab baru sebelum atau sesudah ditandatangani. Setelah Anda tandatangani, TTD Anda ikut tampil;
+            bila meterai sudah dibubuhkan, yang tampil versi bermeterai.</li>
         <li>Klik <span class="badge bg-success">Tandatangani</span> pada baris peserta, lalu konfirmasi. Status berubah menjadi
             <span class="badge bg-success">Sudah</span> beserta tanggalnya.</li>
     </ol>
