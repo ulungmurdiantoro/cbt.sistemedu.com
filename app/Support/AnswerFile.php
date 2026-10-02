@@ -23,12 +23,13 @@ class AnswerFile
 
     public const MAX_KB = 20480;
 
-    /** Tipe yang bisa ditampilkan langsung oleh browser di tab baru → MIME yang dikirim. */
+    /** Tipe yang bisa dipratinjau di halaman (PDF & gambar oleh browser, DOCX oleh docx-preview) → MIME. */
     public const PREVIEW_MIME = [
         'pdf'  => 'application/pdf',
         'jpg'  => 'image/jpeg',
         'jpeg' => 'image/jpeg',
         'png'  => 'image/png',
+        'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     ];
 
     public static function rules(): array
@@ -116,8 +117,8 @@ class AnswerFile
     }
 
     /**
-     * Tampilkan file di tab browser (inline, tidak di-cache). Hanya tipe di PREVIEW_MIME;
-     * tipe lain tidak bisa ditampilkan browser — pakai download().
+     * Sajikan file untuk pratinjau (inline, tidak di-cache). Hanya tipe di PREVIEW_MIME;
+     * tipe lain tidak bisa ditampilkan — pakai download().
      */
     public static function preview(?string $path, ?string $name = null): StreamedResponse
     {

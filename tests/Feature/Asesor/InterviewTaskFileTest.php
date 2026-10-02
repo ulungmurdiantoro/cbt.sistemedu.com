@@ -14,7 +14,7 @@ use Inertia\Testing\AssertableInertia;
 use Tests\Feature\Concerns\CreatesExamFixtures;
 use Tests\TestCase;
 
-/** Tugas peserta di halaman penilaian wawancara: dibuka di tab baru (PDF/gambar) atau diunduh. */
+/** Tugas peserta di halaman penilaian wawancara: halaman pratinjau di tab baru + unduh. */
 class InterviewTaskFileTest extends TestCase
 {
     use RefreshDatabase;
@@ -73,12 +73,27 @@ class InterviewTaskFileTest extends TestCase
         return "/asesor/penilaian/{$this->ctx['session']->id}/wawancara/tugas/{$this->ctx['student']->id}";
     }
 
-    public function test_preview_opens_inline_with_original_filename(): void
+    public function test_preview_page_shows_task_info(): void
+    {
+        $this->task('Tugas Akhir.DOCX');
+
+        $this->actingAs($this->ctx['asesor'])
+            ->get($this->fileUrl())
+            ->assertOk()
+            ->assertInertia(fn (AssertableInertia $page) => $page
+                ->component('Asesor/Wawancara/Tugas')
+                ->where('student.no_participant', $this->ctx['student']->no_participant)
+                ->where('tugas.original_filename', 'Tugas Akhir.DOCX')
+                ->where('tugas.type', 'docx')
+                ->where('tugas.previewable', true));
+    }
+
+    public function test_file_is_served_inline_with_original_filename(): void
     {
         $this->task('Tugas Akhir.pdf');
 
         $response = $this->actingAs($this->ctx['asesor'])
-            ->get($this->fileUrl())
+            ->get($this->fileUrl() . '/file')
             ->assertOk()
             ->assertHeader('Content-Type', 'application/pdf')
             ->assertHeader('X-Content-Type-Options', 'nosniff');
@@ -105,19 +120,23 @@ class InterviewTaskFileTest extends TestCase
         $other = $this->asesor();
 
         $this->actingAs($other)->get($this->fileUrl())->assertForbidden();
+        $this->actingAs($other)->get($this->fileUrl() . '/file')->assertForbidden();
         $this->actingAs($other)->get($this->fileUrl() . '/unduh')->assertForbidden();
     }
 
-    public function test_format_the_browser_cannot_show_is_not_previewed(): void
+    public function test_format_that_cannot_be_previewed_only_offers_download(): void
     {
-        $this->task('tugas.docx');
+        $this->task('tugas.xlsx');
 
         $this->actingAs($this->ctx['asesor'])
             ->get($this->fileUrl())
-            ->assertStatus(415);
+            ->assertInertia(fn (AssertableInertia $page) => $page->where('tugas.previewable', false));
+
+        $this->actingAs($this->ctx['asesor'])->get($this->fileUrl() . '/file')->assertStatus(415);
+        $this->actingAs($this->ctx['asesor'])->get($this->fileUrl() . '/unduh')->assertOk();
     }
 
-    public function test_page_marks_which_tasks_can_be_previewed(): void
+    public function test_interview_page_lists_tasks(): void
     {
         $this->task('Tugas Akhir.DOCX');
 
@@ -126,10 +145,6 @@ class InterviewTaskFileTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (AssertableInertia $page) => $page
                 ->component('Asesor/Wawancara/Show')
-                ->where("tugas.{$this->ctx['student']->id}", [
-                    'original_filename' => 'Tugas Akhir.DOCX',
-                    'type'              => 'docx',
-                    'previewable'       => false,
-                ]));
+                ->where("tugas.{$this->ctx['student']->id}", ['original_filename' => 'Tugas Akhir.DOCX']));
     }
 }

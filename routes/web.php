@@ -168,6 +168,7 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
     Route::get('/penilaian/{exam_session_id}/wawancara',  [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'show'])->name('asesor.wawancara.show');
     Route::post('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'store'])->name('asesor.wawancara.store');
     Route::get('/penilaian/{exam_session_id}/wawancara/tugas/{student_id}', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'previewTugas'])->name('asesor.wawancara.tugas.preview');
+    Route::get('/penilaian/{exam_session_id}/wawancara/tugas/{student_id}/file', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'fileTugas'])->name('asesor.wawancara.tugas.file');
     Route::get('/penilaian/{exam_session_id}/wawancara/tugas/{student_id}/unduh', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'downloadTugas'])->name('asesor.wawancara.tugas.download');
 
     Route::get('/penilaian/{exam_session_id}/laporan-asesmen',  [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'show'])->name('asesor.laporan_asesmen.show');

@@ -64,8 +64,6 @@ class InterviewAssessmentController extends Controller
             ->get()
             ->mapWithKeys(fn (StudentTask $task) => [$task->student_id => [
                 'original_filename' => $task->original_filename,
-                'type'              => AnswerFile::extension($task->file_path),
-                'previewable'       => AnswerFile::previewable($task->file_path),
             ]]);
 
         return inertia('Asesor/Wawancara/Show', [
@@ -77,8 +75,29 @@ class InterviewAssessmentController extends Controller
         ]);
     }
 
-    /** Buka tugas di tab baru (PDF/JPG/PNG ditampilkan browser). */
+    /**
+     * Halaman pratinjau tugas (dibuka di tab baru). Isi file diambil halaman lewat
+     * XHR dari fileTugas lalu ditampilkan dari blob — link file langsung sering
+     * dicegat browser/download manager dan malah diunduh.
+     */
     public function previewTugas(int $exam_session_id, int $student_id)
+    {
+        $task = $this->assignedTask($exam_session_id, $student_id);
+
+        return inertia('Asesor/Wawancara/Tugas', [
+            'exam_session' => ExamSession::select('id', 'title')->findOrFail($exam_session_id),
+            'student'      => Student::select('id', 'no_participant', 'name')->findOrFail($student_id),
+            'tugas'        => [
+                'original_filename' => $task->original_filename,
+                'file_size'         => $task->file_size,
+                'uploaded_at'       => $task->uploaded_at,
+                'type'              => AnswerFile::extension($task->file_path),
+                'previewable'       => AnswerFile::previewable($task->file_path),
+            ],
+        ]);
+    }
+
+    public function fileTugas(int $exam_session_id, int $student_id)
     {
         $task = $this->assignedTask($exam_session_id, $student_id);
 

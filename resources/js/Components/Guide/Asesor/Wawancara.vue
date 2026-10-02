@@ -14,7 +14,8 @@
         <li><strong>Total</strong> = rata-rata kriteria yang terisi. Isi keempatnya; kriteria yang kosong tidak ikut dihitung.
             Bobot wawancara baru diterapkan saat Nilai Akhir dihitung, bukan di tabel ini.</li>
         <li>Kolom <strong>Tugas</strong> (tugas yang diupload peserta sebelum ujian): tombol <i class="fa fa-eye"></i>
-            membuka tugas di tab baru (untuk PDF, JPG dan PNG), tombol <i class="fa fa-download"></i> mengunduhnya.
+            membuka halaman pratinjau di tab baru (PDF, DOCX, JPG dan PNG bisa langsung dilihat), tombol
+            <i class="fa fa-download"></i> mengunduhnya.
             Tanda “-” berarti peserta belum mengupload.</li>
         <li><strong>Catatan</strong> boleh dikosongkan.</li>
         <li>Klik <span class="badge bg-success">Simpan Semua Nilai</span> untuk menyimpan seluruh tabel sekaligus.</li>

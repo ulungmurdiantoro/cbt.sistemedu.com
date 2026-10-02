@@ -81,8 +81,7 @@
 
                                         <td class="text-center text-nowrap">
                                             <template v-if="students[i] && tugas[students[i].id]">
-                                                <a v-if="tugas[students[i].id].previewable"
-                                                    :href="tugasUrl(students[i])" target="_blank"
+                                                <a :href="tugasUrl(students[i])" target="_blank"
                                                     :title="`Lihat ${tugas[students[i].id].original_filename}`"
                                                     class="btn btn-sm btn-outline-primary me-1">
                                                     <i class="fa fa-eye"></i>
