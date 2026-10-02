@@ -12,7 +12,7 @@
             seperlunya, lalu <span class="badge bg-success">Simpan Laporan</span>.</li>
     </ol>
     <p class="mb-0 text-muted">
-        Tombol <span class="badge bg-light text-dark border">Download PDF</span> (FR.AK.05) muncul setelah laporan disimpan
+        Tombol <span class="badge bg-gray-200 text-gray-800 border">Download PDF</span> (FR.AK.05) muncul setelah laporan disimpan
         pertama kali. Isinya rekomendasi semua peserta Anda di sesi ini, catatan, dan TTD Anda. “Tidak ada aplikasi” berarti
         peserta belum punya permohonan sertifikasi, jadi belum bisa diberi rekomendasi.
     </p>

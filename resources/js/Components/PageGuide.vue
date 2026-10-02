@@ -2,7 +2,7 @@
     <div class="card border-0 shadow mb-3 page-guide">
         <button type="button" class="page-guide-toggle d-flex justify-content-between align-items-center w-100"
             :aria-expanded="open" @click="toggle">
-            <span class="fw-semibold"><i class="fa fa-life-ring me-2 text-primary"></i>{{ title }}</span>
+            <span class="fw-bold"><i class="fa fa-life-ring me-2 text-primary"></i>{{ title }}</span>
             <span class="small text-muted text-nowrap ms-2">
                 {{ open ? 'Sembunyikan' : 'Tampilkan' }}
                 <i class="fa ms-1" :class="open ? 'fa-chevron-up' : 'fa-chevron-down'"></i>

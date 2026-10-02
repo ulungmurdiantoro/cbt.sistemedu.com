@@ -4,8 +4,8 @@
             berisi tiap soal, jawaban peserta, dan kolom nilai.</li>
         <li>Isi nilai <strong>0–100</strong> untuk tiap soal. <strong>Total</strong> = rata-rata nilai soal yang sudah diisi;
             nilai 0 ikut dihitung, soal yang dikosongkan tidak.</li>
-        <li>Pindah peserta dengan <span class="badge bg-light text-dark border">Sebelumnya</span> /
-            <span class="badge bg-light text-dark border">Berikutnya</span> di bawah panel. Nilai yang sudah diketik tetap ada.</li>
+        <li>Pindah peserta dengan <span class="badge bg-gray-200 text-gray-800 border">Sebelumnya</span> /
+            <span class="badge bg-gray-200 text-gray-800 border">Berikutnya</span> di bawah panel. Nilai yang sudah diketik tetap ada.</li>
         <li>Klik <span class="badge bg-success">Simpan</span> di panel atau <span class="badge bg-success">Simpan Semua Nilai</span>
             di atas. Keduanya menyimpan nilai <strong>semua</strong> peserta sekaligus.</li>
     </ol>
@@ -14,6 +14,6 @@
     </div>
     <p class="mb-0 text-muted">
         Kolom <strong>Progress</strong> = jumlah soal yang sudah dinilai dari total soal. Badge
-        <span class="badge bg-warning text-dark">Remidi</span> menandai peserta yang mengikuti ujian ulang.
+        <span class="badge bg-warning text-gray-800">Remidi</span> menandai peserta yang mengikuti ujian ulang.
     </p>
 </template>
