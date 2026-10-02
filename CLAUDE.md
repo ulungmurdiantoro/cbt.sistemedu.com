@@ -11,7 +11,7 @@ Dokumen ini menjelaskan arsitektur, konvensi, dan fitur yang telah dibangun pada
 | Backend | Laravel 11 (PHP) |
 | Frontend | Inertia.js + Vue 3 (Options API) |
 | Auth | Laravel Fortify (multi-guard) |
-| CSS | Bootstrap 5 (Volt theme) |
+| CSS | Bootstrap **5.1.3** (Volt theme, versi lama — lihat *CSS & Ikon: Versi Lama*) + Font Awesome **5.15.4** |
 | DB | MySQL (production) / SQLite (lokal) |
 | Excel export | Maatwebsite Laravel Excel |
 | PDF export | mPDF |
@@ -280,6 +280,40 @@ POST  /asesor/penilaian/{exam_session_id}/wawancara       → asesor.wawancara.s
 - Panduan portal Asesor & Pengambil Keputusan: isi per halaman ada di `resources/js/Components/Guide/{Asesor,Manager}/*.vue`,
   ditampilkan lewat `<PageGuide storage-key="...">` di atas halaman **dan** dirangkai di `Pages/*/Guide/Index.vue`.
   Ubah perilaku/tombol halaman → perbarui komponen Guide-nya juga.
+
+---
+
+## CSS & Ikon: Versi Lama (jangan pakai kelas baru)
+
+Tampilan memakai file jadi di `public/assets` (dimuat di `resources/views/app.blade.php`), **bukan** paket npm:
+`assets/css/volt.css` = tema Volt (Themesberg 2021) hasil build **Bootstrap 5.1**, `assets/js/bootstrap.bundle.min.js` =
+**v5.1.3**, dan Font Awesome **5.15.4** dari CDN. Sumber SCSS Volt tidak ada di repo. Upgrade sudah dipertimbangkan
+dan **sengaja tidak dilakukan** (harus build ulang Volt + cek ulang semua halaman). Jangan memasang Bootstrap/FA kedua
+lewat CDN/npm. Kelas yang tidak ada **tidak menimbulkan error**, elemennya cuma tampil polos/tak terlihat, jadi
+gampang lolos.
+
+**Kelas yang TIDAK ada → penggantinya:**
+
+| Jangan pakai | Kenapa | Pakai |
+|---|---|---|
+| `bg-light`, `text-dark`, `bg-dark`, `border-light` | dibuang Volt (`$theme-colors` tanpa light/dark) | `bg-gray-100`/`bg-gray-200`, `text-gray-800`, `bg-gray-800 text-white` |
+| `btn-light`, `btn-dark` | sama | `btn-gray-200`/`btn-white`, `btn-gray-800` |
+| `fw-semibold` | baru ada di Bootstrap 5.2 | `fw-bold` |
+| `sticky-bottom` (`sticky-top` ada) | baru di 5.2 | `position-sticky` + `style="bottom:0;z-index:1020"` |
+| `text-bg-*` (5.2), `*-subtle` mis. `bg-success-subtle` (5.3), `focus-ring` (5.3) | belum ada di 5.1 | `badge bg-success`, `bg-gray-100`, CSS sendiri |
+| Accordion tanpa warna sendiri | tampil transparan di tema ini (tanpa `--bs-accordion-*`) | beri warna lewat CSS scoped (lihat `Pages/*/Guide/Index.vue`) |
+| Kelas Tailwind (`flex`, `w-full`, `rounded-lg`, …) | Tailwind tidak terpasang | utilitas Bootstrap (`d-flex`, `w-100`, `rounded`) |
+
+Catatan warna Volt: `bg-secondary`/`btn-secondary` berwarna **oranye muda (amber)**, bukan abu-abu. Badge terang:
+`badge bg-gray-200 text-gray-800 border`; badge gelap: `badge bg-gray-800 text-white`; badge kuning:
+`badge bg-warning text-gray-800`.
+
+**Ikon Font Awesome 5:** nama FA6 dan FA4 tidak tampil. Contoh: `fa-right-left` → `fa-exchange-alt`, `fa-circle-dot` →
+`fa-dot-circle`, `fa-circle-info` → `fa-info-circle`, `fa-xmark` → `fa-times`, `fa-magnifying-glass` → `fa-search`,
+`fa-refresh` → `fa-sync`, `fa-sign-in` → `fa-sign-in-alt`.
+
+**Cek sebelum memakai kelas yang ragu:**
+`grep -cE "\.nama-kelas([^a-zA-Z0-9_-]|$)" public/assets/css/volt.css resources/css/app.css` (0 di kedua file = tidak ada). Kelas tambahan/override proyek ditaruh di `resources/css/app.css` (dimuat setelah `volt.css`).
 
 ---
 
