@@ -210,11 +210,6 @@ File upload peserta (Essay Migas & tugas) lewat `App\Support\AnswerFile`: tipe d
 (`student.essaysmigas.download`, `admin.essay_migas.download`). File lama di disk `public`
 dipindah dengan `php artisan answer-files:move-private` (`--dry-run` untuk cek dulu).
 
-Tugas peserta (`student_tasks`) di halaman Penilaian Wawancara asesor **hanya pratinjau, tidak diunduh**:
-`<FilePreviewModal>` merender PDF lewat pdf.js (canvas), DOCX lewat docx-preview, JPG/PNG sebagai gambar;
-endpoint `asesor.wawancara.tugas.preview` hanya melayani request XHR (`AnswerFile::preview`, tipe di `PREVIEW_MIME`).
-docx-preview wajib `renderAltChunks: false` (altChunk = `<iframe srcdoc>` berisi HTML dari file).
-
 Bukti dokumen CV asesor (opsional, per baris Pendidikan/Pelatihan/Pengalaman Kerja/Pengalaman Profesional/Sertifikasi)
 disimpan di baris JSON-nya sendiri (`bukti => [id, path, name]`, disk `private`). Browser hanya menerima `id` + `name`
 dan mengirim balik `bukti_id` — jangan kirim/terima `path` dari browser.

@@ -23,13 +23,12 @@ class AnswerFile
 
     public const MAX_KB = 20480;
 
-    /** Tipe yang bisa dipratinjau di browser tanpa diunduh → MIME yang dikirim. */
+    /** Tipe yang bisa ditampilkan langsung oleh browser di tab baru → MIME yang dikirim. */
     public const PREVIEW_MIME = [
         'pdf'  => 'application/pdf',
         'jpg'  => 'image/jpeg',
         'jpeg' => 'image/jpeg',
         'png'  => 'image/png',
-        'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     ];
 
     public static function rules(): array
@@ -97,13 +96,13 @@ class AnswerFile
         }
     }
 
-    public static function download(?string $path): StreamedResponse
+    public static function download(?string $path, ?string $name = null): StreamedResponse
     {
         $disk = self::diskFor($path);
 
         abort_unless($disk, 404, 'File tidak ditemukan');
 
-        return Storage::disk($disk)->download($path, basename($path));
+        return Storage::disk($disk)->download($path, $name ?: basename($path));
     }
 
     public static function extension(?string $path): string
@@ -117,17 +116,17 @@ class AnswerFile
     }
 
     /**
-     * Sajikan file untuk modal pratinjau (inline, tidak di-cache). Hanya tipe di
-     * PREVIEW_MIME — tipe lain tidak dikirim sama sekali karena tidak bisa ditampilkan.
+     * Tampilkan file di tab browser (inline, tidak di-cache). Hanya tipe di PREVIEW_MIME;
+     * tipe lain tidak bisa ditampilkan browser — pakai download().
      */
-    public static function preview(?string $path): StreamedResponse
+    public static function preview(?string $path, ?string $name = null): StreamedResponse
     {
         $disk = self::diskFor($path);
 
         abort_unless($disk, 404, 'File tidak ditemukan.');
-        abort_unless(self::previewable($path), 415, 'Format file ini tidak dapat dipratinjau.');
+        abort_unless(self::previewable($path), 415, 'Format file ini tidak dapat ditampilkan di browser. Silakan unduh.');
 
-        return Storage::disk($disk)->response($path, null, [
+        return Storage::disk($disk)->response($path, $name ?: null, [
             'Content-Type'           => self::PREVIEW_MIME[self::extension($path)],
             'Cache-Control'          => 'no-store, private',
             'X-Content-Type-Options' => 'nosniff',

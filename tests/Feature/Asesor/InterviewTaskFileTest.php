@@ -14,8 +14,8 @@ use Inertia\Testing\AssertableInertia;
 use Tests\Feature\Concerns\CreatesExamFixtures;
 use Tests\TestCase;
 
-/** Tugas peserta di halaman penilaian wawancara hanya bisa dipratinjau, tidak diunduh. */
-class InterviewTaskPreviewTest extends TestCase
+/** Tugas peserta di halaman penilaian wawancara: dibuka di tab baru (PDF/gambar) atau diunduh. */
+class InterviewTaskFileTest extends TestCase
 {
     use RefreshDatabase;
     use CreatesExamFixtures;
@@ -54,7 +54,8 @@ class InterviewTaskPreviewTest extends TestCase
 
     private function task(string $filename): StudentTask
     {
-        $path = "student_tasks/{$this->ctx['session']->id}/{$this->ctx['student']->id}/{$filename}";
+        $ext  = pathinfo($filename, PATHINFO_EXTENSION);
+        $path = "student_tasks/{$this->ctx['session']->id}/{$this->ctx['student']->id}/tugas-" . Str::random(6) . ".{$ext}";
         Storage::disk('private')->put($path, 'isi file');
 
         return StudentTask::forceCreate([
@@ -67,49 +68,52 @@ class InterviewTaskPreviewTest extends TestCase
         ]);
     }
 
-    private function previewUrl(): string
+    private function fileUrl(): string
     {
         return "/asesor/penilaian/{$this->ctx['session']->id}/wawancara/tugas/{$this->ctx['student']->id}";
     }
 
-    public function test_preview_serves_file_inline_without_caching(): void
+    public function test_preview_opens_inline_with_original_filename(): void
     {
-        $this->task('tugas.pdf');
+        $this->task('Tugas Akhir.pdf');
 
         $response = $this->actingAs($this->ctx['asesor'])
-            ->get($this->previewUrl(), ['X-Requested-With' => 'XMLHttpRequest'])
+            ->get($this->fileUrl())
             ->assertOk()
             ->assertHeader('Content-Type', 'application/pdf')
             ->assertHeader('X-Content-Type-Options', 'nosniff');
 
         $this->assertStringStartsWith('inline', $response->headers->get('Content-Disposition'));
-        $this->assertStringContainsString('no-store', $response->headers->get('Cache-Control'));
+        $this->assertStringContainsString('Tugas Akhir.pdf', $response->headers->get('Content-Disposition'));
     }
 
-    public function test_opening_preview_url_directly_does_not_serve_the_file(): void
+    public function test_download_sends_attachment_with_original_filename(): void
+    {
+        $this->task('Tugas Akhir.zip');
+
+        $response = $this->actingAs($this->ctx['asesor'])
+            ->get($this->fileUrl() . '/unduh')
+            ->assertOk();
+
+        $this->assertStringStartsWith('attachment', $response->headers->get('Content-Disposition'));
+        $this->assertStringContainsString('Tugas Akhir.zip', $response->headers->get('Content-Disposition'));
+    }
+
+    public function test_unassigned_asesor_cannot_open_or_download(): void
     {
         $this->task('tugas.pdf');
+        $other = $this->asesor();
 
-        $this->actingAs($this->ctx['asesor'])
-            ->get($this->previewUrl())
-            ->assertRedirect("/asesor/penilaian/{$this->ctx['session']->id}/wawancara");
+        $this->actingAs($other)->get($this->fileUrl())->assertForbidden();
+        $this->actingAs($other)->get($this->fileUrl() . '/unduh')->assertForbidden();
     }
 
-    public function test_unassigned_asesor_cannot_preview(): void
+    public function test_format_the_browser_cannot_show_is_not_previewed(): void
     {
-        $this->task('tugas.pdf');
-
-        $this->actingAs($this->asesor())
-            ->get($this->previewUrl(), ['X-Requested-With' => 'XMLHttpRequest'])
-            ->assertForbidden();
-    }
-
-    public function test_format_that_cannot_be_previewed_is_not_served(): void
-    {
-        $this->task('tugas.zip');
+        $this->task('tugas.docx');
 
         $this->actingAs($this->ctx['asesor'])
-            ->get($this->previewUrl(), ['X-Requested-With' => 'XMLHttpRequest'])
+            ->get($this->fileUrl())
             ->assertStatus(415);
     }
 
@@ -125,7 +129,7 @@ class InterviewTaskPreviewTest extends TestCase
                 ->where("tugas.{$this->ctx['student']->id}", [
                     'original_filename' => 'Tugas Akhir.DOCX',
                     'type'              => 'docx',
-                    'previewable'       => true,
+                    'previewable'       => false,
                 ]));
     }
 }

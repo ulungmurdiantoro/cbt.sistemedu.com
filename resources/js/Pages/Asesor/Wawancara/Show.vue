@@ -63,7 +63,7 @@
                                     <tr>
                                         <th class="text-center" style="min-width:100px">No Peserta</th>
                                         <th style="min-width:160px">Nama</th>
-                                        <th class="text-center" style="min-width:90px">Tugas</th>
+                                        <th class="text-center" style="min-width:100px">Tugas</th>
                                         <th class="text-center" style="min-width:100px" title="Gaya Wawancara">(A) Gaya</th>
                                         <th class="text-center" style="min-width:110px" title="Penguasaan Materi">(B) Penguasaan</th>
                                         <th class="text-center" style="min-width:110px" title="Kemampuan Menghadapi Pertanyaan">(C) Pertanyaan</th>
@@ -79,13 +79,20 @@
                                         </td>
                                         <td>{{ students[i]?.name ?? '-' }}</td>
 
-                                        <td class="text-center">
-                                            <button v-if="students[i] && tugas[students[i].id]" type="button"
-                                                @click="openTugas(students[i])"
-                                                :title="tugas[students[i].id].original_filename"
-                                                class="btn btn-sm btn-outline-primary">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
+                                        <td class="text-center text-nowrap">
+                                            <template v-if="students[i] && tugas[students[i].id]">
+                                                <a v-if="tugas[students[i].id].previewable"
+                                                    :href="tugasUrl(students[i])" target="_blank"
+                                                    :title="`Lihat ${tugas[students[i].id].original_filename}`"
+                                                    class="btn btn-sm btn-outline-primary me-1">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a :href="`${tugasUrl(students[i])}/unduh`"
+                                                    :title="`Unduh ${tugas[students[i].id].original_filename}`"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    <i class="fa fa-download"></i>
+                                                </a>
+                                            </template>
                                             <span v-else class="text-muted">-</span>
                                         </td>
 
@@ -162,10 +169,6 @@
 
             </div>
         </div>
-
-        <FilePreviewModal v-if="preview" :key="preview.url"
-            :url="preview.url" :type="preview.type" :previewable="preview.previewable" :title="preview.title"
-            @close="preview = null" />
     </div>
 </template>
 
@@ -174,11 +177,10 @@ import LayoutAsesor from '../../../Layouts/Asesor.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideWawancara from '../../../Components/Guide/Asesor/Wawancara.vue';
-import FilePreviewModal from '../../../Components/FilePreviewModal.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link, PageGuide, GuideWawancara, FilePreviewModal },
+    components: { Head, Link, PageGuide, GuideWawancara },
 
     props: {
         exam_session: Object,
@@ -193,19 +195,12 @@ export default {
             saving: false,
             successMsg: '',
             form: this.buildForm(),
-            preview: null,
         };
     },
 
     methods: {
-        openTugas(student) {
-            const task = this.tugas[student.id];
-            this.preview = {
-                url:         `/asesor/penilaian/${this.exam_session.id}/wawancara/tugas/${student.id}`,
-                type:        task.type,
-                previewable: task.previewable,
-                title:       `Tugas ${student.no_participant} — ${student.name} (${task.original_filename})`,
-            };
+        tugasUrl(student) {
+            return `/asesor/penilaian/${this.exam_session.id}/wawancara/tugas/${student.id}`;
         },
 
         buildForm() {

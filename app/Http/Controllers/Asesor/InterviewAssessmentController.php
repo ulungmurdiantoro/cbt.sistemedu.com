@@ -11,7 +11,6 @@ use App\Models\InterviewAssessment;
 use App\Models\Student;
 use App\Models\StudentTask;
 use App\Support\AnswerFile;
-use Illuminate\Http\Request;
 
 class InterviewAssessmentController extends Controller
 {
@@ -78,17 +77,23 @@ class InterviewAssessmentController extends Controller
         ]);
     }
 
-    /**
-     * Tugas peserta hanya untuk dipratinjau di modal halaman wawancara (diambil lewat
-     * axios), tidak untuk diunduh. Membuka URL ini langsung di tab dikembalikan ke
-     * halaman penilaian.
-     */
-    public function previewTugas(Request $request, int $exam_session_id, int $student_id)
+    /** Buka tugas di tab baru (PDF/JPG/PNG ditampilkan browser). */
+    public function previewTugas(int $exam_session_id, int $student_id)
     {
-        if (! $request->ajax()) {
-            return redirect()->route('asesor.wawancara.show', $exam_session_id);
-        }
+        $task = $this->assignedTask($exam_session_id, $student_id);
 
+        return AnswerFile::preview($task->file_path, $task->original_filename);
+    }
+
+    public function downloadTugas(int $exam_session_id, int $student_id)
+    {
+        $task = $this->assignedTask($exam_session_id, $student_id);
+
+        return AnswerFile::download($task->file_path, $task->original_filename);
+    }
+
+    private function assignedTask(int $exam_session_id, int $student_id): StudentTask
+    {
         $asesor = auth()->user();
 
         $assigned = AsesorAssignment::where('user_id', $asesor->id)
@@ -104,7 +109,7 @@ class InterviewAssessmentController extends Controller
 
         abort_unless($task, 404, 'Tugas tidak ditemukan.');
 
-        return AnswerFile::preview($task->file_path);
+        return $task;
     }
 
     public function store(StoreInterviewAssessmentRequest $request, int $exam_session_id)
