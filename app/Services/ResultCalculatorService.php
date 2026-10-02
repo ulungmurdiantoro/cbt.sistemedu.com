@@ -18,6 +18,23 @@ class ResultCalculatorService
      */
     public function recalcForSession(ExamSession $session): array
     {
+        $results = $this->calculateForSession($session);
+
+        foreach ($results as $result) {
+            $result->save();
+        }
+
+        return $results;
+    }
+
+    /**
+     * Hitung nilai tanpa menyimpan apa pun (dipakai Rekap Nilai asesor — membuka halaman
+     * tidak boleh menulis ke DB). Hasil yang sudah difinalisasi tetap memakai nilai
+     * tersimpan. $studentIds: hitung untuk peserta ini saja (mis. yang ditugaskan ke
+     * asesor); default semua peserta yang ter-enroll di sesi.
+     */
+    public function calculateForSession(ExamSession $session, ?iterable $studentIds = null): array
+    {
         $session->loadMissing(['examPg.classroom', 'examEsai.classroom', 'exam_groups']);
 
         $classroomId = $session->referenceExam?->classroom_id;
@@ -30,10 +47,9 @@ class ResultCalculatorService
         $bobotWawancara  = $scheme?->bobot_wawancara ?? 0;
         $nilaiKelulusan  = $scheme?->nilai_kelulusan ?? 70;
 
-        $studentIds = $session->exam_groups
-            ->pluck('student_id')
-            ->unique()
-            ->values();
+        $studentIds = $studentIds !== null
+            ? collect($studentIds)->unique()->values()
+            : $session->exam_groups->pluck('student_id')->unique()->values();
 
         // Abaikan akun peserta yang sudah dinonaktifkan (mis. akun lama hasil
         // re-issue) supaya tidak muncul dobel di halaman Tinjau Sertifikasi.
@@ -112,7 +128,6 @@ class ResultCalculatorService
                 $result->keputusan       = $keputusan;
             }
 
-            $result->save();
             $results[] = $result;
         }
 

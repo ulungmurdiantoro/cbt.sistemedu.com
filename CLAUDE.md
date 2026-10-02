@@ -269,7 +269,11 @@ GET   /asesor/penilaian/{exam_session_id}/esai            → asesor.esai.show
 POST  /asesor/penilaian/{exam_session_id}/esai            → asesor.esai.store
 GET   /asesor/penilaian/{exam_session_id}/wawancara       → asesor.wawancara.show
 POST  /asesor/penilaian/{exam_session_id}/wawancara       → asesor.wawancara.store
+GET   /asesor/penilaian/{exam_session_id}/rekap           → asesor.rekap.show (Rekap Nilai, baca saja)
 ```
+
+Rekap Nilai asesor memakai `ResultCalculatorService::calculateForSession()` (hitung tanpa menyimpan, hanya
+peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halaman admin/Pengambil Keputusan.
 
 ---
 

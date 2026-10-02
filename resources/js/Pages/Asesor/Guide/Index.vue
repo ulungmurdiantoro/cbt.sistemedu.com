@@ -52,6 +52,7 @@ import { markRaw } from 'vue';
 import GuideDashboard from '../../../Components/Guide/Asesor/Dashboard.vue';
 import GuideEsai from '../../../Components/Guide/Asesor/Esai.vue';
 import GuideWawancara from '../../../Components/Guide/Asesor/Wawancara.vue';
+import GuideRekapNilai from '../../../Components/Guide/Asesor/RekapNilai.vue';
 import GuideLaporan from '../../../Components/Guide/Asesor/LaporanAsesmen.vue';
 import GuideTtdAk01 from '../../../Components/Guide/Asesor/TtdAk01.vue';
 import GuideCv from '../../../Components/Guide/Asesor/Cv.vue';
@@ -67,6 +68,7 @@ export default {
                 { id: 's1', title: 'Dashboard tugas',                           component: markRaw(GuideDashboard) },
                 { id: 's2', title: 'Menilai esai',                              component: markRaw(GuideEsai) },
                 { id: 's3', title: 'Menilai wawancara',                         component: markRaw(GuideWawancara) },
+                { id: 's7', title: 'Rekap Nilai',                               component: markRaw(GuideRekapNilai) },
                 { id: 's4', title: 'Laporan Asesmen (FR.AK.05) & tanda tangan', component: markRaw(GuideLaporan) },
                 { id: 's5', title: 'TTD AK.01',                                 component: markRaw(GuideTtdAk01) },
                 { id: 's6', title: 'CV Saya',                                   component: markRaw(GuideCv) },
