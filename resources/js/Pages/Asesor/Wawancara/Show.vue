@@ -80,12 +80,12 @@
                                         <td>{{ students[i]?.name ?? '-' }}</td>
 
                                         <td class="text-center">
-                                            <a v-if="students[i] && tugas[students[i].id]"
-                                                :href="`/asesor/penilaian/${exam_session.id}/wawancara/tugas/${students[i].id}`"
-                                                target="_blank"
+                                            <button v-if="students[i] && tugas[students[i].id]" type="button"
+                                                @click="openTugas(students[i])"
+                                                :title="tugas[students[i].id].original_filename"
                                                 class="btn btn-sm btn-outline-primary">
-                                                <i class="fa fa-download"></i>
-                                            </a>
+                                                <i class="fa fa-eye"></i>
+                                            </button>
                                             <span v-else class="text-muted">-</span>
                                         </td>
 
@@ -162,6 +162,10 @@
 
             </div>
         </div>
+
+        <FilePreviewModal v-if="preview" :key="preview.url"
+            :url="preview.url" :type="preview.type" :previewable="preview.previewable" :title="preview.title"
+            @close="preview = null" />
     </div>
 </template>
 
@@ -170,10 +174,11 @@ import LayoutAsesor from '../../../Layouts/Asesor.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideWawancara from '../../../Components/Guide/Asesor/Wawancara.vue';
+import FilePreviewModal from '../../../Components/FilePreviewModal.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link, PageGuide, GuideWawancara },
+    components: { Head, Link, PageGuide, GuideWawancara, FilePreviewModal },
 
     props: {
         exam_session: Object,
@@ -188,10 +193,21 @@ export default {
             saving: false,
             successMsg: '',
             form: this.buildForm(),
+            preview: null,
         };
     },
 
     methods: {
+        openTugas(student) {
+            const task = this.tugas[student.id];
+            this.preview = {
+                url:         `/asesor/penilaian/${this.exam_session.id}/wawancara/tugas/${student.id}`,
+                type:        task.type,
+                previewable: task.previewable,
+                title:       `Tugas ${student.no_participant} — ${student.name} (${task.original_filename})`,
+            };
+        },
+
         buildForm() {
             return this.students.map(student => {
                 const existing = this.assessments[student.id] ?? null;

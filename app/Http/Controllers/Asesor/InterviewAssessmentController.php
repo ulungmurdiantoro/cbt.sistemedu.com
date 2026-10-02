@@ -10,7 +10,8 @@ use App\Models\GradingScheme;
 use App\Models\InterviewAssessment;
 use App\Models\Student;
 use App\Models\StudentTask;
-use Illuminate\Support\Facades\Storage;
+use App\Support\AnswerFile;
+use Illuminate\Http\Request;
 
 class InterviewAssessmentController extends Controller
 {
@@ -62,7 +63,11 @@ class InterviewAssessmentController extends Controller
         $tugas = StudentTask::where('exam_session_id', $exam_session_id)
             ->whereIn('student_id', $assigned_student_ids)
             ->get()
-            ->keyBy('student_id');
+            ->mapWithKeys(fn (StudentTask $task) => [$task->student_id => [
+                'original_filename' => $task->original_filename,
+                'type'              => AnswerFile::extension($task->file_path),
+                'previewable'       => AnswerFile::previewable($task->file_path),
+            ]]);
 
         return inertia('Asesor/Wawancara/Show', [
             'exam_session' => $exam_session,
@@ -73,8 +78,17 @@ class InterviewAssessmentController extends Controller
         ]);
     }
 
-    public function downloadTugas(int $exam_session_id, int $student_id)
+    /**
+     * Tugas peserta hanya untuk dipratinjau di modal halaman wawancara (diambil lewat
+     * axios), tidak untuk diunduh. Membuka URL ini langsung di tab dikembalikan ke
+     * halaman penilaian.
+     */
+    public function previewTugas(Request $request, int $exam_session_id, int $student_id)
     {
+        if (! $request->ajax()) {
+            return redirect()->route('asesor.wawancara.show', $exam_session_id);
+        }
+
         $asesor = auth()->user();
 
         $assigned = AsesorAssignment::where('user_id', $asesor->id)
@@ -88,9 +102,9 @@ class InterviewAssessmentController extends Controller
             ->where('student_id', $student_id)
             ->first();
 
-        abort_if(!$task || !Storage::disk('private')->exists($task->file_path), 404, 'Tugas tidak ditemukan.');
+        abort_unless($task, 404, 'Tugas tidak ditemukan.');
 
-        return Storage::disk('private')->response($task->file_path, $task->original_filename);
+        return AnswerFile::preview($task->file_path);
     }
 
     public function store(StoreInterviewAssessmentRequest $request, int $exam_session_id)

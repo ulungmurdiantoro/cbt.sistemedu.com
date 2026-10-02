@@ -23,6 +23,15 @@ class AnswerFile
 
     public const MAX_KB = 20480;
 
+    /** Tipe yang bisa dipratinjau di browser tanpa diunduh → MIME yang dikirim. */
+    public const PREVIEW_MIME = [
+        'pdf'  => 'application/pdf',
+        'jpg'  => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'png'  => 'image/png',
+        'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ];
+
     public static function rules(): array
     {
         $list = implode(',', self::EXTENSIONS);
@@ -95,5 +104,33 @@ class AnswerFile
         abort_unless($disk, 404, 'File tidak ditemukan');
 
         return Storage::disk($disk)->download($path, basename($path));
+    }
+
+    public static function extension(?string $path): string
+    {
+        return strtolower(pathinfo((string) $path, PATHINFO_EXTENSION));
+    }
+
+    public static function previewable(?string $path): bool
+    {
+        return isset(self::PREVIEW_MIME[self::extension($path)]);
+    }
+
+    /**
+     * Sajikan file untuk modal pratinjau (inline, tidak di-cache). Hanya tipe di
+     * PREVIEW_MIME — tipe lain tidak dikirim sama sekali karena tidak bisa ditampilkan.
+     */
+    public static function preview(?string $path): StreamedResponse
+    {
+        $disk = self::diskFor($path);
+
+        abort_unless($disk, 404, 'File tidak ditemukan.');
+        abort_unless(self::previewable($path), 415, 'Format file ini tidak dapat dipratinjau.');
+
+        return Storage::disk($disk)->response($path, null, [
+            'Content-Type'           => self::PREVIEW_MIME[self::extension($path)],
+            'Cache-Control'          => 'no-store, private',
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
     }
 }
