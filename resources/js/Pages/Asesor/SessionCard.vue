@@ -13,6 +13,12 @@
 
             <h6 class="fw-bold mb-1">{{ session.title }}</h6>
 
+            <!-- Judul sesi = nama skema dan bisa sama antar batch — batch & jadwal yang membedakan. -->
+            <p class="small mb-2">
+                <span v-if="session.kode_batch" class="badge bg-gray-200 text-gray-800 border me-1">Batch {{ session.kode_batch }}</span>
+                <span class="text-muted"><i class="fa fa-calendar-alt me-1"></i>{{ jadwal }}</span>
+            </p>
+
             <p class="text-muted mb-1 small">
                 <i class="fa fa-book me-1"></i>
                 <span v-if="session.examPg">
@@ -74,6 +80,26 @@ export default {
         classroomTitle() {
             const exam = this.session.examPg ?? this.session.examEsai;
             return exam?.classroom?.title ?? '—';
+        },
+        jadwal() {
+            const start = this.parseLocal(this.session.start_time);
+            const end   = this.parseLocal(this.session.end_time);
+            if (!start || !end) return 'Jadwal belum diatur';
+
+            const tgl = (d) => d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            const jam = (d) => d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            return start.toDateString() === end.toDateString()
+                ? `${tgl(start)} · ${jam(start)}–${jam(end)}`
+                : `${tgl(start)}, ${jam(start)} – ${tgl(end)}, ${jam(end)}`;
+        },
+    },
+    methods: {
+        // Jam sesi disimpan sebagai jam lokal ("2026-06-18 08:30:00", tanpa zona) — bangun Date
+        // lokal langsung, jangan lewat new Date(string) yang beda-beda antar browser.
+        parseLocal(value) {
+            const m = String(value ?? '').match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+            return m ? new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]) : null;
         },
     },
 }

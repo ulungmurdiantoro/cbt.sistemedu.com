@@ -2,7 +2,8 @@
     <p class="mb-2">
         Semua sesi ujian yang pesertanya ditugaskan kepada Anda muncul di sini, dipisah tab
         <span class="badge bg-success">Sesi Aktif</span> dan <span class="badge bg-secondary">Sesi Selesai</span>.
-        Kartu di tab Sesi Selesai tetap bisa dibuka. Tiap kartu punya lima tombol:
+        Kartu di tab Sesi Selesai tetap bisa dibuka. Nama sesi bisa sama untuk beberapa batch, jadi bedakan lewat
+        label <span class="badge bg-gray-200 text-gray-800 border">Batch</span> dan jadwalnya. Tiap kartu punya lima tombol:
     </p>
     <div class="table-responsive mb-2">
         <table class="table table-sm table-bordered mb-0">
