@@ -46,7 +46,7 @@
               }"
               style="min-height:300px;width:100%;border-radius:12px;"
               @update:content="val => (form.answer = val)"
-              @ready="disablePaste"
+              @ready="onEditorReady"
             />
             <button
               @click="submitAnswer(essay_active.essay.exam.id, essay_active.essay_id)"
@@ -106,7 +106,7 @@
 <script>
 import LayoutStudent from '../../../Layouts/Student.vue'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watch } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import VueCountdown from '@chenfengyuan/vue-countdown'
 import Swal from 'sweetalert2'
 import { QuillEditor } from '@vueup/vue-quill'
@@ -128,10 +128,10 @@ export default {
     duration:       Object,
   },
   setup(props) {
-    const form   = reactive({ answer: props.essay_active?.answer || '' })
-    const isSaved = ref(!!props.essay_active?.answer)
-
-    watch(() => form.answer, () => { isSaved.value = false })
+    const form        = reactive({ answer: props.essay_active?.answer || '' })
+    // Jawaban terakhir yang tersimpan di server, dalam bentuk HTML editor (lihat onEditorReady).
+    const savedAnswer = ref(props.essay_active?.answer || '')
+    const isSaved     = computed(() => !!savedAnswer.value && form.answer === savedAnswer.value)
 
     const { duration, handleChangeDuration, saveDuration } = useExamTimer(
       props.duration.duration,
@@ -157,15 +157,16 @@ export default {
         Swal.fire({ title: 'Error!', text: 'Jawaban tidak boleh kosong', icon: 'error' })
         return
       }
+      const answer = form.answer
       router.post('/student/essay-answer', {
         exam_id,
         exam_session_id: props.exam_group.exam_session.id,
         essay_id,
-        answer: form.answer,
+        answer,
         duration: duration.value,
       }, {
         onSuccess: () => {
-          isSaved.value = true
+          savedAnswer.value = answer
           Swal.fire({ title: 'Tersimpan!', text: 'Jawaban berhasil disimpan.', icon: 'success', showConfirmButton: false, timer: 2000 })
         },
         onError: () => {
@@ -190,10 +191,19 @@ export default {
       })
     }
 
+    function onEditorReady(quill) {
+      disablePaste(quill)
+      // Quill menormalkan HTML jawaban tersimpan (mis. menambah <span class="ql-ui"> di tiap butir
+      // daftar), sehingga isi editor tampak berubah walau peserta belum mengetik. Proses normalisasi
+      // itu sekarang (form.answer ikut diperbarui lewat update:content), lalu jadikan patokan.
+      quill.update()
+      if (savedAnswer.value) savedAnswer.value = form.answer
+    }
+
     return {
       form, isSaved, duration, handleChangeDuration,
       showEndModal, timeUp,
-      prevPage, nextPage, clickQuestion, submitAnswer, endExam, disablePaste,
+      prevPage, nextPage, clickQuestion, submitAnswer, endExam, onEditorReady,
     }
   },
 }
