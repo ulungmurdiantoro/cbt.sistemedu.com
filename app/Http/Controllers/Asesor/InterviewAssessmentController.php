@@ -87,13 +87,7 @@ class InterviewAssessmentController extends Controller
         return inertia('Asesor/Wawancara/Tugas', [
             'exam_session' => ExamSession::select('id', 'title')->findOrFail($exam_session_id),
             'student'      => Student::select('id', 'no_participant', 'name')->findOrFail($student_id),
-            'tugas'        => [
-                'original_filename' => $task->original_filename,
-                'file_size'         => $task->file_size,
-                'uploaded_at'       => $task->uploaded_at,
-                'type'              => AnswerFile::extension($task->file_path),
-                'previewable'       => AnswerFile::previewable($task->file_path),
-            ],
+            'tugas'        => $task->previewProps(),
         ]);
     }
 

@@ -141,6 +141,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/results/{examSession}/download-sp/{student}',     [\App\Http\Controllers\Admin\ResultController::class, 'downloadSp'])->name('admin.results.download-sp');
         Route::get('/results/{examSession}/download-sk/{student}',     [\App\Http\Controllers\Admin\ResultController::class, 'downloadSk'])->name('admin.results.download-sk');
         Route::get('/results/{examSession}/download-sertifikat/{student}', [\App\Http\Controllers\Admin\ResultController::class, 'downloadSertifikat'])->name('admin.results.download-sertifikat');
+        Route::get('/results/{examSession}/tugas/{student}',           [\App\Http\Controllers\Admin\ResultController::class, 'previewTugas'])->name('admin.results.tugas.preview');
+        Route::get('/results/{examSession}/tugas/{student}/file',      [\App\Http\Controllers\Admin\ResultController::class, 'fileTugas'])->name('admin.results.tugas.file');
+        Route::get('/results/{examSession}/tugas/{student}/unduh',     [\App\Http\Controllers\Admin\ResultController::class, 'downloadTugas'])->name('admin.results.tugas.download');
 
         // Template dokumen
         Route::get('/certificate-template',                           [\App\Http\Controllers\Admin\CertificateTemplateController::class, 'show'])->name('admin.certificate-template');

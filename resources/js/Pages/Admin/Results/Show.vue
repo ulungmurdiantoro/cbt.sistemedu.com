@@ -58,6 +58,7 @@
                                 <th class="border-0" style="width:3%">No.</th>
                                 <th class="border-0">No. Peserta</th>
                                 <th class="border-0">Nama</th>
+                                <th class="border-0 text-center" v-if="show_tugas">Tugas</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_pg">PG</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_esai">Esai</th>
                                 <th class="border-0 text-center" v-if="exam_session.has_wawancara">Wawancara</th>
@@ -75,6 +76,16 @@
                                 <td>
                                     {{ row.name }}
                                     <span v-if="row.attempt > 1" class="badge bg-warning text-gray-800 ms-1 small">Remidi</span>
+                                </td>
+                                <td class="text-center" v-if="show_tugas">
+                                    <a v-if="tugas[row.student_id]"
+                                       :href="`/admin/results/${exam_session.id}/tugas/${row.student_id}`"
+                                       target="_blank"
+                                       :title="`Lihat ${tugas[row.student_id].original_filename}`"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <span v-else class="text-muted">—</span>
                                 </td>
                                 <td class="text-center num" v-if="exam_session.exam_id_pg">
                                     {{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}
@@ -207,6 +218,8 @@ export default {
         exam_session: Object,
         rows:         Array,
         scheme:       Object,
+        tugas:        Object,
+        show_tugas:   Boolean,
     },
 
     setup(props) {

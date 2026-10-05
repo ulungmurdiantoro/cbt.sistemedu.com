@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\ExamSession;
 use App\Models\ParticipantResult;
 use App\Models\Student;
+use App\Models\StudentTask;
 use App\Services\DocumentGeneratorService;
 use App\Services\ResultCalculatorService;
+use App\Support\AnswerFile;
 
 class ResultController extends Controller
 {
@@ -52,7 +54,14 @@ class ResultController extends Controller
         $results = $this->calculator->recalcForSession($examSession);
 
         $studentIds = collect($results)->pluck('student_id');
-        $students   = Student::whereIn('id', $studentIds)->with('participant')->get()->keyBy('id');
+        $students   = Student::whereIn('id', $studentIds)->with('participant', 'classroom')->get()->keyBy('id');
+
+        $tugas = StudentTask::where('exam_session_id', $examSession->id)
+            ->whereIn('student_id', $studentIds)
+            ->get()
+            ->mapWithKeys(fn (StudentTask $task) => [$task->student_id => [
+                'original_filename' => $task->original_filename,
+            ]]);
 
         $rows = collect($results)->map(function ($r) use ($students) {
             $student = $students->get($r->student_id);
@@ -85,7 +94,46 @@ class ResultController extends Controller
             'exam_session' => $examSession,
             'rows'         => $rows,
             'scheme'       => $scheme,
+            'tugas'        => $tugas,
+            // Kolom Tugas disembunyikan untuk skema yang tidak wajib upload tugas
+            // (Student::requiresTugas), kecuali ada yang tetap mengunggah.
+            'show_tugas'   => $tugas->isNotEmpty() || $students->contains(fn (Student $s) => $s->requiresTugas()),
         ]);
+    }
+
+    /** Pratinjau tugas peserta di tab baru — sama dengan portal asesor, tanpa cek penugasan. */
+    public function previewTugas(ExamSession $examSession, Student $student)
+    {
+        return inertia('Admin/Results/Tugas', [
+            'exam_session' => $examSession->only('id', 'title'),
+            'student'      => $student->only('id', 'no_participant', 'name'),
+            'tugas'        => $this->task($examSession, $student)->previewProps(),
+        ]);
+    }
+
+    public function fileTugas(ExamSession $examSession, Student $student)
+    {
+        $task = $this->task($examSession, $student);
+
+        return AnswerFile::preview($task->file_path, $task->original_filename);
+    }
+
+    public function downloadTugas(ExamSession $examSession, Student $student)
+    {
+        $task = $this->task($examSession, $student);
+
+        return AnswerFile::download($task->file_path, $task->original_filename);
+    }
+
+    private function task(ExamSession $examSession, Student $student): StudentTask
+    {
+        $task = StudentTask::where('exam_session_id', $examSession->id)
+            ->where('student_id', $student->id)
+            ->first();
+
+        abort_unless($task, 404, 'Tugas tidak ditemukan.');
+
+        return $task;
     }
 
     // Finalisasi nilai dipindah ke Manager\SertifikasiController — kelulusan

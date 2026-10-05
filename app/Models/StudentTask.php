@@ -55,6 +55,18 @@ class StudentTask extends Model
         return $task;
     }
 
+    /** Data untuk halaman pratinjau tugas (portal asesor & admin). */
+    public function previewProps(): array
+    {
+        return [
+            'original_filename' => $this->original_filename,
+            'file_size'         => $this->file_size,
+            'uploaded_at'       => $this->uploaded_at,
+            'type'              => AnswerFile::extension($this->file_path),
+            'previewable'       => AnswerFile::previewable($this->file_path),
+        ];
+    }
+
     public function student()
     {
         return $this->belongsTo(Student::class);
