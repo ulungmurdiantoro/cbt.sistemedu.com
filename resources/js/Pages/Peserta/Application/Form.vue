@@ -43,6 +43,10 @@
                     <div class="col-md-12 mb-3">
                         <label class="fw-bolder small">Nama Lengkap Beserta Gelar <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" v-model="form.name" placeholder="contoh: Dr. Budi Santoso, M.Si.">
+                        <div class="form-text small">
+                            <i class="fa fa-info-circle me-1"></i>Nama ini juga akan tercantum di <strong>Sertifikat</strong> dan <strong>SK</strong>.
+                            Pastikan ejaan nama dan gelar sudah benar.
+                        </div>
                         <div v-if="errors.name" class="text-danger small mt-1">{{ errors.name }}</div>
                     </div>
                     <div class="col-md-6 mb-3">
