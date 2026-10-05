@@ -97,7 +97,8 @@
                                     <tr v-for="(row, i) in form" :key="row.student_id">
                                         <td class="fw-bold text-center">{{ i + 1 }}</td>
                                         <td class="text-nowrap">{{ students[i].no_participant }}</td>
-                                        <td>{{ students[i].name }}</td>
+                                        <!-- Volt memberi nowrap ke semua sel; nama panjang dibungkus supaya kolom Aksi tidak terdorong keluar -->
+                                        <td class="text-wrap" style="min-width:180px">{{ students[i].name }}</td>
                                         <td>
                                             <Link v-if="students[i].application_id"
                                                 :href="`/admin/applications/${students[i].application_id}?sesi=${exam_session.id}`"
@@ -137,8 +138,7 @@
                         </p>
 
                         <!-- Muncul selama ada pilihan asesor yang belum disimpan -->
-                        <div v-if="dirty" class="position-sticky d-flex flex-wrap justify-content-between align-items-center gap-2 bg-gray-800 text-white rounded shadow px-3 py-2 mt-3"
-                            style="bottom:0;z-index:1020">
+                        <div v-if="dirty" class="unsaved-bar d-flex flex-wrap justify-content-between align-items-center gap-3 bg-gray-800 text-white rounded shadow px-3 py-2">
                             <span class="small"><i class="fa fa-exclamation-circle me-1"></i>Ada {{ changedCount }} perubahan penugasan yang belum disimpan.</span>
                             <button @click="save" :disabled="saving" class="btn btn-sm btn-success border-0">
                                 <i class="fa fa-save me-1"></i> {{ saving ? 'Menyimpan...' : 'Simpan Penugasan' }}
@@ -292,3 +292,14 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+/* position: sticky tidak menempel di dalam main.content (Volt memberi overflow: hidden), jadi bar ini fixed */
+.unsaved-bar {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 1030;
+    max-width: calc(100vw - 3rem);
+}
+</style>

@@ -312,7 +312,7 @@ gampang lolos.
 | `bg-light`, `text-dark`, `bg-dark`, `border-light` | dibuang Volt (`$theme-colors` tanpa light/dark) | `bg-gray-100`, `text-gray-800`, `bg-gray-800 text-white`, `border-gray-200` |
 | `btn-light`, `btn-dark` | sama | `btn-gray-100`, `btn-gray-800` |
 | `fw-semibold` | baru ada di Bootstrap 5.2 | `fw-bolder` (= 600 di Volt; `fw-bold` di Volt hanya 500) |
-| `sticky-bottom` (`sticky-top` ada) | baru di 5.2 | `position-sticky` + `style="bottom:0;z-index:1020"` |
+| `sticky-bottom`, juga `position-sticky`/`sticky-top` di halaman portal | `sticky-bottom` baru di 5.2; sticky apa pun tidak menempel di dalam `main.content` layout Admin/Asesor/Manager (Volt: `overflow: hidden`) | bar melayang: CSS sendiri `position: fixed` (contoh `.unsaved-bar` di `Pages/Admin/ExamSessions/Show.vue`) |
 | `text-bg-*` (5.2), `*-subtle` mis. `bg-success-subtle` (5.3), `focus-ring` (5.3) | belum ada di 5.1 | badge lembut → `<StatusBadge tone="...">`; selain itu `bg-gray-100` / CSS sendiri |
 | Accordion tanpa warna sendiri | tampil transparan di tema ini (tanpa `--bs-accordion-*`) | beri warna lewat CSS scoped (lihat `Pages/*/Guide/Index.vue`) |
 | Kelas Tailwind (`flex`, `w-full`, `rounded-lg`, …) | Tailwind tidak terpasang | utilitas Bootstrap (`d-flex`, `w-100`, `rounded`) |
