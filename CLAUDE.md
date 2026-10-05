@@ -319,6 +319,7 @@ gampang lolos.
 | `sticky-bottom`, juga `position-sticky`/`sticky-top` di halaman portal | `sticky-bottom` baru di 5.2; sticky apa pun tidak menempel di dalam `main.content` layout Admin/Asesor/Manager (Volt: `overflow: hidden`) | bar melayang: CSS sendiri `position: fixed` (contoh `.unsaved-bar` di `Pages/Admin/ExamSessions/Show.vue`) |
 | `text-bg-*` (5.2), `*-subtle` mis. `bg-success-subtle` (5.3), `focus-ring` (5.3) | belum ada di 5.1 | badge lembut → `<StatusBadge tone="...">`; selain itu `bg-gray-100` / CSS sendiri |
 | Accordion tanpa warna sendiri | tampil transparan di tema ini (tanpa `--bs-accordion-*`) | beri warna lewat CSS scoped (lihat `Pages/*/Guide/Index.vue`) |
+| `<span>` berisi teks di dalam `.dropdown-menu` | Volt: `.dropdown-menu span { width: 30px }` (untuk ikon) → teks turun per kata | pakai `<a>`/`<div>`, atau timpa `width: auto` (lihat `Components/SearchSelect.vue`) |
 | Kelas Tailwind (`flex`, `w-full`, `rounded-lg`, …) | Tailwind tidak terpasang | utilitas Bootstrap (`d-flex`, `w-100`, `rounded`) |
 
 Catatan warna Volt: `bg-secondary`/`btn-secondary` berwarna **oranye muda (amber)**, bukan abu-abu. Badge terang:

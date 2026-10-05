@@ -143,6 +143,10 @@ export default {
     z-index: 1060;
     margin: 0;
 }
+/* Volt punya `.dropdown-menu span { width: 30px }` (untuk ikon) → nama & hint turun per kata. */
+.search-select-menu .dropdown-item span {
+    width: auto;
+}
 .search-select-menu .dropdown-item.is-highlighted {
     background-color: #e5e7eb;
     color: #111827;
