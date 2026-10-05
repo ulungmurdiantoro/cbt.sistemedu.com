@@ -68,7 +68,8 @@ resources/js/
       ExamSessions/
         Show.vue    ← detail sesi: tabel peserta + status permohonan + penugasan asesor
       Penilaian/    ← halaman per sesi turunan: VerifikasiTuk/, Dokumen/ (TTD AK.01)
-      Reports/      ← laporan nilai (existing)
+      Reports/      ← Show.vue = detail jawaban peserta (dibuka dari Rekap Hasil)
+      Results/      ← Hasil Penilaian: daftar sesi + Rekap Hasil (nilai, Laporan Nilai, kirim SP/SK)
       ...
     Asesor/
       Dashboard.vue          ← (baru) dashboard asesor
@@ -154,7 +155,9 @@ UNIQUE (user_id, exam_session_id, student_id)
 1. Admin masuk ke **Sesi Ujian** → buka sesi (`/admin/exam_sessions/{id}`, tab **Peserta & Asesor**)
 2. Pilih asesor per peserta di kolom Asesor → **Simpan Penugasan** (POST `admin.penilaian.saveAssignments`)
    — menu "Penugasan Asesor" sudah dilebur ke sini; `/admin/penilaian[/{id}]` hanya mengalihkan
-3. Admin dapat melihat hasil nilai di Laporan Nilai (existing)
+3. Admin melihat hasil nilai di **Hasil Penilaian** (`/admin/results/{id}`) — menu "Laporan Nilai" sudah digabung ke sini:
+   tombol Laporan Nilai (Excel / PDF, route `admin.reports.export*`) dan angka PG/Esai → detail jawaban (`admin.reports.show`).
+   `/admin/reports` dan `/admin/reports/filter` hanya mengalihkan.
 
 ### Alur Asesor
 1. Asesor login di URL yang sama dengan admin (`/login`)

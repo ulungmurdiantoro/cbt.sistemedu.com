@@ -20,43 +20,20 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
+    // Menu "Laporan Nilai" sudah digabung ke Hasil Penilaian (admin.results.*): export Excel/PDF
+    // dan detail jawaban dibuka dari Rekap Hasil per sesi. URL lama tetap hidup untuk bookmark.
     public function index()
     {
-        $exam_sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
-            ->orderBy('id', 'desc')
-            ->get();
-
-        return inertia('Admin/Reports/Index', [
-            'exam_sessions' => $exam_sessions,
-            'grades'        => [],
-        ]);
+        return redirect()->route('admin.results.index');
     }
 
     public function filter(Request $request)
     {
-        $request->validate([
-            'exam_session_id' => 'required',
-        ]);
+        $session = ExamSession::find($request->integer('exam_session_id'));
 
-        $exam_sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
-            ->orderBy('id', 'desc')
-            ->get();
-
-        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')
-            ->find($request->exam_session_id);
-
-        $grades = $exam_session
-            ? Grade::with('student', 'exam.classroom', 'exam_session')
-                ->where('exam_session_id', $exam_session->id)
-                ->get()
-                ->sortBy(fn ($g) => $g->student?->no_participant)
-                ->values()
-            : [];
-
-        return inertia('Admin/Reports/Index', [
-            'exam_sessions' => $exam_sessions,
-            'grades'        => $grades,
-        ]);
+        return $session
+            ? redirect()->route('admin.results.show', $session)
+            : redirect()->route('admin.results.index');
     }
 
     public function show($id)

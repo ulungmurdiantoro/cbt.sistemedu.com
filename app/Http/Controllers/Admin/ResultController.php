@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ExamSession;
+use App\Models\Grade;
 use App\Models\ParticipantResult;
 use App\Models\Student;
 use App\Models\StudentTask;
@@ -63,8 +64,15 @@ class ResultController extends Controller
                 'original_filename' => $task->original_filename,
             ]]);
 
-        $rows = collect($results)->map(function ($r) use ($students) {
+        // ID grade per ujian → tautan "detail jawaban" (eks menu Laporan Nilai, admin.reports.show)
+        $gradeIds = Grade::where('exam_session_id', $examSession->id)
+            ->whereIn('student_id', $studentIds)
+            ->get(['id', 'exam_id', 'student_id'])
+            ->groupBy('student_id');
+
+        $rows = collect($results)->map(function ($r) use ($students, $gradeIds, $examSession) {
             $student = $students->get($r->student_id);
+            $grades  = $gradeIds->get($r->student_id, collect());
             return [
                 'result_id'         => $r->id,
                 'student_id'        => $r->student_id,
@@ -72,6 +80,8 @@ class ResultController extends Controller
                 'name'              => $student?->name,
                 'nilai_pg'          => $r->nilai_pg,
                 'nilai_esai'        => $r->nilai_esai,
+                'grade_id_pg'       => $grades->firstWhere('exam_id', $examSession->exam_id_pg)?->id,
+                'grade_id_esai'     => $grades->firstWhere('exam_id', $examSession->exam_id_esai)?->id,
                 'nilai_wawancara'   => $r->nilai_wawancara,
                 'nilai_akhir'       => $r->nilai_akhir,
                 'keputusan'         => $r->keputusan,

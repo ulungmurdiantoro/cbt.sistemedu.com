@@ -6,8 +6,8 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link href="/admin/reports" class="btn btn-md btn-primary border-0 shadow mb-3" type="button">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
+                <Link :href="`/admin/results/${grade.exam_session.id}`" class="btn btn-md btn-primary border-0 shadow mb-3" type="button">
+                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Rekap Hasil
                 </Link>
 
                 <div class="card border-0 shadow mb-4">

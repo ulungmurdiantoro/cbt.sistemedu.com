@@ -2,7 +2,11 @@
     <Head><title>Rekap Hasil - Aplikasi Ujian Online</title></Head>
 
     <div class="container-fluid mb-5 mt-5">
-        <h5 class="fw-bold mb-4">Rekap Hasil Penilaian</h5>
+        <h5 class="fw-bold mb-1">Rekap Hasil Penilaian</h5>
+        <p class="small text-muted mb-4">
+            Buka sesi untuk melihat nilai per peserta beserta detail jawabannya, mengunduh Laporan Nilai (Excel / PDF),
+            dan mengirim SP / SK &amp; Sertifikat.
+        </p>
 
         <div class="card border-0 shadow">
             <div class="card-body">

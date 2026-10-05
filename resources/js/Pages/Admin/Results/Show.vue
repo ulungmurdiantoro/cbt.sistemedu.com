@@ -4,7 +4,7 @@
     <div class="container-fluid mb-5 mt-4">
 
         <!-- Header -->
-        <div class="d-flex align-items-start gap-3 mb-4">
+        <div class="d-flex flex-wrap align-items-start gap-3 mb-4">
             <Link href="/admin/results" class="btn btn-sm btn-outline-secondary mt-1">
                 <i class="fa fa-arrow-left"></i>
             </Link>
@@ -12,8 +12,31 @@
                 <h5 class="mb-0 fw-bold">{{ exam_session.title }}</h5>
                 <p class="mb-0 small text-muted">Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}</p>
             </div>
-            <div class="d-flex flex-column align-items-end gap-1">
-                <div class="d-flex gap-2">
+            <div class="d-flex flex-column align-items-end gap-1 ms-auto">
+                <div class="d-flex flex-wrap justify-content-end gap-2 text-nowrap">
+                    <!-- Eks menu Laporan Nilai -->
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-primary fw-bolder dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-download me-1"></i> Laporan Nilai
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" style="font-size:0.85rem;">
+                            <li>
+                                <a class="dropdown-item" :href="`/admin/reports/export?exam_session_id=${exam_session.id}`" target="_blank">
+                                    <i class="fa fa-file-excel text-success me-2"></i>Excel (nilai per ujian)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" :href="`/admin/reports/export-pdf?exam_session_id=${exam_session.id}&layout=ringkas`" target="_blank">
+                                    <i class="fa fa-file-pdf text-danger me-2"></i>PDF Ringkas (A4)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" :href="`/admin/reports/export-pdf?exam_session_id=${exam_session.id}&layout=lebar`" target="_blank">
+                                    <i class="fa fa-file-pdf text-danger me-2"></i>PDF Lebar (A0)
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                     <button class="btn btn-sm btn-outline-success fw-bolder" @click="distributeSp" :disabled="!hasFinalized">
                         <i class="fa fa-paper-plane me-1"></i> 1. Kirim SP
                     </button>
@@ -87,11 +110,18 @@
                                     </a>
                                     <span v-else class="text-muted">—</span>
                                 </td>
+                                <!-- Angka PG / Esai → detail jawaban peserta (eks Laporan Nilai) -->
                                 <td class="text-center num" v-if="exam_session.exam_id_pg">
-                                    {{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}
+                                    <Link v-if="row.grade_id_pg" :href="`/admin/reports/${row.grade_id_pg}`" class="text-primary text-nowrap" title="Detail jawaban PG">
+                                        {{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}<i class="fa fa-search-plus small ms-1"></i>
+                                    </Link>
+                                    <template v-else>{{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}</template>
                                 </td>
                                 <td class="text-center num" v-if="exam_session.exam_id_esai">
-                                    {{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}
+                                    <Link v-if="row.grade_id_esai" :href="`/admin/reports/${row.grade_id_esai}`" class="text-primary text-nowrap" title="Detail jawaban esai">
+                                        {{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}<i class="fa fa-search-plus small ms-1"></i>
+                                    </Link>
+                                    <template v-else>{{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}</template>
                                 </td>
                                 <td class="text-center num" v-if="exam_session.has_wawancara">
                                     {{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}

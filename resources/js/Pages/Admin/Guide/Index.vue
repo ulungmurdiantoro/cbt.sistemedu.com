@@ -37,7 +37,7 @@
                                             <tr><td class="fw-bolder">Peserta</td><td>Akun peserta ujian (login soal), termasuk pembagian ke sesi &amp; batch.</td></tr>
                                             <tr><td class="fw-bolder">Permohonan</td><td>Pendaftaran sertifikasi peserta — verifikasi dokumen, approve, terbitkan FR.APL.01 / FR.AK.01.</td></tr>
                                             <tr><td class="fw-bolder">Sesi Ujian (detail sesi)</td><td>Pusat kerja satu sesi: peserta &amp; penugasan asesor, permohonan sesi itu, Verifikasi TUK, TTD AK.01.</td></tr>
-                                            <tr><td class="fw-bolder">Hasil Penilaian / Laporan Nilai</td><td>Rekap nilai PG / Esai / Wawancara dan unduhan dokumen hasil.</td></tr>
+                                            <tr><td class="fw-bolder">Hasil Penilaian</td><td>Rekap nilai PG / Esai / Wawancara per sesi, detail jawaban, unduhan Laporan Nilai (Excel / PDF), dan pengiriman SP / SK.</td></tr>
                                             <tr><td class="fw-bolder">Kelola User</td><td>Akun staf: admin, asesor, Pengambil Keputusan — beserta tanda tangannya.</td></tr>
                                         </tbody>
                                     </table>
@@ -192,8 +192,10 @@
                         <div id="a7" class="accordion-collapse collapse" data-bs-parent="#panduanAdmin">
                             <div class="accordion-body">
                                 <ul class="mb-2">
-                                    <li><strong>Hasil Penilaian</strong> — rekap nilai per sesi begitu asesor selesai menilai; dari sini dokumen hasil bisa diunduh.</li>
-                                    <li><strong>Laporan Nilai</strong> — ekspor Excel nilai esai &amp; komponen lain untuk arsip.</li>
+                                    <li><strong>Hasil Penilaian</strong> — rekap nilai per sesi begitu asesor selesai menilai; dari sini dokumen hasil bisa diunduh.
+                                        Klik angka PG / Esai untuk melihat detail jawaban peserta.</li>
+                                    <li><strong>Laporan Nilai</strong> (dulu menu sendiri) — sekarang tombol <span class="badge bg-gray-200 text-gray-800 border">Laporan Nilai</span>
+                                        di halaman Rekap Hasil tiap sesi: Excel nilai per ujian, PDF Ringkas (A4), atau PDF Lebar (A0) untuk arsip.</li>
                                     <li><strong>Kelola User</strong> — buat/ubah akun staf, tetapkan peran (admin / asesor / Pengambil Keputusan), dan simpan tanda tangan tiap user (gambar langsung atau unggah gambar). TTD ini yang dipakai di dokumen resmi.</li>
                                 </ul>
                                 <div class="alert alert-secondary small mb-0">

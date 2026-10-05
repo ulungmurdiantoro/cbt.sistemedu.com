@@ -99,7 +99,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/users/{user}/tanda-tangan',  [\App\Http\Controllers\Admin\UserController::class, 'serveSignature'])->name('admin.users.signature.serve');
         Route::get('/users/{user}/cv/pdf',        [\App\Http\Controllers\Admin\UserController::class, 'downloadAsesorCv'])->name('admin.users.cv.pdf');
 
-        // Laporan nilai
+        // Laporan nilai — index/filter mengalihkan ke Hasil Penilaian; export & detail jawaban tetap di sini
         Route::get('/reports',            [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');
         Route::get('/reports/filter',     [\App\Http\Controllers\Admin\ReportController::class, 'filter'])->name('admin.reports.filter');
         Route::get('/reports/export',     [\App\Http\Controllers\Admin\ReportController::class, 'export'])->name('admin.reports.export');

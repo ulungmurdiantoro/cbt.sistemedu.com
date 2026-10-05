@@ -10,7 +10,7 @@
             <h1>Satu cetak biru, semua menu senada.</h1>
             <p>Panduan dan <em>master prompt</em> untuk membangun &amp; merawat seluruh halaman admin
                 <strong>Sistem Edu / EDUKIA</strong> agar tampil dan terasa identik — dari Dashboard sampai
-                Laporan Nilai.</p>
+                Kelola User.</p>
         </div>
 
         <!-- 1 · MASTER PROMPT -->
@@ -173,7 +173,7 @@
             <div class="bp-sechead"><span class="bp-secnum">05</span>
                 <h2>Matriks Konsistensi Menu</h2>
             </div>
-            <p class="bp-lead">Kesembilan menu memakai <strong>Anatomi §04 yang identik</strong>. Yang berbeda hanya
+            <p class="bp-lead">Kedelapan menu memakai <strong>Anatomi §04 yang identik</strong>. Yang berbeda hanya
                 kolom tabel &amp; label tombol.</p>
             <div class="bp-matrix-wrap">
                 <table class="bp-matrix">
@@ -281,7 +281,7 @@ ANATOMI HALAMAN DAFTAR (wajib).
 BADGE STATUS. Berlangsung/Aktif=accent | Terjadwal/Menunggu=secondary | Selesai/Lulus=success | Tidak Lulus/Ditolak/Waktu Habis=danger | Draft/Nonaktif=neutral.
 
 NAV BAKU (jangan diacak).
-MAIN: Dashboard | MANAJEMEN: Skema, Peserta | UJIAN ONLINE: Ujian, Sesi Ujian, Permohonan, Hasil Penilaian | ADMINISTRASI: Kelola User, Laporan Nilai.
+MAIN: Dashboard | MANAJEMEN: Skema, Peserta | UJIAN ONLINE: Ujian, Sesi Ujian, Permohonan, Hasil Penilaian (termasuk Laporan Nilai) | ADMINISTRASI: Kelola User.
 
 HALAMAN PER SESI. Detail sesi dan halaman turunannya memakai tab SessionNav: Peserta & Asesor, Permohonan, Verifikasi TUK, TTD AK.01 (Rekap Hasil tetap di menu Hasil Penilaian). Halaman per sesi baru = tab baru, bukan menu sidebar baru.
 
@@ -313,9 +313,8 @@ KELUARAN. Gunakan LayoutAdmin (Sidebar + Navbar), kelas Volt, komponen StatusBad
                 { menu: 'Ujian', icon: 'fa fa-pencil-alt', type: 'Daftar', typeClass: 'accent', buttons: '+ Tambah', columns: 'Judul · Skema · Tipe · Jml Soal · Durasi · KKM', badge: 'Tipe ujian' },
                 { menu: 'Sesi Ujian', icon: 'fa fa-stopwatch', type: 'Daftar', typeClass: 'accent', buttons: '+ Tambah', columns: 'Nama Sesi · Tanggal · Peserta · Status', badge: 'Berlangsung/Terjadwal/Selesai' },
                 { menu: 'Permohonan', icon: 'fa fa-inbox', type: 'Approval', typeClass: 'secondary', buttons: '—', columns: 'No. · Pemohon · Skema · Tanggal · Status', badge: 'Menunggu/Disetujui/Ditolak' },
-                { menu: 'Hasil Penilaian', icon: 'fa fa-award', type: 'Daftar', typeClass: 'accent', buttons: 'Export', columns: 'Peserta · Skema · Nilai (87.50) · KKM (70.00) · Hasil', badge: 'Lulus/Tidak Lulus' },
+                { menu: 'Hasil Penilaian', icon: 'fa fa-award', type: 'Daftar', typeClass: 'accent', buttons: 'Laporan Nilai (Excel · PDF) · Kirim SP/SK', columns: 'Peserta · Skema · Nilai (87.50) · KKM (70.00) · Hasil', badge: 'Lulus/Tidak Lulus' },
                 { menu: 'Kelola User', icon: 'fa fa-user-cog', type: 'Daftar', typeClass: 'accent', buttons: '+ Tambah', columns: 'Nama · Email · Peran · Status', badge: 'Aktif/Nonaktif' },
-                { menu: 'Laporan Nilai', icon: 'fa fa-chart-line', type: 'Laporan', typeClass: 'secondary', buttons: 'Export Excel · PDF', columns: 'filter (Skema/Sesi) -> rekap nilai', badge: 'per nilai' },
             ],
         };
     },
