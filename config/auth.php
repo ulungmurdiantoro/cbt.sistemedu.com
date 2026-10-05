@@ -39,6 +39,8 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            // "Remember me" di /login (menit). Default Laravel 400 hari — terlalu lama untuk akun staf.
+            'remember' => (int) env('AUTH_REMEMBER_DAYS', 30) * 24 * 60,
         ],
 
         'student' => [

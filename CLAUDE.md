@@ -106,6 +106,11 @@ Role disimpan di tabel **`user_roles`** (`user_id`, `role` enum `admin|asesor|ma
 satu user bisa punya beberapa role. Cek dengan `$user->hasRole(UserRole::Asesor)` (enum `App\Enums\UserRole`).
 Kolom `users.role` sudah dihapus (migrasi `2026_08_25_000001`).
 
+Sudah login lalu membuka `/login` atau `/` → langsung ke dashboard sesuai role (`LoginResponse::dashboardUrl`, dipakai
+juga oleh `redirectUsersTo` di `bootstrap/app.php`). Peserta portal sertifikasi **tidak** dialihkan dari `/` (mereka login
+ujian di sana). "Remember me" aktif untuk staf (`/login`, 30 hari — `AUTH_REMEMBER_DAYS`) dan peserta (`/peserta/login`);
+sengaja **tidak** untuk login ujian siswa (komputer ruang ujian sering dipakai bergantian).
+
 Login siswa (`Student\LoginController`) membatasi 10 percobaan **gagal** per IP per menit
 (login yang berhasil tidak dihitung — satu ruang ujian sering di balik satu IP/NAT).
 

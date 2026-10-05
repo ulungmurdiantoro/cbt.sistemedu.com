@@ -18,6 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
         // Dibaca langsung oleh JS (document.cookie) sebagai sinyal "download ZIP
         // selesai di-generate server" — harus mentah, tidak dienkripsi.
         $middleware->encryptCookies(except: ['fileDownloadToken']);
+        // Staf yang masih login lalu membuka /login (middleware guest Fortify) langsung ke
+        // dashboard sesuai role. Tanpa ini Laravel mengalihkan ke "/" = login ujian siswa.
+        $middleware->redirectUsersTo(
+            fn () => \App\Http\Responses\LoginResponse::dashboardUrl(auth()->guard('web')->user()) ?? '/'
+        );
         $middleware->alias([
             'student'     => \App\Http\Middleware\AuthStudent::class,
             'participant' => \App\Http\Middleware\AuthParticipant::class,

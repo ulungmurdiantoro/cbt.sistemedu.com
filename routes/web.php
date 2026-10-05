@@ -231,6 +231,11 @@ Route::get('/', function () {
     if (auth()->guard('student')->check()) {
         return redirect()->route('student.dashboard');
     }
+    // Staf (admin / asesor / manager) yang masih login langsung ke dashboard-nya. Peserta portal
+    // sertifikasi sengaja tidak dialihkan: mereka memakai halaman ini untuk login ujian.
+    if ($dashboard = \App\Http\Responses\LoginResponse::dashboardUrl(auth()->guard('web')->user())) {
+        return redirect($dashboard);
+    }
     return \Inertia\Inertia::render('Student/Login/Index');
 });
 

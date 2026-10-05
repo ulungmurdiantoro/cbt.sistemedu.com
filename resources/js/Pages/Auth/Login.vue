@@ -32,7 +32,7 @@
                         </div>
                         <div class="d-flex align-items-center mb-4">
                             <div class="form-check mb-0">
-                                <input class="form-check-input" type="checkbox" id="remember">
+                                <input class="form-check-input" type="checkbox" id="remember" v-model="form.remember">
                                 <label class="form-check-label small" for="remember">Remember me</label>
                             </div>
                         </div>
@@ -97,6 +97,7 @@
             const form = reactive({
                 email: '',
                 password: '',
+                remember: false,
             });
 
             //submit method
@@ -108,6 +109,7 @@
                     //data
                     email: form.email,
                     password: form.password,
+                    remember: form.remember,
                 });
             }
 
