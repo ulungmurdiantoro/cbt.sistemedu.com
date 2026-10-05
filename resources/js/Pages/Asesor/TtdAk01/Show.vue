@@ -30,28 +30,16 @@
                     <button type="button" class="btn-close" @click="signError = ''"></button>
                 </div>
 
-                <!-- Tanda tangan asesor sendiri -->
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <h6 class="mb-3"><i class="fa fa-pen-nib me-2"></i>Tanda Tangan Anda</h6>
-
-                        <div v-if="has_signature" class="d-flex align-items-center gap-3">
-                            <img :src="signatureUrl" alt="TTD Anda"
-                                style="max-height:70px; max-width:200px; object-fit:contain; border:1px solid #ddd; background:#fff; padding:4px">
-                            <div class="small text-muted">
-                                <span class="badge bg-success mb-1"><i class="fa fa-check me-1"></i>Tersimpan</span>
-                                — siap dipakai untuk menandatangani AK.01 di bawah.
-                                <Link :href="`/asesor/penilaian/${exam_session.id}/laporan-asesmen`" class="d-block mt-1">Ganti tanda tangan di halaman Laporan Asesmen</Link>
-                            </div>
-                        </div>
-                        <div v-else class="alert alert-warning border-0 mb-0">
-                            <i class="fa fa-exclamation-triangle me-2"></i>
-                            Anda belum punya tanda tangan tersimpan. Simpan dulu di halaman
-                            <Link :href="`/asesor/penilaian/${exam_session.id}/laporan-asesmen`" class="alert-link">Laporan Asesmen</Link>
-                            sebelum bisa menandatangani AK.01 di sini.
-                        </div>
+                <!-- Tanda tangan asesor sendiri — bisa dibuat / diganti langsung di sini -->
+                <OwnSignatureCard :has-signature="has_signature"
+                    usage="Dipakai saat Anda menekan Tandatangani di bawah, juga untuk FR.AK.05."
+                    missing-hint="Buat di bawah ini dulu sebelum bisa menandatangani AK.01."
+                    @saved="successMsg = 'Tanda tangan berhasil disimpan.'">
+                    <div v-if="has_signature && signedCount" class="small text-muted mt-2">
+                        <i class="fa fa-info-circle me-1"></i>TTD baru hanya dipakai untuk AK.01 yang ditandatangani setelahnya;
+                        {{ signedCount }} AK.01 yang sudah ditandatangani tetap memakai TTD lama.
                     </div>
-                </div>
+                </OwnSignatureCard>
 
                 <!-- Daftar peserta -->
                 <div class="card border-0 shadow">
@@ -114,10 +102,11 @@ import LayoutAsesor from '../../../Layouts/Asesor.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideTtdAk01 from '../../../Components/Guide/Asesor/TtdAk01.vue';
+import OwnSignatureCard from '../../../Components/OwnSignatureCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link, PageGuide, GuideTtdAk01 },
+    components: { Head, Link, PageGuide, GuideTtdAk01, OwnSignatureCard },
 
     props: {
         exam_session:  Object,
@@ -134,8 +123,8 @@ export default {
     },
 
     computed: {
-        signatureUrl() {
-            return '/asesor/tanda-tangan';
+        signedCount() {
+            return this.rows.filter(r => r.asesor_verified_at).length;
         },
     },
 

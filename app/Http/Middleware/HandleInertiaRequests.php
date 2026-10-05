@@ -46,7 +46,9 @@ class HandleInertiaRequests extends Middleware
             'materaiEnabled' => (bool) config('materai.enabled'),
             //user authenticated
             'auth' => [
-                'user'        => fn () => tap(auth()->user(), fn ($u) => $u?->setAttribute('roles', $u->roleValues())),
+                // Salinan array + roles — jangan setAttribute() pada model user yang login: atribut itu
+                // ikut tersimpan bila user di-save sesudahnya ("no such column: roles").
+                'user'        => fn () => ($u = auth()->user()) ? $u->toArray() + ['roles' => $u->roleValues()] : null,
                 'student'     => auth()->guard('student')->user() ?? null,
                 'participant' => auth()->guard('participant')->user() ?? null,
             ],

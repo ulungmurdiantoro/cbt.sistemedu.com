@@ -135,7 +135,7 @@ class TtdAk01Controller extends Controller
         }
 
         if (!$asesor->signature_path || !Storage::disk('private')->exists($asesor->signature_path)) {
-            throw ValidationException::withMessages(['ttd_ak01' => 'Anda belum memiliki TTD tersimpan. Simpan TTD Anda dulu di halaman Laporan Asesmen.']);
+            throw ValidationException::withMessages(['ttd_ak01' => 'Anda belum memiliki TTD tersimpan. Buat dulu di bagian Tanda Tangan Anda di atas.']);
         }
 
         $application->update([
