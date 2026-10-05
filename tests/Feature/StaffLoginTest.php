@@ -22,8 +22,8 @@ class StaffLoginTest extends TestCase
         $user = User::forceCreate([
             'users_code' => 'U-' . Str::random(6),
             'name'       => 'Staf',
-            // Fortify mengecilkan email yang diketik (lowercase_usernames) → simpan huruf kecil
-            'email'      => Str::lower(Str::random(8)) . '@example.com',
+            // Huruf besar-kecil acak: mutator User menyimpannya huruf kecil, login tetap cocok
+            'email'      => Str::random(8) . '@Example.com',
             'password'   => bcrypt('rahasia123'),
         ]);
         foreach ($roles as $role) {
@@ -63,6 +63,24 @@ class StaffLoginTest extends TestCase
         $student = $this->makeStudent($this->makeClassroom());
 
         $this->actingAsStudent($student)->get('/')->assertRedirect('/student/dashboard');
+    }
+
+    public function test_staff_email_is_stored_lowercase_and_login_ignores_case(): void
+    {
+        $admin = $this->staff(UserRole::Admin);
+        $form  = fn (string $code, string $email) => [
+            'users_code' => $code, 'name' => 'Budi', 'email' => $email, 'roles' => ['asesor'],
+            'password' => 'rahasia123', 'password_confirmation' => 'rahasia123',
+        ];
+
+        $this->actingAs($admin)->post('/admin/users', $form('ASR-1', ' Budi@Gmail.COM '))->assertSessionHasNoErrors();
+        $this->assertDatabaseHas('users', ['users_code' => 'ASR-1', 'email' => 'budi@gmail.com']);
+
+        // Beda huruf saja tetap dianggap email yang sama
+        $this->actingAs($admin)->post('/admin/users', $form('ASR-2', 'BUDI@gmail.com'))->assertSessionHasErrors('email');
+
+        Auth::guard('web')->logout();
+        $this->post('/login', ['email' => 'BuDi@GMAIL.com', 'password' => 'rahasia123'])->assertRedirect('/asesor/dashboard');
     }
 
     public function test_remember_me_sets_a_30_day_cookie_only_when_checked(): void

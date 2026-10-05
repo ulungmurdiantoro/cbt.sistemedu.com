@@ -40,6 +40,9 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // Seragam dengan email tersimpan (huruf kecil, mutator User) supaya cek unique tidak lolos karena beda huruf
+        $request->merge(['email' => mb_strtolower(trim((string) $request->email))]);
+
         $request->validate([
             'users_code' => 'required|string|max:50|unique:users,users_code',
             'name'       => 'required|string|max:255',
@@ -69,6 +72,8 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        $request->merge(['email' => mb_strtolower(trim((string) $request->email))]);
+
         $request->validate([
             'users_code' => ['required', 'string', 'max:50', Rule::unique('users', 'users_code')->ignore($user->id)],
             'name'       => 'required|string|max:255',

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\UserRole;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -103,5 +104,14 @@ class User extends Authenticatable
             'password'          => 'hashed',
             'assessed_at'       => 'datetime',
         ];
+    }
+
+    /**
+     * Email selalu disimpan huruf kecil. Login (Fortify, lowercase_usernames) mengecilkan email
+     * yang diketik; di MySQL collation *_ci tetap cocok, tapi di SQLite tidak — jadi seragamkan.
+     */
+    protected function email(): Attribute
+    {
+        return Attribute::make(set: fn (?string $value) => $value === null ? null : mb_strtolower(trim($value)));
     }
 }
