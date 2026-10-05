@@ -119,7 +119,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex gap-1 justify-content-center">
-                                    <Link :href="`/admin/applications/${app.id}`" class="btn btn-sm btn-info">
+                                    <Link :href="`/admin/applications/${app.id}` + (exam_session ? `?sesi=${exam_session.id}` : '')" class="btn btn-sm btn-info">
                                         <i class="fa fa-eye"></i>
                                     </Link>
                                     <button v-if="app.status !== 'approved'" class="btn btn-sm btn-danger"

@@ -4,68 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AsesorAssignment;
-use App\Models\ExamGroup;
 use App\Models\ExamSession;
-use App\Models\Student;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PenilaianController extends Controller
 {
+    // Menu "Penugasan Asesor" sudah dilebur ke detail sesi (tab Peserta & Asesor).
+    // URL lama tetap hidup untuk bookmark & tautan lama.
     public function index()
     {
-        $exam_sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
-            // Satu peserta bisa punya 2 baris exam_groups (PG + Esai) dalam satu
-            // sesi, jadi hitung student_id yang unik, bukan jumlah baris. Akun
-            // nonaktif (akun lama hasil re-issue / merge) tidak ikut dihitung.
-            ->withCount(['exam_groups as exam_groups_count' => function ($q) {
-                $q->join('students', 'students.id', '=', 'exam_groups.student_id')
-                    ->where('students.is_active', true)
-                    ->select(DB::raw('count(distinct exam_groups.student_id)'));
-            }])
-            ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
-            ->orderByRaw('CASE WHEN end_time > NOW() THEN end_time END ASC')
-            ->orderBy('end_time', 'desc')
-            ->get();
-
-        $asesors = User::whereHas('roleAssignments', fn ($q) => $q->where('role', 'asesor'))->orderBy('name')->get();
-
-        return inertia('Admin/Penilaian/Index', [
-            'exam_sessions' => $exam_sessions,
-            'asesors'       => $asesors,
-        ]);
+        return redirect()->route('admin.exam_sessions.index');
     }
 
     public function show(int $exam_session_id)
     {
-        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($exam_session_id);
-
-        // Hanya id + nama — asesor bisa ratusan, halaman ini cuma butuh untuk pilihan yang bisa dicari.
-        $asesors = User::whereHas('roleAssignments', fn ($q) => $q->where('role', 'asesor'))->orderBy('name')->get(['id', 'name']);
-
-        // Ambil semua siswa yang terdaftar di sesi ini via exam_groups.
-        // Akun nonaktif (mis. akun lama hasil re-issue / merge duplikat) tidak
-        // ditampilkan supaya nama tidak muncul dobel di penugasan asesor.
-        $student_ids = ExamGroup::where('exam_session_id', $exam_session_id)
-            ->pluck('student_id');
-
-        $students = Student::whereIn('id', $student_ids)
-            ->where('is_active', true)
-            ->orderBy('no_participant')
-            ->get();
-
-        // Penugasan yang sudah ada
-        $assignments = AsesorAssignment::where('exam_session_id', $exam_session_id)
-            ->with('asesor', 'student')
-            ->get();
-
-        return inertia('Admin/Penilaian/Show', [
-            'exam_session' => $exam_session,
-            'students'     => $students,
-            'asesors'      => $asesors,
-            'assignments'  => $assignments,
-        ]);
+        return redirect()->route('admin.exam_sessions.show', $exam_session_id);
     }
 
     public function saveAssignments(Request $request, int $exam_session_id)

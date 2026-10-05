@@ -3,8 +3,8 @@
     <div class="container-fluid mb-5 mt-4">
         <div class="col-12">
 
-            <Link :href="`/admin/penilaian/${exam_session.id}`" class="btn btn-primary border-0 shadow mb-3">
-                <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Penugasan Asesor
+            <Link :href="`/admin/exam_sessions/${exam_session.id}`" class="btn btn-primary border-0 shadow mb-3">
+                <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Sesi
             </Link>
 
             <SessionNav :session="exam_session" active="tuk" />

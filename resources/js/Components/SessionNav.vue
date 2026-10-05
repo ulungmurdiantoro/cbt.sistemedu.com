@@ -1,7 +1,7 @@
 <template>
     <!--
       Navigasi antar-halaman satu sesi ujian. Tiap tab tetap halaman tersendiri
-      (Sesi Ujian, Permohonan, Penugasan Asesor, Verifikasi TUK, TTD AK.01, Rekap Hasil);
+      (Peserta & Asesor, Permohonan, Verifikasi TUK, TTD AK.01, Rekap Hasil);
       komponen ini hanya menyambungkannya supaya admin tidak memilih sesi yang sama
       berulang kali dari menu yang berbeda.
     -->
@@ -35,7 +35,7 @@ export default {
             type: Object,
             required: true,
         },
-        // peserta | permohonan | asesor | tuk | dokumen | hasil
+        // peserta | permohonan | tuk | dokumen | hasil
         active: {
             type: String,
             default: '',
@@ -46,9 +46,8 @@ export default {
             const id = this.session.id;
 
             return [
-                { key: 'peserta',    label: 'Detail & Peserta', icon: 'fa fa-users',           href: `/admin/exam_sessions/${id}` },
+                { key: 'peserta',    label: 'Peserta & Asesor', icon: 'fa fa-users',           href: `/admin/exam_sessions/${id}` },
                 { key: 'permohonan', label: 'Permohonan',       icon: 'fa fa-file-alt',        href: `/admin/applications?exam_session_id=${id}` },
-                { key: 'asesor',     label: 'Penugasan Asesor', icon: 'fa fa-user-tie',        href: `/admin/penilaian/${id}` },
                 // Hanya untuk sesi yang saklar Verifikasi TUK-nya aktif
                 this.session.verifikasi_tuk
                     ? { key: 'tuk',  label: 'Verifikasi TUK',   icon: 'fa fa-clipboard-check', href: `/admin/penilaian/${id}/verifikasi-tuk` }

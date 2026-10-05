@@ -338,7 +338,12 @@ class ApplicationController extends Controller
             $application->delete();
         });
 
-        return redirect()->route('admin.applications.index')
+        // Dihapus dari tab Permohonan sesi (daftar ?exam_session_id= atau detail ?sesi=)
+        // → kembali ke daftar sesi itu, bukan ke semua permohonan.
+        parse_str(parse_url(url()->previous(), PHP_URL_QUERY) ?? '', $from);
+        $sessionId = (int) ($from['exam_session_id'] ?? $from['sesi'] ?? 0);
+
+        return redirect()->route('admin.applications.index', $sessionId ? ['exam_session_id' => $sessionId] : [])
             ->with('success', 'Permohonan berhasil dihapus.');
     }
 

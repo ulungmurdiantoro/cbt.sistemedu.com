@@ -70,7 +70,7 @@
                         <div v-else-if="!assigned_asesor" class="alert alert-warning border-0 mb-0">
                             <i class="fa fa-exclamation-triangle me-2"></i>
                             Peserta ini belum memiliki penugasan asesor.
-                            <Link :href="`/admin/penilaian/${exam_session.id}`" class="alert-link">Atur di menu Penugasan Asesor</Link>.
+                            <Link :href="`/admin/exam_sessions/${exam_session.id}`" class="alert-link">Atur di tab Peserta &amp; Asesor</Link>.
                         </div>
 
                         <!-- Asesor yang ditugaskan belum punya TTD tersimpan: input langsung di sini -->

@@ -12,7 +12,7 @@
             </div>
             <div class="d-flex gap-2 align-items-center">
                 <span :class="statusBadge(application.status)" class="badge fs-6">{{ statusLabel(application.status) }}</span>
-                <Link href="/admin/applications" class="btn btn-md btn-primary border-0 shadow" type="button">
+                <Link :href="backUrl" class="btn btn-md btn-primary border-0 shadow" type="button">
                     <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
                 </Link>
             </div>
@@ -568,7 +568,7 @@
 
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { computed, reactive, ref, nextTick, onMounted, onUnmounted, watch } from 'vue';
 import SignaturePad from 'signature_pad';
 
@@ -578,6 +578,14 @@ export default {
     props: { application: Object, auth_admin: Object, other_sessions: Array, initial_assessment_rubric: Object },
 
     setup(props) {
+        // Dibuka dari tab Permohonan sebuah sesi (?sesi=) → Kembali ke daftar sesi itu.
+        // Query ikut terbawa setelah approve/tolak dsb. karena server membalas back().
+        const page    = usePage();
+        const backUrl = computed(() => {
+            const sesi = new URLSearchParams(page.url.split('?')[1] ?? '').get('sesi');
+            return /^\d+$/.test(sesi ?? '') ? `/admin/applications?exam_session_id=${sesi}` : '/admin/applications';
+        });
+
         const processing       = ref(false);
         const showRejectForm   = ref(false);
         const showReissueModal = ref(false);
@@ -927,6 +935,7 @@ export default {
         };
 
         return {
+            backUrl,
             pribadi, pekerjaan, fieldLabel, fieldValue, getDoc, docLabel, docBadge,
             statusLabel, statusBadge, formatDate,
             processing, showRejectForm, showReissueModal, rejectNotes, reissueReason,

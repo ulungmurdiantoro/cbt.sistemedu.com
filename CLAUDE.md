@@ -65,9 +65,9 @@ resources/js/
     Peserta.vue
   Pages/
     Admin/
-      Penilaian/
-        Index.vue   ← (baru) daftar sesi untuk penugasan asesor
-        Show.vue    ← (baru) atur asesor per peserta di sesi tertentu
+      ExamSessions/
+        Show.vue    ← detail sesi: tabel peserta + status permohonan + penugasan asesor
+      Penilaian/    ← halaman per sesi turunan: VerifikasiTuk/, Dokumen/ (TTD AK.01)
       Reports/      ← laporan nilai (existing)
       ...
     Asesor/
@@ -151,8 +151,9 @@ UNIQUE (user_id, exam_session_id, student_id)
 ## Fitur Penilaian Asesor (Diimplementasikan)
 
 ### Alur Admin
-1. Admin masuk ke **Penugasan Asesor** di sidebar (`/admin/penilaian`)
-2. Pilih sesi ujian → pilih asesor per peserta → simpan
+1. Admin masuk ke **Sesi Ujian** → buka sesi (`/admin/exam_sessions/{id}`, tab **Peserta & Asesor**)
+2. Pilih asesor per peserta di kolom Asesor → **Simpan Penugasan** (POST `admin.penilaian.saveAssignments`)
+   — menu "Penugasan Asesor" sudah dilebur ke sini; `/admin/penilaian[/{id}]` hanya mengalihkan
 3. Admin dapat melihat hasil nilai di Laporan Nilai (existing)
 
 ### Alur Asesor
@@ -258,9 +259,9 @@ Checklist per peserta per sesi (`tuk_verifications`), diisi **admin sebagai Peng
 ## Routes Baru
 
 ```php
-// Admin — penugasan asesor (middleware: auth)
-GET   /admin/penilaian                              → admin.penilaian.index
-GET   /admin/penilaian/{exam_session_id}            → admin.penilaian.show
+// Admin — penugasan asesor (middleware: auth). Halamannya = detail sesi (admin.exam_sessions.show)
+GET   /admin/penilaian                              → admin.penilaian.index  (redirect → admin.exam_sessions.index)
+GET   /admin/penilaian/{exam_session_id}            → admin.penilaian.show   (redirect → admin.exam_sessions.show)
 POST  /admin/penilaian/{exam_session_id}/penugasan  → admin.penilaian.saveAssignments
 
 // Asesor — portal penilaian (middleware: auth + asesor)
@@ -285,9 +286,10 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
 - Inertia router: `router.post(url, data, { onSuccess, onFinish })`
 - Nama route: `admin.resource.action`, `asesor.resource.action`
 - Migrasi: timestamp `YYYY_MM_DD_NNNNNN_deskripsi.php`
-- Halaman admin per sesi (Detail Sesi, Permohonan `?exam_session_id=`, Penugasan Asesor, Verifikasi TUK, TTD AK.01,
-  Rekap Hasil) memakai tab `Components/SessionNav.vue` di atasnya; halaman per sesi baru → tambahkan tab-nya di situ.
-  Daftar sesi (menu Sesi Ujian & Penugasan Asesor) memakai `Components/SessionTable.vue` (kolom Aksi lewat slot `#actions`).
+- Halaman admin per sesi (Peserta & Asesor = detail sesi, Permohonan `?exam_session_id=`, Verifikasi TUK, TTD AK.01,
+  Rekap Hasil) memakai tab `Components/SessionNav.vue` di atasnya; halaman per sesi baru → tambahkan **tab**, bukan menu
+  sidebar. Detail permohonan yang dibuka dari tab sesi membawa `?sesi={id}` supaya Kembali/hapus kembali ke tab itu.
+  Daftar sesi (menu Sesi Ujian) memakai `Components/SessionTable.vue` (kolom Aksi lewat slot `#actions`).
 - Panduan portal Asesor & Pengambil Keputusan: isi per halaman ada di `resources/js/Components/Guide/{Asesor,Manager}/*.vue`,
   ditampilkan lewat `<PageGuide storage-key="...">` di atas halaman **dan** dirangkai di `Pages/*/Guide/Index.vue`.
   Ubah perilaku/tombol halaman → perbarui komponen Guide-nya juga.
@@ -367,7 +369,7 @@ php artisan test   # SQLite in-memory (phpunit.xml), tidak menyentuh DB lokal
 |---|---|
 | `app/Providers/FortifyServiceProvider.php` | Konfigurasi login view & redirect |
 | `app/Exports/GradesEssayExport.php` | Export Excel nilai esai (sudah pakai `score` nyata) |
-| `resources/js/Components/Sidebar.vue` | Navigasi sidebar admin (ada menu Penugasan Asesor) |
+| `resources/js/Components/Sidebar.vue` | Navigasi sidebar admin ("Sesi Ujian" juga menyala di semua halaman per sesi) |
 | `config/auth.php` | Definisi guards: web, student, participant |
 | `config/materai.php` | E-meterai Peruri: `MATERAI_ENABLED` (saklar utama), `MATERAI_AUTO_STAMP`, `MATERAI_FIRST_SESSION_ID` (pembebasan FR.AK.14) |
 | `app/Jobs/StampFrAk01Job.php`, `StampFrAk14Job.php` | Pembubuhan e-meterai (idempoten) |

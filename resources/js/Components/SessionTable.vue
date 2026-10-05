@@ -1,7 +1,7 @@
 <template>
     <!--
       Tabel daftar sesi ujian (aktif di atas, lalu pemisah "Sesi Selesai").
-      Dipakai menu Sesi Ujian dan Penugasan Asesor; kolom Aksi diisi lewat slot #actions.
+      Dipakai menu Sesi Ujian; kolom Aksi diisi lewat slot #actions.
       Server sudah mengurutkan: sesi aktif dulu, lalu yang selesai (terbaru dulu).
     -->
     <div class="table-responsive">

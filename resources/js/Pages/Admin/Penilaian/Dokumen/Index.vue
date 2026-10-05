@@ -3,8 +3,8 @@
     <div class="container-fluid mb-5 mt-4">
         <div class="col-12">
 
-            <Link :href="`/admin/penilaian/${exam_session.id}`" class="btn btn-primary border-0 shadow mb-3">
-                <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Penugasan Asesor
+            <Link :href="`/admin/exam_sessions/${exam_session.id}`" class="btn btn-primary border-0 shadow mb-3">
+                <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Sesi
             </Link>
 
             <SessionNav :session="exam_session" active="dokumen" />
@@ -31,7 +31,7 @@
                 <i class="fa fa-info-circle me-1"></i>
                 Verifikasi dokumen persyaratan (FR.APL.01) dilakukan lewat menu <strong>Permohonan</strong>, terpisah dari halaman ini.
                 Di sini hanya untuk membubuhkan tanda tangan AK.01 — tetap dicatat & ditandatangani atas nama
-                <strong>asesor yang ditugaskan</strong> ke masing-masing peserta (menu Penugasan Asesor), bukan atas nama admin.
+                <strong>asesor yang ditugaskan</strong> ke masing-masing peserta (tab Peserta &amp; Asesor), bukan atas nama admin.
             </div>
 
             <!-- Summary -->

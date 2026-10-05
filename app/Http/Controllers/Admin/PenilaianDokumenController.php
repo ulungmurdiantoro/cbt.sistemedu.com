@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 // verifikasi dokumen peserta manapun di sesi ini (tidak dibatasi AsesorAssignment
 // milik sendiri seperti di portal asesor). Saat menandatangani "Verifikasi Akhir",
 // yang tercatat & dibubuhkan TTD-nya adalah asesor yang SUDAH ditugaskan lewat
-// menu Penugasan Asesor — bukan admin yang sedang login — supaya dokumen tetap
+// tab Peserta & Asesor di detail sesi — bukan admin yang sedang login — supaya dokumen tetap
 // mencerminkan asesor yang benar-benar berwenang.
 class PenilaianDokumenController extends Controller
 {
@@ -145,7 +145,7 @@ class PenilaianDokumenController extends Controller
         abort_if($application->asesor_verified_at, 422, 'Verifikasi akhir sudah ditandatangani sebelumnya.');
 
         $assignment = $this->assignedAsesor($examSessionId, $studentId);
-        abort_if(!$assignment, 422, 'Peserta ini belum memiliki penugasan asesor. Atur di menu Penugasan Asesor.');
+        abort_if(!$assignment, 422, 'Peserta ini belum memiliki penugasan asesor. Atur di tab Peserta & Asesor pada halaman sesi.');
 
         $asesor = $assignment->asesor;
         abort_if(

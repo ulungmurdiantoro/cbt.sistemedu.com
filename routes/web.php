@@ -110,14 +110,15 @@ Route::prefix('admin')->group(function () {
         Route::get('/reports/essays/{id}', [\App\Http\Controllers\Admin\ReportController::class, 'essayShow'])->name('admin.reports.essayShow');
         Route::get('/essay-migas/{answer_essay_id}/download', [\App\Http\Controllers\Admin\ReportController::class, 'downloadEssayMigas'])->name('admin.essay_migas.download');
 
-        // Penugasan asesor
+        // Penugasan asesor — halamannya kini tab "Peserta & Asesor" di detail sesi;
+        // index/show hanya mengalihkan ke sana, simpan penugasan tetap di sini.
         Route::get('/penilaian',                               [\App\Http\Controllers\Admin\PenilaianController::class, 'index'])->name('admin.penilaian.index');
         Route::get('/penilaian/{exam_session_id}',             [\App\Http\Controllers\Admin\PenilaianController::class, 'show'])->name('admin.penilaian.show');
         Route::post('/penilaian/{exam_session_id}/penugasan',  [\App\Http\Controllers\Admin\PenilaianController::class, 'saveAssignments'])->name('admin.penilaian.saveAssignments');
 
         // Verifikasi dokumen peserta (admin) — sama seperti portal asesor, tapi admin
         // bisa buka peserta manapun di sesi ini; TTD tetap dibubuhkan atas nama asesor
-        // yang ditugaskan lewat Penugasan Asesor, bukan admin yang login.
+        // yang ditugaskan ke peserta (tab Peserta & Asesor), bukan admin yang login.
         Route::get('/penilaian/{exam_session_id}/dokumen',                                [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'index'])->name('admin.penilaian.dokumen.index');
         Route::get('/penilaian/{exam_session_id}/dokumen/{student_id}',                   [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'show'])->name('admin.penilaian.dokumen.show');
         Route::post('/penilaian/{exam_session_id}/dokumen/{student_id}/{doc_id}/verify',  [\App\Http\Controllers\Admin\PenilaianDokumenController::class, 'verify'])->name('admin.penilaian.dokumen.verify');

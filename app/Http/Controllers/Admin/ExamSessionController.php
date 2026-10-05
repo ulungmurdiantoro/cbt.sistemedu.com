@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserRole;
 use App\Http\Requests\StoreExamSessionRequest;
 use App\Http\Requests\UpdateExamSessionRequest;
+use App\Models\AsesorAssignment;
+use App\Models\AssessmentApplication;
 use App\Models\Exam;
 use App\Models\Student;
 use App\Models\ExamGroup;
 use App\Models\ExamSession;
 use App\Models\ParticipantResult;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -22,9 +26,13 @@ class ExamSessionController extends Controller
             $q->where('title', 'like', '%' . request()->q . '%');
         })->with('examPg.classroom', 'examEsai.classroom')
           // Satu peserta bisa punya 2 baris exam_groups (PG + Esai) dalam satu
-          // sesi, jadi hitung student_id yang unik, bukan jumlah baris.
+          // sesi, jadi hitung student_id yang unik, bukan jumlah baris. Akun
+          // nonaktif (akun lama hasil re-issue / merge) tidak ikut dihitung,
+          // sama seperti daftar peserta di detail sesi.
           ->withCount(['exam_groups as students_count' => function ($q) {
-              $q->select(DB::raw('count(distinct student_id)'));
+              $q->join('students', 'students.id', '=', 'exam_groups.student_id')
+                  ->where('students.is_active', true)
+                  ->select(DB::raw('count(distinct exam_groups.student_id)'));
           }])
           ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
           ->orderByRaw('CASE WHEN end_time > NOW() THEN end_time END ASC')
@@ -66,23 +74,43 @@ class ExamSessionController extends Controller
         return redirect()->route('admin.exam_sessions.index');
     }
 
+    /** Detail sesi: peserta + status permohonan + penugasan asesor dalam satu tabel. */
     public function show($id)
     {
         $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($id);
 
-        // Tampilkan siswa unik yang terdaftar di sesi ini
-        $enrolled_ids = ExamGroup::where('exam_session_id', $exam_session->id)
-            ->distinct()
-            ->pluck('student_id');
+        // Akun nonaktif (akun lama hasil re-issue / merge duplikat) tidak ditampilkan
+        // supaya nama tidak muncul dobel, termasuk saat asesor menilai.
+        $enrolledIds = ExamGroup::where('exam_session_id', $exam_session->id)->distinct()->pluck('student_id');
+        $activeIds   = ExamSession::activeStudentIds($exam_session->id);
 
-        $students = Student::whereIn('id', $enrolled_ids)
-            ->with('classroom')
+        $students = Student::whereIn('id', $activeIds)
             ->orderBy('no_participant')
-            ->paginate(10);
+            ->get(['id', 'no_participant', 'name']);
+
+        $applications = AssessmentApplication::where('exam_session_id', $exam_session->id)
+            ->whereIn('student_id', $activeIds)
+            ->get(['id', 'student_id', 'status'])
+            ->keyBy('student_id');
+
+        $assignments = AsesorAssignment::where('exam_session_id', $exam_session->id)
+            ->pluck('user_id', 'student_id');
 
         return inertia('Admin/ExamSessions/Show', [
-            'exam_session' => $exam_session,
-            'students'     => $students,
+            'exam_session'   => $exam_session,
+            'students'       => $students->map(fn (Student $s) => [
+                'id'                 => $s->id,
+                'no_participant'     => $s->no_participant,
+                'name'               => $s->name,
+                'application_id'     => $applications->get($s->id)?->id,
+                'application_status' => $applications->get($s->id)?->status,
+                'asesor_id'          => $assignments->get($s->id),
+            ]),
+            'inactive_count' => $enrolledIds->count() - $activeIds->count(),
+            // Hanya id + nama — asesor bisa ratusan, cukup untuk pilihan yang bisa dicari.
+            'asesors'        => User::whereHas('roleAssignments', fn ($q) => $q->where('role', UserRole::Asesor->value))
+                ->orderBy('name')
+                ->get(['id', 'name']),
         ]);
     }
 

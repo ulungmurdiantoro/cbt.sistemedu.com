@@ -36,7 +36,7 @@
                                             <tr><td style="width:190px" class="fw-bolder">Tipe Ujian / Skema / Ujian / Sesi Ujian</td><td>Data master yang harus ada sebelum ujian &amp; sertifikasi bisa jalan.</td></tr>
                                             <tr><td class="fw-bolder">Peserta</td><td>Akun peserta ujian (login soal), termasuk pembagian ke sesi &amp; batch.</td></tr>
                                             <tr><td class="fw-bolder">Permohonan</td><td>Pendaftaran sertifikasi peserta — verifikasi dokumen, approve, terbitkan FR.APL.01 / FR.AK.01.</td></tr>
-                                            <tr><td class="fw-bolder">Penugasan Asesor</td><td>Menetapkan asesor per peserta per sesi, plus TTD AK.01 sisi asesor.</td></tr>
+                                            <tr><td class="fw-bolder">Sesi Ujian (detail sesi)</td><td>Pusat kerja satu sesi: peserta &amp; penugasan asesor, permohonan sesi itu, Verifikasi TUK, TTD AK.01, rekap hasil.</td></tr>
                                             <tr><td class="fw-bolder">Hasil Penilaian / Laporan Nilai</td><td>Rekap nilai PG / Esai / Wawancara dan unduhan dokumen hasil.</td></tr>
                                             <tr><td class="fw-bolder">Kelola User</td><td>Akun staf: admin, asesor, Pengambil Keputusan — beserta tanda tangannya.</td></tr>
                                         </tbody>
@@ -46,7 +46,7 @@
                                     <i class="fa fa-stopwatch me-1"></i>
                                     Semua pekerjaan untuk <strong>satu sesi</strong> bisa dibuka dari satu tempat: menu
                                     <span class="badge bg-gray-200 text-gray-800 border">Sesi Ujian</span> → buka sesi → pindah lewat baris tab
-                                    <strong>Detail &amp; Peserta · Permohonan · Penugasan Asesor · Verifikasi TUK · TTD AK.01 · Rekap Hasil</strong>.
+                                    <strong>Peserta &amp; Asesor · Permohonan · Verifikasi TUK · TTD AK.01 · Rekap Hasil</strong>.
                                     Tab yang sama muncul di setiap halaman sesi, jadi tidak perlu memilih sesi berulang kali dari menu berbeda.
                                 </div>
                                 <div class="note-box small mb-0">
@@ -102,7 +102,7 @@
                                     <li><strong>Ganti Batch</strong> — memindahkan peserta ke sesi/batch lain <em>tanpa</em> membuat akun baru; hanya enrollment sesi yang berubah.</li>
                                 </ul>
                                 <div class="alert alert-secondary small mb-0">
-                                    Setelah re-issue, cek <span class="badge bg-gray-200 text-gray-800 border">Penugasan Asesor</span> pada sesi terkait —
+                                    Setelah re-issue, cek tab <strong>Peserta &amp; Asesor</strong> pada sesi terkait —
                                     penugasan asesor ikut dipindahkan ke akun baru supaya nama peserta tidak tampil dobel saat asesor menilai.
                                 </div>
                             </div>
@@ -166,10 +166,11 @@
                         </h2>
                         <div id="a6" class="accordion-collapse collapse" data-bs-parent="#panduanAdmin">
                             <div class="accordion-body">
-                                <p class="small text-muted mb-2">Menu <span class="badge bg-gray-200 text-gray-800 border">Penugasan Asesor</span> → pilih sesi → tetapkan asesor per peserta
-                                    (atau dari halaman sesi → tab <strong>Penugasan Asesor</strong>).</p>
+                                <p class="small text-muted mb-2">Menu <span class="badge bg-gray-200 text-gray-800 border">Sesi Ujian</span> → buka sesi → tab <strong>Peserta &amp; Asesor</strong>
+                                    → pilih asesor di kolom Asesor tiap peserta → <strong>Simpan Penugasan</strong>.</p>
                                 <ul class="mb-2">
                                     <li>Satu peserta bisa diberi satu asesor. Asesor lalu melihat peserta itu di portalnya untuk menilai esai / wawancara dan mengisi Laporan Asesmen.</li>
+                                    <li>Tabel yang sama menampilkan status permohonan tiap peserta (klik untuk membukanya). Selama ada pilihan asesor yang belum disimpan, muncul pengingat di bawah tabel, dan pindah halaman akan ditanya dulu.</li>
                                     <li>Tab <strong>TTD AK.01</strong> — asesor menandatangani FR.AK.01 untuk peserta yang ditugaskan. Bisa dilakukan asesor sendiri dari portalnya, atau oleh admin dari sini bila diperlukan.</li>
                                     <li>Nama &amp; TTD asesor yang muncul di FR.AK.01 diambil dari tanda tangan tersimpan asesor tersebut.</li>
                                 </ul>

@@ -103,6 +103,29 @@ class ApplicationSessionFilterTest extends TestCase
         Excel::assertDownloaded('permohonan-lem-batchb07-20261005-093000.xlsx');
     }
 
+    public function test_deleting_from_a_session_tab_returns_to_that_session(): void
+    {
+        $session = $this->makeSession($this->makeExam($this->makeClassroom()));
+        $admin   = $this->admin();
+
+        // Dari daftar tab Permohonan sesi
+        $this->actingAs($admin)->from("/admin/applications?exam_session_id={$session->id}")
+            ->delete('/admin/applications/' . $this->application($session)->id)
+            ->assertRedirect("/admin/applications?exam_session_id={$session->id}");
+
+        // Dari detail permohonan yang dibuka lewat tab sesi
+        $this->actingAs($admin)->from('/admin/applications/' . ($id = $this->application($session)->id) . "?sesi={$session->id}")
+            ->delete("/admin/applications/{$id}")
+            ->assertRedirect("/admin/applications?exam_session_id={$session->id}");
+
+        // Dari daftar semua permohonan
+        $this->actingAs($admin)->from('/admin/applications')
+            ->delete('/admin/applications/' . $this->application($session)->id)
+            ->assertRedirect('/admin/applications');
+
+        $this->assertSame(0, AssessmentApplication::count());
+    }
+
     public function test_document_zip_needs_a_scheme_or_a_session(): void
     {
         $this->actingAs($this->admin())
