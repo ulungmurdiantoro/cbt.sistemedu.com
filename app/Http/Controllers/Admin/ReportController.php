@@ -6,7 +6,10 @@ use Mpdf\Mpdf;
 use App\Models\Grade;
 use App\Models\Answer;
 use App\Models\AnswerEssay;
+use App\Models\Essay;
 use App\Models\ExamSession;
+use App\Models\Question;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -36,24 +39,115 @@ class ReportController extends Controller
             : redirect()->route('admin.results.index');
     }
 
+    /**
+     * Detail jawaban satu peserta untuk satu ujian (dibuka dari Rekap Hasil). Semua soal
+     * dimuat sekaligus; jawaban dicocokkan lewat question_id / essay_id dan dibatasi ke
+     * sesi grade ini — bukan lewat urutan baris.
+     */
     public function show($id)
     {
         $grade = Grade::with('student', 'exam.classroom', 'exam_session')->findOrFail($id);
+        $exam  = $grade->exam;
 
-        $grade->setRelation('questions', $grade->exam->questions()->paginate(10));
-        $grade->setRelation('answers', $grade->exam->answers()->where('student_id', $grade->student_id)->paginate(10));
-        $grade->setRelation('essays', $grade->exam->essays()->paginate(10));
-        $grade->setRelation('essaysanswers', $grade->exam->essaysanswers()->where('student_id', $grade->student_id)->paginate(10));
+        $mine = fn ($q) => $q->where('exam_id', $exam->id)
+            ->where('exam_session_id', $grade->exam_session_id)
+            ->where('student_id', $grade->student_id);
 
-        return inertia('Admin/Reports/Show', [
-            'grade' => $grade,
-        ]);
+        $props = [
+            'grade' => [
+                'id'      => $grade->id,
+                'grade'   => $grade->grade,
+                'exam'    => $exam->only('id', 'title', 'type'),
+                'skema'   => $exam->classroom?->title,
+                'session' => $grade->exam_session?->only('id', 'title', 'kode_batch'),
+                'student' => $grade->student?->only('name', 'no_participant', 'position', 'institution'),
+            ],
+            'questions' => null,
+            'essays'    => null,
+            'files'     => [],
+        ];
+
+        if ($exam->type === 'Pilihan Ganda') {
+            $props['questions'] = $this->pgQuestions($exam->questions()->get(), Answer::where($mine)->get()->keyBy('question_id'));
+        } else {
+            [$props['essays'], $props['files']] = $this->essayItems($exam->essays()->get(), AnswerEssay::where($mine)->get()->keyBy('essay_id'));
+        }
+
+        return inertia('Admin/Reports/Show', $props);
+    }
+
+    private function pgQuestions($questions, $answers): array
+    {
+        return $questions->values()->map(function (Question $q, int $i) use ($answers) {
+            $answer = $answers->get($q->id);
+            $chosen = $answer && $answer->answer ? (int) $answer->answer : null;
+
+            return [
+                'number'   => $i + 1,
+                'question' => $q->question,
+                // Opsi 1–2 selalu ada, 3–5 hanya bila diisi (sama seperti saat peserta ujian)
+                'options'  => collect(range(1, 5))
+                    ->filter(fn ($n) => $n <= 2 || !empty($q->{"option_{$n}"}))
+                    ->map(fn ($n) => ['key' => $n, 'text' => $q->{"option_{$n}"}])
+                    ->values(),
+                'correct'  => (int) $q->answer,
+                'chosen'   => $chosen,
+                // Status mengikuti is_correct yang dipakai saat menilai, bukan kunci saat ini
+                'status'   => $chosen === null ? 'kosong' : ($answer->is_correct === 'Y' ? 'benar' : 'salah'),
+            ];
+        })->all();
+    }
+
+    /** @return array{0: array, 1: array} [soal + jawaban teks + nilai, berkas jawaban Essay Migas] */
+    private function essayItems($essays, $answers): array
+    {
+        // Essay Migas: satu berkas untuk seluruh ujian, path-nya ditulis ke tiap baris jawaban.
+        $isFile = fn ($value) => str_starts_with(ltrim(str_replace('\\', '/', (string) $value), '/'), 'essay_migas_answers/');
+
+        // Kosong = tanpa teks/gambar, atau hanya "-" (pengisi kunci jawaban yang tidak diisi)
+        $hasContent = fn ($html) => !in_array(trim(strip_tags((string) $html, '<img>')), ['', '-', '—'], true);
+
+        $assessors = User::whereIn('id', $answers->pluck('assessed_by')->filter()->unique())->pluck('name', 'id');
+
+        $items = $essays->values()->map(function (Essay $essay, int $i) use ($answers, $assessors, $isFile, $hasContent) {
+            $answer = $answers->get($essay->id);
+            $text   = $answer && !$isFile($answer->answer) && $hasContent($answer->answer) ? $answer->answer : null;
+
+            return [
+                'number'      => $i + 1,
+                'question'    => $essay->question,
+                'guide'       => $hasContent($essay->answer) ? $essay->answer : null,
+                'guide_label' => $essay->is_essay ? 'Poin / kisi jawaban' : 'Jawaban benar',
+                'answer'      => $text,
+                'by_file'     => $answer && $isFile($answer->answer),
+                'score'       => $answer?->score,
+                'assessor'    => $answer?->assessed_by ? $assessors->get($answer->assessed_by) : null,
+                'assessed_at' => $answer?->assessed_at,
+            ];
+        })->all();
+
+        $files = $answers->filter(fn ($a) => $isFile($a->answer))->unique('answer')->map(fn (AnswerEssay $a) => [
+            'name'         => basename(str_replace('\\', '/', $a->answer)),
+            'download_url' => route('admin.essay_migas.download', $a->id, false),
+            // docx butuh perender khusus; selain pdf/gambar cukup diunduh
+            'preview_url'  => in_array(AnswerFile::extension($a->answer), ['pdf', 'jpg', 'jpeg', 'png'], true)
+                ? route('admin.essay_migas.preview', $a->id, false)
+                : null,
+        ])->values()->all();
+
+        return [$items, $files];
     }
 
     /** Unduh file jawaban Essay Migas (disk private). */
     public function downloadEssayMigas(int $answer_essay_id)
     {
         return AnswerFile::download(AnswerEssay::findOrFail($answer_essay_id)->answer);
+    }
+
+    /** Pratinjau file jawaban Essay Migas (pdf / gambar) di tab baru. */
+    public function previewEssayMigas(int $answer_essay_id)
+    {
+        return AnswerFile::preview(AnswerEssay::findOrFail($answer_essay_id)->answer);
     }
 
     public function export(Request $request)

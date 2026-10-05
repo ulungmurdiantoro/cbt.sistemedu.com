@@ -109,6 +109,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/reports/{id}',       [\App\Http\Controllers\Admin\ReportController::class, 'show'])->name('admin.reports.show');
         Route::get('/reports/essays/{id}', [\App\Http\Controllers\Admin\ReportController::class, 'essayShow'])->name('admin.reports.essayShow');
         Route::get('/essay-migas/{answer_essay_id}/download', [\App\Http\Controllers\Admin\ReportController::class, 'downloadEssayMigas'])->name('admin.essay_migas.download');
+        Route::get('/essay-migas/{answer_essay_id}/preview',  [\App\Http\Controllers\Admin\ReportController::class, 'previewEssayMigas'])->name('admin.essay_migas.preview');
 
         // Penugasan asesor — halamannya kini tab "Peserta & Asesor" di detail sesi;
         // index/show hanya mengalihkan ke sana, simpan penugasan tetap di sini.

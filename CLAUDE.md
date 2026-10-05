@@ -68,7 +68,8 @@ resources/js/
       ExamSessions/
         Show.vue    ← detail sesi: tabel peserta + status permohonan + penugasan asesor
       Penilaian/    ← halaman per sesi turunan: VerifikasiTuk/, Dokumen/ (TTD AK.01)
-      Reports/      ← Show.vue = detail jawaban peserta (dibuka dari Rekap Hasil)
+      Reports/      ← Show.vue = detail jawaban peserta (dibuka dari Rekap Hasil); isi per jenis ujian di
+                      Components/AnswerReview/{PgReview,EssayReview}.vue. Jawaban dicocokkan lewat question_id/essay_id + sesi
       Results/      ← Hasil Penilaian: daftar sesi + Rekap Hasil (nilai, Laporan Nilai, kirim SP/SK)
       ...
     Asesor/
