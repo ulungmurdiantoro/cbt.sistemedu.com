@@ -1,9 +1,9 @@
 <template>
     <!--
       Navigasi antar-halaman satu sesi ujian. Tiap tab tetap halaman tersendiri
-      (Peserta & Asesor, Permohonan, Verifikasi TUK, TTD AK.01, Rekap Hasil);
-      komponen ini hanya menyambungkannya supaya admin tidak memilih sesi yang sama
-      berulang kali dari menu yang berbeda.
+      (Peserta & Asesor, Permohonan, Verifikasi TUK, TTD AK.01); komponen ini hanya
+      menyambungkannya supaya admin tidak memilih sesi yang sama berulang kali dari
+      menu yang berbeda. Rekap Hasil sengaja tidak jadi tab — tetap lewat menu Hasil Penilaian.
     -->
     <div class="card border-0 shadow mb-4">
         <div class="card-body pb-0">
@@ -35,7 +35,7 @@ export default {
             type: Object,
             required: true,
         },
-        // peserta | permohonan | tuk | dokumen | hasil
+        // peserta | permohonan | tuk | dokumen
         active: {
             type: String,
             default: '',
@@ -53,7 +53,6 @@ export default {
                     ? { key: 'tuk',  label: 'Verifikasi TUK',   icon: 'fa fa-clipboard-check', href: `/admin/penilaian/${id}/verifikasi-tuk` }
                     : null,
                 { key: 'dokumen',    label: 'TTD AK.01',        icon: 'fa fa-signature',       href: `/admin/penilaian/${id}/dokumen` },
-                { key: 'hasil',      label: 'Rekap Hasil',      icon: 'fa fa-chart-bar',       href: `/admin/results/${id}` },
             ].filter(Boolean);
         },
     },

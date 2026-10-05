@@ -286,9 +286,9 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
 - Inertia router: `router.post(url, data, { onSuccess, onFinish })`
 - Nama route: `admin.resource.action`, `asesor.resource.action`
 - Migrasi: timestamp `YYYY_MM_DD_NNNNNN_deskripsi.php`
-- Halaman admin per sesi (Peserta & Asesor = detail sesi, Permohonan `?exam_session_id=`, Verifikasi TUK, TTD AK.01,
-  Rekap Hasil) memakai tab `Components/SessionNav.vue` di atasnya; halaman per sesi baru → tambahkan **tab**, bukan menu
-  sidebar. Detail permohonan yang dibuka dari tab sesi membawa `?sesi={id}` supaya Kembali/hapus kembali ke tab itu.
+- Halaman admin per sesi (Peserta & Asesor = detail sesi, Permohonan `?exam_session_id=`, Verifikasi TUK, TTD AK.01)
+  memakai tab `Components/SessionNav.vue` di atasnya; halaman per sesi baru → tambahkan **tab**, bukan menu sidebar.
+  Rekap Hasil sengaja **tidak** jadi tab (permintaan pengguna) — tetap di menu Hasil Penilaian. Detail permohonan yang dibuka dari tab sesi membawa `?sesi={id}` supaya Kembali/hapus kembali ke tab itu.
   Daftar sesi (menu Sesi Ujian) memakai `Components/SessionTable.vue` (kolom Aksi lewat slot `#actions`).
 - Panduan portal Asesor & Pengambil Keputusan: isi per halaman ada di `resources/js/Components/Guide/{Asesor,Manager}/*.vue`,
   ditampilkan lewat `<PageGuide storage-key="...">` di atas halaman **dan** dirangkai di `Pages/*/Guide/Index.vue`.

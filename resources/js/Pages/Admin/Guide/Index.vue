@@ -36,7 +36,7 @@
                                             <tr><td style="width:190px" class="fw-bolder">Tipe Ujian / Skema / Ujian / Sesi Ujian</td><td>Data master yang harus ada sebelum ujian &amp; sertifikasi bisa jalan.</td></tr>
                                             <tr><td class="fw-bolder">Peserta</td><td>Akun peserta ujian (login soal), termasuk pembagian ke sesi &amp; batch.</td></tr>
                                             <tr><td class="fw-bolder">Permohonan</td><td>Pendaftaran sertifikasi peserta — verifikasi dokumen, approve, terbitkan FR.APL.01 / FR.AK.01.</td></tr>
-                                            <tr><td class="fw-bolder">Sesi Ujian (detail sesi)</td><td>Pusat kerja satu sesi: peserta &amp; penugasan asesor, permohonan sesi itu, Verifikasi TUK, TTD AK.01, rekap hasil.</td></tr>
+                                            <tr><td class="fw-bolder">Sesi Ujian (detail sesi)</td><td>Pusat kerja satu sesi: peserta &amp; penugasan asesor, permohonan sesi itu, Verifikasi TUK, TTD AK.01.</td></tr>
                                             <tr><td class="fw-bolder">Hasil Penilaian / Laporan Nilai</td><td>Rekap nilai PG / Esai / Wawancara dan unduhan dokumen hasil.</td></tr>
                                             <tr><td class="fw-bolder">Kelola User</td><td>Akun staf: admin, asesor, Pengambil Keputusan — beserta tanda tangannya.</td></tr>
                                         </tbody>
@@ -46,7 +46,7 @@
                                     <i class="fa fa-stopwatch me-1"></i>
                                     Semua pekerjaan untuk <strong>satu sesi</strong> bisa dibuka dari satu tempat: menu
                                     <span class="badge bg-gray-200 text-gray-800 border">Sesi Ujian</span> → buka sesi → pindah lewat baris tab
-                                    <strong>Peserta &amp; Asesor · Permohonan · Verifikasi TUK · TTD AK.01 · Rekap Hasil</strong>.
+                                    <strong>Peserta &amp; Asesor · Permohonan · Verifikasi TUK · TTD AK.01</strong>.
                                     Tab yang sama muncul di setiap halaman sesi, jadi tidak perlu memilih sesi berulang kali dari menu berbeda.
                                 </div>
                                 <div class="note-box small mb-0">

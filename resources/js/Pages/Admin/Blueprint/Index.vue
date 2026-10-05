@@ -283,7 +283,7 @@ BADGE STATUS. Berlangsung/Aktif=accent | Terjadwal/Menunggu=secondary | Selesai/
 NAV BAKU (jangan diacak).
 MAIN: Dashboard | MANAJEMEN: Skema, Peserta | UJIAN ONLINE: Ujian, Sesi Ujian, Permohonan, Hasil Penilaian | ADMINISTRASI: Kelola User, Laporan Nilai.
 
-HALAMAN PER SESI. Detail sesi dan halaman turunannya memakai tab SessionNav: Peserta & Asesor, Permohonan, Verifikasi TUK, TTD AK.01, Rekap Hasil. Halaman per sesi baru = tab baru, bukan menu sidebar baru.
+HALAMAN PER SESI. Detail sesi dan halaman turunannya memakai tab SessionNav: Peserta & Asesor, Permohonan, Verifikasi TUK, TTD AK.01 (Rekap Hasil tetap di menu Hasil Penilaian). Halaman per sesi baru = tab baru, bukan menu sidebar baru.
 
 DETAIL SENADA. Kolom No. selalu pertama (center), Aksi selalu terakhir (icon-only). Nilai dua desimal (87.50) rata kanan tabular-nums; durasi mono 00:42:15. Tombol = verba imperatif (Tambah, Simpan, Hapus, Setujui, Tolak, Export, Detail). Empty state: ikon abu + judul + kalimat ramah.
 

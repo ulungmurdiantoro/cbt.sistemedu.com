@@ -27,8 +27,6 @@
             </div>
         </div>
 
-        <SessionNav :session="exam_session" active="hasil" />
-
         <!-- Scheme info -->
         <div v-if="scheme" class="alert alert-info py-2 small border-0 mb-3">
             <i class="fa fa-info-circle me-1"></i>
@@ -209,14 +207,13 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
-import SessionNav from '../../../Components/SessionNav.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge, SessionNav },
+    components: { Head, Link, StatusBadge },
     props: {
         exam_session: Object,
         rows:         Array,
