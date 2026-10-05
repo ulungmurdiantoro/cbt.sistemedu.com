@@ -179,3 +179,29 @@
         padding-bottom: 2px;
     }
 }
+
+/* Sidebar dikecilkan lewat tombol burger (Components/SidebarToggle.vue) — hanya ikon
+   yang tampil; arahkan kursor ke sidebar untuk melihat menu lengkap sementara.
+   Layar < lg memakai collapse bawaan (tombol di navbar atas), jadi tidak terpengaruh. */
+@media (min-width: 992px) {
+    body.sidebar-collapsed .sidebar:not(:hover),
+    body.sidebar-collapsed .sidebar:not(:hover) .sidebar-inner {
+        overflow-x: hidden;
+    }
+    body.sidebar-collapsed .sidebar:not(:hover) {
+        max-width: 95px;
+    }
+    body.sidebar-collapsed .sidebar:not(:hover) .sidebar-text,
+    body.sidebar-collapsed .sidebar:not(:hover) .badge {
+        opacity: 0;
+    }
+    body.sidebar-collapsed .sidebar:not(:hover) .nav-item.active > .nav-link {
+        width: 44px;
+    }
+    body.sidebar-collapsed .sidebar + .content {
+        margin-left: 95px;
+    }
+    body.sidebar-collapsed .sidebar:hover {
+        box-shadow: 0 0 1.5rem rgba(17, 24, 39, .35);
+    }
+}

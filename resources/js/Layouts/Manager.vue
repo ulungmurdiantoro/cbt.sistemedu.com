@@ -110,6 +110,7 @@
             <div class="container-fluid px-0">
                 <div class="d-flex justify-content-between w-100">
                     <div class="d-flex align-items-center">
+                        <SidebarToggle />
                         <span class="text-white fw-bold ms-3">
                             <i class="fa fa-user-tie me-1"></i> {{ $page.props.auth?.user?.name ?? 'Pengambil Keputusan' }}
                         </span>
@@ -125,9 +126,10 @@
 <script>
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import SidebarToggle from '../Components/SidebarToggle.vue';
 
 export default {
-    components: { Link },
+    components: { Link, SidebarToggle },
     setup() {
         const page = usePage();
         const otherPortals = computed(() => {

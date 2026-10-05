@@ -3,6 +3,7 @@
         <div class="container-fluid px-0">
             <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
                 <div class="d-flex align-items-center">
+                    <SidebarToggle />
                 </div>
                 <!-- Navbar links -->
                 <ul class="navbar-nav align-items-center">
@@ -38,12 +39,14 @@
 
     //import Link
     import { Link } from '@inertiajs/vue3';
+    import SidebarToggle from './SidebarToggle.vue';
 
     export default {
 
         //register component
         components: {
             Link,
+            SidebarToggle,
         }
     }
 

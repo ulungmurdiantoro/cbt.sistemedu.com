@@ -46,6 +46,11 @@
                                     Admin bisa memegang lebih dari satu peran. Kalau akun Anda juga asesor / Pengambil Keputusan,
                                     tombol pindah portal muncul di bagian bawah sidebar.
                                 </div>
+                                <div class="note-box small mb-0 mt-2">
+                                    Butuh layar lebih lega (mis. tabel nilai yang lebar)? Klik tombol <i class="fa fa-bars"></i>
+                                    di kiri atas untuk mengecilkan sidebar menjadi ikon saja; arahkan kursor ke sidebar untuk
+                                    melihat nama menunya. Pilihan ini diingat di browser Anda.
+                                </div>
                             </div>
                         </div>
                     </div>
