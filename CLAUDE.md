@@ -242,7 +242,7 @@ dibuat — sertifikat/SK yang sudah ter-cache tetap, PDF yang dibuat ulang memak
 ## Verifikasi TUK Online (FR.TUK.06)
 
 Checklist per peserta per sesi (`tuk_verifications`), diisi **admin sebagai Pengawas Ujian** di
-`/admin/penilaian/{sesi}/verifikasi-tuk` (tombol muncul di halaman Penugasan Asesor bila saklar sesi
+`/admin/penilaian/{sesi}/verifikasi-tuk` (tab muncul di navigasi sesi `<SessionNav>` bila saklar sesi
 `exam_sessions.verifikasi_tuk` aktif). **Hanya pencatatan — tidak mengunci ujian peserta.**
 - Daftar kriteria B–F ditanam di `App\Support\TukChecklist`; jawaban disimpan per kunci butir (`B1`…`F6`)
   di kolom JSON `items`. Jangan ubah urutan/kunci butir yang sudah ada.
@@ -285,6 +285,9 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
 - Inertia router: `router.post(url, data, { onSuccess, onFinish })`
 - Nama route: `admin.resource.action`, `asesor.resource.action`
 - Migrasi: timestamp `YYYY_MM_DD_NNNNNN_deskripsi.php`
+- Halaman admin per sesi (Detail Sesi, Permohonan `?exam_session_id=`, Penugasan Asesor, Verifikasi TUK, TTD AK.01,
+  Rekap Hasil) memakai tab `Components/SessionNav.vue` di atasnya; halaman per sesi baru → tambahkan tab-nya di situ.
+  Daftar sesi (menu Sesi Ujian & Penugasan Asesor) memakai `Components/SessionTable.vue` (kolom Aksi lewat slot `#actions`).
 - Panduan portal Asesor & Pengambil Keputusan: isi per halaman ada di `resources/js/Components/Guide/{Asesor,Manager}/*.vue`,
   ditampilkan lewat `<PageGuide storage-key="...">` di atas halaman **dan** dirangkai di `Pages/*/Guide/Index.vue`.
   Ubah perilaku/tombol halaman → perbarui komponen Guide-nya juga.

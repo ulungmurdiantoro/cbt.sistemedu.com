@@ -42,6 +42,13 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="note-box small mb-2">
+                                    <i class="fa fa-stopwatch me-1"></i>
+                                    Semua pekerjaan untuk <strong>satu sesi</strong> bisa dibuka dari satu tempat: menu
+                                    <span class="badge bg-gray-200 text-gray-800 border">Sesi Ujian</span> → buka sesi → pindah lewat baris tab
+                                    <strong>Detail &amp; Peserta · Permohonan · Penugasan Asesor · Verifikasi TUK · TTD AK.01 · Rekap Hasil</strong>.
+                                    Tab yang sama muncul di setiap halaman sesi, jadi tidak perlu memilih sesi berulang kali dari menu berbeda.
+                                </div>
                                 <div class="note-box small mb-0">
                                     Admin bisa memegang lebih dari satu peran. Kalau akun Anda juga asesor / Pengambil Keputusan,
                                     tombol pindah portal muncul di bagian bawah sidebar.
@@ -111,7 +118,8 @@
                         </h2>
                         <div id="a4" class="accordion-collapse collapse" data-bs-parent="#panduanAdmin">
                             <div class="accordion-body">
-                                <p class="small text-muted mb-2">Menu <span class="badge bg-gray-200 text-gray-800 border">Permohonan</span> berisi pendaftaran sertifikasi yang diajukan peserta dari portalnya sendiri.</p>
+                                <p class="small text-muted mb-2">Menu <span class="badge bg-gray-200 text-gray-800 border">Permohonan</span> berisi pendaftaran sertifikasi yang diajukan peserta dari portalnya sendiri.
+                                    Untuk melihat permohonan satu sesi saja, buka tab <strong>Permohonan</strong> di halaman sesi — Export Dokumen (ZIP) bisa langsung dipakai dari sana tanpa memilih skema.</p>
                                 <ol class="mb-2">
                                     <li>Buka satu permohonan → periksa data diri, data pekerjaan, dan berkas persyaratan yang diunggah.</li>
                                     <li>Setiap dokumen persyaratan ditandai <span class="badge bg-success">Terverifikasi</span> atau <span class="badge bg-danger">Ditolak</span> (dengan catatan alasan).</li>
@@ -158,10 +166,11 @@
                         </h2>
                         <div id="a6" class="accordion-collapse collapse" data-bs-parent="#panduanAdmin">
                             <div class="accordion-body">
-                                <p class="small text-muted mb-2">Menu <span class="badge bg-gray-200 text-gray-800 border">Penugasan Asesor</span> → pilih sesi → tetapkan asesor per peserta.</p>
+                                <p class="small text-muted mb-2">Menu <span class="badge bg-gray-200 text-gray-800 border">Penugasan Asesor</span> → pilih sesi → tetapkan asesor per peserta
+                                    (atau dari halaman sesi → tab <strong>Penugasan Asesor</strong>).</p>
                                 <ul class="mb-2">
                                     <li>Satu peserta bisa diberi satu asesor. Asesor lalu melihat peserta itu di portalnya untuk menilai esai / wawancara dan mengisi Laporan Asesmen.</li>
-                                    <li>Sub-menu <strong>TTD AK.01 Asesor</strong> — asesor menandatangani FR.AK.01 untuk peserta yang ditugaskan. Bisa dilakukan asesor sendiri dari portalnya, atau oleh admin dari sini bila diperlukan.</li>
+                                    <li>Tab <strong>TTD AK.01</strong> — asesor menandatangani FR.AK.01 untuk peserta yang ditugaskan. Bisa dilakukan asesor sendiri dari portalnya, atau oleh admin dari sini bila diperlukan.</li>
                                     <li>Nama &amp; TTD asesor yang muncul di FR.AK.01 diambil dari tanda tangan tersimpan asesor tersebut.</li>
                                 </ul>
                                 <div class="note-box small mb-0">

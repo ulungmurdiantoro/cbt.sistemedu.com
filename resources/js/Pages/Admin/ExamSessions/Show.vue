@@ -6,9 +6,16 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link href="/admin/exam_sessions" class="btn btn-md btn-primary border-0 shadow mb-3" type="button">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                </Link>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <Link href="/admin/exam_sessions" class="btn btn-md btn-primary border-0 shadow" type="button">
+                        <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
+                    </Link>
+                    <Link :href="`/admin/exam_sessions/${exam_session.id}/edit`" class="btn btn-md btn-info border-0 shadow">
+                        <i class="fa fa-pencil-alt me-2"></i> Edit Sesi
+                    </Link>
+                </div>
+
+                <SessionNav :session="exam_session" active="peserta" />
 
                 <!-- Detail sesi -->
                 <div class="card border-0 shadow mb-4">
@@ -127,12 +134,13 @@
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
+import SessionNav from '../../../Components/SessionNav.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination, StatusBadge },
+    components: { Head, Link, Pagination, StatusBadge, SessionNav },
     props: {
         errors:       Object,
         exam_session: Object,

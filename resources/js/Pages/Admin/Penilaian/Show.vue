@@ -4,20 +4,12 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <Link href="/admin/penilaian" class="btn btn-md btn-primary border-0 shadow">
-                        <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                    </Link>
-                    <div class="d-flex flex-wrap gap-2">
-                        <Link v-if="exam_session.verifikasi_tuk" :href="`/admin/penilaian/${exam_session.id}/verifikasi-tuk`"
-                            class="btn btn-md btn-outline-primary border shadow-sm">
-                            <i class="fa fa-clipboard-check me-2"></i> Verifikasi TUK (FR.TUK.06)
-                        </Link>
-                        <Link :href="`/admin/penilaian/${exam_session.id}/dokumen`" class="btn btn-md btn-outline-primary border shadow-sm">
-                            <i class="fa fa-signature me-2"></i> TTD AK.01 Asesor
-                        </Link>
-                    </div>
-                </div>
+                <Link href="/admin/penilaian" class="btn btn-md btn-primary border-0 shadow mb-3">
+                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
+                </Link>
+
+                <!-- Verifikasi TUK & TTD AK.01 ada di tab sesi -->
+                <SessionNav :session="exam_session" active="asesor" />
 
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">
@@ -106,10 +98,11 @@
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import SearchSelect from '../../../Components/SearchSelect.vue';
+import SessionNav from '../../../Components/SessionNav.vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, SearchSelect },
+    components: { Head, Link, SearchSelect, SessionNav },
 
     props: {
         exam_session: Object,

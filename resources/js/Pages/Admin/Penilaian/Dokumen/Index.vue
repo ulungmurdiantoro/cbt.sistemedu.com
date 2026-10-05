@@ -7,6 +7,8 @@
                 <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Penugasan Asesor
             </Link>
 
+            <SessionNav :session="exam_session" active="dokumen" />
+
             <!-- Info sesi -->
             <div class="card border-0 shadow mb-3">
                 <div class="card-body py-3">
@@ -155,12 +157,13 @@
 <script>
 import LayoutAdmin from '../../../../Layouts/Admin.vue';
 import StatusBadge from '../../../../Components/StatusBadge.vue';
+import SessionNav from '../../../../Components/SessionNav.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { computed, onUnmounted, ref, watch } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge },
+    components: { Head, Link, StatusBadge, SessionNav },
     props: {
         exam_session: Object,
         rows: Array,

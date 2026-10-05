@@ -35,6 +35,7 @@ class ApplicationController extends Controller
             ->when($request->status, fn($q) => $q->where('status', $request->status))
             ->when($request->classroom_id, fn($q) => $q->where('classroom_id', $request->classroom_id))
             ->when($request->kode_batch, fn($q) => $q->where('kode_batch', $request->kode_batch))
+            ->when($request->integer('exam_session_id'), fn($q, $sessionId) => $q->where('exam_session_id', $sessionId))
             ->when($request->q, fn($q) => $q->whereHas('participant', function ($sub) use ($request) {
                 $sub->where('name', 'like', '%' . $request->q . '%')
                     ->orWhere('email', 'like', '%' . $request->q . '%');
@@ -52,28 +53,46 @@ class ApplicationController extends Controller
 
         return inertia('Admin/Applications/Index', [
             'applications' => $applications,
-            'filters'      => $request->only('status', 'classroom_id', 'kode_batch', 'q'),
+            'filters'      => $request->only('status', 'classroom_id', 'kode_batch', 'q', 'exam_session_id'),
             'classrooms'   => Classroom::orderBy('title')->get(['id', 'title']),
+            // Dibuka dari tab sesi → tampilkan navigasi sesi di atas daftar
+            'exam_session' => $this->filterSession($request)?->only('id', 'title', 'kode_batch', 'verifikasi_tuk'),
         ]);
+    }
+
+    private function filterSession(Request $request): ?ExamSession
+    {
+        $sessionId = $request->integer('exam_session_id');
+
+        return $sessionId ? ExamSession::with('examPg.classroom', 'examEsai.classroom')->find($sessionId) : null;
+    }
+
+    /** Bagian nama file export: kode skema + batch, dari filter atau dari sesi yang difilter. */
+    private function exportNameParts(Request $request): array
+    {
+        $session = $this->filterSession($request);
+
+        $classroomCode = $request->classroom_id
+            ? Classroom::find($request->classroom_id)?->classrooms_code
+            : $session?->referenceExam?->classroom?->classrooms_code;
+
+        $batch = $request->kode_batch ?: $session?->kode_batch;
+
+        return array_filter([$classroomCode, $batch ? 'batch' . $batch : null]);
     }
 
     public function export(Request $request)
     {
         $applications = $this->filteredQuery($request)->latest()->get();
 
-        $filenameParts = array_filter([
-            'permohonan',
-            $request->classroom_id ? Classroom::find($request->classroom_id)?->classrooms_code : null,
-            $request->kode_batch ? 'batch' . $request->kode_batch : null,
-            now()->format('Ymd_His'),
-        ]);
+        $filenameParts = ['permohonan', ...$this->exportNameParts($request), now()->format('Ymd_His')];
 
         return Excel::download(new ApplicationsExport($applications), Str::slug(implode('_', $filenameParts)) . '.xlsx');
     }
 
     public function exportDokumen(Request $request)
     {
-        abort_if(!$request->classroom_id, 422, 'Pilih skema terlebih dahulu untuk export dokumen.');
+        abort_if(!$request->classroom_id && !$request->integer('exam_session_id'), 422, 'Pilih skema atau sesi terlebih dahulu untuk export dokumen.');
 
         $applications = $this->filteredQuery($request)
             ->with(['participant', 'classroom.documentRequirements', 'documents', 'examSession', 'approver', 'asesorVerifier', 'initialAssessment.assessor'])
@@ -84,11 +103,7 @@ class ApplicationController extends Controller
 
         $zipPath = app(DocumentGeneratorService::class)->applicationsZip($applications);
 
-        $zipNameParts = array_filter([
-            'export_dokumen',
-            Classroom::find($request->classroom_id)?->classrooms_code,
-            $request->kode_batch ? 'batch' . $request->kode_batch : null,
-        ]);
+        $zipNameParts = ['export_dokumen', ...$this->exportNameParts($request)];
 
         $zipName = Str::slug(implode('_', $zipNameParts)) . '.zip';
 

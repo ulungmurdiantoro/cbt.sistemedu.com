@@ -4,9 +4,18 @@
     </Head>
 
     <div class="container-fluid mb-5 mt-5">
+    <!-- Dibuka dari tab sesi: daftar hanya berisi permohonan sesi ini -->
+    <SessionNav v-if="exam_session" :session="exam_session" active="permohonan" />
+
     <div class="row mb-3">
         <div class="col-md-12 d-flex justify-content-between align-items-center">
-            <h5 class="fw-bold mb-0">Permohonan Sertifikasi</h5>
+            <div>
+                <h5 class="fw-bold mb-0">Permohonan Sertifikasi</h5>
+                <div v-if="exam_session" class="small text-muted">
+                    Hanya permohonan untuk sesi ini.
+                    <Link href="/admin/applications">Lihat semua permohonan</Link>
+                </div>
+            </div>
             <span class="badge bg-primary fs-6">{{ applications.total }} permohonan</span>
         </div>
     </div>
@@ -46,8 +55,8 @@
                     <a :href="exportUrl" class="btn btn-sm btn-success ms-1">
                         <i class="fa fa-file-excel me-1"></i>Export Excel
                     </a>
-                    <button type="button" class="btn btn-sm btn-info ms-1" title="Perlu filter Skema"
-                        :disabled="!filterForm.classroom_id || exportingDokumen"
+                    <button type="button" class="btn btn-sm btn-info ms-1" title="Perlu filter Skema atau dibuka dari tab sesi"
+                        :disabled="!canExportDokumen || exportingDokumen"
                         @click="startExportDokumen">
                         <span v-if="exportingDokumen">
                             <span class="spinner-border spinner-border-sm me-1" role="status"></span>
@@ -136,16 +145,18 @@
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import Pagination from '../../../Components/Pagination.vue';
+import SessionNav from '../../../Components/SessionNav.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { reactive, computed, ref, onBeforeUnmount } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge, Pagination },
+    components: { Head, Link, StatusBadge, Pagination, SessionNav },
     props: {
         applications: Object,
         filters:      Object,
         classrooms:   Array,
+        exam_session: Object,
     },
 
     setup(props) {
@@ -154,15 +165,20 @@ export default {
             status:       props.filters?.status ?? '',
             classroom_id: props.filters?.classroom_id ?? '',
             kode_batch:   props.filters?.kode_batch ?? '',
+            // Dari tab sesi; tidak ada isian di form, hanya ikut terbawa saat filter/export
+            exam_session_id: props.filters?.exam_session_id ?? '',
         });
+
+        const canExportDokumen = computed(() => !!(filterForm.classroom_id || filterForm.exam_session_id));
 
         const applyFilter = () => {
             router.get('/admin/applications', filterForm, { preserveState: true });
         };
 
+        // Reset tidak keluar dari sesi; untuk itu ada tautan "Lihat semua permohonan"
         const resetFilter = () => {
             filterForm.q = ''; filterForm.status = ''; filterForm.classroom_id = ''; filterForm.kode_batch = '';
-            router.get('/admin/applications');
+            router.get('/admin/applications', filterForm.exam_session_id ? { exam_session_id: filterForm.exam_session_id } : {});
         };
 
         const deletingId = ref(null);
@@ -203,7 +219,7 @@ export default {
         };
 
         const startExportDokumen = () => {
-            if (!filterForm.classroom_id || exportingDokumen.value) return;
+            if (!canExportDokumen.value || exportingDokumen.value) return;
 
             const token = 'dl' + Date.now() + Math.random().toString(36).slice(2);
             const params = new URLSearchParams();
@@ -241,7 +257,7 @@ export default {
 
         return {
             filterForm, applyFilter, resetFilter, exportUrl,
-            exportingDokumen, startExportDokumen,
+            exportingDokumen, startExportDokumen, canExportDokumen,
             deletingId, destroyApplication,
             formatDate, statusLabel, statusTone,
         };
