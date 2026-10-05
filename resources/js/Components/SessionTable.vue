@@ -5,13 +5,13 @@
       Server sudah mengurutkan: sesi aktif dulu, lalu yang selesai (terbaru dulu).
     -->
     <div class="table-responsive">
-        <table class="table table-bordered table-centered mb-0 rounded">
+        <table class="table table-bordered table-centered mb-0 rounded session-table">
             <thead class="thead-dark">
                 <tr class="border-0">
                     <th class="border-0 rounded-start" style="width:4%">No.</th>
                     <th class="border-0">Sesi Ujian</th>
                     <th class="border-0">Jenis Ujian</th>
-                    <th class="border-0" style="width:8%">Peserta</th>
+                    <th class="border-0 text-center" style="width:1%">Peserta</th>
                     <th class="border-0">Waktu</th>
                     <th class="border-0 rounded-end text-center" :style="{ width: actionsWidth }">Aksi</th>
                 </tr>
@@ -27,17 +27,18 @@
 
                     <tr :class="isActive(s) ? 'table-active-session' : 'table-finished-session'">
                         <td class="fw-bold text-center">{{ index + 1 + offset }}</td>
-                        <td>
+                        <!-- Volt memberi nowrap ke semua sel; judul panjang dibungkus supaya tabel tidak perlu digeser -->
+                        <td style="min-width:220px">
                             <div class="d-flex align-items-start gap-2">
                                 <StatusBadge v-if="isActive(s)" tone="accent" label="Aktif" class="mt-1 flex-shrink-0" />
                                 <StatusBadge v-else tone="success" label="Selesai" class="mt-1 flex-shrink-0" />
-                                <div>
+                                <div class="text-wrap">
                                     <strong>{{ s.title }}</strong>
                                     <div class="text-muted small">Batch {{ s.kode_batch }}</div>
                                 </div>
                             </div>
                         </td>
-                        <td style="max-width:240px">
+                        <td style="max-width:220px">
                             <ul class="list-unstyled mb-0 small">
                                 <li v-if="s.exam_pg" class="text-truncate" :title="s.exam_pg.title">
                                     <span class="badge bg-primary me-1">PG</span>{{ s.exam_pg.title }}
@@ -87,7 +88,8 @@ export default {
         // Nama kolom jumlah peserta dari server
         countKey:     { type: String, default: 'students_count' },
         emptyText:    { type: String, default: 'Tidak ada sesi yang cocok dengan pencarian Anda.' },
-        actionsWidth: { type: String, default: '13%' },
+        // 1% = selebar isi (tombol), sisa ruang untuk judul sesi
+        actionsWidth: { type: String, default: '1%' },
     },
     data() {
         return { now: new Date() };
@@ -111,6 +113,12 @@ export default {
 </script>
 
 <style scoped>
+/* Padding sel Volt 24px kiri-kanan → dipersempit supaya tabel muat di layar laptop tanpa digeser */
+.session-table th,
+.session-table td {
+    padding-left: .75rem;
+    padding-right: .75rem;
+}
 .table-active-session td {
     background-color: #fff;
 }
