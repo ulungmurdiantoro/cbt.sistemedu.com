@@ -261,6 +261,9 @@ Checklist per peserta per sesi (`tuk_verifications`), diisi **admin sebagai Peng
   admin yang login. Nama + TTD (`users.signature_path`, dibuat di Kelola User atau saat menyetujui permohonan)
   disalin ke `pengawas_name`/`pengawas_signature_path` setiap kali disimpan. `verified_at` diisi saat
   kesimpulan verifikasi awal pertama kali disimpan dan tidak bergeser saat F/H/I dilengkapi setelah ujian.
+- Bagian B menampilkan **Dokumen Identitas Diri (KTP/SIM/Paspor)** dari permohonan peserta (pratinjau + status
+  verifikasinya) sebagai pembanding — hanya tampilan, tidak masuk checklist/PDF. Persyaratannya dikenali dari
+  label/kode (`ClassroomDocumentRequirement::isIdentityDocument()`: "identitas", "KTP", "paspor").
 - PDF: `DocumentGeneratorService::generateFrTuk06()` → view `documents/fr_tuk_06`.
 
 ---

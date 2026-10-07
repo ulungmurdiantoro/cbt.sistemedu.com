@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
+use App\Models\AssessmentApplication;
+use App\Models\ClassroomDocumentRequirement;
 use App\Models\ExamSession;
 use App\Models\Student;
 use App\Models\TukVerification;
@@ -41,6 +43,38 @@ class TukVerificationController extends Controller
                 'name'          => $u->signature_name ?: $u->name,
                 'has_signature' => $u->signature_path && Storage::disk('private')->exists($u->signature_path),
             ]);
+    }
+
+    /**
+     * Dokumen Identitas Diri (KTP/SIM/Paspor) yang diunggah peserta di permohonannya — pembanding
+     * Pengawas Ujian untuk bagian B (Verifikasi Identitas). Hanya ditampilkan, tidak disimpan ke checklist.
+     */
+    private function identityDocument(int $examSessionId, int $studentId): array
+    {
+        $application = AssessmentApplication::where('student_id', $studentId)
+            ->where('exam_session_id', $examSessionId)
+            ->with('classroom.documentRequirements', 'documents')
+            ->first();
+
+        $requirement = $application?->classroom?->documentRequirements
+            ->first(fn (ClassroomDocumentRequirement $r) => $r->isIdentityDocument());
+        $document = $requirement
+            ? $application->documents->firstWhere('classroom_document_requirement_id', $requirement->id)
+            : null;
+
+        return [
+            'label'           => $requirement?->label ?? 'Dokumen Identitas Diri (KTP/SIM/Paspor)',
+            'is_required'     => $requirement?->is_required ?? true,
+            'application_id'  => $application?->id,
+            'classroom_id'    => $application?->classroom_id,
+            'has_requirement' => (bool) $requirement,
+            'document'        => $document ? [
+                'id'             => $document->id,
+                'status'         => $document->status,
+                'reviewer_notes' => $document->reviewer_notes,
+                'is_image'       => str_starts_with((string) $document->mime_type, 'image/'),
+            ] : null,
+        ];
     }
 
     /** Pengawas terakhir yang dipilih admin ini di sesi tersebut — supaya tidak memilih ulang tiap peserta. */
@@ -101,6 +135,7 @@ class TukVerificationController extends Controller
             'student'             => $student->only(['id', 'no_participant', 'name']),
             'skema'               => $examSession->referenceExam?->classroom?->title,
             'verification'        => $verification,
+            'identity_document'   => $this->identityDocument($examSessionId, $studentId),
             'sections'            => TukChecklist::sections(),
             'options'             => [
                 'kesimpulan_awal'            => TukChecklist::KESIMPULAN_AWAL,

@@ -81,6 +81,43 @@
                     </button>
                 </div>
                 <div class="card-body p-0">
+                    <!-- Dokumen identitas dari permohonan peserta — pembanding untuk Verifikasi Identitas -->
+                    <div v-if="section.key === 'B'" class="d-flex flex-wrap align-items-start gap-3 p-3 border-bottom bg-gray-100">
+                        <a v-if="identity_document.document?.is_image" :href="identityUrl" target="_blank" rel="noopener" title="Buka dokumen">
+                            <img :src="identityUrl" alt="Dokumen identitas peserta" class="border rounded bg-white d-block"
+                                style="max-height:140px;max-width:220px">
+                        </a>
+                        <div>
+                            <div class="fw-bolder small">
+                                {{ identity_document.label }} <span v-if="identity_document.is_required" class="text-danger">*</span>
+                            </div>
+                            <div v-if="identity_document.document" class="d-flex flex-wrap align-items-center gap-2 mt-1">
+                                <StatusBadge :tone="docStatus.tone">{{ docStatus.label }}</StatusBadge>
+                                <a :href="identityUrl" target="_blank" rel="noopener" class="btn btn-sm btn-gray-100 border">
+                                    <i class="fa fa-eye me-1"></i>Lihat Dokumen
+                                </a>
+                            </div>
+                            <div v-if="identity_document.document?.reviewer_notes" class="small text-danger mt-1">
+                                {{ identity_document.document.reviewer_notes }}
+                            </div>
+                            <div class="small text-muted mt-1">
+                                <template v-if="!identity_document.application_id">
+                                    Peserta ini tidak terdaftar lewat permohonan sertifikasi, jadi tidak ada dokumen identitas yang diunggah.
+                                </template>
+                                <template v-else-if="!identity_document.has_requirement">
+                                    Skema ini belum punya persyaratan dokumen identitas. Tambahkan di
+                                    <Link :href="`/admin/classrooms/${identity_document.classroom_id}/requirements`">Persyaratan Dokumen skema</Link>.
+                                </template>
+                                <template v-else-if="!identity_document.document">
+                                    <StatusBadge tone="danger" class="me-1">Belum diunggah</StatusBadge>
+                                    Peserta belum mengunggah dokumen ini di permohonannya.
+                                </template>
+                                <template v-else>
+                                    Cocokkan nama &amp; wajah di dokumen dengan peserta di Zoom (butir 1–3).
+                                </template>
+                            </div>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-sm align-middle mb-0">
                             <thead class="table-secondary">
@@ -220,16 +257,18 @@
 <script>
 import LayoutAdmin from '../../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
+import StatusBadge from '../../../../Components/StatusBadge.vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { Head, Link, StatusBadge },
     props: {
         errors:          Object,
         exam_session:    Object,
         student:         Object,
         skema:           String,
         verification:    Object,
+        identity_document: Object,
         sections:        Array,
         options:             Object,
         pengawas_options:    Array,
@@ -267,6 +306,16 @@ export default {
     computed: {
         pengawas() {
             return this.pengawas_options.find(p => p.id === this.form.pengawas_id) ?? null;
+        },
+        identityUrl() {
+            const d = this.identity_document;
+            return d.document ? `/admin/applications/${d.application_id}/documents/${d.document.id}/preview` : null;
+        },
+        docStatus() {
+            return {
+                verified: { tone: 'success', label: 'Terverifikasi' },
+                rejected: { tone: 'danger', label: 'Ditolak' },
+            }[this.identity_document.document?.status] ?? { tone: 'secondary', label: 'Menunggu verifikasi' };
         },
         tidakSesuaiSebelumUjian() {
             return this.sections

@@ -34,4 +34,13 @@ class ClassroomDocumentRequirement extends Model
     {
         return $this->hasMany(ApplicationDocument::class);
     }
+
+    /**
+     * Persyaratan "Dokumen Identitas Diri (KTP/SIM/Paspor)". Persyaratan dibuat bebas oleh
+     * admin per skema (tanpa kode baku), jadi dikenali dari label/kodenya.
+     */
+    public function isIdentityDocument(): bool
+    {
+        return (bool) preg_match('/identitas|\bktp\b|paspor/i', $this->label . ' ' . $this->code);
+    }
 }

@@ -3,7 +3,11 @@
 namespace Tests\Feature\Admin;
 
 use App\Enums\UserRole;
+use App\Models\ApplicationDocument;
+use App\Models\AssessmentApplication;
+use App\Models\ClassroomDocumentRequirement;
 use App\Models\ExamSession;
+use App\Models\Participant;
 use App\Models\Student;
 use App\Models\TukVerification;
 use App\Models\User;
@@ -231,6 +235,77 @@ class TukVerificationTest extends TestCase
             ->where('next_student_id', null)
             ->has('sections', 5)
         );
+    }
+
+    public function test_show_includes_identity_document_from_application(): void
+    {
+        Storage::fake('private');
+
+        $classroom = $this->session->referenceExam->classroom;
+        $cv        = ClassroomDocumentRequirement::forceCreate(['classroom_id' => $classroom->id, 'code' => 'CV', 'label' => 'CV', 'order' => 1]);
+        $ktp       = ClassroomDocumentRequirement::forceCreate([
+            'classroom_id' => $classroom->id, 'code' => 'Identitas', 'label' => 'Dokumen Identitas Diri (KTP/SIM/Paspor)', 'order' => 2,
+        ]);
+
+        $uploaded    = $this->participant('NP-001');
+        $notUploaded = $this->participant('NP-002');
+        $noApp       = $this->participant('NP-003');
+
+        $application = function (Student $student) use ($classroom) {
+            $participant = Participant::forceCreate([
+                'name'     => $student->name,
+                'email'    => Str::random(8) . '@example.com',
+                'password' => bcrypt('password'),
+            ]);
+
+            return AssessmentApplication::forceCreate([
+                'code'            => 'APL-' . Str::random(8),
+                'participant_id'  => $participant->id,
+                'classroom_id'    => $classroom->id,
+                'exam_session_id' => $this->session->id,
+                'student_id'      => $student->id,
+                'kode_batch'      => '-',
+                'tujuan_asesmen'  => 'Sertifikasi',
+                'status'          => 'approved',
+            ]);
+        };
+
+        $app = $application($uploaded);
+        $application($notUploaded);
+
+        Storage::disk('private')->put('documents/ktp.jpg', 'jpg');
+        ApplicationDocument::forceCreate([
+            'assessment_application_id' => $app->id, 'classroom_document_requirement_id' => $cv->id,
+            'file_path' => 'documents/cv.pdf', 'original_filename' => 'cv.pdf', 'mime_type' => 'application/pdf',
+        ]);
+        $doc = ApplicationDocument::forceCreate([
+            'assessment_application_id' => $app->id, 'classroom_document_requirement_id' => $ktp->id,
+            'file_path' => 'documents/ktp.jpg', 'original_filename' => 'ktp.jpg', 'mime_type' => 'image/jpeg', 'status' => 'verified',
+        ]);
+
+        $this->actingAs($this->admin)->get($this->url($uploaded))
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('Admin/Penilaian/VerifikasiTuk/Show')
+                ->where('identity_document.label', 'Dokumen Identitas Diri (KTP/SIM/Paspor)')
+                ->where('identity_document.application_id', $app->id)
+                ->where('identity_document.document.id', $doc->id)
+                ->where('identity_document.document.status', 'verified')
+                ->where('identity_document.document.is_image', true)
+            );
+
+        $this->actingAs($this->admin)->get("/admin/applications/{$app->id}/documents/{$doc->id}/preview")->assertOk();
+
+        $this->actingAs($this->admin)->get($this->url($notUploaded))
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('identity_document.has_requirement', true)
+                ->where('identity_document.document', null)
+            );
+
+        $this->actingAs($this->admin)->get($this->url($noApp))
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('identity_document.application_id', null)
+                ->where('identity_document.document', null)
+            );
     }
 
     public function test_index_and_pdf(): void
