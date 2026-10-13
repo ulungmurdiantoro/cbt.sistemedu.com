@@ -173,13 +173,19 @@
                     <!-- Ringkasan (sudah dinilai, tidak sedang diedit) -->
                     <div v-if="application.initial_assessment && !showAssessmentForm">
                         <div class="mb-2">
-                            <span class="badge fs-6" :class="application.initial_assessment.is_eligible ? 'bg-success' : 'bg-danger'">
-                                {{ resultSentence(application.initial_assessment.total_score, application.initial_assessment.threshold) }}
+                            <span class="badge fs-6 text-wrap text-start" :class="application.initial_assessment.is_eligible ? 'bg-success' : 'bg-danger'">
+                                {{ application.initial_assessment.result_sentence }}
                             </span>
                         </div>
                         <div class="small text-muted mb-2">
+                            FR.APL.03 {{ application.initial_assessment.revision }} ·
                             Dinilai oleh {{ application.initial_assessment.assessor?.name ?? '—' }}
                             pada {{ formatDate(application.initial_assessment.assessed_at) }}
+                        </div>
+                        <div v-if="isOldRevision" class="small text-muted mb-2">
+                            <i class="fa fa-info-circle me-1"></i>Dinilai dengan revisi lama; nilai &amp; PDF-nya tetap
+                            {{ application.initial_assessment.revision }}. Klik <strong>Ubah Penilaian</strong> untuk menilai ulang
+                            dengan {{ initial_assessment_rubric.revision }}.
                         </div>
                         <a :href="`/admin/applications/${application.id}/fr-apl-03`" class="btn btn-sm btn-info" target="_blank">
                             <i class="fa fa-file-pdf me-1"></i>Download FR.APL.03 (PDF)
@@ -188,35 +194,36 @@
 
                     <!-- Form penilaian -->
                     <form v-else-if="initial_assessment_rubric" @submit.prevent="submitAssessment">
+                        <div class="small text-muted mb-3">FR.APL.03 {{ initial_assessment_rubric.revision }}</div>
+                        <div v-if="isOldRevision" class="alert alert-warning border-0 py-2 small mb-3">
+                            <i class="fa fa-exclamation-triangle me-1"></i>
+                            Penilaian tersimpan memakai FR.APL.03 {{ application.initial_assessment.revision }}. Menyimpan form ini
+                            menilai ulang dengan {{ initial_assessment_rubric.revision }} (kriteria &amp; ambang batas baru) — isi semua kriteria lagi.
+                        </div>
+
                         <div v-for="criterion in initial_assessment_rubric.criteria" :key="criterion.key" class="mb-3 pb-3 border-bottom">
-                            <label class="fw-bolder small d-block mb-2">{{ criterion.label }}</label>
+                            <label class="fw-bolder small d-block" :class="criterion.hint ? 'mb-0' : 'mb-2'">{{ criterion.label }}</label>
+                            <div v-if="criterion.hint" class="small text-muted mb-2">{{ criterion.hint }}</div>
 
-                            <div v-if="criterion.type === 'single'">
-                                <div v-for="opt in criterion.options" :key="opt.key" class="form-check">
-                                    <input class="form-check-input" type="radio" :name="criterion.key"
-                                        :id="`${criterion.key}_${opt.key}`" :value="opt.key"
-                                        v-model="assessmentAnswers[criterion.key]">
-                                    <label class="form-check-label small" :for="`${criterion.key}_${opt.key}`">
-                                        {{ opt.label }} <span class="text-muted">({{ opt.score }} poin)</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div v-else>
-                                <div v-for="opt in criterion.options" :key="opt.key" class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                        :id="`${criterion.key}_${opt.key}`" :value="opt.key"
-                                        v-model="assessmentAnswers[criterion.key]">
-                                    <label class="form-check-label small" :for="`${criterion.key}_${opt.key}`">
-                                        {{ opt.label }} <span class="text-muted">({{ opt.score }} poin)</span>
-                                    </label>
-                                </div>
+                            <div v-for="opt in criterion.options" :key="opt.key" class="form-check">
+                                <input v-if="criterion.type === 'single'" class="form-check-input" type="radio" :name="criterion.key"
+                                    :id="`${criterion.key}_${opt.key}`" :value="opt.key"
+                                    v-model="assessmentAnswers[criterion.key]">
+                                <input v-else class="form-check-input" type="checkbox"
+                                    :id="`${criterion.key}_${opt.key}`" :value="opt.key"
+                                    v-model="assessmentAnswers[criterion.key]">
+                                <label class="form-check-label small" :for="`${criterion.key}_${opt.key}`">
+                                    {{ opt.label }} <span v-if="opt.score !== null" class="text-muted">({{ opt.score }} poin)</span>
+                                </label>
+                                <input v-if="opt.sebutkan && isSelected(criterion, opt)" type="text" maxlength="255"
+                                    class="form-control form-control-sm mt-1" placeholder="Sebutkan..."
+                                    v-model="assessmentSebutkan[criterion.key]">
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <span class="badge fs-6" :class="computedTotalScore >= initial_assessment_rubric.threshold ? 'bg-success' : 'bg-danger'">
-                                {{ resultSentence(computedTotalScore, initial_assessment_rubric.threshold) }}
+                            <span class="badge fs-6 text-wrap text-start" :class="computedTotalScore >= initial_assessment_rubric.threshold ? 'bg-success' : 'bg-danger'">
+                                {{ resultSentence(computedTotalScore, initial_assessment_rubric.threshold, initial_assessment_rubric.outcome) }}
                             </span>
                         </div>
 
@@ -254,7 +261,7 @@
                                 Isi <strong>Penilaian Awal Kelayakan (FR.APL.03)</strong> di atas dulu sebelum bisa menyetujui permohonan ini.
                             </span>
                             <span v-else>
-                                Pemohon belum memenuhi ambang batas nilai penilaian awal — harus mengikuti training terlebih dahulu sebelum bisa disetujui.
+                                Pemohon belum memenuhi ambang batas nilai penilaian awal (FR.APL.03) sehingga belum bisa disetujui.
                             </span>
                         </div>
 
@@ -626,18 +633,29 @@ export default {
         const showAssessmentForm = ref(!props.application.initial_assessment);
         const assessmentSaving   = ref(false);
         const assessmentAnswers  = reactive({});
+        const assessmentSebutkan = reactive({});
+
+        // Penilaian lama (mis. Rev.03) tetap tampil apa adanya; form selalu memakai revisi terbaru.
+        const isOldRevision = computed(() => !!props.application.initial_assessment
+            && props.application.initial_assessment.revision !== props.initial_assessment_rubric?.revision);
 
         const initAssessmentAnswers = () => {
-            const existing = props.application.initial_assessment?.answers ?? {};
+            // Kunci opsi antar-revisi tidak setara — jawaban revisi lama tidak dipakai untuk mengisi form.
+            const existing = isOldRevision.value ? {} : (props.application.initial_assessment?.answers ?? {});
             for (const criterion of props.initial_assessment_rubric?.criteria ?? []) {
                 if (criterion.type === 'multi') {
                     assessmentAnswers[criterion.key] = Array.isArray(existing[criterion.key]) ? [...existing[criterion.key]] : [];
                 } else {
                     assessmentAnswers[criterion.key] = existing[criterion.key] ?? null;
                 }
+                assessmentSebutkan[criterion.key] = existing.sebutkan?.[criterion.key] ?? '';
             }
         };
         initAssessmentAnswers();
+
+        const isSelected = (criterion, opt) => criterion.type === 'multi'
+            ? (assessmentAnswers[criterion.key] ?? []).includes(opt.key)
+            : assessmentAnswers[criterion.key] === opt.key;
 
         const openAssessmentForm = () => {
             initAssessmentAnswers();
@@ -652,11 +670,11 @@ export default {
                 if (criterion.type === 'multi') {
                     const selected = Array.isArray(given) ? given : [];
                     for (const opt of criterion.options) {
-                        if (selected.includes(opt.key)) total += opt.score;
+                        if (selected.includes(opt.key)) total += opt.score ?? 0;
                     }
                 } else {
                     const opt = criterion.options.find(o => o.key === given);
-                    if (opt) total += opt.score;
+                    if (opt) total += opt.score ?? 0;
                 }
             }
             return total;
@@ -664,15 +682,12 @@ export default {
 
         const canApprove = computed(() => !!props.application.initial_assessment?.is_eligible);
 
-        // Kalimat hasil penilaian, meniru persis format keterangan di dokumen FR.APL.03
-        // (mis. "nilai ≥ 8 = bisa langsung uji kompetensi").
-        const resultSentence = (score, threshold) => {
+        // Kalimat hasil penilaian, meniru format Ketentuan di dokumen FR.APL.03 — sama dengan
+        // InitialAssessmentRubric::resultSentence() (kalimat 'outcome' dikirim per revisi).
+        const resultSentence = (score, threshold, outcome) => {
             const passed = score >= threshold;
             const comparison = passed ? `≥ ${threshold}` : `< ${threshold}`;
-            const outcome = passed
-                ? 'bisa langsung uji kompetensi'
-                : 'harus training dulu';
-            return `Nilai ${score} (${comparison}) = ${outcome}`;
+            return `Nilai ${score} (${comparison}) = ${passed ? outcome.pass : outcome.fail}`;
         };
 
         // Kanvas TTD admin baru muncul di DOM setelah canApprove jadi true (mis. setelah
@@ -693,10 +708,12 @@ export default {
             }
             assessmentSaving.value = true;
             router.post(`/admin/applications/${props.application.id}/penilaian-awal`,
-                { answers: { ...assessmentAnswers } },
+                // Server hanya menyimpan isian "sebutkan" untuk opsi "lainnya" yang dipilih.
+                { answers: { ...assessmentAnswers, sebutkan: { ...assessmentSebutkan } } },
                 {
                     preserveScroll: true,
                     onSuccess: () => { showAssessmentForm.value = false; },
+                    onError:   (errors) => { if (errors.answers) alert(errors.answers); },
                     onFinish:  () => { assessmentSaving.value = false; },
                 }
             );
@@ -949,7 +966,7 @@ export default {
             openResetPasswordModal, closeResetPasswordModal, submitResetPassword,
             showChangeBatchModal, selectedSessionId, changeBatchProcessing, changeBatchError,
             openChangeBatchModal, closeChangeBatchModal, submitChangeBatch,
-            showAssessmentForm, assessmentSaving, assessmentAnswers,
+            showAssessmentForm, assessmentSaving, assessmentAnswers, assessmentSebutkan, isOldRevision, isSelected,
             openAssessmentForm, computedTotalScore, canApprove, submitAssessment, resultSentence,
         };
     },

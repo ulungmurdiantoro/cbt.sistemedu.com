@@ -10,7 +10,6 @@ use App\Models\GradingScheme;
 use App\Models\ParticipantResult;
 use App\Models\TukVerification;
 use App\Models\User;
-use App\Support\InitialAssessmentRubric;
 use App\Support\TukChecklist;
 use BaconQrCode\Common\ErrorCorrectionLevel;
 use BaconQrCode\Renderer\ImageRenderer;
@@ -732,12 +731,20 @@ class DocumentGeneratorService
 
     public function generateFrApl03(AssessmentApplication $application): string
     {
-        $application->loadMissing(['participant', 'classroom', 'initialAssessment.assessor', 'approver']);
+        $application->loadMissing(['participant', 'classroom.documentRequirements', 'documents', 'initialAssessment.assessor', 'approver']);
 
         $assessment = $application->initialAssessment;
         abort_if(!$assessment, 422, 'Permohonan ini belum memiliki Penilaian Awal Kelayakan (FR.APL.03).');
 
-        $rubric = InitialAssessmentRubric::for($application->classroom_id);
+        // Dicetak dengan revisi saat penilaian disimpan — penilaian Rev.03 tetap berformat Rev.03.
+        $rubric = $assessment->rubric();
+        $view   = $rubric['revision'] === 'Rev.03' ? 'documents.fr_apl_03_rev03' : 'documents.fr_apl_03';
+
+        // Rev.04 "Dokumen Pendukung": Lengkap bila semua persyaratan WAJIB sudah diverifikasi admin.
+        $verifiedReqIds = $application->documents->where('status', 'verified')->pluck('classroom_document_requirement_id');
+        $dokumenLengkap = ($application->classroom?->documentRequirements ?? collect())
+            ->where('is_required', true)
+            ->every(fn ($req) => $verifiedReqIds->contains($req->id));
 
         // "Diperiksa Oleh" merujuk pada admin yang MENYETUJUI permohonan (TTD approve),
         // bukan yang mengisi form penilaian awal — fallback ke penilai kalau belum disetujui.
@@ -746,20 +753,26 @@ class DocumentGeneratorService
             ?: $assessment->assessor?->name
             ?: '-';
 
-        $tanggalPeriksa = $application->approved_at
-            ? Carbon::parse($application->approved_at)->locale('id')->isoFormat('DD MMMM YYYY')
-            : Carbon::parse($assessment->assessed_at)->locale('id')->isoFormat('DD MMMM YYYY');
+        $tanggal        = Carbon::parse($application->approved_at ?? $assessment->assessed_at);
+        $tanggalPeriksa = $tanggal->locale('id')->isoFormat('DD MMMM YYYY');
 
-        $ttd = $this->ttdBox($application->admin_signature_path, 100, 34);
+        // Rev.04: TTD di kotak tabel "Diperiksa oleh" yang lebih sempit.
+        $ttd = $rubric['revision'] === 'Rev.03'
+            ? $this->ttdBox($application->admin_signature_path, 100, 34)
+            : $this->ttdBox($application->admin_signature_path, 40, 15);
 
-        $html = View::make('documents.fr_apl_03', [
+        $html = View::make($view, [
             'application'     => $application,
             'assessment'      => $assessment,
             'rubric'          => $rubric,
             'namaPeserta'     => $application->participant?->name ?? $application->snapshot_pribadi['name'] ?? '-',
             'namaSkema'       => $application->classroom?->title ?? '-',
-            'resultSentence'  => InitialAssessmentRubric::resultSentence($assessment->total_score, $assessment->threshold),
+            'resultSentence'  => $assessment->result_sentence,
+            'dokumenLengkap'  => $dokumenLengkap,
+            'checkboxEmptyPath'   => $this->asset('checkbox_empty'),
+            'checkboxCheckedPath' => $this->asset('checkbox_checked'),
             'tanggalPeriksa'  => $tanggalPeriksa,
+            'tanggalAngka'    => $tanggal->format('d / m / Y'),
             'namaPenilai'     => $namaPenilai,
             'ttdPath'         => $ttd['path'],
             'ttdWidthMm'      => $ttd['w'],

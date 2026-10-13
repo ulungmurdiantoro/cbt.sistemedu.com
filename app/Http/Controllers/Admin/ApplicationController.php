@@ -197,15 +197,25 @@ class ApplicationController extends Controller
             'answers' => 'required|array',
         ]);
 
-        $rubric     = InitialAssessmentRubric::for($application->classroom_id);
-        $totalScore = InitialAssessmentRubric::score($rubric, $request->answers);
+        // Menyimpan (termasuk "Ubah Penilaian" atas penilaian Rev.03) selalu memakai revisi terbaru.
+        $rubric  = InitialAssessmentRubric::for($application->classroom_id);
+        $answers = InitialAssessmentRubric::normalize($rubric, $request->answers);
+
+        if ($missing = InitialAssessmentRubric::missing($rubric, $answers)) {
+            throw ValidationException::withMessages([
+                'answers' => 'Lengkapi semua kriteria penilaian terlebih dahulu: ' . implode(', ', $missing),
+            ]);
+        }
+
+        $totalScore = InitialAssessmentRubric::score($rubric, $answers);
         $isEligible = $totalScore >= $rubric['threshold'];
 
         InitialAssessment::updateOrCreate(
             ['assessment_application_id' => $application->id],
             [
                 'classroom_id' => $application->classroom_id,
-                'answers'      => $request->answers,
+                'revision'     => $rubric['revision'],
+                'answers'      => $answers,
                 'total_score'  => $totalScore,
                 'threshold'    => $rubric['threshold'],
                 'is_eligible'  => $isEligible,
@@ -223,7 +233,7 @@ class ApplicationController extends Controller
 
         $assessment = $application->initialAssessment;
         abort_if(!$assessment, 422, 'Penilaian awal kelayakan (FR.APL.03) belum diisi.');
-        abort_if(!$assessment->is_eligible, 422, 'Pemohon belum memenuhi ambang batas nilai penilaian awal — harus mengikuti training terlebih dahulu.');
+        abort_if(!$assessment->is_eligible, 422, 'Pemohon belum memenuhi ambang batas nilai penilaian awal (FR.APL.03).');
 
         $admin         = auth()->user();
         $hasSavedSig   = $admin->signature_path && Storage::disk('private')->exists($admin->signature_path);

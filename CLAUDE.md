@@ -272,6 +272,23 @@ Checklist per peserta per sesi (`tuk_verifications`), diisi **admin sebagai Peng
 
 ---
 
+## Penilaian Awal Kelayakan (FR.APL.03)
+
+Diisi admin di detail permohonan; `is_eligible` (skor ≥ threshold) syarat untuk menyetujui permohonan.
+Rubrik per skema (dipetakan lewat `classroom_id` produksi 3–28) ditanam per **revisi dokumen**:
+`App\Support\InitialAssessmentRubric\Rev03` (beku) dan `Rev04` (berlaku; satu halaman per skema).
+- Setiap penilaian menyimpan `initial_assessments.revision`. Penilaian lama tetap ditampilkan/dicetak dengan
+  revisinya (`InitialAssessment::rubric()`, view `fr_apl_03_rev03` vs `fr_apl_03`) — skor, threshold & PDF
+  tidak ikut berubah. "Ubah Penilaian" menyimpan ulang dengan revisi terbaru (`InitialAssessmentRubric::CURRENT`).
+- Dokumen direvisi lagi → buat kelas `Rev05` + view, daftarkan di `REVISIONS`, naikkan `CURRENT`. Jangan ubah
+  kunci/skor kelas revisi lama.
+- Jawaban dari browser disaring `InitialAssessmentRubric::normalize()`; isian "lainnya sebutkan" di
+  `answers['sebutkan'][kriteria]`. Kriteria `single` wajib, `multi` boleh kosong.
+- Rev.04 PDF: kotak "Dokumen Pendukung" = Lengkap bila semua persyaratan **wajib** sudah terverifikasi;
+  "Hasil Verifikasi Pengalaman" & "Keputusan" mengikuti `is_eligible`.
+
+---
+
 ## Routes Baru
 
 ```php
