@@ -114,9 +114,20 @@ class ParticipantResult extends Model
      */
     public function frAk14ExemptFromMaterai(): bool
     {
+        return static::sessionExemptFromMaterai($this->exam_session_id);
+    }
+
+    public static function sessionExemptFromMaterai(int $examSessionId): bool
+    {
         $first = config('materai.first_session_id');
 
-        return $first !== null && $this->exam_session_id < (int) $first;
+        return $first !== null && $examSessionId < (int) $first;
+    }
+
+    /** FR.AK.14 sesi ini wajib dibubuhi materai (saklar utama menyala & sesinya tidak dibebaskan). */
+    public static function sessionRequiresFrAk14Materai(int $examSessionId): bool
+    {
+        return config('materai.enabled') && !static::sessionExemptFromMaterai($examSessionId);
     }
 
     /**
@@ -126,11 +137,30 @@ class ParticipantResult extends Model
      */
     public function frAk14Completed(): bool
     {
-        if (!config('materai.enabled') || $this->frAk14ExemptFromMaterai()) {
+        if (!static::sessionRequiresFrAk14Materai($this->exam_session_id)) {
             return $this->fr_ak_14_signed_at !== null;
         }
 
         return $this->materai_status === 'stamped';
+    }
+
+    /**
+     * Status FR.AK.14 untuk Rekap Hasil admin: unsigned | no_materai (TTD, materai
+     * tidak diwajibkan) | pending (TTD, belum dibubuhi) | processing | stamped | failed.
+     */
+    public function frAk14State(): string
+    {
+        if (!$this->fr_ak_14_signed_at) {
+            return 'unsigned';
+        }
+
+        if (!static::sessionRequiresFrAk14Materai($this->exam_session_id)) {
+            return 'no_materai';
+        }
+
+        return in_array($this->materai_status, ['processing', 'stamped', 'failed'], true)
+            ? $this->materai_status
+            : 'pending';
     }
 
     public function finalizer()

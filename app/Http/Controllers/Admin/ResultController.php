@@ -11,6 +11,7 @@ use App\Models\StudentTask;
 use App\Services\DocumentGeneratorService;
 use App\Services\ResultCalculatorService;
 use App\Support\AnswerFile;
+use Illuminate\Support\Facades\Storage;
 
 class ResultController extends Controller
 {
@@ -92,6 +93,13 @@ class ResultController extends Controller
                 'distributed_at'    => $r->distributed_at,
                 'sp_distributed_at' => $r->sp_distributed_at,
                 'attempt'           => $r->attempt,
+                // FR.AK.14 hanya untuk peserta LULUS yang sudah difinalisasi (sama dengan portal peserta)
+                'fr_ak_14'          => $r->is_finalized && $r->keputusan === 'LULUS' ? [
+                    'state'          => $r->frAk14State(),
+                    'signed_at'      => $r->fr_ak_14_signed_at,
+                    'stamped_at'     => $r->materai_stamped_at,
+                    'failure_reason' => $r->materai_failure_reason,
+                ] : null,
             ];
         })->sortBy('no_participant')->values();
 
@@ -108,7 +116,33 @@ class ResultController extends Controller
             // Kolom Tugas disembunyikan untuk skema yang tidak wajib upload tugas
             // (Student::requiresTugas), kecuali ada yang tetap mengunggah.
             'show_tugas'   => $tugas->isNotEmpty() || $students->contains(fn (Student $s) => $s->requiresTugas()),
+            'fr_ak_14_requires_materai' => ParticipantResult::sessionRequiresFrAk14Materai($examSession->id),
         ]);
+    }
+
+    /** FR.AK.14 peserta — versi bermaterai kalau sudah dibubuhi, selain itu dibuat dari TTD-nya (tanpa materai). */
+    public function frAk14(ExamSession $examSession, Student $student, DocumentGeneratorService $generator)
+    {
+        $result = ParticipantResult::where('exam_session_id', $examSession->id)
+            ->where('student_id', $student->id)
+            ->where('is_finalized', true)
+            ->where('keputusan', 'LULUS')
+            ->whereNotNull('fr_ak_14_signed_at')
+            ->firstOrFail();
+
+        $filename = 'FR.AK.14_' . $student->no_participant;
+
+        $stamped = $result->materai_status === 'stamped' ? $result->materai_document_path : null;
+        if (config('materai.enabled') && $stamped && Storage::disk('private')->exists($stamped)) {
+            return response()->file(Storage::disk('private')->path($stamped), [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => "inline; filename=\"{$filename}_materai.pdf\"",
+            ]);
+        }
+
+        return response($generator->generateFrAk14($result), 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', "inline; filename=\"{$filename}.pdf\"");
     }
 
     /** Pratinjau tugas peserta di tab baru — sama dengan portal asesor, tanpa cek penugasan. */

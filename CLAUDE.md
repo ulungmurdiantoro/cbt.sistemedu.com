@@ -70,7 +70,8 @@ resources/js/
       Penilaian/    ← halaman per sesi turunan: VerifikasiTuk/, Dokumen/ (TTD AK.01)
       Reports/      ← Show.vue = detail jawaban peserta (dibuka dari Rekap Hasil); isi per jenis ujian di
                       Components/AnswerReview/{PgReview,EssayReview}.vue. Jawaban dicocokkan lewat question_id/essay_id + sesi
-      Results/      ← Hasil Penilaian: daftar sesi + Rekap Hasil (nilai, Laporan Nilai, kirim SP/SK)
+      Results/      ← Hasil Penilaian: daftar sesi + Rekap Hasil (nilai, Laporan Nilai, kirim SP/SK, status materai
+                      FR.AK.14 + PDF-nya — ParticipantResult::frAk14State(), route admin.results.fr-ak-14)
       ...
     Asesor/
       Dashboard.vue          ← (baru) dashboard asesor

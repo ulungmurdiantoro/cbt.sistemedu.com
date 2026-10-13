@@ -46,6 +46,11 @@
                 </div>
                 <div class="small text-muted">
                     SP terkirim: {{ spSentCount }}/{{ finalizedCount }} &bull; SK/Sertifikat terkirim: {{ finalSentCount }}/{{ finalizedCount }}
+                    <template v-if="frAk14Rows.length">
+                        &bull;
+                        <template v-if="fr_ak_14_requires_materai">FR.AK.14 bermaterai: {{ frAk14StampedCount }}/{{ frAk14Rows.length }}</template>
+                        <template v-else>FR.AK.14 ditandatangani: {{ frAk14SignedCount }}/{{ frAk14Rows.length }} (sesi ini tanpa materai)</template>
+                    </template>
                 </div>
             </div>
         </div>
@@ -89,6 +94,7 @@
                                 <th class="border-0 text-center">Keputusan</th>
                                 <th class="border-0 text-center">Status</th>
                                 <th class="border-0 text-center">No. Dokumen</th>
+                                <th class="border-0 text-center" v-if="frAk14Rows.length">FR.AK.14</th>
                                 <th class="border-0 text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -155,6 +161,26 @@
                                             <span class="fw-bolder">Sert:</span> {{ row.sertifikat_number }}
                                         </div>
                                     </div>
+                                    <span v-else class="text-muted">—</span>
+                                </td>
+                                <!-- FR.AK.14 (peserta LULUS): status materai + buka PDF (bermaterai kalau sudah dibubuhi) -->
+                                <td class="text-center small" v-if="frAk14Rows.length" style="min-width:140px;">
+                                    <template v-if="row.fr_ak_14">
+                                        <div class="d-flex gap-1 justify-content-center align-items-center">
+                                            <StatusBadge :tone="frAk14Badge[row.fr_ak_14.state].tone" :label="frAk14Badge[row.fr_ak_14.state].label" />
+                                            <a v-if="row.fr_ak_14.state !== 'unsigned'"
+                                               :href="`/admin/results/${exam_session.id}/fr-ak-14/${row.student_id}`"
+                                               target="_blank"
+                                               class="btn btn-sm btn-outline-primary"
+                                               :title="row.fr_ak_14.state === 'stamped' ? 'Lihat FR.AK.14 bermaterai' : 'Lihat FR.AK.14 (tanpa materai)'">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </div>
+                                        <div v-if="row.fr_ak_14.state === 'stamped'" class="text-muted mt-1">{{ formatDate(row.fr_ak_14.stamped_at) }}</div>
+                                        <div v-else-if="row.fr_ak_14.state === 'failed'" class="text-danger mt-1 failure-reason" :title="row.fr_ak_14.failure_reason">
+                                            {{ row.fr_ak_14.failure_reason || 'Tanpa keterangan' }}
+                                        </div>
+                                    </template>
                                     <span v-else class="text-muted">—</span>
                                 </td>
                                 <td class="text-center">
@@ -250,6 +276,7 @@ export default {
         scheme:       Object,
         tugas:        Object,
         show_tugas:   Boolean,
+        fr_ak_14_requires_materai: Boolean,
     },
 
     setup(props) {
@@ -257,6 +284,23 @@ export default {
         const finalizedCount  = computed(() => props.rows.filter(r => r.is_finalized).length);
         const spSentCount     = computed(() => props.rows.filter(r => r.sp_distributed_at).length);
         const finalSentCount  = computed(() => props.rows.filter(r => r.distributed_at).length);
+
+        // FR.AK.14 hanya ada untuk peserta LULUS yang sudah difinalisasi (row.fr_ak_14 bukan null)
+        const frAk14Rows         = computed(() => props.rows.filter(r => r.fr_ak_14));
+        const frAk14StampedCount = computed(() => frAk14Rows.value.filter(r => r.fr_ak_14.state === 'stamped').length);
+        const frAk14SignedCount  = computed(() => frAk14Rows.value.filter(r => r.fr_ak_14.state !== 'unsigned').length);
+
+        // State dari ParticipantResult::frAk14State()
+        const frAk14Badge = {
+            unsigned:   { tone: 'neutral',   label: 'Belum TTD' },
+            no_materai: { tone: 'success',   label: 'Sudah TTD' },
+            pending:    { tone: 'secondary', label: 'Belum Bermaterai' },
+            processing: { tone: 'accent',    label: 'Diproses' },
+            stamped:    { tone: 'success',   label: 'Bermaterai' },
+            failed:     { tone: 'danger',    label: 'Gagal' },
+        };
+
+        const formatDate = (dt) => dt ? new Date(dt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
 
         const nilaiColor = (row) => {
             if (row.keputusan === 'LULUS') return 'text-success';
@@ -306,7 +350,11 @@ export default {
             });
         };
 
-        return { hasFinalized, finalizedCount, spSentCount, finalSentCount, nilaiColor, fmt, distributeSp, distribute };
+        return {
+            hasFinalized, finalizedCount, spSentCount, finalSentCount,
+            frAk14Rows, frAk14StampedCount, frAk14SignedCount, frAk14Badge, formatDate,
+            nilaiColor, fmt, distributeSp, distribute,
+        };
     },
 }
 </script>
@@ -316,5 +364,15 @@ export default {
 .num {
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum";
+}
+
+/* Alasan gagal materai bisa panjang (pesan Peruri) — potong 2 baris, lengkapnya di tooltip. */
+.failure-reason {
+    max-width: 220px;
+    margin-inline: auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 </style>
