@@ -203,5 +203,18 @@ class InitialAssessmentTest extends TestCase
 
         $this->assertSame(4, $map[15]['criteria'][2]['options'][0]['score']); // 2D Lifting Designer: 4 jenjang
         $this->assertSame(['Corporate Legal Officer'], $map[28]['ruang_lingkup']);
+
+        // Semua skema Lifting: pelatihan hanya "Relevan" (centang opsional).
+        foreach ([13, 14, 15, 16] as $id) {
+            $pelatihan = collect($map[$id]['criteria'])->firstWhere('key', 'pelatihan');
+            $this->assertSame('multi', $pelatihan['type'], "Pelatihan lifting {$id}");
+            $this->assertSame(['relevan'], array_column($pelatihan['options'], 'key'));
+        }
+
+        // Daftar jabatan sesuai dokumen R4-1 (halaman 18–20).
+        $topJabatan = fn (int $id) => collect($map[$id]['criteria'])->firstWhere('key', 'pengalaman_kerja')['options'][0]['label'];
+        $this->assertStringStartsWith('Head of Sustainability', $topJabatan(25));
+        $this->assertStringStartsWith('Head of ESG', $topJabatan(26));
+        $this->assertStringStartsWith('Environmental Manager', $topJabatan(27));
     }
 }

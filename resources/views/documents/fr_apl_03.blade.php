@@ -199,7 +199,7 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 9.5pt; 
         <td class="ttd-right">{{ $tanggalAngka }}</td>
     </tr>
     <tr>
-        <td class="ttd-left">Jabatan: Admin LSP</td>
+        <td class="ttd-left">Jabatan: Pengkaji Permohonan</td>
         <td class="ttd-right ttd-img">
             @if($ttdPath && file_exists($ttdPath) && $ttdWidthMm && $ttdHeightMm)
                 <img src="{{ $ttdPath }}" style="width:{{ $ttdWidthMm }}mm; height:{{ $ttdHeightMm }}mm;">

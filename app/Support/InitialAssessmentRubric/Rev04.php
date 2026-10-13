@@ -5,7 +5,8 @@ namespace App\Support\InitialAssessmentRubric;
 /**
  * FR.APL.03 Rev.04 — "Standar Kriteria dan Penilaian Awal Pemohon", satu halaman per
  * skema (SPMI dan Lab ISO/IEC 17025 masing-masing satu halaman untuk beberapa skema).
- * Label & skor disalin dari dokumen; salah ketik yang jelas dibetulkan
+ * Label & skor disalin dari dokumen (berkas "R4-1", yang membetulkan daftar jabatan
+ * Sustainability/ESG/EMS dan baris pelatihan 3D Lifting); salah ketik yang jelas dibetulkan
  * ("Traing", "Lifing", "Audi Internal").
  *
  * Kunci kriteria/opsi tersimpan di initial_assessments.answers — jangan diganti setelah
@@ -204,7 +205,8 @@ class Rev04
         ], 'multi', 'Centang bila ada pelatihan yang relevan.');
     }
 
-    private static function liftingDesigner(string $ruangLingkup, array $pengalaman, array $pelatihan): array
+    /** 2D / 3D Lifting Designer: pendidikan & prodi umum, pelatihan hanya "Relevan". */
+    private static function liftingDesigner(string $ruangLingkup, array $pengalaman): array
     {
         return [
             'criteria' => [
@@ -212,7 +214,7 @@ class Rev04
                 self::prodiSainsSosial(),
                 self::pengalamanBidang($pengalaman),
                 self::liftingDurasi(),
-                $pelatihan,
+                self::pelatihanRelevanSaja(),
             ],
             'threshold'     => 6,
             'ruang_lingkup' => [$ruangLingkup],
@@ -284,17 +286,15 @@ class Rev04
                 'Senior 2D Lifting Designer',
                 'Junior 2D Lifting Designer',
                 'CAD operator yang lulus pelatihan Lifting Drafting',
-            ], self::pelatihanRelevanSaja()),
-            // DLD — di dokumen ada baris pelatihan kedua tanpa label dengan skor 1; dibaca
-            // sebagai "tidak Relevan" seperti halaman lain.
-            16 => self::liftingDesigner('3D Lifting Designer', [
+            ]),
+            16 => self::liftingDesigner('3D Lifting Designer', [ // DLD
                 'Lead 3D Lifting Designer/Lead Simulation Engineer/Lifting Engineering Lead',
                 'Senior 3D Lifting Designer/Lifting Simulation Engineer',
                 '3D Lifting Designer/CAD 3D Engineer untuk lifting/rigging',
                 '3D Modeler/Designer yang terlibat simulasi lifting',
                 'Junior 3D Designer/CAD Operator pendukung lifting',
                 'Fresh graduate/drafter dengan paparan software 3D lifting',
-            ], self::pelatihanRelevan()),
+            ]),
 
             // Halaman 7–21
             12 => self::officer('Laboratory Quality System Officer ISO/IEC 17025 (Petugas Sistem Mutu Laboratorium ISO/IEC 17025)', [ // LQO (dulu ISL)
@@ -385,19 +385,7 @@ class Rev04
                 'Junior Regulatory Staff/Admin Registrasi',
                 'Fresh graduate/magang regulatory',
             ]),
-            // SBO, ESG, EMS: daftar jabatan disalin persis dari halaman masing-masing di dokumen
-            // Rev.04, walaupun isinya tampak bergeser satu halaman (Sustainability Officer berisi
-            // jabatan lingkungan/ISO 14001, ESG Officer berisi jabatan sustainability, EMS Officer
-            // berisi jabatan ESG). Kalau dokumennya dibetulkan, tukar daftarnya di sini.
             25 => self::officer('Sustainability Officer', [ // SBO
-                'Environmental Manager/HSE Manager/EMS Manager',
-                'Environmental Supervisor/ISO 14001 Lead Auditor/EMS Coordinator',
-                'Environmental Officer/HSE Officer/EMS Officer',
-                'Environmental Staff/Compliance Staff yang aktif pada ISO 14001',
-                'Operational Staff yang terlibat pengelolaan lingkungan',
-                'Fresh graduate/magang lingkungan',
-            ]),
-            26 => self::officer('ESG Officer', [ // ESG
                 'Head of Sustainability/ESG Director/CSR & Sustainability Manager',
                 'Sustainability Manager/Senior Sustainability Specialist',
                 'Sustainability Officer/CSR Officer/ESG Specialist',
@@ -405,13 +393,21 @@ class Rev04
                 'Data/Reporting/Program Staff pendukung sustainability',
                 'Fresh graduate/magang sustainability/CSR',
             ]),
-            27 => self::officer('Environmental Management System (ISO 14001) Officer', [ // EMS
+            26 => self::officer('ESG Officer', [ // ESG
                 'Head of ESG/ESG Director/Sustainability Director',
                 'ESG Manager/Senior ESG Specialist/Sustainability Manager',
                 'ESG Officer/Sustainability Officer/ESG Analyst',
                 'CSR/Risk/Environmental/Corporate Secretary Officer dengan tugas ESG',
                 'Data/Reporting/Program Staff yang mendukung ESG',
                 'Fresh graduate/magang ESG/sustainability',
+            ]),
+            27 => self::officer('Environmental Management System (ISO 14001) Officer', [ // EMS
+                'Environmental Manager/HSE Manager/EMS Manager',
+                'Environmental Supervisor/ISO 14001 Lead Auditor/EMS Coordinator',
+                'Environmental Officer/HSE Officer/EMS Officer',
+                'Environmental Staff/Compliance Staff yang aktif pada ISO 14001',
+                'Operational Staff yang terlibat pengelolaan lingkungan',
+                'Fresh graduate/magang lingkungan',
             ]),
             28 => self::officer('Corporate Legal Officer', [ // CLO
                 'Head of Legal/Legal Director/General Counsel',
