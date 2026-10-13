@@ -169,7 +169,10 @@ UNIQUE (user_id, exam_session_id, student_id)
 ### Alur Asesor
 1. Asesor login di URL yang sama dengan admin (`/login`)
 2. Otomatis diarahkan ke `/asesor/dashboard`
-3. Dashboard menampilkan sesi ujian yang ditugaskan beserta jumlah peserta
+3. Dashboard menampilkan sesi ujian yang ditugaskan beserta jumlah peserta, dibagi Sesi Aktif / Sesi Selesai.
+   Sesi ID ≥ `Asesor\DashboardController::PROGRESS_FROM_SESSION_ID` (75) baru pindah ke Selesai setelah TTD AK.01,
+   nilai esai & wawancara peserta asesor itu lengkap (progres tampil di kartu; peserta yang tidak mulai ujian tidak
+   dihitung); sesi sebelumnya tetap memakai jam selesai sesi
 4. Dari setiap sesi, asesor bisa memilih:
    - **Nilai Esai** → `GET /asesor/penilaian/{session_id}/esai`
    - **Nilai Wawancara** → `GET /asesor/penilaian/{session_id}/wawancara`

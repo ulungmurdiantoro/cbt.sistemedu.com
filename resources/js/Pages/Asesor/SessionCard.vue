@@ -33,12 +33,19 @@
                 </span>
             </p>
 
-            <p class="text-muted mb-3 small">
+            <p class="text-muted small" :class="progressItems.length ? 'mb-2' : 'mb-3'">
                 <i class="fa fa-layer-group me-1"></i>
                 {{ classroomTitle }}
                 &nbsp;|&nbsp;
                 <i class="fa fa-users me-1"></i>{{ session.student_count }} peserta
             </p>
+
+            <!-- Progres tugas asesor (sesi baru): sesi pindah ke Sesi Selesai setelah semuanya lengkap -->
+            <div v-if="progressItems.length" class="d-flex flex-wrap gap-1 mb-3">
+                <StatusBadge v-for="item in progressItems" :key="item.key" :tone="item.complete ? 'success' : 'secondary'">
+                    <i class="fa me-1" :class="item.complete ? 'fa-check' : 'fa-hourglass-half'"></i>{{ item.label }} {{ item.done }}/{{ item.total }}
+                </StatusBadge>
+            </div>
 
             <div class="d-flex flex-wrap gap-2">
                 <Link :href="'/asesor/penilaian/' + session.id + '/esai'"
@@ -80,6 +87,21 @@ export default {
         classroomTitle() {
             const exam = this.session.examPg ?? this.session.examEsai;
             return exam?.classroom?.title ?? '—';
+        },
+        // Dari Asesor\DashboardController::progress() — null untuk sesi lama (pakai jam selesai sesi)
+        progressItems() {
+            const labels = { ak01: 'TTD AK.01', esai: 'Esai', wawancara: 'Wawancara' };
+            const items  = this.session.progress?.items ?? {};
+
+            return Object.keys(labels)
+                .filter((key) => items[key])
+                .map((key) => ({
+                    key,
+                    label:    labels[key],
+                    done:     items[key].done,
+                    total:    items[key].total,
+                    complete: items[key].done >= items[key].total,
+                }));
         },
         jadwal() {
             const start = this.parseLocal(this.session.start_time);

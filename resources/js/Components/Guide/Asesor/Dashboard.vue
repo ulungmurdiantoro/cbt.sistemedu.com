@@ -2,7 +2,10 @@
     <p class="mb-2">
         Semua sesi ujian yang pesertanya ditugaskan kepada Anda muncul di sini, dipisah tab
         <span class="badge bg-success">Sesi Aktif</span> dan <span class="badge bg-secondary">Sesi Selesai</span>.
-        Kartu di tab Sesi Selesai tetap bisa dibuka. Nama sesi bisa sama untuk beberapa batch, jadi bedakan lewat
+        Sesi tetap di Sesi Aktif sampai tugas Anda untuk semua peserta di sesi itu lengkap: <strong>TTD AK.01</strong>,
+        <strong>nilai esai</strong> dan <strong>nilai wawancara</strong>. Progresnya terlihat di kartu
+        (mis. <span class="badge bg-gray-200 text-gray-800 border">Esai 3/5</span>). Peserta yang tidak mengikuti ujian
+        tidak dihitung. Kartu di tab Sesi Selesai tetap bisa dibuka. Nama sesi bisa sama untuk beberapa batch, jadi bedakan lewat
         label <span class="badge bg-gray-200 text-gray-800 border">Batch</span> dan jadwalnya. Tiap kartu punya lima tombol:
     </p>
     <div class="table-responsive mb-2">
