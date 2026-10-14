@@ -204,6 +204,13 @@ class InitialAssessmentTest extends TestCase
         $this->assertSame(4, $map[15]['criteria'][2]['options'][0]['score']); // 2D Lifting Designer: 4 jenjang
         $this->assertSame(['Corporate Legal Officer'], $map[28]['ruang_lingkup']);
 
+        // Ruang Lingkup = satu skema yang diikuti, juga di halaman SPMI & Lab yang dipakai bersama.
+        foreach ($map as $id => $rubric) {
+            $this->assertCount(1, $rubric['ruang_lingkup'], "Ruang lingkup {$id}");
+        }
+        $this->assertSame(['Lead Auditor SPMI Terintegrasi ISO 21001:2018'], $map[7]['ruang_lingkup']);
+        $this->assertSame(['Lead Implementer Standar Laboratorium ISO/IEC 17025:2017'], $map[4]['ruang_lingkup']);
+
         // Semua skema Lifting: pelatihan hanya "Relevan" (centang opsional).
         foreach ([13, 14, 15, 16] as $id) {
             $pelatihan = collect($map[$id]['criteria'])->firstWhere('key', 'pelatihan');

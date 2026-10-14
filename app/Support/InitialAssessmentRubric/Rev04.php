@@ -9,6 +9,9 @@ namespace App\Support\InitialAssessmentRubric;
  * Sustainability/ESG/EMS dan baris pelatihan 3D Lifting); salah ketik yang jelas dibetulkan
  * ("Traing", "Lifing", "Audi Internal").
  *
+ * Ruang Lingkup hanya memuat skema yang diikuti peserta, tanpa nomor — halaman SPMI dan
+ * Lab di dokumen mendaftar semua skemanya, tapi PDF per peserta cukup skemanya sendiri.
+ *
  * Kunci kriteria/opsi tersimpan di initial_assessments.answers — jangan diganti setelah
  * dipakai. Kalau dokumen direvisi lagi, buat kelas Rev05 dan naikkan
  * InitialAssessmentRubric::CURRENT, jangan ubah kelas ini.
@@ -74,7 +77,7 @@ class Rev04
 
     // ── Halaman 1: SPMI / ToT / Tata Kelola ─────────────────────────────
 
-    private static function spmi(): array
+    private static function spmi(string $ruangLingkup): array
     {
         return [
             'criteria' => [
@@ -108,19 +111,13 @@ class Rev04
                 self::pelatihanRelevan(),
             ],
             'threshold'     => 7,
-            'ruang_lingkup' => [
-                '1. Audit Internal SPMI Terintegrasi ISO 21001:2018',
-                '2. Lead Auditor SPMI Terintegrasi ISO 21001:2018',
-                '3. Lead Implementer SPMI Terintegrasi ISO 21001:2018',
-                '4. Training of Trainer (ToT) Outcome Based education (OBE)',
-                '5. Implementer Tata Kelola Organisasi Perguruan Tinggi',
-            ],
+            'ruang_lingkup' => [$ruangLingkup],
         ];
     }
 
     // ── Halaman 2: Standar Laboratorium ISO/IEC 17025 ────────────────────
 
-    private static function lab(): array
+    private static function lab(string $ruangLingkup): array
     {
         return [
             'criteria' => [
@@ -154,10 +151,7 @@ class Rev04
                 ], 'multi', 'Centang bila ada surat tugas sebagai auditor internal.'),
             ],
             'threshold'     => 7,
-            'ruang_lingkup' => [
-                '1. Audit Internal Standar Laboratorium ISO/IEC 17025:2017',
-                '2. Lead Implementer Standar Laboratorium ISO/IEC 17025:2017',
-            ],
+            'ruang_lingkup' => [$ruangLingkup],
         ];
     }
 
@@ -249,20 +243,17 @@ class Rev04
      */
     public static function map(): array
     {
-        $spmi = self::spmi();
-        $lab  = self::lab();
-
         return [
             // Halaman 1 — SPMI / ToT / Tata Kelola
-            6 => $spmi, // AIL — Auditor Internal SPMI
-            7 => $spmi, // LAD — Lead Auditor SPMI
-            5 => $spmi, // IMR — Lead Implementer SPMI
-            8 => $spmi, // ToT — Training of Trainer OBE
-            9 => $spmi, // TKO — Implementer Tata Kelola Organisasi PT
+            6 => self::spmi('Audit Internal SPMI Terintegrasi ISO 21001:2018'), // AIL
+            7 => self::spmi('Lead Auditor SPMI Terintegrasi ISO 21001:2018'), // LAD
+            5 => self::spmi('Lead Implementer SPMI Terintegrasi ISO 21001:2018'), // IMR
+            8 => self::spmi('Training of Trainer (ToT) Outcome Based Education (OBE)'), // ToT
+            9 => self::spmi('Implementer Tata Kelola Organisasi Perguruan Tinggi'), // TKO
 
             // Halaman 2 — Lab ISO/IEC 17025
-            3 => $lab, // AUI
-            4 => $lab, // LIM
+            3 => self::lab('Audit Internal Standar Laboratorium ISO/IEC 17025:2017'), // AUI
+            4 => self::lab('Lead Implementer Standar Laboratorium ISO/IEC 17025:2017'), // LIM
 
             // Halaman 3–6 — Lifting
             13 => self::liftingEngineer('Lifting Engineer for Medium Lifting', [ // LEM
