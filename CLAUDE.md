@@ -244,6 +244,8 @@ saat Pengambil Keputusan klik Finalisasi, urut No. Peserta. Aturan supaya nomor 
   yang sudah tersimpan untuk kode skema+tahun itu) + 1, jadi counter yang hilang/tertinggal tidak membuat urutan mulai
   dari 00001 lagi. Audit: `numbering:audit --type=sertifikat`; perbaiki sesi: `numbering:renumber-session {sesi} --sertifikat=N`
   (menolak bila sertifikat sudah terkirim / FR.AK.14 sudah bermeterai, kecuali `--allow-distributed`).
+- `numbering:renumber-session` menerima beberapa sesi (`77 78`): dinomori berurutan sesuai urutan yang ditulis, dan
+  nomor lama sesi-sesi itu tidak dianggap bentrok satu sama lain. Pakai ini bila sesi berikutnya melanjutkan nomor yang salah.
 
 ---
 

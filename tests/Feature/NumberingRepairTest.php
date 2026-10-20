@@ -254,6 +254,24 @@ class NumberingRepairTest extends TestCase
         $this->assertSame(83, (int) DB::table('numbering_counters')->where('type', 'sertifikat')->where('scope', $classroom)->value('last_number'));
     }
 
+    public function test_renumber_several_sessions_consecutively(): void
+    {
+        // Batch lama terbit 00001–00003; sesi 77 terlanjur mulai lagi dari 00001, sesi 78 melanjutkannya (00003–00004).
+        $this->sertifikatSession(['003-009-08-2026-00001', '003-009-08-2026-00002', '003-009-08-2026-00003']);
+        $classroom = $this->imrClassroom();
+        $s77 = $this->sertifikatSession(['003-010-10-2026-00001', '003-010-10-2026-00002'], $classroom);
+        $s78 = $this->sertifikatSession(['003-011-10-2026-00003', '003-011-10-2026-00004'], $classroom);
+
+        // Satu per satu, nomor baru sesi 77 (00004–00005) bentrok dengan nomor lama sesi 78 — sekaligus tidak.
+        $this->artisan('numbering:renumber-session', ['session' => [$s77->id, $s78->id], '--sertifikat' => 4, '--force' => true])
+            ->assertSuccessful();
+
+        $numbers = fn ($s) => ParticipantResult::where('exam_session_id', $s->id)->orderBy('sertifikat_number')->pluck('sertifikat_number')->all();
+        $this->assertSame(['003-010-10-2026-00004', '003-010-10-2026-00005'], $numbers($s77));
+        $this->assertSame(['003-011-10-2026-00006', '003-011-10-2026-00007'], $numbers($s78));
+        $this->assertSame(7, (int) DB::table('numbering_counters')->where('type', 'sertifikat')->where('scope', (string) $classroom->id)->value('last_number'));
+    }
+
     public function test_renumber_sertifikat_refuses_stamped_fr_ak_14_unless_allowed(): void
     {
         $session = $this->sertifikatSession(['003-010-10-2026-00001']);
