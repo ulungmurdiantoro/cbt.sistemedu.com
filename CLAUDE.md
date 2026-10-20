@@ -323,6 +323,10 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
   memakai tab `Components/SessionNav.vue` di atasnya; halaman per sesi baru → tambahkan **tab**, bukan menu sidebar.
   Rekap Hasil sengaja **tidak** jadi tab (permintaan pengguna) — tetap di menu Hasil Penilaian. Detail permohonan yang dibuka dari tab sesi membawa `?sesi={id}` supaya Kembali/hapus kembali ke tab itu.
   Daftar sesi (menu Sesi Ujian) memakai `Components/SessionTable.vue` (kolom Aksi lewat slot `#actions`).
+- Jumlah peserta per sesi di daftar mana pun: `ExamSession::withActiveStudentsCount()` (peserta unik terdaftar di
+  `exam_groups`, akun aktif — sama dengan baris Rekap Hasil/Tinjau Sertifikasi). **Jangan** hitung `participant_results`:
+  barisnya baru dibuat saat Rekap dibuka dan tertinggal saat peserta dipindah batch/dikeluarkan. Progres/cek berbasis
+  `participant_results` (ditinjau, terkirim, finalisasi, syarat kirim SP/SK) pakai scope `ParticipantResult::enrolled()`.
 - Panduan portal Asesor & Pengambil Keputusan: isi per halaman ada di `resources/js/Components/Guide/{Asesor,Manager}/*.vue`,
   ditampilkan lewat `<PageGuide storage-key="...">` di atas halaman **dan** dirangkai di `Pages/*/Guide/Index.vue`.
   Ubah perilaku/tombol halaman → perbarui komponen Guide-nya juga.

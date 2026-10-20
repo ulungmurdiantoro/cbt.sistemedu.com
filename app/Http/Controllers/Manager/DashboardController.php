@@ -10,18 +10,12 @@ class DashboardController extends Controller
     public function __invoke()
     {
         $sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
-            // Hanya hitung hasil milik akun peserta yang masih aktif — biar angka
-            // di sini sama dengan daftar di halaman Tinjau Sertifikasi (akun lama
-            // hasil re-issue / merge duplikat tidak ikut).
-            ->withCount(['participantResults as participant_results_count' => function ($q) {
-                $q->whereHas('student', fn ($s) => $s->where('is_active', true));
-            }])
+            // Jumlah peserta = peserta terdaftar di sesi (akun aktif), sama dengan daftar
+            // di halaman Tinjau Sertifikasi — bukan jumlah baris participant_results.
+            ->withActiveStudentsCount()
             // Progres peninjauan (centang Verifikasi) — dipakai untuk badge
             // Belum/Sebagian/Sudah Ditinjau di dashboard.
-            ->withCount(['participantResults as reviewed_count' => function ($q) {
-                $q->whereHas('student', fn ($s) => $s->where('is_active', true))
-                    ->whereNotNull('manager_verified_at');
-            }])
+            ->withCount(['participantResults as reviewed_count' => fn ($q) => $q->enrolled()->whereNotNull('manager_verified_at')])
             ->orderByDesc('end_time')
             ->get();
 

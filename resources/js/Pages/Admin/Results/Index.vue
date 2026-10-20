@@ -33,19 +33,19 @@
                                     <div class="text-muted small">{{ s.start_time }} – {{ s.end_time }}</div>
                                 </td>
                                 <td class="small">{{ s.kode_batch }}</td>
-                                <td class="text-center">{{ s.participant_results_count }}</td>
+                                <td class="text-center">{{ s.students_count }}</td>
                                 <td class="text-center">
                                     <StatusBadge v-if="new Date(s.end_time) > new Date()" tone="accent" label="Aktif" />
                                     <StatusBadge v-else tone="success" label="Selesai" />
                                 </td>
                                 <td class="text-center">
-                                    <StatusBadge v-bind="stageBadge(s.reviewed_count, s.participant_results_count)" />
+                                    <StatusBadge v-bind="stageBadge(s.reviewed_count, s.students_count)" />
                                 </td>
                                 <td class="text-center">
-                                    <StatusBadge v-bind="stageBadge(s.sp_sent_count, s.participant_results_count)" />
+                                    <StatusBadge v-bind="stageBadge(s.sp_sent_count, s.students_count)" />
                                 </td>
                                 <td class="text-center">
-                                    <StatusBadge v-bind="stageBadge(s.final_sent_count, s.participant_results_count)" />
+                                    <StatusBadge v-bind="stageBadge(s.final_sent_count, s.students_count)" />
                                 </td>
                                 <td class="text-center">
                                     <Link :href="`/admin/results/${s.id}`" class="btn btn-sm btn-primary border-0 shadow">

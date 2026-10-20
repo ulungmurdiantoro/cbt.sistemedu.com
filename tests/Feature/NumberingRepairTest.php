@@ -143,13 +143,15 @@ class NumberingRepairTest extends TestCase
     public function test_finalize_numbers_by_no_participant_and_reuses_existing(): void
     {
         $classroom = $this->makeClassroom('SKM-' . Str::random(4));
-        $session   = $this->makeSession($this->makeExam($classroom));
+        $exam      = $this->makeExam($classroom);
+        $session   = $this->makeSession($exam);
         $this->setCounters(10, 20);
 
         // Dibuat terbalik: baris DB pertama = No. Peserta terakhir.
         foreach (['NP-003', 'NP-001', 'NP-002'] as $no) {
             $student = $this->makeStudent($classroom);
             $student->forceFill(['no_participant' => $no])->save();
+            $this->enroll($student, $exam, $session);
             ParticipantResult::forceCreate([
                 'exam_session_id'     => $session->id,
                 'student_id'          => $student->id,

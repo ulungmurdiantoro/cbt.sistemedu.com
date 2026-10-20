@@ -42,7 +42,7 @@
                                             <div class="text-muted small">{{ formatDate(s.start_time) }} – {{ formatDate(s.end_time) }}</div>
                                         </td>
                                         <td class="small">{{ classroomTitle(s) }}</td>
-                                        <td class="text-center">{{ s.participant_results_count }}</td>
+                                        <td class="text-center">{{ s.students_count }}</td>
                                         <td class="text-center">
                                             <span v-if="s.end_time && new Date(s.end_time) > new Date()" class="badge bg-primary">Aktif</span>
                                             <span v-else class="badge bg-secondary">Selesai</span>
@@ -52,7 +52,7 @@
                                                 <i class="fa fa-times-circle me-1"></i>Belum Ditinjau
                                             </span>
                                             <span v-else-if="reviewStatus(s) === 'partial'" class="badge bg-warning text-gray-800">
-                                                <i class="fa fa-hourglass-half me-1"></i>Sebagian ({{ s.reviewed_count }}/{{ s.participant_results_count }})
+                                                <i class="fa fa-hourglass-half me-1"></i>Sebagian ({{ s.reviewed_count }}/{{ s.students_count }})
                                             </span>
                                             <span v-else class="badge bg-success">
                                                 <i class="fa fa-check-circle me-1"></i>Sudah Ditinjau
@@ -104,8 +104,8 @@ export default {
             : '—';
 
         const reviewStatus = (s) => {
-            if (!s.participant_results_count || s.reviewed_count === 0) return 'none';
-            if (s.reviewed_count < s.participant_results_count) return 'partial';
+            if (!s.students_count || s.reviewed_count === 0) return 'none';
+            if (s.reviewed_count < s.students_count) return 'partial';
             return 'full';
         };
 

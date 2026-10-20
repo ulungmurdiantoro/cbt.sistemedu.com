@@ -21,25 +21,13 @@ class ResultController extends Controller
 
     public function index()
     {
-        $sessions = ExamSession::withCount([
-                // Hanya hitung akun peserta yang masih aktif — konsisten dengan
-                // Tinjau Sertifikasi & Dashboard Pengambil Keputusan (akun lama
-                // hasil re-issue/merge duplikat tidak ikut dihitung).
-                'participantResults as participant_results_count' => function ($q) {
-                    $q->whereHas('student', fn ($s) => $s->where('is_active', true));
-                },
-                'participantResults as reviewed_count' => function ($q) {
-                    $q->whereHas('student', fn ($s) => $s->where('is_active', true))
-                        ->whereNotNull('manager_verified_at');
-                },
-                'participantResults as sp_sent_count' => function ($q) {
-                    $q->whereHas('student', fn ($s) => $s->where('is_active', true))
-                        ->whereNotNull('sp_distributed_at');
-                },
-                'participantResults as final_sent_count' => function ($q) {
-                    $q->whereHas('student', fn ($s) => $s->where('is_active', true))
-                        ->whereNotNull('distributed_at');
-                },
+        // Jumlah peserta & progres dihitung dari peserta terdaftar di sesi (akun aktif) — sama dengan
+        // baris Rekap Hasil & Dashboard Pengambil Keputusan (ExamSession::scopeWithActiveStudentsCount).
+        $sessions = ExamSession::withActiveStudentsCount()
+            ->withCount([
+                'participantResults as reviewed_count'   => fn ($q) => $q->enrolled()->whereNotNull('manager_verified_at'),
+                'participantResults as sp_sent_count'    => fn ($q) => $q->enrolled()->whereNotNull('sp_distributed_at'),
+                'participantResults as final_sent_count' => fn ($q) => $q->enrolled()->whereNotNull('distributed_at'),
             ])
             ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
             ->orderByRaw('CASE WHEN end_time > NOW() THEN end_time END ASC')
@@ -235,13 +223,12 @@ class ResultController extends Controller
     /** Tahap 1 — kirim SP saja, supaya peserta bisa mengajukan revisi (mis. typo nama) sebelum SK/Sertifikat resmi terbit. */
     public function distributeSp(ExamSession $examSession)
     {
-        // Abaikan akun peserta yang sudah dinonaktifkan (akun lama hasil
-        // re-issue/merge duplikat) — baris participant_results-nya bisa saja
-        // masih is_finalized=false dan tidak boleh ikut memblokir pengiriman
-        // untuk seluruh sesi.
+        // Abaikan baris yatim (akun lama hasil re-issue/merge duplikat, peserta yang
+        // sudah dipindah/dikeluarkan dari sesi) — bisa saja masih is_finalized=false
+        // dan tidak boleh ikut memblokir pengiriman untuk seluruh sesi.
         $unfinalized = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('is_finalized', false)
-            ->whereHas('student', fn ($q) => $q->where('is_active', true))
+            ->enrolled()
             ->count();
 
         if ($unfinalized > 0) {
@@ -258,7 +245,7 @@ class ResultController extends Controller
     {
         $unfinalized = ParticipantResult::where('exam_session_id', $examSession->id)
             ->where('is_finalized', false)
-            ->whereHas('student', fn ($q) => $q->where('is_active', true))
+            ->enrolled()
             ->count();
 
         if ($unfinalized > 0) {

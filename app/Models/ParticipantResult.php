@@ -84,6 +84,20 @@ class ParticipantResult extends Model
     }
 
     /**
+     * Hasil milik peserta yang masih terdaftar di sesinya (exam_groups) dan akunnya aktif — sama dengan
+     * baris Rekap Hasil / Tinjau Sertifikasi. Baris yatim (peserta dipindah batch / dikeluarkan dari
+     * sesi, akun lama hasil re-issue) tetap tersimpan tapi tidak ikut dihitung.
+     */
+    public function scopeEnrolled(Builder $query): Builder
+    {
+        return $query
+            ->whereHas('student', fn ($q) => $q->where('is_active', true))
+            ->whereExists(fn ($q) => $q->selectRaw('1')->from('exam_groups')
+                ->whereColumn('exam_groups.exam_session_id', 'participant_results.exam_session_id')
+                ->whereColumn('exam_groups.student_id', 'participant_results.student_id'));
+    }
+
+    /**
      * Tolak penghapusan yang lewat cascade FK ikut menghapus baris bernomor
      * SK/SP resmi — nomornya hilang tanpa jejak dan penomoran jadi loncat.
      */

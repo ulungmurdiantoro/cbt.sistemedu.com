@@ -69,6 +69,21 @@ class ExamSession extends Model
         return Student::whereIn('id', $ids)->where('is_active', true)->pluck('id');
     }
 
+    /**
+     * withCount jumlah peserta = sumber yang sama dengan activeStudentIds() dan isi Rekap Hasil /
+     * Tinjau Sertifikasi. Jangan hitung participant_results: barisnya baru dibuat saat halaman
+     * itu dibuka dan tertinggal saat peserta dipindah/dikeluarkan dari sesi.
+     * Satu peserta punya 2 baris exam_groups (PG + Esai), jadi hitung student_id unik.
+     */
+    public function scopeWithActiveStudentsCount($query, string $as = 'students_count')
+    {
+        return $query->withCount(["exam_groups as {$as}" => function ($q) {
+            $q->join('students', 'students.id', '=', 'exam_groups.student_id')
+                ->where('students.is_active', true)
+                ->select(\Illuminate\Support\Facades\DB::raw('count(distinct exam_groups.student_id)'));
+        }]);
+    }
+
     public function assessmentApplications()
     {
         return $this->hasMany(AssessmentApplication::class);
