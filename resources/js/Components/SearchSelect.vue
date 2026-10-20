@@ -117,6 +117,8 @@ export default {
             this.$refs.menu?.querySelector('.is-highlighted')?.scrollIntoView({ block: 'nearest' });
         },
         // Menu fixed di bawah input; dibalik ke atas kalau ruang di bawah tidak cukup.
+        // top/bottom yang tidak dipakai wajib 'auto': Volt memberi `.dropdown-menu { top: 100% }`, jadi menu
+        // yang dibalik (hanya bottom) terdorong ke luar layar — baris-baris terakhir tabel tak tampil daftarnya.
         position(e) {
             if (e && this.$refs.menu?.contains(e.target)) return; // scroll di dalam menu sendiri
             const rect = this.$refs.input?.getBoundingClientRect();
@@ -129,7 +131,9 @@ export default {
                 left:      `${rect.left}px`,
                 width:     `${Math.max(rect.width, 280)}px`,
                 maxHeight: `${Math.min(maxHeight, (flip ? rect.top : below) - 8)}px`,
-                ...(flip ? { bottom: `${window.innerHeight - rect.top + 2}px` } : { top: `${rect.bottom + 2}px` }),
+                ...(flip
+                    ? { top: 'auto', bottom: `${window.innerHeight - rect.top + 2}px` }
+                    : { top: `${rect.bottom + 2}px`, bottom: 'auto' }),
             };
         },
     },
