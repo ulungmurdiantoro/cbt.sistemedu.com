@@ -3,12 +3,14 @@
 namespace Tests\Feature;
 
 use App\Enums\UserRole;
+use App\Models\Classroom;
 use App\Models\ExamSession;
 use App\Models\ParticipantResult;
 use App\Models\User;
 use App\Models\UserRoleAssignment;
 use App\Services\RemidiService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Tests\Feature\Concerns\CreatesExamFixtures;
@@ -171,6 +173,96 @@ class NumberingRepairTest extends TestCase
         $this->assertSame(['NP-001' => '011', 'NP-002' => '005', 'NP-003' => '012'], $sk->sortKeys()->all());
         $this->assertSame(12, $this->counter('sk'));
         $this->assertSame(22, $this->counter('sp'));
+    }
+
+    private function imrClassroom(): Classroom
+    {
+        return tap($this->makeClassroom('IMR-' . Str::random(4)), fn ($c) => $c->forceFill(['kode_skema' => 'EDUKIA-IMR-2024-003'])->save());
+    }
+
+    /** Sesi skema "EDUKIA-IMR-2024-003" dengan peserta LULUS bernomor sertifikat $numbers (urut No. Peserta). */
+    private function sertifikatSession(array $numbers, ?Classroom $classroom = null): ExamSession
+    {
+        $classroom ??= $this->imrClassroom();
+        $session   = $this->makeSession($this->makeExam($classroom));
+
+        foreach ($numbers as $i => $number) {
+            $student = $this->makeStudent($classroom);
+            $student->forceFill(['no_participant' => sprintf('NP-%d-%03d', $session->id, $i + 1)])->save();
+            ParticipantResult::forceCreate([
+                'exam_session_id'   => $session->id,
+                'student_id'        => $student->id,
+                'keputusan'         => 'LULUS',
+                'is_finalized'      => true,
+                'finalized_at'      => now(),
+                'sertifikat_number' => $number,
+            ]);
+        }
+
+        return $session;
+    }
+
+    public function test_sertifikat_number_continues_scheme_sequence_when_counter_is_missing(): void
+    {
+        $this->travelTo(Carbon::parse('2026-10-20 10:00'));
+
+        // Batch 009 sudah terbit sampai 00081, tapi counter kelasnya tidak ada (hilang / kelas lain).
+        $this->sertifikatSession(['003-009-08-2026-00080', '003-009-08-2026-00081']);
+
+        $classroom = $this->imrClassroom();
+        $exam      = $this->makeExam($classroom);
+        $session   = tap($this->makeSession($exam), fn ($s) => $s->forceFill(['kode_batch' => '010'])->save());
+        $student   = $this->makeStudent($classroom);
+        $this->enroll($student, $exam, $session);
+        ParticipantResult::forceCreate([
+            'exam_session_id'     => $session->id,
+            'student_id'          => $student->id,
+            'keputusan'           => 'LULUS',
+            'manager_verified_at' => now(),
+        ]);
+
+        $this->actingAs($this->userWithRole(UserRole::ManagerSertifikasi))
+            ->post("/manager/sertifikasi/{$session->id}/finalize")
+            ->assertRedirect();
+
+        $this->assertSame('003-010-10-2026-00082', ParticipantResult::where('exam_session_id', $session->id)->value('sertifikat_number'));
+        $this->assertSame(82, (int) DB::table('numbering_counters')->where('type', 'sertifikat')->where('scope', (string) $classroom->id)->value('last_number'));
+    }
+
+    public function test_renumber_sertifikat_continues_scheme_sequence_and_fixes_counter(): void
+    {
+        $this->sertifikatSession(['003-009-08-2026-00001', '003-009-08-2026-00081']);
+        $session   = $this->sertifikatSession(['003-010-10-2026-00001', '003-010-10-2026-00002']);
+        $classroom = (string) $session->examPg->classroom_id;
+        DB::table('numbering_counters')->insert(['type' => 'sertifikat', 'scope' => $classroom, 'year' => 2026, 'last_number' => 2]);
+
+        $this->artisan('numbering:audit', ['--type' => ['sertifikat']])
+            ->expectsOutputToContain('Nomor urut 00001 dipakai 2 kali')
+            ->assertSuccessful();
+
+        $this->artisan('numbering:renumber-session', ['session' => $session->id, '--sertifikat' => 81, '--force' => true])
+            ->expectsOutputToContain('sudah dipakai sesi lain: 00081')
+            ->assertFailed();
+
+        $this->artisan('numbering:renumber-session', ['session' => $session->id, '--sertifikat' => 82, '--force' => true])
+            ->assertSuccessful();
+
+        $this->assertSame(
+            ['003-010-10-2026-00082', '003-010-10-2026-00083'],
+            ParticipantResult::where('exam_session_id', $session->id)->orderBy('sertifikat_number')->pluck('sertifikat_number')->all()
+        );
+        $this->assertSame(83, (int) DB::table('numbering_counters')->where('type', 'sertifikat')->where('scope', $classroom)->value('last_number'));
+    }
+
+    public function test_renumber_sertifikat_refuses_stamped_fr_ak_14_unless_allowed(): void
+    {
+        $session = $this->sertifikatSession(['003-010-10-2026-00001']);
+        ParticipantResult::query()->update(['materai_status' => 'stamped']);
+
+        $this->artisan('numbering:renumber-session', ['session' => $session->id, '--sertifikat' => 82, '--force' => true])
+            ->expectsOutputToContain('FR.AK.14-nya sudah bermeterai')
+            ->assertFailed();
+        $this->assertSame('003-010-10-2026-00001', ParticipantResult::first()->sertifikat_number);
     }
 
     public function test_remidi_keeps_numbers_and_requires_reverification(): void

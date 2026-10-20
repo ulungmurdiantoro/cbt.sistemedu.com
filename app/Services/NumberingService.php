@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\NumberingCounter;
+use App\Models\ParticipantResult;
 use Illuminate\Support\Facades\DB;
 
 class NumberingService
@@ -69,11 +70,12 @@ class NumberingService
                     ['last_number' => 0]
                 );
 
-            $counter->increment('last_number');
-            $counter->refresh();
+            $skema3  = self::skemaCode($kodeSkema);
 
-            $skema3  = substr(preg_replace('/[^0-9]/', '', $kodeSkema), -3);
-            $skema3  = str_pad($skema3, 3, '0', STR_PAD_LEFT);
+            // Counter bisa tertinggal dari nomor yang sudah terbit untuk skema ini (counter hilang/dibuat
+            // ulang, atau kelas dobel berkode skema sama) — lanjutkan dari nomor tertinggi yang tersimpan
+            // supaya urutan tidak mulai lagi dari 00001.
+            $counter->update(['last_number' => max($counter->last_number, $this->highestSertifikatSeq($skema3, $year)) + 1]);
 
             preg_match('/(\d+)$/', $kodeBatch, $m);
             $batch3  = isset($m[1]) ? str_pad($m[1], 3, '0', STR_PAD_LEFT) : '000';
@@ -83,6 +85,30 @@ class NumberingService
 
             return "{$skema3}-{$batch3}-{$bulan}-{$year}-{$seq}";
         });
+    }
+
+    /** "EDUKIA-IMR-2024-003" → "003" (3 digit terakhir), bagian pertama nomor sertifikat. */
+    public static function skemaCode(?string $kodeSkema): string
+    {
+        return str_pad(substr(preg_replace('/[^0-9]/', '', (string) $kodeSkema), -3), 3, '0', STR_PAD_LEFT);
+    }
+
+    /** Nomor sertifikat "003-010-10-2026-00082" → [skema '003', tahun 2026, urut 82]; null bila format lain. */
+    public static function parseSertifikatNumber(?string $number): ?array
+    {
+        return $number && preg_match('/^(\d{3})-\d+-\d{2}-(\d{4})-(\d+)$/', $number, $m)
+            ? ['skema' => $m[1], 'year' => (int) $m[2], 'seq' => (int) $m[3]]
+            : null;
+    }
+
+    /** Nomor urut sertifikat tertinggi yang sudah terbit untuk kode skema + tahun ini (lintas sesi & kelas). */
+    public function highestSertifikatSeq(string $skema3, int $year): int
+    {
+        return (int) ParticipantResult::where('sertifikat_number', 'like', "{$skema3}-%-{$year}-%")
+            ->pluck('sertifikat_number')
+            ->map(fn ($n) => self::parseSertifikatNumber($n))
+            ->filter(fn ($p) => $p && $p['skema'] === $skema3 && $p['year'] === $year)
+            ->max('seq');
     }
 
     /** Format: KEP/EDUKIA/I-2026/001 */

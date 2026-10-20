@@ -2,35 +2,37 @@
 
 namespace App\Console\Commands;
 
+use App\Services\NumberingService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Audit nomor SP & SK (read-only): cari nomor urut yang hilang/ganda dibanding
- * numbering_counters, dan tunjukkan sesi mana saja yang memakai tiap rentang nomor.
- * Penomoran bersifat global per tahun (lintas sesi), jadi nomor satu sesi wajar
- * "meloncat" kalau ada sesi lain yang difinalisasi di sela-selanya.
+ * Audit nomor SP, SK & sertifikat (read-only): cari nomor urut yang hilang/ganda
+ * dibanding numbering_counters, dan tunjukkan sesi mana saja yang memakai tiap
+ * rentang nomor. SP/SK bersifat global per tahun (lintas sesi), jadi nomor satu
+ * sesi wajar "meloncat" kalau ada sesi lain yang difinalisasi di sela-selanya.
+ * Sertifikat diurutkan per kode skema + tahun.
  */
 class AuditNumbering extends Command
 {
     protected $signature = 'numbering:audit
-        {--type=* : sp dan/atau sk (default keduanya)}
+        {--type=* : sp, sk dan/atau sertifikat (default semuanya)}
         {--year= : Batasi ke satu tahun}
         {--list : Tampilkan seluruh nomor satu per satu}';
 
-    protected $description = 'Audit nomor SP & SK: nomor hilang, ganda, dan sebarannya per sesi (tidak mengubah data)';
+    protected $description = 'Audit nomor SP, SK & sertifikat: nomor hilang, ganda, dan sebarannya per sesi (tidak mengubah data)';
 
     private const COLUMNS = ['sp' => 'sp_number', 'sk' => 'sk_number'];
 
     public function handle(): int
     {
-        $types = $this->option('type') ?: array_keys(self::COLUMNS);
+        $types = $this->option('type') ?: [...array_keys(self::COLUMNS), 'sertifikat'];
         $year  = $this->option('year');
 
         foreach ($types as $type) {
-            if (!isset(self::COLUMNS[$type])) {
-                $this->error("Tipe tidak dikenal: {$type} (pakai sp atau sk)");
+            if (!isset(self::COLUMNS[$type]) && $type !== 'sertifikat') {
+                $this->error("Tipe tidak dikenal: {$type} (pakai sp, sk atau sertifikat)");
 
                 return self::FAILURE;
             }
@@ -46,13 +48,86 @@ class AuditNumbering extends Command
                 'pr.attempt', 'pr.keputusan',
             ]);
 
-        foreach ($types as $type) {
+        foreach (array_intersect($types, array_keys(self::COLUMNS)) as $type) {
             $this->auditType($type, self::COLUMNS[$type], $rows, $year);
+        }
+
+        if (in_array('sertifikat', $types, true)) {
+            $this->auditSertifikat($year);
         }
 
         $this->auditAnomalies($rows);
 
         return self::SUCCESS;
+    }
+
+    /**
+     * Sertifikat "003-010-10-2026-00082": nomor urut per kode skema + tahun, counter-nya per kelas
+     * (numbering_counters.scope = classroom_id). Counter di bawah nomor tertinggi → finalisasi sebelum
+     * perbaikan ini mulai lagi dari 00001 (nomor urut ganda dengan batch sebelumnya).
+     */
+    private function auditSertifikat(?string $onlyYear): void
+    {
+        $rows = DB::table('participant_results as pr')
+            ->leftJoin('students as s', 's.id', '=', 'pr.student_id')
+            ->leftJoin('exam_sessions as es', 'es.id', '=', 'pr.exam_session_id')
+            ->whereNotNull('pr.sertifikat_number')
+            ->get(['pr.exam_session_id', 'es.title as session_title', 's.name', 'pr.sertifikat_number', 'pr.finalized_at'])
+            ->map(function ($r) {
+                $p = NumberingService::parseSertifikatNumber($r->sertifikat_number);
+                $r->seq   = $p['seq'] ?? null;
+                $r->group = $p ? "{$p['skema']}|{$p['year']}" : '?|?';
+
+                return $r;
+            });
+
+        $kodeSkema = DB::table('classrooms')->pluck('kode_skema', 'id');
+        $counters  = DB::table('numbering_counters')->where('type', 'sertifikat')->get()
+            ->map(function ($c) use ($kodeSkema) {
+                $c->group = NumberingService::skemaCode($kodeSkema[$c->scope] ?? '') . "|{$c->year}";
+
+                return $c;
+            });
+
+        $groups = $rows->pluck('group')->merge($counters->pluck('group'))->unique()->sort()
+            ->when($onlyYear, fn ($c) => $c->filter(fn ($g) => str_ends_with($g, "|{$onlyYear}")));
+
+        foreach ($groups as $group) {
+            [$skema, $year] = explode('|', $group);
+            $inGroup = $rows->where('group', $group)->sortBy([['seq', 'asc'], ['finalized_at', 'asc']])->values();
+            $maxUsed = (int) $inGroup->max('seq');
+            $groupCounters = $counters->where('group', $group);
+            $counter = $groupCounters->max('last_number');
+
+            $this->newLine();
+            $this->line("<options=bold>== SERTIFIKAT skema {$skema} {$year} ==</>");
+            $this->line('  Counter per kelas: ' . ($groupCounters->isEmpty() ? 'tidak ada'
+                : $groupCounters->map(fn ($c) => "kelas #{$c->scope} = {$c->last_number}")->implode(', ')));
+            $this->line("  Nomor tersimpan di participant_results: {$inGroup->count()} (tertinggi " . sprintf('%05d', $maxUsed) . ')');
+
+            if ((int) $counter < $maxUsed) {
+                $this->error('  Counter (' . ($counter ?? 'tidak ada') . ') LEBIH KECIL dari nomor tertinggi (' . sprintf('%05d', $maxUsed) . ').');
+            }
+
+            $dupes = $inGroup->groupBy('seq')->filter(fn ($g) => $g->count() > 1);
+            foreach ($dupes as $seq => $same) {
+                $this->error(sprintf('  Nomor urut %05d dipakai %d kali:', $seq, $same->count()));
+                foreach ($same as $r) {
+                    $this->line("    {$r->sertifikat_number} — {$r->name}, sesi #{$r->exam_session_id}, final " . ($r->finalized_at ?? '-'));
+                }
+            }
+
+            $this->line('  Sebaran per sesi (urut nomor pertama):');
+            $inGroup->groupBy('exam_session_id')
+                ->sortBy(fn ($g) => $g->min('seq'))
+                ->each(fn ($g, $sessionId) => $this->line(sprintf(
+                    '    Sesi #%s %s — %d nomor: %s',
+                    $sessionId,
+                    $g->first()->session_title ?? '(sesi terhapus)',
+                    $g->count(),
+                    $this->ranges($g->pluck('seq')->filter(), '%05d')
+                )));
+        }
     }
 
     private function auditType(string $type, string $column, Collection $rows, ?string $onlyYear): void
@@ -195,10 +270,10 @@ class AuditNumbering extends Command
         return $ranges;
     }
 
-    private function ranges(Collection $numbers): string
+    private function ranges(Collection $numbers, string $fmt = '%03d'): string
     {
         return collect($this->gapRanges($numbers->unique()))
-            ->map(fn ($r) => $r[0] === $r[1] ? sprintf('%03d', $r[0]) : sprintf('%03d–%03d', $r[0], $r[1]))
+            ->map(fn ($r) => $r[0] === $r[1] ? sprintf($fmt, $r[0]) : sprintf("{$fmt}–{$fmt}", $r[0], $r[1]))
             ->implode(', ');
     }
 }

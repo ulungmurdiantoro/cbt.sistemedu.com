@@ -239,6 +239,11 @@ saat Pengambil Keputusan klik Finalisasi, urut No. Peserta. Aturan supaya nomor 
 - Nomor disimpan tanpa spasi (mutator di `ParticipantResult`).
 - Jangan ubah nomor/counter lewat SQL manual. Pakai `numbering:audit` (cek celah), `numbering:renumber-session`
   (nomori ulang satu sesi + sesuaikan counter) dan `numbering:normalize` (buang spasi) — semua punya `--dry-run`.
+- **No. Sertifikat** (`003-010-10-2026-00082` = kode skema-batch-bulan-tahun-urut) diurutkan per **kode skema + tahun**;
+  counter-nya per kelas (`numbering_counters.scope` = classroom_id). Nomor berikutnya = maks(counter, nomor tertinggi
+  yang sudah tersimpan untuk kode skema+tahun itu) + 1, jadi counter yang hilang/tertinggal tidak membuat urutan mulai
+  dari 00001 lagi. Audit: `numbering:audit --type=sertifikat`; perbaiki sesi: `numbering:renumber-session {sesi} --sertifikat=N`
+  (menolak bila sertifikat sudah terkirim / FR.AK.14 sudah bermeterai, kecuali `--allow-distributed`).
 
 ---
 
