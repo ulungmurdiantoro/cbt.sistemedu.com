@@ -356,6 +356,18 @@ class DocumentGeneratorService
     }
 
     // ── PDF cache helper ────────────────────────────────────────────────
+    /**
+     * Data peserta yang tercetak di SP/SK/Sertifikat (nama, sapaan Bapak/Ibu, No. Peserta, NIK) — ikut kunci
+     * cache, supaya koreksi di menu Peserta (tujuan tahap SP: revisi typo nama) langsung tampil di PDF berikutnya.
+     */
+    private function printedStudentKey(ParticipantResult $result): string
+    {
+        $result->loadMissing('student.participant');
+        $student = $result->student;
+
+        return md5(implode('|', [$student?->name, $student?->gender, $student?->no_participant, $student?->participant?->nik]));
+    }
+
     private function cachedPdf(string $path, Closure $generate): string
     {
         $disk = Storage::disk('local');
@@ -528,7 +540,7 @@ class DocumentGeneratorService
             file_exists($bgBelakang) ? filemtime($bgBelakang) : '',
         ]);
 
-        $cacheKey = 'documents/sertifikat/' . md5($result->sertifikat_number . '|' . ($withKan ? 'kan' : 'tanpa') . '|' . $templateVersion . '|' . $result->distributed_at->timestamp) . '.pdf';
+        $cacheKey = 'documents/sertifikat/' . md5($result->sertifikat_number . '|' . ($withKan ? 'kan' : 'tanpa') . '|' . $templateVersion . '|' . $result->distributed_at->timestamp . '|' . $this->printedStudentKey($result)) . '.pdf';
 
         return $this->cachedPdf(
             $cacheKey,
@@ -655,7 +667,7 @@ class DocumentGeneratorService
         ), 0, 8);
         $suffix = $withKan ? '_kan' : '';
         return $this->cachedPdf(
-            'documents/sk/' . md5($result->sk_number . '|' . $result->distributed_at->timestamp) . '_' . $hash . $suffix . '.pdf',
+            'documents/sk/' . md5($result->sk_number . '|' . $result->distributed_at->timestamp . '|' . $this->printedStudentKey($result)) . '_' . $hash . $suffix . '.pdf',
             fn() => $this->generateSk($result, $withKan)
         );
     }
@@ -720,7 +732,7 @@ class DocumentGeneratorService
             md5_file(__FILE__)
         ), 0, 8);
         return $this->cachedPdf(
-            'documents/sp/' . md5($result->sp_number . '|' . $result->sp_distributed_at->timestamp) . '_' . $hash . '.pdf',
+            'documents/sp/' . md5($result->sp_number . '|' . $result->sp_distributed_at->timestamp . '|' . $this->printedStudentKey($result)) . '_' . $hash . '.pdf',
             fn() => $this->generateSp($result)
         );
     }
