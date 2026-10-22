@@ -41,9 +41,11 @@ class ResultController extends Controller
     {
         $examSession->load(['examPg.classroom', 'examEsai.classroom']);
 
-        $results = $this->calculator->recalcForSession($examSession);
+        $results = \Illuminate\Database\Eloquent\Collection::make($this->calculator->recalcForSession($examSession));
+        // Pengambil Keputusan = user yang menekan Finalisasi (Manager\SertifikasiController::finalize)
+        $results->load('finalizer:id,name');
 
-        $studentIds = collect($results)->pluck('student_id');
+        $studentIds = $results->pluck('student_id');
         $students   = Student::whereIn('id', $studentIds)->with('participant', 'classroom')->get()->keyBy('id');
 
         $tugas = StudentTask::where('exam_session_id', $examSession->id)
@@ -59,7 +61,7 @@ class ResultController extends Controller
             ->get(['id', 'exam_id', 'student_id'])
             ->groupBy('student_id');
 
-        $rows = collect($results)->map(function ($r) use ($students, $gradeIds, $examSession) {
+        $rows = $results->map(function ($r) use ($students, $gradeIds, $examSession) {
             $student = $students->get($r->student_id);
             $grades  = $gradeIds->get($r->student_id, collect());
             return [
@@ -75,6 +77,8 @@ class ResultController extends Controller
                 'nilai_akhir'       => $r->nilai_akhir,
                 'keputusan'         => $r->keputusan,
                 'is_finalized'      => $r->is_finalized,
+                'finalized_at'      => $r->finalized_at,
+                'finalized_by_name' => $r->finalizer?->name,
                 'sk_number'         => $r->sk_number,
                 'sp_number'         => $r->sp_number,
                 'sertifikat_number' => $r->sertifikat_number,

@@ -69,6 +69,11 @@
             <i class="fa fa-lock me-1"></i>
             Finalisasi kelulusan sekarang jadi wewenang <strong>Pengambil Keputusan</strong> (Portal Pengambil Keputusan).
             Halaman ini hanya untuk memantau &amp; mengirim dokumen yang sudah difinalisasi.
+            <div v-if="decisionMakers.length" class="mt-1">
+                <i class="fa fa-user-check me-1"></i>
+                Pengambil Keputusan sesi ini:
+                <template v-for="(name, i) in decisionMakers" :key="name"><template v-if="i">, </template><strong>{{ name }}</strong></template>
+            </div>
         </div>
 
         <!-- Flash -->
@@ -148,6 +153,12 @@
                                         <i class="fa fa-lock me-1"></i>Final
                                     </span>
                                     <span v-else class="badge text-white" style="background-color:#6c757d;">Draft</span>
+                                    <!-- Pengambil Keputusan yang memfinalisasi peserta ini -->
+                                    <div v-if="row.is_finalized && row.finalized_by_name" class="small text-muted mt-1 decided-by"
+                                         :title="`Difinalisasi oleh ${row.finalized_by_name}, ${formatDate(row.finalized_at)}`">
+                                        <i class="fa fa-user-check me-1"></i>{{ row.finalized_by_name }}
+                                        <div v-if="row.finalized_at">{{ formatDate(row.finalized_at) }}</div>
+                                    </div>
                                 </td>
                                 <td class="small" style="min-width:140px;">
                                     <div v-if="row.is_finalized">
@@ -284,6 +295,8 @@ export default {
         const finalizedCount  = computed(() => props.rows.filter(r => r.is_finalized).length);
         const spSentCount     = computed(() => props.rows.filter(r => r.sp_distributed_at).length);
         const finalSentCount  = computed(() => props.rows.filter(r => r.distributed_at).length);
+        // Bisa lebih dari satu kalau peserta difinalisasi bertahap oleh Pengambil Keputusan berbeda
+        const decisionMakers  = computed(() => [...new Set(props.rows.filter(r => r.is_finalized && r.finalized_by_name).map(r => r.finalized_by_name))]);
 
         // FR.AK.14 hanya ada untuk peserta LULUS yang sudah difinalisasi (row.fr_ak_14 bukan null)
         const frAk14Rows         = computed(() => props.rows.filter(r => r.fr_ak_14));
@@ -351,7 +364,7 @@ export default {
         };
 
         return {
-            hasFinalized, finalizedCount, spSentCount, finalSentCount,
+            hasFinalized, finalizedCount, spSentCount, finalSentCount, decisionMakers,
             frAk14Rows, frAk14StampedCount, frAk14SignedCount, frAk14Badge, formatDate,
             nilaiColor, fmt, distributeSp, distribute,
         };
@@ -364,6 +377,13 @@ export default {
 .num {
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum";
+}
+
+/* Nama Pengambil Keputusan di kolom Status — boleh turun baris, jangan melebarkan tabel. */
+.decided-by {
+    max-width: 160px;
+    margin-inline: auto;
+    line-height: 1.3;
 }
 
 /* Alasan gagal materai bisa panjang (pesan Peruri) — potong 2 baris, lengkapnya di tooltip. */
