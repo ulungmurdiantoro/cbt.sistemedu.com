@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin;
 
 use App\Enums\UserRole;
+use App\Models\AsesorAssignment;
 use App\Models\ParticipantResult;
 use App\Models\User;
 use App\Models\UserRoleAssignment;
@@ -60,5 +61,30 @@ class ResultDecisionMakerTest extends TestCase
                 ->component('Admin/Results/Show')
                 ->where('rows', fn ($rows) => collect($rows)->firstWhere('student_id', $final->id)['finalized_by_name'] === 'Ibu Pengambil Keputusan'
                     && collect($rows)->firstWhere('student_id', $draft->id)['finalized_by_name'] === null));
+    }
+
+    public function test_assigned_asesor_name_is_shown_per_participant(): void
+    {
+        $classroom  = $this->makeClassroom();
+        $exam       = $this->makeExam($classroom);
+        $session    = $this->makeSession($exam);
+        $assigned   = $this->makeStudent($classroom);
+        $unassigned = $this->makeStudent($classroom);
+        $this->enroll($assigned, $exam, $session);
+        $this->enroll($unassigned, $exam, $session);
+
+        $asesor = $this->user('Pak Asesor', UserRole::Asesor);
+        AsesorAssignment::create([
+            'user_id'         => $asesor->id,
+            'exam_session_id' => $session->id,
+            'student_id'      => $assigned->id,
+        ]);
+
+        $this->actingAs($this->user('Admin Test', UserRole::Admin))
+            ->get("/admin/results/{$session->id}")
+            ->assertInertia(fn (AssertableInertia $page) => $page
+                ->component('Admin/Results/Show')
+                ->where('rows', fn ($rows) => collect($rows)->firstWhere('student_id', $assigned->id)['asesor_name'] === 'Pak Asesor'
+                    && collect($rows)->firstWhere('student_id', $unassigned->id)['asesor_name'] === null));
     }
 }

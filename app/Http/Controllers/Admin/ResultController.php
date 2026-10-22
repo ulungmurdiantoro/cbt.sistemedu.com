@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AsesorAssignment;
 use App\Models\ExamSession;
 use App\Models\Grade;
 use App\Models\ParticipantResult;
@@ -61,7 +62,14 @@ class ResultController extends Controller
             ->get(['id', 'exam_id', 'student_id'])
             ->groupBy('student_id');
 
-        $rows = $results->map(function ($r) use ($students, $gradeIds, $examSession) {
+        // Asesor yang ditugaskan per peserta (satu per peserta per sesi — PenilaianController::saveAssignments)
+        $assignments = AsesorAssignment::where('exam_session_id', $examSession->id)
+            ->whereIn('student_id', $studentIds)
+            ->with('asesor:id,name')
+            ->get()
+            ->keyBy('student_id');
+
+        $rows = $results->map(function ($r) use ($students, $gradeIds, $assignments, $examSession) {
             $student = $students->get($r->student_id);
             $grades  = $gradeIds->get($r->student_id, collect());
             return [
@@ -69,6 +77,7 @@ class ResultController extends Controller
                 'student_id'        => $r->student_id,
                 'no_participant'    => $student?->no_participant,
                 'name'              => $student?->name,
+                'asesor_name'       => $assignments->get($r->student_id)?->asesor?->name,
                 'nilai_pg'          => $r->nilai_pg,
                 'nilai_esai'        => $r->nilai_esai,
                 'grade_id_pg'       => $grades->firstWhere('exam_id', $examSession->exam_id_pg)?->id,

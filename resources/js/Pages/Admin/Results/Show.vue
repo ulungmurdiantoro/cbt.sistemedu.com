@@ -91,6 +91,7 @@
                                 <th class="border-0" style="width:3%">No.</th>
                                 <th class="border-0">No. Peserta</th>
                                 <th class="border-0">Nama</th>
+                                <th class="border-0">Asesor</th>
                                 <th class="border-0 text-center" v-if="show_tugas">Tugas</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_pg">PG</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_esai">Esai</th>
@@ -110,6 +111,13 @@
                                 <td>
                                     {{ row.name }}
                                     <span v-if="row.attempt > 1" class="badge bg-warning text-gray-800 ms-1 small">Remidi</span>
+                                </td>
+                                <!-- Asesor yang ditugaskan (tab Peserta & Asesor di detail sesi) -->
+                                <td class="small">
+                                    <div v-if="row.asesor_name" class="asesor-name">
+                                        <i class="fa fa-user-tie me-1 text-muted"></i>{{ row.asesor_name }}
+                                    </div>
+                                    <span v-else class="text-muted fst-italic">Belum ditugaskan</span>
                                 </td>
                                 <td class="text-center" v-if="show_tugas">
                                     <a v-if="tugas[row.student_id]"
@@ -387,6 +395,15 @@ export default {
     min-width: 130px;
     max-width: 170px;
     margin-inline: auto;
+    line-height: 1.3;
+}
+
+/* Nama asesor boleh turun baris (Volt: .table td nowrap), jangan melebarkan tabel. */
+.asesor-name {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    min-width: 130px;
+    max-width: 180px;
     line-height: 1.3;
 }
 
