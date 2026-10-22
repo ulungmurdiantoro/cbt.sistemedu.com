@@ -156,8 +156,8 @@
                                     <!-- Pengambil Keputusan yang memfinalisasi peserta ini -->
                                     <div v-if="row.is_finalized && row.finalized_by_name" class="small text-muted mt-1 decided-by"
                                          :title="`Difinalisasi oleh ${row.finalized_by_name}, ${formatDate(row.finalized_at)}`">
-                                        <i class="fa fa-user-check me-1"></i>{{ row.finalized_by_name }}
-                                        <div v-if="row.finalized_at">{{ formatDate(row.finalized_at) }}</div>
+                                        <div><i class="fa fa-user-check me-1"></i>{{ row.finalized_by_name }}</div>
+                                        <div v-if="row.finalized_at" class="text-nowrap">{{ formatDate(row.finalized_at) }}</div>
                                     </div>
                                 </td>
                                 <td class="small" style="min-width:140px;">
@@ -379,9 +379,13 @@ export default {
     font-feature-settings: "tnum";
 }
 
-/* Nama Pengambil Keputusan di kolom Status — boleh turun baris, jangan melebarkan tabel. */
+/* Nama Pengambil Keputusan di kolom Status. Volt memasang white-space: nowrap pada .table td,
+   jadi tanpa ini nama panjang keluar dari sel — biarkan turun baris di dalam lebar kolom. */
 .decided-by {
-    max-width: 160px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    min-width: 130px;
+    max-width: 170px;
     margin-inline: auto;
     line-height: 1.3;
 }
