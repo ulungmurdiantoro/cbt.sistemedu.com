@@ -9,7 +9,7 @@ use App\Services\DocumentGeneratorService;
 use App\Services\SertifikasiReviewService;
 use Illuminate\Support\Facades\Auth;
 
-// Manager Sertifikasi: halaman Tinjau Sertifikasi yang sama dengan Pengambil Keputusan (semua
+// Manager Mutu: halaman Tinjau Sertifikasi yang sama dengan Pengambil Keputusan (semua
 // sesi), tetapi centang Verifikasi-nya tahap 2 — hanya untuk peserta yang sudah diverifikasi PK —
 // dan dialah yang menekan Finalisasi (nomor SK/SP/Sertifikat + Keputusan Sertifikasi).
 class SertifikasiController extends Controller
@@ -54,7 +54,7 @@ class SertifikasiController extends Controller
         abort_if(
             $count === 0,
             422,
-            'Tidak ada peserta yang sudah diverifikasi Pengambil Keputusan dan Manager Sertifikasi. Centang Verifikasi minimal satu peserta terlebih dahulu.'
+            'Tidak ada peserta yang sudah diverifikasi Pengambil Keputusan dan Manager Mutu. Centang Verifikasi minimal satu peserta terlebih dahulu.'
         );
 
         return redirect()->back()->with('success', $count . ' peserta berhasil difinalisasi — sertifikat siap diterbitkan untuk yang LULUS. Peserta yang belum diverifikasi tetap berstatus Draft dan bisa difinalisasi belakangan.');

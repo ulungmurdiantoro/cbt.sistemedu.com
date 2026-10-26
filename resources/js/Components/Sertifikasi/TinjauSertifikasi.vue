@@ -39,7 +39,7 @@
                 <i class="fa fa-exclamation-triangle me-1"></i>
                 Anda belum punya tanda tangan tersimpan — kotak TTD pada Keputusan Sertifikasi akan kosong.
                 <Link href="/manager/tanda-tangan" class="alert-link">Simpan tanda tangan Anda dulu</Link>
-                sebelum sesi difinalisasi Manager Sertifikasi.
+                sebelum sesi difinalisasi Manager Mutu.
             </div>
             <div v-else-if="isCertManager && !pengambil_keputusan" class="alert alert-warning py-2 small border-0 mb-3">
                 <i class="fa fa-exclamation-triangle me-1"></i>
@@ -76,7 +76,7 @@
                                 <th class="border-0 text-center">Nilai Akhir</th>
                                 <th class="border-0 text-center">Keputusan</th>
                                 <th class="border-0 text-center">Verifikasi<div class="stage-label">Pengambil Keputusan</div></th>
-                                <th class="border-0 text-center">Verifikasi<div class="stage-label">Manager Sertifikasi</div></th>
+                                <th class="border-0 text-center">Verifikasi<div class="stage-label">Manager Mutu</div></th>
                                 <th class="border-0 text-center">Status</th>
                             </tr>
                         </thead>
@@ -164,7 +164,7 @@
                                 <!-- Verifikasi tahap 1: Pengambil Keputusan -->
                                 <td class="text-center">
                                     <div v-if="!isCertManager" class="form-check d-flex justify-content-center mb-0"
-                                        :title="row.cert_manager_verified_at ? 'Sudah diverifikasi Manager Sertifikasi — minta Manager Sertifikasi melepas centangnya dulu' : ''">
+                                        :title="row.cert_manager_verified_at ? 'Sudah diverifikasi Manager Mutu — minta Manager Mutu melepas centangnya dulu' : ''">
                                         <input class="form-check-input" type="checkbox"
                                             :checked="!!row.manager_verified_at"
                                             :disabled="row.is_finalized || !!row.cert_manager_verified_at || togglingId === row.student_id"
@@ -175,7 +175,7 @@
                                     <div v-if="row.manager_verified_at" class="small text-muted mt-1">{{ row.manager_verified_by }}</div>
                                 </td>
 
-                                <!-- Verifikasi tahap 2: Manager Sertifikasi (hanya setelah tahap 1) -->
+                                <!-- Verifikasi tahap 2: Manager Mutu (hanya setelah tahap 1) -->
                                 <td class="text-center">
                                     <div v-if="isCertManager && !(row.is_finalized && !row.cert_manager_verified_at)"
                                         class="form-check d-flex justify-content-center mb-0"
@@ -186,7 +186,7 @@
                                             @change="toggleVerify(row)">
                                     </div>
                                     <i v-else-if="row.cert_manager_verified_at" class="fa fa-check-circle text-success"></i>
-                                    <!-- Final sebelum ada tahap Manager Sertifikasi -->
+                                    <!-- Final sebelum ada tahap Manager Mutu -->
                                     <span v-else-if="row.is_finalized" class="text-muted small">—</span>
                                     <span v-else class="text-muted small">Belum</span>
                                     <div v-if="row.cert_manager_verified_at" class="small text-muted mt-1">{{ row.cert_manager_verified_by }}</div>
@@ -309,7 +309,7 @@
 <script>
 // Halaman Tinjau Sertifikasi yang sama untuk dua portal (SertifikasiReviewService):
 //   stage 'pk' — Pengambil Keputusan (/manager): centang Verifikasi tahap 1, tanpa Finalisasi.
-//   stage 'ms' — Manager Sertifikasi (/manager-sertifikasi): centang tahap 2 (setelah PK), lalu Finalisasi.
+//   stage 'ms' — Manager Mutu (/manager-sertifikasi): centang tahap 2 (setelah PK), lalu Finalisasi.
 // Semua URL dibentuk dari `base`; route kedua portal sengaja sejajar.
 import StatusBadge from '../StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
@@ -361,7 +361,7 @@ export default {
                 : '<br><br><span style="color:#b45309"><strong>Perhatian:</strong> Pengambil Keputusan sesi ini belum menyimpan tanda tangan — kotak TTD pada Keputusan Sertifikasi akan kosong.</span>';
             Swal.fire({
                 title: 'Finalisasi Kelulusan?',
-                html: 'Hanya peserta yang sudah diverifikasi <strong>Pengambil Keputusan</strong> dan dicentang <strong>Verifikasi Manager Sertifikasi</strong> yang akan difinalisasi — nilai dikunci dan nomor SK / Sertifikat diterbitkan untuk yang LULUS. Peserta lainnya tetap Draft.<br><strong>Tindakan ini tidak dapat dibatalkan untuk peserta yang difinalisasi.</strong>' + sigWarning,
+                html: 'Hanya peserta yang sudah diverifikasi <strong>Pengambil Keputusan</strong> dan dicentang <strong>Verifikasi Manager Mutu</strong> yang akan difinalisasi — nilai dikunci dan nomor SK / Sertifikat diterbitkan untuk yang LULUS. Peserta lainnya tetap Draft.<br><strong>Tindakan ini tidak dapat dibatalkan untuk peserta yang difinalisasi.</strong>' + sigWarning,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#1f2937',
