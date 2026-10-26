@@ -1,3 +1,15 @@
+@php
+    // Kepadatan tabel unit halaman 2 (0 = ukuran normal). DocumentGeneratorService::sertifikatBackLayout()
+    // menaikkan levelnya bila tabel akan menimpa blok TTD/QR yang tercetak di background.
+    $unitDensities = [
+        ['th' => '12pt',   'thPad' => '5.5mm 3mm 3mm',   'thEn' => '11pt',  'td' => '4mm',   'body' => '12pt', 'lh' => 1.3,  'en' => '10pt',  'gap' => '5mm'],
+        ['th' => '11pt',   'thPad' => '3.5mm 2.5mm 2mm', 'thEn' => '10pt',  'td' => '2.6mm', 'body' => '11pt', 'lh' => 1.25, 'en' => '9pt',   'gap' => '4mm'],
+        ['th' => '10.5pt', 'thPad' => '2.5mm 2mm 1.5mm', 'thEn' => '9pt',   'td' => '1.8mm', 'body' => '10pt', 'lh' => 1.2,  'en' => '8.5pt', 'gap' => '3.5mm'],
+        ['th' => '9.5pt',  'thPad' => '2mm 1.5mm 1.2mm', 'thEn' => '8.5pt', 'td' => '1.2mm', 'body' => '9pt',  'lh' => 1.15, 'en' => '8pt',   'gap' => '3mm'],
+        ['th' => '8.5pt',  'thPad' => '1.5mm 1.2mm 1mm', 'thEn' => '8pt',   'td' => '0.8mm', 'body' => '8pt',  'lh' => 1.1,  'en' => '7.5pt', 'gap' => '2.5mm'],
+    ];
+    $ud = $unitDensities[min($unitDensity ?? 0, count($unitDensities) - 1)];
+@endphp
 <style>
 body {
     font-family: 'Radley', serif;
@@ -92,7 +104,7 @@ body {
     font-weight: normal;
 }
 .unit-table {
-    margin-top: 5mm;
+    margin-top: {{ $ud['gap'] }};
     margin-left: 9mm;
     width: 162mm;
     border-collapse: collapse;
@@ -102,9 +114,9 @@ body {
     background: #1f3f7a;
     border: 1.2pt solid #1f3f7a;
     color: #fff;
-    font-size: 12pt;
+    font-size: {{ $ud['th'] }};
     font-weight: normal;
-    padding: 5.5mm 3mm 3mm;
+    padding: {{ $ud['thPad'] }};
     text-align: center;
     line-height: 1.1;
 }
@@ -117,22 +129,22 @@ body {
 }
 .unit-table td {
     border: 1.2pt solid #1f3f7a;
-    padding: 4mm;
+    padding: {{ $ud['td'] }};
     vertical-align: middle;
 }
 .unit-table .kode {
     width: 42mm;
     text-align: center;
-    font-size: 12pt;
+    font-size: {{ $ud['body'] }};
 }
 .unit-table .judul {
-    font-size: 12pt;
-    line-height: 1.3;
+    font-size: {{ $ud['body'] }};
+    line-height: {{ $ud['lh'] }};
 }
 .unit-table .judul .en {
     display: block;
     margin-top: 1.5mm;
-    font-size: 10pt;
+    font-size: {{ $ud['en'] }};
     font-style: italic;
     line-height: 1.25;
 }
@@ -235,11 +247,11 @@ body {
                 <tr>
                     <th style="width:42mm;">
                         KODE UNIT<br>
-                        <span style="font-size:11pt;font-style:italic;font-weight:normal;">UNIT CODES</span>
+                        <span style="font-size:{{ $ud['thEn'] }};font-style:italic;font-weight:normal;">UNIT CODES</span>
                     </th>
                     <th>
                         JUDUL UNIT KOMPETENSI<br>
-                        <span style="font-size:11pt;font-style:italic;font-weight:normal;">UNITS OF COMPETENCY TITLES</span>
+                        <span style="font-size:{{ $ud['thEn'] }};font-style:italic;font-weight:normal;">UNITS OF COMPETENCY TITLES</span>
                     </th>
                 </tr>
             </thead>

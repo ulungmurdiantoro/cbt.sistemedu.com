@@ -25,6 +25,11 @@ use Mpdf\Mpdf;
 
 class DocumentGeneratorService
 {
+    // Batas bawah tabel unit di halaman 2 sertifikat (mm dari atas) & level kepadatan tertinggi
+    // di documents/sertifikat.blade.php — lihat sertifikatBackLayout().
+    private const SERTIFIKAT_UNIT_TABLE_MAX_Y = 208;
+    private const SERTIFIKAT_UNIT_DENSITY_MAX = 4;
+
     // ── Asset path helper ───────────────────────────────────────────────
     private function asset(string $key): string
     {
@@ -482,7 +487,7 @@ class DocumentGeneratorService
         }
 
         $frontHtml = View::make('documents.sertifikat', $viewData + ['renderPage' => 'front'])->render();
-        $backHtml  = View::make('documents.sertifikat', $viewData + ['renderPage' => 'back'])->render();
+        $backHtml  = $this->sertifikatBackLayout($viewData)['html'];
 
         $mpdf = $this->makeMpdfSertifikat();
 
@@ -518,6 +523,33 @@ class DocumentGeneratorService
         $placeQr();
 
         return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    }
+
+    /**
+     * Halaman 2 sertifikat: blok TTD/QR tercetak di background mulai ±213 mm dari atas, jadi
+     * tabel unit harus selesai sebelum SERTIFIKAT_UNIT_TABLE_MAX_Y. Skema dengan banyak unit
+     * dirender ulang dengan kepadatan lebih tinggi (huruf & jarak lebih kecil) sampai muat;
+     * skema yang sudah muat tetap memakai ukuran normal (kepadatan 0).
+     *
+     * @return array{html: string, density: int, bottom: float, fits: bool}
+     */
+    public function sertifikatBackLayout(array $viewData): array
+    {
+        $layout = null;
+
+        for ($density = 0; $density <= self::SERTIFIKAT_UNIT_DENSITY_MAX; $density++) {
+            $html  = View::make('documents.sertifikat', $viewData + ['renderPage' => 'back', 'unitDensity' => $density])->render();
+            $probe = $this->makeMpdfSertifikat();
+            $probe->WriteHTML($html);
+
+            $fits   = $probe->page === 1 && $probe->y <= self::SERTIFIKAT_UNIT_TABLE_MAX_Y;
+            $layout = ['html' => $html, 'density' => $density, 'bottom' => round($probe->y, 1), 'fits' => $fits];
+            if ($fits) {
+                break;
+            }
+        }
+
+        return $layout;
     }
 
     public function sertifikatPdf(ParticipantResult $result, bool $withKan = false): string
