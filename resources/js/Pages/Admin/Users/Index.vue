@@ -106,8 +106,8 @@ export default {
     setup(props) {
         const search = ref(props.filters?.q ?? '');
 
-        const roleLabel = (r) => ({ admin: 'Admin', asesor: 'Asesor', manager_sertifikasi: 'Pengambil Keputusan' }[r] ?? r);
-        const roleTone  = (r) => ({ admin: 'accent', asesor: 'success', manager_sertifikasi: 'secondary' }[r] ?? 'neutral');
+        const roleLabel = (r) => ({ admin: 'Admin', asesor: 'Asesor', manager_sertifikasi: 'Pengambil Keputusan', certification_manager: 'Manager Sertifikasi' }[r] ?? r);
+        const roleTone  = (r) => ({ admin: 'accent', asesor: 'success', manager_sertifikasi: 'secondary', certification_manager: 'neutral' }[r] ?? 'neutral');
 
         const applySearch = () => {
             router.get('/admin/users', { q: search.value }, { preserveState: true });

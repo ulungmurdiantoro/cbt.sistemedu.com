@@ -40,10 +40,11 @@ class ResultController extends Controller
 
     public function show(ExamSession $examSession)
     {
-        $examSession->load(['examPg.classroom', 'examEsai.classroom']);
+        $examSession->load(['examPg.classroom', 'examEsai.classroom', 'pengambilKeputusan:id,name']);
 
         $results = \Illuminate\Database\Eloquent\Collection::make($this->calculator->recalcForSession($examSession));
-        // Pengambil Keputusan = user yang menekan Finalisasi (Manager\SertifikasiController::finalize)
+        // finalizer = Manager Sertifikasi yang menekan Finalisasi (SertifikasiReviewService::finalize).
+        // Pengambil Keputusan sesi = exam_session.pengambil_keputusan (ditunjuk admin).
         $results->load('finalizer:id,name');
 
         $studentIds = $results->pluck('student_id');

@@ -116,7 +116,7 @@
                             * Nilai Akhir = rata-rata berbobot komponen yang sudah bernilai; bila ada komponen yang belum
                             dinilai, bobotnya dibagi ke komponen yang ada sehingga nilai masih bisa berubah.
                             Keputusan bertanda <strong>sementara</strong> dihitung otomatis dari nilai kelulusan — keputusan
-                            resmi ditetapkan Pengambil Keputusan saat finalisasi.
+                            resmi ditetapkan saat finalisasi (Pengambil Keputusan memverifikasi, Manager Sertifikasi memfinalisasi).
                         </div>
                     </div>
                 </div>

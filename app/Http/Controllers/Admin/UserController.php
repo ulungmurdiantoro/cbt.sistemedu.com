@@ -48,7 +48,7 @@ class UserController extends Controller
             'name'       => 'required|string|max:255',
             'email'      => 'required|email|unique:users,email',
             'roles'      => 'required|array|min:1',
-            'roles.*'    => 'in:admin,asesor,manager_sertifikasi',
+            'roles.*'    => 'in:admin,asesor,manager_sertifikasi,certification_manager',
             'password'   => 'required|string|min:8|confirmed',
         ]);
 
@@ -79,7 +79,7 @@ class UserController extends Controller
             'name'       => 'required|string|max:255',
             'email'      => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             'roles'      => 'required|array|min:1',
-            'roles.*'    => 'in:admin,asesor,manager_sertifikasi',
+            'roles.*'    => 'in:admin,asesor,manager_sertifikasi,certification_manager',
             'password'   => 'nullable|string|min:8|confirmed',
         ]);
 

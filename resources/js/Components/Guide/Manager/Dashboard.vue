@@ -1,7 +1,8 @@
 <template>
     <p class="mb-2">
-        Daftar semua sesi ujian, aktif maupun selesai. Semuanya bisa ditinjau tanpa batas waktu. Klik
-        <span class="badge bg-primary">Tinjau</span> untuk membuka halaman peninjauan &amp; finalisasi sesi itu.
+        Daftar sesi ujian yang ditunjuk admin untuk Anda sebagai Pengambil Keputusan, aktif maupun selesai. Semuanya bisa
+        ditinjau tanpa batas waktu. Klik <span class="badge bg-primary">Tinjau</span> untuk membuka halaman peninjauan &amp;
+        verifikasi sesi itu. Sesi yang belum muncul berarti belum ditunjuk untuk Anda — hubungi admin.
     </p>
     <div class="table-responsive mb-2">
         <table class="table table-sm table-bordered mb-0">
@@ -13,7 +14,7 @@
         </table>
     </div>
     <p class="mb-0 text-muted">
-        Kolom <strong>Peserta</strong> hanya menghitung akun peserta yang aktif. Sebelum finalisasi pertama, simpan tanda
-        tangan Anda di menu <strong>Tanda Tangan Saya</strong>.
+        Kolom <strong>Peserta</strong> hanya menghitung akun peserta yang aktif. Simpan tanda tangan Anda di menu
+        <strong>Tanda Tangan Saya</strong> sebelum sesi difinalisasi Manager Sertifikasi — TTD itu yang tercetak di Keputusan Sertifikasi.
     </p>
 </template>

@@ -159,14 +159,15 @@ class NumberingRepairTest extends TestCase
                 'student_id'          => $student->id,
                 'keputusan'           => 'TIDAK_LULUS',
                 'manager_verified_at' => now(),
+                'cert_manager_verified_at' => now(),
                 // NP-002 peserta remidi: masih memegang nomor dari finalisasi pertama.
                 'sk_number'           => $no === 'NP-002' ? '005/SK-SP/LSP-EDUKIA/IX/2026' : null,
                 'sp_number'           => $no === 'NP-002' ? '015/SPT/EDUKIA/IX/2026' : null,
             ]);
         }
 
-        $this->actingAs($this->userWithRole(UserRole::ManagerSertifikasi))
-            ->post("/manager/sertifikasi/{$session->id}/finalize")
+        $this->actingAs($this->userWithRole(UserRole::CertificationManager))
+            ->post("/manager-sertifikasi/sertifikasi/{$session->id}/finalize")
             ->assertRedirect();
 
         $sk = ParticipantResult::with('student')->get()->mapWithKeys(fn ($r) => [$r->student->no_participant => substr($r->sk_number, 0, 3)]);
@@ -219,10 +220,11 @@ class NumberingRepairTest extends TestCase
             'student_id'          => $student->id,
             'keputusan'           => 'LULUS',
             'manager_verified_at' => now(),
+            'cert_manager_verified_at' => now(),
         ]);
 
-        $this->actingAs($this->userWithRole(UserRole::ManagerSertifikasi))
-            ->post("/manager/sertifikasi/{$session->id}/finalize")
+        $this->actingAs($this->userWithRole(UserRole::CertificationManager))
+            ->post("/manager-sertifikasi/sertifikasi/{$session->id}/finalize")
             ->assertRedirect();
 
         $this->assertSame('003-010-10-2026-00082', ParticipantResult::where('exam_session_id', $session->id)->value('sertifikat_number'));
@@ -288,6 +290,7 @@ class NumberingRepairTest extends TestCase
         $session = $this->numberedSession(1, 7, 9, [
             'keputusan'           => 'TIDAK_LULUS',
             'manager_verified_at' => now(),
+            'cert_manager_verified_at' => now(),
             'sp_distributed_at'   => now(),
         ]);
         $result = ParticipantResult::first();
@@ -298,6 +301,7 @@ class NumberingRepairTest extends TestCase
         $this->assertSame('007/SK-SP/LSP-EDUKIA/IX/2026', $result->sk_number);
         $this->assertSame('009/SPT/EDUKIA/IX/2026', $result->sp_number);
         $this->assertNull($result->manager_verified_at);
+        $this->assertNull($result->cert_manager_verified_at);
         $this->assertNull($result->sp_distributed_at);
     }
 

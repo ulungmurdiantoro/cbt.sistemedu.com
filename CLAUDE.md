@@ -26,13 +26,15 @@ app/
     Controllers/
       Admin/         ← semua controller admin
       Asesor/        ← controller portal asesor
-      Manager/       ← controller portal pengambil keputusan sertifikasi
+      Manager/       ← controller portal Pengambil Keputusan (role teknis `manager_sertifikasi`, URL /manager)
+      CertificationManager/ ← controller portal Manager Sertifikasi (role `certification_manager`, URL /manager-sertifikasi)
       Student/       ← controller ujian siswa (BaseExamController: timer & penjaga jawaban)
       Peserta/       ← controller portal peserta sertifikasi
     Middleware/
       AuthStudent.php
       AuthParticipant.php
-      EnsureAdmin.php / EnsureAsesor.php / EnsureManagerSertifikasi.php
+      EnsureAdmin.php / EnsureAsesor.php / EnsureManagerSertifikasi.php (PK) / EnsureCertificationManager.php
+      EnsureAppointedPengambilKeputusan.php  ← pk_session: PK hanya sesi yang ditunjuk
     Responses/
       LoginResponse.php   ← redirect post-login sesuai role
       LogoutResponse.php
@@ -40,6 +42,7 @@ app/
     DocumentGeneratorService.php  ← semua PDF (FR.APL/FR.AK, SK, sertifikat) + ZIP export dokumen
     StudentEnrollmentService.php  ← buat akun ujian, enrollment ExamGroup, reissue, pindah batch
     ResultCalculatorService.php   ← nilai akhir (PG + esai + wawancara, berbobot)
+    SertifikasiReviewService.php  ← baris Tinjau Sertifikasi (PK & Manager Sertifikasi) + finalize()
     PeruriService.php / MidtransService.php  ← e-meterai
   Support/
     AnswerFile.php        ← upload file jawaban peserta (tipe diizinkan, disk private)
@@ -61,6 +64,7 @@ resources/js/
   Layouts/
     Admin.vue
     Asesor.vue    ← (baru) layout portal asesor
+    Manager.vue / CertificationManager.vue ← layout portal Pengambil Keputusan / Manager Sertifikasi
     Student.vue
     Peserta.vue
   Pages/
@@ -93,19 +97,24 @@ resources/js/
 |---|---|---|---|
 | `web` (admin) | `User` (role admin) | `/login` (Fortify) | `/admin/dashboard` |
 | `web` (asesor) | `User` (role asesor) | `/login` (Fortify) | `/asesor/dashboard` |
-| `web` (manager) | `User` (role manager_sertifikasi) | `/login` (Fortify) | `/manager/dashboard` |
+| `web` (Pengambil Keputusan) | `User` (role manager_sertifikasi) | `/login` (Fortify) | `/manager/dashboard` |
+| `web` (Manager Sertifikasi) | `User` (role certification_manager) | `/login` (Fortify) | `/manager-sertifikasi/dashboard` |
 | `student` | `Student` | `/` (hanya No. Peserta, tanpa password) | `/student/dashboard` |
 | `participant` | `Participant` | `/peserta/login` | `/peserta/dashboard` |
 
 Middleware alias (di `bootstrap/app.php`):
 - `auth` → Fortify default (guard web)
-- `admin` → `EnsureAdmin`, `asesor` → `EnsureAsesor`, `manager` → `EnsureManagerSertifikasi`
+- `admin` → `EnsureAdmin`, `asesor` → `EnsureAsesor`, `manager` → `EnsureManagerSertifikasi` (Pengambil Keputusan),
+  `pk_session` → `EnsureAppointedPengambilKeputusan`, `cert_manager` → `EnsureCertificationManager`
 - `student` → `AuthStudent`
 - `participant` → `AuthParticipant`
 
-Role disimpan di tabel **`user_roles`** (`user_id`, `role` enum `admin|asesor|manager_sertifikasi`) —
+Role disimpan di tabel **`user_roles`** (`user_id`, `role` enum `admin|asesor|manager_sertifikasi|certification_manager`) —
 satu user bisa punya beberapa role. Cek dengan `$user->hasRole(UserRole::Asesor)` (enum `App\Enums\UserRole`).
 Kolom `users.role` sudah dihapus (migrasi `2026_08_25_000001`).
+**Awas nama:** `manager_sertifikasi` / `UserRole::ManagerSertifikasi` / URL `/manager` = **Pengambil Keputusan** (nama teknis
+lama). **Manager Sertifikasi** yang sebenarnya = `certification_manager` / `UserRole::CertificationManager` / `/manager-sertifikasi`.
+Prioritas dashboard bila punya beberapa role: admin > Manager Sertifikasi > Pengambil Keputusan > asesor.
 
 Sudah login lalu membuka `/login` atau `/` → langsung ke dashboard sesuai role (`LoginResponse::dashboardUrl`, dipakai
 juga oleh `redirectUsersTo` di `bootstrap/app.php`). Peserta portal sertifikasi **tidak** dialihkan dari `/` (mereka login
@@ -199,6 +208,28 @@ No Peserta | Nama | Gaya Wawancara | Penguasaan Materi | Kemampuan Menghadapi Pe
 
 ---
 
+## Alur Kelulusan: Pengambil Keputusan → Manager Sertifikasi
+
+1. Admin **menunjuk Pengambil Keputusan per sesi** (bukan per peserta) di kartu Detail Sesi
+   (`/admin/exam_sessions/{id}`, POST `admin.exam_sessions.pengambilKeputusan` → `exam_sessions.pengambil_keputusan_id`).
+   Hanya user ber-role `manager_sertifikasi` yang bisa ditunjuk.
+2. **Pengambil Keputusan** (`/manager/sertifikasi/{sesi}`) hanya melihat sesi yang ditunjuk untuknya (dashboard + middleware
+   `pk_session` di semua route per sesi, termasuk dokumen & FR.APL/AK; FR.AK.05 dicek di controller). Mencentang Verifikasi
+   tahap 1 (`participant_results.manager_verified_at/by`). Tidak ada Finalisasi di portal ini. Centang PK tidak bisa dilepas
+   selama Manager Sertifikasi masih mencentang peserta itu.
+3. **Manager Sertifikasi** (`/manager-sertifikasi/sertifikasi/{sesi}`, semua sesi) melihat halaman yang sama, mencentang
+   Verifikasi tahap 2 (`cert_manager_verified_at/by`, hanya bila tahap 1 sudah) lalu **Finalisasi** — hanya peserta yang
+   diverifikasi keduanya (`SertifikasiReviewService::finalize`). `finalized_by` = Manager Sertifikasi.
+4. **Keputusan Sertifikasi** tetap atas nama & TTD Pengambil Keputusan: `keputusan_issued_by` diisi PK sesi saat finalisasi
+   pertama (dibekukan — ganti penunjukan belakangan tidak mengubah dokumen terbit).
+
+Kedua portal memakai `Components/Sertifikasi/TinjauSertifikasi.vue` (`stage` pk|ms, `base` /manager|/manager-sertifikasi);
+route kedua portal sengaja sejajar supaya cukup ganti prefix. Remidi mereset kedua centang. Sesi lama di-backfill
+`pengambil_keputusan_id` dari `keputusan_issued_by` / centang PK terakhir (migrasi `2026_10_26_000002`); peserta yang
+Final sebelum alur ini tidak punya centang Manager Sertifikasi (ditampilkan "—").
+
+---
+
 ## Keamanan Ujian Siswa
 
 Aturan di `Student\BaseExamController` (dipakai PG, Essay, Essay Migas):
@@ -233,7 +264,7 @@ dan mengirim balik `bukti_id` — jangan kirim/terima `path` dari browser.
 ## Penomoran SK / SP
 
 `NumberingService` memakai counter global per tahun di `numbering_counters` (lintas sesi). Nomor dibagikan
-saat Pengambil Keputusan klik Finalisasi, urut No. Peserta. Aturan supaya nomor tidak loncat:
+saat Manager Sertifikasi klik Finalisasi, urut No. Peserta. Aturan supaya nomor tidak loncat:
 - Peserta remidi **memakai ulang** nomor SK/SP lamanya (`RemidiService` tidak mengosongkannya).
 - Sesi / peserta / skema yang sudah memegang nomor tidak bisa dihapus (`ParticipantResult::preventLosingNumbers`).
 - Nomor disimpan tanpa spasi (mutator di `ParticipantResult`).
@@ -311,6 +342,13 @@ POST  /asesor/penilaian/{exam_session_id}/esai            → asesor.esai.store
 GET   /asesor/penilaian/{exam_session_id}/wawancara       → asesor.wawancara.show
 POST  /asesor/penilaian/{exam_session_id}/wawancara       → asesor.wawancara.store
 GET   /asesor/penilaian/{exam_session_id}/rekap           → asesor.rekap.show (Rekap Nilai, baca saja)
+
+// Penunjukan PK per sesi (admin) & portal Manager Sertifikasi (middleware: auth + cert_manager)
+POST  /admin/exam_sessions/{exam_session}/pengambil-keputusan → admin.exam_sessions.pengambilKeputusan
+GET   /manager-sertifikasi/dashboard                        → cert_manager.dashboard
+GET   /manager-sertifikasi/sertifikasi/{examSession}        → cert_manager.sertifikasi.show
+POST  /manager-sertifikasi/sertifikasi/{examSession}/verifikasi/{studentId} → cert_manager.sertifikasi.toggle_verify
+POST  /manager-sertifikasi/sertifikasi/{examSession}/finalize → cert_manager.sertifikasi.finalize
 ```
 
 Rekap Nilai asesor memakai `ResultCalculatorService::calculateForSession()` (hitung tanpa menyimpan, hanya
@@ -337,7 +375,8 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
   `exam_groups`, akun aktif — sama dengan baris Rekap Hasil/Tinjau Sertifikasi). **Jangan** hitung `participant_results`:
   barisnya baru dibuat saat Rekap dibuka dan tertinggal saat peserta dipindah batch/dikeluarkan. Progres/cek berbasis
   `participant_results` (ditinjau, terkirim, finalisasi, syarat kirim SP/SK) pakai scope `ParticipantResult::enrolled()`.
-- Panduan portal Asesor & Pengambil Keputusan: isi per halaman ada di `resources/js/Components/Guide/{Asesor,Manager}/*.vue`,
+- Panduan portal Asesor, Pengambil Keputusan & Manager Sertifikasi: isi per halaman ada di
+  `resources/js/Components/Guide/{Asesor,Manager,CertificationManager}/*.vue`,
   ditampilkan lewat `<PageGuide storage-key="...">` di atas halaman **dan** dirangkai di `Pages/*/Guide/Index.vue`.
   Ubah perilaku/tombol halaman → perbarui komponen Guide-nya juga.
 
@@ -406,6 +445,9 @@ php artisan test   # SQLite in-memory (phpunit.xml), tidak menyentuh DB lokal
 - Fixture bersama: `tests/Feature/Concerns/CreatesExamFixtures.php`. Login peserta di test pakai
   `actingAsStudent()` — bukan `actingAs($s, 'student')`, karena itu mengganti guard default.
 - Migrasi harus bisa jalan di SQLite: SQL khusus MySQL dibungkus `if (DB::getDriverName() !== 'mysql') return;`.
+- Menambah/menghapus **foreign key** di tabel yang dirujuk view `v_sertifikasi_kelulusan` (`participant_results`, `students`,
+  `classrooms`, `exam_sessions`): SQLite membangun ulang tabel dan RENAME-nya ditolak karena view. Pakai pola
+  `alterBehindView()` (PRAGMA `legacy_alter_table`) seperti migrasi `2026_10_26_000002`/`000003`.
 - CI (`.github/workflows/ci.yml`) menjalankan build frontend + test. Pint **tidak** dipaksakan — codebase
   memakai perataan `=>` yang tidak sesuai preset Pint.
 

@@ -9,7 +9,8 @@
                     <div class="card-body">
                         <h5 class="mb-1"><i class="fa fa-award me-2"></i>Dashboard Pengambil Keputusan</h5>
                         <p class="text-muted mb-0 small">
-                            Tinjau kelengkapan dokumen, laporan asesmen, dan nilai peserta sebelum finalisasi kelulusan.
+                            Tinjau kelengkapan dokumen, laporan asesmen, dan nilai peserta di sesi yang ditunjuk untuk Anda, lalu verifikasi
+                            sebelum diteruskan ke Manager Sertifikasi.
                         </p>
                     </div>
                 </div>
@@ -67,7 +68,7 @@
                                     <tr v-if="allSessions.length === 0">
                                         <td colspan="7" class="text-center text-muted py-5">
                                             <i class="fa fa-award fa-2x d-block mb-2 text-gray-300"></i>
-                                            Belum ada sesi ujian.
+                                            Belum ada sesi ujian yang ditunjuk untuk Anda.
                                         </td>
                                     </tr>
                                 </tbody>

@@ -67,11 +67,18 @@
 
         <div class="alert alert-secondary py-2 small border-0 mb-3">
             <i class="fa fa-lock me-1"></i>
-            Finalisasi kelulusan sekarang jadi wewenang <strong>Pengambil Keputusan</strong> (Portal Pengambil Keputusan).
+            Peserta diverifikasi <strong>Pengambil Keputusan</strong> sesi, lalu diverifikasi &amp; difinalisasi
+            <strong>Manager Sertifikasi</strong> di portal masing-masing.
             Halaman ini hanya untuk memantau &amp; mengirim dokumen yang sudah difinalisasi.
+            <div class="mt-1">
+                <i class="fa fa-user-tie me-1"></i>
+                Pengambil Keputusan sesi ini:
+                <strong v-if="exam_session.pengambil_keputusan">{{ exam_session.pengambil_keputusan.name }}</strong>
+                <span v-else>belum ditunjuk (atur di detail sesi, menu Sesi Ujian)</span>
+            </div>
             <div v-if="decisionMakers.length" class="mt-1">
                 <i class="fa fa-user-check me-1"></i>
-                Pengambil Keputusan sesi ini:
+                Difinalisasi oleh:
                 <template v-for="(name, i) in decisionMakers" :key="name"><template v-if="i">, </template><strong>{{ name }}</strong></template>
             </div>
         </div>
@@ -161,7 +168,7 @@
                                         <i class="fa fa-lock me-1"></i>Final
                                     </span>
                                     <span v-else class="badge text-white" style="background-color:#6c757d;">Draft</span>
-                                    <!-- Pengambil Keputusan yang memfinalisasi peserta ini -->
+                                    <!-- Yang menekan Finalisasi untuk peserta ini (Manager Sertifikasi; sesi lama: Pengambil Keputusan) -->
                                     <div v-if="row.is_finalized && row.finalized_by_name" class="small text-muted mt-1 decided-by"
                                          :title="`Difinalisasi oleh ${row.finalized_by_name}, ${formatDate(row.finalized_at)}`">
                                         <div><i class="fa fa-user-check me-1"></i>{{ row.finalized_by_name }}</div>
@@ -303,7 +310,7 @@ export default {
         const finalizedCount  = computed(() => props.rows.filter(r => r.is_finalized).length);
         const spSentCount     = computed(() => props.rows.filter(r => r.sp_distributed_at).length);
         const finalSentCount  = computed(() => props.rows.filter(r => r.distributed_at).length);
-        // Bisa lebih dari satu kalau peserta difinalisasi bertahap oleh Pengambil Keputusan berbeda
+        // Bisa lebih dari satu kalau peserta difinalisasi bertahap oleh orang berbeda
         const decisionMakers  = computed(() => [...new Set(props.rows.filter(r => r.is_finalized && r.finalized_by_name).map(r => r.finalized_by_name))]);
 
         // FR.AK.14 hanya ada untuk peserta LULUS yang sudah difinalisasi (row.fr_ak_14 bukan null)
@@ -387,7 +394,7 @@ export default {
     font-feature-settings: "tnum";
 }
 
-/* Nama Pengambil Keputusan di kolom Status. Volt memasang white-space: nowrap pada .table td,
+/* Nama yang memfinalisasi di kolom Status. Volt memasang white-space: nowrap pada .table td,
    jadi tanpa ini nama panjang keluar dari sel — biarkan turun baris di dalam lebar kolom. */
 .decided-by {
     white-space: normal;

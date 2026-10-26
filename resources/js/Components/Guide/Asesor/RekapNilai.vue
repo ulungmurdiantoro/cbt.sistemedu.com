@@ -9,7 +9,7 @@
         <li><strong>Nilai Akhir</strong> = rata-rata berbobot sesuai bobot skema. Selama ada komponen yang belum dinilai,
             nilai akhir dihitung dari komponen yang ada dan masih bisa berubah.</li>
         <li><StatusBadge tone="secondary">Lulus (sementara)</StatusBadge> dihitung otomatis dari nilai kelulusan, belum keputusan
-            resmi. Setelah Pengambil Keputusan memfinalisasi, berubah menjadi <StatusBadge tone="success">Lulus</StatusBadge> atau
+            resmi. Setelah difinalisasi Manager Sertifikasi, berubah menjadi <StatusBadge tone="success">Lulus</StatusBadge> atau
             <StatusBadge tone="danger">Tidak Lulus</StatusBadge>.</li>
         <li>Kolom <strong>K/BK</strong> = rekomendasi Kompeten / Belum Kompeten Anda di Laporan Asesmen. “—” berarti Anda belum mengisinya.</li>
     </ul>

@@ -12,8 +12,8 @@
                         <p class="text-muted mb-0 small">
                             Admin menyiapkan seluruh fondasi: data master (tipe ujian, skema, ujian, sesi), akun peserta,
                             lalu memproses pendaftaran sertifikasi dari verifikasi dokumen sampai penerbitan FR.AK.01 —
-                            termasuk menugaskan asesor. Keputusan kelulusan akhir ada di tangan
-                            <strong>Pengambil Keputusan</strong>, bukan admin.
+                            termasuk menugaskan asesor dan menunjuk Pengambil Keputusan tiap sesi. Keputusan kelulusan akhir ada di tangan
+                            <strong>Pengambil Keputusan</strong> (verifikasi) dan <strong>Manager Sertifikasi</strong> (verifikasi ulang &amp; finalisasi), bukan admin.
                         </p>
                     </div>
                 </div>
@@ -36,9 +36,9 @@
                                             <tr><td style="width:190px" class="fw-bolder">Tipe Ujian / Skema / Ujian / Sesi Ujian</td><td>Data master yang harus ada sebelum ujian &amp; sertifikasi bisa jalan.</td></tr>
                                             <tr><td class="fw-bolder">Peserta</td><td>Akun peserta ujian (login soal), termasuk pembagian ke sesi &amp; batch.</td></tr>
                                             <tr><td class="fw-bolder">Permohonan</td><td>Pendaftaran sertifikasi peserta — verifikasi dokumen, approve, terbitkan FR.APL.01 / FR.AK.01.</td></tr>
-                                            <tr><td class="fw-bolder">Sesi Ujian (detail sesi)</td><td>Pusat kerja satu sesi: peserta &amp; penugasan asesor, permohonan sesi itu, Verifikasi TUK, TTD AK.01.</td></tr>
+                                            <tr><td class="fw-bolder">Sesi Ujian (detail sesi)</td><td>Pusat kerja satu sesi: penunjukan Pengambil Keputusan, peserta &amp; penugasan asesor, permohonan sesi itu, Verifikasi TUK, TTD AK.01.</td></tr>
                                             <tr><td class="fw-bolder">Hasil Penilaian</td><td>Rekap nilai PG / Esai / Wawancara per sesi, detail jawaban, unduhan Laporan Nilai (Excel / PDF), dan pengiriman SP / SK.</td></tr>
-                                            <tr><td class="fw-bolder">Kelola User</td><td>Akun staf: admin, asesor, Pengambil Keputusan — beserta tanda tangannya.</td></tr>
+                                            <tr><td class="fw-bolder">Kelola User</td><td>Akun staf: admin, asesor, Pengambil Keputusan, Manager Sertifikasi — beserta tanda tangannya.</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -50,7 +50,7 @@
                                     Tab yang sama muncul di setiap halaman sesi, jadi tidak perlu memilih sesi berulang kali dari menu berbeda.
                                 </div>
                                 <div class="note-box small mb-0">
-                                    Admin bisa memegang lebih dari satu peran. Kalau akun Anda juga asesor / Pengambil Keputusan,
+                                    Admin bisa memegang lebih dari satu peran. Kalau akun Anda juga asesor / Pengambil Keputusan / Manager Sertifikasi,
                                     tombol pindah portal muncul di bagian bawah sidebar.
                                 </div>
                                 <div class="note-box small mb-0 mt-2">
@@ -161,7 +161,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a6">
-                                <span class="badge bg-primary me-2">6</span> Penugasan Asesor &amp; TTD AK.01
+                                <span class="badge bg-primary me-2">6</span> Penugasan Asesor, Pengambil Keputusan &amp; TTD AK.01
                             </button>
                         </h2>
                         <div id="a6" class="accordion-collapse collapse" data-bs-parent="#panduanAdmin">
@@ -173,6 +173,10 @@
                                     <li>Tabel yang sama menampilkan status permohonan tiap peserta (klik untuk membukanya). Selama ada pilihan asesor yang belum disimpan, muncul pengingat di bawah tabel, dan pindah halaman akan ditanya dulu.</li>
                                     <li>Tab <strong>TTD AK.01</strong> — asesor menandatangani FR.AK.01 untuk peserta yang ditugaskan. Bisa dilakukan asesor sendiri dari portalnya, atau oleh admin dari sini bila diperlukan.</li>
                                     <li>Nama &amp; TTD asesor yang muncul di FR.AK.01 diambil dari tanda tangan tersimpan asesor tersebut.</li>
+                                    <li><strong>Pengambil Keputusan</strong> ditunjuk <em>per sesi</em> (bukan per peserta) di kartu Detail Sesi pada tab yang sama →
+                                        pilih nama → <strong>Simpan</strong>. Hanya PK yang ditunjuk yang melihat sesi itu di portalnya dan bisa memverifikasi
+                                        pesertanya; setelah itu Manager Sertifikasi memverifikasi ulang dan memfinalisasi. Nama &amp; TTD PK ini yang tercetak
+                                        di Keputusan Sertifikasi.</li>
                                 </ul>
                                 <div class="note-box small mb-0">
                                     Kalau di FR.AK.01 nama/TTD asesor kosong padahal sudah ditugaskan — berarti langkah TTD AK.01 belum
@@ -196,11 +200,13 @@
                                         Klik angka PG / Esai untuk melihat detail jawaban peserta.</li>
                                     <li><strong>Laporan Nilai</strong> (dulu menu sendiri) — sekarang tombol <span class="badge bg-gray-200 text-gray-800 border">Laporan Nilai</span>
                                         di halaman Rekap Hasil tiap sesi: Excel nilai per ujian, PDF Ringkas (A4), atau PDF Lebar (A0) untuk arsip.</li>
-                                    <li><strong>Kelola User</strong> — buat/ubah akun staf, tetapkan peran (admin / asesor / Pengambil Keputusan), dan simpan tanda tangan tiap user (gambar langsung atau unggah gambar). TTD ini yang dipakai di dokumen resmi.</li>
+                                    <li><strong>Kelola User</strong> — buat/ubah akun staf, tetapkan peran (admin / asesor / Pengambil Keputusan / Manager Sertifikasi), dan simpan tanda tangan tiap user (gambar langsung atau unggah gambar). TTD ini yang dipakai di dokumen resmi.</li>
                                 </ul>
                                 <div class="alert alert-secondary small mb-0">
-                                    Finalisasi kelulusan &amp; penerbitan nomor SK / SP / Sertifikat dilakukan oleh
-                                    <strong>Pengambil Keputusan</strong> di portalnya sendiri, memakai data yang sudah admin siapkan di atas.
+                                    Kelulusan diverifikasi <strong>Pengambil Keputusan</strong> yang ditunjuk di detail sesi, lalu diverifikasi ulang
+                                    &amp; difinalisasi (nomor SK / SP / Sertifikat) oleh <strong>Manager Sertifikasi</strong> — masing-masing di
+                                    portalnya sendiri, memakai data yang sudah admin siapkan di atas. Sesi tanpa Pengambil Keputusan tidak muncul di
+                                    portal PK mana pun.
                                 </div>
                             </div>
                         </div>
@@ -233,7 +239,7 @@
 
                 <p class="text-muted small text-center mt-4">
                     Alur ringkas: data master → akun peserta → verifikasi dokumen → approve (TTD LSP) → tugaskan asesor (TTD AK.01)
-                    → penilaian → Pengambil Keputusan memutuskan.
+                    → penilaian → Pengambil Keputusan sesi memverifikasi → Manager Sertifikasi memfinalisasi.
                 </p>
 
             </div>

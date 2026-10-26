@@ -11,9 +11,10 @@ use App\Models\ExamSession;
 use App\Models\Student;
 use Illuminate\Support\Facades\Storage;
 
-// Versi Pengambil Keputusan (lihat saja) dari Admin\PenilaianDokumenController —
-// tidak ada tombol verifikasi/tolak per dokumen atau Verifikasi Akhir di sini,
-// itu tetap wewenang admin/asesor. Manager hanya meninjau berkas yang sudah ada.
+// Versi lihat-saja dari Admin\PenilaianDokumenController untuk Pengambil Keputusan (/manager,
+// sesi yang ditunjuk — middleware pk_session) dan Manager Sertifikasi (/manager-sertifikasi).
+// Tidak ada tombol verifikasi/tolak per dokumen atau Verifikasi Akhir di sini, itu tetap
+// wewenang admin/asesor. Keduanya hanya meninjau berkas yang sudah ada.
 class DokumenController extends Controller
 {
     private function sessionStudentIds(int $examSessionId): \Illuminate\Support\Collection

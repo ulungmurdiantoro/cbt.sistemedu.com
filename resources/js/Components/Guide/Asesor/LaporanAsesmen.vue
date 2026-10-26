@@ -6,8 +6,8 @@
             TTD AK.01, untuk semua sesi.</li>
         <li class="mb-1"><strong>Rekomendasi Asesi</strong>: klik <span class="badge bg-success">K</span> (Kompeten) atau
             <span class="badge bg-danger">BK</span> (Belum Kompeten) per peserta, lalu
-            <span class="badge bg-success">Simpan Rekomendasi</span>. Rekomendasi masih bisa diubah sampai Pengambil Keputusan
-            memfinalisasi peserta itu. Setelah itu barisnya <i class="fa fa-lock"></i> terkunci.</li>
+            <span class="badge bg-success">Simpan Rekomendasi</span>. Rekomendasi masih bisa diubah sampai peserta itu
+            difinalisasi (oleh Manager Sertifikasi, setelah diverifikasi Pengambil Keputusan). Setelah itu barisnya <i class="fa fa-lock"></i> terkunci.</li>
         <li><strong>Catatan Laporan Asesmen</strong>: tanggal dan empat kolom catatan sudah berisi teks contoh. Sunting
             seperlunya, lalu <span class="badge bg-success">Simpan Laporan</span>.</li>
     </ol>

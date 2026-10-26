@@ -1037,13 +1037,18 @@ class DocumentGeneratorService
     }
 
     // ═══════════════════════════════════════════════════════════════════
-    // Keputusan Sertifikasi — berita acara satu sesi ujian, diterbitkan
-    // Pengambil Keputusan saat Finalisasi Semua.
+    // Keputusan Sertifikasi — berita acara satu sesi ujian, terbit saat Manager
+    // Sertifikasi menekan Finalisasi, atas nama & TTD Pengambil Keputusan sesi.
     // ═══════════════════════════════════════════════════════════════════
 
-    public function generateKeputusanSertifikasi(ExamSession $examSession, bool $preview = false): string
+    /**
+     * $previewNeedsCertManager: preview Manager Sertifikasi = peserta yang ikut difinalisasi bila
+     * Finalisasi diklik sekarang (diverifikasi PK + MS); preview Pengambil Keputusan cukup
+     * centang PK-nya sendiri.
+     */
+    public function generateKeputusanSertifikasi(ExamSession $examSession, bool $preview = false, bool $previewNeedsCertManager = false): string
     {
-        $examSession->loadMissing(['examPg.classroom', 'examEsai.classroom', 'keputusanIssuer']);
+        $examSession->loadMissing(['examPg.classroom', 'examEsai.classroom', 'keputusanIssuer', 'pengambilKeputusan']);
         $classroom = $examSession->referenceExam?->classroom;
 
         // Abaikan akun peserta yang sudah dinonaktifkan (mis. akun lama hasil
@@ -1058,7 +1063,9 @@ class DocumentGeneratorService
             // Gambaran hasil KALAU "Finalisasi Semua" diklik sekarang: peserta yang
             // sudah final (kalau ada dari finalisasi sebagian sebelumnya) + yang
             // sudah dicentang Verifikasi tapi belum difinalisasi.
-            $query->where(fn ($q) => $q->where('is_finalized', true)->orWhereNotNull('manager_verified_at'));
+            $query->where(fn ($q) => $q->where('is_finalized', true)->orWhere(fn ($q) => $q
+                ->whereNotNull('manager_verified_at')
+                ->when($previewNeedsCertManager, fn ($q) => $q->whereNotNull('cert_manager_verified_at'))));
         } else {
             $query->where('is_finalized', true);
         }
@@ -1099,9 +1106,9 @@ class DocumentGeneratorService
             ];
         })->values()->all();
 
-        // Preview: belum ada nomor/tanggal/penanggungjawab resmi (belum difinalisasi),
-        // jadi pakai placeholder + user yang sedang login sebagai gambaran.
-        $issuer = $preview ? auth()->user() : $examSession->keputusanIssuer;
+        // Preview: belum ada nomor/tanggal resmi (belum difinalisasi), jadi pakai placeholder +
+        // Pengambil Keputusan yang ditunjuk di sesi (cadangan: user yang login) sebagai gambaran.
+        $issuer = $preview ? ($examSession->pengambilKeputusan ?? auth()->user()) : $examSession->keputusanIssuer;
         $issuedAt = $preview ? now() : $examSession->keputusan_issued_at;
 
         $html = View::make('documents.keputusan_sertifikasi', [

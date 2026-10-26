@@ -20,7 +20,7 @@
                 <div v-if="$page.props.session.success" class="alert alert-success border-0 shadow mb-3">
                     {{ $page.props.session.success }}
                 </div>
-                <div v-if="Object.keys(errors ?? {}).length" class="alert alert-danger border-0 shadow mb-3">
+                <div v-if="Object.keys(errors ?? {}).some(k => k !== 'pengambil_keputusan_id')" class="alert alert-danger border-0 shadow mb-3">
                     Penugasan gagal disimpan. Muat ulang halaman lalu coba lagi.
                 </div>
 
@@ -55,6 +55,27 @@
                             <div class="col-6 col-md-3">
                                 <div class="text-muted">Selesai</div>
                                 <div class="fw-bolder">{{ formatDate(exam_session.end_time) }}</div>
+                            </div>
+                            <!-- Penunjukan Pengambil Keputusan: satu per sesi, berlaku untuk semua peserta -->
+                            <div class="col-12 col-md-6">
+                                <div class="text-muted">Pengambil Keputusan</div>
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="flex-grow-1 pk-select">
+                                        <SearchSelect v-model="pkId" :options="pkOptions"
+                                            empty-label="— Belum ditunjuk —" search-placeholder="Ketik nama Pengambil Keputusan..." />
+                                    </div>
+                                    <button v-if="pkDirty" @click="savePk" :disabled="savingPk" class="btn btn-sm btn-success border-0 shadow text-nowrap">
+                                        <i class="fa fa-save me-1"></i> {{ savingPk ? 'Menyimpan...' : 'Simpan' }}
+                                    </button>
+                                </div>
+                                <div v-if="errors?.pengambil_keputusan_id" class="text-danger mt-1">{{ errors.pengambil_keputusan_id }}</div>
+                                <div v-else-if="!pengambil_keputusan_options.length" class="text-muted mt-1">
+                                    <i class="fa fa-info-circle me-1"></i>Belum ada user ber-role Pengambil Keputusan — tambahkan di Kelola User.
+                                </div>
+                                <div v-else-if="!exam_session.pengambil_keputusan_id" class="text-danger mt-1">
+                                    <i class="fa fa-exclamation-circle me-1"></i>Belum ditunjuk — sesi ini belum bisa diverifikasi Pengambil Keputusan.
+                                </div>
+                                <div v-else class="text-muted mt-1">Berlaku untuk semua peserta sesi ini. Setelah diverifikasi PK, peserta diverifikasi &amp; difinalisasi Manager Sertifikasi.</div>
                             </div>
                         </div>
                     </div>
@@ -138,7 +159,7 @@
                         </p>
 
                         <!-- Muncul selama ada pilihan asesor yang belum disimpan -->
-                        <div v-if="dirty" class="unsaved-bar d-flex flex-wrap justify-content-between align-items-center gap-3 bg-gray-800 text-white rounded shadow px-3 py-2">
+                        <div v-if="asesorDirty" class="unsaved-bar d-flex flex-wrap justify-content-between align-items-center gap-3 bg-gray-800 text-white rounded shadow px-3 py-2">
                             <span class="small"><i class="fa fa-exclamation-circle me-1"></i>Ada {{ changedCount }} perubahan penugasan yang belum disimpan.</span>
                             <button @click="save" :disabled="saving" class="btn btn-sm btn-success border-0">
                                 <i class="fa fa-save me-1"></i> {{ saving ? 'Menyimpan...' : 'Simpan Penugasan' }}
@@ -160,7 +181,7 @@ import SearchSelect from '../../../Components/SearchSelect.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
 
-const UNSAVED_MESSAGE = 'Perubahan penugasan asesor belum disimpan. Tinggalkan halaman ini?';
+const UNSAVED_MESSAGE = 'Perubahan penugasan asesor / Pengambil Keputusan belum disimpan. Tinggalkan halaman ini?';
 
 export default {
     layout: LayoutAdmin,
@@ -172,12 +193,18 @@ export default {
         students:       Array,
         inactive_count: Number,
         asesors:        Array,
+        // User ber-role Pengambil Keputusan [{ id, name }]
+        pengambil_keputusan_options: Array,
+        // Peserta yang sudah dicentang Verifikasi PK — peringatan saat penunjukan diganti
+        pk_verified_count: Number,
     },
 
     data() {
         return {
-            saving: false,
-            form:   this.buildForm(),
+            saving:   false,
+            form:     this.buildForm(),
+            pkId:     this.exam_session.pengambil_keputusan_id ?? null,
+            savingPk: false,
         };
     },
 
@@ -188,8 +215,17 @@ export default {
         changedCount() {
             return this.form.filter((row, i) => row.user_id !== (this.students[i]?.asesor_id ?? null)).length;
         },
-        dirty() {
+        asesorDirty() {
             return this.changedCount > 0;
+        },
+        pkDirty() {
+            return this.pkId !== (this.exam_session.pengambil_keputusan_id ?? null);
+        },
+        dirty() {
+            return this.asesorDirty || this.pkDirty;
+        },
+        pkOptions() {
+            return this.pengambil_keputusan_options.map(u => ({ value: u.id, label: u.name }));
         },
         // Pilihan asesor + jumlah peserta sesi ini (di form, termasuk yang belum disimpan) yang ditugaskan kepadanya.
         asesorOptions() {
@@ -207,6 +243,9 @@ export default {
     watch: {
         students() {
             this.form = this.buildForm();
+        },
+        'exam_session.pengambil_keputusan_id'(id) {
+            this.pkId = id ?? null;
         },
     },
 
@@ -249,11 +288,41 @@ export default {
             );
         },
 
+        savePk() {
+            const submit = () => {
+                this.savingPk = true;
+                router.post(
+                    `/admin/exam_sessions/${this.exam_session.id}/pengambil-keputusan`,
+                    { pengambil_keputusan_id: this.pkId },
+                    {
+                        preserveScroll: true,
+                        onFinish: () => { this.savingPk = false; },
+                    }
+                );
+            };
+
+            // PK lama sudah mencentang sebagian peserta: centang itu tetap tercatat atas namanya.
+            if (!this.exam_session.pengambil_keputusan_id || !this.pk_verified_count) {
+                submit();
+                return;
+            }
+
+            Swal.fire({
+                title: 'Ganti Pengambil Keputusan?',
+                html: `${this.pk_verified_count} peserta sudah dicentang Verifikasi oleh Pengambil Keputusan sebelumnya. `
+                    + 'Centang itu tetap tercatat atas nama PK lama; PK baru bisa melepas & mencentang ulang selama peserta belum diverifikasi Manager Sertifikasi.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, ganti',
+                cancelButtonText: 'Batal',
+            }).then((result) => { if (result.isConfirmed) submit(); });
+        },
+
         destroy(student) {
             Swal.fire({
                 title: 'Keluarkan dari sesi?',
                 html: `<b>${this.escape(student.name)}</b> akan dihapus dari semua ujian di sesi ini.`
-                    + (this.dirty ? '<br><br>Perubahan penugasan asesor yang belum disimpan akan hilang.' : ''),
+                    + (this.asesorDirty ? '<br><br>Perubahan penugasan asesor yang belum disimpan akan hilang.' : ''),
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -294,6 +363,9 @@ export default {
 </script>
 
 <style scoped>
+.pk-select {
+    max-width: 360px;
+}
 /* position: sticky tidak menempel di dalam main.content (Volt memberi overflow: hidden), jadi bar ini fixed */
 .unsaved-bar {
     position: fixed;

@@ -15,30 +15,29 @@
     </div>
     <p class="text-muted mb-3">Dokumen persyaratan dan FR.APL.03 sudah diverifikasi admin saat memproses pendaftaran. Di sini Anda meninjau ulang.</p>
 
-    <p class="fw-bolder mb-1">2. Centang Verifikasi</p>
+    <p class="fw-bolder mb-1">2. Centang Verifikasi Pengambil Keputusan</p>
     <p class="text-muted mb-3">
-        Centang kolom <strong>Verifikasi</strong> untuk peserta yang sudah beres. Nama Anda tercatat di bawah centang. Centang
-        bisa dilepas lagi selama peserta belum Final. Peserta yang belum siap (mis. berhalangan hadir) biarkan tidak dicentang;
-        mereka tetap Draft dan bisa difinalisasi belakangan, mis. saat ikut batch susulan.
+        Centang kolom <strong>Verifikasi Pengambil Keputusan</strong> untuk peserta yang sudah beres. Nama Anda tercatat di bawah
+        centang. Peserta yang belum siap (mis. berhalangan hadir) biarkan tidak dicentang; mereka tetap Draft dan bisa
+        difinalisasi belakangan, mis. saat ikut batch susulan.
     </p>
 
-    <p class="fw-bolder mb-1">3. Preview, lalu Finalisasi</p>
+    <p class="fw-bolder mb-1">3. Diteruskan ke Manager Sertifikasi</p>
     <ul class="text-muted mb-2 ps-3">
+        <li>Peserta yang Anda centang muncul siap diverifikasi di portal <strong>Manager Sertifikasi</strong>. Kolom
+            <strong>Verifikasi Manager Sertifikasi</strong> di halaman ini hanya tampilan.</li>
+        <li>Centang Anda bisa dilepas lagi selama peserta belum Final <em>dan</em> belum dicentang Manager Sertifikasi. Kalau
+            sudah, minta Manager Sertifikasi melepas centangnya dulu.</li>
+        <li><strong>Finalisasi</strong> (nomor SK, SP, Sertifikat, dan Keputusan Sertifikasi) dilakukan Manager Sertifikasi,
+            bukan di sini. Keputusan Sertifikasi tetap terbit atas nama dan tanda tangan Anda.</li>
         <li><span class="badge bg-gray-200 text-gray-800 border">Preview Keputusan</span> membuka draf berita acara (berisi peserta
-            yang sudah dicentang) di tab baru. Tombol ini hanya ada sebelum sesi pertama kali difinalisasi.</li>
-        <li><span class="badge bg-warning text-gray-800">Finalisasi Semua</span> aktif bila minimal satu peserta tercentang dan
-            belum Final. Konfirmasi dengan <span class="badge bg-gray-800 text-white">Ya, Finalisasi</span>.</li>
+            yang sudah Anda centang) di tab baru. Tombol ini hanya ada sebelum sesi pertama kali difinalisasi.</li>
     </ul>
-    <div class="alert alert-danger py-2 mb-3">
-        <strong>Tidak bisa dibatalkan</strong> untuk peserta yang difinalisasi: nilai dan keputusan terkunci, nomor SK dan SP
-        terbit (peserta remidi memakai nomor lamanya), nomor Sertifikat terbit untuk yang LULUS, dan nomor Keputusan Sertifikasi
-        sesi terbit pada finalisasi pertama. Peserta yang tidak dicentang tidak terpengaruh.
-    </div>
 
     <p class="fw-bolder mb-1">4. Setelah finalisasi</p>
     <ul class="text-muted mb-0 ps-3">
         <li>Status berubah dari <span class="badge bg-secondary">Draft</span> menjadi <span class="badge bg-gray-800 text-white">Final</span>
-            dan centangnya terkunci. Satu sesi boleh berisi campuran Final dan Draft.</li>
+            dan centangnya terkunci: nilai, keputusan, dan nomor tidak bisa diubah lagi. Satu sesi boleh berisi campuran Final dan Draft.</li>
         <li>Tombol <span class="badge bg-gray-200 text-gray-800 border">Keputusan Sertifikasi</span> mengunduh berita acara resmi.</li>
         <li>Pengiriman SK/SP/Sertifikat ke peserta ditangani admin di <strong>Rekap Hasil</strong>. Peserta LULUS perlu
             menandatangani FR.AK.14 di portalnya sebelum bisa mengunduh SK &amp; Sertifikat.</li>

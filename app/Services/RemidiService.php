@@ -54,8 +54,8 @@ class RemidiService
 
             // Reset result (wawancara dipertahankan). Nomor SK & SP sengaja TIDAK
             // dikosongkan: dipakai lagi saat finalisasi ulang supaya tidak hangus.
-            // Verifikasi Pengambil Keputusan & status kirim SP direset — hasil
-            // remidi harus diverifikasi ulang dan SP-nya dikirim ulang.
+            // Verifikasi Pengambil Keputusan & Manager Sertifikasi serta status kirim SP
+            // direset — hasil remidi harus diverifikasi ulang dan SP-nya dikirim ulang.
             $result->update([
                 'nilai_pg'    => null,
                 'nilai_esai'  => null,
@@ -65,6 +65,8 @@ class RemidiService
                 'finalized_at'=> null,
                 'manager_verified_at' => null,
                 'manager_verified_by' => null,
+                'cert_manager_verified_at' => null,
+                'cert_manager_verified_by' => null,
                 'sertifikat_number' => null,
                 'distributed_at'    => null,
                 'sp_distributed_at' => null,

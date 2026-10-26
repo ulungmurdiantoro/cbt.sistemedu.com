@@ -199,16 +199,19 @@ class LaporanAsesmenController extends Controller
     }
 
     /**
-     * Download FR.AK.05, diakses oleh asesor yang bersangkutan, admin, atau manager sertifikasi.
+     * Download FR.AK.05, diakses oleh asesor yang bersangkutan, admin, Manager Sertifikasi,
+     * atau Pengambil Keputusan yang ditunjuk di sesi itu.
      */
     public function download(int $examSessionId, int $asesorUserId, DocumentGeneratorService $generator)
     {
+        $examSession = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($examSessionId);
+
         $user    = auth()->user();
         $isSelf  = $user->hasRole(\App\Enums\UserRole::Asesor) && $user->id === $asesorUserId;
-        $isStaff = $user->hasRole(\App\Enums\UserRole::Admin) || $user->hasRole(\App\Enums\UserRole::ManagerSertifikasi);
+        $isStaff = $user->hasRole(\App\Enums\UserRole::Admin)
+            || $user->hasRole(\App\Enums\UserRole::CertificationManager)
+            || ($user->hasRole(\App\Enums\UserRole::ManagerSertifikasi) && (int) $examSession->pengambil_keputusan_id === $user->id);
         abort_unless($isSelf || $isStaff, 403);
-
-        $examSession = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($examSessionId);
 
         $report = AsesmenReport::where('exam_session_id', $examSessionId)
             ->where('user_id', $asesorUserId)

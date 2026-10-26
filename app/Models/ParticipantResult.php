@@ -22,6 +22,8 @@ class ParticipantResult extends Model
         'keputusan',
         'manager_verified_at',
         'manager_verified_by',
+        'cert_manager_verified_at',
+        'cert_manager_verified_by',
         'is_finalized',
         'finalized_at',
         'finalized_by',
@@ -47,6 +49,7 @@ class ParticipantResult extends Model
             'is_finalized'         => 'boolean',
             'finalized_at'         => 'datetime',
             'manager_verified_at'  => 'datetime',
+            'cert_manager_verified_at' => 'datetime',
             'distributed_at' => 'datetime',
             'sp_distributed_at' => 'datetime',
             'with_kan'       => 'boolean',
@@ -182,8 +185,15 @@ class ParticipantResult extends Model
         return $this->belongsTo(User::class, 'finalized_by');
     }
 
+    /** Pengambil Keputusan yang mencentang Verifikasi (tahap 1). */
     public function manager()
     {
         return $this->belongsTo(User::class, 'manager_verified_by');
+    }
+
+    /** Manager Sertifikasi yang mencentang Verifikasi (tahap 2, syarat finalisasi). */
+    public function certManager()
+    {
+        return $this->belongsTo(User::class, 'cert_manager_verified_by');
     }
 }

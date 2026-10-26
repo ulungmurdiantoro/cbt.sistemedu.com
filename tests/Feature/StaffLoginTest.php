@@ -37,9 +37,11 @@ class StaffLoginTest extends TestCase
     {
         $this->actingAs($this->staff(UserRole::Admin))->get('/login')->assertRedirect('/admin/dashboard');
         $this->actingAs($this->staff(UserRole::ManagerSertifikasi))->get('/login')->assertRedirect('/manager/dashboard');
+        $this->actingAs($this->staff(UserRole::CertificationManager))->get('/login')->assertRedirect('/manager-sertifikasi/dashboard');
         $this->actingAs($this->staff(UserRole::Asesor))->get('/login')->assertRedirect('/asesor/dashboard');
-        // Prioritas role sama dengan setelah login: admin > manager > asesor
+        // Prioritas role sama dengan setelah login: admin > Manager Sertifikasi > Pengambil Keputusan > asesor
         $this->actingAs($this->staff(UserRole::Asesor, UserRole::Admin))->get('/login')->assertRedirect('/admin/dashboard');
+        $this->actingAs($this->staff(UserRole::ManagerSertifikasi, UserRole::CertificationManager))->get('/login')->assertRedirect('/manager-sertifikasi/dashboard');
     }
 
     public function test_logged_in_staff_opening_home_goes_to_their_dashboard(): void

@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class ExamSessionController extends Controller
@@ -104,7 +105,38 @@ class ExamSessionController extends Controller
             'asesors'        => User::whereHas('roleAssignments', fn ($q) => $q->where('role', UserRole::Asesor->value))
                 ->orderBy('name')
                 ->get(['id', 'name']),
+            'pengambil_keputusan_options' => User::whereHas('roleAssignments', fn ($q) => $q->where('role', UserRole::ManagerSertifikasi->value))
+                ->orderBy('name')
+                ->get(['id', 'name']),
+            // PK yang sudah mencentang Verifikasi di sesi ini — peringatan saat penunjukan diganti.
+            'pk_verified_count' => ParticipantResult::where('exam_session_id', $exam_session->id)
+                ->enrolled()
+                ->whereNotNull('manager_verified_at')
+                ->count(),
         ]);
+    }
+
+    /**
+     * Tunjuk (atau kosongkan) Pengambil Keputusan sesi. Hanya PK yang ditunjuk yang melihat sesi ini
+     * di portalnya dan bisa mencentang Verifikasi tahap 1. Centang PK lama tetap tercatat atas namanya;
+     * Keputusan Sertifikasi yang sudah terbit tidak berubah (penanggung jawabnya dibekukan saat finalisasi).
+     */
+    public function savePengambilKeputusan(Request $request, ExamSession $exam_session)
+    {
+        $request->validate([
+            'pengambil_keputusan_id' => [
+                'nullable',
+                Rule::exists('user_roles', 'user_id')->where('role', UserRole::ManagerSertifikasi->value),
+            ],
+        ], [
+            'pengambil_keputusan_id.exists' => 'User yang dipilih tidak memiliki role Pengambil Keputusan.',
+        ]);
+
+        $exam_session->update(['pengambil_keputusan_id' => $request->pengambil_keputusan_id ?: null]);
+
+        return back()->with('success', $exam_session->pengambil_keputusan_id
+            ? 'Pengambil Keputusan sesi berhasil ditunjuk.'
+            : 'Penunjukan Pengambil Keputusan sesi dikosongkan.');
     }
 
     public function edit($id)

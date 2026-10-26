@@ -26,6 +26,7 @@ class ExamSession extends Model
         'keputusan_number',
         'keputusan_issued_at',
         'keputusan_issued_by',
+        'pengambil_keputusan_id',
     ];
 
     protected function casts(): array
@@ -102,5 +103,11 @@ class ExamSession extends Model
     public function keputusanIssuer()
     {
         return $this->belongsTo(User::class, 'keputusan_issued_by');
+    }
+
+    /** Pengambil Keputusan yang ditunjuk admin untuk sesi ini (satu per sesi). */
+    public function pengambilKeputusan()
+    {
+        return $this->belongsTo(User::class, 'pengambil_keputusan_id');
     }
 }

@@ -12,7 +12,7 @@
         </div>
     </nav>
 
-    <!-- sidebar manager sertifikasi -->
+    <!-- sidebar Pengambil Keputusan (role manager_sertifikasi) -->
     <nav id="sidebarManager" class="sidebar d-lg-block bg-gray-800 text-white collapse" data-simplebar>
         <div class="sidebar-inner px-4 pt-3">
             <ul class="nav flex-column pt-3 pt-md-0">
@@ -136,6 +136,7 @@ export default {
             const roles = page.props.auth?.user?.roles ?? [];
             const portals = [];
             if (roles.includes('admin')) portals.push({ href: '/admin/dashboard', label: 'Portal Admin' });
+            if (roles.includes('certification_manager')) portals.push({ href: '/manager-sertifikasi/dashboard', label: 'Portal Manager Sertifikasi' });
             if (roles.includes('asesor')) portals.push({ href: '/asesor/dashboard', label: 'Portal Asesor' });
             return portals;
         });

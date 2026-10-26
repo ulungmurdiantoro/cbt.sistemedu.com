@@ -9,7 +9,9 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
-        $sessions = ExamSession::with('examPg.classroom', 'examEsai.classroom')
+        // Hanya sesi yang ditunjuk admin untuk PK ini (exam_sessions.pengambil_keputusan_id).
+        $sessions = ExamSession::where('pengambil_keputusan_id', auth()->id())
+            ->with('examPg.classroom', 'examEsai.classroom')
             // Jumlah peserta = peserta terdaftar di sesi (akun aktif), sama dengan daftar
             // di halaman Tinjau Sertifikasi — bukan jumlah baris participant_results.
             ->withActiveStudentsCount()

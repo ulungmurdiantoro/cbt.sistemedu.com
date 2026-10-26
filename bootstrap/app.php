@@ -29,6 +29,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'asesor'      => \App\Http\Middleware\EnsureAsesor::class,
             'admin'       => \App\Http\Middleware\EnsureAdmin::class,
             'manager'     => \App\Http\Middleware\EnsureManagerSertifikasi::class,
+            'pk_session'  => \App\Http\Middleware\EnsureAppointedPengambilKeputusan::class,
+            'cert_manager' => \App\Http\Middleware\EnsureCertificationManager::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

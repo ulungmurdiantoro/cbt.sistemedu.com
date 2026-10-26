@@ -3,112 +3,29 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
-use App\Models\AsesorAssignment;
-use App\Models\AssessmentApplication;
-use App\Models\Classroom;
 use App\Models\ExamSession;
 use App\Models\ParticipantResult;
-use App\Models\Student;
-use App\Services\NumberingService;
-use App\Services\ResultCalculatorService;
+use App\Services\DocumentGeneratorService;
+use App\Services\SertifikasiReviewService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-// Pengambil Keputusan meninjau semua bahan penentuan kelulusan sebelum
-// finalisasi: kelengkapan dokumen (FR.APL.01), kelayakan awal (FR.APL.03),
-// laporan asesmen (nama asesor + rekomendasi Kompeten/Belum Kompeten), dan
-// nilai PG/Esai/Wawancara/Akhir. Wewenang finalisasi dipindah ke sini dari
-// Admin\ResultController.
+// Pengambil Keputusan (hanya sesi yang ditunjuk admin — middleware pk_session) meninjau
+// semua bahan penentuan kelulusan lalu mencentang Verifikasi (tahap 1). Verifikasi tahap 2 &
+// Finalisasi dipindah ke Manager Sertifikasi (CertificationManager\SertifikasiController).
 class SertifikasiController extends Controller
 {
-    public function __construct(
-        private ResultCalculatorService $calculator,
-        private NumberingService $numbering,
-    ) {}
+    public function __construct(private SertifikasiReviewService $review) {}
 
     public function show(ExamSession $examSession)
     {
-        $examSession->load(['examPg.classroom', 'examEsai.classroom']);
-
-        $results = \Illuminate\Database\Eloquent\Collection::make($this->calculator->recalcForSession($examSession));
-        $results->load('manager:id,name');
-        $studentIds = $results->pluck('student_id');
-
-        $students = Student::whereIn('id', $studentIds)->with('participant')->get()->keyBy('id');
-
-        $applications = AssessmentApplication::whereIn('student_id', $studentIds)
-            ->where('exam_session_id', $examSession->id)
-            ->with(['documents', 'classroom.documentRequirements', 'initialAssessment'])
-            ->get()
-            ->keyBy('student_id');
-
-        $assignments = AsesorAssignment::where('exam_session_id', $examSession->id)
-            ->whereIn('student_id', $studentIds)
-            ->with('asesor:id,name')
-            ->get()
-            ->keyBy('student_id');
-
-        $rows = collect($results)->map(function ($r) use ($students, $applications, $assignments) {
-            $student     = $students->get($r->student_id);
-            $application = $applications->get($r->student_id);
-            $assignment  = $assignments->get($r->student_id);
-
-            // FR.APL.01 dihitung dari dokumen WAJIB saja — persyaratan opsional tidak
-            // boleh menghalangi status "Lengkap".
-            $requiredReqIds = $application?->classroom?->documentRequirements
-                ?->where('is_required', true)->pluck('id') ?? collect();
-            $totalDoc    = $requiredReqIds->count();
-            $verifiedDoc = $application?->documents
-                ?->whereIn('classroom_document_requirement_id', $requiredReqIds)
-                ->where('status', 'verified')->count() ?? 0;
-
-            $assessment = $application?->initialAssessment;
-
-            return [
-                'result_id'          => $r->id,
-                'student_id'         => $r->student_id,
-                'application_id'     => $application?->id,
-                'no_participant'     => $student?->no_participant,
-                'name'               => $student?->name,
-
-                // FR.APL.01 — kelengkapan dokumen
-                'apl01_total'        => $totalDoc,
-                'apl01_verified'     => $verifiedDoc,
-                'apl01_complete'     => $totalDoc > 0 && $verifiedDoc === $totalDoc,
-
-                // FR.APL.03 — kelayakan awal
-                'apl03_done'         => (bool) $assessment,
-                'apl03_eligible'     => $assessment?->is_eligible,
-                'apl03_score'        => $assessment?->total_score,
-
-                // Laporan Asesmen — asesor & rekomendasi
-                'asesor_id'          => $assignment?->asesor?->id,
-                'asesor_name'        => $assignment?->asesor?->name,
-                'asesor_verified_at' => $application?->asesor_verified_at,
-                'asesor_rekomendasi' => $application?->asesor_rekomendasi,
-
-                // Nilai
-                'nilai_pg'        => $r->nilai_pg,
-                'nilai_esai'      => $r->nilai_esai,
-                'nilai_wawancara' => $r->nilai_wawancara,
-                'nilai_akhir'     => $r->nilai_akhir,
-                'keputusan'       => $r->keputusan,
-                'is_finalized'    => $r->is_finalized,
-
-                // Verifikasi Pengambil Keputusan — syarat wajib sebelum finalisasi
-                'manager_verified_at' => $r->manager_verified_at,
-                'manager_verified_by' => $r->manager?->name,
-            ];
-        })->sortBy('no_participant')->values();
-
         return inertia('Manager/Sertifikasi/Show', [
-            'exam_session'  => $examSession,
-            'rows'          => $rows,
-            'has_signature' => (bool) auth()->user()->signature_path,
+            'exam_session'        => $examSession,
+            'rows'                => $this->review->rows($examSession),
+            'pengambil_keputusan' => $this->review->pengambilKeputusan($examSession),
         ]);
     }
 
-    /** Manager mencentang/membatalkan centang "sudah diverifikasi" untuk satu peserta. */
+    /** PK mencentang/membatalkan centang "sudah diverifikasi" untuk satu peserta. */
     public function toggleVerify(ExamSession $examSession, int $studentId)
     {
         $result = ParticipantResult::where('exam_session_id', $examSession->id)
@@ -118,6 +35,12 @@ class SertifikasiController extends Controller
         abort_if($result->is_finalized, 422, 'Peserta ini sudah difinalisasi, verifikasi tidak bisa diubah.');
 
         if ($result->manager_verified_at) {
+            // Verifikasi Manager Sertifikasi berdiri di atas verifikasi PK — lepas dulu yang itu.
+            abort_if(
+                $result->cert_manager_verified_at,
+                422,
+                'Peserta ini sudah diverifikasi Manager Sertifikasi. Minta Manager Sertifikasi melepas centangnya dulu.'
+            );
             $result->update(['manager_verified_at' => null, 'manager_verified_by' => null]);
         } else {
             $result->update(['manager_verified_at' => now(), 'manager_verified_by' => Auth::id()]);
@@ -126,106 +49,31 @@ class SertifikasiController extends Controller
         return back()->with('success', 'Status verifikasi berhasil diperbarui.');
     }
 
-    public function finalize(ExamSession $examSession)
-    {
-        $examSession->load(['examPg.classroom', 'examEsai.classroom']);
-
-        $classroomId = $examSession->referenceExam?->classroom_id;
-        $classroom   = $classroomId ? Classroom::find($classroomId) : null;
-
-        // Hanya peserta yang sudah dicentang Verifikasi yang difinalisasi. Peserta
-        // yang belum (mis. berhalangan hadir & akan ikut batch susulan) dilewati —
-        // tetap Draft, bisa difinalisasi belakangan setelah diverifikasi.
-        $results = ParticipantResult::where('exam_session_id', $examSession->id)
-            ->where('is_finalized', false)
-            ->whereNotNull('manager_verified_at')
-            // Abaikan baris yatim (akun lama hasil re-issue/merge duplikat, peserta
-            // yang sudah dipindah/dikeluarkan dari sesi) — kalau tidak, baris
-            // manager_verified_at lama bisa ikut menghabiskan nomor SK/SP resmi
-            // untuk orang yang tidak ada di daftar Tinjau Sertifikasi.
-            ->enrolled()
-            ->with('student:id,no_participant')
-            ->get()
-            // Nomor SK/SP dibagikan urut No. Peserta, bukan urutan baris di DB.
-            ->sortBy(fn ($r) => $r->student->no_participant)
-            ->values();
-
-        abort_if(
-            $results->isEmpty(),
-            422,
-            'Tidak ada peserta yang sudah diverifikasi untuk difinalisasi. Centang Verifikasi minimal satu peserta terlebih dahulu.'
-        );
-
-        DB::transaction(function () use ($results, $classroom, $classroomId, $examSession) {
-            foreach ($results as $result) {
-                // Peserta remidi masih memegang nomor dari finalisasi pertama —
-                // pakai ulang supaya nomor lama tidak hangus dan urutan tidak loncat.
-                $skNum = $result->sk_number ?: $this->numbering->nextSkNumber();
-                $spNum = $result->sp_number ?: $this->numbering->nextSpNumber();
-
-                $sertifikatNum = null;
-                if ($result->keputusan === 'LULUS' && $classroom) {
-                    $sertifikatNum = $this->numbering->nextSertifikatNumber(
-                        $classroom->kode_skema ?? '',
-                        $examSession->kode_batch ?? '',
-                        $classroomId
-                    );
-                }
-
-                $result->update([
-                    'is_finalized'      => true,
-                    'finalized_at'      => now(),
-                    'finalized_by'      => Auth::id(),
-                    'sk_number'         => $skNum,
-                    'sp_number'         => $spNum,
-                    'sertifikat_number' => $sertifikatNum,
-                    // valid_until SENGAJA belum dihitung di sini — Certification date &
-                    // Valid until pada Sertifikat mengikuti tanggal SK/Sertifikat benar-benar
-                    // DIKIRIM (distributed_at), bukan tanggal finalisasi PENGAMBIL KEPUTUSAN,
-                    // karena bisa ada jeda waktu antara finalisasi & pengiriman resmi (tahap
-                    // "Kirim SK & Sertifikat"). Dihitung di SendResultMailJob saat itu terjadi.
-                ]);
-            }
-
-            // Satu nomor Keputusan Sertifikasi per sesi, diterbitkan sekali saja.
-            if (!$examSession->keputusan_number) {
-                $examSession->update([
-                    'keputusan_number'    => $this->numbering->nextKeputusanNumber(),
-                    'keputusan_issued_at' => now(),
-                    'keputusan_issued_by' => Auth::id(),
-                ]);
-            }
-        });
-
-        return redirect()->back()->with('success', $results->count() . ' peserta berhasil difinalisasi — sertifikat siap diterbitkan untuk yang LULUS. Peserta yang belum diverifikasi tetap berstatus Draft dan bisa difinalisasi belakangan.');
-    }
-
     /** Unduh berita acara Keputusan Sertifikasi satu sesi (setelah difinalisasi). */
-    public function downloadKeputusan(ExamSession $examSession, \App\Services\DocumentGeneratorService $generator)
+    public function downloadKeputusan(ExamSession $examSession, DocumentGeneratorService $generator)
     {
         abort_if(!$examSession->keputusan_number, 404, 'Sesi ini belum difinalisasi.');
 
-        $pdf = $generator->generateKeputusanSertifikasi($examSession);
-
-        return response($pdf, 200, [
-            'Content-Type'        => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="Keputusan Sertifikasi - ' . str_replace('"', '', $examSession->title) . '.pdf"',
-        ]);
+        return $this->pdf($generator->generateKeputusanSertifikasi($examSession), 'Keputusan Sertifikasi - ' . $examSession->title);
     }
 
     /**
-     * Preview berita acara Keputusan Sertifikasi SEBELUM finalisasi — pakai
-     * peserta yang sudah diverifikasi (belum tentu jadi peserta yang benar-benar
-     * difinalisasi kalau ada yang dicentang/dilepas lagi setelah preview ini).
-     * Nomor & tanggal masih placeholder karena belum benar-benar diterbitkan.
+     * Preview berita acara sebelum finalisasi — peserta yang sudah Final + yang sudah
+     * dicentang Verifikasi PK. Nomor & tanggal masih placeholder.
      */
-    public function previewKeputusan(ExamSession $examSession, \App\Services\DocumentGeneratorService $generator)
+    public function previewKeputusan(ExamSession $examSession, DocumentGeneratorService $generator)
     {
-        $pdf = $generator->generateKeputusanSertifikasi($examSession, preview: true);
+        return $this->pdf(
+            $generator->generateKeputusanSertifikasi($examSession, preview: true),
+            'Preview Keputusan Sertifikasi - ' . $examSession->title
+        );
+    }
 
+    private function pdf(string $pdf, string $name)
+    {
         return response($pdf, 200, [
             'Content-Type'        => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="Preview Keputusan Sertifikasi - ' . str_replace('"', '', $examSession->title) . '.pdf"',
+            'Content-Disposition' => 'inline; filename="' . str_replace('"', '', $name) . '.pdf"',
         ]);
     }
 }

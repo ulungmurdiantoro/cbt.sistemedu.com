@@ -49,6 +49,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/exam_sessions/{exam_session}/enrolle/create',           [\App\Http\Controllers\Admin\ExamSessionController::class, 'createEnrolle'])->name('admin.exam_sessions.createEnrolle');
         Route::post('/exam_sessions/{exam_session}/enrolle/store',           [\App\Http\Controllers\Admin\ExamSessionController::class, 'storeEnrolle'])->name('admin.exam_sessions.storeEnrolle');
         Route::delete('/exam_sessions/{exam_session}/enrolle/{student}/destroy', [\App\Http\Controllers\Admin\ExamSessionController::class, 'destroyEnrolle'])->name('admin.exam_sessions.destroyEnrolle');
+        // Penunjukan Pengambil Keputusan — satu per sesi (bukan per peserta).
+        Route::post('/exam_sessions/{exam_session}/pengambil-keputusan', [\App\Http\Controllers\Admin\ExamSessionController::class, 'savePengambilKeputusan'])->name('admin.exam_sessions.pengambilKeputusan');
 
         // Classroom — persyaratan & unit kompetensi & skema nilai
         Route::get('/classrooms/{classroom}/requirements',           [\App\Http\Controllers\Admin\ClassroomRequirementController::class, 'index'])->name('admin.classrooms.requirements');
@@ -192,7 +194,7 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
 
 });
 
-// FR.AK.05 diunduh oleh asesor pemilik laporan, admin, atau manager sertifikasi — dicek di controller.
+// FR.AK.05 diunduh oleh asesor pemilik laporan, admin, Manager Sertifikasi, atau PK sesi — dicek di controller.
 Route::get('/dokumen/laporan-asesmen/{exam_session_id}/{asesor_user_id}/download', [\App\Http\Controllers\Asesor\LaporanAsesmenController::class, 'download'])
     ->middleware(['auth'])
     ->name('laporan_asesmen.download');
@@ -208,21 +210,49 @@ Route::prefix('manager')->middleware(['auth', 'manager'])->group(function () {
     Route::post('/tanda-tangan',       [\App\Http\Controllers\Manager\SignatureController::class, 'save'])->name('manager.signature.save');
     Route::get('/tanda-tangan/gambar', [\App\Http\Controllers\Manager\SignatureController::class, 'serve'])->name('manager.signature.serve');
 
-    Route::get('/sertifikasi/{examSession}',          [\App\Http\Controllers\Manager\SertifikasiController::class, 'show'])->name('manager.sertifikasi.show');
-    Route::post('/sertifikasi/{examSession}/finalize', [\App\Http\Controllers\Manager\SertifikasiController::class, 'finalize'])->name('manager.sertifikasi.finalize');
-    Route::post('/sertifikasi/{examSession}/verifikasi/{studentId}', [\App\Http\Controllers\Manager\SertifikasiController::class, 'toggleVerify'])->name('manager.sertifikasi.toggle_verify');
-    Route::get('/sertifikasi/{examSession}/keputusan', [\App\Http\Controllers\Manager\SertifikasiController::class, 'downloadKeputusan'])->name('manager.sertifikasi.keputusan');
-    Route::get('/sertifikasi/{examSession}/keputusan/preview', [\App\Http\Controllers\Manager\SertifikasiController::class, 'previewKeputusan'])->name('manager.sertifikasi.keputusan.preview');
+    // Per sesi: hanya PK yang ditunjuk admin di sesi itu (pk_session). Finalisasi sudah
+    // pindah ke portal Manager Sertifikasi.
+    Route::middleware('pk_session')->group(function () {
+        Route::get('/sertifikasi/{examSession}',          [\App\Http\Controllers\Manager\SertifikasiController::class, 'show'])->name('manager.sertifikasi.show');
+        Route::post('/sertifikasi/{examSession}/verifikasi/{studentId}', [\App\Http\Controllers\Manager\SertifikasiController::class, 'toggleVerify'])->name('manager.sertifikasi.toggle_verify');
+        Route::get('/sertifikasi/{examSession}/keputusan', [\App\Http\Controllers\Manager\SertifikasiController::class, 'downloadKeputusan'])->name('manager.sertifikasi.keputusan');
+        Route::get('/sertifikasi/{examSession}/keputusan/preview', [\App\Http\Controllers\Manager\SertifikasiController::class, 'previewKeputusan'])->name('manager.sertifikasi.keputusan.preview');
 
-    Route::get('/dokumen/{examSessionId}/{studentId}',              [\App\Http\Controllers\Manager\DokumenController::class, 'show'])->name('manager.dokumen.show');
-    Route::get('/dokumen/{examSessionId}/{studentId}/data',         [\App\Http\Controllers\Manager\DokumenController::class, 'data'])->name('manager.dokumen.data');
-    Route::get('/dokumen/{examSessionId}/{studentId}/{docId}/download', [\App\Http\Controllers\Manager\DokumenController::class, 'download'])->name('manager.dokumen.download');
+        Route::get('/dokumen/{examSessionId}/{studentId}',              [\App\Http\Controllers\Manager\DokumenController::class, 'show'])->name('manager.dokumen.show');
+        Route::get('/dokumen/{examSessionId}/{studentId}/data',         [\App\Http\Controllers\Manager\DokumenController::class, 'data'])->name('manager.dokumen.data');
+        Route::get('/dokumen/{examSessionId}/{studentId}/{docId}/download', [\App\Http\Controllers\Manager\DokumenController::class, 'download'])->name('manager.dokumen.download');
 
-    // Generate FR.APL.01 / FR.APL.03 — controller sama persis dengan Admin, supaya
-    // dokumennya identik; hanya middleware aksesnya yang beda (manager, bukan admin).
-    Route::get('/applications/{application}/fr-apl-01', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl01'])->name('manager.applications.frApl01');
-    Route::get('/applications/{application}/fr-apl-03', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl03'])->name('manager.applications.frApl03');
-    Route::get('/applications/{application}/fr-ak-01', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrAk01'])->name('manager.applications.frAk01');
+        // Generate FR.APL.01 / FR.APL.03 — controller sama persis dengan Admin, supaya
+        // dokumennya identik; hanya middleware aksesnya yang beda (manager, bukan admin).
+        Route::get('/applications/{application}/fr-apl-01', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl01'])->name('manager.applications.frApl01');
+        Route::get('/applications/{application}/fr-apl-03', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl03'])->name('manager.applications.frApl03');
+        Route::get('/applications/{application}/fr-ak-01', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrAk01'])->name('manager.applications.frAk01');
+    });
+
+});
+
+// ─── Portal Manager Sertifikasi ────────────────────────────────────────────────
+// Halaman Tinjau Sertifikasi yang sama dengan Pengambil Keputusan (semua sesi), Verifikasi
+// tahap 2 + Finalisasi. Alamat di bawah prefix ini sengaja sejajar dengan /manager/... supaya
+// halaman bersama (Components/Sertifikasi/TinjauSertifikasi.vue) cukup mengganti prefix.
+
+Route::prefix('manager-sertifikasi')->middleware(['auth', 'cert_manager'])->group(function () {
+
+    Route::get('/dashboard', \App\Http\Controllers\CertificationManager\DashboardController::class)->name('cert_manager.dashboard');
+    Route::get('/panduan', fn () => inertia('CertificationManager/Guide/Index'))->name('cert_manager.panduan');
+
+    Route::get('/sertifikasi/{examSession}',           [\App\Http\Controllers\CertificationManager\SertifikasiController::class, 'show'])->name('cert_manager.sertifikasi.show');
+    Route::post('/sertifikasi/{examSession}/finalize',  [\App\Http\Controllers\CertificationManager\SertifikasiController::class, 'finalize'])->name('cert_manager.sertifikasi.finalize');
+    Route::post('/sertifikasi/{examSession}/verifikasi/{studentId}', [\App\Http\Controllers\CertificationManager\SertifikasiController::class, 'toggleVerify'])->name('cert_manager.sertifikasi.toggle_verify');
+    Route::get('/sertifikasi/{examSession}/keputusan',  [\App\Http\Controllers\CertificationManager\SertifikasiController::class, 'downloadKeputusan'])->name('cert_manager.sertifikasi.keputusan');
+    Route::get('/sertifikasi/{examSession}/keputusan/preview', [\App\Http\Controllers\CertificationManager\SertifikasiController::class, 'previewKeputusan'])->name('cert_manager.sertifikasi.keputusan.preview');
+
+    // Lihat dokumen peserta (baca saja) & generate FR.APL.01 / FR.APL.03 / FR.AK.01 — controller sama dengan portal PK.
+    Route::get('/dokumen/{examSessionId}/{studentId}/data',         [\App\Http\Controllers\Manager\DokumenController::class, 'data'])->name('cert_manager.dokumen.data');
+    Route::get('/dokumen/{examSessionId}/{studentId}/{docId}/download', [\App\Http\Controllers\Manager\DokumenController::class, 'download'])->name('cert_manager.dokumen.download');
+    Route::get('/applications/{application}/fr-apl-01', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl01'])->name('cert_manager.applications.frApl01');
+    Route::get('/applications/{application}/fr-apl-03', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrApl03'])->name('cert_manager.applications.frApl03');
+    Route::get('/applications/{application}/fr-ak-01', [\App\Http\Controllers\Admin\ApplicationController::class, 'downloadFrAk01'])->name('cert_manager.applications.frAk01');
 
 });
 
@@ -287,6 +317,7 @@ Route::prefix('student')->middleware('student')->group(function () {
 Route::get('/panduan/admin',               fn () => inertia('Admin/Guide/Index'))->name('panduan.admin');
 Route::get('/panduan/asesor',              fn () => inertia('Asesor/Guide/Index'))->name('panduan.asesor');
 Route::get('/panduan/pengambil-keputusan', fn () => inertia('Manager/Guide/Index'))->name('panduan.manager');
+Route::get('/panduan/manager-sertifikasi', fn () => inertia('CertificationManager/Guide/Index'))->name('panduan.cert_manager');
 
 // ─── Portal Peserta Sertifikasi ──────────────────────────────────────────────
 

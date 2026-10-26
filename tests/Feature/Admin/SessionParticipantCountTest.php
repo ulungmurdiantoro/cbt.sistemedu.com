@@ -89,9 +89,18 @@ class SessionParticipantCountTest extends TestCase
                 ->where('sessions.data.0.reviewed_count', 0));
     }
 
+    /** Pengambil Keputusan yang ditunjuk untuk sesi uji (dashboard PK hanya memuat sesi yang ditunjuk). */
+    private function appointedPengambilKeputusan(): User
+    {
+        $pk = $this->staff(UserRole::ManagerSertifikasi);
+        $this->ctx['session']->update(['pengambil_keputusan_id' => $pk->id]);
+
+        return $pk;
+    }
+
     public function test_manager_dashboard_counts_enrolled_active_participants(): void
     {
-        $this->actingAs($this->staff(UserRole::ManagerSertifikasi))
+        $this->actingAs($this->appointedPengambilKeputusan())
             ->get(route('manager.dashboard'))
             ->assertInertia(fn (AssertableInertia $page) => $page
                 ->component('Manager/Dashboard')
@@ -115,7 +124,7 @@ class SessionParticipantCountTest extends TestCase
             'manager_verified_at' => now(),
         ]);
 
-        $this->actingAs($this->staff(UserRole::ManagerSertifikasi))
+        $this->actingAs($this->appointedPengambilKeputusan())
             ->get(route('manager.dashboard'))
             ->assertInertia(fn (AssertableInertia $page) => $page
                 ->where('active_sessions.0.students_count', 2)

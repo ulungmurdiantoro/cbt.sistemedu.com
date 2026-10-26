@@ -15,16 +15,17 @@ class LoginResponse implements LoginResponseContract
 
     /**
      * Dashboard staf sesuai role, atau null bila user tidak punya role staf.
-     * User bisa punya lebih dari satu role — prioritas: admin > manager sertifikasi > asesor.
-     * Dipakai juga saat staf yang masih login membuka "/" atau "/login".
+     * User bisa punya lebih dari satu role — prioritas: admin > Manager Sertifikasi >
+     * Pengambil Keputusan > asesor. Dipakai juga saat staf yang masih login membuka "/" atau "/login".
      */
     public static function dashboardUrl(?User $user): ?string
     {
         return match (true) {
-            (bool) $user?->hasRole(UserRole::Admin)              => route('admin.dashboard'),
-            (bool) $user?->hasRole(UserRole::ManagerSertifikasi) => route('manager.dashboard'),
-            (bool) $user?->hasRole(UserRole::Asesor)             => route('asesor.dashboard'),
-            default                                              => null,
+            (bool) $user?->hasRole(UserRole::Admin)                => route('admin.dashboard'),
+            (bool) $user?->hasRole(UserRole::CertificationManager) => route('cert_manager.dashboard'),
+            (bool) $user?->hasRole(UserRole::ManagerSertifikasi)   => route('manager.dashboard'),
+            (bool) $user?->hasRole(UserRole::Asesor)               => route('asesor.dashboard'),
+            default                                                => null,
         };
     }
 }

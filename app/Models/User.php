@@ -63,9 +63,15 @@ class User extends Authenticatable
         return $this->hasRole(UserRole::Admin);
     }
 
+    /** Pengambil Keputusan (nama teknis lama role-nya: manager_sertifikasi). */
     public function isManagerSertifikasi(): bool
     {
         return $this->hasRole(UserRole::ManagerSertifikasi);
+    }
+
+    public function isCertificationManager(): bool
+    {
+        return $this->hasRole(UserRole::CertificationManager);
     }
 
     public function assignments()
