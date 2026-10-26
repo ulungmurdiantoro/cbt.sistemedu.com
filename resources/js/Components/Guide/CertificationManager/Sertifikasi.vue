@@ -7,11 +7,11 @@
         <em>Lihat Dokumen</em> membuka daftar berkas peserta (baca saja).
     </p>
 
-    <p class="fw-bolder mb-1">2. Centang Verifikasi Manajer Mutu</p>
+    <p class="fw-bolder mb-1">2. Centang Verifikasi Manajer Mutu dan Administrasi</p>
     <ul class="text-muted mb-3 ps-3">
         <li>Kolom <strong>Verifikasi Pengambil Keputusan</strong> hanya tampilan: <i class="fa fa-check-circle text-success"></i> + nama PK bila
             sudah dicentang, <em>Belum</em> bila belum.</li>
-        <li>Centang di kolom <strong>Verifikasi Manajer Mutu</strong> baru aktif setelah PK memverifikasi peserta itu.
+        <li>Centang di kolom <strong>Verifikasi Manajer Mutu dan Administrasi</strong> baru aktif setelah PK memverifikasi peserta itu.
             Nama Anda tercatat di bawah centang, dan centang bisa dilepas lagi selama peserta belum Final.</li>
         <li>Selama Anda masih mencentang seorang peserta, PK tidak bisa melepas centangnya. Kalau PK perlu mengubah
             keputusannya, lepas centang Anda dulu.</li>

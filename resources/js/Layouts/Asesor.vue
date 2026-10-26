@@ -137,7 +137,7 @@ export default {
             const portals = [];
             if (roles.includes('admin')) portals.push({ href: '/admin/dashboard', label: 'Portal Admin' });
             if (roles.includes('manager_sertifikasi')) portals.push({ href: '/manager/dashboard', label: 'Portal Pengambil Keputusan' });
-            if (roles.includes('certification_manager')) portals.push({ href: '/manager-sertifikasi/dashboard', label: 'Portal Manajer Sertifikasi' });
+            if (roles.includes('certification_manager')) portals.push({ href: '/manager-sertifikasi/dashboard', label: 'Portal Manajer Mutu dan Administrasi' });
             return portals;
         });
         return { otherPortals };

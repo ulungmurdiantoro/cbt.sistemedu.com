@@ -1,5 +1,5 @@
 <template>
-    <Head><title>Panduan Manajer Sertifikasi</title></Head>
+    <Head><title>Panduan Manajer Mutu dan Administrasi</title></Head>
 
     <div class="container-fluid mb-5 mt-4">
         <div class="row">
@@ -8,7 +8,7 @@
                 <!-- Header -->
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body">
-                        <h5 class="mb-1"><i class="fa fa-life-ring me-2 text-primary"></i>Panduan Manajer Sertifikasi</h5>
+                        <h5 class="mb-1"><i class="fa fa-life-ring me-2 text-primary"></i>Panduan Manajer Mutu dan Administrasi</h5>
                         <p class="text-muted mb-0 small">
                             Tahap terakhir sebelum kelulusan terkunci: memeriksa ulang peserta yang sudah diverifikasi
                             Pengambil Keputusan, lalu memfinalisasi — menerbitkan nomor SK, SP, Sertifikat, dan Keputusan Sertifikasi.

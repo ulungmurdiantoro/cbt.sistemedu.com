@@ -49,7 +49,7 @@
                             <Link href="/panduan/admin" class="btn btn-sm btn-outline-secondary border">Admin</Link>
                             <Link href="/panduan/asesor" class="btn btn-sm btn-outline-secondary border">Asesor</Link>
                             <Link href="/panduan/pengambil-keputusan" class="btn btn-sm btn-outline-secondary border">Pengambil Keputusan</Link>
-                            <Link href="/panduan/manager-sertifikasi" class="btn btn-sm btn-outline-secondary border">Manajer Sertifikasi</Link>
+                            <Link href="/panduan/manager-sertifikasi" class="btn btn-sm btn-outline-secondary border">Manajer Mutu dan Administrasi</Link>
                         </div>
                     </div>
                 </div>

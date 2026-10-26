@@ -8,7 +8,7 @@ enum UserRole: string
     case Asesor               = 'asesor';
     // Nama teknis lama: 'manager_sertifikasi' = Pengambil Keputusan (portal /manager).
     case ManagerSertifikasi   = 'manager_sertifikasi';
-    // Manajer Sertifikasi yang sebenarnya (portal /manager-sertifikasi): verifikasi tahap
+    // Manajer Mutu dan Administrasi yang sebenarnya (portal /manager-sertifikasi): verifikasi tahap
     // kedua setelah Pengambil Keputusan, lalu finalisasi.
     case CertificationManager = 'certification_manager';
 
@@ -18,7 +18,7 @@ enum UserRole: string
             self::Admin                => 'Admin',
             self::Asesor               => 'Asesor',
             self::ManagerSertifikasi   => 'Pengambil Keputusan',
-            self::CertificationManager => 'Manajer Sertifikasi',
+            self::CertificationManager => 'Manajer Mutu dan Administrasi',
         };
     }
 
