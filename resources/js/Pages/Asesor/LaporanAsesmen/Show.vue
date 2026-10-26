@@ -93,7 +93,7 @@
                             </div>
                             <div class="small text-muted mt-2">
                                 Rekomendasi K/BK terpisah dari Verifikasi Akhir dokumen — bisa diisi/diubah kapan saja
-                                setelah nilai esai/wawancara selesai dinilai, sampai sesi ini difinalisasi Manager Sertifikasi.
+                                setelah nilai esai/wawancara selesai dinilai, sampai sesi ini difinalisasi Manajer Sertifikasi.
                             </div>
                         </template>
                     </div>

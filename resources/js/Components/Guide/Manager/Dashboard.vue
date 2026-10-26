@@ -15,6 +15,6 @@
     </div>
     <p class="mb-0 text-muted">
         Kolom <strong>Peserta</strong> hanya menghitung akun peserta yang aktif. Simpan tanda tangan Anda di menu
-        <strong>Tanda Tangan Saya</strong> sebelum sesi difinalisasi Manager Sertifikasi — TTD itu yang tercetak di Keputusan Sertifikasi.
+        <strong>Tanda Tangan Saya</strong> sebelum sesi difinalisasi Manajer Sertifikasi — TTD itu yang tercetak di Keputusan Sertifikasi.
     </p>
 </template>

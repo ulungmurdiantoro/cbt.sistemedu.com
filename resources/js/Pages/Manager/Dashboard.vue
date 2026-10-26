@@ -10,7 +10,7 @@
                         <h5 class="mb-1"><i class="fa fa-award me-2"></i>Dashboard Pengambil Keputusan</h5>
                         <p class="text-muted mb-0 small">
                             Tinjau kelengkapan dokumen, laporan asesmen, dan nilai peserta di sesi yang ditunjuk untuk Anda, lalu verifikasi
-                            sebelum diteruskan ke Manager Sertifikasi.
+                            sebelum diteruskan ke Manajer Sertifikasi.
                         </p>
                     </div>
                 </div>

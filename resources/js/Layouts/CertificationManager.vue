@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
         <a class="navbar-brand me-lg-5" href="/manager-sertifikasi/dashboard">
-            <span class="fw-bold text-white">MANAGER MUTU</span>
+            <span class="fw-bold text-white">MANAJER MUTU</span>
         </a>
         <div class="d-flex align-items-center">
             <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
@@ -12,7 +12,7 @@
         </div>
     </nav>
 
-    <!-- sidebar Manager Sertifikasi (role certification_manager) -->
+    <!-- sidebar Manajer Sertifikasi (role certification_manager) -->
     <nav id="sidebarCertManager" class="sidebar d-lg-block bg-gray-800 text-white collapse" data-simplebar>
         <div class="sidebar-inner px-4 pt-3">
             <ul class="nav flex-column pt-3 pt-md-0">
@@ -26,7 +26,7 @@
                                     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
                                 </svg>
                             </span>
-                            <span class="sidebar-text fw-bold">MANAGER MUTU</span>
+                            <span class="sidebar-text fw-bold">MANAJER MUTU</span>
                         </span>
                     </span>
                 </li>
@@ -101,7 +101,7 @@
                     <div class="d-flex align-items-center">
                         <SidebarToggle />
                         <span class="text-white fw-bold ms-3">
-                            <i class="fa fa-user-tie me-1"></i> {{ $page.props.auth?.user?.name ?? 'Manager Mutu' }}
+                            <i class="fa fa-user-tie me-1"></i> {{ $page.props.auth?.user?.name ?? 'Manajer Mutu' }}
                         </span>
                     </div>
                 </div>

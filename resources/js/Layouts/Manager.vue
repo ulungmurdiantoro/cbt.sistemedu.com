@@ -136,7 +136,7 @@ export default {
             const roles = page.props.auth?.user?.roles ?? [];
             const portals = [];
             if (roles.includes('admin')) portals.push({ href: '/admin/dashboard', label: 'Portal Admin' });
-            if (roles.includes('certification_manager')) portals.push({ href: '/manager-sertifikasi/dashboard', label: 'Portal Manager Sertifikasi' });
+            if (roles.includes('certification_manager')) portals.push({ href: '/manager-sertifikasi/dashboard', label: 'Portal Manajer Sertifikasi' });
             if (roles.includes('asesor')) portals.push({ href: '/asesor/dashboard', label: 'Portal Asesor' });
             return portals;
         });

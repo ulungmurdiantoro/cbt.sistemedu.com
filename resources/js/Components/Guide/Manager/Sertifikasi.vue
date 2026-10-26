@@ -22,13 +22,13 @@
         difinalisasi belakangan, mis. saat ikut batch susulan.
     </p>
 
-    <p class="fw-bolder mb-1">3. Diteruskan ke Manager Sertifikasi</p>
+    <p class="fw-bolder mb-1">3. Diteruskan ke Manajer Sertifikasi</p>
     <ul class="text-muted mb-2 ps-3">
-        <li>Peserta yang Anda centang muncul siap diverifikasi di portal <strong>Manager Sertifikasi</strong>. Kolom
-            <strong>Verifikasi Manager Sertifikasi</strong> di halaman ini hanya tampilan.</li>
-        <li>Centang Anda bisa dilepas lagi selama peserta belum Final <em>dan</em> belum dicentang Manager Sertifikasi. Kalau
-            sudah, minta Manager Sertifikasi melepas centangnya dulu.</li>
-        <li><strong>Finalisasi</strong> (nomor SK, SP, Sertifikat, dan Keputusan Sertifikasi) dilakukan Manager Sertifikasi,
+        <li>Peserta yang Anda centang muncul siap diverifikasi di portal <strong>Manajer Sertifikasi</strong>. Kolom
+            <strong>Verifikasi Manajer Sertifikasi</strong> di halaman ini hanya tampilan.</li>
+        <li>Centang Anda bisa dilepas lagi selama peserta belum Final <em>dan</em> belum dicentang Manajer Sertifikasi. Kalau
+            sudah, minta Manajer Sertifikasi melepas centangnya dulu.</li>
+        <li><strong>Finalisasi</strong> (nomor SK, SP, Sertifikat, dan Keputusan Sertifikasi) dilakukan Manajer Sertifikasi,
             bukan di sini. Keputusan Sertifikasi tetap terbit atas nama dan tanda tangan Anda.</li>
         <li><span class="badge bg-gray-200 text-gray-800 border">Preview Keputusan</span> membuka draf berita acara (berisi peserta
             yang sudah Anda centang) di tab baru. Tombol ini hanya ada sebelum sesi pertama kali difinalisasi.</li>

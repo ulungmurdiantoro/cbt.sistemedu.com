@@ -11,7 +11,7 @@
                         <h5 class="mb-1"><i class="fa fa-life-ring me-2 text-primary"></i>Panduan Pengambil Keputusan</h5>
                         <p class="text-muted mb-0 small">
                             Ditunjuk admin per sesi ujian: meninjau kelengkapan dokumen, kelayakan awal, laporan asesmen, dan
-                            nilai setiap peserta — lalu memverifikasi keputusan kelulusannya. Setelah itu Manager Sertifikasi
+                            nilai setiap peserta — lalu memverifikasi keputusan kelulusannya. Setelah itu Manajer Sertifikasi
                             memverifikasi ulang dan memfinalisasi (menerbitkan nomor SK, SP, dan Sertifikat).
                             Di sistem, portal ini masih beralamat <code>/manager/...</code> — nama teknis lama, perannya tetap Pengambil Keputusan.
                             Panduan yang sama juga tampil di bagian atas tiap halaman portal.

@@ -68,7 +68,7 @@
         <div class="alert alert-secondary py-2 small border-0 mb-3">
             <i class="fa fa-lock me-1"></i>
             Peserta diverifikasi <strong>Pengambil Keputusan</strong> sesi, lalu diverifikasi &amp; difinalisasi
-            <strong>Manager Sertifikasi</strong> di portal masing-masing.
+            <strong>Manajer Sertifikasi</strong> di portal masing-masing.
             Halaman ini hanya untuk memantau &amp; mengirim dokumen yang sudah difinalisasi.
             <div class="mt-1">
                 <i class="fa fa-user-tie me-1"></i>
@@ -168,7 +168,7 @@
                                         <i class="fa fa-lock me-1"></i>Final
                                     </span>
                                     <span v-else class="badge text-white" style="background-color:#6c757d;">Draft</span>
-                                    <!-- Yang menekan Finalisasi untuk peserta ini (Manager Sertifikasi; sesi lama: Pengambil Keputusan) -->
+                                    <!-- Yang menekan Finalisasi untuk peserta ini (Manajer Sertifikasi; sesi lama: Pengambil Keputusan) -->
                                     <div v-if="row.is_finalized && row.finalized_by_name" class="small text-muted mt-1 decided-by"
                                          :title="`Difinalisasi oleh ${row.finalized_by_name}, ${formatDate(row.finalized_at)}`">
                                         <div><i class="fa fa-user-check me-1"></i>{{ row.finalized_by_name }}</div>

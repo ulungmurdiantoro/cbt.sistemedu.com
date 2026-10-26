@@ -75,7 +75,7 @@
                                 <div v-else-if="!exam_session.pengambil_keputusan_id" class="text-danger mt-1">
                                     <i class="fa fa-exclamation-circle me-1"></i>Belum ditunjuk — sesi ini belum bisa diverifikasi Pengambil Keputusan.
                                 </div>
-                                <div v-else class="text-muted mt-1">Berlaku untuk semua peserta sesi ini. Setelah diverifikasi PK, peserta diverifikasi &amp; difinalisasi Manager Sertifikasi.</div>
+                                <div v-else class="text-muted mt-1">Berlaku untuk semua peserta sesi ini. Setelah diverifikasi PK, peserta diverifikasi &amp; difinalisasi Manajer Sertifikasi.</div>
                             </div>
                         </div>
                     </div>
@@ -310,7 +310,7 @@ export default {
             Swal.fire({
                 title: 'Ganti Pengambil Keputusan?',
                 html: `${this.pk_verified_count} peserta sudah dicentang Verifikasi oleh Pengambil Keputusan sebelumnya. `
-                    + 'Centang itu tetap tercatat atas nama PK lama; PK baru bisa melepas & mencentang ulang selama peserta belum diverifikasi Manager Sertifikasi.',
+                    + 'Centang itu tetap tercatat atas nama PK lama; PK baru bisa melepas & mencentang ulang selama peserta belum diverifikasi Manajer Sertifikasi.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, ganti',

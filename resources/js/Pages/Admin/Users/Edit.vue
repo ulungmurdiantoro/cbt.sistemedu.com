@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="certification_manager" v-model="form.roles" id="role-cert-manager">
-                                    <label class="form-check-label" for="role-cert-manager">Manager Sertifikasi</label>
+                                    <label class="form-check-label" for="role-cert-manager">Manajer Sertifikasi</label>
                                 </div>
                                 <div v-if="errors.roles" class="text-danger small mt-1">{{ errors.roles }}</div>
                             </div>

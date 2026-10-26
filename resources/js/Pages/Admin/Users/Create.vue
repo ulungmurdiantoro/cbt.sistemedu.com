@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="certification_manager" v-model="form.roles" id="role-cert-manager">
-                                    <label class="form-check-label" for="role-cert-manager">Manager Sertifikasi</label>
+                                    <label class="form-check-label" for="role-cert-manager">Manajer Sertifikasi</label>
                                 </div>
                                 <div v-if="errors.roles" class="text-danger small mt-1">{{ errors.roles }}</div>
                             </div>
@@ -99,7 +99,7 @@ export default {
 
         // Random alphanumeric: tanpa karakter ambigu (I, O, 0, 1) supaya tidak salah ketik
         // Prefix kode mengikuti role dengan prioritas tertinggi:
-        // admin > certification_manager (Manager Sertifikasi) > manager_sertifikasi (Pengambil Keputusan) > asesor
+        // admin > certification_manager (Manajer Sertifikasi) > manager_sertifikasi (Pengambil Keputusan) > asesor
         const prefixForRoles = (roles) => {
             if (roles.includes('admin')) return 'ADM';
             if (roles.includes('certification_manager')) return 'MSR';
