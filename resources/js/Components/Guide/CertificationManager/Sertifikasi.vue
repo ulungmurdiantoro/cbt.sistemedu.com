@@ -15,8 +15,6 @@
             Nama Anda tercatat di bawah centang, dan centang bisa dilepas lagi selama peserta belum Final.</li>
         <li>Selama Anda masih mencentang seorang peserta, PK tidak bisa melepas centangnya. Kalau PK perlu mengubah
             keputusannya, lepas centang Anda dulu.</li>
-        <li>Peserta yang belum siap (mis. berhalangan hadir) biarkan tidak dicentang; mereka tetap Draft dan bisa
-            difinalisasi belakangan, mis. saat ikut batch susulan.</li>
     </ul>
 
     <p class="fw-bolder mb-1">3. Preview, lalu Finalisasi</p>
@@ -31,7 +29,7 @@
     <div class="alert alert-danger py-2 mb-3">
         <strong>Tidak bisa dibatalkan</strong> untuk peserta yang difinalisasi: nilai dan keputusan terkunci, nomor SK dan SP
         terbit (peserta remidi memakai nomor lamanya), nomor Sertifikat terbit untuk yang LULUS, dan nomor Keputusan Sertifikasi
-        sesi terbit pada finalisasi pertama. Peserta yang tidak dicentang tidak terpengaruh.
+        sesi terbit pada finalisasi pertama.
     </div>
 
     <p class="fw-bolder mb-1">4. Setelah finalisasi</p>
