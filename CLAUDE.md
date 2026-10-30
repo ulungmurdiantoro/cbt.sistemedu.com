@@ -371,6 +371,8 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
 - PDF SP/SK/Sertifikat yang sudah dikirim di-cache permanen (`DocumentGeneratorService::cachedPdf`). Kuncinya memuat
   nomor, tanggal kirim, versi template, dan data peserta yang tercetak (`printedStudentKey`: nama, jenis kelamin,
   No. Peserta, NIK) — koreksi di menu Peserta langsung tampil. Menambah data peserta baru ke dokumen → tambahkan ke kunci itu.
+  Varian dengan KAN juga memuat isi file logo KAN (`config/lsp_documents.php` → `logo_kan`), jadi ganti logo = PDF dibuat
+  ulang; `php artisan documents:regenerate-kan [sesi...] [--dry-run]` membuatnya sekarang (varian tanpa KAN tidak disentuh).
 - Jumlah peserta per sesi di daftar mana pun: `ExamSession::withActiveStudentsCount()` (peserta unik terdaftar di
   `exam_groups`, akun aktif — sama dengan baris Rekap Hasil/Tinjau Sertifikasi). **Jangan** hitung `participant_results`:
   barisnya baru dibuat saat Rekap dibuka dan tertinggal saat peserta dipindah batch/dikeluarkan. Progres/cek berbasis
