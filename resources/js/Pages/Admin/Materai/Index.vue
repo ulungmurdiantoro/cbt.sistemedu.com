@@ -3,31 +3,7 @@
         <title>Log Materai - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
-        <div class="card border-0 shadow mb-3">
-            <div class="card-body d-flex flex-wrap align-items-center gap-3">
-                <i class="fa fa-wallet fa-2x text-primary"></i>
-                <div class="me-auto">
-                    <div class="small text-muted">Sisa kuota e-meterai Peruri</div>
-                    <div v-if="saldo.loading && !saldo.data" class="text-muted">
-                        <i class="fa fa-spinner fa-spin me-1"></i> Mengecek ke Peruri...
-                    </div>
-                    <div v-else-if="saldo.error" class="small text-danger">{{ saldo.error }}</div>
-                    <template v-else-if="saldo.data">
-                        <div class="h3 mb-0 num" :class="{ 'text-danger': saldo.data.saldo <= lowQuota }">
-                            {{ fmtNum(saldo.data.saldo) }} <span class="h6 text-muted">meterai</span>
-                        </div>
-                        <div class="small text-muted">
-                            Nomor seri belum dibubuhkan: <span class="num">{{ fmtNum(saldo.data.notstamp) }}</span>
-                            · dicek {{ fmtTime(saldo.data.checked_at) }}
-                            <span v-if="saldo.data.saldo <= lowQuota" class="text-danger fw-bolder ms-1">— kuota hampir habis</span>
-                        </div>
-                    </template>
-                </div>
-                <button type="button" class="btn btn-sm btn-gray-800 border-0 shadow" :disabled="saldo.loading" @click="loadSaldo(true)">
-                    <i class="fa fa-sync me-1" :class="{ 'fa-spin': saldo.loading }"></i> Cek ulang
-                </button>
-            </div>
-        </div>
+        <MateraiSaldo class="mb-3" />
 
         <div class="row g-3 mb-4">
             <div v-for="c in cards" :key="c.label" class="col-6 col-md-3">
@@ -133,11 +109,12 @@
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
+import MateraiSaldo from '../../../Components/MateraiSaldo.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination, StatusBadge },
+    components: { Head, Link, Pagination, StatusBadge, MateraiSaldo },
     props: {
         rows:    Object,
         summary: Object,
@@ -149,13 +126,7 @@ export default {
             search:  this.filters?.q ?? '',
             dokumen: this.filters?.dokumen ?? '',
             status:  this.filters?.status ?? '',
-            saldo:   { loading: false, data: null, error: null },
-            lowQuota: 20,
         };
-    },
-
-    mounted() {
-        this.loadSaldo();
     },
 
     computed: {
@@ -170,25 +141,6 @@ export default {
     },
 
     methods: {
-        async loadSaldo(refresh = false) {
-            this.saldo.loading = true;
-            try {
-                const res  = await fetch('/admin/materai/saldo' + (refresh ? '?refresh=1' : ''), {
-                    headers: { Accept: 'application/json' },
-                    credentials: 'same-origin',
-                });
-                const json = await res.json();
-                this.saldo.error = json.error ?? null;
-                this.saldo.data  = json.error ? null : json;
-            } catch (e) {
-                this.saldo.error = 'Gagal mengambil saldo dari server.';
-            } finally {
-                this.saldo.loading = false;
-            }
-        },
-        fmtNum(n) {
-            return Number(n ?? 0).toLocaleString('id-ID');
-        },
         apply() {
             router.get('/admin/materai', { q: this.search, dokumen: this.dokumen, status: this.status }, { preserveState: true });
         },

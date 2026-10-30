@@ -54,6 +54,9 @@
                         <div class="small text-muted">Sudah Bermaterai</div>
                     </div>
                 </div>
+                <div class="col-3" v-if="$page.props.materaiEnabled">
+                    <MateraiSaldo compact />
+                </div>
             </div>
 
             <!-- Tabel peserta -->
@@ -158,12 +161,13 @@
 import LayoutAdmin from '../../../../Layouts/Admin.vue';
 import StatusBadge from '../../../../Components/StatusBadge.vue';
 import SessionNav from '../../../../Components/SessionNav.vue';
+import MateraiSaldo from '../../../../Components/MateraiSaldo.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { computed, onUnmounted, ref, watch } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge, SessionNav },
+    components: { Head, Link, StatusBadge, SessionNav, MateraiSaldo },
     props: {
         exam_session: Object,
         rows: Array,
