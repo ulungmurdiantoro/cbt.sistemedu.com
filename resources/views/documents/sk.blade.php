@@ -132,7 +132,7 @@ body { font-family: cambria, serif; font-size: 12pt; color: #000; line-height: 1
         <td class="kop-spacer"></td>
         <td class="kop-right-block">
             @if(file_exists($logoKanPath))
-                <div><img src="{{ $logoKanPath }}" style="width:62mm; height:auto;"></div>
+                <div><img src="{{ $logoKanPath }}" style="width:33mm; height:auto;"></div>
             @endif
         </td>
         @else
@@ -206,7 +206,7 @@ body { font-family: cambria, serif; font-size: 12pt; color: #000; line-height: 1
         <td class="kop-spacer"></td>
         <td class="kop-right-block">
             @if(file_exists($logoKanPath))
-                <div><img src="{{ $logoKanPath }}" style="width:62mm; height:auto;"></div>
+                <div><img src="{{ $logoKanPath }}" style="width:33mm; height:auto;"></div>
             @endif
         </td>
         @else
@@ -301,7 +301,7 @@ body { font-family: cambria, serif; font-size: 12pt; color: #000; line-height: 1
         <td class="kop-spacer"></td>
         <td class="kop-right-block">
             @if(file_exists($logoKanPath))
-                <div><img src="{{ $logoKanPath }}" style="width:62mm; height:auto;"></div>
+                <div><img src="{{ $logoKanPath }}" style="width:33mm; height:auto;"></div>
             @endif
         </td>
         @else

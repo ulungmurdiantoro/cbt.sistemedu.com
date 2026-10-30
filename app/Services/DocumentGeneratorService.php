@@ -570,6 +570,7 @@ class DocumentGeneratorService
             filemtime(__FILE__) ?: '',
             file_exists($bgDepan) ? filemtime($bgDepan) : '',
             file_exists($bgBelakang) ? filemtime($bgBelakang) : '',
+            $withKan && file_exists($this->asset('logo_kan')) ? md5_file($this->asset('logo_kan')) : '',
         ]);
 
         $cacheKey = 'documents/sertifikat/' . md5($result->sertifikat_number . '|' . ($withKan ? 'kan' : 'tanpa') . '|' . $templateVersion . '|' . $result->distributed_at->timestamp . '|' . $this->printedStudentKey($result)) . '.pdf';
@@ -695,7 +696,8 @@ class DocumentGeneratorService
         }
         $hash = substr(md5(
             md5_file(resource_path('views/documents/sk.blade.php')) .
-            md5_file(__FILE__)
+            md5_file(__FILE__) .
+            ($withKan && file_exists($this->asset('logo_kan')) ? md5_file($this->asset('logo_kan')) : '')
         ), 0, 8);
         $suffix = $withKan ? '_kan' : '';
         return $this->cachedPdf(
