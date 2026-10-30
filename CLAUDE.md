@@ -463,5 +463,6 @@ php artisan test   # SQLite in-memory (phpunit.xml), tidak menyentuh DB lokal
 | `app/Exports/GradesEssayExport.php` | Export Excel nilai esai (sudah pakai `score` nyata) |
 | `resources/js/Components/Sidebar.vue` | Navigasi sidebar admin ("Sesi Ujian" juga menyala di semua halaman per sesi) |
 | `config/auth.php` | Definisi guards: web, student, participant |
+| `Admin/MateraiLogController.php` | Menu **Log Materai** (`/admin/materai`): riwayat pembubuhan FR.AK.14 + FR.AK.01, baca saja dari kolom `materai_*` (tidak ada tabel log) |
 | `config/materai.php` | E-meterai Peruri: `MATERAI_ENABLED` (saklar utama), `MATERAI_AUTO_STAMP`, `MATERAI_FIRST_SESSION_ID` (pembebasan FR.AK.14) |
 | `app/Jobs/StampFrAk01Job.php`, `StampFrAk14Job.php` | Pembubuhan e-meterai (idempoten). FR.AK.14: kotak meterai di kiri TTD, halaman + koordinatnya diukur saat PDF dibuat (`DocumentGeneratorService::frAk14Document`), tidak dipatok |

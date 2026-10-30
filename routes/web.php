@@ -15,6 +15,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/panduan', fn () => inertia('Admin/Guide/Index'))->name('admin.panduan');
 
+        // Log Materai — riwayat pembubuhan e-meterai FR.AK.14 & FR.AK.01 (baca saja)
+        Route::get('/materai', [\App\Http\Controllers\Admin\MateraiLogController::class, 'index'])->name('admin.materai.index');
+
         Route::resource('/lessons',   \App\Http\Controllers\Admin\LessonController::class,   ['as' => 'admin']);
         Route::resource('/classrooms', \App\Http\Controllers\Admin\ClassroomController::class, ['as' => 'admin']);
 

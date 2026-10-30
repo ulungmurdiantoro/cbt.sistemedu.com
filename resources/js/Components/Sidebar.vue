@@ -175,6 +175,17 @@
                     </Link>
                 </li>
 
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/materai') }">
+                    <Link href="/admin/materai" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                            <i class="fa fa-stamp me-2"></i>
+                        </span>
+                        <span class="sidebar-text">Log Materai</span>
+                    </span>
+                    </Link>
+                </li>
+
 
                 <li role="separator" class="dropdown-divider mt-2 mb-2 border-gray-700"></li>
 
