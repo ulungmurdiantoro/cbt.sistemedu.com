@@ -23,18 +23,15 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 10.5pt;
 
 .penutup { text-align: justify; margin-top: 10pt; }
 
-.ttd-table { width: 100%; border-collapse: collapse; margin-top: 18pt; }
-.ttd-table td { padding: 0; vertical-align: top; width: 50%; }
-.ttd-place { margin-bottom: 4pt; }
-.ttd-heading { margin-bottom: 4pt; }
-.ttd-space { height: 60pt; }
-.ttd-img { display: inline-block; }
-.ttd-name { border-top: 0.75pt solid #000; padding-top: 2pt; display: inline-block; min-width: 160pt; }
-
-/* Area ini disisakan kosong untuk QR e-meterai — koordinat visLLX/LLY/URX/URY
-   di StampFrAk14Job dikalibrasi lewat https://e-form.peruri.co.id/pdfviewer/
-   supaya jatuh persis di sini, di sebelah blok TTD "Yang menyatakan,". */
-.meterai-area { width: 90pt; height: 70pt; }
+/* Blok TTD ditulis terpisah oleh DocumentGeneratorService::frAk14Document() (dipotong di
+   penanda <!--FR-AK-14-...-->) supaya posisi kotak meterai bisa diukur. Lebar kolom dalam mm
+   harus sama dengan FR_AK_14_* di service — koordinat e-meterai dihitung dari situ. */
+.ttd-table { width: {{ $contentW }}mm; border-collapse: collapse; }
+.ttd-table td { padding: 0; vertical-align: top; }
+.ttd-col { width: {{ $ttdColW }}mm; }
+.meterai-col { width: {{ $meteraiW }}mm; height: {{ $meteraiW }}mm; }
+.ttd-sign { height: {{ $meteraiW }}mm; vertical-align: bottom; padding-left: 3mm; }
+.ttd-name { border-top: 0.75pt solid #000; padding-top: 2pt; padding-left: 3mm; }
 </style>
 </head>
 <body>
@@ -87,19 +84,32 @@ body { font-family: cambria, 'Times New Roman', Times, serif; font-size: 10.5pt;
 
 <div class="penutup">Demikian pernyataan ini saya buat dengan sebenar-benarnya dengan penuh tanggung jawab. Apabila saya melanggar pasal-pasal dalam perjanjian diatas, maka saya bersedia menanggung semua tindakan yang diambil oleh LSP Edukasi Global Cendekia yang dapat berupa penundaan atau pencabutan sertifikat, pengumuman pelanggaran, dan jika perlu tindakan hukum lainnya.</div>
 
+<!--FR-AK-14-TTD-->
+<table class="ttd-table" style="margin-top:18pt;">
+    <tr>
+        <td style="width:{{ $contentW - $ttdColW }}mm;"></td>
+        <td class="ttd-col" style="padding-left:3mm;">
+            <div>{{ $tanggalTtd }}</div>
+            <div style="margin-top:4pt;">Yang menyatakan,</div>
+        </td>
+    </tr>
+</table>
+<!--FR-AK-14-METERAI-->
+{{-- Kotak kiri dibiarkan kosong untuk QR e-meterai, tepat di samping TTD. --}}
 <table class="ttd-table">
     <tr>
-        <td><div class="meterai-area"></div></td>
-        <td>
-            <div class="ttd-place">................................., {{ $tanggalTtd }}</div>
-            <div class="ttd-heading">Yang menyatakan,</div>
-            <div class="ttd-space">
-                @if($ttdAsesi['path'])
-                    <div class="ttd-img"><img src="{{ $ttdAsesi['path'] }}" style="width:{{ $ttdAsesi['w'] }}mm;height:{{ $ttdAsesi['h'] }}mm;"></div>
-                @endif
-            </div>
-            <div class="ttd-name">{{ $namaPeserta }}</div>
+        <td style="width:{{ $contentW - $ttdColW - $meteraiW }}mm;"></td>
+        <td class="meterai-col"></td>
+        <td class="ttd-col ttd-sign">
+            @if($ttdAsesi['path'])
+                <img src="{{ $ttdAsesi['path'] }}" style="width:{{ $ttdAsesi['w'] }}mm;height:{{ $ttdAsesi['h'] }}mm;">
+            @endif
         </td>
+    </tr>
+    <tr>
+        <td style="width:{{ $contentW - $ttdColW - $meteraiW }}mm;"></td>
+        <td style="width:{{ $meteraiW }}mm;"></td>
+        <td class="ttd-col ttd-name">{{ $namaPeserta }}</td>
     </tr>
 </table>
 

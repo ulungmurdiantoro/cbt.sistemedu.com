@@ -30,6 +30,12 @@ class DocumentGeneratorService
     private const SERTIFIKAT_UNIT_TABLE_MAX_Y = 208;
     private const SERTIFIKAT_UNIT_DENSITY_MAX = 4;
 
+    // FR.AK.14: lebar kolom TTD, sisi kotak e-meterai (persegi, di kiri TTD) dan tinggi
+    // seluruh blok TTD (tanggal s.d. nama) — dalam mm. Lihat frAk14Document().
+    private const FR_AK_14_TTD_W     = 70;
+    private const FR_AK_14_METERAI_W = 35;
+    private const FR_AK_14_BLOCK_H   = 65;
+
     // ── Asset path helper ───────────────────────────────────────────────
     private function asset(string $key): string
     {
@@ -335,6 +341,14 @@ class DocumentGeneratorService
     // ── Render form dengan header logo & footer nomor revisi berulang tiap halaman ──
     private function renderFormWithLogoHeader(string $html, string $revLabel): string
     {
+        $mpdf = $this->makeFormWithLogoHeader($revLabel);
+        $mpdf->WriteHTML($html);
+
+        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+    }
+
+    private function makeFormWithLogoHeader(string $revLabel): Mpdf
+    {
         $logo         = $this->fixedWidthImageBox($this->asset('logo_edukia'), 32);
         $marginHeader = 5;
         $marginTop    = $marginHeader + $logo['h'] + 4;
@@ -355,9 +369,8 @@ class DocumentGeneratorService
 
         $mpdf->SetHTMLHeader($headerHtml);
         $mpdf->SetHTMLFooter($footerHtml);
-        $mpdf->WriteHTML($html);
 
-        return $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN);
+        return $mpdf;
     }
 
     // ── PDF cache helper ────────────────────────────────────────────────
@@ -946,9 +959,24 @@ class DocumentGeneratorService
 
     public function generateFrAk14(ParticipantResult $result): string
     {
+        return $this->frAk14Document($result)['pdf'];
+    }
+
+    /**
+     * PDF FR.AK.14 + letak kotak e-meterai (di samping TTD peserta) dalam satuan Peruri:
+     * point PDF dari pojok kiri bawah. Blok TTD ditulis terpisah lalu posisinya dibaca dari
+     * mPDF, jadi koordinat tetap tepat walau teks di atasnya bertambah/berkurang baris.
+     *
+     * @return array{pdf: string, meterai: array{visLLX: int, visLLY: int, visURX: int, visURY: int, visSignaturePage: int}}
+     */
+    public function frAk14Document(ParticipantResult $result): array
+    {
         $result->loadMissing(['student.participant', 'examSession.examPg.classroom', 'examSession.examEsai.classroom']);
 
         $classroom = $result->examSession?->referenceExam?->classroom;
+
+        $mpdf     = $this->makeFormWithLogoHeader('FR.AK.14 Rev.02');
+        $contentW = $mpdf->w - $mpdf->lMargin - $mpdf->rMargin;
 
         $html = View::make('documents.fr_ak_14', [
             'namaPeserta'  => $result->student?->name ?? '-',
@@ -957,9 +985,39 @@ class DocumentGeneratorService
             'noSertifikat' => $result->sertifikat_number ?? '-',
             'ttdAsesi'     => $this->ttdBox($result->fr_ak_14_signature_path),
             'tanggalTtd'   => $result->fr_ak_14_signed_at ? Carbon::parse($result->fr_ak_14_signed_at)->locale('id')->isoFormat('DD MMMM YYYY') : '-',
+            'ttdColW'      => self::FR_AK_14_TTD_W,
+            'meteraiW'     => self::FR_AK_14_METERAI_W,
+            'contentW'     => $contentW,
         ])->render();
 
-        return $this->renderFormWithLogoHeader($html, 'FR.AK.14 Rev.02');
+        [$body, $rest]       = explode('<!--FR-AK-14-TTD-->', $html, 2);
+        [$heading, $signRow] = explode('<!--FR-AK-14-METERAI-->', $rest, 2);
+
+        $mpdf->WriteHTML($body);
+
+        // Tanggal, TTD, meterai & nama tidak boleh terpisah halaman.
+        if ($mpdf->y + self::FR_AK_14_BLOCK_H > $mpdf->h - $mpdf->bMargin) {
+            $mpdf->AddPage();
+        }
+        $mpdf->WriteHTML($heading);
+
+        $page   = $mpdf->page;
+        $top    = $mpdf->y;
+        $left   = $mpdf->w - $mpdf->rMargin - self::FR_AK_14_TTD_W - self::FR_AK_14_METERAI_W;
+        $size   = self::FR_AK_14_METERAI_W;
+        $pt     = 72 / 25.4;
+        $mpdf->WriteHTML($signRow);
+
+        return [
+            'pdf'     => $mpdf->Output('', \Mpdf\Output\Destination::STRING_RETURN),
+            'meterai' => [
+                'visLLX'           => (int) round($left * $pt),
+                'visLLY'           => (int) round(($mpdf->h - $top - $size) * $pt),
+                'visURX'           => (int) round(($left + $size) * $pt),
+                'visURY'           => (int) round(($mpdf->h - $top) * $pt),
+                'visSignaturePage' => $page,
+            ],
+        ];
     }
 
     // ═══════════════════════════════════════════════════════════════════

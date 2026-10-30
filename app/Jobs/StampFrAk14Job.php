@@ -48,7 +48,7 @@ class StampFrAk14Job implements ShouldQueue
         }
 
         try {
-            $pdf = $generator->generateFrAk14($result);
+            ['pdf' => $pdf, 'meterai' => $box] = $generator->frAk14Document($result);
 
             $sn = $peruri->generateSerialNumber([
                 'nodoc'    => $result->sertifikat_number ?? (string) $result->id,
@@ -56,19 +56,12 @@ class StampFrAk14Job implements ShouldQueue
                 'namafile' => 'FR-AK-14-' . ($result->sertifikat_number ?? $result->id) . '.pdf',
             ]);
 
+            // Posisi QR = kotak kosong di samping TTD peserta, diukur saat PDF dibuat
+            // (halaman + koordinat), tidak dipatok.
             $stamped = $peruri->stamp($pdf, $sn['qrBase64'], [
-                'refToken'         => $sn['sn'],
-                'reason'           => 'Surat Pernyataan Pemegang Sertifikat FR.AK.14',
-                // Posisi QR dekat blok TTD "Yang menyatakan," — dikalibrasi
-                // lewat https://e-form.peruri.co.id/pdfviewer/ saat testing.
-                'visLLX'           => 380,
-                'visLLY'           => 60,
-                'visURX'           => 480,
-                'visURY'           => 160,
-                // Blok TTD peserta selalu di halaman terakhir dokumen — nomornya
-                // dihitung dinamis, tidak dipatok.
-                'visSignaturePage' => $this->pdfPageCount($pdf),
-            ]);
+                'refToken' => $sn['sn'],
+                'reason'   => 'Surat Pernyataan Pemegang Sertifikat FR.AK.14',
+            ] + $box);
 
             $path = "materai/fr-ak-14/{$result->id}.pdf";
             Storage::disk('private')->put($path, $stamped);
@@ -87,15 +80,5 @@ class StampFrAk14Job implements ShouldQueue
 
             throw $e;
         }
-    }
-
-    /** Hitung jumlah halaman dari bytes PDF hasil mPDF. */
-    private function pdfPageCount(string $pdf): int
-    {
-        if (preg_match('/\/Type\s*\/Pages\b[^>]*?\/Count\s+(\d+)/s', $pdf, $m)) {
-            return max(1, (int) $m[1]);
-        }
-        $pages = preg_match_all('/\/Type\s*\/Page(?![s])/', $pdf);
-        return max(1, $pages);
     }
 }
