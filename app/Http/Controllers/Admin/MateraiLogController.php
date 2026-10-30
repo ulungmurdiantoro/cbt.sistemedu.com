@@ -85,13 +85,20 @@ class MateraiLogController extends Controller
 
     private function unionQuery()
     {
+        // Kolom teks dari tabel berbeda punya collation berbeda di produksi (students = unicode_ci,
+        // participants & participant_results = general_ci) → MySQL menolak UNION/COALESCE-nya.
+        // Seragamkan ke satu collation; SQLite (test) tidak mengenal COLLATE ini.
+        $t = DB::getDriverName() === 'mysql'
+            ? fn (string $expr) => "CONVERT({$expr} USING utf8mb4) COLLATE utf8mb4_unicode_ci"
+            : fn (string $expr) => $expr;
+
         $frAk14 = DB::table('participant_results as pr')
             ->join('students as s', 's.id', '=', 'pr.student_id')
             ->leftJoin('exam_sessions as es', 'es.id', '=', 'pr.exam_session_id')
             ->where('pr.materai_status', '!=', 'none')
-            ->selectRaw("'FR.AK.14' AS dokumen, pr.id AS ref_id, pr.exam_session_id AS sesi_id, es.title AS sesi,
-                s.id AS student_id, s.name AS nama, s.no_participant AS no_peserta,
-                pr.materai_status AS status, pr.materai_stamped_at AS stamped_at, pr.materai_failure_reason AS alasan,
+            ->selectRaw("{$t("'FR.AK.14'")} AS dokumen, pr.id AS ref_id, pr.exam_session_id AS sesi_id, {$t('es.title')} AS sesi,
+                s.id AS student_id, {$t('s.name')} AS nama, {$t('s.no_participant')} AS no_peserta,
+                {$t('pr.materai_status')} AS status, pr.materai_stamped_at AS stamped_at, {$t('pr.materai_failure_reason')} AS alasan,
                 COALESCE(pr.materai_stamped_at, pr.updated_at) AS waktu");
 
         $frAk01 = DB::table('assessment_applications as aa')
@@ -99,9 +106,9 @@ class MateraiLogController extends Controller
             ->leftJoin('students as s', 's.id', '=', 'aa.student_id')
             ->leftJoin('exam_sessions as es', 'es.id', '=', 'aa.exam_session_id')
             ->where('aa.materai_status', '!=', 'none')
-            ->selectRaw("'FR.AK.01' AS dokumen, aa.id AS ref_id, aa.exam_session_id AS sesi_id, es.title AS sesi,
-                aa.student_id AS student_id, COALESCE(s.name, p.name) AS nama, s.no_participant AS no_peserta,
-                aa.materai_status AS status, aa.materai_stamped_at AS stamped_at, aa.materai_failure_reason AS alasan,
+            ->selectRaw("{$t("'FR.AK.01'")} AS dokumen, aa.id AS ref_id, aa.exam_session_id AS sesi_id, {$t('es.title')} AS sesi,
+                aa.student_id AS student_id, COALESCE({$t('s.name')}, {$t('p.name')}) AS nama, {$t('s.no_participant')} AS no_peserta,
+                {$t('aa.materai_status')} AS status, aa.materai_stamped_at AS stamped_at, {$t('aa.materai_failure_reason')} AS alasan,
                 COALESCE(aa.materai_stamped_at, aa.updated_at) AS waktu");
 
         return $frAk14->unionAll($frAk01);
