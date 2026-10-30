@@ -7,6 +7,7 @@ use App\Models\ParticipantResult;
 use App\Models\User;
 use App\Models\UserRoleAssignment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Inertia\Testing\AssertableInertia;
 use Tests\Feature\Concerns\CreatesExamFixtures;
@@ -79,5 +80,36 @@ class MateraiLogTest extends TestCase
 
         $this->actingAs($admin)->get('/admin/materai?dokumen=FR.AK.01')
             ->assertInertia(fn (AssertableInertia $page) => $page->where('rows.total', 0));
+    }
+
+    public function test_saldo_is_read_from_peruri_and_cached(): void
+    {
+        config([
+            'materai.enabled'         => true,
+            'materai.peruri.fake'     => false,
+            'materai.peruri.login_url' => 'https://backendservicestg.example.test/api/users/login',
+        ]);
+        Http::fake([
+            '*/api/users/login'  => Http::response(['statusCode' => '00', 'token' => 'tok']),
+            '*/function/saldopos' => Http::response(['result' => ['status' => '00', 'saldo' => 125, 'notstamp' => 3]]),
+        ]);
+
+        $admin = $this->admin();
+
+        $this->actingAs($admin)->getJson('/admin/materai/saldo')
+            ->assertOk()->assertJson(['saldo' => 125, 'notstamp' => 3]);
+        $this->actingAs($admin)->getJson('/admin/materai/saldo')->assertJson(['saldo' => 125]);
+        Http::assertSentCount(2); // login + saldo sekali; panggilan kedua dari cache
+
+        $this->actingAs($admin)->getJson('/admin/materai/saldo?refresh=1')->assertJson(['saldo' => 125]);
+        Http::assertSentCount(3);
+    }
+
+    public function test_saldo_reports_error_instead_of_failing(): void
+    {
+        config(['materai.enabled' => true, 'materai.peruri.fake' => true]);
+
+        $this->actingAs($this->admin())->getJson('/admin/materai/saldo')
+            ->assertOk()->assertJsonStructure(['error']);
     }
 }

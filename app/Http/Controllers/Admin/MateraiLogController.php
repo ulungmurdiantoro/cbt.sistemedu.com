@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\PeruriService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -15,6 +17,8 @@ class MateraiLogController extends Controller
 {
     /** Status yang dianggap "sedang diproses" (antrian / menunggu Peruri). */
     private const PROSES = ['processing', 'pending_payment', 'paid'];
+
+    private const SALDO_CACHE = 'peruri:saldo';
 
     public function index(Request $request)
     {
@@ -49,6 +53,34 @@ class MateraiLogController extends Controller
             ],
             'filters' => $request->only('q', 'dokumen', 'status'),
         ]);
+    }
+
+    /**
+     * Sisa kuota e-meterai akun Peruri (JSON, dimuat terpisah oleh halaman supaya daftar
+     * tidak menunggu Peruri). Disimpan 5 menit; ?refresh=1 memaksa cek ulang. Hanya membaca.
+     */
+    public function saldo(Request $request, PeruriService $peruri)
+    {
+        if (!config('materai.enabled')) {
+            return response()->json(['error' => 'Materai dinonaktifkan (MATERAI_ENABLED=false).']);
+        }
+        if (config('materai.peruri.fake')) {
+            return response()->json(['error' => 'Mode uji (PERURI_FAKE=true) — tidak terhubung ke Peruri.']);
+        }
+
+        if ($request->boolean('refresh')) {
+            Cache::forget(self::SALDO_CACHE);
+        }
+
+        try {
+            $data = Cache::remember(self::SALDO_CACHE, now()->addMinutes(5), fn () => $peruri->saldo() + [
+                'checked_at' => now()->toIso8601String(),
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+
+        return response()->json($data);
     }
 
     private function unionQuery()

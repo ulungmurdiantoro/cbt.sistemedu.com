@@ -17,6 +17,7 @@ Route::prefix('admin')->group(function () {
 
         // Log Materai — riwayat pembubuhan e-meterai FR.AK.14 & FR.AK.01 (baca saja)
         Route::get('/materai', [\App\Http\Controllers\Admin\MateraiLogController::class, 'index'])->name('admin.materai.index');
+        Route::get('/materai/saldo', [\App\Http\Controllers\Admin\MateraiLogController::class, 'saldo'])->name('admin.materai.saldo');
 
         Route::resource('/lessons',   \App\Http\Controllers\Admin\LessonController::class,   ['as' => 'admin']);
         Route::resource('/classrooms', \App\Http\Controllers\Admin\ClassroomController::class, ['as' => 'admin']);
