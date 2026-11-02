@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Student;
 use App\Models\Classroom;
+use App\Models\ExamGroup;
 use App\Models\ParticipantResult;
 use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
+use App\Exports\StudentsCertificationExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -169,6 +171,33 @@ class StudentController extends Controller
 
         //redirect
         return redirect()->route('admin.students.index');
+    }
+
+    /**
+     * Download Excel peserta yang pernah mengikuti sertifikasi (terdaftar di sesi ujian,
+     * akun aktif): satu baris per peserta per sesi, ikut kata kunci pencarian halaman.
+     */
+    public function export(Request $request)
+    {
+        // Satu peserta punya 2 baris exam_groups per sesi (PG + Esai) → ambil pasangan unik.
+        $groups = ExamGroup::query()
+            ->select('exam_groups.student_id', 'exam_groups.exam_session_id', 'students.no_participant')
+            ->distinct()
+            ->join('students', 'students.id', '=', 'exam_groups.student_id')
+            ->where('students.is_active', true)
+            ->when($request->q, fn ($query, $q) => $query->where('students.name', 'like', '%' . $q . '%'))
+            ->with(['student.classroom', 'student.participant', 'exam_session'])
+            ->orderBy('exam_groups.exam_session_id')
+            ->orderBy('students.no_participant')
+            ->get();
+
+        $results = ParticipantResult::whereIn('student_id', $groups->pluck('student_id')->unique())
+            ->get()
+            ->keyBy(fn ($result) => $result->student_id . '-' . $result->exam_session_id);
+
+        $filename = 'peserta_sertifikasi_' . now()->format('Ymd_His') . '.xlsx';
+
+        return Excel::download(new StudentsCertificationExport($groups, $results), $filename);
     }
 
     /**

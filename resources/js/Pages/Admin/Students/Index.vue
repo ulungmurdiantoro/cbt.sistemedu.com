@@ -8,15 +8,20 @@
                 <div class="row">
                     <div class="col-md-5 col-12 mb-2">
                         <div class="row">
-                            <div class="col-md-6 col-12 mb-2">
+                            <div class="col-md-4 col-12 mb-2">
                                 <Link href="/admin/students/create" class="btn btn-md btn-primary border-0 shadow w-100"
                                     type="button"><i class="fa fa-plus-circle"></i>
                                 Tambah</Link>
                             </div>
-                            <div class="col-md-6 col-12 mb-2">
+                            <div class="col-md-4 col-12 mb-2">
                                 <Link href="/admin/students/import" class="btn btn-md btn-success border-0 shadow w-100 text-white"
                                     type="button"><i class="fa fa-file-excel"></i>
                                 Import</Link>
+                            </div>
+                            <div class="col-md-4 col-12 mb-2">
+                                <a :href="exportUrl" class="btn btn-md btn-info border-0 shadow w-100"
+                                    title="Download Excel peserta yang pernah mengikuti sesi sertifikasi (ikut kata kunci pencarian)">
+                                    <i class="fa fa-download"></i> Export</a>
                             </div>
                         </div>
                     </div>
@@ -171,9 +176,14 @@
                     })
             }
 
+            // export memakai kata kunci yang sedang diterapkan di URL (bukan yang baru diketik)
+            const appliedSearch = (new URL(document.location)).searchParams.get('q');
+            const exportUrl = '/admin/students/export' + (appliedSearch ? `?q=${encodeURIComponent(appliedSearch)}` : '');
+
             //return
             return {
                 search,
+                exportUrl,
                 handleSearch,
                 destroy,
             }

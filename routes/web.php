@@ -25,6 +25,7 @@ Route::prefix('admin')->group(function () {
         // Students — import harus didaftarkan sebelum resource agar tidak tertimpa
         Route::get('/students/import',  [\App\Http\Controllers\Admin\StudentController::class, 'import'])->name('admin.students.import');
         Route::post('/students/import', [\App\Http\Controllers\Admin\StudentController::class, 'storeImport'])->name('admin.students.storeImport');
+        Route::get('/students/export',  [\App\Http\Controllers\Admin\StudentController::class, 'export'])->name('admin.students.export');
         Route::resource('/students', \App\Http\Controllers\Admin\StudentController::class, ['as' => 'admin']);
 
         // Exams
