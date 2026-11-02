@@ -459,6 +459,7 @@ php artisan test   # SQLite in-memory (phpunit.xml), tidak menyentuh DB lokal
 
 | File | Keterangan |
 |---|---|
+| `app/Services/AdminDashboardService.php` | Isi `/admin/dashboard`: kartu Perlu Tindakan, sesi berlangsung/terjadwal + kesiapan (asesor, PK, TUK), Pipeline Sertifikasi (sesi selesai yang SK-nya belum terkirim ke semua peserta: Ujian → Dinilai → PK → MS → Final → Terkirim), e-meterai, statistik bulanan, kelulusan per skema, aktivitas terbaru. Pipeline & hitungan tindakan hanya sesi ID ≥ `TRACK_FROM_SESSION_ID` (= batas progres dashboard asesor, 75) |
 | `app/Providers/FortifyServiceProvider.php` | Konfigurasi login view & redirect |
 | `app/Exports/GradesEssayExport.php` | Export Excel nilai esai (sudah pakai `score` nyata) |
 | `resources/js/Components/Sidebar.vue` | Navigasi sidebar admin ("Sesi Ujian" juga menyala di semua halaman per sesi) |
