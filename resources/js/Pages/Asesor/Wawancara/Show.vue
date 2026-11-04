@@ -31,6 +31,7 @@
                             <table class="table table-bordered table-sm align-middle mb-0">
                                 <thead class="table-dark">
                                     <tr>
+                                        <th class="text-center" style="width:4%">No.</th>
                                         <th class="text-center" style="min-width:100px">No Peserta</th>
                                         <th style="min-width:160px">Nama</th>
                                         <th class="text-center" style="min-width:100px">Tugas</th>
@@ -44,6 +45,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(row, i) in form" :key="row.student_id">
+                                        <td class="text-center">{{ i + 1 }}</td>
                                         <td class="text-center fw-bold">
                                             {{ students[i]?.no_participant ?? '-' }}
                                         </td>
@@ -111,7 +113,7 @@
                                 </tbody>
                                 <tfoot class="table-secondary">
                                     <tr>
-                                        <td colspan="3" class="fw-bold">Rata-rata Sesi</td>
+                                        <td colspan="4" class="fw-bold">Rata-rata Sesi</td>
                                         <td class="text-center fw-bold">{{ colAvg('gaya_wawancara') }}</td>
                                         <td class="text-center fw-bold">{{ colAvg('penguasaan_materi') }}</td>
                                         <td class="text-center fw-bold">{{ colAvg('kemampuan_hadapi_pertanyaan') }}</td>
