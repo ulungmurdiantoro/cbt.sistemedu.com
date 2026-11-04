@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AsesorAssignment;
 use App\Models\ExamSession;
 use App\Models\Grade;
+use App\Models\InterviewAssessment;
 use App\Models\ParticipantResult;
 use App\Models\Student;
 use App\Models\StudentTask;
@@ -70,9 +71,19 @@ class ResultController extends Controller
             ->get()
             ->keyBy('student_id');
 
-        $rows = $results->map(function ($r) use ($students, $gradeIds, $assignments, $examSession) {
+        // Rincian nilai wawancara (4 kriteria + catatan) → modal di kolom Wawancara
+        $interviews = $examSession->has_wawancara
+            ? InterviewAssessment::where('exam_session_id', $examSession->id)
+                ->whereIn('student_id', $studentIds)
+                ->with('asesor:id,name')
+                ->get()
+                ->keyBy('student_id')
+            : collect();
+
+        $rows = $results->map(function ($r) use ($students, $gradeIds, $assignments, $interviews, $examSession) {
             $student = $students->get($r->student_id);
             $grades  = $gradeIds->get($r->student_id, collect());
+            $ia      = $interviews->get($r->student_id);
             return [
                 'result_id'         => $r->id,
                 'student_id'        => $r->student_id,
@@ -84,6 +95,16 @@ class ResultController extends Controller
                 'grade_id_pg'       => $grades->firstWhere('exam_id', $examSession->exam_id_pg)?->id,
                 'grade_id_esai'     => $grades->firstWhere('exam_id', $examSession->exam_id_esai)?->id,
                 'nilai_wawancara'   => $r->nilai_wawancara,
+                'wawancara'         => $ia ? [
+                    'gaya_wawancara'              => $ia->gaya_wawancara,
+                    'penguasaan_materi'           => $ia->penguasaan_materi,
+                    'kemampuan_hadapi_pertanyaan' => $ia->kemampuan_hadapi_pertanyaan,
+                    'hasil_worksheet'             => $ia->hasil_worksheet,
+                    'total_nilai'                 => $ia->total_nilai,
+                    'catatan'                     => $ia->catatan,
+                    'asesor_name'                 => $ia->asesor?->name,
+                    'updated_at'                  => $ia->updated_at,
+                ] : null,
                 'nilai_akhir'       => $r->nilai_akhir,
                 'keputusan'         => $r->keputusan,
                 'is_finalized'      => $r->is_finalized,

@@ -150,7 +150,11 @@
                                     <template v-else>{{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}</template>
                                 </td>
                                 <td class="text-center num" v-if="exam_session.has_wawancara">
-                                    {{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}
+                                    <a v-if="row.wawancara" href="#" class="text-primary text-nowrap" title="Rincian nilai wawancara"
+                                       @click.prevent="showWawancara(row)">
+                                        {{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}<i class="fa fa-search-plus small ms-1"></i>
+                                    </a>
+                                    <template v-else>{{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}</template>
                                 </td>
                                 <td class="text-center fw-bold num">
                                     <span v-if="row.nilai_akhir !== null" :class="nilaiColor(row)">
@@ -339,6 +343,41 @@ export default {
         // Format nilai dua desimal (Blueprint: 87.50), aman untuk null.
         const fmt = (v) => (v === null || v === undefined || v === '') ? '—' : Number(v).toFixed(2);
 
+        // Rincian nilai wawancara: 4 kriteria (skala 0–100), Total = rata-ratanya — sama dengan portal asesor.
+        const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const showWawancara = (row) => {
+            const w = row.wawancara;
+            const kriteria = [
+                ['A', 'Gaya Wawancara', w.gaya_wawancara],
+                ['B', 'Penguasaan Materi', w.penguasaan_materi],
+                ['C', 'Kemampuan Menghadapi Pertanyaan', w.kemampuan_hadapi_pertanyaan],
+                ['D', 'Hasil Pengerjaan Worksheet Ujian Keterampilan', w.hasil_worksheet],
+            ];
+            const bobot = props.scheme?.bobot_wawancara;
+            Swal.fire({
+                title: 'Rincian Nilai Wawancara',
+                width: 640,
+                confirmButtonText: 'Tutup',
+                confirmButtonColor: '#1f2937',
+                html: `
+                    <div class="text-start small mb-2">
+                        <div><strong>${esc(row.no_participant)}</strong> — ${esc(row.name)}</div>
+                        <div class="text-muted">Asesor: ${esc(w.asesor_name || '—')} · diperbarui ${esc(formatDate(w.updated_at))}</div>
+                    </div>
+                    <table class="table table-sm table-bordered text-start mb-2" style="font-size:0.85rem">
+                        <thead><tr><th style="width:2.5rem">#</th><th>Kriteria</th><th class="text-end" style="width:6rem">Nilai</th></tr></thead>
+                        <tbody>
+                            ${kriteria.map(([k, label, v]) => `<tr><td>${k}</td><td style="white-space:normal">${label}</td><td class="text-end num">${fmt(v)}</td></tr>`).join('')}
+                            <tr class="fw-bolder"><td></td><td>Total (rata-rata A–D)</td><td class="text-end num">${fmt(w.total_nilai)}</td></tr>
+                        </tbody>
+                    </table>
+                    ${bobot != null ? `<div class="text-start text-muted small mb-2">Bobot wawancara: ${esc(Number(bobot))}% dari nilai akhir.</div>` : ''}
+                    <div class="text-start small"><strong>Catatan asesor:</strong>
+                        <div style="white-space:pre-wrap">${w.catatan ? esc(w.catatan) : '<span class="text-muted">—</span>'}</div>
+                    </div>`,
+            });
+        };
+
         const distributeSp = () => {
             Swal.fire({
                 title: 'Kirim SP ke Peserta?',
@@ -381,7 +420,7 @@ export default {
         return {
             hasFinalized, finalizedCount, spSentCount, finalSentCount, decisionMakers,
             frAk14Rows, frAk14StampedCount, frAk14SignedCount, frAk14Badge, formatDate,
-            nilaiColor, fmt, distributeSp, distribute,
+            nilaiColor, fmt, showWawancara, distributeSp, distribute,
         };
     },
 }
