@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Baris atas halaman per sesi: hanya tombol Kembali. Tombol aksi (Simpan dll.) selalu di
-             header kartu tabel (Components/Asesor/TableCard.vue), bukan di sini. -->
+             header kartu tabel (Components/SectionCard.vue), bukan di sini. -->
         <Link href="/asesor/dashboard" class="btn btn-md btn-primary border-0 shadow mb-3">
             <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
         </Link>

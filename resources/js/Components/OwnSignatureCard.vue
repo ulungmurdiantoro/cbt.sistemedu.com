@@ -4,7 +4,7 @@
       (gambar di kanvas atau unggah gambar). Dipakai di Laporan Asesmen dan TTD AK.01 asesor.
       Setiap simpan membuat file baru, jadi dokumen yang sudah ditandatangani tetap memakai TTD lamanya.
     -->
-    <TableCard title="Tanda Tangan Anda" icon="fa-signature">
+    <SectionCard title="Tanda Tangan Anda" icon="fa-signature">
             <div v-if="hasSignature" class="d-flex flex-wrap align-items-center gap-3">
                 <img :src="`${imageUrl}?v=${imgVersion}`" alt="TTD Anda" class="sig-img">
                 <div class="flex-fill">
@@ -62,17 +62,17 @@
                     </button>
                 </div>
             </div>
-    </TableCard>
+    </SectionCard>
 </template>
 
 <script>
 import { router } from '@inertiajs/vue3';
 import SignaturePad from 'signature_pad';
-import TableCard from './Asesor/TableCard.vue';
+import SectionCard from './SectionCard.vue';
 
 export default {
     name: 'OwnSignatureCard',
-    components: { TableCard },
+    components: { SectionCard },
     props: {
         hasSignature: { type: Boolean, default: false },
         // Kalimat di bawah badge "Tersimpan": dipakai untuk apa TTD ini

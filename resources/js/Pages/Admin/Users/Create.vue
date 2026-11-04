@@ -3,10 +3,11 @@
         <title>Tambah User - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-12">
+                <BackBar href="/admin/users" />
                 <div class="card border-0 shadow">
-                    <div class="card-header bg-gray-800 text-white fw-bolder">
+                    <div class="card-header bg-white border-bottom fw-bolder py-3">
                         <i class="fa fa-user-plus me-2"></i> Tambah User Baru
                     </div>
                     <div class="card-body">
@@ -83,13 +84,14 @@
 </template>
 
 <script>
+import BackBar from '../../../Components/Admin/BackBar.vue';
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { reactive, ref, watch } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { BackBar, Head, Link },
     props: {
         errors: Object,
     },

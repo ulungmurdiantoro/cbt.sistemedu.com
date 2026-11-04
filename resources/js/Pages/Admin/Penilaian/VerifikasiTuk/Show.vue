@@ -1,17 +1,14 @@
 <template>
     <Head><title>FR.TUK.06 — {{ student.name }}</title></Head>
-    <div class="container-fluid mb-5 mt-4">
+    <div class="container-fluid mb-5 mt-5">
         <div class="col-12">
 
-            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                <Link :href="`/admin/penilaian/${exam_session.id}/verifikasi-tuk`" class="btn btn-primary border-0 shadow">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Daftar Peserta
-                </Link>
+            <BackBar :href="`/admin/penilaian/${exam_session.id}/verifikasi-tuk`">
                 <a v-if="verification" :href="`/admin/penilaian/${exam_session.id}/verifikasi-tuk/${student.id}/pdf`"
                     target="_blank" class="btn btn-outline-danger border shadow-sm">
                     <i class="fa fa-file-pdf me-2"></i> Unduh FR.TUK.06
                 </a>
-            </div>
+            </BackBar>
 
             <div class="card border-0 shadow mb-3">
                 <div class="card-body py-3">
@@ -29,7 +26,7 @@
 
             <!-- A. Identitas -->
             <div class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-bolder">A. Identitas Pelaksanaan</div>
+                <div class="card-header bg-white border-bottom fw-bolder py-3">A. Identitas Pelaksanaan</div>
                 <div class="card-body">
                     <table class="table table-sm table-bordered mb-0 table-wrap">
                         <tbody>
@@ -70,7 +67,7 @@
 
             <!-- B–F. Kriteria -->
             <div v-for="section in sections" :key="section.key" class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-bolder d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div class="card-header bg-white border-bottom fw-bolder py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
                     <span>
                         {{ section.key }}. {{ titleCase(section.title) }}
                         <span class="badge bg-gray-200 text-gray-800 ms-2">{{ section.key === 'F' ? 'Selama ujian' : 'Sebelum ujian' }}</span>
@@ -120,7 +117,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table table-sm align-middle mb-0">
-                            <thead class="table-secondary">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th style="width:5%" class="text-center">No.</th>
                                     <th>Kriteria Verifikasi</th>
@@ -155,7 +152,7 @@
 
             <!-- G. Kesimpulan verifikasi awal -->
             <div class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-bolder">
+                <div class="card-header bg-white border-bottom fw-bolder py-3">
                     G. Kesimpulan Verifikasi Awal
                     <span class="badge bg-gray-200 text-gray-800 ms-2">Sebelum ujian</span>
                 </div>
@@ -178,7 +175,7 @@
 
             <!-- H. Hasil pemantauan -->
             <div class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-bolder">
+                <div class="card-header bg-white border-bottom fw-bolder py-3">
                     H. Hasil Pemantauan Selama Asesmen
                     <span class="badge bg-gray-200 text-gray-800 ms-2">Selama ujian</span>
                 </div>
@@ -194,7 +191,7 @@
 
             <!-- I. Validasi -->
             <div class="card border-0 shadow mb-3">
-                <div class="card-header bg-gray-800 text-white fw-bolder">I. Validasi Pengawas Ujian</div>
+                <div class="card-header bg-white border-bottom fw-bolder py-3">I. Validasi Pengawas Ujian</div>
                 <div class="card-body">
                     <table class="table table-sm table-bordered mb-0 table-wrap">
                         <tbody>
@@ -255,13 +252,14 @@
 </template>
 
 <script>
+import BackBar from '../../../../Components/Admin/BackBar.vue';
 import LayoutAdmin from '../../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import StatusBadge from '../../../../Components/StatusBadge.vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge },
+    components: { BackBar, Head, Link, StatusBadge },
     props: {
         errors:          Object,
         exam_session:    Object,

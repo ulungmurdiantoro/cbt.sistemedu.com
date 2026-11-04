@@ -3,10 +3,11 @@
         <title>Edit User - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-12">
+                <BackBar href="/admin/users" />
                 <div class="card border-0 shadow">
-                    <div class="card-header bg-gray-800 text-white fw-bolder">
+                    <div class="card-header bg-white border-bottom fw-bolder py-3">
                         <i class="fa fa-user-edit me-2"></i> Edit User
                     </div>
                     <div class="card-body">
@@ -77,7 +78,7 @@
 
                 <!-- Tanda Tangan Asesor / Admin -->
                 <div class="card border-0 shadow mt-4" v-if="hasSignatureRole">
-                    <div class="card-header bg-gray-800 text-white fw-bolder">
+                    <div class="card-header bg-white border-bottom fw-bolder py-3">
                         <i class="fa fa-signature me-2"></i>Tanda Tangan
                     </div>
                     <div class="card-body">
@@ -153,6 +154,7 @@
 </template>
 
 <script>
+import BackBar from '../../../Components/Admin/BackBar.vue';
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { reactive, ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue';
@@ -160,7 +162,7 @@ import SignaturePad from 'signature_pad';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { BackBar, Head, Link },
     props: {
         errors: Object,
         user:   Object,

@@ -34,7 +34,7 @@
 
                             <!-- Jenis Ujian -->
                             <div class="card border mb-4">
-                                <div class="card-header fw-bolder bg-gray-100">Jenis Ujian</div>
+                                <div class="card-header bg-white border-bottom fw-bolder py-3">Jenis Ujian</div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-4 mb-3">

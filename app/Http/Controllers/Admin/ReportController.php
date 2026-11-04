@@ -220,7 +220,7 @@ class ReportController extends Controller
             $grade->setRelation('questions',    $examQuestions);
             $grade->setRelation('answers',      $allAnswers->get($grade->student_id, collect()));
             $grade->setRelation('essays',       $examEssays);
-            $grade->setRelation('essaysanswers', $allEssayAnswers->get($grade->student_id, collect()));
+            $grade->setRelation('essaysanswers', $allEssayAnswers->get($grade->student_id, collect())->sortBy('essay_id')->values());
         }
 
         $html = View::make($config['view'], compact('grades', 'exam', 'exam_session'))->render();

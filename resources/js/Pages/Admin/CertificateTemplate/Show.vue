@@ -1,7 +1,7 @@
 <template>
     <Head><title>Template Dokumen - Aplikasi Ujian Online</title></Head>
 
-    <div class="container-fluid mt-4 mb-5">
+    <div class="container-fluid mb-5 mt-5">
         <h5 class="fw-bold mb-2">Template Dokumen Sertifikasi</h5>
         <p class="text-muted small mb-4">
             Konten dokumen bersifat <strong>tetap (fixed)</strong> sesuai standar LSP Edukasi Global Cendekia.
@@ -13,7 +13,7 @@
             <!-- SP -->
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-gray-800 text-white fw-bolder">
+                    <div class="card-header bg-white border-bottom fw-bolder py-3">
                         <i class="fa fa-envelope-open me-2"></i>Surat Pemberitahuan (SP)
                     </div>
                     <div class="card-body">
@@ -31,7 +31,7 @@
             <!-- SK -->
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-gray-800 text-white fw-bolder">
+                    <div class="card-header bg-white border-bottom fw-bolder py-3">
                         <i class="fa fa-gavel me-2"></i>Surat Keputusan (SK)
                     </div>
                     <div class="card-body">
@@ -50,7 +50,7 @@
             <!-- Sertifikat -->
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-gray-800 text-white fw-bolder">
+                    <div class="card-header bg-white border-bottom fw-bolder py-3">
                         <i class="fa fa-certificate me-2"></i>Sertifikat Kompetensi
                     </div>
                     <div class="card-body">

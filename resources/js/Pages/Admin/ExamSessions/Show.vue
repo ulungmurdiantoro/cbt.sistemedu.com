@@ -6,14 +6,11 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <Link href="/admin/exam_sessions" class="btn btn-md btn-primary border-0 shadow" type="button">
-                        <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                    </Link>
+                <BackBar href="/admin/exam_sessions">
                     <Link :href="`/admin/exam_sessions/${exam_session.id}/edit`" class="btn btn-md btn-info border-0 shadow">
                         <i class="fa fa-pencil-alt me-2"></i> Edit Sesi
                     </Link>
-                </div>
+                </BackBar>
 
                 <SessionNav :session="exam_session" active="peserta" />
 
@@ -25,9 +22,7 @@
                 </div>
 
                 <!-- Detail sesi -->
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <h6 class="fw-bold mb-3"><i class="fa fa-stopwatch me-2"></i>Detail Sesi</h6>
+                <SectionCard title="Detail Sesi" icon="fa-stopwatch">
                         <div class="row g-3 small">
                             <div class="col-6 col-md-3">
                                 <div class="text-muted">Skema</div>
@@ -78,28 +73,22 @@
                                 <div v-else class="text-muted mt-1">Berlaku untuk semua peserta sesi ini. Setelah diverifikasi PK, peserta diverifikasi &amp; difinalisasi Manajer Sertifikasi.</div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                </SectionCard>
 
                 <!-- Peserta & penugasan asesor -->
-                <div class="card border-0 shadow">
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
-                            <h6 class="fw-bold mb-0"><i class="fa fa-users me-2"></i>Peserta &amp; Asesor ({{ students.length }})</h6>
-                            <div class="d-flex gap-2">
-                                <Link :href="`/admin/exam_sessions/${exam_session.id}/enrolle/create`" class="btn btn-md btn-primary border-0 shadow">
-                                    <i class="fa fa-user-plus me-1"></i> Enroll Peserta
-                                </Link>
-                                <button v-if="students.length" @click="save" :disabled="saving" class="btn btn-md btn-success border-0 shadow">
-                                    <i class="fa fa-save me-1"></i> {{ saving ? 'Menyimpan...' : 'Simpan Penugasan' }}
-                                </button>
-                            </div>
-                        </div>
-
-                        <p v-if="students.length" class="small text-muted mb-2">
-                            <i class="fa fa-search me-1"></i>Klik kolom asesor lalu ketik namanya untuk mencari ({{ asesors.length }} asesor).
-                            Angka di samping nama = jumlah peserta sesi ini yang sudah ditugaskan ke asesor itu.
-                        </p>
+                <SectionCard title="Peserta & Asesor" icon="fa-users">
+                    <template #meta>
+                        {{ students.length }} peserta<template v-if="students.length"> · Klik kolom asesor lalu ketik namanya untuk mencari ({{ asesors.length }} asesor).
+                        Angka di samping nama = jumlah peserta sesi ini yang sudah ditugaskan ke asesor itu.</template>
+                    </template>
+                    <template #actions>
+                        <Link :href="`/admin/exam_sessions/${exam_session.id}/enrolle/create`" class="btn btn-primary border-0 shadow">
+                            <i class="fa fa-user-plus me-1"></i> Enroll Peserta
+                        </Link>
+                        <button v-if="students.length" @click="save" :disabled="saving" class="btn btn-success border-0 shadow">
+                            <i class="fa fa-save me-1"></i> {{ saving ? 'Menyimpan...' : 'Simpan Penugasan' }}
+                        </button>
+                    </template>
 
                         <div class="table-responsive">
                             <table class="table table-bordered table-centered mb-0 rounded">
@@ -113,7 +102,6 @@
                                         <th class="border-0 rounded-end text-center" style="width:6%">Aksi</th>
                                     </tr>
                                 </thead>
-                                <div class="mt-2"></div>
                                 <tbody>
                                     <tr v-for="(row, i) in form" :key="row.student_id">
                                         <td class="fw-bold text-center">{{ i + 1 }}</td>
@@ -165,8 +153,7 @@
                                 <i class="fa fa-save me-1"></i> {{ saving ? 'Menyimpan...' : 'Simpan Penugasan' }}
                             </button>
                         </div>
-                    </div>
-                </div>
+                </SectionCard>
 
             </div>
         </div>
@@ -177,6 +164,8 @@
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import SessionNav from '../../../Components/SessionNav.vue';
+import BackBar from '../../../Components/Admin/BackBar.vue';
+import SectionCard from '../../../Components/SectionCard.vue';
 import SearchSelect from '../../../Components/SearchSelect.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
@@ -185,7 +174,7 @@ const UNSAVED_MESSAGE = 'Perubahan penugasan asesor / Pengambil Keputusan belum 
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge, SessionNav, SearchSelect },
+    components: { Head, Link, StatusBadge, SessionNav, SearchSelect, BackBar, SectionCard },
     props: {
         errors:         Object,
         exam_session:   Object,

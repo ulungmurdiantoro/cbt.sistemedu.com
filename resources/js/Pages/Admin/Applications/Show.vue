@@ -4,20 +4,10 @@
     </Head>
 
     <div class="container-fluid mb-5 mt-5">
-    <div class="row mb-3">
-        <div class="col-md-12 d-flex justify-content-between align-items-center">
-            <div>
-                <h5 class="fw-bold mb-0">Detail Permohonan</h5>
-                <p class="text-muted small mb-0">Kode: {{ application.code }}</p>
-            </div>
-            <div class="d-flex gap-2 align-items-center">
-                <span :class="statusBadge(application.status)" class="badge fs-6">{{ statusLabel(application.status) }}</span>
-                <Link :href="backUrl" class="btn btn-md btn-primary border-0 shadow" type="button">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                </Link>
-            </div>
-        </div>
-    </div>
+    <BackBar :href="backUrl">
+        <span class="small text-muted">Detail Permohonan · Kode: <strong class="text-gray-800">{{ application.code }}</strong></span>
+        <span :class="statusBadge(application.status)" class="badge fs-6">{{ statusLabel(application.status) }}</span>
+    </BackBar>
 
     <div v-if="$page.props.session.success" class="alert alert-success border-0 shadow mb-3">
         {{ $page.props.session.success }}
@@ -32,7 +22,7 @@
 
             <!-- Info sertifikasi -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-bolder d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="card-header bg-white border-bottom fw-bolder py-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <span>Data Sertifikasi</span>
                     <div class="d-flex gap-1">
                         <a :href="`/admin/applications/${application.id}/fr-apl-01`" class="btn btn-sm btn-info" target="_blank">
@@ -61,7 +51,7 @@
 
             <!-- Data pribadi (dari snapshot atau participant) -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-bolder d-flex justify-content-between align-items-center">
+                <div class="card-header bg-white border-bottom fw-bolder py-3 d-flex justify-content-between align-items-center">
                     <span>Data Pribadi (FR.APL.01 Bag. 1a)</span>
                     <button v-if="application.participant" class="btn btn-sm btn-warning" @click="openResetPasswordModal">
                         <i class="fa fa-key me-1"></i>Ganti Password Peserta
@@ -80,7 +70,7 @@
 
             <!-- Data pekerjaan -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-bolder">Data Pekerjaan (FR.APL.01 Bag. 1b)</div>
+                <div class="card-header bg-white border-bottom fw-bolder py-3">Data Pekerjaan (FR.APL.01 Bag. 1b)</div>
                 <div class="card-body">
                     <table class="table table-sm mb-0 detail-table" style="table-layout:fixed;width:100%">
                         <colgroup><col style="width:200px"><col></colgroup>
@@ -94,7 +84,7 @@
 
             <!-- Tanda Tangan -->
             <div class="card border-0 shadow mb-4" v-if="application.signature_path">
-                <div class="card-header bg-gray-800 text-white fw-bolder">Tanda Tangan Pemohon</div>
+                <div class="card-header bg-white border-bottom fw-bolder py-3">Tanda Tangan Pemohon</div>
                 <div class="card-body">
                     <a :href="`/admin/applications/${application.id}/tanda-tangan/pakta`" target="_blank">
                         <img :src="`/admin/applications/${application.id}/tanda-tangan/pakta`" alt="TTD"
@@ -105,11 +95,11 @@
 
             <!-- Dokumen -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-bolder">Bukti Kelengkapan (Bag. 3)</div>
+                <div class="card-header bg-white border-bottom fw-bolder py-3">Bukti Kelengkapan (Bag. 3)</div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
-                            <thead class="bg-gray-100">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th style="min-width:180px">Dokumen</th>
                                     <th style="width:120px">Status</th>
@@ -161,10 +151,10 @@
 
             <!-- Penilaian Awal Kelayakan (FR.APL.03) — selalu bisa diakses, tidak terikat status -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-bolder d-flex justify-content-between align-items-center">
+                <div class="card-header bg-white border-bottom fw-bolder py-3 d-flex justify-content-between align-items-center">
                     <span>Penilaian Awal Kelayakan (FR.APL.03)</span>
                     <button v-if="application.initial_assessment && !showAssessmentForm"
-                        type="button" class="btn btn-sm btn-outline-light" @click="openAssessmentForm">
+                        type="button" class="btn btn-sm btn-gray-100 border" @click="openAssessmentForm">
                         <i class="fa fa-pen me-1"></i>Ubah Penilaian
                     </button>
                 </div>
@@ -242,7 +232,7 @@
 
             <!-- Status & aksi -->
             <div class="card border-0 shadow mb-4">
-                <div class="card-header bg-gray-800 text-white fw-bolder">Aksi</div>
+                <div class="card-header bg-white border-bottom fw-bolder py-3">Aksi</div>
                 <div class="card-body">
 
                     <!-- Akun ujian (jika sudah approved) -->
@@ -431,7 +421,7 @@
 
             <!-- Riwayat reissue -->
             <div class="card border-0 shadow mb-4" v-if="application.reissue_logs?.length">
-                <div class="card-header bg-gray-800 text-white fw-bolder">Riwayat Re-issue</div>
+                <div class="card-header bg-white border-bottom fw-bolder py-3">Riwayat Re-issue</div>
                 <div class="card-body p-0">
                     <table class="table table-sm mb-0">
                         <tr v-for="log in application.reissue_logs" :key="log.id">
@@ -574,6 +564,7 @@
 </template>
 
 <script>
+import BackBar from '../../../Components/Admin/BackBar.vue';
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { computed, reactive, ref, nextTick, onMounted, onUnmounted, watch } from 'vue';
@@ -581,7 +572,7 @@ import SignaturePad from 'signature_pad';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { BackBar, Head, Link },
     props: { application: Object, auth_admin: Object, other_sessions: Array, initial_assessment_rubric: Object },
 
     setup(props) {

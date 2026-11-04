@@ -60,7 +60,7 @@ class EssayMigasController extends BaseExamController
 
         $essays = $exam_group->exam->random_essay === 'Y'
             ? Essay::where('exam_id', $examId)->inRandomOrder()->get()
-            : Essay::where('exam_id', $examId)->get();
+            : Essay::where('exam_id', $examId)->orderBy('id')->get();
 
         $essayOrder = 1;
 

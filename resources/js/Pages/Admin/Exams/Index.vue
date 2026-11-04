@@ -3,34 +3,19 @@
         <title>Ujian - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-3 col-12 mb-2">
-                        <Link href="/admin/exams/create" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
-                            class="fa fa-plus-circle"></i>
-                        Tambah</Link>
-                    </div>
-                    <div class="col-md-9 col-12 mb-2">
-                        <form @submit.prevent="handleSearch">
-                            <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci...">
-                                <span class="input-group-text border-0 shadow">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ListToolbar v-model="search" @search="handleSearch">
+            <template #actions>
+                    <Link href="/admin/exams/create" class="btn btn-primary border-0 shadow"><i class="fa fa-plus-circle me-1"></i> Tambah</Link>
+            </template>
+        </ListToolbar>
+
         <div class="row mt-1">
             <div class="col-md-12">
                 <div class="card border-0 shadow">
                     <div class="card-body">
 
                         <div class="table-responsive">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                            <table class="table table-bordered table-centered table-list mb-0 rounded">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
@@ -38,17 +23,16 @@
                                         <th class="border-0">Tipe Ujian</th>
                                         <th class="border-0">Skema</th>
                                         <th class="border-0">Jumlah Soal</th>
-                                        <th class="border-0">Exam_id</th>
+                                        <th class="border-0">ID</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>
-                                <div class="mt-2"></div>
                                 <tbody>
                                     <tr v-for="(exam, index) in exams.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (exams.current_page - 1) * exams.per_page }}</td>
-                                        <td>{{ exam.title }}</td>
+                                        <td class="cell-wrap">{{ exam.title }}</td>
                                         <td><StatusBadge :tone="tipeTone(exam.type)" :label="exam.type" /></td>
-                                        <td class="text-center">{{ exam.classroom?.title }}</td>
+                                        <td class="cell-wrap">{{ exam.classroom?.title }}</td>
                                         <td v-if="exam.type == 'Pilihan Ganda'" class="text-center">{{ exam.questions.length }}</td>
                                         <td v-else class="text-center">{{ exam.essays.length }}</td>
                                         <!-- <td class="text-center">{{ exam.questions.length }}</td> -->
@@ -83,6 +67,7 @@
 
     //import component pagination
     import Pagination from '../../../Components/Pagination.vue';
+    import ListToolbar from '../../../Components/Admin/ListToolbar.vue';
 
     //import status badge component
     import StatusBadge from '../../../Components/StatusBadge.vue';
@@ -108,6 +93,7 @@
 
         //register component
         components: {
+            ListToolbar,
             Head,
             Link,
             Pagination,

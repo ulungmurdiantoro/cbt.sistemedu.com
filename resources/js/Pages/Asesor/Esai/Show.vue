@@ -19,7 +19,7 @@
                 </div>
 
                 <!-- Daftar peserta (master) -->
-                <TableCard v-else title="Daftar Peserta" icon="fa-users">
+                <SectionCard v-else title="Daftar Peserta" icon="fa-users">
                     <template #meta>
                         Selesai dinilai: {{ fullyScoredCount }} / {{ form.length }} · Rata-rata: {{ sessionAvg() }}
                     </template>
@@ -70,7 +70,7 @@
                                 </tbody>
                             </table>
                         </div>
-                </TableCard>
+                </SectionCard>
 
             </div>
         </div>
@@ -170,11 +170,11 @@ import { Head, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideEsai from '../../../Components/Guide/Asesor/Esai.vue';
 import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
-import TableCard from '../../../Components/Asesor/TableCard.vue';
+import SectionCard from '../../../Components/SectionCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, PageGuide, GuideEsai, SessionHeader, TableCard },
+    components: { Head, PageGuide, GuideEsai, SessionHeader, SectionCard },
 
     props: {
         exam_session: Object,
@@ -207,8 +207,10 @@ export default {
     methods: {
         buildForm() {
             return this.students_data.map(row => {
-                const answers = this.essays.map((_, i) => {
-                    const ans = row.answers.find(a => a.essay_order === i + 1) || row.answers[i] || null;
+                // Jawaban dicocokkan ke soalnya lewat essay_id (urutan soal = urutan resmi, sama dengan
+                // detail jawaban admin), bukan lewat posisi/essay_order.
+                const answers = this.essays.map(essay => {
+                    const ans = row.answers.find(a => a.essay_id === essay.id) || null;
                     return {
                         answer_essay_id: ans?.id ?? null,
                         answer_text:     ans?.answer ?? '',

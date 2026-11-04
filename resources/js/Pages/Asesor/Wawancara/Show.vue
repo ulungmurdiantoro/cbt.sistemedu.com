@@ -18,7 +18,7 @@
                     Tidak ada peserta yang ditugaskan di sesi ini.
                 </div>
 
-                <TableCard v-else title="Daftar Peserta" icon="fa-users">
+                <SectionCard v-else title="Daftar Peserta" icon="fa-users">
                     <template #meta>Selesai dinilai: {{ scoredCount }} / {{ form.length }} · Rata-rata: {{ colAvg('total') }}</template>
                     <template #actions>
                         <button @click="saveAll" :disabled="saving" class="btn btn-success border-0 shadow">
@@ -135,7 +135,7 @@
                             </div>
                             <div class="mt-1">* Total = rata-rata (A + B + C + D) — bobot {{ (bobot * 100).toFixed(1) }}% baru diterapkan saat menghitung Nilai Akhir</div>
                         </div>
-                </TableCard>
+                </SectionCard>
 
             </div>
         </div>
@@ -148,11 +148,11 @@ import { Head, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideWawancara from '../../../Components/Guide/Asesor/Wawancara.vue';
 import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
-import TableCard from '../../../Components/Asesor/TableCard.vue';
+import SectionCard from '../../../Components/SectionCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, PageGuide, GuideWawancara, SessionHeader, TableCard },
+    components: { Head, PageGuide, GuideWawancara, SessionHeader, SectionCard },
 
     props: {
         exam_session: Object,

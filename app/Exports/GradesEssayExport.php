@@ -39,9 +39,9 @@ class GradesEssayExport implements FromCollection, WithMapping, WithHeadings, Wi
             $grades->exam->classroom->title ?? 'N/A',
         ];
 
-        // Sort answersEssay by essay_order and map them
+        // Kolom Jawaban n = soal ke-n dalam urutan resmi (essay_id naik) untuk semua peserta
         $is_correct_answers = $grades->answersEssay
-            ->sortBy('essay_order')
+            ->sortBy('essay_id')
             ->values()
             ->map(function ($answer, $index) {
                 return [

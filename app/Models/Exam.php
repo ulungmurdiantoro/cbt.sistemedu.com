@@ -73,9 +73,12 @@ class Exam extends Model
      */
     public function essays()
     {
-        return $this->hasMany(Essay::class)->orderBy('id', 'DESC');
+        // Urutan resmi soal esai = urutan dibuat (id naik), sama dengan urutan yang dilihat peserta
+        // saat ujian. Bank soal, detail jawaban admin, penilaian asesor, PDF & Excel memakai urutan
+        // ini dan mencocokkan jawaban lewat essay_id — jangan lewat posisi/essay_order.
+        return $this->hasMany(Essay::class)->orderBy('id');
     }
-    
+
     /**
      * essays
      *
@@ -83,7 +86,7 @@ class Exam extends Model
      */
     public function migas_essays()
     {
-        return $this->hasMany(Essay::class)->orderBy('id', 'DESC');
+        return $this->hasMany(Essay::class)->orderBy('id');
     }
 
     /**

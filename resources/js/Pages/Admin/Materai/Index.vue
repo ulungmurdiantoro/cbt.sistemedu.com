@@ -19,37 +19,26 @@
             </div>
         </div>
 
-        <div class="row mb-3 g-2">
-            <div class="col-md-5 d-flex gap-2">
-                <select v-model="dokumen" class="form-select border-0 shadow" @change="apply">
+        <ListToolbar v-model="search" @search="apply">
+            <template #filters>
+                <select v-model="dokumen" class="form-select border-0 shadow w-auto" @change="apply">
                     <option value="">Semua dokumen</option>
                     <option value="FR.AK.14">FR.AK.14</option>
                     <option value="FR.AK.01">FR.AK.01</option>
                 </select>
-                <select v-model="status" class="form-select border-0 shadow" @change="apply">
+                <select v-model="status" class="form-select border-0 shadow w-auto" @change="apply">
                     <option value="">Semua status</option>
                     <option value="stamped">Berhasil</option>
                     <option value="failed">Gagal</option>
                     <option value="proses">Diproses</option>
                 </select>
-            </div>
-            <div class="col-md-4 offset-md-3">
-                <form @submit.prevent="apply">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-0 shadow" v-model="search"
-                            placeholder="masukkan kata kunci...">
-                        <button type="submit" class="btn btn-gray-800 border-0 shadow">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+            </template>
+        </ListToolbar>
 
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-centered mb-0 rounded">
+                    <table class="table table-bordered table-centered table-list mb-0 rounded">
                         <thead class="thead-dark">
                             <tr class="border-0">
                                 <th class="border-0 rounded-start" style="width:4%">No.</th>
@@ -108,13 +97,14 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
+import ListToolbar from '../../../Components/Admin/ListToolbar.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import MateraiSaldo from '../../../Components/MateraiSaldo.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination, StatusBadge, MateraiSaldo },
+    components: { ListToolbar, Head, Link, Pagination, StatusBadge, MateraiSaldo },
     props: {
         rows:    Object,
         summary: Object,

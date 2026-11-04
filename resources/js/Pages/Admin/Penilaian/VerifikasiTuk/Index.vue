@@ -1,24 +1,11 @@
 <template>
     <Head><title>Verifikasi TUK — {{ exam_session.title }}</title></Head>
-    <div class="container-fluid mb-5 mt-4">
+    <div class="container-fluid mb-5 mt-5">
         <div class="col-12">
 
-            <Link :href="`/admin/exam_sessions/${exam_session.id}`" class="btn btn-primary border-0 shadow mb-3">
-                <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Sesi
-            </Link>
+            <BackBar href="/admin/exam_sessions" />
 
             <SessionNav :session="exam_session" active="tuk" />
-
-            <!-- Info sesi -->
-            <div class="card border-0 shadow mb-3">
-                <div class="card-body py-3">
-                    <h6 class="fw-bold mb-2"><i class="fa fa-video me-2"></i>Verifikasi TUK Online (FR.TUK.06)</h6>
-                    <div class="row small">
-                        <div class="col-md-6"><span class="text-muted">Sesi:</span> {{ exam_session.title }}</div>
-                        <div class="col-md-6"><span class="text-muted">Skema:</span> {{ exam_session.exam_pg?.classroom?.title ?? exam_session.exam_esai?.classroom?.title ?? '-' }}</div>
-                    </div>
-                </div>
-            </div>
 
             <div v-if="$page.props.session.success" class="alert alert-success border-0 shadow mb-3">
                 {{ $page.props.session.success }}
@@ -60,17 +47,13 @@
             </div>
 
             <!-- Tabel peserta -->
-            <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-bolder">
-                    <i class="fa fa-users me-2"></i>Daftar Peserta
-                    <span class="badge bg-gray-200 text-gray-800 ms-2">{{ rows.length }}</span>
-                </div>
-                <div class="card-body p-0">
+            <SectionCard title="Daftar Peserta" icon="fa-users">
+                <template #meta>{{ rows.length }} peserta</template>
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-secondary">
+                        <table class="table table-bordered table-centered table-hover table-list mb-0 rounded">
+                            <thead class="thead-dark">
                                 <tr>
-                                    <th style="width:5%">#</th>
+                                    <th class="text-center" style="width:5%">No.</th>
                                     <th style="width:12%">No. Peserta</th>
                                     <th>Nama</th>
                                     <th class="text-center" style="width:18%">Verifikasi Awal</th>
@@ -122,8 +105,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
+            </SectionCard>
 
         </div>
     </div>
@@ -133,11 +115,13 @@
 import LayoutAdmin from '../../../../Layouts/Admin.vue';
 import StatusBadge from '../../../../Components/StatusBadge.vue';
 import SessionNav from '../../../../Components/SessionNav.vue';
+import BackBar from '../../../../Components/Admin/BackBar.vue';
+import SectionCard from '../../../../Components/SectionCard.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge, SessionNav },
+    components: { Head, Link, StatusBadge, SessionNav, BackBar, SectionCard },
     props: {
         exam_session: Object,
         rows: Array,

@@ -2,19 +2,9 @@
     <Head><title>Komposisi Nilai - {{ classroom.title }}</title></Head>
 
     <div class="container-fluid mb-5 mt-5">
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="fw-bold mb-0">Komposisi Nilai</h5>
-                    <p class="text-muted small mb-0">Skema: <strong>{{ classroom.title }}</strong></p>
-                </div>
-                <Link href="/admin/classrooms" class="btn btn-md btn-primary border-0 shadow" type="button">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                </Link>
-            </div>
-        </div>
-    </div>
+    <BackBar href="/admin/classrooms">
+        <span class="small text-muted">Komposisi Nilai · Skema: <strong class="text-gray-800">{{ classroom.title }}</strong></span>
+    </BackBar>
 
     <div v-if="$page.props.session?.success" class="alert alert-success border-0 shadow mb-3">
         {{ $page.props.session.success }}
@@ -30,7 +20,7 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
-                            <thead class="bg-gray-100">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th>Metode Ujian</th>
                                     <th class="text-center" style="width:130px">Proporsi Nilai</th>
@@ -89,7 +79,7 @@
         <!-- Form edit (kanan) -->
         <div class="col-12 col-lg-5">
             <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-bolder">
+                <div class="card-header bg-white border-bottom fw-bolder py-3">
                     Rekapitulasi Hasil Pembobotan Penilaian
                 </div>
                 <div class="card-body">
@@ -151,13 +141,14 @@
 </template>
 
 <script>
+import BackBar from '../../../Components/Admin/BackBar.vue';
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { reactive, ref, computed } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { BackBar, Head, Link },
     props: {
         classroom: Object,
         scheme:    Object,

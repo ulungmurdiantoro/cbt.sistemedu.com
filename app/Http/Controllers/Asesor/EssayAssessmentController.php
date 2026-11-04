@@ -54,7 +54,7 @@ class EssayAssessmentController extends Controller
             $answers = AnswerEssay::where('exam_id', $esaiExamId)
                 ->where('exam_session_id', $exam_session_id)
                 ->where('student_id', $student_id)
-                ->orderBy('essay_order')
+                ->orderBy('essay_id')
                 ->get();
 
             $grade = Grade::where('exam_id', $esaiExamId)

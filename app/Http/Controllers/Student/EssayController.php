@@ -48,7 +48,7 @@ class EssayController extends BaseExamController
 
         $essays = $exam_group->exam->random_essay == 'Y'
             ? Essay::where('exam_id', $exam_group->exam->id)->inRandomOrder()->get()
-            : Essay::where('exam_id', $exam_group->exam->id)->get();
+            : Essay::where('exam_id', $exam_group->exam->id)->orderBy('id')->get();
 
         $essay_order = 1;
 

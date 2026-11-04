@@ -199,6 +199,9 @@
                         <li>Kolom <strong>No.</strong> selalu pertama (center); kolom <strong>Aksi</strong> selalu terakhir (icon-only: edit accent + hapus danger).</li>
                         <li>Nilai dua desimal <span class="bp-kbd">87.50</span> rata kanan, <span class="bp-kbd">tabular-nums</span>; durasi mono <span class="bp-kbd">00:42:15</span>.</li>
                         <li>Pencarian selalu di kanan toolbar, placeholder <span class="bp-kbd">masukkan kata kunci...</span></li>
+                        <li>Toolbar daftar = komponen <span class="bp-kbd">Admin/ListToolbar</span> (aksi kiri, filter + Cari kanan).</li>
+                        <li>Halaman detail / form / per sesi: baris atas <span class="bp-kbd">Admin/BackBar</span> — Kembali di kiri, aksi halaman di kanan.</li>
+                        <li>Kartu bagian bertabel/form = <span class="bp-kbd">SectionCard</span> (judul putih + tombol aksi di kanan header); header tabel selalu gelap.</li>
                         <li>Tombol = verba imperatif: Tambah, Import, Simpan, Hapus, Setujui, Tolak, Export, Detail.</li>
                     </ul>
                 </div>
@@ -284,6 +287,8 @@ NAV BAKU (jangan diacak).
 MAIN: Dashboard | MANAJEMEN: Skema, Peserta | UJIAN ONLINE: Ujian, Sesi Ujian, Permohonan, Hasil Penilaian (termasuk Laporan Nilai) | ADMINISTRASI: Kelola User.
 
 HALAMAN PER SESI. Detail sesi dan halaman turunannya memakai tab SessionNav: Peserta & Asesor, Permohonan, Verifikasi TUK, TTD AK.01 (Rekap Hasil tetap di menu Hasil Penilaian). Halaman per sesi baru = tab baru, bukan menu sidebar baru.
+
+HALAMAN DETAIL / FORM. Baris atas = BackBar (Kembali kiri, aksi halaman kanan) — tab per sesi: BackBar -> SessionNav -> isi. Kartu bagian = SectionCard (judul + ringkasan kiri, tombol aksi kanan header). Tabel daftar memakai class table-list; kolom teks panjang diberi cell-wrap.
 
 DETAIL SENADA. Kolom No. selalu pertama (center), Aksi selalu terakhir (icon-only). Nilai dua desimal (87.50) rata kanan tabular-nums; durasi mono 00:42:15. Tombol = verba imperatif (Tambah, Simpan, Hapus, Setujui, Tolak, Export, Detail). Empty state: ikon abu + judul + kalimat ramah.
 

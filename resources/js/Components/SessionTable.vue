@@ -5,7 +5,7 @@
       Server sudah mengurutkan: sesi aktif dulu, lalu yang selesai (terbaru dulu).
     -->
     <div class="table-responsive">
-        <table class="table table-bordered table-centered mb-0 rounded session-table">
+        <table class="table table-bordered table-centered table-list mb-0 rounded session-table">
             <thead class="thead-dark">
                 <tr class="border-0">
                     <th class="border-0 rounded-start" style="width:4%">No.</th>
@@ -28,7 +28,7 @@
                     <tr :class="isActive(s) ? 'table-active-session' : 'table-finished-session'">
                         <td class="fw-bold text-center">{{ index + 1 + offset }}</td>
                         <!-- Volt memberi nowrap ke semua sel; judul panjang dibungkus supaya tabel tidak perlu digeser -->
-                        <td style="min-width:220px">
+                        <td class="cell-wrap" style="min-width:220px">
                             <div class="d-flex align-items-start gap-2">
                                 <StatusBadge v-if="isActive(s)" tone="accent" label="Aktif" class="mt-1 flex-shrink-0" />
                                 <StatusBadge v-else tone="success" label="Selesai" class="mt-1 flex-shrink-0" />

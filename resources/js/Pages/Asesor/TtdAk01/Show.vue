@@ -34,7 +34,7 @@
                 </OwnSignatureCard>
 
                 <!-- Daftar peserta -->
-                <TableCard title="Daftar Peserta" icon="fa-users">
+                <SectionCard title="Daftar Peserta" icon="fa-users">
                         <div v-if="rows.length === 0" class="alert alert-info mb-0">
                             Tidak ada peserta yang ditugaskan di sesi ini.
                         </div>
@@ -79,7 +79,7 @@
                                 </tbody>
                             </table>
                         </div>
-                </TableCard>
+                </SectionCard>
 
             </div>
         </div>
@@ -93,11 +93,11 @@ import PageGuide from '../../../Components/PageGuide.vue';
 import GuideTtdAk01 from '../../../Components/Guide/Asesor/TtdAk01.vue';
 import OwnSignatureCard from '../../../Components/OwnSignatureCard.vue';
 import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
-import TableCard from '../../../Components/Asesor/TableCard.vue';
+import SectionCard from '../../../Components/SectionCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, PageGuide, GuideTtdAk01, OwnSignatureCard, SessionHeader, TableCard },
+    components: { Head, PageGuide, GuideTtdAk01, OwnSignatureCard, SessionHeader, SectionCard },
 
     props: {
         exam_session:  Object,

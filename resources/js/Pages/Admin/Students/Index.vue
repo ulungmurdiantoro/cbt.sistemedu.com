@@ -3,48 +3,21 @@
         <title>Peserta - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-5 col-12 mb-2">
-                        <div class="row">
-                            <div class="col-md-4 col-12 mb-2">
-                                <Link href="/admin/students/create" class="btn btn-md btn-primary border-0 shadow w-100"
-                                    type="button"><i class="fa fa-plus-circle"></i>
-                                Tambah</Link>
-                            </div>
-                            <div class="col-md-4 col-12 mb-2">
-                                <Link href="/admin/students/import" class="btn btn-md btn-success border-0 shadow w-100 text-white"
-                                    type="button"><i class="fa fa-file-excel"></i>
-                                Import</Link>
-                            </div>
-                            <div class="col-md-4 col-12 mb-2">
-                                <a :href="exportUrl" class="btn btn-md btn-info border-0 shadow w-100"
-                                    title="Download Excel peserta yang pernah mengikuti sesi sertifikasi (ikut kata kunci pencarian)">
-                                    <i class="fa fa-download"></i> Export</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-7 col-12 mb-2">
-                        <form @submit.prevent="handleSearch">
-                            <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci...">
-                                <span class="input-group-text border-0 shadow">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ListToolbar v-model="search" @search="handleSearch">
+            <template #actions>
+                    <Link href="/admin/students/create" class="btn btn-primary border-0 shadow"><i class="fa fa-plus-circle me-1"></i> Tambah</Link>
+                    <Link href="/admin/students/import" class="btn btn-success border-0 shadow text-white"><i class="fa fa-file-excel me-1"></i> Import</Link>
+                    <a :href="exportUrl" class="btn btn-info border-0 shadow" title="Download Excel peserta yang pernah mengikuti sesi sertifikasi (ikut kata kunci pencarian)"><i class="fa fa-download me-1"></i> Export</a>
+            </template>
+        </ListToolbar>
+
         <div class="row mt-1">
             <div class="col-md-12">
                 <div class="card border-0 shadow">
                     <div class="card-body">
 
                         <div class="table-responsive">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                            <table class="table table-bordered table-centered table-list mb-0 rounded">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
@@ -57,17 +30,16 @@
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>
-                                <div class="mt-2"></div>
                                 <tbody>
                                     <tr v-for="(student, index) in students.data" :key="index">
                                         <td class="fw-bold text-center">
                                             {{ ++index + (students.current_page - 1) * students.per_page }}</td>
                                         <td>{{ student.no_participant }}</td>
-                                        <td>{{ student.name }}</td>
+                                        <td class="cell-wrap">{{ student.name }}</td>
                                         <td class="text-center"><StatusBadge tone="accent" :label="student.classroom?.title" /></td>
                                         <td class="text-center">{{ student.gender }}</td>
                                         <td>{{ student.position }}</td>
-                                        <td>{{ student.institution }}</td>
+                                        <td class="cell-wrap">{{ student.institution }}</td>
                                         <td class="text-center">
                                             <Link :href="`/admin/students/${student.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
                                             <button @click.prevent="destroy(student.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
@@ -97,6 +69,7 @@
 
     //import component pagination
     import Pagination from '../../../Components/Pagination.vue';
+    import ListToolbar from '../../../Components/Admin/ListToolbar.vue';
 
     //import status badge component
     import StatusBadge from '../../../Components/StatusBadge.vue';
@@ -122,6 +95,7 @@
 
         //register component
         components: {
+            ListToolbar,
             Head,
             Link,
             Pagination,

@@ -18,7 +18,7 @@
                     missing-hint="Isi di bawah ini supaya bisa dipakai otomatis untuk FR.AK.05 dan dokumen lain yang memerlukan TTD Anda."
                     @saved="successMsg = 'Tanda tangan berhasil disimpan.'" />
 
-                <TableCard title="Rekomendasi Asesi">
+                <SectionCard title="Rekomendasi Asesi">
                     <template v-if="rows.length" #actions>
                         <button @click="saveRekomendasi" :disabled="savingRekomendasi" class="btn btn-success border-0 shadow">
                             <i class="fa fa-save me-1"></i>
@@ -72,9 +72,9 @@
                                 setelah nilai esai/wawancara selesai dinilai, sampai sesi ini difinalisasi Manajer Sertifikasi.
                             </div>
                         </template>
-                </TableCard>
+                </SectionCard>
 
-                <TableCard title="Catatan Laporan Asesmen" icon="fa-pen">
+                <SectionCard title="Catatan Laporan Asesmen" icon="fa-pen">
                     <template #meta>
                         Kolom di bawah sudah diisi teks contoh yang umum dipakai — silakan diedit sesuai kondisi sesi ini, atau langsung disimpan apa adanya.
                         <span v-if="!report"> Simpan laporan terlebih dahulu untuk bisa mengunduh PDF.</span>
@@ -113,7 +113,7 @@
                             <label class="form-label fw-bolder">Catatan</label>
                             <textarea v-model="form.catatan" class="form-control" rows="3"></textarea>
                         </div>
-                </TableCard>
+                </SectionCard>
 
             </div>
         </div>
@@ -127,11 +127,11 @@ import PageGuide from '../../../Components/PageGuide.vue';
 import GuideLaporan from '../../../Components/Guide/Asesor/LaporanAsesmen.vue';
 import OwnSignatureCard from '../../../Components/OwnSignatureCard.vue';
 import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
-import TableCard from '../../../Components/Asesor/TableCard.vue';
+import SectionCard from '../../../Components/SectionCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, PageGuide, GuideLaporan, OwnSignatureCard, SessionHeader, TableCard },
+    components: { Head, PageGuide, GuideLaporan, OwnSignatureCard, SessionHeader, SectionCard },
 
     props: {
         exam_session:  Object,

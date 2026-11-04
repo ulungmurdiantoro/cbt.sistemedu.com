@@ -62,6 +62,9 @@ export default {
 <style scoped>
 .session-nav {
     overflow-x: auto;
+    /* overflow-x: auto ikut membuat sumbu-y bisa scroll; margin-bottom negatif tab aktif lalu
+       memunculkan scrollbar vertikal (▲▼) di kanan. Kunci sumbu-y. */
+    overflow-y: hidden;
     border-bottom: 2px solid #E5E7EB;
 }
 .session-nav .nav-link {

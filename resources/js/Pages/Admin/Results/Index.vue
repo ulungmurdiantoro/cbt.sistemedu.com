@@ -2,16 +2,12 @@
     <Head><title>Rekap Hasil - Aplikasi Ujian Online</title></Head>
 
     <div class="container-fluid mb-5 mt-5">
-        <h5 class="fw-bold mb-1">Rekap Hasil Penilaian</h5>
-        <p class="small text-muted mb-4">
-            Buka sesi untuk melihat nilai per peserta beserta detail jawabannya, mengunduh Laporan Nilai (Excel / PDF),
-            dan mengirim SP / SK &amp; Sertifikat.
-        </p>
+        <ListToolbar v-model="search" @search="handleSearch" />
 
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-centered mb-0 rounded">
+                    <table class="table table-bordered table-centered table-list mb-0 rounded">
                         <thead class="thead-dark">
                             <tr>
                                 <th class="border-0 rounded-start" style="width:4%">No.</th>
@@ -28,7 +24,7 @@
                         <tbody>
                             <tr v-for="(s, i) in sessions.data" :key="s.id">
                                 <td class="text-center fw-bold">{{ i + 1 + (sessions.current_page - 1) * sessions.per_page }}</td>
-                                <td>
+                                <td class="cell-wrap">
                                     <div class="fw-bolder">{{ s.title }}</div>
                                     <div class="text-muted small">{{ s.start_time }} – {{ s.end_time }}</div>
                                 </td>
@@ -73,13 +69,20 @@
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import ListToolbar from '../../../Components/Admin/ListToolbar.vue';
+import { Head, Link, router } from '@inertiajs/vue3';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination, StatusBadge },
+    components: { Head, Link, Pagination, StatusBadge, ListToolbar },
     props: { sessions: Object },
+    data() {
+        return { search: new URL(document.location).searchParams.get('q') ?? '' };
+    },
     methods: {
+        handleSearch() {
+            router.get('/admin/results', { q: this.search });
+        },
         // Belum/Sebagian/Sudah — dipakai untuk kolom Peninjauan, SP, dan SK & Sertifikat.
         stageBadge(done, total) {
             if (!total || done === 0) return { tone: 'secondary', label: 'Belum' };

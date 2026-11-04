@@ -25,7 +25,8 @@ class ResultController extends Controller
     {
         // Jumlah peserta & progres dihitung dari peserta terdaftar di sesi (akun aktif) — sama dengan
         // baris Rekap Hasil & Dashboard Pengambil Keputusan (ExamSession::scopeWithActiveStudentsCount).
-        $sessions = ExamSession::withActiveStudentsCount()
+        $sessions = ExamSession::when(request()->q, fn ($q) => $q->where('title', 'like', '%' . request()->q . '%'))
+            ->withActiveStudentsCount()
             ->withCount([
                 'participantResults as reviewed_count'   => fn ($q) => $q->enrolled()->whereNotNull('manager_verified_at'),
                 'participantResults as sp_sent_count'    => fn ($q) => $q->enrolled()->whereNotNull('sp_distributed_at'),
@@ -34,7 +35,8 @@ class ResultController extends Controller
             ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
             ->orderByRaw('CASE WHEN end_time > NOW() THEN end_time END ASC')
             ->orderBy('end_time', 'desc')
-            ->paginate(15);
+            ->paginate(15)
+            ->appends(['q' => request()->q]);
 
         return inertia('Admin/Results/Index', ['sessions' => $sessions]);
     }

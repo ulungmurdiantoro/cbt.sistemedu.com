@@ -1,5 +1,5 @@
 <template>
-    <!-- Kartu tabel seragam untuk halaman per sesi asesor: judul + ringkasan di kiri,
+    <!-- Kartu bagian seragam (admin & asesor): judul + ringkasan di kiri,
          tombol aksi (Simpan dll.) selalu di kanan header kartu. -->
     <div class="card border-0 shadow mb-4">
         <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2 py-3">

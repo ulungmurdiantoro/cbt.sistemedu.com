@@ -6,9 +6,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link :href="grade.session ? `/admin/results/${grade.session.id}` : '/admin/results'" class="btn btn-md btn-primary border-0 shadow mb-3">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Rekap Hasil
-                </Link>
+                <BackBar :href="grade.session ? `/admin/results/${grade.session.id}` : '/admin/results'" />
 
                 <!-- Ringkasan peserta & ujian -->
                 <div class="card border-0 shadow mb-3">
@@ -45,6 +43,7 @@
 </template>
 
 <script>
+import BackBar from '../../../Components/Admin/BackBar.vue';
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import PgReview from '../../../Components/AnswerReview/PgReview.vue';
@@ -53,7 +52,7 @@ import { Head, Link } from '@inertiajs/vue3';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge, PgReview, EssayReview },
+    components: { BackBar, Head, Link, StatusBadge, PgReview, EssayReview },
     props: {
         // { id, grade, exam: { id, title, type }, skema, session: { id, title, kode_batch }, student: {...} }
         grade:     Object,

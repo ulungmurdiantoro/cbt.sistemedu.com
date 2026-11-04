@@ -1,11 +1,9 @@
 <template>
     <Head><title>TTD AK.01 — {{ student.name }}</title></Head>
-    <div class="container-fluid mb-5 mt-4">
-        <div class="col-lg-10 col-xl-9 mx-auto">
+    <div class="container-fluid mb-5 mt-5">
+        <div class="col-12">
 
-            <Link :href="`/admin/penilaian/${exam_session.id}/dokumen`" class="btn btn-primary border-0 shadow mb-3">
-                <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali ke Daftar
-            </Link>
+            <BackBar :href="`/admin/penilaian/${exam_session.id}/dokumen`" />
 
             <div v-if="$page.props.session?.success" class="alert alert-success border-0 mb-3">
                 {{ $page.props.session.success }}
@@ -44,7 +42,7 @@
             <template v-else>
                 <!-- Verifikasi Akhir -->
                 <div class="card border-0 shadow mb-3">
-                    <div class="card-header bg-gray-800 text-white fw-bolder">
+                    <div class="card-header bg-white border-bottom fw-bolder py-3">
                         <i class="fa fa-signature me-2"></i>Verifikasi Akhir
                     </div>
                     <div class="card-body">
@@ -166,6 +164,7 @@
 </template>
 
 <script>
+import BackBar from '../../../../Components/Admin/BackBar.vue';
 import LayoutAdmin from '../../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue';
@@ -173,7 +172,7 @@ import SignaturePad from 'signature_pad';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { BackBar, Head, Link },
     props: {
         exam_session:     Object,
         student:          Object,

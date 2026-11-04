@@ -3,24 +3,11 @@
         <title>Kelola User - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
-        <div class="row mb-3">
-            <div class="col-md-4 mb-2 mb-md-0">
-                <Link href="/admin/users/create" class="btn btn-primary border-0 shadow">
-                    <i class="fa fa-plus-circle me-1"></i> Tambah User
-                </Link>
-            </div>
-            <div class="col-md-4 offset-md-4">
-                <form @submit.prevent="applySearch">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-0 shadow" v-model="search"
-                            placeholder="Cari nama, email, atau kode...">
-                        <button type="submit" class="btn btn-gray-800 border-0 shadow">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <ListToolbar v-model="search" @search="applySearch">
+            <template #actions>
+                    <Link href="/admin/users/create" class="btn btn-primary border-0 shadow"><i class="fa fa-plus-circle me-1"></i> Tambah</Link>
+            </template>
+        </ListToolbar>
 
         <div v-if="$page.props.session.success" class="alert alert-success border-0 shadow mb-3">
             {{ $page.props.session.success }}
@@ -29,7 +16,7 @@
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-centered mb-0 rounded">
+                    <table class="table table-bordered table-centered table-list mb-0 rounded">
                         <thead class="thead-dark">
                             <tr class="border-0">
                                 <th class="border-0 rounded-start" style="width:4%">No.</th>
@@ -46,7 +33,7 @@
                                     {{ index + 1 + (users.current_page - 1) * users.per_page }}
                                 </td>
                                 <td class="small text-muted">{{ user.users_code }}</td>
-                                <td>
+                                <td class="cell-wrap">
                                     <span class="fw-bolder">{{ user.name }}</span>
                                     <StatusBadge v-if="user.id === $page.props.auth.user.id" tone="accent" label="Anda" class="ms-1" />
                                 </td>
@@ -90,6 +77,7 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
+import ListToolbar from '../../../Components/Admin/ListToolbar.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
@@ -97,7 +85,7 @@ import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination, StatusBadge },
+    components: { ListToolbar, Head, Link, Pagination, StatusBadge },
     props: {
         users:   Object,
         filters: Object,

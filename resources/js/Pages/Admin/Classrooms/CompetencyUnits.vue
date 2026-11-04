@@ -4,19 +4,9 @@
     </Head>
 
     <div class="container-fluid mb-5 mt-5">
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="fw-bold mb-0">Unit Kompetensi</h5>
-                    <p class="text-muted small mb-0">Skema: <strong>{{ classroom.title }}</strong></p>
-                </div>
-                <Link href="/admin/classrooms" class="btn btn-md btn-primary border-0 shadow" type="button">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                </Link>
-            </div>
-        </div>
-    </div>
+    <BackBar href="/admin/classrooms">
+        <span class="small text-muted">Unit Kompetensi · Skema: <strong class="text-gray-800">{{ classroom.title }}</strong></span>
+    </BackBar>
 
     <div v-if="$page.props.session.success" class="alert alert-success border-0 shadow mb-3">
         {{ $page.props.session.success }}
@@ -28,8 +18,8 @@
             <div class="card border-0 shadow mb-4">
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="bg-gray-100">
+                        <table class="table table-bordered table-centered table-hover table-list mb-0 rounded">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th style="width:40px">No.</th>
                                     <th style="width:160px">Kode Unit</th>
@@ -46,7 +36,7 @@
                                     <td>
                                         <span class="badge bg-secondary text-wrap" style="font-size:0.8rem">{{ unit.kode_unit }}</span>
                                     </td>
-                                    <td>
+                                    <td class="cell-wrap">
                                         <div class="fw-bolder small text-break">{{ unit.judul_unit }}</div>
                                         <div v-if="unit.judul_unit_en" class="text-muted fst-italic text-break" style="font-size:0.78rem">{{ unit.judul_unit_en }}</div>
                                     </td>
@@ -71,7 +61,7 @@
         <!-- Form tambah/edit -->
         <div class="col-12 col-lg-5">
             <div class="card border-0 shadow">
-                <div class="card-header bg-gray-800 text-white fw-bolder">
+                <div class="card-header bg-white border-bottom fw-bolder py-3">
                     {{ editMode ? 'Edit Unit Kompetensi' : 'Tambah Unit Kompetensi' }}
                 </div>
                 <div class="card-body">
@@ -112,13 +102,14 @@
 </template>
 
 <script>
+import BackBar from '../../../Components/Admin/BackBar.vue';
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { reactive, ref } from 'vue';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link },
+    components: { BackBar, Head, Link },
     props: {
         classroom: Object,
         units:     Array,

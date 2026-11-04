@@ -3,25 +3,11 @@
         <title>Sesi Ujian - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-3 col-12 mb-2">
-                        <Link href="/admin/exam_sessions/create" class="btn btn-md btn-primary border-0 shadow w-100" type="button">
-                            <i class="fa fa-plus-circle"></i> Tambah
-                        </Link>
-                    </div>
-                    <div class="col-md-9 col-12 mb-2">
-                        <form @submit.prevent="handleSearch">
-                            <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci...">
-                                <span class="input-group-text border-0 shadow"><i class="fa fa-search"></i></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ListToolbar v-model="search" @search="handleSearch">
+            <template #actions>
+                    <Link href="/admin/exam_sessions/create" class="btn btn-primary border-0 shadow"><i class="fa fa-plus-circle me-1"></i> Tambah</Link>
+            </template>
+        </ListToolbar>
 
         <div class="row mt-1">
             <div class="col-md-12">
@@ -46,6 +32,7 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import Pagination from '../../../Components/Pagination.vue';
+import ListToolbar from '../../../Components/Admin/ListToolbar.vue';
 import SessionTable from '../../../Components/SessionTable.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
@@ -53,7 +40,7 @@ import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, Pagination, SessionTable },
+    components: { ListToolbar, Head, Link, Pagination, SessionTable },
     props: {
         exam_sessions: Object,
     },

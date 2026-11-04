@@ -205,3 +205,22 @@
         box-shadow: 0 0 1.5rem rgba(17, 24, 39, .35);
     }
 }
+
+/* Tabel daftar admin (Blueprint): Volt memaksa white-space: nowrap di semua sel, sehingga nama
+   skema/ujian panjang melebarkan tabel dan kolom Aksi terdorong keluar layar. Kolom teks panjang
+   diberi .cell-wrap supaya boleh turun baris; kolom lain tetap satu baris. */
+.table-list td.cell-wrap {
+    white-space: normal;
+}
+/* Judul kolom tabel daftar boleh dua baris; kalau tidak, judul huruf besar seperti "JENIS KELAMIN"
+   menentukan lebar kolom walau isinya hanya "L". */
+.table.table-list > thead > tr > th {
+    white-space: normal;
+    vertical-align: middle;
+}
+/* Padding horizontal Volt (±1.5rem per sisi) terlalu lebar untuk tabel 8–9 kolom. */
+.table.table-list > thead > tr > th,
+.table.table-list > tbody > tr > td {
+    padding-left: .75rem;
+    padding-right: .75rem;
+}

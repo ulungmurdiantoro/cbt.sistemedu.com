@@ -1,59 +1,39 @@
 <template>
     <Head><title>Rekap Hasil - {{ exam_session.title }}</title></Head>
 
-    <div class="container-fluid mb-5 mt-4">
+    <div class="container-fluid mb-5 mt-5">
 
-        <!-- Header -->
-        <div class="d-flex flex-wrap align-items-start gap-3 mb-4">
-            <Link href="/admin/results" class="btn btn-sm btn-outline-secondary mt-1">
-                <i class="fa fa-arrow-left"></i>
-            </Link>
-            <div class="flex-grow-1">
-                <h5 class="mb-0 fw-bold">{{ exam_session.title }}</h5>
-                <p class="mb-0 small text-muted">Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}</p>
+        <BackBar href="/admin/results">
+            <!-- Eks menu Laporan Nilai -->
+            <div class="dropdown">
+                <button class="btn btn-outline-primary border shadow fw-bolder dropdown-toggle" data-bs-toggle="dropdown">
+                    <i class="fa fa-download me-1"></i> Laporan Nilai
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" style="font-size:0.85rem;">
+                    <li>
+                        <a class="dropdown-item" :href="`/admin/reports/export?exam_session_id=${exam_session.id}`" target="_blank">
+                            <i class="fa fa-file-excel text-success me-2"></i>Excel (nilai per ujian)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" :href="`/admin/reports/export-pdf?exam_session_id=${exam_session.id}&layout=ringkas`" target="_blank">
+                            <i class="fa fa-file-pdf text-danger me-2"></i>PDF Ringkas (A4)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" :href="`/admin/reports/export-pdf?exam_session_id=${exam_session.id}&layout=lebar`" target="_blank">
+                            <i class="fa fa-file-pdf text-danger me-2"></i>PDF Lebar (A0)
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="d-flex flex-column align-items-end gap-1 ms-auto">
-                <div class="d-flex flex-wrap justify-content-end gap-2 text-nowrap">
-                    <!-- Eks menu Laporan Nilai -->
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-primary fw-bolder dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-download me-1"></i> Laporan Nilai
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" style="font-size:0.85rem;">
-                            <li>
-                                <a class="dropdown-item" :href="`/admin/reports/export?exam_session_id=${exam_session.id}`" target="_blank">
-                                    <i class="fa fa-file-excel text-success me-2"></i>Excel (nilai per ujian)
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" :href="`/admin/reports/export-pdf?exam_session_id=${exam_session.id}&layout=ringkas`" target="_blank">
-                                    <i class="fa fa-file-pdf text-danger me-2"></i>PDF Ringkas (A4)
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" :href="`/admin/reports/export-pdf?exam_session_id=${exam_session.id}&layout=lebar`" target="_blank">
-                                    <i class="fa fa-file-pdf text-danger me-2"></i>PDF Lebar (A0)
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <button class="btn btn-sm btn-outline-success fw-bolder" @click="distributeSp" :disabled="!hasFinalized">
-                        <i class="fa fa-paper-plane me-1"></i> 1. Kirim SP
-                    </button>
-                    <button class="btn btn-sm btn-success text-white fw-bolder" @click="distribute" :disabled="!hasFinalized">
-                        <i class="fa fa-paper-plane me-1"></i> 2. Kirim SK &amp; Sertifikat
-                    </button>
-                </div>
-                <div class="small text-muted">
-                    SP terkirim: {{ spSentCount }}/{{ finalizedCount }} &bull; SK/Sertifikat terkirim: {{ finalSentCount }}/{{ finalizedCount }}
-                    <template v-if="frAk14Rows.length">
-                        &bull;
-                        <template v-if="fr_ak_14_requires_materai">FR.AK.14 bermaterai: {{ frAk14StampedCount }}/{{ frAk14Rows.length }}</template>
-                        <template v-else>FR.AK.14 ditandatangani: {{ frAk14SignedCount }}/{{ frAk14Rows.length }} (sesi ini tanpa materai)</template>
-                    </template>
-                </div>
-            </div>
-        </div>
+            <button class="btn btn-outline-success border shadow fw-bolder" @click="distributeSp" :disabled="!hasFinalized">
+                <i class="fa fa-paper-plane me-1"></i> 1. Kirim SP
+            </button>
+            <button class="btn btn-success border-0 shadow text-white fw-bolder" @click="distribute" :disabled="!hasFinalized">
+                <i class="fa fa-paper-plane me-1"></i> 2. Kirim SK &amp; Sertifikat
+            </button>
+        </BackBar>
 
         <!-- Scheme info -->
         <div v-if="scheme" class="alert alert-info py-2 small border-0 mb-3">
@@ -89,10 +69,20 @@
         </div>
 
         <!-- Table -->
-        <div class="card border-0 shadow">
-            <div class="card-body p-0">
+        <SectionCard :title="exam_session.title" icon="fa-poll">
+            <template #meta>
+                Kode Batch: {{ exam_session.kode_batch }} &bull; {{ exam_session.start_time }} – {{ exam_session.end_time }}
+                <div>
+                    SP terkirim: {{ spSentCount }}/{{ finalizedCount }} &bull; SK/Sertifikat terkirim: {{ finalSentCount }}/{{ finalizedCount }}
+                    <template v-if="frAk14Rows.length">
+                        &bull;
+                        <template v-if="fr_ak_14_requires_materai">FR.AK.14 bermaterai: {{ frAk14StampedCount }}/{{ frAk14Rows.length }}</template>
+                        <template v-else>FR.AK.14 ditandatangani: {{ frAk14SignedCount }}/{{ frAk14Rows.length }} (sesi ini tanpa materai)</template>
+                    </template>
+                </div>
+            </template>
                 <div class="table-responsive">
-                    <table class="table table-bordered mb-0">
+                    <table class="table table-bordered table-centered table-list mb-0 rounded">
                         <thead class="thead-dark">
                             <tr>
                                 <th class="border-0" style="width:3%">No.</th>
@@ -284,8 +274,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
+        </SectionCard>
 
     </div>
 </template>
@@ -293,13 +282,15 @@
 <script>
 import LayoutAdmin from '../../../Layouts/Admin.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
+import BackBar from '../../../Components/Admin/BackBar.vue';
+import SectionCard from '../../../Components/SectionCard.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import Swal from 'sweetalert2';
 
 export default {
     layout: LayoutAdmin,
-    components: { Head, Link, StatusBadge },
+    components: { Head, Link, StatusBadge, BackBar, SectionCard },
     props: {
         exam_session: Object,
         rows:         Array,

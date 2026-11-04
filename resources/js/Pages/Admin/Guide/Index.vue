@@ -1,7 +1,7 @@
 <template>
     <Head><title>Panduan Admin</title></Head>
 
-    <div class="container-fluid mb-5 mt-4">
+    <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-lg-10 col-xl-9 mx-auto">
 

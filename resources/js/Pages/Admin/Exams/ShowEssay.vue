@@ -13,7 +13,7 @@
                         <h5> <i class="fa fa-edit"></i> Detail Ujian</h5>
                         <hr>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
+                            <table class="table table-bordered table-centered table-list mb-0 rounded">
                                 <tbody>
                                     <tr>
                                         <td style="width:30%" class="fw-bold">Nama Ujian</td>
@@ -58,19 +58,18 @@
                         </p>
                         
                         <div class="table-responsive mt-3">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded table-wrap">
+                            <table class="table table-bordered table-centered table-list mb-0 rounded">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
-                                        <th class="border-0 rounded-start" style="width:5%">No.</th>
+                                        <th class="border-0 rounded-start text-nowrap" style="width:60px">No.</th>
                                         <th class="border-0">Soal</th>
                                         <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>
-                                <div class="mt-2"></div>
                                 <tbody v-if="exam.type == 'Essay'">
                                     <tr v-for="(essay, index) in exam.essays.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (exam.essays.current_page - 1) * exam.essays.per_page }}</td>
-                                        <td>
+                                        <td class="cell-wrap">
                                             <div class="fw-bold" v-html="essay.question"></div>
                                             <hr>
                                             <div v-html="essay.answer" :class="{ 'text-success fw-bold': essay.answer }"></div>
@@ -85,7 +84,7 @@
                                 <tbody v-else>
                                     <tr v-for="(question, index) in exam.questions.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (exam.questions.current_page - 1) * exam.questions.per_page }}</td>
-                                        <td>
+                                        <td class="cell-wrap">
                                             <div class="fw-bold" v-html="question.question"></div>
                                             <hr>
                                             <ol type="A">

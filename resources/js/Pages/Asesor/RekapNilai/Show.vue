@@ -13,7 +13,7 @@
                     Tidak ada peserta yang ditugaskan di sesi ini.
                 </div>
 
-                <TableCard v-else title="Nilai Peserta yang Ditugaskan kepada Anda">
+                <SectionCard v-else title="Nilai Peserta yang Ditugaskan kepada Anda">
                     <template #meta>{{ rows.length }} peserta · {{ lengkapCount }} nilai lengkap · {{ finalCount }} sudah final</template>
 
                         <div class="table-responsive">
@@ -84,7 +84,7 @@
                             Keputusan bertanda <strong>sementara</strong> dihitung otomatis dari nilai kelulusan — keputusan
                             resmi ditetapkan saat finalisasi (Pengambil Keputusan memverifikasi, Manajer Sertifikasi memfinalisasi).
                         </div>
-                </TableCard>
+                </SectionCard>
 
             </div>
         </div>
@@ -98,11 +98,11 @@ import PageGuide from '../../../Components/PageGuide.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import GuideRekapNilai from '../../../Components/Guide/Asesor/RekapNilai.vue';
 import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
-import TableCard from '../../../Components/Asesor/TableCard.vue';
+import SectionCard from '../../../Components/SectionCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, PageGuide, StatusBadge, GuideRekapNilai, SessionHeader, TableCard },
+    components: { Head, PageGuide, StatusBadge, GuideRekapNilai, SessionHeader, SectionCard },
 
     props: {
         exam_session: Object,

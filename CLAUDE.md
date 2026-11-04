@@ -377,6 +377,13 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
   `exam_groups`, akun aktif — sama dengan baris Rekap Hasil/Tinjau Sertifikasi). **Jangan** hitung `participant_results`:
   barisnya baru dibuat saat Rekap dibuka dan tertinggal saat peserta dipindah batch/dikeluarkan. Progres/cek berbasis
   `participant_results` (ditinjau, terkirim, finalisasi, syarat kirim SP/SK) pakai scope `ParticipantResult::enrolled()`.
+- Kerangka halaman admin (Blueprint, `/admin/blueprint`): menu daftar = `Components/Admin/ListToolbar` (aksi kiri,
+  filter + Cari kanan) -> kartu tabel `table-list` (kolom teks panjang `cell-wrap`, judul kolom boleh 2 baris) -> Pagination.
+  Halaman detail/form/per sesi: baris atas `Components/Admin/BackBar` (Kembali kiri, aksi halaman kanan); tab per sesi
+  = BackBar -> SessionNav -> isi. Kartu bagian = `Components/SectionCard` (juga dipakai portal asesor lewat
+  `Components/Asesor/SessionHeader`); header tabel selalu gelap (`thead-dark`).
+- Urutan resmi soal esai = `id` naik (`Exam::essays()`), sama dengan urutan yang dilihat peserta. Detail jawaban admin,
+  penilaian asesor, PDF & Excel mencocokkan jawaban lewat `essay_id` — jangan lewat posisi/`essay_order`.
 - Panduan portal Asesor, Pengambil Keputusan & Manager Sertifikasi: isi per halaman ada di
   `resources/js/Components/Guide/{Asesor,Manager,CertificationManager}/*.vue`,
   ditampilkan lewat `<PageGuide storage-key="...">` di atas halaman **dan** dirangkai di `Pages/*/Guide/Index.vue`.
