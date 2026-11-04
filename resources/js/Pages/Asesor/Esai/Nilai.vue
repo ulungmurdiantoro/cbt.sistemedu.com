@@ -67,9 +67,9 @@
                                     <StatusBadge v-else tone="neutral" label="Belum dinilai" />
                                 </div>
 
-                                <div class="row g-3">
-                                    <!-- Kiri: pertanyaan + kunci/panduan jawaban -->
-                                    <div class="col-xl-6">
+                                <!-- Atas-bawah: pertanyaan (+ kunci/panduan), lalu jawaban peserta + nilai -->
+                                <div>
+                                    <div class="mb-3">
                                         <div class="small text-muted fw-bolder text-uppercase mb-1">Pertanyaan</div>
                                         <div class="rich" v-html="item.essay.question || '—'"></div>
 
@@ -82,8 +82,7 @@
                                         </template>
                                     </div>
 
-                                    <!-- Kanan: jawaban peserta + nilai -->
-                                    <div class="col-xl-6">
+                                    <div>
                                         <div class="small text-muted fw-bolder text-uppercase mb-1">Jawaban peserta</div>
                                         <div v-if="item.answer_text" class="answer-box rich" v-html="item.answer_text"></div>
                                         <div v-else-if="item.by_file" class="answer-box text-muted"><i class="fa fa-paperclip me-1"></i>Dijawab lewat berkas di atas.</div>
@@ -293,6 +292,7 @@ export default {
     background: rgba(16, 185, 129, .06); border: 1px dashed rgba(16, 185, 129, .45); border-radius: .5rem;
     padding: .75rem 1rem; margin-top: .25rem; overflow-wrap: anywhere;
 }
+.rich { white-space: normal; overflow-wrap: anywhere; }
 .rich :deep(p:last-child) { margin-bottom: 0; }
 .rich :deep(img) { max-width: 100%; height: auto; }
 .rich :deep(ol), .rich :deep(ul) { padding-left: 1.25rem; margin-bottom: .5rem; }

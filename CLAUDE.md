@@ -189,7 +189,7 @@ UNIQUE (user_id, exam_session_id, student_id)
 ### Tampilan Penilaian Esai
 `/asesor/penilaian/{sesi}/esai` = daftar peserta (Progress, Total, tombol Nilai — baca saja). Menilai di halaman
 per peserta `/asesor/penilaian/{sesi}/esai/peserta/{student_id}` (`asesor.esai.grade`, page `Asesor/Esai/Nilai`):
-kartu per soal senada detail jawaban admin, bar melayang Sebelumnya / Simpan / Simpan & Berikutnya (urut No. Peserta).
+kartu per soal senada detail jawaban admin (pertanyaan lalu jawaban + nilai, atas-bawah), bar melayang Sebelumnya / Simpan / Simpan & Berikutnya (urut No. Peserta).
 - **Total Nilai** = rata-rata nilai jawaban yang sudah dinilai (nilai 0 ikut dihitung). Frontend
   hanya menampilkan; server menghitung ulang dari `answer_essays.score`
   (`EssayAssessmentController::averageScore`) lalu menyimpan ke `grades.grade`
