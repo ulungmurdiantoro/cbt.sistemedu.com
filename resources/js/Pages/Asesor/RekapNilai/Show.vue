@@ -4,36 +4,8 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link href="/asesor/dashboard" class="btn btn-md btn-primary border-0 shadow mb-3">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                </Link>
-
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <h5><i class="fa fa-chart-bar me-2"></i>Rekap Nilai</h5>
-                        <hr>
-                        <table class="table table-bordered mb-0 table-wrap" style="max-width:560px">
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold" style="width:40%">Sesi</td>
-                                    <td>{{ exam_session.title }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Skema</td>
-                                    <td>{{ exam_session.examPg?.classroom?.title ?? exam_session.examEsai?.classroom?.title ?? '-' }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Bobot</td>
-                                    <td>{{ bobotText }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Nilai Kelulusan</td>
-                                    <td>{{ fmt(scheme.nilai_kelulusan) }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <SessionHeader title="Rekap Nilai" icon="fa-chart-bar" :exam-session="exam_session"
+                    :extra="[{ label: 'Bobot', value: bobotText }, { label: 'Nilai Kelulusan', value: fmt(scheme.nilai_kelulusan) }]" />
 
                 <PageGuide storage-key="asesor.rekap"><GuideRekapNilai /></PageGuide>
 
@@ -41,14 +13,8 @@
                     Tidak ada peserta yang ditugaskan di sesi ini.
                 </div>
 
-                <div v-else class="card border-0 shadow">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-                            <h6 class="mb-0"><i class="fa fa-table me-2"></i>Nilai Peserta yang Ditugaskan kepada Anda</h6>
-                            <div class="small text-muted">
-                                {{ rows.length }} peserta · {{ lengkapCount }} nilai lengkap · {{ finalCount }} sudah final
-                            </div>
-                        </div>
+                <TableCard v-else title="Nilai Peserta yang Ditugaskan kepada Anda">
+                    <template #meta>{{ rows.length }} peserta · {{ lengkapCount }} nilai lengkap · {{ finalCount }} sudah final</template>
 
                         <div class="table-responsive">
                             <table class="table table-bordered table-sm align-middle mb-0">
@@ -118,8 +84,7 @@
                             Keputusan bertanda <strong>sementara</strong> dihitung otomatis dari nilai kelulusan — keputusan
                             resmi ditetapkan saat finalisasi (Pengambil Keputusan memverifikasi, Manajer Sertifikasi memfinalisasi).
                         </div>
-                    </div>
-                </div>
+                </TableCard>
 
             </div>
         </div>
@@ -128,14 +93,16 @@
 
 <script>
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import StatusBadge from '../../../Components/StatusBadge.vue';
 import GuideRekapNilai from '../../../Components/Guide/Asesor/RekapNilai.vue';
+import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
+import TableCard from '../../../Components/Asesor/TableCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link, PageGuide, StatusBadge, GuideRekapNilai },
+    components: { Head, PageGuide, StatusBadge, GuideRekapNilai, SessionHeader, TableCard },
 
     props: {
         exam_session: Object,

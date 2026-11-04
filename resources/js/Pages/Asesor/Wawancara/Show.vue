@@ -4,58 +4,28 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link href="/asesor/dashboard" class="btn btn-md btn-primary border-0 shadow mb-3">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                </Link>
-
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <h5><i class="fa fa-comments me-2"></i>Penilaian Wawancara</h5>
-                        <hr>
-                        <table class="table table-bordered mb-0 table-wrap" style="max-width:500px">
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold" style="width:40%">Sesi</td>
-                                    <td>{{ exam_session.title }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Ujian</td>
-                                    <td>{{ exam_session.examPg?.title ?? exam_session.examEsai?.title ?? '-' }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Skema</td>
-                                    <td>{{ exam_session.examPg?.classroom?.title ?? exam_session.examEsai?.classroom?.title ?? '-' }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Bobot</td>
-                                    <td>{{ (bobot * 100).toFixed(1) }}% dari total nilai ujian</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <SessionHeader title="Penilaian Wawancara" icon="fa-comments" :exam-session="exam_session"
+                    :extra="[{ label: 'Bobot', value: `${(bobot * 100).toFixed(1)}% dari nilai akhir` }]" />
 
                 <PageGuide storage-key="asesor.wawancara"><GuideWawancara /></PageGuide>
+
+                <div v-if="successMsg" class="alert alert-success alert-dismissible">
+                    {{ successMsg }}
+                    <button type="button" class="btn-close" @click="successMsg = ''"></button>
+                </div>
 
                 <div v-if="students.length === 0" class="alert alert-info">
                     Tidak ada peserta yang ditugaskan di sesi ini.
                 </div>
 
-                <div v-else class="card border-0 shadow">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h6 class="mb-0"><i class="fa fa-table me-2"></i>Tabel Penilaian Wawancara</h6>
-                            <button @click="saveAll" :disabled="saving"
-                                class="btn btn-success border-0 shadow">
-                                <i class="fa fa-save me-1"></i>
-                                {{ saving ? 'Menyimpan...' : 'Simpan Semua Nilai' }}
-                            </button>
-                        </div>
-
-                        <div v-if="successMsg" class="alert alert-success alert-dismissible">
-                            {{ successMsg }}
-                            <button type="button" class="btn-close" @click="successMsg = ''"></button>
-                        </div>
+                <TableCard v-else title="Daftar Peserta" icon="fa-users">
+                    <template #meta>Selesai dinilai: {{ scoredCount }} / {{ form.length }} · Rata-rata: {{ colAvg('total') }}</template>
+                    <template #actions>
+                        <button @click="saveAll" :disabled="saving" class="btn btn-success border-0 shadow">
+                            <i class="fa fa-save me-1"></i>
+                            {{ saving ? 'Menyimpan...' : 'Simpan Semua Nilai' }}
+                        </button>
+                    </template>
 
                         <div class="table-responsive">
                             <table class="table table-bordered table-sm align-middle mb-0">
@@ -163,8 +133,7 @@
                             </div>
                             <div class="mt-1">* Total = rata-rata (A + B + C + D) — bobot {{ (bobot * 100).toFixed(1) }}% baru diterapkan saat menghitung Nilai Akhir</div>
                         </div>
-                    </div>
-                </div>
+                </TableCard>
 
             </div>
         </div>
@@ -173,13 +142,15 @@
 
 <script>
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideWawancara from '../../../Components/Guide/Asesor/Wawancara.vue';
+import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
+import TableCard from '../../../Components/Asesor/TableCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link, PageGuide, GuideWawancara },
+    components: { Head, PageGuide, GuideWawancara, SessionHeader, TableCard },
 
     props: {
         exam_session: Object,
@@ -195,6 +166,14 @@ export default {
             successMsg: '',
             form: this.buildForm(),
         };
+    },
+
+    computed: {
+        // Peserta yang keempat kriterianya sudah terisi
+        scoredCount() {
+            const filled = v => v !== null && v !== '' && !isNaN(v);
+            return this.form.filter(r => [r.gaya_wawancara, r.penguasaan_materi, r.kemampuan_hadapi_pertanyaan, r.hasil_worksheet].every(filled)).length;
+        },
     },
 
     methods: {

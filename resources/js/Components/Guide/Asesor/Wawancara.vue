@@ -18,6 +18,6 @@
             <i class="fa fa-download"></i> mengunduhnya.
             Tanda “-” berarti peserta belum mengupload.</li>
         <li><strong>Catatan</strong> boleh dikosongkan.</li>
-        <li>Klik <span class="badge bg-success">Simpan Semua Nilai</span> untuk menyimpan seluruh tabel sekaligus.</li>
+        <li>Klik <span class="badge bg-success">Simpan Semua Nilai</span> di kanan atas kartu Daftar Peserta untuk menyimpan seluruh tabel sekaligus.</li>
     </ul>
 </template>

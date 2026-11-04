@@ -4,20 +4,12 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link href="/asesor/dashboard" class="btn btn-md btn-primary border-0 shadow mb-3">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                </Link>
-
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <h5><i class="fa fa-signature me-2"></i>TTD AK.01 — {{ exam_session.title }}</h5>
-                        <p class="small text-muted mb-0">
-                            Menandatangani FR.AK.01 (Persetujuan Asesmen, Ketidakberpihakan, Kerahasiaan) atas nama Anda sendiri,
-                            untuk peserta yang ditugaskan kepada Anda di sesi ini. Verifikasi kelengkapan dokumen persyaratan
-                            (FR.APL.01) tetap ditangani admin — bagian ini khusus untuk AK.01.
-                        </p>
-                    </div>
-                </div>
+                <SessionHeader title="TTD AK.01" icon="fa-signature" :exam-session="exam_session" :show-exam="false"
+                    :extra="[{ label: 'Sudah Ditandatangani', value: `${signedCount} / ${rows.length} peserta` }]">
+                    Menandatangani FR.AK.01 (Persetujuan Asesmen, Ketidakberpihakan, Kerahasiaan) atas nama Anda sendiri,
+                    untuk peserta yang ditugaskan kepada Anda di sesi ini. Verifikasi kelengkapan dokumen persyaratan
+                    (FR.APL.01) tetap ditangani admin — bagian ini khusus untuk AK.01.
+                </SessionHeader>
 
                 <PageGuide storage-key="asesor.ttd-ak01"><GuideTtdAk01 /></PageGuide>
 
@@ -42,9 +34,7 @@
                 </OwnSignatureCard>
 
                 <!-- Daftar peserta -->
-                <div class="card border-0 shadow">
-                    <div class="card-body">
-                        <h6 class="mb-3"><i class="fa fa-table me-2"></i>Daftar Peserta</h6>
+                <TableCard title="Daftar Peserta" icon="fa-users">
                         <div v-if="rows.length === 0" class="alert alert-info mb-0">
                             Tidak ada peserta yang ditugaskan di sesi ini.
                         </div>
@@ -89,8 +79,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
+                </TableCard>
 
             </div>
         </div>
@@ -99,14 +88,16 @@
 
 <script>
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideTtdAk01 from '../../../Components/Guide/Asesor/TtdAk01.vue';
 import OwnSignatureCard from '../../../Components/OwnSignatureCard.vue';
+import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
+import TableCard from '../../../Components/Asesor/TableCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link, PageGuide, GuideTtdAk01, OwnSignatureCard },
+    components: { Head, PageGuide, GuideTtdAk01, OwnSignatureCard, SessionHeader, TableCard },
 
     props: {
         exam_session:  Object,

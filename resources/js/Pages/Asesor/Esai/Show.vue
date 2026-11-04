@@ -1,30 +1,11 @@
 <template>
     <Head><title>Penilaian Esai — {{ exam_session.title }}</title></Head>
-    <div class="container-fluid mb-5 mt-4">
+    <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-12">
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <Link href="/asesor/dashboard" class="btn btn-md btn-primary border-0 shadow">
-                        <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                    </Link>
-                    <button @click="saveAll" :disabled="saving" class="btn btn-success border-0 shadow">
-                        <i class="fa fa-save me-1"></i>
-                        {{ saving ? 'Menyimpan...' : 'Simpan Semua Nilai' }}
-                    </button>
-                </div>
-
-                <!-- Info sesi -->
-                <div class="card border-0 shadow mb-3">
-                    <div class="card-body py-3">
-                        <h6 class="fw-bold mb-2"><i class="fa fa-pen me-2"></i>Penilaian Esai</h6>
-                        <div class="row small">
-                            <div class="col-md-4"><span class="text-muted">Sesi:</span> {{ exam_session.title }}</div>
-                            <div class="col-md-4"><span class="text-muted">Ujian:</span> {{ exam_session.examEsai?.title ?? '-' }}</div>
-                            <div class="col-md-4"><span class="text-muted">Skema:</span> {{ exam_session.examEsai?.classroom?.title ?? exam_session.examPg?.classroom?.title ?? '-' }}</div>
-                        </div>
-                    </div>
-                </div>
+                <SessionHeader title="Penilaian Esai" icon="fa-pen" :exam-session="exam_session"
+                    :extra="[{ label: 'Jumlah Soal', value: `${essays.length} soal` }]" />
 
                 <PageGuide storage-key="asesor.esai"><GuideEsai /></PageGuide>
 
@@ -38,18 +19,19 @@
                 </div>
 
                 <!-- Daftar peserta (master) -->
-                <div v-else class="card border-0 shadow">
-                    <div class="card-header bg-gray-800 text-white fw-bolder d-flex justify-content-between align-items-center">
-                        <span><i class="fa fa-users me-2"></i>Daftar Peserta</span>
-                        <span class="small">
-                            Selesai dinilai: {{ fullyScoredCount }} / {{ form.length }}
-                            &nbsp;|&nbsp; Rata-rata: <span class="badge bg-gray-100 text-gray-800">{{ sessionAvg() }}</span>
-                        </span>
-                    </div>
-                    <div class="card-body p-0">
+                <TableCard v-else title="Daftar Peserta" icon="fa-users">
+                    <template #meta>
+                        Selesai dinilai: {{ fullyScoredCount }} / {{ form.length }} · Rata-rata: {{ sessionAvg() }}
+                    </template>
+                    <template #actions>
+                        <button @click="saveAll" :disabled="saving" class="btn btn-success border-0 shadow">
+                            <i class="fa fa-save me-1"></i>
+                            {{ saving ? 'Menyimpan...' : 'Simpan Semua Nilai' }}
+                        </button>
+                    </template>
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-secondary">
+                            <table class="table table-bordered table-sm table-hover align-middle mb-0">
+                                <thead class="table-dark">
                                     <tr>
                                         <th style="width:5%">#</th>
                                         <th style="width:18%">No. Peserta</th>
@@ -88,8 +70,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
+                </TableCard>
 
             </div>
         </div>
@@ -185,13 +166,15 @@
 
 <script>
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideEsai from '../../../Components/Guide/Asesor/Esai.vue';
+import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
+import TableCard from '../../../Components/Asesor/TableCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link, PageGuide, GuideEsai },
+    components: { Head, PageGuide, GuideEsai, SessionHeader, TableCard },
 
     props: {
         exam_session: Object,

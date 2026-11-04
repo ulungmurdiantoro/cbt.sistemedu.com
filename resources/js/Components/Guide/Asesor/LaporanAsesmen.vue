@@ -9,7 +9,7 @@
             <span class="badge bg-success">Simpan Rekomendasi</span>. Rekomendasi masih bisa diubah sampai peserta itu
             difinalisasi (oleh Manajer Sertifikasi, setelah diverifikasi Pengambil Keputusan). Setelah itu barisnya <i class="fa fa-lock"></i> terkunci.</li>
         <li><strong>Catatan Laporan Asesmen</strong>: tanggal dan empat kolom catatan sudah berisi teks contoh. Sunting
-            seperlunya, lalu <span class="badge bg-success">Simpan Laporan</span>.</li>
+            seperlunya, lalu <span class="badge bg-success">Simpan Laporan</span> di kanan atas kartunya.</li>
     </ol>
     <p class="mb-0 text-muted">
         Tombol <span class="badge bg-gray-200 text-gray-800 border">Download PDF</span> (FR.AK.05) muncul setelah laporan disimpan

@@ -4,28 +4,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <Link href="/asesor/dashboard" class="btn btn-md btn-primary border-0 shadow mb-3">
-                    <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
-                </Link>
-
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <h5><i class="fa fa-file-alt me-2"></i>FR.AK.05 — Laporan Asesmen</h5>
-                        <hr>
-                        <table class="table table-bordered mb-0 table-wrap" style="max-width:500px">
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold" style="width:40%">Sesi</td>
-                                    <td>{{ exam_session.title }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">Skema</td>
-                                    <td>{{ exam_session.examPg?.classroom?.title ?? exam_session.examEsai?.classroom?.title ?? '-' }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <SessionHeader title="FR.AK.05 — Laporan Asesmen" icon="fa-file-alt" :exam-session="exam_session" :show-exam="false" />
 
                 <PageGuide storage-key="asesor.laporan"><GuideLaporan /></PageGuide>
 
@@ -39,16 +18,13 @@
                     missing-hint="Isi di bawah ini supaya bisa dipakai otomatis untuk FR.AK.05 dan dokumen lain yang memerlukan TTD Anda."
                     @saved="successMsg = 'Tanda tangan berhasil disimpan.'" />
 
-                <div class="card border-0 shadow mb-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h6 class="mb-0"><i class="fa fa-table me-2"></i>Rekomendasi Asesi</h6>
-                            <button v-if="rows.length" @click="saveRekomendasi" :disabled="savingRekomendasi"
-                                class="btn btn-sm btn-success border-0 shadow">
-                                <i class="fa fa-save me-1"></i>
-                                {{ savingRekomendasi ? 'Menyimpan...' : 'Simpan Rekomendasi' }}
-                            </button>
-                        </div>
+                <TableCard title="Rekomendasi Asesi">
+                    <template v-if="rows.length" #actions>
+                        <button @click="saveRekomendasi" :disabled="savingRekomendasi" class="btn btn-success border-0 shadow">
+                            <i class="fa fa-save me-1"></i>
+                            {{ savingRekomendasi ? 'Menyimpan...' : 'Simpan Rekomendasi' }}
+                        </button>
+                    </template>
                         <div v-if="rows.length === 0" class="alert alert-info mb-0">
                             Tidak ada peserta yang ditugaskan di sesi ini.
                         </div>
@@ -96,15 +72,22 @@
                                 setelah nilai esai/wawancara selesai dinilai, sampai sesi ini difinalisasi Manajer Sertifikasi.
                             </div>
                         </template>
-                    </div>
-                </div>
+                </TableCard>
 
-                <div class="card border-0 shadow">
-                    <div class="card-body">
-                        <h6 class="mb-3"><i class="fa fa-pen me-2"></i>Catatan Laporan Asesmen</h6>
-                        <div class="small text-muted mb-3">
-                            Kolom di bawah sudah diisi teks contoh yang umum dipakai — silakan diedit sesuai kondisi sesi ini, atau langsung disimpan apa adanya.
-                        </div>
+                <TableCard title="Catatan Laporan Asesmen" icon="fa-pen">
+                    <template #meta>
+                        Kolom di bawah sudah diisi teks contoh yang umum dipakai — silakan diedit sesuai kondisi sesi ini, atau langsung disimpan apa adanya.
+                        <span v-if="!report"> Simpan laporan terlebih dahulu untuk bisa mengunduh PDF.</span>
+                    </template>
+                    <template #actions>
+                        <a v-if="report" :href="downloadUrl" target="_blank" class="btn btn-outline-dark border">
+                            <i class="fa fa-file-pdf me-1"></i> Download PDF
+                        </a>
+                        <button @click="save" :disabled="saving" class="btn btn-success border-0 shadow">
+                            <i class="fa fa-save me-1"></i>
+                            {{ saving ? 'Menyimpan...' : 'Simpan Laporan' }}
+                        </button>
+                    </template>
 
                         <div class="mb-3">
                             <label class="form-label fw-bolder">Tanggal Pelaksanaan Asesmen</label>
@@ -126,25 +109,11 @@
                             <textarea v-model="form.saran_perbaikan" class="form-control" rows="2"></textarea>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-0">
                             <label class="form-label fw-bolder">Catatan</label>
                             <textarea v-model="form.catatan" class="form-control" rows="3"></textarea>
                         </div>
-
-                        <div class="d-flex gap-2">
-                            <button @click="save" :disabled="saving" class="btn btn-success border-0 shadow">
-                                <i class="fa fa-save me-1"></i>
-                                {{ saving ? 'Menyimpan...' : 'Simpan Laporan' }}
-                            </button>
-                            <a v-if="report" :href="downloadUrl" target="_blank" class="btn btn-outline-dark border">
-                                <i class="fa fa-file-pdf me-1"></i> Download PDF
-                            </a>
-                            <span v-else class="align-self-center small text-muted">
-                                Simpan laporan terlebih dahulu untuk bisa mengunduh PDF.
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                </TableCard>
 
             </div>
         </div>
@@ -153,14 +122,16 @@
 
 <script>
 import LayoutAsesor from '../../../Layouts/Asesor.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import PageGuide from '../../../Components/PageGuide.vue';
 import GuideLaporan from '../../../Components/Guide/Asesor/LaporanAsesmen.vue';
 import OwnSignatureCard from '../../../Components/OwnSignatureCard.vue';
+import SessionHeader from '../../../Components/Asesor/SessionHeader.vue';
+import TableCard from '../../../Components/Asesor/TableCard.vue';
 
 export default {
     layout: LayoutAsesor,
-    components: { Head, Link, PageGuide, GuideLaporan, OwnSignatureCard },
+    components: { Head, PageGuide, GuideLaporan, OwnSignatureCard, SessionHeader, TableCard },
 
     props: {
         exam_session:  Object,
