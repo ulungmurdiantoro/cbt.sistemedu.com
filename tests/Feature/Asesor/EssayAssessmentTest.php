@@ -91,7 +91,7 @@ class EssayAssessmentTest extends TestCase
         config(['lsp.asesor_show_answer_key' => false]);
 
         $this->actingAs($asesor)
-            ->get("/asesor/penilaian/{$ctx['session']->id}/esai")
+            ->get("/asesor/penilaian/{$ctx['session']->id}/esai/peserta/{$ctx['student']->id}")
             ->assertOk()
             ->assertDontSee('kisi 1')
             ->assertInertia(fn ($page) => $page->where('essays.0.guide', null));
@@ -109,15 +109,48 @@ class EssayAssessmentTest extends TestCase
         $ctx['answers'][1]->forceFill(['answer' => 'essay_migas_answers/berkas.pdf'])->save();
 
         $this->actingAs($asesor)
+            ->get("/asesor/penilaian/{$ctx['session']->id}/esai/peserta/{$ctx['student']->id}")
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->component('Asesor/Esai/Nilai')
+                ->where('essays.0.guide', '<p>kisi 1</p>')
+                ->where('essays.1.guide', null)          // "-" = kunci tidak diisi
+                ->where('answers.0.answer', 'jawaban 1')
+                ->where('answers.1.answer', null)
+                ->where('answers.1.by_file', true)
+                ->where('files.0.name', 'berkas.pdf')
+                ->where('nav.position', 1)
+                ->where('nav.prev_id', null));
+    }
+
+    public function test_list_page_shows_progress_and_total(): void
+    {
+        $ctx    = $this->essaySession();
+        $asesor = $this->asesor();
+        AsesorAssignment::forceCreate(['user_id' => $asesor->id, 'exam_session_id' => $ctx['session']->id, 'student_id' => $ctx['student']->id]);
+        $ctx['answers'][0]->forceFill(['score' => 80])->save();
+        $ctx['answers'][1]->forceFill(['score' => 0])->save();
+
+        $this->actingAs($asesor)
             ->get("/asesor/penilaian/{$ctx['session']->id}/esai")
             ->assertOk()
             ->assertInertia(fn ($page) => $page
-                ->where('essays.0.guide', '<p>kisi 1</p>')
-                ->where('essays.1.guide', null)          // "-" = kunci tidak diisi
-                ->where('students_data.0.answers.0.answer', 'jawaban 1')
-                ->where('students_data.0.answers.1.answer', null)
-                ->where('students_data.0.answers.1.by_file', true)
-                ->where('students_data.0.files.0.name', 'berkas.pdf'));
+                ->component('Asesor/Esai/Show')
+                ->where('essay_count', 2)
+                ->where('students_data.0.scored', 2)
+                ->where('students_data.0.total', fn ($t) => (float) $t === 40.0));
+    }
+
+    public function test_asesor_cannot_open_grading_page_of_unassigned_participant(): void
+    {
+        $ctx    = $this->essaySession();
+        $asesor = $this->asesor();
+        $other  = $this->makeStudent($ctx['student']->classroom ?? $this->makeClassroom());
+        AsesorAssignment::forceCreate(['user_id' => $asesor->id, 'exam_session_id' => $ctx['session']->id, 'student_id' => $ctx['student']->id]);
+
+        $this->actingAs($asesor)
+            ->get("/asesor/penilaian/{$ctx['session']->id}/esai/peserta/{$other->id}")
+            ->assertForbidden();
     }
 
     public function test_unassigned_asesor_cannot_download_answer_file(): void

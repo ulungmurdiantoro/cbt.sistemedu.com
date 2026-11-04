@@ -2,7 +2,7 @@
     <div>
         <!-- Baris atas halaman per sesi: hanya tombol Kembali. Tombol aksi (Simpan dll.) selalu di
              header kartu tabel (Components/SectionCard.vue), bukan di sini. -->
-        <Link href="/asesor/dashboard" class="btn btn-md btn-primary border-0 shadow mb-3">
+        <Link :href="backHref" class="btn btn-md btn-primary border-0 shadow mb-3">
             <i class="fa fa-long-arrow-alt-left me-2"></i> Kembali
         </Link>
 
@@ -28,6 +28,8 @@ export default {
     components: { Link },
     props: {
         title:       { type: String, required: true },
+        // Tujuan tombol Kembali (halaman per peserta kembali ke daftar peserta sesi)
+        backHref:    { type: String, default: '/asesor/dashboard' },
         icon:        { type: String, default: 'fa-clipboard-check' },
         examSession: { type: Object, required: true },
         // Tampilkan baris "Ujian" (judul ujian PG/esai sesi ini)

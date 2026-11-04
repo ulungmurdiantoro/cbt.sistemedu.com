@@ -187,17 +187,14 @@ UNIQUE (user_id, exam_session_id, student_id)
    - **Nilai Wawancara** → `GET /asesor/penilaian/{session_id}/wawancara`
 
 ### Tampilan Penilaian Esai
-Tabel horizontal, satu baris per peserta:
-```
-No Peserta | Nama | Jawaban 1 | Nilai 1 | Jawaban 2 | Nilai 2 | ... | Total Nilai
-```
+`/asesor/penilaian/{sesi}/esai` = daftar peserta (Progress, Total, tombol Nilai — baca saja). Menilai di halaman
+per peserta `/asesor/penilaian/{sesi}/esai/peserta/{student_id}` (`asesor.esai.grade`, page `Asesor/Esai/Nilai`):
+kartu per soal senada detail jawaban admin, bar melayang Sebelumnya / Simpan / Simpan & Berikutnya (urut No. Peserta).
 - **Total Nilai** = rata-rata nilai jawaban yang sudah dinilai (nilai 0 ikut dihitung). Frontend
   hanya menampilkan; server menghitung ulang dari `answer_essays.score`
   (`EssayAssessmentController::averageScore`) lalu menyimpan ke `grades.grade`
-- Baris footer: rata-rata per kolom nilai + rata-rata sesi
-- Tombol **Simpan Semua Nilai** mengirim semua nilai sekaligus (POST)
-- Panel penilaian (klik peserta) = kartu per soal senada detail jawaban admin: pertanyaan kiri, jawaban + nilai kanan;
-  berkas Essay Migas lewat `asesor.esai.file` (hanya peserta yang ditugaskan). Kunci/panduan jawaban per soal sudah
+- Simpan mengirim nilai satu peserta (POST `asesor.esai.store`, format `scores[]` tetap bisa banyak peserta)
+- Berkas Essay Migas lewat `asesor.esai.file` (hanya peserta yang ditugaskan). Kunci/panduan jawaban per soal sudah
   ada tampilannya tapi **dimatikan** (`config('lsp.asesor_show_answer_key')`, env `ASESOR_SHOW_ANSWER_KEY`, default false —
   selama mati tidak dikirim ke browser)
 
@@ -343,6 +340,7 @@ POST  /admin/penilaian/{exam_session_id}/penugasan  → admin.penilaian.saveAssi
 GET   /asesor/dashboard                                    → asesor.dashboard
 GET   /asesor/penilaian/{exam_session_id}/esai            → asesor.esai.show
 POST  /asesor/penilaian/{exam_session_id}/esai            → asesor.esai.store
+GET   /asesor/penilaian/{exam_session_id}/esai/peserta/{student_id} → asesor.esai.grade (nilai esai satu peserta)
 GET   /asesor/penilaian/{exam_session_id}/wawancara       → asesor.wawancara.show
 POST  /asesor/penilaian/{exam_session_id}/wawancara       → asesor.wawancara.store
 GET   /asesor/penilaian/{exam_session_id}/rekap           → asesor.rekap.show (Rekap Nilai, baca saja)
