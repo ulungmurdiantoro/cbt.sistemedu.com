@@ -31,6 +31,12 @@ class RichText
         return self::purifier()->purify($html);
     }
 
+    /** Berisi teks/gambar? "-" / "—" (pengisi kunci jawaban yang tidak diisi) dianggap kosong. */
+    public static function hasContent(?string $html): bool
+    {
+        return ! in_array(trim(strip_tags((string) $html, '<img>')), ['', '-', '—'], true);
+    }
+
     private static function purifier(): HTMLPurifier
     {
         if (self::$purifier) {

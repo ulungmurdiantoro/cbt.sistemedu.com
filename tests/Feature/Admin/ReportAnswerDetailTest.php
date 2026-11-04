@@ -127,8 +127,9 @@ class ReportAnswerDetailTest extends TestCase
         $asesor    = $this->user('Budi Asesor', UserRole::Asesor);
 
         // Kolom essays.is_essay tidak ada di migrasi (hanya di DB produksi) → label default "Jawaban benar"
-        Essay::forceCreate(['exam_id' => $exam->id, 'essays_code' => 'E1', 'question' => 'Q2', 'answer' => '<p></p>']);
-        $answered = Essay::forceCreate(['exam_id' => $exam->id, 'essays_code' => 'E2', 'question' => 'Q1', 'answer' => '<p>Kunci</p>']);
+        // Urutan resmi soal = id naik (sama dengan urutan yang dilihat peserta)
+        $answered = Essay::forceCreate(['exam_id' => $exam->id, 'essays_code' => 'E1', 'question' => 'Q1', 'answer' => '<p>Kunci</p>']);
+        Essay::forceCreate(['exam_id' => $exam->id, 'essays_code' => 'E2', 'question' => 'Q2', 'answer' => '<p></p>']);
 
         $this->essayAnswer($answered, $session, $student, [
             'answer' => '<p>Jawaban saya</p>', 'score' => 85, 'assessed_by' => $asesor->id, 'assessed_at' => '2026-10-05 09:00:00',

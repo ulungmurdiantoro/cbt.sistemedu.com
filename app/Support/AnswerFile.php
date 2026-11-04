@@ -106,6 +106,15 @@ class AnswerFile
         return Storage::disk($disk)->download($path, $name ?: basename($path));
     }
 
+    /**
+     * Jawaban Essay Migas berupa path berkas (satu berkas untuk seluruh soal, ditulis ke tiap
+     * baris jawaban), bukan teks esai.
+     */
+    public static function isEssayMigasPath(?string $value): bool
+    {
+        return str_starts_with(ltrim(str_replace('\\', '/', (string) $value), '/'), 'essay_migas_answers/');
+    }
+
     public static function extension(?string $path): string
     {
         return strtolower(pathinfo((string) $path, PATHINFO_EXTENSION));

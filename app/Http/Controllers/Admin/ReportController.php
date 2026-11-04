@@ -19,6 +19,7 @@ use App\Exports\GradesEssayMigasExport;
 use App\Exports\GradesSessionExport;
 use App\Http\Controllers\Controller;
 use App\Support\AnswerFile;
+use App\Support\RichText;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
@@ -101,11 +102,8 @@ class ReportController extends Controller
     /** @return array{0: array, 1: array} [soal + jawaban teks + nilai, berkas jawaban Essay Migas] */
     private function essayItems($essays, $answers): array
     {
-        // Essay Migas: satu berkas untuk seluruh ujian, path-nya ditulis ke tiap baris jawaban.
-        $isFile = fn ($value) => str_starts_with(ltrim(str_replace('\\', '/', (string) $value), '/'), 'essay_migas_answers/');
-
-        // Kosong = tanpa teks/gambar, atau hanya "-" (pengisi kunci jawaban yang tidak diisi)
-        $hasContent = fn ($html) => !in_array(trim(strip_tags((string) $html, '<img>')), ['', '-', '—'], true);
+        $isFile     = fn ($value) => AnswerFile::isEssayMigasPath($value);
+        $hasContent = fn ($html) => RichText::hasContent($html);
 
         $assessors = User::whereIn('id', $answers->pluck('assessed_by')->filter()->unique())->pluck('name', 'id');
 

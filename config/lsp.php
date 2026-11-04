@@ -26,6 +26,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Kunci / Panduan Jawaban Esai di Portal Asesor
+    |--------------------------------------------------------------------------
+    | Tampilan sudah dibuat (tombol "Lihat poin / kisi jawaban" per soal di panel
+    | penilaian esai), tapi sengaja dimatikan dulu. Selama false, kunci jawaban
+    | tidak dikirim ke browser asesor sama sekali.
+    */
+    'asesor_show_answer_key' => (bool) env('ASESOR_SHOW_ANSWER_KEY', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | URL Verifikasi Dokumen
     |--------------------------------------------------------------------------
     */

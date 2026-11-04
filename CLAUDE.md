@@ -196,6 +196,10 @@ No Peserta | Nama | Jawaban 1 | Nilai 1 | Jawaban 2 | Nilai 2 | ... | Total Nila
   (`EssayAssessmentController::averageScore`) lalu menyimpan ke `grades.grade`
 - Baris footer: rata-rata per kolom nilai + rata-rata sesi
 - Tombol **Simpan Semua Nilai** mengirim semua nilai sekaligus (POST)
+- Panel penilaian (klik peserta) = kartu per soal senada detail jawaban admin: pertanyaan kiri, jawaban + nilai kanan;
+  berkas Essay Migas lewat `asesor.esai.file` (hanya peserta yang ditugaskan). Kunci/panduan jawaban per soal sudah
+  ada tampilannya tapi **dimatikan** (`config('lsp.asesor_show_answer_key')`, env `ASESOR_SHOW_ANSWER_KEY`, default false —
+  selama mati tidak dikirim ke browser)
 
 ### Tampilan Penilaian Wawancara
 Tabel kriteria tetap, satu baris per peserta:

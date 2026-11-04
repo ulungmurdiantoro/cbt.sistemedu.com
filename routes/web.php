@@ -177,6 +177,7 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
 
     Route::get('/penilaian/{exam_session_id}/esai',      [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'show'])->name('asesor.esai.show');
     Route::post('/penilaian/{exam_session_id}/esai',     [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'store'])->name('asesor.esai.store');
+    Route::get('/penilaian/{exam_session_id}/esai/berkas/{answer_essay_id}', [\App\Http\Controllers\Asesor\EssayAssessmentController::class, 'file'])->name('asesor.esai.file');
 
     Route::get('/penilaian/{exam_session_id}/wawancara',  [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'show'])->name('asesor.wawancara.show');
     Route::post('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'store'])->name('asesor.wawancara.store');
