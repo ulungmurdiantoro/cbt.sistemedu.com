@@ -1030,21 +1030,27 @@ class DocumentGeneratorService
 
         $session = $verification->examSession;
 
-        $html = View::make('documents.fr_tuk_06', [
+        // Dicetak dengan revisi saat checklist dibuat — checklist Rev.0 tetap berformat Rev.0.
+        $revision = TukChecklist::normalizeRevision($verification->revision);
+        $def      = TukChecklist::definition($revision);
+
+        $html = View::make($revision === 'Rev.0' ? 'documents.fr_tuk_06_rev0' : 'documents.fr_tuk_06', [
             'v'                   => $verification,
+            'def'                 => $def,
+            'statusUlang'         => TukChecklist::STATUS_ULANG,
             'namaPeserta'         => $verification->student?->name ?? '-',
             'namaSkema'           => $session?->referenceExam?->classroom?->title ?? '-',
             'tanggalAsesmen'      => $verification->tanggal_asesmen ? $verification->tanggal_asesmen->locale('id')->isoFormat('dddd, DD MMMM YYYY') : '',
             'metodeAsesmen'       => $session?->tempat_ujian ?: 'Online (Zoom Meeting)',
             'tanggalVerifikasi'   => $verification->verified_at ? $verification->verified_at->locale('id')->isoFormat('DD MMMM YYYY, HH.mm') : '',
-            'sections'            => TukChecklist::sections(),
+            'sections'            => $def['sections'],
             'items'               => $verification->items ?? [],
             'ttdPengawas'         => $this->ttdBox($verification->pengawas_signature_path, 50, 18),
             'checkboxEmptyPath'   => $this->asset('checkbox_empty'),
             'checkboxCheckedPath' => $this->asset('checkbox_checked'),
         ])->render();
 
-        return $this->renderFormWithLogoHeader($html, 'FR.TUK.06 Rev.0');
+        return $this->renderFormWithLogoHeader($html, 'FR.TUK.06 ' . $revision);
     }
 
     // ═══════════════════════════════════════════════════════════════════

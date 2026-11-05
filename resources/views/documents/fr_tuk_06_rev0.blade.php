@@ -21,6 +21,7 @@ table.grid th { font-weight: bold; text-align: center; background: #e7e6e6; }
 </style>
 </head>
 <body>
+{{-- FR.TUK.06 Rev.0 — checklist yang disimpan sebelum Rev.1 tetap dicetak dengan format ini. --}}
 @php
     $cb = fn (bool $on) => '<img src="' . e($on ? $checkboxCheckedPath : $checkboxEmptyPath) . '" style="width:9pt;height:9pt;vertical-align:middle;">';
 @endphp
@@ -68,14 +69,14 @@ table.grid th { font-weight: bold; text-align: center; background: #e7e6e6; }
 @endforeach
 
 <div class="section-title">G. KESIMPULAN VERIFIKASI AWAL</div>
-@foreach(\App\Support\TukChecklist::KESIMPULAN_AWAL as $key => $label)
-    <div class="option">{!! $cb($v->kesimpulan_awal === $key) !!} <strong>{{ $label }}</strong> - {{ \App\Support\TukChecklist::KESIMPULAN_AWAL_KETERANGAN[$key] }}</div>
+@foreach($def['kesimpulan_awal'] as $key => $label)
+    <div class="option">{!! $cb($v->kesimpulan_awal === $key) !!} <strong>{{ $label }}</strong> - {{ $def['kesimpulan_awal_keterangan'][$key] }}</div>
 @endforeach
 <div style="margin-top:4pt">Catatan ketidaksesuaian/tindakan perbaikan:</div>
 <div class="notes">{!! nl2br(e($v->catatan_awal)) !!}</div>
 
 <div class="section-title">H. HASIL PEMANTAUAN SELAMA ASESMEN</div>
-@foreach(\App\Support\TukChecklist::HASIL_PEMANTAUAN as $key => $label)
+@foreach($def['hasil_pemantauan'] as $key => $label)
     <div class="option">{!! $cb($v->hasil_pemantauan === $key) !!} {{ $label }}</div>
 @endforeach
 <div style="margin-top:4pt">Uraian kejadian dan tindak lanjut:</div>
@@ -88,7 +89,7 @@ table.grid th { font-weight: bold; text-align: center; background: #e7e6e6; }
     <tr>
         <td class="label">Kesimpulan Akhir</td>
         <td>
-            @foreach(\App\Support\TukChecklist::KESIMPULAN_AKHIR as $key => $label)
+            @foreach($def['kesimpulan_akhir'] as $key => $label)
                 {!! $cb($v->kesimpulan_akhir === $key) !!} {{ $label }} &nbsp;&nbsp;&nbsp;
             @endforeach
         </td>

@@ -10,14 +10,21 @@ class TukVerification extends Model
     protected $fillable = [
         'exam_session_id',
         'student_id',
+        'revision',
         'tanggal_asesmen',
         'waktu_asesmen',
         'lokasi_peserta',
+        'lokasi_lainnya',
         'items',
         'kesimpulan_awal',
         'catatan_awal',
+        'ketidaksesuaian',
+        'kesimpulan_ulang',
         'hasil_pemantauan',
         'uraian_pemantauan',
+        'tindakan_pemantauan',
+        'dampak_pemantauan',
+        'dampak_lainnya',
         'kesimpulan_akhir',
         'pengawas_id',
         'pengawas_name',
@@ -29,6 +36,7 @@ class TukVerification extends Model
     {
         return [
             'items'           => 'array',
+            'ketidaksesuaian' => 'array',
             'tanggal_asesmen' => 'date:Y-m-d',
             'verified_at'     => 'datetime',
         ];

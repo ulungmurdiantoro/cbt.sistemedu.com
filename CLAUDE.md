@@ -297,8 +297,15 @@ dibuat — sertifikat/SK yang sudah ter-cache tetap, PDF yang dibuat ulang memak
 Checklist per peserta per sesi (`tuk_verifications`), diisi **admin sebagai Pengawas Ujian** di
 `/admin/penilaian/{sesi}/verifikasi-tuk` (tab muncul di navigasi sesi `<SessionNav>` bila saklar sesi
 `exam_sessions.verifikasi_tuk` aktif). **Hanya pencatatan — tidak mengunci ujian peserta.**
-- Daftar kriteria B–F ditanam di `App\Support\TukChecklist`; jawaban disimpan per kunci butir (`B1`…`F6`)
-  di kolom JSON `items`. Jangan ubah urutan/kunci butir yang sudah ada.
+- Butir & pilihan per **revisi dokumen** di `App\Support\TukChecklist::definition()` (`Rev.0`, `Rev.1` = `CURRENT`);
+  jawaban per kunci butir (`B1`…`F6`) di kolom JSON `items`. Setiap checklist menyimpan `tuk_verifications.revision`:
+  checklist lama tetap Rev.0 (form, validasi & PDF `documents/fr_tuk_06_rev0`), checklist baru Rev.1 (`documents/fr_tuk_06`).
+  Kunci butir Rev.0 & Rev.1 sama tetapi isinya beda — jangan pindahkan checklist antar-revisi. Dokumen direvisi lagi →
+  tambah revisi di `definition()` + `REVISIONS`, naikkan `CURRENT`, buat view PDF-nya; jangan ubah butir revisi lama.
+- Rev.1: status butir tetap disimpan `sesuai|tidak_sesuai` (label Memenuhi/Tidak Memenuhi); kesimpulan `memenuhi|tidak_memenuhi`
+  (Rev.0: `layak|layak_perbaikan|tidak_layak`); Lokasi Peserta = pilihan (+ `lokasi_lainnya`); bagian H baru = tabel
+  `ketidaksesuaian` (JSON) + `kesimpulan_ulang`; bagian I = `uraian_pemantauan` + `tindakan_pemantauan` + `dampak_pemantauan`.
+  F6 Rev.1 memang sama dengan F1 (begitu di dokumen sumber).
 - Nama Pengawas Ujian dipilih dari dropdown user ber-role admin (bisa lebih dari satu pengawas). Default:
   pengawas checklist itu, lalu pilihan terakhir admin tsb. di sesi yang sama (session `tuk_pengawas.{sesi}`), lalu
   admin yang login. Nama + TTD (`users.signature_path`, dibuat di Kelola User atau saat menyetujui permohonan)

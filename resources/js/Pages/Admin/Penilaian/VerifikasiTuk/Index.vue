@@ -13,8 +13,8 @@
 
             <div class="alert alert-info border-0 shadow-sm small mb-3">
                 <i class="fa fa-info-circle me-1"></i>
-                Isi checklist tiap peserta sebagai <strong>Pengawas Ujian</strong>: bagian A–E &amp; G sebelum ujian dimulai,
-                bagian F &amp; H selama/setelah ujian, lalu kesimpulan akhir. Checklist ini hanya pencatatan —
+                Isi checklist tiap peserta sebagai <strong>Pengawas Ujian</strong> (FR.TUK.06 Rev.1): bagian A–E, G &amp; H sebelum ujian dimulai,
+                bagian F &amp; I selama/setelah ujian, lalu kesimpulan akhir. Checklist lama tetap berformat Rev.0. Checklist ini hanya pencatatan —
                 peserta tetap bisa memulai ujian.
             </div>
 
@@ -40,8 +40,8 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="card border-0 shadow text-center py-2">
-                        <div class="fs-4 fw-bold text-danger">{{ count(r => r.kesimpulan_awal === 'tidak_layak' || r.kesimpulan_akhir === 'tidak_layak') }}</div>
-                        <div class="small text-muted">Tidak Layak</div>
+                        <div class="fs-4 fw-bold text-danger">{{ count(r => isNegative(r.kesimpulan_awal) || isNegative(r.kesimpulan_akhir)) }}</div>
+                        <div class="small text-muted">Tidak Layak / Tidak Memenuhi</div>
                     </div>
                 </div>
             </div>
@@ -129,8 +129,9 @@ export default {
 
     data() {
         return {
-            awalLabel:  { layak: 'Layak', layak_perbaikan: 'Layak dgn Perbaikan', tidak_layak: 'Tidak Layak' },
-            akhirLabel: { layak: 'Layak', tidak_layak: 'Tidak Layak' },
+            // Rev.0: layak/layak_perbaikan/tidak_layak · Rev.1: memenuhi/tidak_memenuhi
+            awalLabel:  { layak: 'Layak', layak_perbaikan: 'Layak dgn Perbaikan', tidak_layak: 'Tidak Layak', memenuhi: 'Memenuhi', tidak_memenuhi: 'Tidak Memenuhi' },
+            akhirLabel: { layak: 'Layak', tidak_layak: 'Tidak Layak', memenuhi: 'Memenuhi', tidak_memenuhi: 'Tidak Memenuhi' },
         };
     },
 
@@ -139,7 +140,10 @@ export default {
             return this.rows.filter(predicate).length;
         },
         tone(kesimpulan) {
-            return { layak: 'success', layak_perbaikan: 'secondary', tidak_layak: 'danger' }[kesimpulan] ?? 'neutral';
+            return { layak: 'success', memenuhi: 'success', layak_perbaikan: 'secondary', tidak_layak: 'danger', tidak_memenuhi: 'danger' }[kesimpulan] ?? 'neutral';
+        },
+        isNegative(kesimpulan) {
+            return kesimpulan === 'tidak_layak' || kesimpulan === 'tidak_memenuhi';
         },
         formatDateTime(value) {
             if (!value) return '';

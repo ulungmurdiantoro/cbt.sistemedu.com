@@ -101,6 +101,7 @@ class TukVerificationController extends Controller
                 'no_participant'   => $student->no_participant,
                 'name'             => $student->name,
                 'has_record'       => (bool) $v,
+                'revision'         => $v?->revision,
                 'kesimpulan_awal'  => $v?->kesimpulan_awal,
                 'kesimpulan_akhir' => $v?->kesimpulan_akhir,
                 'pengawas_name'    => $v?->pengawas_name,
@@ -130,19 +131,18 @@ class TukVerificationController extends Controller
             ? $verification->pengawas_id
             : $request->session()->get($this->pengawasSessionKey($examSessionId), $request->user()->id);
 
+        // Checklist lama tetap memakai revisinya sendiri; checklist baru memakai revisi terbaru.
+        $definition = TukChecklist::definition($verification?->revision ?? TukChecklist::CURRENT);
+
         return inertia('Admin/Penilaian/VerifikasiTuk/Show', [
             'exam_session'        => $examSession,
             'student'             => $student->only(['id', 'no_participant', 'name']),
             'skema'               => $examSession->referenceExam?->classroom?->title,
             'verification'        => $verification,
             'identity_document'   => $this->identityDocument($examSessionId, $studentId),
-            'sections'            => TukChecklist::sections(),
-            'options'             => [
-                'kesimpulan_awal'            => TukChecklist::KESIMPULAN_AWAL,
-                'kesimpulan_awal_keterangan' => TukChecklist::KESIMPULAN_AWAL_KETERANGAN,
-                'hasil_pemantauan'           => TukChecklist::HASIL_PEMANTAUAN,
-                'kesimpulan_akhir'           => TukChecklist::KESIMPULAN_AKHIR,
-            ],
+            'sections'            => $definition['sections'],
+            'options'             => collect($definition)->except('sections')->all()
+                + ['status_ulang' => TukChecklist::STATUS_ULANG],
             'pengawas_options'    => $pengawas,
             'default_pengawas_id' => $pengawas->contains('id', $defaultPengawasId) ? $defaultPengawasId : null,
             'next_student_id'     => $ids->get($ids->search($studentId) + 1),
@@ -154,27 +154,56 @@ class TukVerificationController extends Controller
         $ids = $this->orderedStudentIds($examSessionId);
         abort_unless($ids->contains($studentId), 404);
 
-        $data = $request->validate([
+        $verification = TukVerification::firstOrNew([
+            'exam_session_id' => $examSessionId,
+            'student_id'      => $studentId,
+        ]);
+
+        // Checklist lama tetap di revisinya (butir & pilihan kesimpulan berbeda); yang baru = revisi terbaru.
+        $revision   = $verification->exists ? TukChecklist::normalizeRevision($verification->revision) : TukChecklist::CURRENT;
+        $definition = TukChecklist::definition($revision);
+        $isRev1     = $revision === 'Rev.1';
+
+        $rules = [
             'tanggal_asesmen'   => 'nullable|date',
             'waktu_asesmen'     => 'nullable|string|max:50',
-            'lokasi_peserta'    => 'nullable|string|max:255',
+            'lokasi_peserta'    => $isRev1
+                ? ['nullable', Rule::in($definition['lokasi_options'])]
+                : 'nullable|string|max:255',
             'items'             => 'nullable|array',
             'items.*.status'    => ['nullable', Rule::in(TukChecklist::STATUSES)],
             'items.*.catatan'   => 'nullable|string|max:500',
-            'kesimpulan_awal'   => ['nullable', Rule::in(array_keys(TukChecklist::KESIMPULAN_AWAL))],
+            'kesimpulan_awal'   => ['nullable', Rule::in(array_keys($definition['kesimpulan_awal']))],
             'catatan_awal'      => 'nullable|string|max:2000',
-            'hasil_pemantauan'  => ['nullable', Rule::in(array_keys(TukChecklist::HASIL_PEMANTAUAN))],
+            'hasil_pemantauan'  => ['nullable', Rule::in(array_keys($definition['hasil_pemantauan']))],
             'uraian_pemantauan' => 'nullable|string|max:2000',
-            'kesimpulan_akhir'  => ['nullable', Rule::in(array_keys(TukChecklist::KESIMPULAN_AKHIR))],
+            'kesimpulan_akhir'  => ['nullable', Rule::in(array_keys($definition['kesimpulan_akhir']))],
             'pengawas_id'       => ['required', Rule::exists('user_roles', 'user_id')->where('role', UserRole::Admin->value)],
-        ], [
+        ];
+
+        if ($isRev1) {
+            $rules += [
+                'lokasi_lainnya'                => 'nullable|string|max:255',
+                'ketidaksesuaian'               => 'nullable|array|max:20',
+                'ketidaksesuaian.*.uraian'      => 'nullable|string|max:500',
+                'ketidaksesuaian.*.tindakan'    => 'nullable|string|max:500',
+                'ketidaksesuaian.*.batas_waktu' => 'nullable|string|max:100',
+                'ketidaksesuaian.*.status'      => ['nullable', Rule::in(array_keys(TukChecklist::STATUS_ULANG))],
+                'kesimpulan_ulang'              => ['nullable', Rule::in(array_keys(TukChecklist::STATUS_ULANG))],
+                'tindakan_pemantauan'           => 'nullable|string|max:2000',
+                'dampak_pemantauan'             => ['nullable', Rule::in(array_keys($definition['dampak_options']))],
+                'dampak_lainnya'                => 'nullable|string|max:255',
+            ];
+        }
+
+        $data = $request->validate($rules, [
             'pengawas_id.required' => 'Pilih Nama Pengawas Ujian.',
             'pengawas_id.exists'   => 'Pengawas Ujian harus user dengan role Admin.',
         ]);
 
-        // Simpan hanya butir yang dikenal TukChecklist dan yang terisi.
+        // Simpan hanya butir yang dikenal revisi ini dan yang terisi.
         $items = collect($data['items'] ?? [])
-            ->only(TukChecklist::itemKeys())
+            ->only(TukChecklist::itemKeys($revision))
             ->map(fn ($item) => [
                 'status'  => $item['status'] ?? null,
                 'catatan' => trim((string) ($item['catatan'] ?? '')),
@@ -182,17 +211,34 @@ class TukVerificationController extends Controller
             ->filter(fn ($item) => $item['status'] || $item['catatan'] !== '')
             ->all();
 
+        if ($isRev1) {
+            // Baris tabel ketidaksesuaian yang kosong semua tidak disimpan.
+            $data['ketidaksesuaian'] = collect($data['ketidaksesuaian'] ?? [])
+                ->map(fn ($row) => [
+                    'uraian'      => trim((string) ($row['uraian'] ?? '')),
+                    'tindakan'    => trim((string) ($row['tindakan'] ?? '')),
+                    'batas_waktu' => trim((string) ($row['batas_waktu'] ?? '')),
+                    'status'      => $row['status'] ?? null,
+                ])
+                ->filter(fn ($row) => $row['uraian'] !== '' || $row['tindakan'] !== '' || $row['batas_waktu'] !== '' || $row['status'])
+                ->values()
+                ->all();
+
+            if (($data['lokasi_peserta'] ?? null) !== 'Lainnya') {
+                $data['lokasi_lainnya'] = null;
+            }
+            if (($data['dampak_pemantauan'] ?? null) !== 'lainnya') {
+                $data['dampak_lainnya'] = null;
+            }
+        }
+
         $pengawas = User::findOrFail($data['pengawas_id']);
         $request->session()->put($this->pengawasSessionKey($examSessionId), $pengawas->id);
-
-        $verification = TukVerification::firstOrNew([
-            'exam_session_id' => $examSessionId,
-            'student_id'      => $studentId,
-        ]);
 
         // Nama + TTD pengawas terpilih disalin ke checklist setiap kali disimpan.
         $verification->fill([
             ...collect($data)->except('items', 'pengawas_id')->all(),
+            'revision'                => $revision,
             'items'                   => $items,
             'pengawas_id'             => $pengawas->id,
             'pengawas_name'           => $pengawas->signature_name ?: $pengawas->name,
