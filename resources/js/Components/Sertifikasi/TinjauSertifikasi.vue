@@ -142,10 +142,11 @@
                                     <span v-if="row.asesor_rekomendasi === 'K'" class="badge bg-success mt-1">Kompeten</span>
                                     <span v-else-if="row.asesor_rekomendasi === 'BK'" class="badge bg-danger mt-1">Belum Kompeten</span>
                                     <span v-else class="badge bg-secondary mt-1">Belum ada rekomendasi</span>
-                                    <a v-if="row.asesor_id" :href="`/dokumen/laporan-asesmen/${exam_session.id}/${row.asesor_id}/download`"
+                                    <a v-if="row.asesor_id && row.fr_ak05_ready" :href="`/dokumen/laporan-asesmen/${exam_session.id}/${row.asesor_id}/download`"
                                         target="_blank" class="d-block small mt-1" title="Download FR.AK.05">
                                         <i class="fa fa-file-pdf me-1"></i>FR.AK.05
                                     </a>
+                                    <div v-else-if="row.asesor_id" class="small text-muted fst-italic mt-1">FR.AK.05 belum diisi oleh asesor</div>
                                 </td>
 
                                 <td class="text-center num">{{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}</td>

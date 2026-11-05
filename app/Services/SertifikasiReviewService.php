@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\AsesmenReport;
 use App\Models\AsesorAssignment;
 use App\Models\AssessmentApplication;
 use App\Models\Classroom;
@@ -51,7 +52,10 @@ class SertifikasiReviewService
             ->get()
             ->keyBy('student_id');
 
-        return $results->map(function ($r) use ($students, $applications, $assignments) {
+        // Asesor yang sudah menyimpan Laporan Asesmen (FR.AK.05) di sesi ini — tautan unduh hanya untuk mereka
+        $reportedAsesorIds = AsesmenReport::where('exam_session_id', $examSession->id)->pluck('user_id')->flip();
+
+        return $results->map(function ($r) use ($students, $applications, $assignments, $reportedAsesorIds) {
             $student     = $students->get($r->student_id);
             $application = $applications->get($r->student_id);
             $assignment  = $assignments->get($r->student_id);
@@ -86,6 +90,7 @@ class SertifikasiReviewService
 
                 // Laporan Asesmen — asesor & rekomendasi
                 'asesor_id'          => $assignment?->asesor?->id,
+                'fr_ak05_ready'      => $assignment?->asesor && $reportedAsesorIds->has($assignment->asesor->id),
                 'asesor_name'        => $assignment?->asesor?->name,
                 'asesor_verified_at' => $application?->asesor_verified_at,
                 'asesor_rekomendasi' => $application?->asesor_rekomendasi,

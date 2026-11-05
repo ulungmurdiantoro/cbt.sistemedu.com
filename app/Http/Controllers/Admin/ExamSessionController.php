@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\UserRole;
 use App\Http\Requests\StoreExamSessionRequest;
 use App\Http\Requests\UpdateExamSessionRequest;
+use App\Models\AsesmenReport;
 use App\Models\AsesorAssignment;
 use App\Models\AssessmentApplication;
 use App\Models\Exam;
@@ -90,6 +91,9 @@ class ExamSessionController extends Controller
         $assignments = AsesorAssignment::where('exam_session_id', $exam_session->id)
             ->pluck('user_id', 'student_id');
 
+        // Asesor yang sudah menyimpan Laporan Asesmen (FR.AK.05) — tautan unduh hanya untuk mereka
+        $reportedAsesorIds = AsesmenReport::where('exam_session_id', $exam_session->id)->pluck('user_id')->flip();
+
         return inertia('Admin/ExamSessions/Show', [
             'exam_session'   => $exam_session,
             'students'       => $students->map(fn (Student $s) => [
@@ -99,6 +103,7 @@ class ExamSessionController extends Controller
                 'application_id'     => $applications->get($s->id)?->id,
                 'application_status' => $applications->get($s->id)?->status,
                 'asesor_id'          => $assignments->get($s->id),
+                'fr_ak05_ready'      => $assignments->has($s->id) && $reportedAsesorIds->has($assignments->get($s->id)),
             ]),
             'inactive_count' => $enrolledIds->count() - $activeIds->count(),
             // Hanya id + nama — asesor bisa ratusan, cukup untuk pilihan yang bisa dicari.

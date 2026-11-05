@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin;
 
 use App\Enums\UserRole;
+use App\Models\AsesmenReport;
 use App\Models\AsesorAssignment;
 use App\Models\AssessmentApplication;
 use App\Models\Participant;
@@ -67,6 +68,29 @@ class AsesorAssignmentPageTest extends TestCase
         // Dikosongkan → penugasan dihapus.
         $this->actingAs($admin)->post($url, ['assignments' => [['student_id' => $student->id, 'user_id' => null]]]);
         $this->assertSame(0, AsesorAssignment::count());
+    }
+
+    public function test_fr_ak05_link_only_after_asesor_saved_report(): void
+    {
+        $exam    = $this->makeExam($this->makeClassroom());
+        $session = $this->makeSession($exam);
+        $student = $this->makeStudent($exam->classroom);
+        $this->enroll($student, $exam, $session);
+
+        $admin = $this->user('Admin', UserRole::Admin);
+        $budi  = $this->user('Budi Asesor', UserRole::Asesor);
+        AsesorAssignment::forceCreate(['user_id' => $budi->id, 'exam_session_id' => $session->id, 'student_id' => $student->id]);
+
+        $this->actingAs($admin)->get("/admin/exam_sessions/{$session->id}")
+            ->assertInertia(fn (Assert $page) => $page->where('students.0.fr_ak05_ready', false));
+
+        // Tanpa laporan, unduhan memang 404 — karena itu tautannya disembunyikan.
+        $this->actingAs($admin)->get("/dokumen/laporan-asesmen/{$session->id}/{$budi->id}/download")->assertNotFound();
+
+        AsesmenReport::forceCreate(['exam_session_id' => $session->id, 'user_id' => $budi->id, 'tanggal_asesmen' => '2026-11-01']);
+
+        $this->actingAs($admin)->get("/admin/exam_sessions/{$session->id}")
+            ->assertInertia(fn (Assert $page) => $page->where('students.0.fr_ak05_ready', true));
     }
 
     public function test_session_page_hides_inactive_accounts_and_shows_application_status(): void

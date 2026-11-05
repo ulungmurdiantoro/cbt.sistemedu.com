@@ -7,7 +7,7 @@
                 <tr><td style="width:190px" class="fw-bolder">Dokumen Persyaratan</td><td><span class="badge bg-success">Lengkap</span> atau hitungan x/y dokumen terverifikasi. <em>Lihat Dokumen</em> membuka daftar berkas (baca saja).</td></tr>
                 <tr><td class="fw-bolder">FR.APL.01 · FR.AK.01</td><td>Unduh dokumen PDF peserta.</td></tr>
                 <tr><td class="fw-bolder">FR.APL.03</td><td><span class="badge bg-success">Layak</span> / <span class="badge bg-danger">Tidak Layak</span> beserta skor penilaian awal, dan PDF-nya.</td></tr>
-                <tr><td class="fw-bolder">Laporan Asesmen</td><td>Asesor yang ditugaskan, rekomendasi <span class="badge bg-success">Kompeten</span> / <span class="badge bg-danger">Belum Kompeten</span>, dan unduh FR.AK.05.</td></tr>
+                <tr><td class="fw-bolder">Laporan Asesmen</td><td>Asesor yang ditugaskan, rekomendasi <span class="badge bg-success">Kompeten</span> / <span class="badge bg-danger">Belum Kompeten</span>, dan unduh FR.AK.05 (tertulis <em>FR.AK.05 belum diisi oleh asesor</em> bila asesor belum menyimpan laporannya).</td></tr>
                 <tr><td class="fw-bolder">PG · Esai · Wawancara · Nilai Akhir</td><td>Nilai per komponen dan hasil gabungannya.</td></tr>
                 <tr><td class="fw-bolder">Keputusan</td><td><span class="badge bg-success">LULUS</span> / <span class="badge bg-danger">TIDAK LULUS</span>, dihitung otomatis dari nilai akhir dan KKM skema.</td></tr>
             </tbody>

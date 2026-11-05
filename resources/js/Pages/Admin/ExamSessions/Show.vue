@@ -119,11 +119,14 @@
                                         <td>
                                             <SearchSelect v-model="row.user_id" :options="asesorOptions"
                                                 empty-label="— Belum ditugaskan —" search-placeholder="Ketik nama asesor..." />
-                                            <a v-if="students[i].asesor_id"
+                                            <a v-if="students[i].asesor_id && students[i].fr_ak05_ready"
                                                 :href="`/dokumen/laporan-asesmen/${exam_session.id}/${students[i].asesor_id}/download`"
                                                 target="_blank" class="d-inline-block small mt-1" title="Download FR.AK.05">
                                                 <i class="fa fa-file-pdf me-1"></i>FR.AK.05
                                             </a>
+                                            <span v-else-if="students[i].asesor_id" class="d-inline-block small text-muted fst-italic mt-1">
+                                                FR.AK.05 belum diisi oleh asesor
+                                            </span>
                                         </td>
                                         <td class="text-center">
                                             <button @click.prevent="destroy(students[i])" class="btn btn-sm btn-danger border-0" title="Keluarkan dari sesi">
