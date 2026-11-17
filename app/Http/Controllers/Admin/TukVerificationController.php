@@ -146,7 +146,35 @@ class TukVerificationController extends Controller
             'pengawas_options'    => $pengawas,
             'default_pengawas_id' => $pengawas->contains('id', $defaultPengawasId) ? $defaultPengawasId : null,
             'next_student_id'     => $ids->get($ids->search($studentId) + 1),
+            'participants'        => $this->participantOptions($examSessionId),
         ]);
+    }
+
+    /**
+     * Semua peserta sesi (urut No. Peserta) + status checklist-nya, untuk pilihan "Simpan & buka peserta" —
+     * verifikasi di lapangan tidak selalu urut No. Peserta.
+     */
+    private function participantOptions(int $examSessionId): Collection
+    {
+        $verifications = TukVerification::where('exam_session_id', $examSessionId)
+            ->get(['student_id', 'kesimpulan_awal', 'kesimpulan_akhir'])
+            ->keyBy('student_id');
+
+        return Student::whereIn('id', ExamSession::activeStudentIds($examSessionId))
+            ->orderBy('no_participant')
+            ->get(['id', 'no_participant', 'name'])
+            ->map(function (Student $s) use ($verifications) {
+                $v = $verifications->get($s->id);
+
+                return [
+                    'id'             => $s->id,
+                    'no_participant' => $s->no_participant,
+                    'name'           => $s->name,
+                    // belum | awal (verifikasi awal tersimpan) | selesai (kesimpulan akhir terisi)
+                    'status'         => !$v || !$v->kesimpulan_awal ? 'belum' : ($v->kesimpulan_akhir ? 'selesai' : 'awal'),
+                ];
+            })
+            ->values();
     }
 
     public function store(Request $request, int $examSessionId, int $studentId)
@@ -255,10 +283,14 @@ class TukVerificationController extends Controller
 
         $verification->save();
 
-        $next = $ids->get($ids->search($studentId) + 1);
-        if ($request->boolean('next') && $next) {
-            return redirect()->route('admin.penilaian.tuk.show', [$examSessionId, $next])
-                ->with('success', 'Checklist peserta sebelumnya tersimpan.');
+        // "Simpan & buka peserta": peserta tujuan dipilih dari daftar (tidak harus berikutnya);
+        // `next` = peserta berikutnya menurut No. Peserta (dipertahankan untuk kompatibilitas).
+        $goTo = $request->integer('go_to') ?: ($request->boolean('next') ? $ids->get($ids->search($studentId) + 1) : null);
+        if ($goTo && $goTo !== $studentId && $ids->contains($goTo)) {
+            $saved = $verification->student?->name ?? 'peserta sebelumnya';
+
+            return redirect()->route('admin.penilaian.tuk.show', [$examSessionId, $goTo])
+                ->with('success', "Checklist {$saved} tersimpan.");
         }
 
         return back()->with('success', 'Checklist FR.TUK.06 berhasil disimpan.');

@@ -313,6 +313,38 @@ class TukVerificationTest extends TestCase
         );
     }
 
+    public function test_save_and_open_any_participant_from_list(): void
+    {
+        $first  = $this->participant('NP-001');
+        $second = $this->participant('NP-002');
+        $third  = $this->participant('NP-003');
+
+        // Verifikasi tidak urut: dari NP-001 langsung ke NP-003.
+        $this->actingAs($this->admin)
+            ->post($this->url($first), ['kesimpulan_awal' => 'memenuhi', 'pengawas_id' => $this->admin->id, 'go_to' => $third->id])
+            ->assertRedirect($this->url($third))
+            ->assertSessionHas('success');
+
+        // Daftar peserta + status checklist untuk pilihan "Simpan & buka peserta".
+        $this->actingAs($this->admin)->get($this->url($third))
+            ->assertInertia(fn (Assert $page) => $page
+                ->has('participants', 3)
+                ->where('participants.0.id', $first->id)
+                ->where('participants.0.status', 'awal')
+                ->where('participants.1.id', $second->id)
+                ->where('participants.1.status', 'belum')
+            );
+
+        // Peserta di luar sesi tidak bisa jadi tujuan → tetap di halaman yang sama.
+        $outsider = $this->makeStudent($this->makeClassroom('OTH'));
+        $this->actingAs($this->admin)->from($this->url($third))
+            ->post($this->url($third), ['kesimpulan_awal' => 'memenuhi', 'kesimpulan_akhir' => 'memenuhi', 'pengawas_id' => $this->admin->id, 'go_to' => $outsider->id])
+            ->assertRedirect($this->url($third));
+
+        $this->actingAs($this->admin)->get($this->url($first))
+            ->assertInertia(fn (Assert $page) => $page->where('participants.2.status', 'selesai'));
+    }
+
     public function test_show_includes_identity_document_from_application(): void
     {
         Storage::fake('private');

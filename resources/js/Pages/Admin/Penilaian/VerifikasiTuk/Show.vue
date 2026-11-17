@@ -320,13 +320,21 @@
 
             <!-- Aksi -->
             <div class="card border-0 shadow position-sticky" style="bottom:0; z-index:1020">
-                <div class="card-body py-2 d-flex flex-wrap justify-content-end gap-2">
-                    <button type="button" class="btn btn-success border-0" :disabled="saving" @click="save(false)">
+                <div class="card-body py-2 d-flex flex-wrap justify-content-end align-items-center gap-2">
+                    <button type="button" class="btn btn-success border-0" :disabled="saving" @click="save()">
                         <i class="fa fa-save me-1"></i>{{ saving ? 'Menyimpan...' : 'Simpan' }}
                     </button>
-                    <button v-if="next_student_id" type="button" class="btn btn-primary border-0" :disabled="saving" @click="save(true)">
-                        Simpan &amp; Peserta Berikutnya <i class="fa fa-arrow-right ms-1"></i>
-                    </button>
+                    <!-- Verifikasi di lapangan tidak selalu urut No. Peserta: pilih peserta tujuan dari daftar -->
+                    <template v-if="participantOptions.length">
+                        <span class="small text-muted ms-2">Simpan &amp; buka peserta:</span>
+                        <div class="go-to-select">
+                            <SearchSelect v-model="goTo" :options="participantOptions"
+                                empty-label="— Pilih peserta —" search-placeholder="Ketik No. Peserta atau nama..." />
+                        </div>
+                        <button type="button" class="btn btn-primary border-0" :disabled="saving || !goTo" @click="save(goTo)">
+                            Simpan &amp; Buka <i class="fa fa-arrow-right ms-1"></i>
+                        </button>
+                    </template>
                 </div>
             </div>
 
@@ -339,10 +347,13 @@ import BackBar from '../../../../Components/Admin/BackBar.vue';
 import LayoutAdmin from '../../../../Layouts/Admin.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import StatusBadge from '../../../../Components/StatusBadge.vue';
+import SearchSelect from '../../../../Components/SearchSelect.vue';
+
+const PARTICIPANT_STATUS = { belum: 'Belum diisi', awal: 'Verifikasi awal', selesai: 'Selesai' };
 
 export default {
     layout: LayoutAdmin,
-    components: { BackBar, Head, Link, StatusBadge },
+    components: { BackBar, Head, Link, StatusBadge, SearchSelect },
     props: {
         errors:          Object,
         exam_session:    Object,
@@ -355,6 +366,8 @@ export default {
         pengawas_options:    Array,
         default_pengawas_id: Number,
         next_student_id:     Number,
+        // [{ id, no_participant, name, status: belum|awal|selesai }] — semua peserta sesi, urut No. Peserta
+        participants:        { type: Array, default: () => [] },
     },
 
     data() {
@@ -372,6 +385,7 @@ export default {
 
         return {
             saving: false,
+            goTo: this.defaultGoTo(),
             form: {
                 // tanggal lokal (bukan UTC) dalam format YYYY-MM-DD
                 tanggal_asesmen:   v.tanggal_asesmen ?? new Date().toLocaleDateString('sv-SE'),
@@ -396,6 +410,12 @@ export default {
     },
 
     computed: {
+        // Pilihan "Simpan & buka peserta": semua peserta lain + status checklist-nya
+        participantOptions() {
+            return this.participants
+                .filter(p => p.id !== this.student.id)
+                .map(p => ({ value: p.id, label: `${p.no_participant} — ${p.name}`, hint: PARTICIPANT_STATUS[p.status] ?? '' }));
+        },
         isRev1() {
             return this.options.revision === 'Rev.1';
         },
@@ -437,16 +457,25 @@ export default {
         formatDateTime(value) {
             return new Date(value).toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' });
         },
-        save(next) {
+        // Usulan awal peserta tujuan: peserta berikutnya (urut No. Peserta) yang checklist-nya belum diisi,
+        // lalu peserta berikutnya biasa. Admin tetap bisa memilih peserta lain dari daftar.
+        defaultGoTo() {
+            const list = this.participants;
+            const i = list.findIndex(p => p.id === this.student.id);
+            const after = [...list.slice(i + 1), ...list.slice(0, Math.max(i, 0))];
+            return (after.find(p => p.status === 'belum') ?? list[i + 1] ?? null)?.id ?? null;
+        },
+        // goTo = id peserta yang dibuka setelah tersimpan; kosong = tetap di peserta ini.
+        save(goTo = null) {
             this.saving = true;
             router.post(
                 `/admin/penilaian/${this.exam_session.id}/verifikasi-tuk/${this.student.id}`,
-                { ...this.form, next },
+                { ...this.form, go_to: goTo },
                 {
-                    preserveScroll: !next,
+                    preserveScroll: !goTo,
                     // router.post mempertahankan state komponen secara default — saat pindah
-                    // ke peserta berikutnya form harus dibangun ulang dari props peserta itu.
-                    preserveState: next ? 'errors' : true,
+                    // ke peserta lain form harus dibangun ulang dari props peserta itu.
+                    preserveState: goTo ? 'errors' : true,
                     onFinish: () => { this.saving = false; },
                 }
             );
@@ -454,3 +483,7 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.go-to-select { width: 320px; max-width: 100%; }
+</style>
