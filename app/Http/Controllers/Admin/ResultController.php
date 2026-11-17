@@ -10,8 +10,10 @@ use App\Models\InterviewAssessment;
 use App\Models\ParticipantResult;
 use App\Models\Student;
 use App\Models\StudentTask;
+use App\Services\AdminDashboardService;
 use App\Services\DocumentGeneratorService;
 use App\Services\ResultCalculatorService;
+use App\Services\ResultProgressService;
 use App\Support\AnswerFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,24 +21,34 @@ class ResultController extends Controller
 {
     public function __construct(
         private ResultCalculatorService $calculator,
+        private ResultProgressService $progress,
     ) {}
 
-    public function index()
+    public function index(AdminDashboardService $dashboard)
     {
         // Jumlah peserta & progres dihitung dari peserta terdaftar di sesi (akun aktif) — sama dengan
         // baris Rekap Hasil & Dashboard Pengambil Keputusan (ExamSession::scopeWithActiveStudentsCount).
         $sessions = ExamSession::when(request()->q, fn ($q) => $q->where('title', 'like', '%' . request()->q . '%'))
+            ->with(['examPg.classroom:id,title', 'examEsai.classroom:id,title', 'pengambilKeputusan:id,name'])
             ->withActiveStudentsCount()
             ->withCount([
                 'participantResults as reviewed_count'   => fn ($q) => $q->enrolled()->whereNotNull('manager_verified_at'),
                 'participantResults as sp_sent_count'    => fn ($q) => $q->enrolled()->whereNotNull('sp_distributed_at'),
                 'participantResults as final_sent_count' => fn ($q) => $q->enrolled()->whereNotNull('distributed_at'),
             ])
-            ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
-            ->orderByRaw('CASE WHEN end_time > NOW() THEN end_time END ASC')
+            // Waktu sekarang sebagai parameter (bukan NOW()) supaya jalan di MySQL & SQLite.
+            ->orderByRaw('CASE WHEN end_time > ? THEN 0 ELSE 1 END ASC', [now()])
+            ->orderByRaw('CASE WHEN end_time > ? THEN end_time END ASC', [now()])
             ->orderBy('end_time', 'desc')
             ->paginate(15)
             ->appends(['q' => request()->q]);
+
+        // Progres per tahap (Ujian → Dinilai → PK → MS → Final → SP → SK) — sama dengan Pipeline di dashboard admin.
+        $sessions->getCollection()->transform(function (ExamSession $s) use ($dashboard) {
+            $s->setAttribute('pipeline', $dashboard->pipelineRow($s));
+
+            return $s;
+        });
 
         return inertia('Admin/Results/Index', ['sessions' => $sessions]);
     }
@@ -82,7 +94,10 @@ class ResultController extends Controller
                 ->keyBy('student_id')
             : collect();
 
-        $rows = $results->map(function ($r) use ($students, $gradeIds, $assignments, $interviews, $examSession) {
+        // Progres per peserta setelah ujian: tahap, yang sedang ditunggu, riwayat, dokumen
+        $progress = $this->progress->forSession($examSession, $results);
+
+        $rows = $results->map(function ($r) use ($students, $gradeIds, $assignments, $interviews, $examSession, $progress) {
             $student = $students->get($r->student_id);
             $grades  = $gradeIds->get($r->student_id, collect());
             $ia      = $interviews->get($r->student_id);
@@ -118,6 +133,7 @@ class ResultController extends Controller
                 'distributed_at'    => $r->distributed_at,
                 'sp_distributed_at' => $r->sp_distributed_at,
                 'attempt'           => $r->attempt,
+                'progress'          => $progress->get($r->student_id),
                 // FR.AK.14 hanya untuk peserta LULUS yang sudah difinalisasi (sama dengan portal peserta)
                 'fr_ak_14'          => $r->is_finalized && $r->keputusan === 'LULUS' ? [
                     'state'          => $r->frAk14State(),
@@ -142,6 +158,8 @@ class ResultController extends Controller
             // (Student::requiresTugas), kecuali ada yang tetap mengunggah.
             'show_tugas'   => $tugas->isNotEmpty() || $students->contains(fn (Student $s) => $s->requiresTugas()),
             'fr_ak_14_requires_materai' => ParticipantResult::sessionRequiresFrAk14Materai($examSession->id),
+            // Urutan & label tahap untuk ringkasan progres dan kolom Progres
+            'steps'        => ResultProgressService::STEPS,
         ]);
     }
 

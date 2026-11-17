@@ -75,7 +75,11 @@ resources/js/
       Reports/      ← Show.vue = detail jawaban peserta (dibuka dari Rekap Hasil); isi per jenis ujian di
                       Components/AnswerReview/{PgReview,EssayReview}.vue. Jawaban dicocokkan lewat question_id/essay_id + sesi
       Results/      ← Hasil Penilaian: daftar sesi + Rekap Hasil (nilai, Laporan Nilai, kirim SP/SK, status materai
-                      FR.AK.14 + PDF-nya — ParticipantResult::frAk14State(), route admin.results.fr-ak-14)
+                      FR.AK.14 + PDF-nya — ParticipantResult::frAk14State(), route admin.results.fr-ak-14).
+                      Progres per peserta (tahap AK.01 → TUK → Ujian → Nilai → K/BK → PK → MS → Final → SP → SK, siapa & kapan,
+                      tahap yang ditunggu, riwayat, dokumen) dari App\Services\ResultProgressService — hanya membaca data
+                      yang ada; tahap yang belum tercatat padahal tahap sesudahnya selesai = 'skipped' (sesi lama).
+                      Daftar sesi: progres per tahap dari AdminDashboardService::pipelineRow() (sama dengan Pipeline dashboard)
       ...
     Asesor/
       Dashboard.vue          ← (baru) dashboard asesor

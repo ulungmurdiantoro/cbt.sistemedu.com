@@ -68,6 +68,30 @@
             {{ $page.props.session.success }}
         </div>
 
+        <!-- Ringkasan progres: klik tahap → tabel hanya menampilkan peserta yang belum menyelesaikan tahap itu -->
+        <SectionCard v-if="rows.length" title="Progres Peserta" icon="fa-stream">
+            <template #meta>Klik satu tahap untuk menampilkan peserta yang belum menyelesaikannya.</template>
+            <div class="p-3 d-flex flex-wrap gap-2">
+                <button v-for="s in summary" :key="s.key" type="button" class="summary-step"
+                    :class="{ 'is-done': s.done >= s.total, 'is-active': filter.step === s.key }"
+                    :title="`${steps[s.key].title}: ${s.done} dari ${s.total} peserta`"
+                    @click="toggleStepFilter(s.key)">
+                    <div class="summary-label">{{ steps[s.key].label }}</div>
+                    <div class="summary-count num">{{ s.done }}<span class="text-muted">/{{ s.total }}</span></div>
+                    <div class="progress summary-bar">
+                        <div class="progress-bar" :class="s.done >= s.total ? 'bg-success' : 'bg-primary'" :style="{ width: pct(s.done, s.total) + '%' }"></div>
+                    </div>
+                </button>
+                <button v-if="absentCount" type="button" class="summary-step is-warning"
+                    :class="{ 'is-active': filter.stage === 'absent' }"
+                    title="Peserta yang tidak mengerjakan ujian" @click="filter.stage = filter.stage === 'absent' ? '' : 'absent'; filter.step = ''">
+                    <div class="summary-label">Tidak ikut</div>
+                    <div class="summary-count num">{{ absentCount }}</div>
+                    <div class="small text-muted">peserta</div>
+                </button>
+            </div>
+        </SectionCard>
+
         <!-- Table -->
         <SectionCard :title="exam_session.title" icon="fa-poll">
             <template #meta>
@@ -81,69 +105,76 @@
                     </template>
                 </div>
             </template>
-                <div class="table-responsive">
+
+            <!-- Cari + filter tahap -->
+            <div v-if="rows.length" class="d-flex flex-wrap align-items-center gap-2 px-3 pt-3">
+                <input type="text" class="form-control form-control-sm filter-search" v-model="filter.q" placeholder="Cari No. Peserta atau nama...">
+                <select class="form-select form-select-sm filter-stage" v-model="filter.stage" @change="filter.step = ''">
+                    <option value="">Semua peserta ({{ rows.length }})</option>
+                    <option v-for="o in stageOptions" :key="o.value" :value="o.value">{{ o.label }} ({{ o.count }})</option>
+                </select>
+                <span v-if="filter.step" class="badge bg-gray-200 text-gray-800 border">
+                    Belum {{ steps[filter.step].title }}
+                    <a href="#" class="ms-1 text-gray-800" title="Hapus filter" @click.prevent="filter.step = ''"><i class="fa fa-times"></i></a>
+                </span>
+                <button v-if="isFiltered" type="button" class="btn btn-sm btn-gray-100 border" @click="resetFilter">Reset</button>
+                <span class="small text-muted ms-auto">Menampilkan {{ filteredRows.length }} dari {{ rows.length }} peserta</span>
+            </div>
+
+                <div class="table-responsive p-3">
                     <table class="table table-bordered table-centered table-list mb-0 rounded">
                         <thead class="thead-dark">
                             <tr>
                                 <th class="border-0" style="width:3%">No.</th>
-                                <th class="border-0">No. Peserta</th>
-                                <th class="border-0">Nama</th>
-                                <th class="border-0">Asesor</th>
-                                <th class="border-0 text-center" v-if="show_tugas">Tugas</th>
+                                <th class="border-0">Peserta</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_pg">PG</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_esai">Esai</th>
                                 <th class="border-0 text-center" v-if="exam_session.has_wawancara">Wawancara</th>
                                 <th class="border-0 text-center">Nilai Akhir</th>
                                 <th class="border-0 text-center">Keputusan</th>
-                                <th class="border-0 text-center">Status</th>
-                                <th class="border-0 text-center">No. Dokumen</th>
+                                <th class="border-0">Progres</th>
                                 <th class="border-0 text-center" v-if="frAk14Rows.length">FR.AK.14</th>
                                 <th class="border-0 text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(row, i) in rows" :key="row.student_id">
-                                <td class="text-center">{{ i + 1 }}</td>
-                                <td class="small">{{ row.no_participant }}</td>
-                                <td>
-                                    {{ row.name }}
+                            <tr v-for="row in filteredRows" :key="row.student_id">
+                                <td class="text-center">{{ rowNumber[row.student_id] }}</td>
+                                <td class="name-cell">
+                                    <div class="small text-muted">{{ row.no_participant }}</div>
+                                    <a href="#" class="text-gray-800 fw-bolder participant-name" title="Lihat detail peserta" @click.prevent="openDetail(row)">{{ row.name }}</a>
                                     <span v-if="row.attempt > 1" class="badge bg-warning text-gray-800 ms-1 small">Remidi</span>
-                                </td>
-                                <!-- Asesor yang ditugaskan (tab Peserta & Asesor di detail sesi) -->
-                                <td class="small">
-                                    <div v-if="row.asesor_name" class="asesor-name">
-                                        <i class="fa fa-user-tie me-1 text-muted"></i>{{ row.asesor_name }}
+                                    <!-- Asesor yang ditugaskan (tab Peserta & Asesor di detail sesi) -->
+                                    <div class="small mt-1">
+                                        <span v-if="row.asesor_name" class="text-muted"><i class="fa fa-user-tie me-1"></i>{{ row.asesor_name }}</span>
+                                        <span v-else class="text-muted fst-italic">Asesor belum ditugaskan</span>
                                     </div>
-                                    <span v-else class="text-muted fst-italic">Belum ditugaskan</span>
-                                </td>
-                                <td class="text-center" v-if="show_tugas">
-                                    <a v-if="tugas[row.student_id]"
-                                       :href="`/admin/results/${exam_session.id}/tugas/${row.student_id}`"
-                                       target="_blank"
-                                       :title="`Lihat ${tugas[row.student_id].original_filename}`"
-                                       class="btn btn-sm btn-outline-primary">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <span v-else class="text-muted">—</span>
                                 </td>
                                 <!-- Angka PG / Esai → detail jawaban peserta (eks Laporan Nilai) -->
                                 <td class="text-center num" v-if="exam_session.exam_id_pg">
-                                    <Link v-if="row.grade_id_pg" :href="`/admin/reports/${row.grade_id_pg}`" class="text-primary text-nowrap" title="Detail jawaban PG">
+                                    <span v-if="isAbsent(row)" class="score-note">Tidak ikut</span>
+                                    <Link v-else-if="row.grade_id_pg" :href="`/admin/reports/${row.grade_id_pg}`" class="text-primary text-nowrap" title="Detail jawaban PG">
                                         {{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}<i class="fa fa-search-plus small ms-1"></i>
                                     </Link>
                                     <template v-else>{{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}</template>
                                 </td>
                                 <td class="text-center num" v-if="exam_session.exam_id_esai">
-                                    <Link v-if="row.grade_id_esai" :href="`/admin/reports/${row.grade_id_esai}`" class="text-primary text-nowrap" title="Detail jawaban esai">
-                                        {{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}<i class="fa fa-search-plus small ms-1"></i>
-                                    </Link>
-                                    <template v-else>{{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}</template>
+                                    <span v-if="isAbsent(row)" class="score-note">Tidak ikut</span>
+                                    <template v-else>
+                                        <Link v-if="row.grade_id_esai" :href="`/admin/reports/${row.grade_id_esai}`" class="text-primary text-nowrap" title="Detail jawaban esai">
+                                            {{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}<i class="fa fa-search-plus small ms-1"></i>
+                                        </Link>
+                                        <template v-else>{{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}</template>
+                                        <div v-if="awaitsScore(row, 'esai')" class="mt-1"><StatusBadge tone="secondary" label="Belum dinilai" /></div>
+                                    </template>
                                 </td>
                                 <td class="text-center num" v-if="exam_session.has_wawancara">
-                                    <a v-if="row.wawancara" href="#" class="text-primary text-nowrap" title="Rincian nilai wawancara"
+                                    <span v-if="isAbsent(row)" class="score-note">Tidak ikut</span>
+                                    <a v-else-if="row.wawancara" href="#" class="text-primary text-nowrap" title="Rincian nilai wawancara"
                                        @click.prevent="showWawancara(row)">
                                         {{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}<i class="fa fa-search-plus small ms-1"></i>
                                     </a>
+                                    <StatusBadge v-else-if="awaitsScore(row, 'wawancara')" tone="secondary" label="Belum dinilai" />
                                     <template v-else>{{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}</template>
                                 </td>
                                 <td class="text-center fw-bold num">
@@ -153,38 +184,23 @@
                                     <span v-else class="text-muted">—</span>
                                 </td>
                                 <td class="text-center">
-                                    <StatusBadge v-if="row.keputusan === 'LULUS'" tone="success" label="LULUS" />
-                                    <StatusBadge v-else-if="row.keputusan === 'TIDAK_LULUS'" tone="danger" label="TIDAK LULUS" />
+                                    <StatusBadge v-if="row.keputusan === 'LULUS'" tone="success" :label="row.is_finalized ? 'LULUS' : 'LULUS (sementara)'" />
+                                    <StatusBadge v-else-if="row.keputusan === 'TIDAK_LULUS'" tone="danger" :label="row.is_finalized ? 'TIDAK LULUS' : 'TIDAK LULUS (sementara)'" />
                                     <span v-else class="text-muted small">—</span>
                                 </td>
-                                <td class="text-center">
-                                    <span v-if="row.is_finalized" class="badge text-white" style="background-color:#212529;">
-                                        <i class="fa fa-lock me-1"></i>Final
-                                    </span>
-                                    <span v-else class="badge text-white" style="background-color:#6c757d;">Draft</span>
-                                    <!-- Yang menekan Finalisasi untuk peserta ini (Manajer Sertifikasi; sesi lama: Pengambil Keputusan) -->
-                                    <div v-if="row.is_finalized && row.finalized_by_name" class="small text-muted mt-1 decided-by"
-                                         :title="`Difinalisasi oleh ${row.finalized_by_name}, ${formatDate(row.finalized_at)}`">
-                                        <div><i class="fa fa-user-check me-1"></i>{{ row.finalized_by_name }}</div>
-                                        <div v-if="row.finalized_at" class="text-nowrap">{{ formatDate(row.finalized_at) }}</div>
+                                <!-- Progres per tahap: titik = tahap (hijau selesai, biru sedang ditunggu, kuning tidak tercatat) -->
+                                <td class="progress-cell">
+                                    <div v-if="row.progress" class="step-dots">
+                                        <span v-for="(st, key) in visibleSteps(row)" :key="key" class="step-dot" :class="`is-${st.state}`"
+                                            :title="stepTooltip(key, st)">{{ steps[key].label }}</span>
                                     </div>
-                                </td>
-                                <td class="small" style="min-width:140px;">
-                                    <div v-if="row.is_finalized">
-                                        <div v-if="row.sp_number" class="text-muted">
-                                            <span class="fw-bolder">SP:</span> {{ row.sp_number }}
-                                        </div>
-                                        <div v-if="row.sk_number" class="text-muted">
-                                            <span class="fw-bolder">SK:</span> {{ row.sk_number }}
-                                        </div>
-                                        <div v-if="row.sertifikat_number" class="text-muted">
-                                            <span class="fw-bolder">Sert:</span> {{ row.sertifikat_number }}
-                                        </div>
+                                    <div v-if="row.progress" class="small mt-1 waiting-text" :class="row.progress.stage === 'selesai' ? 'text-success' : 'text-gray-800'">
+                                        <i class="fa me-1" :class="row.progress.stage === 'selesai' ? 'fa-check-circle' : 'fa-hourglass-half text-primary'"></i>{{ row.progress.waiting }}
+                                        <span v-if="row.progress.actor" class="text-muted">({{ row.progress.actor }})</span>
                                     </div>
-                                    <span v-else class="text-muted">—</span>
                                 </td>
                                 <!-- FR.AK.14 (peserta LULUS): status materai + buka PDF (bermaterai kalau sudah dibubuhi) -->
-                                <td class="text-center small" v-if="frAk14Rows.length" style="min-width:140px;">
+                                <td class="text-center small" v-if="frAk14Rows.length" style="min-width:120px;">
                                     <template v-if="row.fr_ak_14">
                                         <div class="d-flex gap-1 justify-content-center align-items-center">
                                             <StatusBadge :tone="frAk14Badge[row.fr_ak_14.state].tone" :label="frAk14Badge[row.fr_ak_14.state].label" />
@@ -204,72 +220,19 @@
                                     <span v-else class="text-muted">—</span>
                                 </td>
                                 <td class="text-center">
-                                    <div v-if="row.is_finalized" class="d-flex gap-1 justify-content-center flex-wrap">
-
-                                        <!-- SP -->
-                                        <div class="dropdown">
-                                            <a :href="`/admin/results/${exam_session.id}/download-sp/${row.student_id}`"
-                                               target="_blank"
-                                               class="btn btn-sm btn-outline-secondary"
-                                               title="Surat Pemberitahuan">
-                                                <i class="fa fa-envelope-open"></i> SP
-                                            </a>
-                                        </div>
-
-                                        <!-- SK -->
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-outline-dark dropdown-toggle"
-                                                data-bs-toggle="dropdown" title="Surat Keputusan">
-                                                <i class="fa fa-file-alt"></i> SK
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end" style="min-width:160px; font-size:0.82rem;">
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       :href="`/admin/results/${exam_session.id}/download-sk/${row.student_id}`"
-                                                       target="_blank">
-                                                        Tanpa KAN
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       :href="`/admin/results/${exam_session.id}/download-sk/${row.student_id}?kan=1`"
-                                                       target="_blank">
-                                                        Dengan KAN
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <!-- Sertifikat (hanya LULUS) -->
-                                        <div v-if="row.keputusan === 'LULUS'" class="dropdown">
-                                            <button class="btn btn-sm btn-outline-primary dropdown-toggle"
-                                                data-bs-toggle="dropdown" title="Sertifikat Kompetensi">
-                                                <i class="fa fa-certificate"></i> Sert.
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end" style="min-width:160px; font-size:0.82rem;">
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       :href="`/admin/results/${exam_session.id}/download-sertifikat/${row.student_id}`"
-                                                       target="_blank">
-                                                        Tanpa KAN
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                       :href="`/admin/results/${exam_session.id}/download-sertifikat/${row.student_id}?kan=1`"
-                                                       target="_blank">
-                                                        Dengan KAN
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                    <span v-else class="text-muted small">—</span>
+                                    <button type="button" class="btn btn-sm btn-primary border-0" title="Detail peserta: tahap, dokumen, riwayat" @click="openDetail(row)">
+                                        <i class="fa fa-folder-open"></i>
+                                    </button>
                                 </td>
                             </tr>
                             <tr v-if="rows.length === 0">
                                 <td colspan="20" class="text-center text-muted py-4">Belum ada peserta terdaftar di sesi ini.</td>
+                            </tr>
+                            <tr v-else-if="filteredRows.length === 0">
+                                <td colspan="20" class="text-center text-muted py-4">
+                                    Tidak ada peserta yang cocok dengan filter.
+                                    <a href="#" @click.prevent="resetFilter">Tampilkan semua</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -277,6 +240,185 @@
         </SectionCard>
 
     </div>
+
+    <!-- Panel detail peserta: nilai, tahap, dokumen, riwayat -->
+    <transition name="fade">
+        <div v-if="detail" class="detail-backdrop" @click="closeDetail"></div>
+    </transition>
+    <transition name="slide">
+        <aside v-if="detail" class="detail-panel shadow-lg" role="dialog" aria-label="Detail peserta">
+            <div class="detail-header bg-white border-bottom">
+                <div class="d-flex align-items-start gap-2">
+                    <div class="flex-grow-1" style="min-width:0">
+                        <h5 class="mb-1 fw-bold text-gray-800">
+                            {{ detail.name }}
+                            <span v-if="detail.attempt > 1" class="badge bg-warning text-gray-800 ms-1 small">Remidi</span>
+                        </h5>
+                        <div class="small text-muted">{{ detail.no_participant }} · Asesor: {{ detail.asesor_name || 'belum ditugaskan' }}</div>
+                    </div>
+                    <button type="button" class="btn btn-gray-100 border" title="Tutup" @click="closeDetail"><i class="fa fa-times"></i></button>
+                </div>
+                <div v-if="detail.progress" class="mt-2 small" :class="detail.progress.stage === 'selesai' ? 'text-success' : 'text-gray-800'">
+                    <i class="fa me-1" :class="detail.progress.stage === 'selesai' ? 'fa-check-circle' : 'fa-hourglass-half text-primary'"></i>
+                    <strong>{{ detail.progress.waiting }}</strong>
+                    <span v-if="detail.progress.actor" class="text-muted"> ({{ detail.progress.actor }})</span>
+                </div>
+            </div>
+
+            <div class="detail-body">
+                <!-- Nilai -->
+                <h6 class="detail-section">Nilai</h6>
+                <table class="table table-sm table-bordered mb-3">
+                    <tbody>
+                        <tr v-if="exam_session.exam_id_pg">
+                            <td class="w-50">Pilihan Ganda</td>
+                            <td class="num">
+                                <Link v-if="detail.grade_id_pg" :href="`/admin/reports/${detail.grade_id_pg}`">{{ fmt(detail.nilai_pg) }} <i class="fa fa-search-plus small"></i></Link>
+                                <template v-else>{{ fmt(detail.nilai_pg) }}</template>
+                            </td>
+                        </tr>
+                        <tr v-if="exam_session.exam_id_esai">
+                            <td>Esai</td>
+                            <td class="num">
+                                <Link v-if="detail.grade_id_esai" :href="`/admin/reports/${detail.grade_id_esai}`">{{ fmt(detail.nilai_esai) }} <i class="fa fa-search-plus small"></i></Link>
+                                <template v-else>{{ fmt(detail.nilai_esai) }}</template>
+                            </td>
+                        </tr>
+                        <tr v-if="exam_session.has_wawancara">
+                            <td>Wawancara</td>
+                            <td class="num">
+                                <a v-if="detail.wawancara" href="#" @click.prevent="showWawancara(detail)">{{ fmt(detail.nilai_wawancara) }} <i class="fa fa-search-plus small"></i></a>
+                                <template v-else>{{ fmt(detail.nilai_wawancara) }}</template>
+                            </td>
+                        </tr>
+                        <tr class="fw-bolder">
+                            <td>Nilai Akhir</td>
+                            <td class="num"><span :class="nilaiColor(detail)">{{ fmt(detail.nilai_akhir) }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Keputusan</td>
+                            <td>
+                                <StatusBadge v-if="detail.keputusan === 'LULUS'" tone="success" :label="detail.is_finalized ? 'LULUS' : 'LULUS (sementara)'" />
+                                <StatusBadge v-else-if="detail.keputusan === 'TIDAK_LULUS'" tone="danger" :label="detail.is_finalized ? 'TIDAK LULUS' : 'TIDAK LULUS (sementara)'" />
+                                <span v-else class="text-muted">—</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Tahap -->
+                <h6 class="detail-section">Tahap</h6>
+                <ul v-if="detail.progress" class="list-unstyled step-list mb-3">
+                    <li v-for="(st, key) in visibleSteps(detail)" :key="key" class="d-flex gap-2">
+                        <span class="step-icon" :class="`is-${st.state}`"><i class="fa" :class="stateIcon(st.state)"></i></span>
+                        <div class="flex-grow-1">
+                            <div class="fw-bolder text-gray-800">{{ steps[key].title }}</div>
+                            <div class="small text-muted">
+                                {{ stateText(st.state) }}<template v-if="st.note"> · {{ st.note }}</template><template v-if="st.by"> · {{ st.by }}</template><template v-if="st.at"> · {{ formatDate(st.at) }}</template>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Dokumen -->
+                <h6 class="detail-section">Dokumen</h6>
+                <table class="table table-sm table-bordered mb-3 doc-table">
+                    <tbody>
+                        <tr>
+                            <td class="w-50">Permohonan (FR.APL.01)</td>
+                            <td>
+                                <Link v-if="detail.progress?.docs.application_id" :href="`/admin/applications/${detail.progress.docs.application_id}?sesi=${exam_session.id}`" class="btn btn-sm btn-gray-100 border">
+                                    <i class="fa fa-external-link-alt me-1"></i>Buka
+                                </Link>
+                                <span v-else class="text-muted small">Tidak ada permohonan</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>FR.AK.01</td>
+                            <td>
+                                <template v-if="detail.progress?.docs.application_id">
+                                    <a :href="`/admin/applications/${detail.progress.docs.application_id}/fr-ak-01`" target="_blank" class="btn btn-sm btn-gray-100 border"><i class="fa fa-file-pdf me-1"></i>PDF</a>
+                                    <span v-if="!detail.progress.docs.ak01_signed" class="small text-muted ms-1">belum TTD asesor</span>
+                                </template>
+                                <span v-else class="text-muted small">—</span>
+                            </td>
+                        </tr>
+                        <tr v-if="exam_session.verifikasi_tuk">
+                            <td>FR.TUK.06</td>
+                            <td>
+                                <a v-if="detail.progress?.docs.tuk" :href="`/admin/penilaian/${exam_session.id}/verifikasi-tuk/${detail.student_id}/pdf`" target="_blank" class="btn btn-sm btn-gray-100 border"><i class="fa fa-file-pdf me-1"></i>PDF</a>
+                                <Link v-else :href="`/admin/penilaian/${exam_session.id}/verifikasi-tuk/${detail.student_id}`" class="small">Isi checklist</Link>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>FR.AK.05 (Laporan Asesmen)</td>
+                            <td>
+                                <a v-if="detail.progress?.docs.ak05_ready" :href="`/dokumen/laporan-asesmen/${exam_session.id}/${detail.progress.docs.asesor_id}/download`" target="_blank" class="btn btn-sm btn-gray-100 border"><i class="fa fa-file-pdf me-1"></i>PDF</a>
+                                <span v-else-if="detail.progress?.docs.asesor_id" class="small text-muted fst-italic">Belum diisi oleh asesor</span>
+                                <span v-else class="text-muted small">Asesor belum ditugaskan</span>
+                            </td>
+                        </tr>
+                        <tr v-if="detail.fr_ak_14">
+                            <td>FR.AK.14</td>
+                            <td>
+                                <StatusBadge :tone="frAk14Badge[detail.fr_ak_14.state].tone" :label="frAk14Badge[detail.fr_ak_14.state].label" />
+                                <a v-if="detail.fr_ak_14.state !== 'unsigned'" :href="`/admin/results/${exam_session.id}/fr-ak-14/${detail.student_id}`" target="_blank" class="btn btn-sm btn-gray-100 border ms-1"><i class="fa fa-file-pdf me-1"></i>PDF</a>
+                            </td>
+                        </tr>
+                        <tr v-if="show_tugas">
+                            <td>Tugas peserta</td>
+                            <td>
+                                <a v-if="tugas[detail.student_id]" :href="`/admin/results/${exam_session.id}/tugas/${detail.student_id}`" target="_blank" class="btn btn-sm btn-gray-100 border"
+                                    :title="tugas[detail.student_id].original_filename"><i class="fa fa-eye me-1"></i>Lihat</a>
+                                <span v-else class="text-muted small">Belum diunggah</span>
+                            </td>
+                        </tr>
+                        <template v-if="detail.is_finalized">
+                            <tr>
+                                <td>SP<div class="small text-muted text-break">{{ detail.sp_number || '—' }}</div></td>
+                                <td>
+                                    <a :href="`/admin/results/${exam_session.id}/download-sp/${detail.student_id}`" target="_blank" class="btn btn-sm btn-gray-100 border"><i class="fa fa-file-pdf me-1"></i>PDF</a>
+                                    <span v-if="detail.sp_distributed_at" class="small text-success ms-1">terkirim</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SK<div class="small text-muted text-break">{{ detail.sk_number || '—' }}</div></td>
+                                <td>
+                                    <a :href="`/admin/results/${exam_session.id}/download-sk/${detail.student_id}`" target="_blank" class="btn btn-sm btn-gray-100 border">Tanpa KAN</a>
+                                    <a :href="`/admin/results/${exam_session.id}/download-sk/${detail.student_id}?kan=1`" target="_blank" class="btn btn-sm btn-gray-100 border ms-1">Dengan KAN</a>
+                                </td>
+                            </tr>
+                            <tr v-if="detail.keputusan === 'LULUS'">
+                                <td>Sertifikat<div class="small text-muted text-break">{{ detail.sertifikat_number || '—' }}</div></td>
+                                <td>
+                                    <a :href="`/admin/results/${exam_session.id}/download-sertifikat/${detail.student_id}`" target="_blank" class="btn btn-sm btn-gray-100 border">Tanpa KAN</a>
+                                    <a :href="`/admin/results/${exam_session.id}/download-sertifikat/${detail.student_id}?kan=1`" target="_blank" class="btn btn-sm btn-gray-100 border ms-1">Dengan KAN</a>
+                                    <div v-if="detail.distributed_at" class="small text-success mt-1">SK &amp; sertifikat terkirim</div>
+                                </td>
+                            </tr>
+                        </template>
+                        <tr v-else>
+                            <td>SP / SK / Sertifikat</td>
+                            <td class="small text-muted">Tersedia setelah difinalisasi</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Riwayat -->
+                <h6 class="detail-section">Riwayat</h6>
+                <ol v-if="detail.progress?.timeline.length" class="timeline list-unstyled mb-0">
+                    <li v-for="(e, i) in detail.progress.timeline" :key="i">
+                        <div class="small text-muted num">{{ formatDate(e.at) }}</div>
+                        <div class="fw-bolder text-gray-800">{{ e.title }}</div>
+                        <div v-if="e.by || e.note" class="small text-muted">
+                            <template v-if="e.by">{{ e.by }}</template><template v-if="e.by && e.note"> · </template><template v-if="e.note">{{ e.note }}</template>
+                        </div>
+                    </li>
+                </ol>
+                <p v-else class="small text-muted mb-0">Belum ada kejadian tercatat.</p>
+            </div>
+        </aside>
+    </transition>
 </template>
 
 <script>
@@ -285,8 +427,18 @@ import StatusBadge from '../../../Components/StatusBadge.vue';
 import BackBar from '../../../Components/Admin/BackBar.vue';
 import SectionCard from '../../../Components/SectionCard.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, reactive, ref, onBeforeUnmount } from 'vue';
 import Swal from 'sweetalert2';
+
+// Teks & ikon per state tahap (App\Services\ResultProgressService)
+const STATE_TEXT = {
+    done: 'Selesai', pending: 'Belum', progress: 'Sedang berjalan', absent: 'Tidak ikut ujian',
+    skipped: 'Tidak tercatat', na: 'Tidak berlaku',
+};
+const STATE_ICON = {
+    done: 'fa-check', pending: 'fa-circle', progress: 'fa-hourglass-half', absent: 'fa-user-slash',
+    skipped: 'fa-minus', na: 'fa-minus',
+};
 
 export default {
     layout: LayoutAdmin,
@@ -298,6 +450,8 @@ export default {
         tugas:        Object,
         show_tugas:   Boolean,
         fr_ak_14_requires_materai: Boolean,
+        // { key: { label, title, waiting } } urut tahap — ResultProgressService::STEPS
+        steps:        { type: Object, default: () => ({}) },
     },
 
     setup(props) {
@@ -333,6 +487,87 @@ export default {
 
         // Format nilai dua desimal (Blueprint: 87.50), aman untuk null.
         const fmt = (v) => (v === null || v === undefined || v === '') ? '—' : Number(v).toFixed(2);
+        const pct = (done, total) => total ? Math.min(100, Math.round(done / total * 100)) : 0;
+
+        // ── Progres per peserta ────────────────────────────────────────────
+        const stepKeys = computed(() => Object.keys(props.steps));
+        const visibleSteps = (row) => Object.fromEntries(
+            Object.entries(row.progress?.steps ?? {}).filter(([, st]) => st.state !== 'na'));
+        const stateText = (state) => STATE_TEXT[state] ?? state;
+        const stateIcon = (state) => STATE_ICON[state] ?? 'fa-circle';
+        const stepTooltip = (key, st) => [
+            `${props.steps[key]?.title}: ${stateText(st.state)}`,
+            st.note, st.by, st.at ? formatDate(st.at) : null,
+        ].filter(Boolean).join(' · ');
+        const isAbsent = (row) => !!row.progress?.absent;
+        // "Belum dinilai" di kolom Esai/Wawancara: peserta ikut ujian tapi asesor belum menilai bagian itu
+        const awaitsScore = (row, part) => {
+            const st = row.progress?.steps?.nilai;
+            return !!st && st.state === 'pending' && (st.note ?? '').includes(part);
+        };
+
+        // Ringkasan: per tahap, jumlah peserta selesai dari peserta yang tahapnya berlaku
+        const summary = computed(() => stepKeys.value.map(key => {
+            const applicable = props.rows.filter(r => r.progress && r.progress.steps[key].state !== 'na');
+            return { key, total: applicable.length, done: applicable.filter(r => r.progress.steps[key].state === 'done').length };
+        }).filter(s => s.total > 0));
+        const absentCount = computed(() => props.rows.filter(isAbsent).length);
+
+        // ── Filter ─────────────────────────────────────────────────────────
+        const filter = reactive({ q: '', stage: '', step: '' });
+        const rowNumber = computed(() => Object.fromEntries(props.rows.map((r, i) => [r.student_id, i + 1])));
+        const stageOptions = computed(() => {
+            const counts = {};
+            props.rows.forEach(r => {
+                const key = r.progress?.stage;
+                if (key) counts[key] = (counts[key] ?? 0) + 1;
+            });
+            const options = [...stepKeys.value, 'selesai']
+                .filter(key => counts[key])
+                .map(key => ({ value: key, label: key === 'selesai' ? 'Selesai' : props.steps[key].waiting, count: counts[key] }));
+            const extra = [
+                ['absent', 'Tidak ikut ujian', props.rows.filter(isAbsent).length],
+                ['tidak_lulus', 'Tidak lulus', props.rows.filter(r => r.keputusan === 'TIDAK_LULUS').length],
+                ['remidi', 'Remidi', props.rows.filter(r => r.attempt > 1).length],
+            ].filter(([, , n]) => n).map(([value, label, count]) => ({ value, label, count }));
+            return [...options, ...extra];
+        });
+        const matchesStage = (r) => {
+            if (!filter.stage) return true;
+            if (filter.stage === 'absent') return isAbsent(r);
+            if (filter.stage === 'tidak_lulus') return r.keputusan === 'TIDAK_LULUS';
+            if (filter.stage === 'remidi') return r.attempt > 1;
+            return r.progress?.stage === filter.stage;
+        };
+        const filteredRows = computed(() => {
+            const q = filter.q.trim().toLowerCase();
+            return props.rows.filter(r =>
+                (!q || `${r.no_participant ?? ''} ${r.name ?? ''}`.toLowerCase().includes(q))
+                && matchesStage(r)
+                && (!filter.step || !['done', 'na'].includes(r.progress?.steps[filter.step]?.state)));
+        });
+        const isFiltered = computed(() => !!(filter.q || filter.stage || filter.step));
+        const resetFilter = () => { filter.q = ''; filter.stage = ''; filter.step = ''; };
+        const toggleStepFilter = (key) => {
+            filter.step = filter.step === key ? '' : key;
+            filter.stage = '';
+        };
+
+        // ── Panel detail ───────────────────────────────────────────────────
+        const detailId = ref(null);
+        const detail = computed(() => props.rows.find(r => r.student_id === detailId.value) ?? null);
+        const onKey = (e) => { if (e.key === 'Escape') closeDetail(); };
+        const openDetail = (row) => {
+            detailId.value = row.student_id;
+            document.body.style.overflow = 'hidden';
+            window.addEventListener('keydown', onKey);
+        };
+        const closeDetail = () => {
+            detailId.value = null;
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', onKey);
+        };
+        onBeforeUnmount(closeDetail);
 
         // Rincian nilai wawancara: 4 kriteria (skala 0–100), Total = rata-ratanya — sama dengan portal asesor.
         const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -411,7 +646,10 @@ export default {
         return {
             hasFinalized, finalizedCount, spSentCount, finalSentCount, decisionMakers,
             frAk14Rows, frAk14StampedCount, frAk14SignedCount, frAk14Badge, formatDate,
-            nilaiColor, fmt, showWawancara, distributeSp, distribute,
+            nilaiColor, fmt, pct, showWawancara, distributeSp, distribute,
+            visibleSteps, stateText, stateIcon, stepTooltip, isAbsent, awaitsScore, summary, absentCount,
+            filter, rowNumber, stageOptions, filteredRows, isFiltered, resetFilter, toggleStepFilter,
+            detail, openDetail, closeDetail,
         };
     },
 }
@@ -424,23 +662,12 @@ export default {
     font-feature-settings: "tnum";
 }
 
-/* Nama yang memfinalisasi di kolom Status. Volt memasang white-space: nowrap pada .table td,
-   jadi tanpa ini nama panjang keluar dari sel — biarkan turun baris di dalam lebar kolom. */
-.decided-by {
+/* Nama + asesor boleh turun baris (Volt: .table td nowrap), jangan melebarkan tabel. */
+.name-cell {
     white-space: normal;
     overflow-wrap: anywhere;
-    min-width: 130px;
-    max-width: 170px;
-    margin-inline: auto;
-    line-height: 1.3;
-}
-
-/* Nama asesor boleh turun baris (Volt: .table td nowrap), jangan melebarkan tabel. */
-.asesor-name {
-    white-space: normal;
-    overflow-wrap: anywhere;
-    min-width: 130px;
-    max-width: 180px;
+    min-width: 160px;
+    max-width: 220px;
     line-height: 1.3;
 }
 
@@ -453,4 +680,77 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.participant-name { text-decoration: none; }
+.participant-name:hover { text-decoration: underline; }
+.score-note { font-size: .75rem; color: #6b7280; font-style: italic; white-space: nowrap; }
+
+/* ── Ringkasan progres ─────────────────────────────────────────────── */
+.summary-step {
+    min-width: 92px; padding: .5rem .65rem; text-align: left;
+    background: #fff; border: 1px solid #e5e7eb; border-radius: .5rem;
+}
+.summary-step:hover { border-color: #93c5fd; }
+.summary-step.is-active { border-color: #1f2937; box-shadow: 0 0 0 2px rgba(31, 41, 55, .15); }
+.summary-step.is-done .summary-count { color: #059669; }
+.summary-step.is-warning .summary-count { color: #b45309; }
+.summary-label { font-size: .72rem; font-weight: 600; text-transform: uppercase; color: #6b7280; }
+.summary-count { font-size: 1.1rem; font-weight: 700; color: #1f2937; line-height: 1.2; }
+.summary-bar { height: 4px; margin-top: .3rem; }
+
+.filter-search { width: 260px; max-width: 100%; }
+.filter-stage { width: 300px; max-width: 100%; }
+
+/* ── Kolom Progres ─────────────────────────────────────────────────── */
+.progress-cell { min-width: 195px; max-width: 250px; white-space: normal; }
+.step-dots { display: flex; flex-wrap: wrap; gap: 3px; }
+.step-dot {
+    font-size: .62rem; font-weight: 600; line-height: 1; padding: .22rem .32rem; border-radius: .25rem;
+    border: 1px solid #d1d5db; color: #9ca3af; background: #fff; cursor: default;
+}
+.step-dot.is-done     { background: #10b981; border-color: #10b981; color: #fff; }
+.step-dot.is-pending  { border-color: #9ca3af; color: #6b7280; }
+.step-dot.is-progress { background: #dbeafe; border-color: #3b82f6; color: #1d4ed8; }
+.step-dot.is-absent   { background: #fee2e2; border-color: #f87171; color: #b91c1c; }
+.step-dot.is-skipped  { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+.waiting-text { white-space: normal; line-height: 1.3; }
+
+/* ── Panel detail ──────────────────────────────────────────────────── */
+.detail-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, .4); z-index: 1040; }
+.detail-panel {
+    position: fixed; top: 0; right: 0; height: 100vh; width: 560px; max-width: 100vw;
+    background: #fff; z-index: 1050; display: flex; flex-direction: column;
+}
+.detail-header { padding: 1rem 1.25rem; flex-shrink: 0; }
+.detail-body { flex: 1 1 auto; overflow-y: auto; padding: 1rem 1.25rem 2rem; }
+.detail-section {
+    font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+    color: #6b7280; margin: .5rem 0 .5rem;
+}
+.detail-body td { white-space: normal; vertical-align: middle; }
+.doc-table td:first-child { font-weight: 600; color: #374151; }
+
+.step-list li { padding: .3rem 0; }
+.step-icon {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 2px;
+    display: inline-flex; align-items: center; justify-content: center; font-size: .65rem;
+    border: 1px solid #d1d5db; color: #9ca3af; background: #fff;
+}
+.step-icon.is-done     { background: #10b981; border-color: #10b981; color: #fff; }
+.step-icon.is-progress { background: #dbeafe; border-color: #3b82f6; color: #1d4ed8; }
+.step-icon.is-absent   { background: #fee2e2; border-color: #f87171; color: #b91c1c; }
+.step-icon.is-skipped  { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+.step-icon.is-pending .fa { font-size: .4rem; }
+
+.timeline { border-left: 2px solid #e5e7eb; margin-left: .4rem; padding-left: 1rem; }
+.timeline li { position: relative; padding-bottom: .75rem; }
+.timeline li::before {
+    content: ''; position: absolute; left: calc(-1rem - 6px); top: .35rem;
+    width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; border: 2px solid #fff;
+}
+
+.slide-enter-active, .slide-leave-active { transition: transform .25s ease; }
+.slide-enter-from, .slide-leave-to { transform: translateX(100%); }
+.fade-enter-active, .fade-leave-active { transition: opacity .25s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
 </style>

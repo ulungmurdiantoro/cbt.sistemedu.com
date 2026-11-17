@@ -90,6 +90,17 @@ class AdminDashboardService
             ->withActiveStudentsCount();
     }
 
+    /**
+     * Ringkasan + progres per tahap satu sesi untuk daftar Hasil Penilaian (admin.results.index) —
+     * sama dengan baris Pipeline di dashboard. Sesi perlu withActiveStudentsCount().
+     */
+    public function pipelineRow(ExamSession $s): array
+    {
+        $state = now()->lt($s->start_time) ? 'terjadwal' : (now()->lt($s->end_time) ? 'berlangsung' : 'selesai');
+
+        return $this->sessionRow($s, $state);
+    }
+
     /** Ringkasan satu sesi + progres per tahap (jumlah peserta). */
     private function sessionRow(ExamSession $s, string $state): array
     {

@@ -196,8 +196,16 @@
                         <div id="a7" class="accordion-collapse collapse" data-bs-parent="#panduanAdmin">
                             <div class="accordion-body">
                                 <ul class="mb-2">
-                                    <li><strong>Hasil Penilaian</strong> — rekap nilai per sesi begitu asesor selesai menilai; dari sini dokumen hasil bisa diunduh.
+                                    <li><strong>Hasil Penilaian</strong> — daftar sesi dengan <strong>Progres</strong> per tahap (Ujian → Nilai → PK → MS →
+                                        Final → SP → SK) dan kolom <strong>Perlu Tindakan</strong> yang menunjukkan tahap yang sedang macet.</li>
+                                    <li><strong>Rekap Hasil</strong> (klik Rekap pada satu sesi) — kartu <strong>Progres Peserta</strong> di atas: klik satu tahap
+                                        untuk menampilkan peserta yang belum menyelesaikannya. Di tabel, kolom <strong>Progres</strong> menandai tiap tahap
+                                        (hijau = selesai, biru = sedang berjalan, kuning = tidak tercatat, merah = tidak ikut ujian) dan menulis tahap yang
+                                        sedang ditunggu beserta siapa yang harus bertindak. Gunakan kotak cari dan filter tahap untuk menyaring peserta.
                                         Klik angka PG / Esai untuk melihat detail jawaban peserta.</li>
+                                    <li><strong>Detail peserta</strong> (klik nama atau tombol <span class="badge bg-primary">Detail</span>) — panel berisi nilai,
+                                        status setiap tahap (siapa &amp; kapan), semua dokumen (permohonan, FR.AK.01, FR.TUK.06, FR.AK.05, FR.AK.14, SP, SK,
+                                        Sertifikat) dan riwayat kejadian peserta itu.</li>
                                     <li><strong>Laporan Nilai</strong> (dulu menu sendiri) — sekarang tombol <span class="badge bg-gray-200 text-gray-800 border">Laporan Nilai</span>
                                         di halaman Rekap Hasil tiap sesi: Excel nilai per ujian, PDF Ringkas (A4), atau PDF Lebar (A0) untuk arsip.</li>
                                     <li><strong>Kelola User</strong> — buat/ubah akun staf, tetapkan peran (admin / asesor / Pengambil Keputusan / Manajer Sertifikasi), dan simpan tanda tangan tiap user (gambar langsung atau unggah gambar). TTD ini yang dipakai di dokumen resmi.</li>
