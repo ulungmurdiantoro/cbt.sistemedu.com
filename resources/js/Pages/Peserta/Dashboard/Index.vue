@@ -109,6 +109,11 @@
                         </div>
                         <div v-else class="text-muted small">
                             <i class="fa fa-clock me-1"></i> Menunggu verifikasi admin
+                            <div class="mt-1">
+                                <Link :href="`/peserta/aplikasi/${app.id}/dokumen`" class="small">
+                                    <i class="fa fa-file-upload me-1"></i>Lihat / ganti dokumen yang belum diverifikasi
+                                </Link>
+                            </div>
                         </div>
                     </div>
 

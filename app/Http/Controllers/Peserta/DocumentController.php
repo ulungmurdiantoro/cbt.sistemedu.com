@@ -26,6 +26,7 @@ class DocumentController extends Controller
                 'label'       => $req->label,
                 'description' => $req->description,
                 'is_required' => $req->is_required,
+                'can_upload'  => $this->canUpload($application, $doc),
                 'document'    => $doc ? [
                     'id'                => $doc->id,
                     'file_path'         => $doc->file_path,
@@ -55,13 +56,7 @@ class DocumentController extends Controller
             ->where('classroom_document_requirement_id', $requirement->id)
             ->first();
 
-        // Boleh upload/ganti kalau permohonan masih draft, ATAU kalau permohonan
-        // sudah disubmit tapi dokumen spesifik ini ditolak admin (revisi mandiri
-        // tanpa perlu admin menolak seluruh permohonan).
-        $canUpload = $application->isDraft()
-            || ($application->isSubmitted() && $existing?->status === 'rejected');
-
-        abort_unless($canUpload, 403, 'Dokumen ini tidak dapat diubah saat ini.');
+        abort_unless($this->canUpload($application, $existing), 403, 'Dokumen ini tidak dapat diubah saat ini.');
 
         // Validasi MIME aktual menggunakan finfo (cek magic bytes, bukan ekstensi)
         $file         = $request->file('file');
@@ -117,6 +112,20 @@ class DocumentController extends Controller
         $document->delete();
 
         return back()->with('success', 'Dokumen berhasil dihapus.');
+    }
+
+    /**
+     * Boleh upload/ganti kalau permohonan masih draft, ATAU permohonan sudah disubmit dan dokumen ini
+     * belum diverifikasi admin: belum diunggah, masih Menunggu, atau Ditolak (revisi mandiri tanpa
+     * admin menolak seluruh permohonan). Dokumen Terverifikasi & permohonan yang sudah diputuskan terkunci.
+     */
+    private function canUpload(AssessmentApplication $application, ?ApplicationDocument $document): bool
+    {
+        if ($application->isDraft()) {
+            return true;
+        }
+
+        return $application->isSubmitted() && in_array($document?->status, [null, 'pending', 'rejected'], true);
     }
 
     private function authorizeApplication(AssessmentApplication $application): void

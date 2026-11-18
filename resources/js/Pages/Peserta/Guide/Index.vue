@@ -253,7 +253,7 @@ export default {
             faq: [
                 { q: 'Apa beda akun pendaftaran dan login ujian?', a: 'Akun pendaftaran (email + password) dipakai untuk mengurus permohonan di portal ini. Saat ujian, Anda login terpisah menggunakan No. Peserta yang terbit setelah permohonan disetujui.' },
                 { q: 'Apakah harus selesai sekali duduk?', a: 'Tidak. Selama berstatus Draft, Anda bisa keluar dan melanjutkan kapan saja. Data, tanda tangan, dan dokumen yang sudah tersimpan tetap ada.' },
-                { q: 'Bisakah mengganti dokumen yang salah?', a: 'Bisa, selama permohonan masih Draft. Setelah Submit, dokumen terkunci sampai admin memverifikasi.' },
+                { q: 'Bisakah mengganti dokumen yang salah?', a: 'Bisa. Selama permohonan Draft semua dokumen bisa diganti atau dihapus. Setelah Submit, dokumen yang masih Menunggu atau Ditolak tetap bisa diganti di halaman Dokumen; dokumen yang sudah Terverifikasi terkunci.' },
                 { q: 'Permohonan saya ditolak, lalu bagaimana?', a: 'Buka kembali permohonan, baca alasan penolakan dari admin, tekan "Revisi & Submit Ulang", perbaiki, lalu kirim lagi. Berkas lama tetap tersimpan.' },
                 { q: 'Bagaimana cara tanda tangan?', a: 'Anda dapat menggambar tanda tangan langsung di layar (mouse/jari) atau mengunggah foto tanda tangan dalam format JPG/PNG (maks. 2 MB).' },
                 { q: 'Saya belum lulus, apakah ada kesempatan lain?', a: 'Jika belum kompeten dan panitia membuka window remidi, tombol "Ikut Remidi" akan muncul di Dashboard. Remidi hanya mengulang ujian tulis dan tersedia 1 kali.' },

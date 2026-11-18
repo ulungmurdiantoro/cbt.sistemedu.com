@@ -15,6 +15,11 @@
             </nav>
             <h5 class="fw-bold">Bagian 3 — Bukti Kelengkapan Pemohon</h5>
             <p class="text-muted small">Upload dokumen persyaratan. Format: PDF / JPG / PNG, maks. 5 MB per file.</p>
+            <div v-if="application.status === 'submitted'" class="alert alert-info border-0 small py-2 mb-0">
+                <i class="fa fa-info-circle me-1"></i>
+                Dokumen berstatus <strong>Menunggu</strong> atau <strong>Ditolak</strong> masih bisa diganti sampai diverifikasi admin.
+                Dokumen yang sudah <strong>Terverifikasi</strong> terkunci.
+            </div>
         </div>
     </div>
 
@@ -90,16 +95,18 @@
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </div>
-                                <div v-else-if="application.status === 'submitted' && req.document?.status === 'rejected'" style="min-width:140px">
+                                <!-- Setelah submit: dokumen yang belum diverifikasi admin (Menunggu / Ditolak / belum ada) masih bisa diganti -->
+                                <div v-else-if="req.can_upload" style="min-width:140px">
                                     <label :for="`file-${req.id}`"
-                                        class="btn btn-sm btn-danger"
-                                        :class="{ disabled: uploading[req.id] }">
+                                        class="btn btn-sm"
+                                        :class="[req.document?.status === 'rejected' ? 'btn-danger' : 'btn-primary', { disabled: uploading[req.id] }]">
                                         <span v-if="uploading[req.id]">
                                             <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                                             Mengunggah...
                                         </span>
                                         <span v-else>
-                                            <i class="fa fa-upload me-1"></i> Upload Ulang
+                                            <i class="fa fa-upload me-1"></i>
+                                            {{ req.document?.status === 'rejected' ? 'Upload Ulang' : (req.document ? 'Ganti' : 'Upload') }}
                                         </span>
                                     </label>
                                     <input :id="`file-${req.id}`" type="file" class="d-none"
@@ -107,6 +114,7 @@
                                         :disabled="uploading[req.id]"
                                         @change="uploadFile($event, req.id)">
                                 </div>
+                                <div v-else-if="req.document?.status === 'verified'" class="text-muted small"><i class="fa fa-lock me-1"></i>Terkunci</div>
                                 <div v-else class="text-muted small">—</div>
                             </td>
                         </tr>
@@ -179,7 +187,8 @@
 
                     <div v-if="allComplete" class="alert alert-success border-0 mt-3 mb-0 py-2 small">
                         <i class="fa fa-info-circle me-1"></i>
-                        Setelah disubmit, data tidak dapat diubah dan permohonan akan menunggu verifikasi admin.
+                        Setelah disubmit, data formulir tidak dapat diubah dan permohonan akan menunggu verifikasi admin.
+                        Dokumen masih bisa diganti selama belum diverifikasi admin.
                     </div>
                 </div>
                 <div class="modal-footer border-0">
