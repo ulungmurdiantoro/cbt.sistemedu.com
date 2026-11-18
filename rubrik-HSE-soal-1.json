@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "form": "Ujian Praktek",
+  "skema": "HSE",
+  "versi_soal": "Soal No. 1 - HIRADC/JSA Ekstraksi Pelarut Organik",
+  "skala": {
+    "2": "Sesuai: lengkap dan benar sesuai kunci",
+    "1": "Sebagian: tidak lengkap atau kesalahan kecil",
+    "0": "Tidak sesuai: tidak ada atau salah"
+  },
+  "aturan_keputusan": {
+    "unit_kompeten_jika": "semua item kritis = 2 DAN total skor >= 75% skor maksimal",
+    "persen_minimal": 75,
+    "konversi_nilai": [
+      { "min_persen": 90, "syarat_kritis": true, "nilai": 100, "label": "Sepenuhnya Kompeten" },
+      { "min_persen": 75, "syarat_kritis": true, "nilai": 75, "label": "Kompeten dengan Catatan" },
+      { "min_persen": 50, "syarat_kritis": false, "nilai": 50, "label": "Belum Kompeten" },
+      { "min_persen": 0, "syarat_kritis": false, "nilai": 25, "label": "Belum Kompeten" }
+    ]
+  },
+  "units": [ { "kode": "BELUM DITENTUKAN", "stasiun": [1] } ],
+  "items": [
+    { "id": "H-01", "unit": "BELUM DITENTUKAN", "kuk": "-", "stasiun": 1, "bukti": ["LK"], "kritis": true, "ai": "ya",
+      "indikator": "Mengidentifikasi bahaya kimia: uap pelarut toksik dan sifat mudah terbakar",
+      "skor": { "2": "Toksik dan flammable disebut", "1": "Salah satu saja", "0": "Tidak ada / salah kategori" },
+      "kunci": "Paparan uap pelarut organik (toksik, inhalasi/kontak kulit) dan sifat flammable" },
+    { "id": "H-02", "unit": "BELUM DITENTUKAN", "kuk": "-", "stasiun": 1, "bukti": ["LK"], "kritis": false, "ai": "ya",
+      "indikator": "Mengidentifikasi bahaya fisik",
+      "skor": { "2": ">= 2 bahaya fisik relevan", "1": "1 bahaya", "0": "Tidak ada" },
+      "kunci": ["Tumpahan menyebabkan lantai licin", "Potensi kebakaran/sumber api", "Pecahnya alat gelas (gelas kimia, corong pisah)"] },
+    { "id": "H-03", "unit": "BELUM DITENTUKAN", "kuk": "-", "stasiun": 1, "bukti": ["LK"], "kritis": false, "ai": "ya",
+      "indikator": "Mengidentifikasi bahaya ergonomi",
+      "skor": { "2": "Bahaya + penyebab disebut", "1": "Disebut tanpa penyebab", "0": "Tidak ada" },
+      "kunci": "Postur membungkuk atau berdiri terlalu lama di depan lemari asam" },
+    { "id": "H-04", "unit": "BELUM DITENTUKAN", "kuk": "-", "stasiun": 1, "bukti": ["LK"], "kritis": false, "ai": "ya",
+      "indikator": "Menentukan Likelihood dan Severity tiap bahaya sesuai matriks risiko",
+      "skor": { "2": "Semua dinilai dan masuk rentang kunci", "1": "1 nilai di luar rentang", "0": ">= 2 di luar rentang / tidak diisi" },
+      "kunci": { "kimia": { "L": [3, 4], "S": [4, 5] }, "fisik": { "L": [2, 3], "S": [3, 4] }, "ergonomi": { "L": [3, 4], "S": [2, 3] },
+        "catatan": "Rentang usulan; sesuaikan setelah matriks risiko resmi dicantumkan di soal" } },
+    { "id": "H-05", "unit": "BELUM DITENTUKAN", "kuk": "-", "stasiun": 1, "bukti": ["LK"], "kritis": true, "ai": "ya",
+      "indikator": "Menghitung Tingkat Risiko (L x S) dan kategorinya",
+      "skor": { "2": "Semua perhitungan dan kategori benar sesuai L dan S yang ditulis asesi", "0": "Ada hitungan atau kategori salah" },
+      "kunci": "Tingkat risiko = L x S; kategori mengikuti matriks risiko di soal" },
+    { "id": "H-06", "unit": "BELUM DITENTUKAN", "kuk": "-", "stasiun": 1, "bukti": ["LK"], "kritis": true, "ai": "ya",
+      "indikator": "Pengendalian sesuai urutan hierarki",
+      "skor": { "2": "Urutan benar, kelima level dipertimbangkan (boleh 'tidak dapat dilakukan' + alasan)", "1": "Urutan benar, ada level terlewat tanpa alasan", "0": "Urutan salah / hanya APD" },
+      "kunci": ["Eliminasi", "Substitusi", "Rekayasa Teknis", "Administratif", "APD"] },
+    { "id": "H-07", "unit": "BELUM DITENTUKAN", "kuk": "-", "stasiun": 1, "bukti": ["LK"], "kritis": false, "ai": "ya",
+      "indikator": "Pengendalian spesifik dan relevan",
+      "skor": { "2": ">= 3 kontrol spesifik", "1": "1-2 kontrol spesifik", "0": "Tidak relevan" },
+      "kunci": ["Substitusi ke pelarut toksisitas/flammability lebih rendah", "Fume hood tersertifikasi dengan face velocity sesuai standar", "SOP pengerjaan dan warning sign", "Jauhkan sumber api / spill kit", "Jas lab katun/anti-statis", "Safety goggles", "Sarung tangan nitril/neoprene", "Pembatasan waktu kerja / pengaturan tinggi kerja"] },
+    { "id": "H-08", "unit": "BELUM DITENTUKAN", "kuk": "-", "stasiun": 1, "bukti": ["LK"], "kritis": false, "ai": "ya",
+      "indikator": "Setiap kategori bahaya punya pengendalian yang sesuai",
+      "skor": { "2": "Kimia, fisik, ergonomi tertangani", "1": "2 kategori", "0": "<= 1 kategori" } }
+  ]
+}
