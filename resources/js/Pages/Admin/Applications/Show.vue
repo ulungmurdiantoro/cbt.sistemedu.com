@@ -136,7 +136,7 @@
                                                 </button>
                                             </template>
                                             <!-- Admin mengganti/mengunggah file atas nama peserta (mis. file peserta keliru) -->
-                                            <label class="btn btn-sm btn-gray-100 border mb-0" :class="{ disabled: replacingReq === req.id }"
+                                            <label v-if="can_replace_documents" class="btn btn-sm btn-gray-100 border mb-0" :class="{ disabled: replacingReq === req.id }"
                                                 :title="getDoc(req.id) ? 'Ganti file peserta dengan file dari admin' : 'Unggah file atas nama peserta'">
                                                 <template v-if="replacingReq === req.id">
                                                     <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Mengunggah...
@@ -588,7 +588,7 @@ import SignaturePad from 'signature_pad';
 export default {
     layout: LayoutAdmin,
     components: { BackBar, Head, Link },
-    props: { application: Object, auth_admin: Object, other_sessions: Array, initial_assessment_rubric: Object },
+    props: { application: Object, auth_admin: Object, other_sessions: Array, initial_assessment_rubric: Object, can_replace_documents: Boolean },
 
     setup(props) {
         // Dibuka dari tab Permohonan sebuah sesi (?sesi=) → Kembali ke daftar sesi itu.

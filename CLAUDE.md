@@ -260,6 +260,10 @@ File upload peserta (Essay Migas & tugas) lewat `App\Support\AnswerFile`: tipe d
 (`student.essaysmigas.download`, `admin.essay_migas.download`). File lama di disk `public`
 dipindah dengan `php artisan answer-files:move-private` (`--dry-run` untuk cek dulu).
 
+Admin bisa mengganti/mengunggah dokumen persyaratan peserta di detail permohonan (POST
+`admin.applications.documents.replace`, file baru langsung Terverifikasi, file lama dihapus) — hanya bila saklar
+`ADMIN_REPLACE_DOCUMENTS=true` (`config('lsp.admin_replace_documents')`, default mati: tombol tersembunyi & route 403).
+
 Bukti dokumen CV asesor (opsional, per baris Pendidikan/Pelatihan/Pengalaman Kerja/Pengalaman Profesional/Sertifikasi)
 disimpan di baris JSON-nya sendiri (`bukti => [id, path, name]`, disk `private`). Browser hanya menerima `id` + `name`
 dan mengirim balik `bukti_id` — jangan kirim/terima `path` dari browser.

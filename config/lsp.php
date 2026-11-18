@@ -36,6 +36,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Admin Mengganti Dokumen Persyaratan Peserta
+    |--------------------------------------------------------------------------
+    | Tombol Ganti/Unggah di kartu Bukti Kelengkapan (detail permohonan admin).
+    | false = tombol disembunyikan dan route admin.applications.documents.replace
+    | ditolak (403). Setelah mengubah .env di server yang memakai config cache:
+    | php artisan config:cache (atau config:clear).
+    */
+    'admin_replace_documents' => (bool) env('ADMIN_REPLACE_DOCUMENTS', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | URL Verifikasi Dokumen
     |--------------------------------------------------------------------------
     */

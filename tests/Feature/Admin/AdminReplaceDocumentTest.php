@@ -25,6 +25,7 @@ class AdminReplaceDocumentTest extends TestCase
     {
         parent::setUp();
         Storage::fake('private');
+        config(['lsp.admin_replace_documents' => true]);
     }
 
     private function user(UserRole $role): User
@@ -114,6 +115,22 @@ class AdminReplaceDocumentTest extends TestCase
         $this->actingAs($admin)
             ->post("/admin/applications/{$app->id}/requirements/{$other->id}/replace", ['file' => $this->pdf()])
             ->assertNotFound();
+    }
+
+    public function test_switched_off_hides_button_and_rejects_upload(): void
+    {
+        config(['lsp.admin_replace_documents' => false]);
+        $app   = $this->application('submitted');
+        $req   = $this->requirement($app);
+        $admin = $this->user(UserRole::Admin);
+
+        $this->actingAs($admin)->get("/admin/applications/{$app->id}")
+            ->assertInertia(fn (\Inertia\Testing\AssertableInertia $page) => $page->where('can_replace_documents', false));
+
+        $this->actingAs($admin)
+            ->post("/admin/applications/{$app->id}/requirements/{$req->id}/replace", ['file' => $this->pdf()])
+            ->assertForbidden();
+        $this->assertSame(0, ApplicationDocument::count());
     }
 
     public function test_only_admin_can_replace_documents(): void

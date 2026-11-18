@@ -188,6 +188,8 @@ class ApplicationController extends Controller
             'auth_admin'                => $admin->only(['id', 'name', 'signature_path', 'signature_name']),
             'other_sessions'            => $otherSessions,
             'initial_assessment_rubric' => InitialAssessmentRubric::for($application->classroom_id),
+            // Saklar .env ADMIN_REPLACE_DOCUMENTS — tombol Ganti/Unggah dokumen oleh admin
+            'can_replace_documents'     => (bool) config('lsp.admin_replace_documents'),
         ]);
     }
 
@@ -468,6 +470,8 @@ class ApplicationController extends Controller
      */
     public function replaceDocument(Request $request, AssessmentApplication $application, int $requirementId)
     {
+        abort_unless(config('lsp.admin_replace_documents'), 403, 'Fitur ganti dokumen oleh admin sedang dinonaktifkan.');
+
         $requirement = $application->classroom->documentRequirements()->findOrFail($requirementId);
 
         $request->validate([
