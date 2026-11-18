@@ -336,6 +336,11 @@ Rubrik per skema (dipetakan lewat `classroom_id` produksi 3–28) ditanam per **
   `answers['sebutkan'][kriteria]`. Kriteria `single` wajib, `multi` boleh kosong.
 - Rev.04 PDF: kotak "Dokumen Pendukung" = Lengkap bila semua persyaratan **wajib** sudah terverifikasi;
   "Hasil Verifikasi Pengalaman" & "Keputusan" mengikuti `is_eligible`.
+- Salah salin skor di revisi yang **berlaku** (bukan revisi baru) boleh dibetulkan di kelasnya selama kunci opsi tetap
+  (contoh: Prodi Corporate Legal Rev.04 = Sosial 2 / Sains 1, `prodiSosialSains()`). Penilaian yang sudah tersimpan
+  menyimpan `total_score`/`is_eligible`, jadi hitung ulang dengan `php artisan initial-assessment:rescore [--classroom=28]`
+  (`--dry-run` dulu; hanya revisi `CURRENT`, status permohonan tidak diubah — yang sudah disetujui tapi jadi tidak layak
+  hanya dilaporkan).
 
 ---
 

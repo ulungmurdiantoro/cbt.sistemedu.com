@@ -7,7 +7,9 @@ namespace App\Support\InitialAssessmentRubric;
  * skema (SPMI dan Lab ISO/IEC 17025 masing-masing satu halaman untuk beberapa skema).
  * Label & skor disalin dari dokumen (berkas "R4-1", yang membetulkan daftar jabatan
  * Sustainability/ESG/EMS dan baris pelatihan 3D Lifting); salah ketik yang jelas dibetulkan
- * ("Traing", "Lifing", "Audi Internal").
+ * ("Traing", "Lifing", "Audi Internal"). Corporate Legal Officer: Prodi Sosial 2 / Sains 1
+ * (dibetulkan Nov 2026 — sempat tertukar memakai Sains 2 / Sosial 1; kunci opsi tetap sama,
+ * skor penilaian yang sudah tersimpan dihitung ulang dengan `initial-assessment:rescore`).
  *
  * Ruang Lingkup hanya memuat skema yang diikuti peserta, tanpa nomor — halaman SPMI dan
  * Lab di dokumen mendaftar semua skemanya, tapi PDF per peserta cukup skemanya sendiri.
@@ -59,6 +61,15 @@ class Rev04
         return self::criterion('prodi', 'Prodi Pendidikan', [
             ['key' => 'sains', 'label' => 'Sains', 'score' => 2],
             ['key' => 'sosial', 'label' => 'Sosial', 'score' => 1],
+        ]);
+    }
+
+    /** Skema bidang hukum/sosial (Corporate Legal): prodi Sosial lebih relevan. Kunci opsi sama dengan prodiSainsSosial(). */
+    private static function prodiSosialSains(): array
+    {
+        return self::criterion('prodi', 'Prodi Pendidikan', [
+            ['key' => 'sosial', 'label' => 'Sosial', 'score' => 2],
+            ['key' => 'sains', 'label' => 'Sains', 'score' => 1],
         ]);
     }
 
@@ -217,12 +228,12 @@ class Rev04
 
     // ── Halaman 7–21: Officer / Laboratorium / Manajemen ─────────────────
 
-    private static function officer(string $ruangLingkup, array $pengalaman): array
+    private static function officer(string $ruangLingkup, array $pengalaman, ?array $prodi = null): array
     {
         return [
             'criteria' => [
                 self::pendidikanUmum(),
-                self::prodiSainsSosial(),
+                $prodi ?? self::prodiSainsSosial(),
                 self::pengalamanBidang($pengalaman),
                 self::criterion('durasi_kerja', 'Durasi Pengalaman Kerja', [
                     ['key' => 'gt5', 'label' => 'diatas 5 tahun', 'score' => 4],
@@ -407,7 +418,7 @@ class Rev04
                 'Legal Officer/Compliance Officer/Industrial Relations Officer/Corporate Secretary Officer',
                 'Legal Staff/Legal Admin/Junior Legal Officer',
                 'Fresh graduate/magang hukum',
-            ]),
+            ], self::prodiSosialSains()),
         ];
     }
 

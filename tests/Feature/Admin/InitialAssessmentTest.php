@@ -83,6 +83,38 @@ class InitialAssessmentTest extends TestCase
         $this->assertStringContainsString('memenuhi persyaratan dasar', $assessment->result_sentence);
     }
 
+    public function test_rescore_command_recomputes_saved_corporate_legal_scores(): void
+    {
+        // Disimpan sebelum perbaikan: prodi Sosial dihitung 1 → total 5 (< 6, tidak layak).
+        $application = $this->application(28, 'approved');
+        $answers = [
+            'pendidikan'       => 'sma_smk_d3', // 1
+            'prodi'            => 'sosial',     // kini 2 (dulu 1)
+            'pengalaman_kerja' => 'level_1',    // 1
+            'durasi_kerja'     => 'y0_1',       // 1
+            'pelatihan'        => 'tidak_relevan', // 1
+        ];
+        $assessment = InitialAssessment::forceCreate([
+            'assessment_application_id' => $application->id,
+            'classroom_id' => 28, 'revision' => 'Rev.04', 'answers' => $answers,
+            'total_score' => 5, 'threshold' => 6, 'is_eligible' => false,
+            'assessed_by' => $this->admin->id, 'assessed_at' => now(),
+        ]);
+
+        $this->artisan('initial-assessment:rescore', ['--classroom' => [28], '--dry-run' => true])->assertSuccessful();
+        $this->assertSame(5, (int) $assessment->fresh()->total_score);
+
+        $this->artisan('initial-assessment:rescore', ['--force' => true])->assertSuccessful();
+        $assessment->refresh();
+        $this->assertSame(6, (int) $assessment->total_score);
+        $this->assertTrue($assessment->is_eligible);
+        $this->assertSame($answers, $assessment->answers);
+
+        // Penilaian baru langsung memakai skor yang benar.
+        $this->save($application, ['prodi' => 'sains'] + $answers)->assertSessionHasNoErrors();
+        $this->assertSame(5, (int) $application->initialAssessment()->firstOrFail()->total_score);
+    }
+
     public function test_answers_are_filtered_to_the_rubric_and_sebutkan_kept_only_for_selected_lainnya(): void
     {
         // Lab ISO/IEC 17025: pelatihan multi + opsi "lainnya sebutkan".
@@ -217,6 +249,11 @@ class InitialAssessmentTest extends TestCase
             $this->assertSame('multi', $pelatihan['type'], "Pelatihan lifting {$id}");
             $this->assertSame(['relevan'], array_column($pelatihan['options'], 'key'));
         }
+
+        // Corporate Legal: prodi Sosial 2 / Sains 1; skema officer lain tetap Sains 2 / Sosial 1.
+        $prodi = fn (int $id) => collect(collect($map[$id]['criteria'])->firstWhere('key', 'prodi')['options'])->pluck('score', 'key')->all();
+        $this->assertSame(['sosial' => 2, 'sains' => 1], $prodi(28));
+        $this->assertSame(['sains' => 2, 'sosial' => 1], $prodi(26));
 
         // Daftar jabatan sesuai dokumen R4-1 (halaman 18–20).
         $topJabatan = fn (int $id) => collect($map[$id]['criteria'])->firstWhere('key', 'pengalaman_kerja')['options'][0]['label'];
