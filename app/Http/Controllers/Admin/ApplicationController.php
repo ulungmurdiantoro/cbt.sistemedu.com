@@ -461,6 +461,50 @@ class ApplicationController extends Controller
         return back()->with('success', 'Status dokumen diperbarui.');
     }
 
+    /**
+     * Admin mengganti (atau mengunggah) dokumen persyaratan atas nama peserta — mis. file peserta keliru
+     * dan permohonan sudah tidak bisa diubah peserta. File baru langsung Terverifikasi karena admin sendiri
+     * yang memilihnya; file lama dihapus (sama seperti saat peserta mengganti dokumennya).
+     */
+    public function replaceDocument(Request $request, AssessmentApplication $application, int $requirementId)
+    {
+        $requirement = $application->classroom->documentRequirements()->findOrFail($requirementId);
+
+        $request->validate([
+            'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        ], [], ['file' => 'file dokumen']);
+
+        // Validasi MIME aktual (magic bytes, bukan ekstensi) — sama dengan unggahan peserta
+        $file     = $request->file('file');
+        $realMime = (new \finfo(FILEINFO_MIME_TYPE))->file($file->getRealPath());
+        if (!in_array($realMime, ['application/pdf', 'image/jpeg', 'image/png'], true)) {
+            throw ValidationException::withMessages(['file' => 'Format file tidak valid. Hanya PDF, JPG, dan PNG yang diperbolehkan.']);
+        }
+
+        $filename = $requirement->code . '_' . $application->id . '_' . time() . '.' . strtolower($file->getClientOriginalExtension());
+        $path     = $file->storeAs('applications/' . $application->id, $filename, 'private');
+
+        DB::transaction(function () use ($application, $requirement, $file, $path, $realMime) {
+            $old = $application->documents()->where('classroom_document_requirement_id', $requirement->id)->get();
+            foreach ($old as $doc) {
+                Storage::disk('private')->delete($doc->file_path);
+                $doc->delete();
+            }
+
+            ApplicationDocument::create([
+                'assessment_application_id'         => $application->id,
+                'classroom_document_requirement_id' => $requirement->id,
+                'file_path'                         => $path,
+                'original_filename'                 => $file->getClientOriginalName(),
+                'mime_type'                         => $realMime,
+                'file_size'                         => $file->getSize(),
+                'status'                            => 'verified',
+            ]);
+        });
+
+        return back()->with('success', "Dokumen \"{$requirement->label}\" berhasil diganti oleh admin dan ditandai Terverifikasi.");
+    }
+
     public function downloadDocument(AssessmentApplication $application, ApplicationDocument $document)
     {
         abort_if($document->assessment_application_id !== $application->id, 403);

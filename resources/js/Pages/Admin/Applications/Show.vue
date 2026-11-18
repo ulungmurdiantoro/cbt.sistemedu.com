@@ -104,7 +104,7 @@
                                     <th style="min-width:180px">Dokumen</th>
                                     <th style="width:120px">Status</th>
                                     <th style="width:80px">File</th>
-                                    <th style="width:200px">Aksi Verifikasi</th>
+                                    <th style="width:260px">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -124,16 +124,31 @@
                                         </a>
                                     </td>
                                     <td class="align-middle">
-                                        <div v-if="getDoc(req.id) && application.status === 'submitted'" class="d-flex gap-1 flex-wrap">
-                                            <button class="btn btn-sm btn-success"
-                                                @click="verifyDoc(getDoc(req.id).id, 'verified', '')">
-                                                <i class="fa fa-check me-1"></i>Terima
-                                            </button>
-                                            <button class="btn btn-sm btn-danger"
-                                                @click="openRejectDoc(getDoc(req.id).id)">
-                                                <i class="fa fa-times me-1"></i>Tolak
-                                            </button>
+                                        <div class="d-flex gap-1 flex-wrap">
+                                            <template v-if="getDoc(req.id) && application.status === 'submitted'">
+                                                <button class="btn btn-sm btn-success"
+                                                    @click="verifyDoc(getDoc(req.id).id, 'verified', '')">
+                                                    <i class="fa fa-check me-1"></i>Terima
+                                                </button>
+                                                <button class="btn btn-sm btn-danger"
+                                                    @click="openRejectDoc(getDoc(req.id).id)">
+                                                    <i class="fa fa-times me-1"></i>Tolak
+                                                </button>
+                                            </template>
+                                            <!-- Admin mengganti/mengunggah file atas nama peserta (mis. file peserta keliru) -->
+                                            <label class="btn btn-sm btn-gray-100 border mb-0" :class="{ disabled: replacingReq === req.id }"
+                                                :title="getDoc(req.id) ? 'Ganti file peserta dengan file dari admin' : 'Unggah file atas nama peserta'">
+                                                <template v-if="replacingReq === req.id">
+                                                    <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Mengunggah...
+                                                </template>
+                                                <template v-else>
+                                                    <i class="fa fa-upload me-1"></i>{{ getDoc(req.id) ? 'Ganti' : 'Unggah' }}
+                                                </template>
+                                                <input type="file" class="d-none" accept=".pdf,.jpg,.jpeg,.png"
+                                                    :disabled="replacingReq !== null" @change="replaceDoc($event, req)">
+                                            </label>
                                         </div>
+                                        <div v-if="replaceError[req.id]" class="text-danger small mt-1">{{ replaceError[req.id] }}</div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -590,6 +605,8 @@ export default {
         const rejectNotes      = ref('');
         const reissueReason    = ref('');
         const rejectDocId     = ref(null);
+        const replacingReq    = ref(null);
+        const replaceError    = reactive({});
         const rejectDocNotes  = ref('');
 
         // Ganti batch
@@ -906,6 +923,27 @@ export default {
 
         const openRejectDoc = (docId) => { rejectDocId.value = docId; rejectDocNotes.value = ''; };
 
+        // Admin mengganti dokumen persyaratan peserta. File baru langsung Terverifikasi; file lama dihapus.
+        const replaceDoc = (event, req) => {
+            const file = event.target.files?.[0];
+            event.target.value = '';
+            if (!file) return;
+            const old = getDoc(req.id);
+            const msg = old
+                ? `Ganti "${req.label}" milik peserta (${old.original_filename ?? 'file lama'}) dengan "${file.name}"?\n\nFile lama akan dihapus dan file baru langsung berstatus Terverifikasi.`
+                : `Unggah "${file.name}" sebagai "${req.label}" atas nama peserta?\n\nFile langsung berstatus Terverifikasi.`;
+            if (!window.confirm(msg)) return;
+
+            delete replaceError[req.id];
+            replacingReq.value = req.id;
+            router.post(`/admin/applications/${props.application.id}/requirements/${req.id}/replace`, { file }, {
+                forceFormData: true,
+                preserveScroll: true,
+                onError: (errors) => { replaceError[req.id] = errors.file ?? 'Gagal mengunggah dokumen.'; },
+                onFinish: () => { replacingReq.value = null; },
+            });
+        };
+
         const verifyDoc = (docId, status, notes) => {
             router.post(`/admin/applications/${props.application.id}/documents/${docId}/verify`,
                 { status, reviewer_notes: notes },
@@ -949,6 +987,7 @@ export default {
             processing, showRejectForm, showReissueModal, rejectNotes, reissueReason,
             rejectDocId, rejectDocNotes,
             approve, reject, reissue, destroyApplication, openRejectDoc, verifyDoc,
+            replacingReq, replaceError, replaceDoc,
             materaiError, materaiTtdLengkap, stampMateraiNow,
             adminSigMode, adminSigCanvas, adminSigFile, adminSigFilePreview,
             adminSignName, useSavedSig,
