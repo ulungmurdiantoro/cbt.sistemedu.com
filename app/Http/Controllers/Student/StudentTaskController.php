@@ -11,23 +11,28 @@ use Illuminate\Http\Request;
 
 class StudentTaskController extends BaseExamController
 {
-    public function show(int $exam_session_id)
+    public function show(Request $request, int $exam_session_id)
     {
         $student = auth()->guard('student')->user()->load('classroom');
 
-        abort_unless($student->requiresTugas(), 404);
+        abort_unless($student->requiresTugasFor($exam_session_id), 404);
 
         $exam_session = ExamSession::findOrFail($exam_session_id);
 
+        // Ujian Praktik bisa dua bagian (?bagian=2); bawaan = bagian pertama yang belum selesai.
+        $status = UjianPraktik::tugasStatus($exam_session_id, $student->id);
+        $bagian = $this->bagian($request, $status);
+
         $task = StudentTask::where('student_id', $this->studentId())
             ->where('exam_session_id', $exam_session_id)
+            ->where('bagian', $bagian)
             ->first();
 
         // Upload Tugas, atau Ujian Praktik bila sesi memilih ujian praktik (panduan + template).
         // Ujian Praktik berwaktu: panduan & template baru dikirim setelah peserta mulai dan selama waktu berjalan.
-        $praktik = UjianPraktik::examFor($exam_session_id);
+        $praktik = UjianPraktik::examFor($exam_session_id, $bagian);
         $tugas   = UjianPraktik::tugasProps($praktik);
-        if (! UjianPraktik::materialsOpen($praktik, $student->id, $exam_session_id)) {
+        if (! UjianPraktik::materialsOpen($praktik, $student->id, $exam_session_id, $bagian)) {
             $tugas['panduan']       = null;
             $tugas['template_name'] = null;
         }
@@ -40,35 +45,40 @@ class StudentTaskController extends BaseExamController
             ] : null,
             'file_accept'   => AnswerFile::accept(),
             'tugas'         => $tugas,
-            'timer'         => UjianPraktik::state($praktik, $student->id, $exam_session_id),
+            'timer'         => UjianPraktik::state($praktik, $student->id, $exam_session_id, $bagian),
+            'bagian'        => $bagian,
+            // Navigasi antar-bagian (hanya bila lebih dari satu bagian)
+            'parts'         => $status['total'] > 1 ? array_values($status['parts']) : [],
         ]);
     }
 
-    /** Mulai Ujian Praktik berwaktu. Sekali per sesi: menekan lagi tidak mereset waktu. */
-    public function start(int $exam_session_id)
+    /** Mulai Ujian Praktik berwaktu (per bagian). Sekali saja: menekan lagi tidak mereset waktu. */
+    public function start(Request $request, int $exam_session_id)
     {
         $student = auth()->guard('student')->user()->load('classroom');
-        $praktik = UjianPraktik::examFor($exam_session_id);
+        $bagian  = $request->integer('bagian', 1);
+        $praktik = UjianPraktik::examFor($exam_session_id, $bagian);
 
-        abort_unless($student->requiresTugas() && UjianPraktik::timed($praktik), 404);
+        abort_unless($student->requiresTugasFor($exam_session_id) && UjianPraktik::timed($praktik), 404);
         $this->abortUnlessEnrolled($exam_session_id);
 
-        UjianPraktik::start($praktik, $student->id, $exam_session_id);
+        UjianPraktik::start($praktik, $student->id, $exam_session_id, $bagian);
 
-        return redirect()->route('student.tugas.show', $exam_session_id);
+        return redirect()->route('student.tugas.show', ['exam_session_id' => $exam_session_id] + ($bagian > 1 ? ['bagian' => $bagian] : []));
     }
 
-    /** Unduh template Ujian Praktik sesi (hanya peserta yang terdaftar di sesi). */
-    public function template(int $exam_session_id)
+    /** Unduh template Ujian Praktik sesi (per bagian; hanya peserta yang terdaftar di sesi). */
+    public function template(Request $request, int $exam_session_id)
     {
         $student = auth()->guard('student')->user()->load('classroom');
-        $praktik = UjianPraktik::examFor($exam_session_id);
+        $bagian  = $request->integer('bagian', 1);
+        $praktik = UjianPraktik::examFor($exam_session_id, $bagian);
 
-        abort_unless($student->requiresTugas() && $praktik, 404);
+        abort_unless($student->requiresTugasFor($exam_session_id) && $praktik, 404);
         $this->abortUnlessEnrolled($exam_session_id);
         abort_unless($praktik->praktik_template_path, 404, 'Template belum tersedia.');
         abort_unless(
-            UjianPraktik::materialsOpen($praktik, $student->id, $exam_session_id),
+            UjianPraktik::materialsOpen($praktik, $student->id, $exam_session_id, $bagian),
             403,
             'Mulai Ujian Praktik terlebih dahulu, atau waktunya sudah habis.'
         );
@@ -80,24 +90,46 @@ class StudentTaskController extends BaseExamController
     {
         $request->validate([
             'exam_session_id' => ['required', 'integer', 'exists:exam_sessions,id'],
+            'bagian'          => ['nullable', 'integer', 'min:1'],
             'file'            => AnswerFile::rules(),
         ], AnswerFile::messages());
 
         $student = auth()->guard('student')->user()->load('classroom');
 
-        abort_unless($student->requiresTugas(), 403);
-
         $sessionId = (int) $request->exam_session_id;
+
+        abort_unless($student->requiresTugasFor($sessionId), 403);
+        $bagian    = $request->integer('bagian', 1);
 
         $this->abortUnlessEnrolled($sessionId);
 
-        if ($reason = UjianPraktik::uploadBlockedReason(UjianPraktik::examFor($sessionId), $student->id, $sessionId)) {
+        // Bagian harus ada di sesi (Upload Tugas biasa hanya bagian 1)
+        abort_unless(array_key_exists($bagian, UjianPraktik::tugasStatus($sessionId, $student->id)['parts']), 404);
+
+        if ($reason = UjianPraktik::uploadBlockedReason(UjianPraktik::examFor($sessionId, $bagian), $student->id, $sessionId, $bagian)) {
             abort(403, $reason);
         }
 
-        StudentTask::storeUpload($this->studentId(), $sessionId, $request->file('file'));
+        StudentTask::storeUpload($this->studentId(), $sessionId, $request->file('file'), $bagian);
 
         return back()->with('success', 'Tugas berhasil diunggah.');
+    }
+
+    /** Bagian yang dibuka: ?bagian bila ada di sesi, selain itu bagian pertama yang belum selesai. */
+    private function bagian(Request $request, array $status): int
+    {
+        $requested = $request->integer('bagian');
+        if ($requested && isset($status['parts'][$requested])) {
+            return $requested;
+        }
+
+        foreach ($status['parts'] as $bagian => $part) {
+            if (! $part['done']) {
+                return $bagian;
+            }
+        }
+
+        return array_key_first($status['parts']);
     }
 
     private function abortUnlessEnrolled(int $sessionId): void

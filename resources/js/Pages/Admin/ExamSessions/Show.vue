@@ -40,8 +40,15 @@
                                 <div class="text-muted">Ujian Praktik</div>
                                 <div class="fw-bolder">
                                     <template v-if="exam_session.exam_praktik">
+                                        <span v-if="exam_session.exam_praktik2" class="text-muted fw-normal">1.</span>
                                         {{ exam_session.exam_praktik.title }}
                                         <span class="text-muted fw-normal">· {{ exam_session.exam_praktik.duration ? exam_session.exam_praktik.duration + ' menit' : 'tanpa batas waktu' }}</span>
+                                        <!-- Bagian 2: waktu & unggahan sendiri -->
+                                        <div v-if="exam_session.exam_praktik2">
+                                            <span class="text-muted fw-normal">2.</span>
+                                            {{ exam_session.exam_praktik2.title }}
+                                            <span class="text-muted fw-normal">· {{ exam_session.exam_praktik2.duration ? exam_session.exam_praktik2.duration + ' menit' : 'tanpa batas waktu' }}</span>
+                                        </div>
                                     </template>
                                     <span v-else class="text-muted fw-normal">— (Upload Tugas)</span>
                                 </div>

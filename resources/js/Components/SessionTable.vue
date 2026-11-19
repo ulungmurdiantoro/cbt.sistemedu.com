@@ -47,7 +47,10 @@
                                     <span class="badge bg-success me-1">Esai</span>{{ s.exam_esai.title }}
                                 </li>
                                 <li v-if="s.exam_praktik" class="text-truncate" :title="s.exam_praktik.title">
-                                    <span class="badge bg-danger me-1">Praktik</span>{{ s.exam_praktik.title }}
+                                    <span class="badge bg-danger me-1">Praktik<template v-if="s.exam_praktik2"> 1</template></span>{{ s.exam_praktik.title }}
+                                </li>
+                                <li v-if="s.exam_praktik && s.exam_praktik2" class="text-truncate" :title="s.exam_praktik2.title">
+                                    <span class="badge bg-danger me-1">Praktik 2</span>{{ s.exam_praktik2.title }}
                                 </li>
                                 <li v-if="s.has_wawancara">
                                     <span class="badge bg-warning text-gray-800 me-1">Wawancara</span>

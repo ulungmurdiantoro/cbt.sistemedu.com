@@ -59,18 +59,24 @@ class InterviewAssessmentController extends Controller
             ->get()
             ->keyBy('student_id');
 
+        // Per peserta: daftar unggahan per bagian (Ujian Praktik bisa dua bagian; Upload Tugas = bagian 1)
         $tugas = StudentTask::where('exam_session_id', $exam_session_id)
             ->whereIn('student_id', $assigned_student_ids)
+            ->orderBy('bagian')
             ->get()
-            ->mapWithKeys(fn (StudentTask $task) => [$task->student_id => [
+            ->groupBy('student_id')
+            ->map(fn ($tasks) => $tasks->map(fn (StudentTask $task) => [
+                'bagian'            => $task->bagian,
                 'original_filename' => $task->original_filename,
-            ]]);
+            ])->values());
 
         return inertia('Asesor/Wawancara/Show', [
             'exam_session' => $exam_session,
             'students'     => $students,
             'assessments'  => $assessments,
             'tugas'        => $tugas,
+            // Judul bagian Ujian Praktik ({bagian: judul}) bila sesi punya lebih dari satu bagian
+            'tugas_parts'  => \App\Support\UjianPraktik::partTitles($exam_session_id),
             'bobot'        => $this->getBobotWawancaraFraction($exam_session_id),
         ]);
     }
@@ -82,12 +88,14 @@ class InterviewAssessmentController extends Controller
      */
     public function previewTugas(int $exam_session_id, int $student_id)
     {
-        $task = $this->assignedTask($exam_session_id, $student_id);
+        $task  = $this->assignedTask($exam_session_id, $student_id);
+        $parts = \App\Support\UjianPraktik::parts($exam_session_id);
 
         return inertia('Asesor/Wawancara/Tugas', [
             'exam_session' => ExamSession::select('id', 'title')->findOrFail($exam_session_id),
             'student'      => Student::select('id', 'no_participant', 'name')->findOrFail($student_id),
-            'tugas'        => $task->previewProps(),
+            // Judul bagian hanya untuk Ujian Praktik dengan lebih dari satu bagian
+            'tugas'        => $task->previewProps() + ['part_title' => count($parts) > 1 ? ($parts[$task->bagian]->title ?? null) : null],
         ]);
     }
 
@@ -116,8 +124,10 @@ class InterviewAssessmentController extends Controller
 
         abort_unless($assigned, 403, 'Anda tidak ditugaskan untuk menilai peserta ini.');
 
+        // ?bagian=2 untuk bagian 2 Ujian Praktik (bawaan bagian 1)
         $task = StudentTask::where('exam_session_id', $exam_session_id)
             ->where('student_id', $student_id)
+            ->where('bagian', request()->integer('bagian', 1))
             ->first();
 
         abort_unless($task, 404, 'Tugas tidak ditemukan.');

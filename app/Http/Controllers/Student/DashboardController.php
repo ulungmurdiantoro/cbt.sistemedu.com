@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Student;
 
 use App\Models\Grade;
 use App\Models\ExamGroup;
-use App\Models\StudentTask;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -28,23 +27,30 @@ class DashboardController extends Controller
 
         //wajib upload tugas sebelum ujian, kecuali skema yang dikecualikan
         //(lihat Student::requiresTugas) — tugas ini nantinya dilihat asesor
-        //saat menilai wawancara peserta
+        //saat menilai wawancara peserta. Sesi yang memilih Ujian Praktik wajib
+        //untuk semua skema (Student::requiresTugasFor) → tugas_required_by_session.
         $requires_tugas = $student->requiresTugas();
 
-        $tugas_by_session = $requires_tugas
-            ? StudentTask::where('student_id', $student->id)->get()->keyBy('exam_session_id')
-            : collect();
-
-        // Per sesi: "Tugas" atau "Ujian Praktik" (sesi memilih ujian praktik), dan apakah Ujian Praktik
-        // berwaktu sudah habis waktunya — syarat tugas dianggap selesai, ujian lain terbuka.
-        $tugas_label_by_session  = [];
-        $tugas_closed_by_session = [];
-        if ($requires_tugas) {
-            foreach ($exam_groups->pluck('exam_session_id')->unique() as $sid) {
-                $praktik = \App\Support\UjianPraktik::examFor((int) $sid);
-                $tugas_label_by_session[$sid] = $praktik ? 'Ujian Praktik' : 'Tugas';
-                if (\App\Support\UjianPraktik::closed($praktik, $student->id, (int) $sid)) {
+        // Per sesi: "Tugas" atau "Ujian Praktik" (sesi memilih ujian praktik); sudah diunggah semua bagian;
+        // selesai tanpa unggahan lengkap (Ujian Praktik berwaktu yang habis waktunya — ujian lain tetap terbuka);
+        // dan progres bila Ujian Praktik terdiri dari beberapa bagian.
+        $tugas_required_by_session = [];
+        $tugas_by_session         = [];
+        $tugas_label_by_session   = [];
+        $tugas_closed_by_session  = [];
+        $tugas_progress_by_session = [];
+        foreach ($exam_groups->pluck('exam_session_id')->unique() as $sid) {
+            if ($student->requiresTugasFor((int) $sid)) {
+                $tugas_required_by_session[$sid] = true;
+                $status = \App\Support\UjianPraktik::tugasStatus((int) $sid, $student->id);
+                $tugas_label_by_session[$sid] = $status['label'];
+                if ($status['uploaded_all']) {
+                    $tugas_by_session[$sid] = true;
+                } elseif ($status['done']) {
                     $tugas_closed_by_session[$sid] = true;
+                }
+                if ($status['total'] > 1) {
+                    $tugas_progress_by_session[$sid] = ['done' => $status['done_count'], 'total' => $status['total']];
                 }
             }
         }
@@ -88,9 +94,11 @@ class DashboardController extends Controller
         return inertia('Student/Dashboard/Index', [
             'exam_groups'       => $data,
             'requires_tugas'    => $requires_tugas,
-            'tugas_by_session'  => $tugas_by_session,
+            'tugas_required_by_session' => (object) $tugas_required_by_session,
+            'tugas_by_session'  => (object) $tugas_by_session,
             'tugas_label_by_session'  => (object) $tugas_label_by_session,
             'tugas_closed_by_session' => (object) $tugas_closed_by_session,
+            'tugas_progress_by_session' => (object) $tugas_progress_by_session,
         ]);
     }
 }

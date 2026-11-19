@@ -51,6 +51,15 @@ class Student extends Authenticatable
         return ! in_array($this->classroom?->classrooms_code, self::TUGAS_EXEMPT_CLASSROOM_CODES, true);
     }
 
+    /**
+     * Wajib tugas di sesi ini: skema yang wajib Upload Tugas, atau sesi yang memilih Ujian Praktik —
+     * Ujian Praktik berlaku juga untuk skema yang dikecualikan dari Upload Tugas (mis. Lifting LHC).
+     */
+    public function requiresTugasFor(?int $sessionId): bool
+    {
+        return $this->requiresTugas() || ($sessionId && \App\Support\UjianPraktik::parts($sessionId) !== []);
+    }
+
     public function participant()
     {
         return $this->belongsTo(Participant::class);

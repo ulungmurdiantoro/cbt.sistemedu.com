@@ -16,6 +16,8 @@
         <li>Kolom <strong>Tugas</strong> (tugas yang diupload peserta sebelum ujian): tombol <i class="fa fa-eye"></i>
             membuka halaman pratinjau di tab baru (PDF, DOCX, JPG dan PNG bisa langsung dilihat), tombol
             <i class="fa fa-download"></i> mengunduhnya.
+            Ujian Praktik dua bagian (mis. Lifting: Calculation & Gambar) menampilkan satu tombol per bagian, bernomor
+            <strong>1</strong> dan <strong>2</strong>.
             Tanda “-” berarti peserta belum mengupload.</li>
         <li><strong>Catatan</strong> boleh dikosongkan.</li>
         <li>Klik <span class="badge bg-success">Simpan Semua Nilai</span> di kanan atas kartu Daftar Peserta untuk menyimpan seluruh tabel sekaligus.</li>

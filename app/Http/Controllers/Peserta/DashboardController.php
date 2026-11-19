@@ -26,16 +26,26 @@ class DashboardController extends Controller
 
         $applications->each(function ($app) {
             // Tugas wajib sebelum ujian (sama dengan student/tugas/{sesi}) — bisa diunggah dari dashboard.
-            $requiresTugas = $app->isApproved() && $app->exam_session_id && $app->student?->requiresTugas();
+            $requiresTugas = $app->isApproved() && $app->exam_session_id && $app->student?->requiresTugasFor($app->exam_session_id);
             $task = $requiresTugas
-                ? StudentTask::where('student_id', $app->student_id)->where('exam_session_id', $app->exam_session_id)->first()
+                ? StudentTask::where('student_id', $app->student_id)->where('exam_session_id', $app->exam_session_id)->where('bagian', 1)->first()
                 : null;
+            $examPortalOnly = $requiresTugas && \App\Support\UjianPraktik::examPortalOnly($app->exam_session_id);
+            $status = $examPortalOnly ? \App\Support\UjianPraktik::tugasStatus($app->exam_session_id, $app->student_id) : null;
             $app->setAttribute('tugas', $requiresTugas ? [
                 'file' => $task ? ['name' => $task->original_filename, 'uploaded_at' => $task->uploaded_at] : null,
                 // Upload Tugas atau Ujian Praktik (panduan + template) — diatur admin per skema
-                ...\App\Support\UjianPraktik::tugasProps($praktik = \App\Support\UjianPraktik::examFor($app->exam_session_id)),
-                // Berwaktu: dikerjakan di portal ujian — panduan & template tidak dibuka di sini
-                ...(\App\Support\UjianPraktik::timed($praktik) ? ['panduan' => null, 'template_name' => null] : []),
+                ...\App\Support\UjianPraktik::tugasProps(\App\Support\UjianPraktik::examFor($app->exam_session_id)),
+                // Berwaktu / beberapa bagian: dikerjakan di portal ujian — panduan & template tidak dibuka di sini
+                'exam_portal_only' => $examPortalOnly,
+                ...($examPortalOnly ? [
+                    'panduan'       => null,
+                    'template_name' => null,
+                    'parts'         => array_values(array_map(
+                        fn (array $p) => \Illuminate\Support\Arr::only($p, ['bagian', 'title', 'durasi', 'uploaded']),
+                        $status['parts']
+                    )),
+                ] : []),
             ] : null);
 
             $app->setAttribute('docs_required', $app->classroom->documentRequirements->where('is_required', true)->count());

@@ -44,17 +44,21 @@
                     
                     <!-- status tugas (wajib upload sebelum ujian, kecuali skema yang dikecualikan) -->
                     <!-- selalu tampil supaya peserta bisa kembali mengganti tugas kapan saja -->
-                    <div v-if="requires_tugas" class="mb-2">
+                    <div v-if="tugas_required_by_session[data.exam_group.exam_session.id]" class="mb-2">
                         <div v-if="tugas_by_session[data.exam_group.exam_session.id]" class="alert alert-success border-0 shadow mb-2 py-2 px-3">
                             <i class="fa fa-check-circle me-2"></i> {{ tugas_label_by_session[data.exam_group.exam_session.id] || 'Tugas' }} sudah diunggah.
                         </div>
                         <div v-else-if="tugas_closed_by_session[data.exam_group.exam_session.id]" class="alert bg-gray-100 text-gray-800 border-0 shadow mb-2 py-2 px-3">
-                            <i class="fa fa-hourglass-end me-2"></i> Waktu Ujian Praktik sudah habis; hasil tidak diunggah.
+                            <i class="fa fa-hourglass-end me-2"></i> Waktu Ujian Praktik sudah habis; hasil tidak diunggah<template v-if="tugas_progress_by_session[data.exam_group.exam_session.id]"> lengkap</template>.
                         </div>
                         <div v-else class="alert alert-warning border-0 shadow mb-2 py-2 px-3">
                             <i class="fa fa-exclamation-triangle me-2"></i>
                             <template v-if="tugas_label_by_session[data.exam_group.exam_session.id] === 'Ujian Praktik'">Anda wajib mengerjakan dan mengunggah hasil ujian praktik sebelum dapat mengerjakan ujian ini.</template>
                             <template v-else>Anda wajib mengunggah tugas sebelum dapat mengerjakan ujian ini.</template>
+                            <!-- Ujian Praktik beberapa bagian: progres -->
+                            <div v-if="tugas_progress_by_session[data.exam_group.exam_session.id]" class="small mt-1">
+                                Selesai {{ tugas_progress_by_session[data.exam_group.exam_session.id].done }} dari {{ tugas_progress_by_session[data.exam_group.exam_session.id].total }} bagian.
+                            </div>
                         </div>
                         <Link :href="`/student/tugas/${data.exam_group.exam_session.id}`"
                             class="btn btn-md border-0 shadow w-100"
@@ -69,7 +73,7 @@
                     </div>
 
                     <!-- cek waktu selesai -->
-                    <div v-if="data.grade.end_time == null && (!requires_tugas || tugas_by_session[data.exam_group.exam_session.id] || tugas_closed_by_session[data.exam_group.exam_session.id])">
+                    <div v-if="data.grade.end_time == null && (!tugas_required_by_session[data.exam_group.exam_session.id] || tugas_by_session[data.exam_group.exam_session.id] || tugas_closed_by_session[data.exam_group.exam_session.id])">
 
                         <!-- cek apakah ujian sudah dimulai, tapi waktu masih ada -->
                         <div v-if="examTimeRangeChecker(data.exam_group.exam_session.start_time, data.exam_group.exam_session.end_time)">
@@ -157,9 +161,13 @@
             exam_groups: Array,
             auth: Object,
             requires_tugas: Boolean,
+            // Sesi yang wajib tugas: skema wajib Upload Tugas, atau sesi dengan Ujian Praktik (semua skema)
+            tugas_required_by_session: { type: Object, default: () => ({}) },
             tugas_by_session: Object,
             tugas_label_by_session: { type: Object, default: () => ({}) },
             tugas_closed_by_session: { type: Object, default: () => ({}) },
+            // Ujian Praktik beberapa bagian: { [sesi]: { done, total } }
+            tugas_progress_by_session: { type: Object, default: () => ({}) },
         }
 
     }

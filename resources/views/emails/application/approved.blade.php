@@ -11,7 +11,7 @@ Selamat! Permohonan sertifikasi Anda telah **disetujui**. Akun ujian Anda sudah 
 Gunakan nomor ini untuk login di halaman ujian.
 @endcomponent
 
-@if($application->student?->requiresTugas())
+@if($application->student?->requiresTugasFor($application->exam_session_id))
 @component('mail::panel')
 **Wajib Upload Tugas Sebelum Ujian**
 
@@ -30,7 +30,7 @@ Unggah melalui kotak **Upload Tugas** di Dashboard Peserta, atau setelah login u
 @endcomponent
 
 @component('mail::button', ['url' => config('app.url') . '/peserta/dashboard', 'color' => 'green'])
-{{ $application->student?->requiresTugas() ? 'Upload Tugas di Dashboard' : 'Lihat Dashboard' }}
+{{ $application->student?->requiresTugasFor($application->exam_session_id) ? 'Upload Tugas di Dashboard' : 'Lihat Dashboard' }}
 @endcomponent
 
 Salam,<br>

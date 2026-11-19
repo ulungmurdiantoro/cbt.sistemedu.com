@@ -19,6 +19,8 @@ class UpdateExamSessionRequest extends FormRequest
             'exam_id_esai'    => 'nullable|exists:exams,id',
             // Ujian Praktik (panduan + template). Kosong = peserta hanya Upload Tugas.
             'exam_id_praktik' => ['nullable', \Illuminate\Validation\Rule::exists('exams', 'id')->where('type', \App\Models\Exam::TYPE_PRAKTIK)],
+            // Bagian 2 (opsional, mis. Lifting: Gambar setelah Calculation) — waktu & unggahan sendiri.
+            'exam_id_praktik_2' => ['nullable', 'different:exam_id_praktik', \Illuminate\Validation\Rule::exists('exams', 'id')->where('type', \App\Models\Exam::TYPE_PRAKTIK)],
             'has_wawancara'   => 'boolean',
             'verifikasi_tuk'  => 'boolean',
             'start_time'      => 'required',
@@ -31,11 +33,21 @@ class UpdateExamSessionRequest extends FormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'exam_id_praktik_2.different' => 'Ujian Praktik bagian 2 harus berbeda dengan bagian 1.',
+        ];
+    }
+
     public function withValidator($validator): void
     {
         $validator->after(function ($validator) {
             if (!$this->exam_id_pg && !$this->exam_id_esai && !$this->exam_id_praktik && !$this->has_wawancara) {
                 $validator->errors()->add('exam_id_pg', 'Pilih minimal satu jenis ujian.');
+            }
+            if ($this->exam_id_praktik_2 && !$this->exam_id_praktik) {
+                $validator->errors()->add('exam_id_praktik_2', 'Pilih Ujian Praktik bagian 1 terlebih dahulu.');
             }
         });
     }

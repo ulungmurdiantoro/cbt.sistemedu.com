@@ -135,8 +135,21 @@
 
                         <!-- Upload tugas (sama dengan student/tugas/{sesi} di portal ujian) -->
                         <div v-if="app.tugas && !app.result?.is_finalized" class="border rounded p-3 mb-2">
-                            <!-- Ujian Praktik berwaktu: hanya dari portal ujian (waktu dicatat di sana) -->
-                            <template v-if="app.tugas.praktik && app.tugas.durasi">
+                            <!-- Ujian Praktik berwaktu / beberapa bagian: hanya dari portal ujian (waktu per bagian dicatat di sana) -->
+                            <template v-if="app.tugas.exam_portal_only && app.tugas.parts?.length > 1">
+                                <h6 class="fw-bold small mb-1"><i class="fa fa-stopwatch me-1 text-muted"></i>Ujian Praktik ({{ app.tugas.parts.length }} bagian)</h6>
+                                <p class="small text-muted mb-2">
+                                    Dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta), sebelum mengerjakan ujian lain.
+                                    Setiap bagian dimulai, diberi waktu, dan diunggah sendiri.
+                                </p>
+                                <ul class="small mb-0 ps-3">
+                                    <li v-for="p in app.tugas.parts" :key="p.bagian">
+                                        Bagian {{ p.bagian }}: {{ p.title }}<span v-if="p.durasi"> ({{ p.durasi }} menit)</span>
+                                        <span v-if="p.uploaded" class="text-success"> — sudah diunggah</span>
+                                    </li>
+                                </ul>
+                            </template>
+                            <template v-else-if="app.tugas.exam_portal_only">
                                 <h6 class="fw-bold small mb-1"><i class="fa fa-stopwatch me-1 text-muted"></i>Ujian Praktik ({{ app.tugas.durasi }} menit)</h6>
                                 <p class="small text-muted mb-2">
                                     Ujian Praktik ini berbatas waktu dan dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta),
@@ -167,7 +180,7 @@
                                 </p>
                             </template>
 
-                            <template v-if="!(app.tugas.praktik && app.tugas.durasi)">
+                            <template v-if="!app.tugas.exam_portal_only">
                             <div v-if="app.tugas.file" class="alert alert-success p-2 small mb-2">
                                 <i class="fa fa-check-circle me-1"></i>Sudah diunggah: <strong>{{ app.tugas.file.name }}</strong>
                                 <div v-if="app.tugas.file.uploaded_at" class="text-muted">Diunggah {{ formatDateTime(app.tugas.file.uploaded_at) }}</div>

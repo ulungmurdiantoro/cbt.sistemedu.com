@@ -418,4 +418,186 @@ class UjianPraktikTest extends TestCase
             ->assertSessionHasErrors('file');
         $this->assertDatabaseCount('student_tasks', 0);
     }
+
+    // ── Dua bagian (mis. Lifting: Calculation lalu Gambar) ────────────────
+
+    /** Ujian praktik bagian 2 (exam_id_praktik_2) lewat form admin. */
+    private function attachPraktik2(ExamSession $session, Classroom $classroom, int $durasi): Exam
+    {
+        $this->actingAs($this->admin())
+            ->post('/admin/exams', $this->examPayload($classroom, [
+                'title'           => 'Praktik Gambar V2',
+                'duration'        => $durasi,
+                'praktik_panduan' => 'Buat gambar lifting plan.',
+                'template'        => UploadedFile::fake()->create('Bahan Gambar.zip', 40, 'application/zip'),
+            ]))
+            ->assertSessionHasNoErrors();
+
+        $exam = Exam::where('title', 'Praktik Gambar V2')->firstOrFail();
+        $session->update(['exam_id_praktik_2' => $exam->id]);
+
+        return $exam;
+    }
+
+    private function uploadBagian(ExamSession $session, int $bagian)
+    {
+        return $this->postJson('/student/tugas', [
+            'exam_session_id' => $session->id,
+            'bagian'          => $bagian,
+            'file'            => UploadedFile::fake()->create("hasil-{$bagian}.zip", 20, 'application/zip'),
+        ]);
+    }
+
+    public function test_two_part_praktik_has_own_timer_and_upload_per_part(): void
+    {
+        [$classroom, $session, $student] = $this->enrolledStudent('LHC');
+        $calc   = $this->attachPraktik($session, $classroom, 300);
+        $gambar = $this->attachPraktik2($session, $classroom, 180);
+        $group  = ExamGroup::where('student_id', $student->id)->firstOrFail();
+
+        $this->actingAsStudent($student);
+        $this->get("/student/tugas/{$session->id}")->assertInertia(fn (Assert $page) => $page
+            ->where('bagian', 1)
+            ->has('parts', 2)
+            ->where('parts.0.durasi', 300)
+            ->where('parts.1.durasi', 180)
+            ->where('parts.1.title', 'Praktik Gambar V2')
+            ->where('timer.started', false)
+        );
+
+        // Bagian 1
+        $this->post("/student/tugas/{$session->id}/mulai")->assertRedirect("/student/tugas/{$session->id}");
+        $this->uploadBagian($session, 1)->assertRedirect()->assertSessionHasNoErrors();
+
+        // Bagian 2 belum selesai: ujian lain masih terkunci, halaman tugas membuka bagian 2
+        $this->get("/student/exam-confirmation/{$group->id}")->assertRedirect("/student/tugas/{$session->id}");
+        $this->get('/student/dashboard')->assertInertia(fn (Assert $page) => $page
+            ->where("tugas_progress_by_session.{$session->id}", ['done' => 1, 'total' => 2])
+            ->missing("tugas_by_session.{$session->id}")
+        );
+        $this->get("/student/tugas/{$session->id}")->assertInertia(fn (Assert $page) => $page
+            ->where('bagian', 2)
+            ->where('tugas.title', 'Praktik Gambar V2')
+            ->where('timer.durasi', 180)
+            ->where('timer.started', false)
+            ->where('tugas.panduan', null)
+        );
+        $this->get("/student/tugas/{$session->id}/template?bagian=2")->assertForbidden();
+        $this->uploadBagian($session, 2)->assertForbidden();
+
+        $this->post("/student/tugas/{$session->id}/mulai", ['bagian' => 2])->assertRedirect("/student/tugas/{$session->id}?bagian=2");
+        $this->get("/student/tugas/{$session->id}/template?bagian=2")->assertOk()
+            ->assertDownload('Bahan Gambar.zip');
+        $this->uploadBagian($session, 2)->assertRedirect()->assertSessionHasNoErrors();
+
+        // Waktu & unggahan tercatat per bagian
+        $attempts = StudentPraktikAttempt::orderBy('bagian')->get();
+        $this->assertSame([[1, $calc->id, 300], [2, $gambar->id, 180]], $attempts->map(fn ($a) => [$a->bagian, $a->exam_id, $a->durasi])->all());
+        $this->assertSame([1, 2], \App\Models\StudentTask::orderBy('bagian')->pluck('bagian')->all());
+
+        $this->get("/student/exam-confirmation/{$group->id}")->assertOk();
+        $this->get('/student/dashboard')->assertInertia(fn (Assert $page) => $page
+            ->where("tugas_by_session.{$session->id}", true)
+            ->where("tugas_progress_by_session.{$session->id}", ['done' => 2, 'total' => 2])
+        );
+    }
+
+    public function test_two_part_praktik_unlocks_when_every_part_is_uploaded_or_expired(): void
+    {
+        [$classroom, $session, $student] = $this->enrolledStudent('LHC');
+        $this->attachPraktik($session, $classroom, 30);
+        $this->attachPraktik2($session, $classroom, 20);
+        $group = ExamGroup::where('student_id', $student->id)->firstOrFail();
+
+        $this->actingAsStudent($student)->post("/student/tugas/{$session->id}/mulai");
+        $this->travel(33)->minutes();
+
+        // Bagian 1 habis tanpa unggahan, bagian 2 belum dikerjakan → masih terkunci
+        $this->get("/student/exam-confirmation/{$group->id}")->assertRedirect("/student/tugas/{$session->id}");
+        $this->uploadBagian($session, 1)->assertForbidden();
+
+        $this->post("/student/tugas/{$session->id}/mulai", ['bagian' => 2]);
+        $this->uploadBagian($session, 2)->assertRedirect()->assertSessionHasNoErrors();
+
+        $this->get("/student/exam-confirmation/{$group->id}")->assertOk();
+        $this->get('/student/dashboard')->assertInertia(fn (Assert $page) => $page
+            ->where("tugas_closed_by_session.{$session->id}", true)
+            ->missing("tugas_by_session.{$session->id}")
+        );
+    }
+
+    public function test_session_form_saves_second_praktik_part(): void
+    {
+        [$classroom, $session] = $this->enrolledStudent('LHC');
+        $calc   = $this->attachPraktik($session, $classroom, 300);
+        $gambar = $this->attachPraktik2($session, $classroom, 180);
+        $session->update(['exam_id_praktik' => null, 'exam_id_praktik_2' => null]);
+
+        $base = [
+            'title' => 'Sesi Lifting', 'start_time' => now()->format('Y-m-d H:i'), 'end_time' => now()->addDay()->format('Y-m-d H:i'),
+            'konteks_asesmen' => 'Sertifikasi', 'tempat_ujian' => 'Online', 'kode_batch' => 'B1',
+            'exam_id_pg' => $session->exam_id_pg,
+        ];
+        $this->actingAs($this->admin());
+
+        $this->put("/admin/exam_sessions/{$session->id}", $base + ['exam_id_praktik' => $calc->id, 'exam_id_praktik_2' => $calc->id])
+            ->assertSessionHasErrors('exam_id_praktik_2');
+        $this->put("/admin/exam_sessions/{$session->id}", $base + ['exam_id_praktik_2' => $gambar->id])
+            ->assertSessionHasErrors('exam_id_praktik_2');
+
+        $this->put("/admin/exam_sessions/{$session->id}", $base + ['exam_id_praktik' => $calc->id, 'exam_id_praktik_2' => $gambar->id])
+            ->assertSessionHasNoErrors();
+        $this->assertSame([$calc->id, $gambar->id], [$session->refresh()->exam_id_praktik, $session->exam_id_praktik_2]);
+        $this->assertSame(0, ExamGroup::whereIn('exam_id', [$calc->id, $gambar->id])->count());
+
+        $this->get("/admin/exam_sessions/{$session->id}")->assertInertia(fn (Assert $page) => $page
+            ->where('exam_session.exam_praktik2.title', 'Praktik Gambar V2')
+            ->where('exam_session.exam_praktik2.duration', 180)
+        );
+    }
+
+    public function test_admin_results_list_and_preview_each_part(): void
+    {
+        [$classroom, $session, $student] = $this->enrolledStudent('LHC');
+        $this->attachPraktik($session, $classroom);
+        $this->attachPraktik2($session, $classroom, 0);
+
+        $this->actingAsStudent($student);
+        $this->uploadBagian($session, 1)->assertRedirect();
+        $this->uploadBagian($session, 2)->assertRedirect();
+
+        $this->actingAs($this->admin());
+        $this->get("/admin/results/{$session->id}")->assertInertia(fn (Assert $page) => $page
+            ->where("tugas.{$student->id}", [
+                ['bagian' => 1, 'original_filename' => 'hasil-1.zip'],
+                ['bagian' => 2, 'original_filename' => 'hasil-2.zip'],
+            ])
+            ->where('tugas_parts', ['1' => 'Praktik GLP V2', '2' => 'Praktik Gambar V2'])
+        );
+        $this->get("/admin/results/{$session->id}/tugas/{$student->id}?bagian=2")->assertInertia(fn (Assert $page) => $page
+            ->where('tugas.bagian', 2)
+            ->where('tugas.original_filename', 'hasil-2.zip')
+            ->where('tugas.part_title', 'Praktik Gambar V2')
+        );
+        $this->get("/admin/results/{$session->id}/tugas/{$student->id}/unduh?bagian=2")->assertDownload('hasil-2.zip');
+        $this->get("/admin/results/{$session->id}/tugas/{$student->id}/unduh")->assertDownload('hasil-1.zip');
+    }
+
+    public function test_participant_portal_defers_two_part_praktik_to_exam_portal(): void
+    {
+        [$classroom, $session, $student] = $this->enrolledStudent('LHC');
+        $this->attachPraktik($session, $classroom);
+        $this->attachPraktik2($session, $classroom, 0);
+        $app = $this->participantApp($classroom, $session, $student);
+
+        $this->get('/peserta/dashboard')->assertInertia(fn (Assert $page) => $page
+            ->where('applications.0.tugas.exam_portal_only', true)
+            ->has('applications.0.tugas.parts', 2)
+            ->where('applications.0.tugas.panduan', null)
+        );
+        $this->get("/peserta/aplikasi/{$app->id}/tugas/template")->assertForbidden();
+        $this->post("/peserta/aplikasi/{$app->id}/tugas", ['file' => UploadedFile::fake()->create('h.pdf', 10, 'application/pdf')])
+            ->assertSessionHasErrors('file');
+        $this->assertDatabaseCount('student_tasks', 0);
+    }
 }

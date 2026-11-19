@@ -53,10 +53,12 @@
 
                                         <td class="text-center text-nowrap">
                                             <template v-if="students[i] && tugas[students[i].id]">
-                                                <a :href="tugasUrl(students[i])" target="_blank"
-                                                    :title="`Lihat ${tugas[students[i].id].original_filename}`"
+                                                <!-- Satu tombol per unggahan; Ujian Praktik dua bagian → tombol bernomor bagian -->
+                                                <a v-for="t in tugas[students[i].id]" :key="t.bagian"
+                                                    :href="tugasUrl(students[i], t.bagian)" target="_blank"
+                                                    :title="tugasTitle(t)"
                                                     class="btn btn-sm btn-outline-primary me-1">
-                                                    <i class="fa fa-eye"></i>
+                                                    <i class="fa fa-eye"></i><span v-if="hasParts" class="ms-1">{{ t.bagian }}</span>
                                                 </a>
                                                 <!-- <a :href="`${tugasUrl(students[i])}/unduh`"
                                                     :title="`Unduh ${tugas[students[i].id].original_filename}`"
@@ -158,7 +160,10 @@ export default {
         exam_session: Object,
         students: Array,
         assessments: Object,
+        // { [student_id]: [{ bagian, original_filename }] }
         tugas: Object,
+        // Judul bagian Ujian Praktik { [bagian]: judul } — kosong bila hanya satu bagian
+        tugas_parts: { type: Object, default: () => ({}) },
         bobot: Number,
     },
 
@@ -171,6 +176,9 @@ export default {
     },
 
     computed: {
+        hasParts() {
+            return Object.keys(this.tugas_parts).length > 1;
+        },
         // Peserta yang keempat kriterianya sudah terisi
         scoredCount() {
             const filled = v => v !== null && v !== '' && !isNaN(v);
@@ -179,8 +187,13 @@ export default {
     },
 
     methods: {
-        tugasUrl(student) {
-            return `/asesor/penilaian/${this.exam_session.id}/wawancara/tugas/${student.id}`;
+        tugasUrl(student, bagian = 1) {
+            return `/asesor/penilaian/${this.exam_session.id}/wawancara/tugas/${student.id}` + (bagian > 1 ? `?bagian=${bagian}` : '');
+        },
+
+        tugasTitle(t) {
+            const part = this.tugas_parts[t.bagian];
+            return part ? `Bagian ${t.bagian} (${part}): ${t.original_filename}` : `Lihat ${t.original_filename}`;
         },
 
         buildForm() {

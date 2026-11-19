@@ -145,6 +145,6 @@ class InterviewTaskFileTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (AssertableInertia $page) => $page
                 ->component('Asesor/Wawancara/Show')
-                ->where("tugas.{$this->ctx['student']->id}", ['original_filename' => 'Tugas Akhir.DOCX']));
+                ->where("tugas.{$this->ctx['student']->id}", [['bagian' => 1, 'original_filename' => 'Tugas Akhir.DOCX']]));
     }
 }

@@ -9,12 +9,13 @@
                         <div class="text-break">
                             <h5 class="mb-1"><i class="fa fa-file-alt me-2"></i>Tugas Peserta</h5>
                             <div class="small text-muted">{{ student.no_participant }} — {{ student.name }} · {{ examSession.title }}</div>
+                            <div v-if="tugas.part_title" class="small fw-bolder mt-1">Bagian {{ tugas.bagian }}: {{ tugas.part_title }}</div>
                             <div class="small mt-1">
                                 <span class="fw-bolder">{{ tugas.original_filename }}</span>
                                 <span class="text-muted"> · {{ fileSize }}<template v-if="uploadedAt"> · diupload {{ uploadedAt }}</template></span>
                             </div>
                         </div>
-                        <a :href="`${baseUrl}/unduh`" class="btn btn-primary border-0 shadow">
+                        <a :href="`${baseUrl}/unduh${query}`" class="btn btn-primary border-0 shadow">
                             <i class="fa fa-download me-1"></i> Unduh
                         </a>
                     </div>
@@ -26,7 +27,7 @@
                             <i class="fa fa-file fa-3x text-gray-400 mb-3"></i>
                             <p class="mb-3">File <strong>.{{ tugas.type.toUpperCase() }}</strong> tidak bisa ditampilkan di browser.
                                 Unduh untuk membukanya.</p>
-                            <a :href="`${baseUrl}/unduh`" class="btn btn-primary border-0 shadow">
+                            <a :href="`${baseUrl}/unduh${query}`" class="btn btn-primary border-0 shadow">
                                 <i class="fa fa-download me-1"></i> Unduh
                             </a>
                         </div>
@@ -75,6 +76,10 @@ export default {
     },
 
     computed: {
+        // Bagian 2 Ujian Praktik → ?bagian=2 pada route file/unduh (bagian 1 tanpa query)
+        query() {
+            return this.tugas.bagian > 1 ? `?bagian=${this.tugas.bagian}` : '';
+        },
         fileSize() {
             const kb = (this.tugas.file_size ?? 0) / 1024;
             return kb >= 1024 ? `${(kb / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(kb))} KB`;
@@ -99,7 +104,7 @@ export default {
         // dicegat pengaturan browser / download manager (IDM) dan malah diunduh.
         async load() {
             try {
-                const { data } = await axios.get(`${this.baseUrl}/file`, { responseType: 'blob' });
+                const { data } = await axios.get(`${this.baseUrl}/file${this.query}`, { responseType: 'blob' });
 
                 if (this.tugas.type === 'docx') await this.renderDocx(data);
                 else this.blobUrl = URL.createObjectURL(data);

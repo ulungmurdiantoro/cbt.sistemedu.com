@@ -14,6 +14,7 @@ class ExamSession extends Model
         'exam_id_pg',
         'exam_id_esai',
         'exam_id_praktik',
+        'exam_id_praktik_2',
         'has_wawancara',
         'verifikasi_tuk',
         'title',
@@ -61,6 +62,12 @@ class ExamSession extends Model
     public function examPraktik()
     {
         return $this->belongsTo(Exam::class, 'exam_id_praktik');
+    }
+
+    /** Ujian Praktik bagian 2 (opsional, mis. Lifting: Gambar setelah Calculation) — lihat App\Support\UjianPraktik. */
+    public function examPraktik2()
+    {
+        return $this->belongsTo(Exam::class, 'exam_id_praktik_2');
     }
 
     /** Kembalikan exam pertama yang tidak null (untuk mendapat classroom_id) */

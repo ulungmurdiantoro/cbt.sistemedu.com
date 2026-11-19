@@ -61,6 +61,16 @@
                                             </select>
                                             <div class="text-muted small mt-1">Panduan + template dari menu Ujian</div>
                                             <div v-if="errors.exam_id_praktik" class="alert alert-danger mt-2">{{ errors.exam_id_praktik }}</div>
+                                            <!-- Bagian 2 (opsional): waktu & unggahan sendiri, mis. Lifting Calculation lalu Gambar -->
+                                            <template v-if="form.exam_id_praktik">
+                                                <label class="fw-bolder small mt-3">Ujian Praktik Bagian 2 <span class="text-muted fw-normal">(opsional)</span></label>
+                                                <select class="form-select" v-model="form.exam_id_praktik_2">
+                                                    <option value="">— Tidak ada —</option>
+                                                    <option v-for="e in examsPraktik" :key="e.id" :value="e.id" :disabled="e.id === form.exam_id_praktik">{{ e.title }}</option>
+                                                </select>
+                                                <div class="text-muted small mt-1">Dikerjakan setelah bagian 1; durasi & unggahan sendiri</div>
+                                                <div v-if="errors.exam_id_praktik_2" class="alert alert-danger mt-2">{{ errors.exam_id_praktik_2 }}</div>
+                                            </template>
                                         </div>
                                         <div class="col-md-3 mb-3 d-flex align-items-end">
                                             <div class="form-check form-switch mb-2">
@@ -129,6 +139,7 @@ export default {
             exam_id_pg:      '',
             exam_id_esai:    '',
             exam_id_praktik: '',
+            exam_id_praktik_2: '',
             has_wawancara:   false,
             verifikasi_tuk:  true,
             start_time:      '',
@@ -148,6 +159,7 @@ export default {
                 exam_id_pg:      form.exam_id_pg      || null,
                 exam_id_esai:    form.exam_id_esai    || null,
                 exam_id_praktik: form.exam_id_praktik || null,
+                exam_id_praktik_2: (form.exam_id_praktik && form.exam_id_praktik_2) || null,
                 has_wawancara:   form.has_wawancara,
                 verifikasi_tuk:  form.verifikasi_tuk,
                 start_time:      form.start_time,

@@ -280,6 +280,14 @@ menekan Mulai (POST `student.tugas.start`, sekali per sesi di `student_praktik_a
 panduan & template baru dikirim setelah mulai; unggah ditolak setelah batas + `UPLOAD_GRACE_MINUTES` (2); waktu habis
 tanpa unggahan **tidak** mengunci ujian lain (`UjianPraktik::closed()` di `tugasRedirectIfRequired`). Praktik berwaktu
 hanya dari portal ujian — portal peserta menolak unduh/unggah dan menampilkan petunjuk.
+**Dua bagian per sesi** (mis. Lifting: Calculation 300 mnt lalu Gambar 180 mnt): bagian 1 = `exam_id_praktik`, bagian 2 =
+`exam_id_praktik_2` (relasi `examPraktik2`, di JSON `exam_praktik2`; hanya bila bagian 1 ada). Setiap bagian punya Mulai,
+waktu & unggahan sendiri — kolom `bagian` di `student_praktik_attempts` & `student_tasks` (unik per peserta+sesi+bagian;
+Upload Tugas biasa = bagian 1). Semua route/aksi per bagian lewat `?bagian=N` / field `bagian` (bawaan 1); syarat ujian lain
+= semua bagian diunggah atau habis waktunya (`UjianPraktik::tugasStatus()/tugasDone()`). Multi-bagian juga hanya dari portal
+ujian (`examPortalOnly`). Rekap Hasil & halaman wawancara asesor: `tugas[student_id]` = daftar `{bagian, original_filename}`.
+**Sesi dengan Ujian Praktik wajib untuk semua skema** — termasuk yang dikecualikan dari Upload Tugas (LEM, LHC, LDT, DLD):
+cek wajib tugas per sesi pakai `Student::requiresTugasFor($sesi)`, bukan `requiresTugas()`.
 
 Admin bisa mengganti/mengunggah dokumen persyaratan peserta di detail permohonan (POST
 `admin.applications.documents.replace`, file baru langsung Terverifikasi, file lama dihapus) — hanya bila saklar

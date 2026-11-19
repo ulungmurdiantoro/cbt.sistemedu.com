@@ -152,14 +152,17 @@
                                     </div>
                                 </td>
                                 <!-- Tugas / Ujian Praktik yang diunggah peserta -->
-                                <td class="text-center" v-if="show_tugas">
-                                    <a v-if="tugas[row.student_id]"
-                                       :href="`/admin/results/${exam_session.id}/tugas/${row.student_id}`"
-                                       target="_blank"
-                                       :title="`Lihat ${tugas[row.student_id].original_filename}`"
-                                       class="btn btn-sm btn-outline-primary">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
+                                <td class="text-center text-nowrap" v-if="show_tugas">
+                                    <!-- Satu tombol per unggahan; Ujian Praktik dua bagian → tombol bernomor bagian -->
+                                    <template v-if="tugas[row.student_id]">
+                                        <a v-for="t in tugas[row.student_id]" :key="t.bagian"
+                                           :href="`/admin/results/${exam_session.id}/tugas/${row.student_id}` + (t.bagian > 1 ? `?bagian=${t.bagian}` : '')"
+                                           target="_blank"
+                                           :title="tugas_parts[t.bagian] ? `Bagian ${t.bagian} (${tugas_parts[t.bagian]}): ${t.original_filename}` : `Lihat ${t.original_filename}`"
+                                           class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="fa fa-eye"></i><span v-if="Object.keys(tugas_parts).length > 1" class="ms-1">{{ t.bagian }}</span>
+                                        </a>
+                                    </template>
                                     <span v-else class="text-muted" title="Belum diunggah">—</span>
                                 </td>
                                 <!-- Angka PG / Esai → detail jawaban peserta (eks Laporan Nilai) -->
@@ -451,8 +454,11 @@ export default {
         exam_session: Object,
         rows:         Array,
         scheme:       Object,
+        // { [student_id]: [{ bagian, original_filename }] }
         tugas:        Object,
         show_tugas:   Boolean,
+        // Judul bagian Ujian Praktik { [bagian]: judul } — kosong bila hanya satu bagian
+        tugas_parts:  { type: Object, default: () => ({}) },
         fr_ak_14_requires_materai: Boolean,
         // { key: { label, title, waiting } } urut tahap — ResultProgressService::STEPS
         steps:        { type: Object, default: () => ({}) },

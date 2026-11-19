@@ -7,7 +7,6 @@ use App\Models\Essay;
 use App\Models\Grade;
 use App\Models\Question;
 use App\Models\ExamGroup;
-use App\Models\StudentTask;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 
@@ -30,17 +29,12 @@ abstract class BaseExamController extends Controller
     {
         $student = $exam_group->student;
 
-        if (! $student->requiresTugas()) {
+        if (! $student->requiresTugasFor($exam_group->exam_session_id)) {
             return null;
         }
 
-        $uploaded = StudentTask::where('student_id', $student->id)
-            ->where('exam_session_id', $exam_group->exam_session_id)
-            ->exists();
-
-        // Ujian Praktik berwaktu yang sudah habis waktunya tidak mengunci ujian lain, walau tanpa unggahan.
-        $praktik = \App\Support\UjianPraktik::examFor($exam_group->exam_session_id);
-        if ($uploaded || \App\Support\UjianPraktik::closed($praktik, $student->id, $exam_group->exam_session_id)) {
+        // Semua bagian Ujian Praktik sudah diunggah — atau waktunya habis (tidak mengunci ujian lain walau tanpa unggahan).
+        if (\App\Support\UjianPraktik::tugasDone($exam_group->exam_session_id, $student->id)) {
             return null;
         }
 

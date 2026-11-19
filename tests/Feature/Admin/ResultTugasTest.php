@@ -81,7 +81,7 @@ class ResultTugasTest extends TestCase
             ->assertInertia(fn (AssertableInertia $page) => $page
                 ->component('Admin/Results/Show')
                 ->where('show_tugas', true)
-                ->where("tugas.{$this->ctx['student']->id}", ['original_filename' => 'Tugas Akhir.DOCX']));
+                ->where("tugas.{$this->ctx['student']->id}", [['bagian' => 1, 'original_filename' => 'Tugas Akhir.DOCX']]));
     }
 
     public function test_tugas_column_hidden_for_exempt_scheme_without_uploads(): void

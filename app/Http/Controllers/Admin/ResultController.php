@@ -65,12 +65,16 @@ class ResultController extends Controller
         $studentIds = $results->pluck('student_id');
         $students   = Student::whereIn('id', $studentIds)->with('participant', 'classroom')->get()->keyBy('id');
 
+        // Per peserta: daftar unggahan per bagian (Ujian Praktik bisa dua bagian; Upload Tugas = bagian 1)
         $tugas = StudentTask::where('exam_session_id', $examSession->id)
             ->whereIn('student_id', $studentIds)
+            ->orderBy('bagian')
             ->get()
-            ->mapWithKeys(fn (StudentTask $task) => [$task->student_id => [
+            ->groupBy('student_id')
+            ->map(fn ($tasks) => $tasks->map(fn (StudentTask $task) => [
+                'bagian'            => $task->bagian,
                 'original_filename' => $task->original_filename,
-            ]]);
+            ])->values());
 
         // ID grade per ujian → tautan "detail jawaban" (eks menu Laporan Nilai, admin.reports.show)
         $gradeIds = Grade::where('exam_session_id', $examSession->id)
@@ -156,7 +160,9 @@ class ResultController extends Controller
             'tugas'        => $tugas,
             // Kolom Tugas disembunyikan untuk skema yang tidak wajib upload tugas
             // (Student::requiresTugas), kecuali ada yang tetap mengunggah.
-            'show_tugas'   => $tugas->isNotEmpty() || $students->contains(fn (Student $s) => $s->requiresTugas()),
+            'show_tugas'   => $tugas->isNotEmpty() || $students->contains(fn (Student $s) => $s->requiresTugasFor($examSession->id)),
+            // Judul bagian Ujian Praktik ({bagian: judul}) bila sesi punya lebih dari satu bagian
+            'tugas_parts'  => \App\Support\UjianPraktik::partTitles($examSession->id),
             'fr_ak_14_requires_materai' => ParticipantResult::sessionRequiresFrAk14Materai($examSession->id),
             // Urutan & label tahap untuk ringkasan progres dan kolom Progres
             'steps'        => ResultProgressService::STEPS,
@@ -191,10 +197,12 @@ class ResultController extends Controller
     /** Pratinjau tugas peserta di tab baru — sama dengan portal asesor, tanpa cek penugasan. */
     public function previewTugas(ExamSession $examSession, Student $student)
     {
+        $task = $this->task($examSession, $student);
+
         return inertia('Admin/Results/Tugas', [
             'exam_session' => $examSession->only('id', 'title'),
             'student'      => $student->only('id', 'no_participant', 'name'),
-            'tugas'        => $this->task($examSession, $student)->previewProps(),
+            'tugas'        => $task->previewProps() + ['part_title' => $this->partTitle($examSession, $task)],
         ]);
     }
 
@@ -212,10 +220,20 @@ class ResultController extends Controller
         return AnswerFile::download($task->file_path, $task->original_filename);
     }
 
+    /** Judul bagian Ujian Praktik — hanya untuk sesi dengan lebih dari satu bagian. */
+    private function partTitle(ExamSession $examSession, StudentTask $task): ?string
+    {
+        $parts = \App\Support\UjianPraktik::parts($examSession->id);
+
+        return count($parts) > 1 ? ($parts[$task->bagian]->title ?? null) : null;
+    }
+
+    /** Unggahan peserta; ?bagian=2 untuk bagian 2 Ujian Praktik (bawaan bagian 1). */
     private function task(ExamSession $examSession, Student $student): StudentTask
     {
         $task = StudentTask::where('exam_session_id', $examSession->id)
             ->where('student_id', $student->id)
+            ->where('bagian', request()->integer('bagian', 1))
             ->first();
 
         abort_unless($task, 404, 'Tugas tidak ditemukan.');

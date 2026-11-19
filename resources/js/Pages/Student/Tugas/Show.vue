@@ -19,16 +19,36 @@
                         </tbody>
                     </table>
 
+                    <!-- Ujian Praktik beberapa bagian: setiap bagian punya waktu & unggahan sendiri -->
+                    <div v-if="parts.length > 1" class="mb-3">
+                        <div class="small text-muted mb-2">
+                            Ujian Praktik ini terdiri dari {{ parts.length }} bagian. Setiap bagian dimulai, diberi waktu, dan diunggah sendiri.
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <Link v-for="p in parts" :key="p.bagian" :href="`/student/tugas/${exam_session.id}?bagian=${p.bagian}`"
+                                class="btn btn-sm border text-start part-tab" :class="p.bagian === bagian ? 'btn-primary' : 'btn-gray-100'">
+                                <div class="fw-bolder">Bagian {{ p.bagian }}<span v-if="p.durasi"> · {{ p.durasi }} menit</span></div>
+                                <div class="small text-truncate">{{ p.title }}</div>
+                                <div class="small">
+                                    <template v-if="p.uploaded"><i class="fa fa-check-circle me-1"></i>Sudah diunggah</template>
+                                    <template v-else-if="p.closed"><i class="fa fa-hourglass-end me-1"></i>Waktu habis</template>
+                                    <template v-else-if="p.started"><i class="fa fa-stopwatch me-1"></i>Sedang berjalan</template>
+                                    <template v-else>Belum dikerjakan</template>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+
                     <!-- Ujian Praktik berwaktu: belum mulai -->
                     <template v-if="tugas.praktik && timer.timed && !timer.started">
                         <div class="alert alert-info border-0 shadow">
                             <i class="fa fa-stopwatch me-2"></i>
-                            Ujian Praktik ini berdurasi <strong>{{ timer.durasi }} menit</strong>. Waktu mulai berjalan saat Anda menekan
-                            <strong>Mulai Ujian Praktik</strong> dan tidak dapat dihentikan atau diulang. Panduan dan template tampil setelah Anda mulai.
+                            {{ parts.length > 1 ? `Bagian ${bagian}` : 'Ujian Praktik ini' }} berdurasi <strong>{{ timer.durasi }} menit</strong>. Waktu mulai berjalan saat Anda menekan
+                            <strong>{{ parts.length > 1 ? `Mulai Bagian ${bagian}` : 'Mulai Ujian Praktik' }}</strong> dan tidak dapat dihentikan atau diulang. Panduan dan template tampil setelah Anda mulai.
                             Unggah hasil sebelum waktu habis; setelah itu unggahan ditutup.
                         </div>
                         <button type="button" class="btn btn-primary border-0 shadow" :disabled="starting" @click="start">
-                            <i class="fa fa-play me-2"></i>{{ starting ? 'Memulai...' : 'Mulai Ujian Praktik' }}
+                            <i class="fa fa-play me-2"></i>{{ starting ? 'Memulai...' : (parts.length > 1 ? `Mulai Bagian ${bagian}` : 'Mulai Ujian Praktik') }}
                         </button>
                         <Link href="/student/dashboard" class="btn btn-secondary border-0 shadow ms-2">Kembali ke Dashboard</Link>
                     </template>
@@ -37,14 +57,18 @@
                     <template v-else-if="tugas.praktik && timer.timed && expired">
                         <div class="alert alert-warning border-0 shadow">
                             <i class="fa fa-hourglass-end me-2"></i>
-                            Waktu Ujian Praktik sudah habis. Hasil tidak dapat diunggah lagi.
+                            Waktu {{ parts.length > 1 ? `bagian ${bagian}` : 'Ujian Praktik' }} sudah habis. Hasil tidak dapat diunggah lagi.
                             <span v-if="!uploadedFile">Anda tidak mengunggah hasil.</span>
-                            Anda tetap dapat mengerjakan ujian lain pada sesi ini.
+                            <template v-if="nextPart">Lanjutkan ke bagian {{ nextPart.bagian }}.</template>
+                            <template v-else>Anda tetap dapat mengerjakan ujian lain pada sesi ini.</template>
                         </div>
                         <div v-if="uploadedFile" class="alert alert-success border-0 shadow">
                             <i class="fa fa-check-circle me-2"></i>
                             Hasil yang diunggah: <strong>{{ uploadedFile.name }}</strong>
                         </div>
+                        <Link v-if="nextPart" :href="`/student/tugas/${exam_session.id}?bagian=${nextPart.bagian}`" class="btn btn-primary border-0 shadow me-2">
+                            Lanjut ke Bagian {{ nextPart.bagian }}<i class="fa fa-arrow-right ms-2"></i>
+                        </Link>
                         <Link href="/student/dashboard" class="btn btn-secondary border-0 shadow">Kembali ke Dashboard</Link>
                     </template>
 
@@ -57,7 +81,9 @@
 
                         <div class="alert alert-info border-0 shadow">
                             <i class="fa fa-info-circle me-2"></i>
-                            Baca panduan, unduh template, isi sesuai panduan, lalu unggah kembali file yang sudah diisi. Anda wajib mengunggah hasilnya sebelum dapat mengerjakan ujian pada sesi ini.
+                            Baca panduan, unduh template, isi sesuai panduan, lalu unggah kembali file yang sudah diisi.
+                            <template v-if="parts.length > 1">Setiap bagian wajib diunggah (atau waktunya habis) sebelum Anda dapat mengerjakan ujian lain pada sesi ini.</template>
+                            <template v-else>Anda wajib mengunggah hasilnya sebelum dapat mengerjakan ujian pada sesi ini.</template>
                         </div>
 
                         <div v-if="tugas.panduan" class="border rounded p-3 mb-3">
@@ -66,7 +92,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <a v-if="tugas.template_name" :href="`/student/tugas/${exam_session.id}/template`"
+                            <a v-if="tugas.template_name" :href="`/student/tugas/${exam_session.id}/template${bagianQuery}`"
                                 class="btn btn-primary border-0 shadow">
                                 <i class="fa fa-download me-2"></i>Unduh Template
                             </a>
@@ -76,7 +102,7 @@
                             </div>
                         </div>
 
-                        <h6 class="fw-bold">Unggah hasil ujian praktik</h6>
+                        <h6 class="fw-bold">Unggah hasil ujian praktik<span v-if="parts.length > 1"> — bagian {{ bagian }}</span></h6>
                     </template>
                     <div v-else class="alert alert-info border-0 shadow">
                         <i class="fa fa-info-circle me-2"></i>
@@ -106,6 +132,9 @@
                         <button type="submit" class="btn btn-success border-0 shadow" :disabled="!selectedFile || uploading">
                             {{ uploading ? 'Mengunggah...' : (uploadedFile ? 'Ganti Tugas' : 'Unggah Tugas') }}
                         </button>
+                        <Link v-if="uploadedFile && nextPart" :href="`/student/tugas/${exam_session.id}?bagian=${nextPart.bagian}`" class="btn btn-primary border-0 shadow ms-2">
+                            Lanjut ke Bagian {{ nextPart.bagian }}<i class="fa fa-arrow-right ms-2"></i>
+                        </Link>
                         <Link href="/student/dashboard" class="btn btn-secondary border-0 shadow ms-2">Kembali ke Dashboard</Link>
                     </form>
                     </template>
@@ -149,6 +178,10 @@
             tugas:         { type: Object, default: () => ({ praktik: false, label: 'Tugas' }) },
             // Ujian Praktik berwaktu: { timed, durasi, started, expired, remaining_seconds } (dihitung server)
             timer:         { type: Object, default: () => ({ timed: false }) },
+            // Bagian yang sedang dibuka, dan daftar bagian bila Ujian Praktik lebih dari satu bagian
+            // ([{ bagian, title, durasi, started, uploaded, closed, done }])
+            bagian:        { type: Number, default: 1 },
+            parts:         { type: Array, default: () => [] },
         },
 
         data() {
@@ -167,6 +200,13 @@
         },
 
         computed: {
+            bagianQuery() {
+                return this.bagian > 1 ? `?bagian=${this.bagian}` : '';
+            },
+            // Bagian berikutnya yang belum selesai (untuk tombol "Lanjut ke Bagian N")
+            nextPart() {
+                return this.parts.find((p) => p.bagian > this.bagian && !p.done) ?? null;
+            },
             showUploadForm() {
                 if (!this.tugas.praktik || !this.timer.timed) return true;
                 return this.timer.started && !this.expired;
@@ -203,7 +243,7 @@
             start() {
                 if (!confirm(`Mulai Ujian Praktik sekarang? Waktu ${this.timer.durasi} menit langsung berjalan dan tidak dapat diulang.`)) return;
                 this.starting = true;
-                router.post(`/student/tugas/${this.exam_session.id}/mulai`, {}, {
+                router.post(`/student/tugas/${this.exam_session.id}/mulai`, { bagian: this.bagian }, {
                     onFinish: () => { this.starting = false; },
                 });
             },
@@ -217,6 +257,7 @@
 
                 const formData = new FormData();
                 formData.append('exam_session_id', this.exam_session.id);
+                formData.append('bagian', this.bagian);
                 formData.append('file', this.selectedFile);
 
                 this.uploading = true;
@@ -247,5 +288,5 @@
 </script>
 
 <style>
-
+    .part-tab { min-width: 180px; max-width: 280px; }
 </style>
