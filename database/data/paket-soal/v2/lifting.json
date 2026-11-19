@@ -4,7 +4,7 @@
  "nama": "Lifting Engineer for Heavy & Critical Lifting",
  "sumber": {
   "pg": "FR.IA.05 Pilihan Ganda Lifting Engineer for Heavy & Crirical Lifting - R1.pdf",
-  "praktik": "FR.IA.04 Praktek Lifting Engineer for Heavy & Critical Lifting - Calculation dan Gambar.pdf + LAMPIRAN SOAL HEAVY LIFTING"
+  "praktik": "FR.IA.04 Praktek Lifting Engineer for Heavy & Critical Lifting - Calculation dan Gambar.pdf + LAMPIRAN SOAL HEAVY LIFTING (dipecah: bagian 1 Calculation, bagian 2 Gambar)"
  },
  "pilihan_ganda": [
   {
@@ -1650,10 +1650,20 @@
   }
  ],
  "esai": null,
- "praktik": {
-  "template": "lifting.zip",
-  "template_name": "Ujian Praktik V2 - Lifting Engineer.zip",
-  "duration": 0,
-  "panduan": "A. PRAKTIK PENGHITUNGAN (CALCULATION)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nTUGAS\n\nCALCULATION - C\n1. Tentukan Load Factor untuk kondisi Tail Lifting seperti ini\n2. Hitung Maximal Dynamic Sling Load untuk Main & Crane dari beban ini\n3. Hitung Maximum Sling Tension pada Main Crane & Tail Crane\n4. Pilih Sling & Shackle yang tepat untuk Main Crane & Tail Crane\n5. Buat Tabel Lifting Gear yang digunakan\n6. Hitung Dynamic Hook Load (DHL) untuk Main Crane & Tail Crane\n7. Tentukan Working radius yang aman untuk Main & Tail Crane pada operasi ini\n8. Hitung Crane utilization & SF & GBP Cdari crane ini\n9. Tentukan lifting Sequence dari mulai Site Preparation, Setting Crane, Lifting Execution, Dismantling Crane dan Site Clearance\n10. Buatlah dokumen Lifting Method untuk operasi lifting ini\n11. Buatlah Lifting Operational Procedur (template disediakan)\n12. Buatlah JSA untuk operasi ini\n\nB. PRAKTIK GAMBAR\nBuatlah gambar lifting plan untuk operasi tailing lifting ini, yang menggandung informasi :\n1. Working radius aman untuk Main dan Tail Crane untuk operasi ini\n2. Ilustrasi posisi load saat 0,30,60 dan 90 derajat dan setelah slewing, dan placed beban\n3. Rigging Arraggement dan tabelnya (halaman berbeda)\n4. Tabel crane utilization\n5. Load Chart Crane\n6. Catatan/Note penting\n7. Kepada/Kop gambar yang lengkap\n\nGambar posisi Main Crane & Tail Crane, data crane, template Lifting Operation Plan, JSA, Lifting Method, dan bahan gambar ada di template (file ZIP). Kumpulkan seluruh hasil (perhitungan, Lifting Method, LOP, JSA, gambar lifting plan) dalam satu file ZIP, lalu unggah (maks. 20 MB)."
- }
+ "praktik": [
+  {
+   "nama": "Calculation",
+   "template": "lifting-calculation.zip",
+   "template_name": "Ujian Praktik V2 - Lifting Calculation.zip",
+   "duration": 300,
+   "panduan": "A. PRAKTIK PENGHITUNGAN (CALCULATION)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nTUGAS\n\nCALCULATION - C\n1. Tentukan Load Factor untuk kondisi Tail Lifting seperti ini\n2. Hitung Maximal Dynamic Sling Load untuk Main & Crane dari beban ini\n3. Hitung Maximum Sling Tension pada Main Crane & Tail Crane\n4. Pilih Sling & Shackle yang tepat untuk Main Crane & Tail Crane\n5. Buat Tabel Lifting Gear yang digunakan\n6. Hitung Dynamic Hook Load (DHL) untuk Main Crane & Tail Crane\n7. Tentukan Working radius yang aman untuk Main & Tail Crane pada operasi ini\n8. Hitung Crane utilization & SF & GBP Cdari crane ini\n9. Tentukan lifting Sequence dari mulai Site Preparation, Setting Crane, Lifting Execution, Dismantling Crane dan Site Clearance\n10. Buatlah dokumen Lifting Method untuk operasi lifting ini\n11. Buatlah Lifting Operational Procedur (template disediakan)\n12. Buatlah JSA untuk operasi ini\n\nWaktu 300 menit · bobot nilai 50%.\nGambar posisi Main Crane & Tail Crane ada di file soal (PDF). Data crane (IHI CCH 1500, KATO SL6000), template perhitungan (Excel), template Lifting Operation Plan, Lifting Method, dan JSA ada di template (file ZIP). Kumpulkan seluruh hasil (perhitungan, Lifting Method, LOP, JSA) dalam satu file ZIP, lalu unggah (maks. 20 MB)."
+  },
+  {
+   "nama": "Gambar",
+   "template": "lifting-gambar.zip",
+   "template_name": "Ujian Praktik V2 - Lifting Gambar.zip",
+   "duration": 180,
+   "panduan": "SKENARIO (sama dengan Praktik Calculation)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nB. PRAKTIK GAMBAR\nBuatlah gambar lifting plan untuk operasi tailing lifting ini, yang menggandung informasi :\n1. Working radius aman untuk Main dan Tail Crane untuk operasi ini\n2. Ilustrasi posisi load saat 0,30,60 dan 90 derajat dan setelah slewing, dan placed beban\n3. Rigging Arraggement dan tabelnya (halaman berbeda)\n4. Tabel crane utilization\n5. Load Chart Crane\n6. Catatan/Note penting\n7. Kepada/Kop gambar yang lengkap\n\nWaktu 180 menit · bobot nilai 30%.\nGunakan hasil perhitungan Anda dari Praktik Calculation. Gambar posisi crane, bahan gambar (DWG), Lifting Sequence, dan data crane ada di template (file ZIP). Simpan gambar lifting plan (PDF dan/atau DWG) dalam satu file ZIP, lalu unggah (maks. 20 MB)."
+  }
+ ]
 }

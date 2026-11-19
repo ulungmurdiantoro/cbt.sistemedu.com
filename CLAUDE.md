@@ -342,6 +342,14 @@ FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda 
 - Template Ujian Praktik (Lifting ±34 MB, di atas batas upload) **tidak** ada di git: dibaca dari
   `storage/app/paket-soal/{versi}/templates/` lalu disalin ke disk private. Template belum ada → ujian praktik tetap
   dibuat; jalankan ulang setelah folder diunggah untuk melengkapinya. Bagian praktik dilewati bila migrasi Ujian Praktik belum ada.
+- Ubah materi praktik di paket (panduan/durasi di JSON, file template) → `--perbarui-praktik` menyamakan ujian praktik
+  yang sudah terpasang (template lama dihapus), **hanya** bila belum dipakai peserta (`student_praktik_attempts` /
+  `student_tasks` di sesi yang memakainya); yang sudah dipakai dilewati — revisinya jadi versi paket baru.
+  Corporate Legal V2 praktik = Studi Kasus 2 (Surat Kuasa Khusus) saja (durasi ujian terbatas). Durasi praktik V2 = 120 menit,
+  kecuali Lifting: `praktik` di JSON = **daftar bagian** (`nama` wajib) → bagian 1 Calculation 300 mnt (kode lama
+  `exms-v2-lifting-praktik`, judul "… - Ujian Praktik V2 - Calculation"), bagian 2 Gambar 180 mnt (`exms-v2-lifting-praktik-2`).
+  Template `lifting-calculation.zip` & `lifting-gambar.zip`. `--perbarui-praktik` juga menyamakan judul, jadi ujian Lifting
+  gabungan yang sudah terpasang berubah jadi bagian 1 dan bagian 2 dibuat baru.
 - Data rusak (kunci di luar opsi, gambar hilang, dll.) → perintah gagal tanpa memasang apa pun.
 
 ---

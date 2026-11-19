@@ -47,7 +47,7 @@ class PaketSoalTest extends TestCase
 
     private function templateFiles(): void
     {
-        foreach (['lifting.zip', 'hse.docx', 'legal.docx', 'esg.zip'] as $f) {
+        foreach (['lifting-calculation.zip', 'lifting-gambar.zip', 'hse.docx', 'legal.docx', 'esg.zip'] as $f) {
             File::put("{$this->templates}/{$f}", "isi {$f}");
         }
     }
@@ -105,9 +105,22 @@ class PaketSoalTest extends TestCase
         $chart = '/storage/paket-soal/v2/lifting/lifting-q094-1.png';
         $this->assertSame(2, $lifting->questions()->where('question', 'like', "%{$chart}%")->count());
 
-        // Durasi praktik ESG dari lembar kerja (120 menit); lainnya tanpa batas waktu
-        $this->assertSame(120, (int) Exam::where('exams_code', 'exms-v2-esg-praktik')->value('duration'));
-        $this->assertSame(0, (int) Exam::where('exams_code', 'exms-v2-lifting-praktik')->value('duration'));
+        // Durasi praktik 120 menit, kecuali Lifting: dua bagian — Calculation 300 menit, Gambar 180 menit
+        foreach (['esg', 'hse', 'legal'] as $key) {
+            $this->assertSame(120, (int) Exam::where('exams_code', "exms-v2-{$key}-praktik")->value('duration'), $key);
+            $this->assertNull(Exam::where('exams_code', "exms-v2-{$key}-praktik-2")->first());
+        }
+        $calc = Exam::where('exams_code', 'exms-v2-lifting-praktik')->firstOrFail();
+        $gambar = Exam::where('exams_code', 'exms-v2-lifting-praktik-2')->firstOrFail();
+        $this->assertSame([300, 180], [(int) $calc->duration, (int) $gambar->duration]);
+        $this->assertStringEndsWith('Ujian Praktik V2 - Calculation', $calc->title);
+        $this->assertStringEndsWith('Ujian Praktik V2 - Gambar', $gambar->title);
+        $this->assertSame('Ujian Praktik V2 - Lifting Gambar.zip', $gambar->praktik_template_name);
+        $this->assertSame('isi lifting-gambar.zip', Storage::disk('private')->get($gambar->praktik_template_path));
+        $this->assertStringContainsString('CALCULATION - C', $calc->praktik_panduan);
+        $this->assertStringNotContainsString('B. PRAKTIK GAMBAR', $calc->praktik_panduan);
+        $this->assertStringContainsString('B. PRAKTIK GAMBAR', $gambar->praktik_panduan);
+        $this->assertStringNotContainsString('CALCULATION - C', $gambar->praktik_panduan);
     }
 
     public function test_pengaturan_mencontoh_ujian_sejenis_terakhir_di_kelas(): void
@@ -146,6 +159,110 @@ class PaketSoalTest extends TestCase
         $path = Exam::where('exams_code', 'exms-v2-hse-praktik')->value('praktik_template_path');
         $this->assertNotNull($path);
         Storage::disk('private')->assertExists($path);
+    }
+
+    public function test_corporate_legal_praktik_hanya_studi_kasus_2(): void
+    {
+        $panduan = json_decode(File::get(database_path('data/paket-soal/v2/legal.json')), true)['praktik']['panduan'];
+
+        $this->assertStringStartsWith('Studi Kasus 2', $panduan);
+        $this->assertStringContainsString('SURAT KUASA KHUSUS', $panduan);
+        $this->assertStringNotContainsString('Studi Kasus 1', $panduan);
+        $this->assertStringNotContainsString('LEGAL OPINION', $panduan);
+    }
+
+    /** Simulasikan Ujian Praktik Corporate Legal versi lama (dua studi kasus) yang sudah terpasang. */
+    private function legalPraktikLama(): Exam
+    {
+        $this->classrooms();
+        $this->templateFiles();
+        $this->pasang(['--skema' => ['legal']])->assertSuccessful();
+
+        $exam = Exam::where('exams_code', 'exms-v2-legal-praktik')->firstOrFail();
+        $exam->update(['praktik_panduan' => "Studi Kasus 1\nLEGAL OPINION\n\nStudi Kasus 2\nSURAT KUASA"]);
+        File::put("{$this->templates}/legal.docx", 'template baru: studi kasus 2 saja');
+
+        return $exam->fresh();
+    }
+
+    public function test_perbarui_praktik_menyamakan_ujian_yang_belum_dipakai(): void
+    {
+        $exam = $this->legalPraktikLama();
+        $oldPath = $exam->praktik_template_path;
+        $paket = json_decode(File::get(database_path('data/paket-soal/v2/legal.json')), true)['praktik'];
+
+        // Tanpa opsi: hanya diberi tahu, tidak diubah
+        $this->pasang(['--skema' => ['legal']])->expectsOutputToContain('--perbarui-praktik')->assertSuccessful();
+        $this->assertSame($oldPath, $exam->fresh()->praktik_template_path);
+        $this->assertStringContainsString('LEGAL OPINION', $exam->fresh()->praktik_panduan);
+
+        // Dry run tidak menyimpan
+        $this->pasang(['--skema' => ['legal'], '--perbarui-praktik' => true, '--dry-run' => true])
+            ->expectsOutputToContain('diperbarui: panduan, template')->assertSuccessful();
+        $this->assertSame($oldPath, $exam->fresh()->praktik_template_path);
+
+        $this->pasang(['--skema' => ['legal'], '--perbarui-praktik' => true])->assertSuccessful();
+
+        $exam->refresh();
+        $this->assertSame($paket['panduan'], $exam->praktik_panduan);
+        $this->assertNotSame($oldPath, $exam->praktik_template_path);
+        $this->assertSame('template baru: studi kasus 2 saja', Storage::disk('private')->get($exam->praktik_template_path));
+        Storage::disk('private')->assertMissing($oldPath);
+        $this->assertSame(1, Exam::where('exams_code', 'exms-v2-legal-praktik')->count());
+
+        // Dijalankan lagi: sudah sama
+        $this->pasang(['--skema' => ['legal'], '--perbarui-praktik' => true])
+            ->expectsOutputToContain('sudah sama dengan paket')->assertSuccessful();
+        $this->assertSame($exam->praktik_template_path, $exam->fresh()->praktik_template_path);
+    }
+
+    public function test_perbarui_praktik_lifting_lama_jadi_dua_bagian(): void
+    {
+        $this->classrooms();
+        $this->templateFiles();
+        $this->pasang(['--skema' => ['lifting']])->assertSuccessful();
+
+        // Seperti yang sudah terpasang di server: satu ujian praktik gabungan tanpa batas waktu
+        $calc = Exam::where('exams_code', 'exms-v2-lifting-praktik')->firstOrFail();
+        Exam::where('exams_code', 'exms-v2-lifting-praktik-2')->delete();
+        $kelas = \App\Models\Classroom::where('classrooms_code', 'LHC')->value('title');
+        $calc->update(['title' => "{$kelas} - Ujian Praktik V2", 'duration' => 0, 'praktik_panduan' => 'A. ... B. PRAKTIK GAMBAR ...']);
+
+        $this->pasang(['--skema' => ['lifting'], '--perbarui-praktik' => true, '--dry-run' => true])
+            ->expectsOutputToContain('diperbarui: judul, panduan, durasi')
+            ->assertSuccessful();
+
+        $this->pasang(['--skema' => ['lifting'], '--perbarui-praktik' => true])->assertSuccessful();
+
+        $calc->refresh();
+        $this->assertSame("{$kelas} - Ujian Praktik V2 - Calculation", $calc->title);
+        $this->assertSame(300, (int) $calc->duration);
+        $gambar = Exam::where('exams_code', 'exms-v2-lifting-praktik-2')->firstOrFail();
+        $this->assertSame(180, (int) $gambar->duration);
+        $this->assertSame(2, Exam::where('exams_code', 'like', 'exms-v2-lifting-praktik%')->count());
+    }
+
+    public function test_perbarui_praktik_tidak_mengubah_ujian_yang_sudah_dipakai(): void
+    {
+        $exam = $this->legalPraktikLama();
+        $oldPath = $exam->praktik_template_path;
+
+        $classroom = \App\Models\Classroom::where('classrooms_code', 'CLO')->first();
+        $session = $this->makeSession(Exam::where('exams_code', 'exms-v2-legal-pg')->first());
+        $session->update(['exam_id_praktik' => $exam->id]);
+        \App\Models\StudentTask::create([
+            'student_id'      => $this->makeStudent($classroom)->id,
+            'exam_session_id' => $session->id,
+            'file_path'       => 'tugas/hasil.docx',
+        ]);
+
+        $this->pasang(['--skema' => ['legal'], '--perbarui-praktik' => true])
+            ->expectsOutputToContain('sudah dipakai 1 peserta')->assertSuccessful();
+
+        $exam->refresh();
+        $this->assertStringContainsString('LEGAL OPINION', $exam->praktik_panduan);
+        $this->assertSame($oldPath, $exam->praktik_template_path);
+        Storage::disk('private')->assertExists($oldPath);
     }
 
     public function test_skema_tanpa_kelas_dilewati(): void

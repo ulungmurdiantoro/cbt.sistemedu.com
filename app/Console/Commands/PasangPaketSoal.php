@@ -5,7 +5,10 @@ namespace App\Console\Commands;
 use App\Models\Classroom;
 use App\Models\Essay;
 use App\Models\Exam;
+use App\Models\ExamSession;
 use App\Models\Question;
+use App\Models\StudentPraktikAttempt;
+use App\Models\StudentTask;
 use App\Support\AnswerFile;
 use Illuminate\Console\Command;
 use Illuminate\Http\File;
@@ -24,12 +27,19 @@ use Illuminate\Support\Str;
  *
  * Template Ujian Praktik (bisa > 20 MB, jadi tidak lewat upload) dibaca dari folder --templates
  * (default storage/app/paket-soal/{versi}/templates) lalu disalin ke disk private.
+ *
+ * --perbarui-praktik: Ujian Praktik yang sudah terpasang disamakan dengan paket (panduan, durasi, template) —
+ * hanya selama belum dipakai peserta (belum ada yang mulai / mengunggah di sesi yang memakainya). Yang sudah
+ * dipakai tidak diubah: ujian = versi soal, jadi revisi untuk sesi berikutnya dibuat sebagai versi paket baru.
  */
 class PasangPaketSoal extends Command
 {
     private const TYPE_PG = 'Pilihan Ganda';
 
     private const TYPE_ESAI = 'Essay';
+
+    /** Sesi menampung dua bagian Ujian Praktik (exam_id_praktik, exam_id_praktik_2). */
+    private const MAX_PRAKTIK_PARTS = 2;
 
     /** Bila belum ada ujian sejenis di kelas itu untuk dicontoh pengaturannya. */
     private const DEFAULTS = [
@@ -41,6 +51,7 @@ class PasangPaketSoal extends Command
         {versi=v2 : Folder paket di database/data/paket-soal}
         {--skema=* : Hanya skema tertentu (nama file tanpa .json, mis. lifting)}
         {--templates= : Folder template Ujian Praktik (default storage/app/paket-soal/{versi}/templates)}
+        {--perbarui-praktik : Samakan Ujian Praktik yang sudah terpasang dengan paket (selama belum dipakai peserta)}
         {--dry-run : Periksa data dan tampilkan rencana tanpa menyimpan}
         {--force : Jalankan tanpa konfirmasi}';
 
@@ -111,6 +122,9 @@ class PasangPaketSoal extends Command
         $this->newLine();
         $this->info('Selesai. Pilih ujian ' . $this->label() . ' di Sesi Ujian (Ujian PG / Esai / Ujian Praktik); sesi lama tidak berubah.');
         $this->line('Skema tanpa ujian esai: kosongkan Ujian Esai di sesi — bobot esai otomatis dibagi ke PG & wawancara.');
+        if (collect($paket)->contains(fn ($data) => count($this->praktikParts($data)) > 1)) {
+            $this->line('Ujian Praktik dua bagian: pilih bagian 1 di "Ujian Praktik" dan bagian 2 di "Ujian Praktik Bagian 2" pada sesi.');
+        }
 
         return self::SUCCESS;
     }
@@ -191,17 +205,25 @@ class PasangPaketSoal extends Command
             }
         }
 
-        if ($praktik = $data['praktik'] ?? null) {
+        $parts = $this->praktikParts($data);
+        if (count($parts) > self::MAX_PRAKTIK_PARTS) {
+            $problems[] = 'praktik: maksimal ' . self::MAX_PRAKTIK_PARTS . ' bagian per sesi';
+        }
+        foreach ($parts as $bagian => $praktik) {
+            $label = count($parts) > 1 ? "praktik bagian {$bagian}" : 'praktik';
+            if (count($parts) > 1 && trim($praktik['nama'] ?? '') === '') {
+                $problems[] = "{$label}: nama bagian kosong";
+            }
             if (trim($praktik['panduan'] ?? '') === '' || mb_strlen($praktik['panduan']) > 20000) {
-                $problems[] = 'praktik: panduan kosong atau lebih dari 20.000 karakter';
+                $problems[] = "{$label}: panduan kosong atau lebih dari 20.000 karakter";
             }
             $ext = strtolower(pathinfo($praktik['template_name'] ?? '', PATHINFO_EXTENSION));
             if (!in_array($ext, AnswerFile::EXTENSIONS, true)) {
-                $problems[] = "praktik: tipe template .{$ext} tidak diizinkan";
+                $problems[] = "{$label}: tipe template .{$ext} tidak diizinkan";
             }
             $duration = $praktik['duration'] ?? null;
             if (!is_int($duration) || $duration < 0 || $duration > 1440) {
-                $problems[] = 'praktik: durasi harus 0–1440 menit';
+                $problems[] = "{$label}: durasi harus 0–1440 menit";
             }
         }
 
@@ -221,13 +243,17 @@ class PasangPaketSoal extends Command
             ? count($data['esai']) . ' soal → ' . $this->status($classroom, $key, 'esai', self::TYPE_ESAI)
             : '— (tanpa esai)';
 
-        $praktikCell = '—';
-        if ($praktik = $data['praktik'] ?? null) {
+        $parts = $this->praktikParts($data);
+        $lines = [];
+        foreach ($parts as $bagian => $praktik) {
             $file = $this->templateFile($praktik);
             $tpl = $file ? 'template ' . round(filesize($file) / 1048576, 1) . ' MB' : 'TEMPLATE BELUM ADA';
             $durasi = $praktik['duration'] ? "{$praktik['duration']} mnt" : 'tanpa batas waktu';
-            $praktikCell = "{$tpl}, {$durasi} → " . ($this->praktikReady() ? $this->status($classroom, $key, 'praktik', null) : 'dilewati');
+            $prefix = count($parts) > 1 ? "{$bagian}. {$praktik['nama']}: " : '';
+            $lines[] = "{$prefix}{$tpl}, {$durasi} → "
+                . ($this->praktikReady() ? $this->praktikStatus($classroom, $key, $praktik, $bagian, count($parts)) : 'dilewati');
         }
+        $praktikCell = $lines ? implode("\n", $lines) : '—';
 
         return [$key, $kelas, $pgCell, $esaiCell, $praktikCell];
     }
@@ -240,10 +266,6 @@ class PasangPaketSoal extends Command
 
         $exam = Exam::where('exams_code', $this->code($key, $part))->first();
         if ($exam) {
-            if ($part === 'praktik') {
-                return $exam->praktik_template_path ? 'sudah ada' : 'sudah ada, template dilengkapi';
-            }
-
             $n = $part === 'pg' ? $exam->questions()->count() : $exam->essays()->count();
 
             return $n ? "sudah ada ({$n} soal), dilewati" : 'sudah ada (kosong), soal diisi';
@@ -256,6 +278,72 @@ class PasangPaketSoal extends Command
         [$settings, $from] = $this->settings($classroom, $type);
 
         return "baru ({$settings['duration']} mnt, acak soal {$settings['random_question']}; {$from})";
+    }
+
+    private function praktikStatus(?Classroom $classroom, string $key, array $praktik, int $bagian, int $count): string
+    {
+        if (!$classroom) {
+            return 'dilewati';
+        }
+
+        $exam = Exam::where('exams_code', $this->praktikCode($key, $bagian))->first();
+        if (!$exam) {
+            return 'baru';
+        }
+
+        $changes = $this->praktikChanges($exam, $praktik, $this->praktikTitle($classroom, $praktik, $count));
+        if (!$changes) {
+            return 'sudah ada, sama dengan paket';
+        }
+
+        $list = implode(', ', $changes);
+        if (!$this->option('perbarui-praktik')) {
+            return $exam->praktik_template_path
+                ? "sudah ada, beda dengan paket ({$list}) — pakai --perbarui-praktik"
+                : 'sudah ada, template dilengkapi';
+        }
+
+        $used = $this->praktikUsedBy($exam);
+
+        return $used ? "sudah dipakai {$used} peserta — tidak diperbarui" : "diperbarui: {$list}";
+    }
+
+    /** Bagian Ujian Praktik terpasang yang berbeda dengan paket. Template yang file-nya belum diunggah tidak dibandingkan. */
+    private function praktikChanges(Exam $exam, array $praktik, string $title): array
+    {
+        $changes = [];
+        if ($exam->title !== $title) {
+            $changes[] = 'judul';
+        }
+        if (trim((string) $exam->praktik_panduan) !== trim($praktik['panduan'])) {
+            $changes[] = 'panduan';
+        }
+        if ((int) $exam->duration !== (int) $praktik['duration']) {
+            $changes[] = 'durasi';
+        }
+
+        $file = $this->templateFile($praktik);
+        $disk = Storage::disk(AnswerFile::DISK);
+        if (!$exam->praktik_template_path || !$disk->exists($exam->praktik_template_path)) {
+            $changes[] = 'template';
+        } elseif ($file && $disk->checksum($exam->praktik_template_path) !== md5_file($file)) {
+            $changes[] = 'template';
+        }
+
+        return $changes;
+    }
+
+    /** Peserta yang sudah memulai / mengunggah Ujian Praktik ini (di sesi mana pun yang memakainya). */
+    private function praktikUsedBy(Exam $exam): int
+    {
+        $started = StudentPraktikAttempt::where('exam_id', $exam->id)->pluck('student_id');
+        $uploaded = StudentTask::where(function ($q) use ($exam) {
+            $q->where('bagian', 1)->whereIn('exam_session_id', ExamSession::where('exam_id_praktik', $exam->id)->select('id'));
+            $q->orWhere(fn ($q) => $q->where('bagian', 2)
+                ->whereIn('exam_session_id', ExamSession::where('exam_id_praktik_2', $exam->id)->select('id')));
+        })->pluck('student_id');
+
+        return $started->merge($uploaded)->unique()->count();
     }
 
     private function install(string $key, array $data): void
@@ -308,8 +396,11 @@ class PasangPaketSoal extends Command
                 });
         }
 
-        if (!empty($data['praktik']) && $this->praktikReady()) {
-            $this->installPraktik($key, $classroom, $data['praktik']);
+        $parts = $this->praktikParts($data);
+        if ($parts && $this->praktikReady()) {
+            foreach ($parts as $bagian => $praktik) {
+                $this->installPraktik($key, $classroom, $praktik, $bagian, count($parts));
+            }
         }
     }
 
@@ -342,10 +433,10 @@ class PasangPaketSoal extends Command
         });
     }
 
-    private function installPraktik(string $key, Classroom $classroom, array $praktik): void
+    private function installPraktik(string $key, Classroom $classroom, array $praktik, int $bagian, int $count): void
     {
-        $code = $this->code($key, 'praktik');
-        $title = "{$classroom->title} - Ujian Praktik {$this->label()}";
+        $code = $this->praktikCode($key, $bagian);
+        $title = $this->praktikTitle($classroom, $praktik, $count);
         $exam = Exam::where('exams_code', $code)->first();
 
         if (!$exam) {
@@ -355,13 +446,18 @@ class PasangPaketSoal extends Command
                 'type'            => Exam::TYPE_PRAKTIK,
                 'classroom_id'    => $classroom->id,
                 'duration'        => $praktik['duration'],
-                'description'     => 'Paket Soal ' . $this->label() . ' — FR.IA.04 Ujian Praktik.',
+                'description'     => 'Paket Soal ' . $this->label() . ' — FR.IA.04 Ujian Praktik'
+                    . ($count > 1 ? " bagian {$bagian} ({$praktik['nama']})" : '') . '.',
                 'random_question' => 'N',
                 'random_answer'   => 'N',
                 'show_answer'     => 'N',
                 'praktik_panduan' => $praktik['panduan'],
             ]);
             $this->info("{$key}: {$title} dibuat (ujian #{$exam->id}).");
+        } elseif ($this->option('perbarui-praktik')) {
+            $this->updatePraktik($key, $exam, $praktik, $title);
+
+            return;
         }
 
         if ($exam->praktik_template_path) {
@@ -370,6 +466,39 @@ class PasangPaketSoal extends Command
             return;
         }
 
+        $this->storeTemplate($key, $exam, $praktik);
+    }
+
+    /** Samakan Ujian Praktik terpasang dengan paket — hanya bila belum dipakai peserta. */
+    private function updatePraktik(string $key, Exam $exam, array $praktik, string $title): void
+    {
+        $changes = $this->praktikChanges($exam, $praktik, $title);
+        if (!$changes) {
+            $this->line("{$key}: {$exam->title} sudah sama dengan paket — dilewati.");
+
+            return;
+        }
+
+        if ($used = $this->praktikUsedBy($exam)) {
+            $this->warn("{$key}: {$exam->title} sudah dipakai {$used} peserta — tidak diperbarui. Revisi untuk sesi berikutnya dibuat sebagai versi paket baru.");
+
+            return;
+        }
+
+        $exam->title = $title;
+        $exam->praktik_panduan = $praktik['panduan'];
+        $exam->duration = $praktik['duration'];
+        $exam->save();
+        $this->info("{$key}: {$exam->title} — judul, panduan & durasi disamakan dengan paket.");
+
+        if (in_array('template', $changes, true)) {
+            $this->storeTemplate($key, $exam, $praktik);
+        }
+    }
+
+    /** Salin template paket ke disk private; template lama (bila ada) dihapus setelah yang baru tersimpan. */
+    private function storeTemplate(string $key, Exam $exam, array $praktik): void
+    {
         $file = $this->templateFile($praktik);
         if (!$file) {
             $this->warn("{$key}: template {$praktik['template']} tidak ada di {$this->templates} — unggah folder template lalu jalankan ulang perintah ini.");
@@ -380,11 +509,17 @@ class PasangPaketSoal extends Command
         $ext = strtolower(pathinfo($praktik['template_name'], PATHINFO_EXTENSION));
         $name = (Str::slug(pathinfo($praktik['template_name'], PATHINFO_FILENAME)) ?: 'template')
             . '-' . now()->format('YmdHis') . '-' . Str::random(6) . ".{$ext}";
-        $path = Storage::disk(AnswerFile::DISK)->putFileAs("praktik_templates/{$exam->id}", new File($file), $name);
+        $disk = Storage::disk(AnswerFile::DISK);
+        $path = $disk->putFileAs("praktik_templates/{$exam->id}", new File($file), $name);
 
+        $old = $exam->praktik_template_path;
         $exam->praktik_template_path = $path;
         $exam->praktik_template_name = $praktik['template_name'];
         $exam->save();
+
+        if ($old && $old !== $path) {
+            $disk->delete($old);
+        }
         $this->info("{$key}: template {$praktik['template_name']} dipasang.");
     }
 
@@ -446,6 +581,29 @@ class PasangPaketSoal extends Command
     private function classroom(array $data): ?Classroom
     {
         return Classroom::where('classrooms_code', $data['classroom_code'])->first();
+    }
+
+    /** Bagian Ujian Praktik paket: [bagian => data]. `praktik` = satu objek, atau daftar bagian (mis. Lifting). */
+    private function praktikParts(array $data): array
+    {
+        $praktik = $data['praktik'] ?? null;
+        if (!$praktik) {
+            return [];
+        }
+        $list = array_is_list($praktik) ? $praktik : [$praktik];
+
+        return array_combine(range(1, count($list)), $list);
+    }
+
+    /** Bagian 1 memakai kode lama (exms-{versi}-{skema}-praktik) supaya ujian yang sudah terpasang ikut diperbarui. */
+    private function praktikCode(string $key, int $bagian): string
+    {
+        return $this->code($key, $bagian === 1 ? 'praktik' : "praktik-{$bagian}");
+    }
+
+    private function praktikTitle(Classroom $classroom, array $praktik, int $count): string
+    {
+        return "{$classroom->title} - Ujian Praktik {$this->label()}" . ($count > 1 ? " - {$praktik['nama']}" : '');
     }
 
     private function code(string $key, string $part): string
