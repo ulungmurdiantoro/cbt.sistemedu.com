@@ -28,11 +28,12 @@ return [
     |--------------------------------------------------------------------------
     | Kunci / Panduan Jawaban Esai di Portal Asesor
     |--------------------------------------------------------------------------
-    | Tampilan sudah dibuat (tombol "Lihat poin / kisi jawaban" per soal di panel
-    | penilaian esai), tapi sengaja dimatikan dulu. Selama false, kunci jawaban
-    | tidak dikirim ke browser asesor sama sekali.
+    | Tombol "Lihat poin / kisi jawaban" per soal di halaman penilaian esai asesor.
+    | Aktif secara bawaan; set ASESOR_SHOW_ANSWER_KEY=false untuk mematikannya —
+    | selama false, kunci jawaban tidak dikirim ke browser asesor sama sekali.
+    | Kunci tetap tidak pernah dikirim ke browser peserta (Essay::STUDENT_COLUMNS).
     */
-    'asesor_show_answer_key' => (bool) env('ASESOR_SHOW_ANSWER_KEY', false),
+    'asesor_show_answer_key' => (bool) env('ASESOR_SHOW_ANSWER_KEY', true),
 
     /*
     |--------------------------------------------------------------------------

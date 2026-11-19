@@ -198,9 +198,16 @@ kartu per soal senada detail jawaban admin (pertanyaan lalu jawaban + nilai, ata
   hanya menampilkan; server menghitung ulang dari `answer_essays.score`
   (`EssayAssessmentController::averageScore`) lalu menyimpan ke `grades.grade`
 - Simpan mengirim nilai satu peserta (POST `asesor.esai.store`, format `scores[]` tetap bisa banyak peserta)
-- Berkas Essay Migas lewat `asesor.esai.file` (hanya peserta yang ditugaskan). Kunci/panduan jawaban per soal sudah
-  ada tampilannya tapi **dimatikan** (`config('lsp.asesor_show_answer_key')`, env `ASESOR_SHOW_ANSWER_KEY`, default false —
-  selama mati tidak dikirim ke browser)
+- Berkas Essay Migas lewat `asesor.esai.file` (hanya peserta yang ditugaskan). Kunci/panduan jawaban per soal (`essays.answer`)
+  tampil lewat tombol "Lihat poin / kisi jawaban" — **aktif** secara bawaan (`config('lsp.asesor_show_answer_key')`, env
+  `ASESOR_SHOW_ANSWER_KEY`, default true; false = tidak dikirim ke browser asesor). Admin melihatnya di bank soal ujian dan
+  detail jawaban peserta. Kunci kosong/"-" tidak ditampilkan (`RichText::hasContent`)
+- Kunci soal esai yang sudah ada diperbarui dari dokumen FR.IA.06 revisi lewat
+  `php artisan kunci-esai:perbarui {data} [--exam=ID] [--dry-run]` — data di `database/data/kunci-esai/{data}.json`
+  (`classroom_code` + `esai[{question, answer}]`). Soal dicocokkan lewat teks pertanyaan (huruf/angka saja), bukan ID;
+  hanya `essays.answer` yang diubah, plus `is_essay = true` pada soal yang cocok (label "Poin / kisi jawaban", bukan
+  "Jawaban benar"; `"uraian": false` di data untuk melewati; kolom `is_essay` tidak dibuat migrasi, jadi dicek dulu).
+  Contoh: `tot-obe-rev01` (TOT OBE, 26 soal; ujian 15 memakai 10 di antaranya)
 
 ### Tampilan Penilaian Wawancara
 Tabel kriteria tetap, satu baris per peserta:

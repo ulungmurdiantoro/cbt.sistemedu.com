@@ -1,0 +1,163 @@
+{
+  "classroom_code": "ToT",
+  "nama": "Training of Trainer (ToT) Outcome Based Education (OBE)",
+  "sumber": "FR.IA.06 Pertanyaan Tertulis Esai - TOT OBE - Rev01",
+  "esai": [
+    {
+      "no": 1,
+      "elemen": "Memahami konsep pembelajaran OBE",
+      "question": "Apa yang dimaksud dengan konsep pembelajaran OBE",
+      "answer": "<p>OBE adalah sistem pendidikan yang berfokus pada pencapaian pembelajaran, di mana pendidikan tidak hanya berpusat pada materi yang harus diselesaikan namun juga <em>outcome</em>.</p><p>Outcome-Based Education (OBE) juga merupakan pendekatan yang menekankan keberlanjutan proses pembelajaran secara inovatif, interaktif, dan efektif.</p>"
+    },
+    {
+      "no": 2,
+      "elemen": "Memahami konsep pembelajaran OBE",
+      "question": "Jelaskan perbedaan pembelajaran OBE dan tradisional dari aspek kurikulum, pembelajaran dan penilaiannya",
+      "answer": "<ol><li><strong>Kurikulum</strong><ul><li>Tradisional: kurikulumnya sama dari satu generasi ke generasi berikutnya.</li><li>OBE: berdasarkan kebutuhan lulusan saat bekerja.</li></ul></li><li><strong>Proses pembelajaran</strong><ul><li>Tradisional: menyelesaikan materi berdasarkan silabus.</li><li>OBE: membantu mahasiswa mencapai <em>outcome</em> yang telah ditentukan.</li></ul></li><li><strong>Penilaian</strong><ul><li>Tradisional: berdasarkan pengetahuan yang dicapai.</li><li>OBE: berdasarkan tingkat <em>output</em> yang ditentukan.</li></ul></li></ol>"
+    },
+    {
+      "no": 3,
+      "elemen": "Menyusun desain pembelajaran OBE",
+      "question": "Jelaskan 4 hal yang penting di perhatikan dalam desain pembelajaran berbasis OBE",
+      "answer": "<ol><li>Fokus dari kurikulum Outcome Based Education (OBE)</li><li>Tahapan dalam penerapan Outcome Based Education (OBE)</li><li>Perencanaan OBE</li><li>Pelaksanaan OBE</li></ol>"
+    },
+    {
+      "no": 4,
+      "elemen": "Menyusun desain pembelajaran OBE",
+      "question": "Bagaimana desain penyusunan CPL mata kuliah yang sesuai dengan kajian mata kuliah",
+      "answer": "<p>Untuk mencapai profil lulusan yang diharapkan, program studi (prodi) menyusun kemampuan yang harus dimiliki lulusan. Capaian Pembelajaran Lulusan (<em>Learning Outcomes</em>) merupakan rumusan untuk mencapai standar kompetensi lulusan, yaitu kriteria minimal kualifikasi kemampuan lulusan yang mencakup sikap, pengetahuan, dan keterampilan.</p>"
+    },
+    {
+      "no": 5,
+      "elemen": "Menyusun pembelajaran OBE",
+      "question": "Bagaimana Menyusun CPMK yang sesuai dengan CPL Mata Kuliah",
+      "answer": "<p>CPL dijadikan landasan utama dalam memetakan mata kuliah. Pemetaan pada setiap MK yang berhubungan dengan CPL memiliki tahapan belajar yang lebih spesifik dan lebih terukur. Hal ini juga memudahkan penentuan capaian pembelajaran prodi berdasarkan penentuan mata kuliah.</p>"
+    },
+    {
+      "no": 6,
+      "elemen": "Menyusun pembelajaran OBE",
+      "question": "Bagaimana Menyusun Sub CPMK ( Pokok Bahasan) yang sesuai dengan CPMK Mata Kuliah",
+      "answer": "<p>CPL mata kuliah (CPMK) dijadikan dasar untuk menyusun narasi capaian pembelajaran yang akan dikuasai mahasiswa pada setiap pertemuan.</p>"
+    },
+    {
+      "no": 7,
+      "elemen": "Menyusun RPS pembelajaran",
+      "question": "Jelasakan 5 hal substansi yang ada dalam RPS berbasis OBE",
+      "answer": "<ol><li><strong>Capaian Pembelajaran (CPL &amp; CPMK)</strong> — menjelaskan kompetensi yang harus dicapai mahasiswa sesuai OBE.</li><li><strong>Deskripsi Mata Kuliah</strong> — memuat tujuan, relevansi, dan ruang lingkup mata kuliah.</li><li><strong>Materi &amp; Bahan Kajian</strong> — rincian pokok bahasan yang mendukung pencapaian CPL/CPMK.</li><li><strong>Metode &amp; Strategi Pembelajaran</strong> — pendekatan Student-Centered Learning (SCL), case method, project-based.</li><li><strong>Evaluasi &amp; Penilaian</strong> — bentuk, kriteria, dan bobot penilaian berbasis capaian pembelajaran.</li></ol>"
+    },
+    {
+      "no": 8,
+      "elemen": "Menyusun bahan/modul ajar pembelajaran",
+      "question": "Jelaskan sistematika yang harus dipenuhi dalam penyusunan bahan ajar/modul pembelajaran OBE",
+      "answer": "<ol><li><strong>Pendahuluan</strong> — menjelaskan latar belakang, tujuan, dan relevansi modul terhadap capaian pembelajaran.</li><li><strong>Capaian Pembelajaran (CPL/CPMK)</strong> — modul harus jelas mengaitkan materi dengan kompetensi yang ingin dicapai.</li><li><strong>Materi Pokok &amp; Submateri</strong> — disusun runtut sesuai elemen kompetensi, lengkap dengan uraian konsep dan contoh.</li><li><strong>Metode &amp; Strategi Pembelajaran</strong> — menjelaskan pendekatan Student-Centered Learning (SCL), case method, project-based, atau metode lain yang sesuai.</li><li><strong>Evaluasi &amp; Latihan Soal</strong> — disertai instrumen penilaian, latihan, atau studi kasus untuk mengukur ketercapaian CPL/CPMK.</li><li><strong>Referensi</strong> — memuat sumber bacaan teknis maupun non-teknis yang relevan dan mutakhir.</li></ol>"
+    },
+    {
+      "no": 9,
+      "elemen": "Menetapkan bahan/modul ajar pembelajaran",
+      "question": "Jelaskan 3 Faktor yang menjadi dasar dosen melakukan perbaikan dan penetapan bahan ajar/modul pembelajaran OBE",
+      "answer": "<ol><li><strong>Kesesuaian dengan Capaian Pembelajaran (CPL/CPMK)</strong> — modul harus selalu diperbarui agar benar-benar mendukung pencapaian kompetensi yang ditetapkan.</li><li><strong>Relevansi dengan Perkembangan Ilmu &amp; Kebutuhan Industri</strong> — materi ajar disesuaikan dengan perkembangan terbaru serta tuntutan dunia kerja agar tetap aplikatif.</li><li><strong>Evaluasi Hasil Belajar Mahasiswa</strong> — perbaikan dilakukan berdasarkan refleksi hasil penilaian, umpan balik mahasiswa, dan efektivitas metode pembelajaran.</li></ol>"
+    },
+    {
+      "no": 10,
+      "elemen": "Menyusun metode pembelajaran",
+      "question": "Apa yang dimaksud dengan pendekatan pembelajaran student center learning (SCL)",
+      "answer": "<p>Pendekatan Student Centered Learning (SCL) adalah metode pembelajaran yang menempatkan mahasiswa sebagai pusat proses belajar, dengan dosen berperan sebagai fasilitator. Fokusnya bukan sekadar transfer materi, melainkan mendorong mahasiswa aktif, mandiri, kritis, dan kolaboratif dalam membangun pengetahuan.</p>"
+    },
+    {
+      "no": 11,
+      "elemen": "Menyusun metode pembelajaran",
+      "question": "Apa yang dimaksud metode pembelajaran team based project",
+      "answer": "<p>Metode pembelajaran Team Based Project adalah pendekatan belajar berbasis proyek yang dilakukan secara berkelompok, di mana mahasiswa bekerja sama untuk menyelesaikan suatu tugas atau proyek nyata.</p>"
+    },
+    {
+      "no": 12,
+      "elemen": "Menyusun metode pembelajaran",
+      "question": "Apa yang dimaksud dengan metode pembelajaran case method",
+      "answer": "<p>Metode pembelajaran Case Method adalah pendekatan belajar yang menggunakan kasus nyata atau simulasi kasus sebagai bahan utama untuk diskusi dan analisis mahasiswa.</p>"
+    },
+    {
+      "no": 13,
+      "elemen": "Mendesain dan memvalidasi media pembelajaran",
+      "question": "Jelaskan 4 jenis media pembelajaran yang mendukung pencapaian CPMK",
+      "answer": "<ol><li><strong>Media Cetak</strong> — buku teks, modul, handout, atau artikel ilmiah yang membantu mahasiswa memahami teori secara sistematis.</li><li><strong>Media Audio-Visual</strong> — video pembelajaran, animasi, podcast, atau rekaman kuliah yang memudahkan visualisasi konsep dan meningkatkan keterlibatan.</li><li><strong>Media Interaktif Digital</strong> — e-learning, aplikasi simulasi, quiz online, atau Learning Management System (LMS) yang memungkinkan mahasiswa belajar mandiri dan berinteraksi secara aktif.</li><li><strong>Media Praktik/Alat Peraga</strong> — laboratorium, model, prototipe, atau studi kasus nyata yang mendukung keterampilan praktis dan penerapan teori ke dunia nyata.</li></ol>"
+    },
+    {
+      "no": 14,
+      "elemen": "Memilih TIK untuk Pembelajaran yang Inovatif",
+      "question": "Apa yang dimaksud media pembelajaran berbasis IT",
+      "answer": "<p>Media pembelajaran berbasis IT adalah sarana atau alat bantu belajar yang menggunakan teknologi informasi dan komunikasi (TIK) untuk mendukung proses pembelajaran.</p>"
+    },
+    {
+      "no": 15,
+      "elemen": "Memilih TIK untuk Pembelajaran yang Inovatif",
+      "question": "Sebutkan 3 peralatan pendukung mediapembelajaran berbasis IT",
+      "answer": "<ol><li><strong>Perangkat Komputer/Laptop</strong> — digunakan untuk mengakses LMS, aplikasi e-learning, dan menjalankan multimedia interaktif.</li><li><strong>Proyektor/Smart Display</strong> — membantu menampilkan materi digital, video, atau simulasi kepada seluruh kelas secara visual.</li><li><strong>Jaringan Internet &amp; Wi-Fi</strong> — sarana utama untuk menghubungkan mahasiswa dengan sumber belajar online, aplikasi, dan komunikasi virtual.</li></ol>"
+    },
+    {
+      "no": 16,
+      "elemen": "Mengembangkan media pembelajaran Inovatif",
+      "question": "Apa yang dimaksud e dengan media pembelajaran inovatif",
+      "answer": "<p>Media pembelajaran inovatif adalah media atau sarana belajar yang dirancang dengan pendekatan kreatif, modern, dan adaptif sehingga mampu meningkatkan keterlibatan mahasiswa serta efektivitas pencapaian capaian pembelajaran.</p>"
+    },
+    {
+      "no": 17,
+      "elemen": "Mengidentifikasi materi, metode dan media pembelajaran OBE",
+      "question": "Bagaimana mengidentifikasi materi, metode dan media pembelajaran yang sesuai dengan pembelajaran OBE",
+      "answer": "<p>Identifikasi dilakukan dengan menyelaraskan materi, metode, dan media terhadap CPL/CPMK, memastikan semuanya relevan, aplikatif, dan mendukung pencapaian kompetensi nyata.</p>"
+    },
+    {
+      "no": 18,
+      "elemen": "Mengindentifikasi Bahan, peralatan dan perlengkapan pendukung pembelajaran OBE",
+      "question": "Bagaimana mengidentifikasi bahan, peralatan dan perlengkapan yang mendukung pembelajaran OBE",
+      "answer": "<p>Identifikasi dilakukan dengan menyelaraskan bahan, peralatan, dan perlengkapan terhadap CPL/CPMK, memastikan semuanya relevan, aplikatif, dan mendukung pencapaian kompetensi nyata.</p>"
+    },
+    {
+      "no": 19,
+      "elemen": "Mempersiapkan tempat sesuai dengan bentuk pembelajaran yang digunakan",
+      "question": "Bagaimana mengindentifikasi tempat, ruang belajar, laboratorium, dan ruang pendukung telah sesuai dengan pembelajaran OBE",
+      "answer": "<p>Identifikasi dilakukan dengan menyelaraskan fungsi ruang dan fasilitas terhadap CPL/CPMK, memastikan semua tempat benar-benar relevan, layak, dan mendukung pencapaian kompetensi nyata.</p>"
+    },
+    {
+      "no": 20,
+      "elemen": "Menyusun metode penilaian pembelajaran",
+      "question": "Apa yang dimaksud dengan metode penilaian pembelajaran berbasis OBE",
+      "answer": "<p>Metode penilaian pembelajaran berbasis OBE (Outcome-Based Education) adalah sistem penilaian yang berorientasi pada pencapaian kompetensi atau capaian pembelajaran (CPL/CPMK), bukan sekadar pada proses atau jumlah materi yang disampaikan.</p>"
+    },
+    {
+      "no": 21,
+      "elemen": "Menerapkan program kegiatan",
+      "question": "Bagaimana kriteria penilaian pembelajaran OBE yang digunakan untuk mengukur capaian CPL",
+      "answer": "<p>Kriteria penilaian OBE: keterkaitan langsung dengan CPL, mencakup ranah kognitif-afektif-psikomotorik, menggunakan rubrik yang jelas, instrumen yang variatif, dan berorientasi pada kompetensi nyata.</p>"
+    },
+    {
+      "no": 22,
+      "elemen": "Monitoring dan Evaluasi keberhasilan kegiatan",
+      "question": "Bagaimana tahapan penilaian untuk mengukur CPL dan CPMK",
+      "answer": "<p>Tahapan penilaian OBE:</p><p>perumusan capaian → indikator → instrumen → pelaksanaan → analisis → umpan balik</p><p>sehingga hasil belajar mahasiswa benar-benar sesuai dengan kompetensi yang ditetapkan.</p>"
+    },
+    {
+      "no": 23,
+      "elemen": "Melaporkan pelaksanaan kegiatan",
+      "question": "Bagaimana tahapan pelaporan hasil penilaian CPL dan CPMK Mata Kuliah",
+      "answer": "<p>Tahapan pelaporan hasil penilaian OBE:</p><p>mengumpulkan data → menganalisis ketercapaian → merekap &amp; mendokumentasi → melaporkan ke sistem → memberikan umpan balik</p>"
+    },
+    {
+      "no": 24,
+      "elemen": "Merancang program pembelajaran dari tindak lanjut perbaikan",
+      "question": "Bagaimana menyusun program tindak lanjut pembelajaran sesuai dengan laporan hasil capaian CPMK dan CPL",
+      "answer": "<p>Program tindak lanjut OBE disusun dengan:</p><p>menganalisis gap capaian → merencanakan perbaikan → melaksanakan kegiatan tambahan → mengevaluasi hasil</p><p>sehingga pembelajaran benar-benar berorientasi pada pencapaian kompetensi nyata.</p>"
+    },
+    {
+      "no": 25,
+      "elemen": "Mengidentifikasi pengembangan program pembelajaran",
+      "question": "Bagaimana mengidentifikasi hasil penilaian pembelajaran OBE untuk menyusun perbaikan RPS dan Rencana Penilaian",
+      "answer": "<p>Proses identifikasi:</p><p>menganalisis hasil penilaian → memetakan gap capaian → mengevaluasi kesesuaian materi/metode/media → memperbaiki RPS dan rencana penilaian → memberikan umpan balik</p><p>sehingga pembelajaran benar-benar berorientasi pada pencapaian CPL/CPMK.</p>"
+    },
+    {
+      "no": 26,
+      "elemen": "Menetapkan pengembangan program pembelajaran",
+      "question": "Bagaimana mekanisme perbaikan RPS, Bahan Ajar/modul dan rencana penilaian untuk peningkatan mutu pembelajaran OBE",
+      "answer": "<p>Mekanisme perbaikan:</p><p>menganalisis hasil capaian → merevisi RPS, bahan ajar, dan rencana penilaian → mengimplementasikan perbaikan → mengevaluasi ulang</p><p>sehingga mutu pembelajaran OBE terus meningkat.</p>"
+    }
+  ]
+}

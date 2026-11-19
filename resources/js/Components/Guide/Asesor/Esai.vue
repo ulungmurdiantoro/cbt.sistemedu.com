@@ -3,6 +3,8 @@
         <li>Klik baris peserta (atau tombol <span class="badge bg-primary">Nilai</span>). Halaman penilaian peserta itu terbuka:
             satu kartu per soal berisi pertanyaan, lalu jawaban peserta dan kolom nilai di bawahnya.</li>
         <li>Untuk <strong>Essay Migas</strong>, berkas jawaban peserta ada di kartu paling atas (Pratinjau / Unduh).</li>
+        <li>Di bawah pertanyaan, klik <strong>Lihat poin / kisi jawaban</strong> untuk membuka kunci jawaban soal itu sebagai
+            acuan menilai. Tombol tidak muncul bila kunci soal belum diisi admin.</li>
         <li>Isi nilai <strong>0–100</strong> untuk tiap soal. <strong>Total Nilai</strong> = rata-rata nilai soal yang sudah diisi;
             nilai 0 ikut dihitung, soal yang dikosongkan tidak.</li>
         <li>Bar di kanan bawah: <span class="badge bg-success">Simpan</span> menyimpan nilai peserta ini,
