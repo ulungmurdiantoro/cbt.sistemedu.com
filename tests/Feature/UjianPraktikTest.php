@@ -193,6 +193,36 @@ class UjianPraktikTest extends TestCase
         $this->assertSame($praktik->id, $session->refresh()->exam_id_praktik);
     }
 
+    // Seperti sesi Lifting V2: hanya PG + wawancara, Ujian Esai & Ujian Praktik "— Tidak ada —".
+    public function test_session_without_esai_and_praktik_saves(): void
+    {
+        [$classroom, $session] = $this->enrolledStudent();
+        $pg = Exam::findOrFail($session->exam_id_pg);
+        $this->attachPraktik($session, $classroom);
+        $session->update(['exam_id_esai' => $this->makeExam($classroom, 'Essay', 60)->id]);
+
+        $this->actingAs($this->admin());
+        $data = [
+            'title' => 'Sesi Lifting', 'start_time' => now()->format('Y-m-d H:i'), 'end_time' => now()->addDay()->format('Y-m-d H:i'),
+            'konteks_asesmen' => 'Sertifikasi', 'tempat_ujian' => 'Online', 'kode_batch' => 'B1',
+            'exam_id_pg' => $pg->id, 'exam_id_esai' => '', 'exam_id_praktik' => '', 'has_wawancara' => true,
+        ];
+
+        $this->post('/admin/exam_sessions', $data)->assertSessionHasNoErrors()->assertRedirect(route('admin.exam_sessions.index'));
+        $created = ExamSession::latest('id')->firstOrFail();
+        $this->assertNotSame($session->id, $created->id);
+        $this->assertSame([$pg->id, null, null], [$created->exam_id_pg, $created->exam_id_esai, $created->exam_id_praktik]);
+
+        // Sesi yang tadinya punya esai & praktik dikosongkan
+        $this->put("/admin/exam_sessions/{$session->id}", $data)->assertSessionHasNoErrors()->assertRedirect(route('admin.exam_sessions.index'));
+        $session->refresh();
+        $this->assertNull($session->exam_id_esai);
+        $this->assertNull($session->exam_id_praktik);
+
+        $this->get("/admin/exam_sessions/{$session->id}/edit")->assertOk();
+        $this->get("/admin/exam_sessions/{$session->id}")->assertOk();
+    }
+
     // Daftar sesi (admin/exam_sessions) memakai NOW() khusus MySQL, jadi hanya detail sesi yang diuji di SQLite.
     public function test_session_detail_shows_praktik_exam(): void
     {
