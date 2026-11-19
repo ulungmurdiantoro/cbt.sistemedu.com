@@ -314,6 +314,23 @@ dibuat — sertifikat/SK yang sudah ter-cache tetap, PDF yang dibuat ulang memak
 
 ---
 
+## Paket Soal (tanpa import Excel)
+
+`php artisan paket-soal:pasang v2 [--dry-run] [--skema=esg] [--templates=folder]` memasang soal hasil ekstraksi dokumen
+FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda V2", "- Esai V2", "- Ujian Praktik V2".
+- Data: `database/data/paket-soal/{versi}/{skema}.json` (+ `images/`). Kelas dicocokkan lewat `classrooms_code`
+  (V2: LHC, K3L, CLO, ESG). PG = blok teks/gambar + opsi + kunci (kunci = opsi berstabilo di dokumen sumber).
+  Gambar soal disalin ke disk public dan dirujuk `/storage/paket-soal/{versi}/…` (kolom `questions.question` TEXT —
+  jangan simpan gambar base64). Skema tanpa `esai` (Lifting V2) tidak dibuatkan ujian esai.
+- Ujian dikenali lewat `exams_code` `exms-{versi}-{skema}-{pg|esai|praktik}` → aman dijalankan ulang (yang sudah ada
+  dilewati). Durasi/acak mencontoh ujian sejenis terakhir di kelas itu (bawaan 120 menit). Ujian/sesi lama tidak disentuh.
+- Template Ujian Praktik (Lifting ±34 MB, di atas batas upload) **tidak** ada di git: dibaca dari
+  `storage/app/paket-soal/{versi}/templates/` lalu disalin ke disk private. Template belum ada → ujian praktik tetap
+  dibuat; jalankan ulang setelah folder diunggah untuk melengkapinya. Bagian praktik dilewati bila migrasi Ujian Praktik belum ada.
+- Data rusak (kunci di luar opsi, gambar hilang, dll.) → perintah gagal tanpa memasang apa pun.
+
+---
+
 ## Verifikasi TUK Online (FR.TUK.06)
 
 Checklist per peserta per sesi (`tuk_verifications`), diisi **admin sebagai Pengawas Ujian** di

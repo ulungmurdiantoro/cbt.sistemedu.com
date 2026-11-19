@@ -1,0 +1,1659 @@
+{
+ "key": "lifting",
+ "classroom_code": "LHC",
+ "nama": "Lifting Engineer for Heavy & Critical Lifting",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda Lifting Engineer for Heavy & Crirical Lifting - R1.pdf",
+  "praktik": "FR.IA.04 Praktek Lifting Engineer for Heavy & Critical Lifting - Calculation dan Gambar.pdf + LAMPIRAN SOAL HEAVY LIFTING"
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Operasi Lifting dengan beban < 80% SWL Crane, area aman, kondisi standar, dapat dikategorikan sebagai"
+    }
+   ],
+   "options": [
+    "Routine Lift",
+    "Complicated Lifting Operation",
+    "Non Routine Complex Lifting Operation",
+    "Lifting Operation"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Operasi Lifting dengan beban > 90% SWL Crane (tidak termasuk Safety Factor), dapat dikategorikan sebagai"
+    }
+   ],
+   "options": [
+    "Routine Lift",
+    "Complicated Lifting Operation",
+    "Non Routine Complex Lifting Operation",
+    "Lifting Operation"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "Operasi Lifting dengan beban 80% - 90% SWL Crane, dekat dengan fasilitas penting (< 3 m) atau tandem lift dapat dikategorikan sebagai"
+    }
+   ],
+   "options": [
+    "Routine Lift",
+    "Complicated Lifting Operation",
+    "Non Routine Complex Lifting Operation",
+    "Lifting Operation"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Personel dalam tim lifting yang bertanggung jawab memeriksa peralatan rigging, memilih peralatan sesuai dengan Lifting Plan, beban, memasang sling, shackle, adalah tugas dari :"
+    }
+   ],
+   "options": [
+    "Rigger",
+    "Banksman",
+    "Crane Operator",
+    "Lifting Supervisor"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Personel dalam tim lifting yang bertanggung jawab mengoperasikan crane, adalah tugas dari :"
+    }
+   ],
+   "options": [
+    "Rigger",
+    "Banksman",
+    "Crane Operator",
+    "Lifting Supervisor"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "Personel dalam tim lifting yang bertanggung jawab mengkoordinasikan & mengawasi operasi lifting sesuai dengan Lifting Plan, dan berwenang menghentikan operasi Lifting adalah tugas dari :"
+    }
+   ],
+   "options": [
+    "Rigger",
+    "Banksman",
+    "Crane Operator",
+    "Lifting Supervisor"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Personel dalam lifting yang bertanggung jawab merencanakan, menghitung, dan mengawasi operasi pengangkatan beban berat secara aman dan efisien, mencakup pemilihan peralatan (crane, hoist), analisis risiko, penyusunan lifting plan, memastikan kepatuhan standar keselamatan, dan mengawasi pelaksanaan di lapangan adalah :"
+    }
+   ],
+   "options": [
+    "Lifting Supervisor",
+    "Lifting Engineer",
+    "HSE Manager",
+    "Crane Operator"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "Peraturan yang mengatur secara spesifik prosedur lifting dan rigging di Indonesia,"
+    }
+   ],
+   "options": [
+    "Permenaker No. 18 Tahun 2023",
+    "Permenaker No. 8 Tahun 2020",
+    "Permenaker No. 5 Tahun 2018",
+    "Permenaker No. 2 Tahun 2021"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Standar ASME tentang Sling"
+    }
+   ],
+   "options": [
+    "ASME B30.9",
+    "ASME B30.10",
+    "ASME BTH-1",
+    "ASME Section VIII"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Standar ASME tentang Hook"
+    }
+   ],
+   "options": [
+    "ASME BTH-1",
+    "ASME B30.9",
+    "ASME B30.10",
+    "ASME Section VIII"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Standar ASME tentang Design of Below-the-Hook Lifting Devices"
+    }
+   ],
+   "options": [
+    "ASME B30.9",
+    "ASME B30.10",
+    "ASME BTH-1",
+    "ASME Section VIII"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Standar OHSA mengenai Sling yang digunakan bersama lifting equipment adalah"
+    }
+   ],
+   "options": [
+    "OHSA 1910.38",
+    "OHSA 1910.184",
+    "OHSA 1910.29",
+    "OSHA 29 CFR 1910.146"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Code Practice British Standard tentang Code of Practice For Safe Use Of Cranes"
+    }
+   ],
+   "options": [
+    "BS 7121-1",
+    "BS 7121-4",
+    "BS 6166-1",
+    "BS 5306"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Code Practice British Standard tentang Lifting Sling-Method of Rating"
+    }
+   ],
+   "options": [
+    "BS 7121-1",
+    "BS 7121-4",
+    "BS 6166-1",
+    "BS 5306"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Standar Lifting yang dari DNV adalah"
+    }
+   ],
+   "options": [
+    "DNV-RU-OU-0101",
+    "DNV-ST-N001",
+    "DNV-RP-N101",
+    "DNV-RP-H101"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Minimum Break Load (MBL) dari sling adalah"
+    }
+   ],
+   "options": [
+    "Beban minimum di mana sling akan putus atau rusak,",
+    "Maximal beban yang boleh diangkat oleh sling",
+    "Beban kerja harian sling tanpa faktor keselamatan",
+    "Beban rata-rata yang direkomendasikan pabrikan untuk operasi normal"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Working Load Limit (WLL) Sling adalah"
+    }
+   ],
+   "options": [
+    "Maximal beban yang boleh diangkat oleh sling pada kondisi beban tegak lurus sling",
+    "Maximal beban yang boleh diangkat oleh sling pada sudut sling tertentu & metode ikat tertentu",
+    "Beban total sling termasuk berat alat bantu angkat",
+    "Beban uji tarik maksimum saat proses pengujian pabrikan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Safe Working Load (SWL) sling adalah"
+    }
+   ],
+   "options": [
+    "Maximal beban yang boleh diangkat oleh sling pada kondisi beban tegak lurus sling",
+    "Maximal beban yang boleh diangkat oleh sling pada sudut sling tertentu & metode ikat tertentu",
+    "Beban total sling termasuk berat shackle dan hook",
+    "Beban uji maksimum saat proses proof load test"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Berapa nilai Safety Factor untuk wire rope sling menurut ASME B30.9 ?"
+    }
+   ],
+   "options": [
+    "4 : 1",
+    "5 : 1",
+    "6 : 1",
+    "7 : 1"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "Berapa nilai Safety Factor untuk Wire rope sling menurut BS 7121 -EN?"
+    }
+   ],
+   "options": [
+    "4 : 1",
+    "5 : 1",
+    "6 : 1",
+    "7 : 1"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Berapa nilai Safety Factor untuk Syntetic Webbing & Round Sling menurut ASME B30.9?"
+    }
+   ],
+   "options": [
+    "4 : 1",
+    "5 : 1",
+    "6 : 1",
+    "7 : 1"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Berapa nilai Safety Factor untuk Syntetic Webbing & Round Sling menurut BS 7121 EN?"
+    }
+   ],
+   "options": [
+    "4 : 1",
+    "5 : 1",
+    "6 : 1",
+    "7 : 1"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Berapa nilai Safety Factor untuk Alloy Chain Sling menurut ASME B30.9 ?"
+    }
+   ],
+   "options": [
+    "4 : 1",
+    "5 : 1",
+    "6 : 1",
+    "7 : 1"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Berapa nilai Safety Factor untuk Alloy Chain sling menurut BS 7121 -EN?"
+    }
+   ],
+   "options": [
+    "4 : 1",
+    "5 : 1",
+    "6 : 1",
+    "7 : 1"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "Sling gambar disamping ini adalah jenis sling;"
+    },
+    {
+     "image": "lifting/lifting-q025-1.jpg"
+    }
+   ],
+   "options": [
+    "Steel Wire Rope",
+    "Webbing Sling",
+    "Chain Sling",
+    "Steel Strand Core"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "Melihat dari konstruksinya, jenis sling ini adalah"
+    },
+    {
+     "image": "lifting/lifting-q026-1.jpg"
+    }
+   ],
+   "options": [
+    "Fibre Core",
+    "Independ Wire Rope Core (IWRC)",
+    "Armoured Core",
+    "Steel Strand Core"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Maksud kode konstruksi 6x19 pada steel wire rope adalah"
+    }
+   ],
+   "options": [
+    "6 Strand, 19 Wires to Strand",
+    "6 Wires to Strand,19 Strand",
+    "61 Strand, 9 Wires to Strand",
+    "61 Wires to Strand, 9 Strand"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Maksud FFWR 1570 pada wire rope menunjukan nilai Fu baja 1570 Mpa pada bagian"
+    }
+   ],
+   "options": [
+    "Wires",
+    "Strands",
+    "Core",
+    "Minimum Breaking Load (MBL)"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Apa nama jenis sling end ini?"
+    },
+    {
+     "image": "lifting/lifting-q029-1.jpg"
+    }
+   ],
+   "options": [
+    "Soft Eye",
+    "Trimble Eye",
+    "Turnbuckle",
+    "Loop"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Apa nama jenis sling end ini?"
+    },
+    {
+     "image": "lifting/lifting-q030-1.jpg"
+    }
+   ],
+   "options": [
+    "Flemish Soft Eye",
+    "Trimble Eye",
+    "Turnbuckle",
+    "Loop"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "Mengapa sling ini tidak boleh dipakai?"
+    },
+    {
+     "image": "lifting/lifting-q031-1.jpg"
+    }
+   ],
+   "options": [
+    "Terkikis (abrasion)",
+    "Tersimpul (kink)",
+    "Korosi berat (Heavy Corrosion)",
+    "Sarang burung (Birdcage)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Mengapa sling ini tidak boleh dipakai?"
+    },
+    {
+     "image": "lifting/lifting-q032-1.jpg"
+    }
+   ],
+   "options": [
+    "Terkikis (abrasion)",
+    "Tersimpul (kink)",
+    "Korosi berat (Heavy Corrosion)",
+    "Sarang burung (Birdcage"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Mengapa sling ini tidak boleh dipakai lagi?"
+    },
+    {
+     "image": "lifting/lifting-q033-1.jpg"
+    }
+   ],
+   "options": [
+    "Terkikis (abrasion)",
+    "Tersimpul (kink)",
+    "Korosi berat (Heavy Corrosion)",
+    "Tonjolan untaian (high strand)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Mengapa sling ini tidak boleh dipakai lagi?"
+    },
+    {
+     "image": "lifting/lifting-q034-1.jpg"
+    }
+   ],
+   "options": [
+    "Terkikis (abrasion)",
+    "Tersimpul (kink)",
+    "Korosi berat (Heavy Corrosion)",
+    "Sarang burung (Birdcage)"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Mengapa sling ini tidak boleh dipakai lagi?"
+    },
+    {
+     "image": "lifting/lifting-q035-1.jpg"
+    }
+   ],
+   "options": [
+    "Terkikis (abrasion)",
+    "Tersimpul (kink)",
+    "Korosi berat (Heavy Corrosion)",
+    "Sarang burung (Birdcage)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Sling gambar disamping ini adalah jenis sling;"
+    },
+    {
+     "image": "lifting/lifting-q036-1.jpg"
+    }
+   ],
+   "options": [
+    "Flexible Steel Wire Rope",
+    "Webbing Sling",
+    "Chain Sling",
+    "Round Sling"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Sling gambar disamping ini adalah jenis sling;"
+    },
+    {
+     "image": "lifting/lifting-q037-1.jpg"
+    }
+   ],
+   "options": [
+    "Flexible Steel Wire Rope",
+    "Webbing Sling",
+    "Chain Sling",
+    "Polyester Endless Round Sling"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Sling gambar disamping ini adalah jenis sling;"
+    },
+    {
+     "image": "lifting/lifting-q038-1.jpg"
+    }
+   ],
+   "options": [
+    "Flexible Steel Wire Rope",
+    "Webbing Sling",
+    "Chain Sling",
+    "Polyester Endless Round Sling"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Siapa yang berwenang melalukan inspeksi sling dan menerbitkan Laporan Hasil Pemeriksaan (LHP) untuk penerbitan SILO Crane"
+    }
+   ],
+   "options": [
+    "Depnaker Propinsi/Kabupaten/Kota",
+    "PJK3 terakreditasi",
+    "Crane Supervisor",
+    "Lifting Engineer"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Berdasarkan Permenaker No. 8 Tahun 2020, selain maximal 12% aus/deformasi pada panjang 50 cm, batas kawat putus pada tali kawat baja untuk mobile crane adalah"
+    }
+   ],
+   "options": [
+    "3 kawat putus dalam 1 strand, atau 6 kawat putus yang terdistribusi di beberapa strand",
+    "5 kawat putus dalam 1 strand, atau 10 kawat putus yang terdistribusi di beberapa strand",
+    "6 kawat putus dalam 1 strand, atau 12 kawat putus yang terdistribusi di beberapa strand",
+    "Tidak diperbolehkan ada kawat putus sama sekali"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "Berdasarkan standard ANSI/ASME B30.9, batas putus sling wire rope adalah"
+    }
+   ],
+   "options": [
+    "4 kawat putus dalam 1 strand dalam 1 lay, atau 8 kawat putus disemua strand untuk 1 lay",
+    "5 kawat putus dalam 1 strand dalam 1 lay, atau 10 kawat putus disemua strand untuk 1 lay.",
+    "6 kawat putus dalam 1 strand dalam 1 lay, atau 12 kawat putus disemua strand untuk 1 lay",
+    "Tidak diperbolehkan ada kawat putus sama sekali"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Webbing Sling ini memiliki 3 jalur garis jahitan, berapa WLL nya?"
+    },
+    {
+     "image": "lifting/lifting-q042-1.jpg"
+    }
+   ],
+   "options": [
+    "2 ton",
+    "3 ton",
+    "6 ton",
+    "8 ton"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Yang dimaksud kerusakan ‘chemical damage” pada webbing sling sehingga tidak boleh dipakai lagi adalah?"
+    },
+    {
+     "image": "lifting/lifting-q043-1.jpg"
+    }
+   ],
+   "options": [
+    "Terpapar sinar ultraviolet matahari terlalu lama",
+    "Tersiram cairan kimia korosif",
+    "Terkikis/abrasi",
+    "Terbakar"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "Yang dimaksud kerusakan ‘heat damage” pada webbing sling sehingga tidak boleh dipakai lagi adalah?"
+    },
+    {
+     "image": "lifting/lifting-q044-1.jpg"
+    }
+   ],
+   "options": [
+    "Terpapar sinar ultraviolet matahari terlalu lama",
+    "Tersiram cairan kimia korosif",
+    "Terkikis/abrasi",
+    "Terbakar"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Yang dimaksud kerusakan ‘hole, cutes, tears” pada webbing sling sehingga tidak boleh dipakai lagi adalah?"
+    },
+    {
+     "image": "lifting/lifting-q045-1.jpg"
+    }
+   ],
+   "options": [
+    "Terpapar sinar ultraviolet matahari terlalu lama",
+    "Berlubang/sobek",
+    "Terkikis/abrasi",
+    "Terbakar"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Dari 3 grade rantai ini, mana yang tidak boleh dipakai"
+    }
+   ],
+   "options": [
+    "T8",
+    "T80",
+    "P75",
+    "T120"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "Berapa % maximal keausan pada mata rantai ?"
+    }
+   ],
+   "options": [
+    "5%",
+    "8%",
+    "10%",
+    "12%"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Berapa derajat celcius suhu ruangan bila menggunakan sling rantai?"
+    }
+   ],
+   "options": [
+    "120",
+    "210",
+    "260",
+    "320"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Saat inspeksi, bila ditemukan regangan pada mata rantai, berapa keregangan maksimal pada mata rantai yang diperbolehkan?"
+    }
+   ],
+   "options": [
+    "3%",
+    "5%",
+    "10%",
+    "15%"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Berapa nilai Angle Factor untuk sudut antar kaki sling (included angle) 30°"
+    }
+   ],
+   "options": [
+    "1.00",
+    "1.41",
+    "1.73",
+    "1.93"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Berapa nilai Angle Factor untuk sudut antar kaki sling (included angle) 45°"
+    }
+   ],
+   "options": [
+    "1.00",
+    "1.41",
+    "1.73",
+    "1.85"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Berapa nilai Angle Factor untuk sudut antar kaki sling (included angle) 60°"
+    }
+   ],
+   "options": [
+    "1.00",
+    "1.41",
+    "1.73",
+    "1.85"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Berapa nilai Angle Factor untuk sudut antar kaki sling (included angle) 90°"
+    }
+   ],
+   "options": [
+    "1.00",
+    "1.41",
+    "1.73",
+    "1.85"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Berapa Reeve Factor Sling pada kondisi seperti ini (direct load)?"
+    },
+    {
+     "image": "lifting/lifting-q054-1.jpg"
+    }
+   ],
+   "options": [
+    "1",
+    "0.5",
+    "0.75",
+    "0.25"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Berapa Reeve Factor Sling pada kondisi seperti ini (Choke Hitch)?"
+    },
+    {
+     "image": "lifting/lifting-q055-1.jpg"
+    }
+   ],
+   "options": [
+    "1",
+    "0.5",
+    "0.75",
+    "0.25"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Berapa Reevr Faktor sudut basket hitch untuk 60 derajat"
+    },
+    {
+     "image": "lifting/lifting-q056-1.jpg"
+    }
+   ],
+   "options": [
+    "1.93",
+    "1.85",
+    "1.73",
+    "1.64"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Apa nama jenis shackle ini?"
+    },
+    {
+     "image": "lifting/lifting-q057-1.jpg"
+    }
+   ],
+   "options": [
+    "Shackle bow",
+    "Shackle Dee",
+    "Shackle bow with safety pin",
+    "Swivel Shackle"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Apa nama jenis shackle ini?"
+    },
+    {
+     "image": "lifting/lifting-q058-1.jpg"
+    }
+   ],
+   "options": [
+    "Shackle Bow",
+    "Shackle Dee",
+    "Shackle Bow with safety pin",
+    "Swivel Shackle"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Apa nama jenis shackle ini?"
+    },
+    {
+     "image": "lifting/lifting-q059-1.jpg"
+    }
+   ],
+   "options": [
+    "Shackle bow",
+    "Shackle Dee",
+    "Shackle bow with safety pin",
+    "Swivel Shackle"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Bolehkan Dee Shackle digunakan untuk sling bersudut?"
+    },
+    {
+     "image": "lifting/lifting-q060-1.jpg"
+    }
+   ],
+   "options": [
+    "Boleh",
+    "Tidak boleh",
+    "Bisa Jadi",
+    "Benar Semua"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Berapa % reduksi WLL shackle bila sudut sling seperti ini?"
+    },
+    {
+     "image": "lifting/lifting-q061-1.jpg"
+    }
+   ],
+   "options": [
+    "15%",
+    "25%",
+    "35%",
+    "10%"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Berapa % maximal keausan pada crown shackle ?"
+    }
+   ],
+   "options": [
+    "5%",
+    "8%",
+    "10%",
+    "15%"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Mengapa shackle ini tidak boleh digunakan?"
+    },
+    {
+     "image": "lifting/lifting-q063-1.jpg"
+    }
+   ],
+   "options": [
+    "Incorrect Pin",
+    "Bent, twisted, elongated body & pin",
+    "Material Reduction",
+    "Cracked/broken body"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Mengapa shackle ini tidak boleh digunakan?"
+    },
+    {
+     "image": "lifting/lifting-q064-1.jpg"
+    }
+   ],
+   "options": [
+    "Incorrect Pin",
+    "Bent, twisted, elongated body & pin",
+    "Cracked/broken body",
+    "Excessive Corrosion"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Mengapa shackle ini tidak boleh digunakan?"
+    },
+    {
+     "image": "lifting/lifting-q065-1.jpg"
+    }
+   ],
+   "options": [
+    "Incorrect Pin",
+    "Bent, twisted, elongated body & pin",
+    "Cracked/broken body",
+    "Excessive Corrosion"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Mengapa shackle ini tidak boleh digunakan?"
+    },
+    {
+     "image": "lifting/lifting-q066-1.jpg"
+    }
+   ],
+   "options": [
+    "Incorrect Pin",
+    "Bent, twisted, elongated body & pin",
+    "Cracked/broken body",
+    "Excessive Corrosion"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Apa nama alat ini ?"
+    },
+    {
+     "image": "lifting/lifting-q067-1.jpg"
+    }
+   ],
+   "options": [
+    "Chain Link",
+    "Master Link",
+    "Plate Clamp",
+    "Hook"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Apa nama assesoris alat angkat ini?"
+    },
+    {
+     "image": "lifting/lifting-q068-1.jpg"
+    }
+   ],
+   "options": [
+    "Shackle",
+    "Chain Block",
+    "Plate Clamp",
+    "Hook"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Apa nama jenis eyebolt ini?"
+    },
+    {
+     "image": "lifting/lifting-q069-1.jpg"
+    }
+   ],
+   "options": [
+    "Dynamo Eyebolt",
+    "Collar Eyebolt",
+    "Star Eyebolt",
+    "Eyebolt with link"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Apa nama jenis eyebolt ini?"
+    },
+    {
+     "image": "lifting/lifting-q070-1.jpg"
+    }
+   ],
+   "options": [
+    "Dynamo Eyebolt",
+    "Collar Eyebolt",
+    "Star Eyebolt",
+    "Eyebolt with link"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Apa nama jenis eyebolt ini?"
+    },
+    {
+     "image": "lifting/lifting-q071-1.jpg"
+    }
+   ],
+   "options": [
+    "Dynamo Eyebolt",
+    "Collar Eyebolt",
+    "Star Eyebolt",
+    "Eyebolt with link"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Apa nama benda ini?"
+    },
+    {
+     "image": "lifting/lifting-q072-1.jpg"
+    }
+   ],
+   "options": [
+    "Shear Plate",
+    "Stiffener",
+    "Padeye",
+    "Shackle"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Dalam uji tarik padeye (Prove Load Test), berapa beban tarik yang diterapkan?"
+    }
+   ],
+   "options": [
+    "1.25 x SWL",
+    "2 x SWL",
+    "2.5 X SWL",
+    "Sama dengan Minimum Breaking Load (MBL)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Hook jenis 319 tanpa safety latch, ini apakah boleh digunakan"
+    },
+    {
+     "image": "lifting/lifting-q074-1.jpg"
+    }
+   ],
+   "options": [
+    "Boleh",
+    "Tidak boleh",
+    "Tidak ada beda",
+    "Boleh digunakan jika sudut sling kurang dari 60°"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Menurut ASME B30.10, berapa % maximal keausan (wear) pada hook?"
+    }
+   ],
+   "options": [
+    "5%",
+    "10%",
+    "15%",
+    "20%"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "Menurut ASME B30.10, berap derajat maximal hook terpuntir ke samping (twist) pada hook?"
+    }
+   ],
+   "options": [
+    "5 derajat",
+    "10 derajat",
+    "15 derajat",
+    "20 derajat"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Menurut ASME B30.10, berapa % ujung hook (throat) terdeformasi/merekah"
+    }
+   ],
+   "options": [
+    "5-15%",
+    "7-17%",
+    "10-20%",
+    "Selama belum retak masih boleh digunakan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Apa nama alat bantu lifting ini?"
+    },
+    {
+     "image": "lifting/lifting-q078-1.jpg"
+    }
+   ],
+   "options": [
+    "Lifting Beam",
+    "Spreader Bar",
+    "Lifting Lug",
+    "Plate Lifting Beam"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Apa nama alat bantu lifting ini?"
+    },
+    {
+     "image": "lifting/lifting-q079-1.jpg"
+    }
+   ],
+   "options": [
+    "Lifting Beam",
+    "Spreader Bar",
+    "Lifting lug",
+    "Plate Lifting Beam"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Apa nama jenis crane ini?"
+    },
+    {
+     "image": "lifting/lifting-q080-1.jpg"
+    }
+   ],
+   "options": [
+    "Crawler",
+    "Truck Crane",
+    "Telescopic",
+    "Tower Crane"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Apa nama jenis crane ini?"
+    },
+    {
+     "image": "lifting/lifting-q081-1.jpg"
+    }
+   ],
+   "options": [
+    "Crawler",
+    "Truck Crane",
+    "Telescopic Crane",
+    "Tower Crane"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "Apa nama jenis crane ini?"
+    },
+    {
+     "image": "lifting/lifting-q082-1.jpg"
+    }
+   ],
+   "options": [
+    "Crawler",
+    "Truck Crane",
+    "Telescopic",
+    "Rough Terrain Crane"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Yang dimaksud dengan Crane Working Radius adalah"
+    }
+   ],
+   "options": [
+    "Jarak horizontal antara pivot boom dengan hook",
+    "Jarak horizontal antara pivot cabin dengan hook",
+    "Jarak horizontal antara outrigger terdepan dengan hook",
+    "Nilai tetap yang sama untuk semua jenis crane"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Yang dimaksud dengan Crane Safety Factor adalah"
+    }
+   ],
+   "options": [
+    "Lifting Weight/SWL",
+    "SWL/Lifting Weight",
+    "Working Radius x Lifting Weight",
+    "Nilai tetap yang sama untuk semua jenis crane"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Yang dimaksud dengan Crane Utilization adalah"
+    }
+   ],
+   "options": [
+    "Lifting Weight/SWL",
+    "SWL/Lifting Weight",
+    "Working Radius x Lifting Weight",
+    "Nilai tetap yang sama untuk semua jenis crane"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Apa yang dimaksud dengan Tiipping Load"
+    }
+   ],
+   "options": [
+    "Berat minimal yang membuat crane mulai terguling",
+    "Berat maximal yang dapat diangkat oleh crane",
+    "Berat counter weight yang diperlukan",
+    "Berat minimal yang dapat diangkat oleh crane"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Berapa % kemiringan tanah maksimal di bawah crane yang diijinkan"
+    }
+   ],
+   "options": [
+    "5 %",
+    "10 %",
+    "15 %",
+    "Tidak ada batasan selama beban di bawah SWL"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Berapa kecepatan angin yang dijinkan untuk kondisi pengangkatan?"
+    }
+   ],
+   "options": [
+    "6 m/det",
+    "8 m/det",
+    "10 m/det",
+    "20 m/det"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Kedalaman jurang D1 = 2 meter, berapa jarak minimal (D2) ujung outrigger ke dasar jurang?"
+    },
+    {
+     "image": "lifting/lifting-q089-1.jpg"
+    }
+   ],
+   "options": [
+    "3 m",
+    "4 m",
+    "2 m",
+    "1 m"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Berdasarkan regulasi terbaru di Indonesia, khususnya Permenaker No. 8 Tahun 2020, setelah pemeriksanaan pertama, jadwal inspeksi berkala crane berikutnya untuk perpanjangan SILO (Sertifikat Izin Laik Operasi) dilakukan selambatnya"
+    }
+   ],
+   "options": [
+    "3 tahun",
+    "2 tahun",
+    "1 tahun",
+    "6 tahun"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Saat loading test saat pemeriksaan crane, berapa % beban yang diujikan?"
+    }
+   ],
+   "options": [
+    "85% SWL",
+    "100% SWL",
+    "125% SWL",
+    "Sama dengan Minimum Breaking Load (MBL)"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Siapa yang berwenang memeriksa kondisi Crane dan menerbitkan Laporan Hasil Pemeriksaan (LHP) untuk penerbitan SILO nya :"
+    }
+   ],
+   "options": [
+    "Depnaker Propinsi/Kabupaten/Kota",
+    "PJK3 terakreditasi",
+    "Crane Supervisor",
+    "Lifting Engineer"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Siapa yang berwenang menerbitkan SILO Crane"
+    }
+   ],
+   "options": [
+    "Depnaker Propinsi/Kabupaten/Kota",
+    "PJK3 terakreditasi",
+    "Crane Supervisor",
+    "Lifting Engineer"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Membaca Load Chart Crane – KATO SL6000"
+    },
+    {
+     "image": "lifting/lifting-q094-1.png"
+    },
+    {
+     "image": "lifting/lifting-q094-2.png"
+    },
+    {
+     "text": "Berapa kapasitas angkat (SWL) crane bila panjang boom 90 m dengan working radius 28 m?"
+    }
+   ],
+   "options": [
+    "78.8 ton",
+    "66.9 ton",
+    "65.1 ton",
+    "69.7 ton"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Membaca Load Chart Crane – KATO SL6000"
+    },
+    {
+     "image": "lifting/lifting-q094-1.png"
+    },
+    {
+     "image": "lifting/lifting-q094-2.png"
+    },
+    {
+     "text": "Berapa kapasitas angkat (SWL) crane bila panjang boom 96 m dengan working radius 44 m?"
+    }
+   ],
+   "options": [
+    "39.0 ton",
+    "33.2 ton",
+    "33.8 ton",
+    "31.7 ton"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "Maksimal suhu pemakaian sling tali baja"
+    }
+   ],
+   "options": [
+    "55 derajat Celsius",
+    "65 derajat Celsius",
+    "95 derajat Celsius",
+    "125 derajat Celsius"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Dalam standar DNVGL-ST-N001, nilai beban yang diangkat, sering dikalikan dengan Dinamic Amplification Factor (DAF), apa alasannya ?"
+    }
+   ],
+   "options": [
+    "Mengantisipasi terjadinya pertambahan berat di sling karena pergeseran titik berat",
+    "Mengantisipasi terjadinya pertambahan berat karena kondisi beban dinamis (berayun)",
+    "Mengantisipasi terjadinya pertambahan berat karena benda miring saat diangkat",
+    "Mengantisipasi pembagian beban antar sling tidak setara."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Dalam standar DNVGL-ST-N001, beban yang diangkat perlu dikalikan dengan COG faktor, apa alasannya ?"
+    }
+   ],
+   "options": [
+    "Mengantisipasi terjadinya pertambahan berat karena kondisi beban berayun/tidak diam",
+    "Mengantisipasi terjadinya pertambahan berat di sling akibat pergeseran titik berat",
+    "Mengantisipasi terjadinya pertambahan berat karena benda miring saat diangkat",
+    "Mengantisipasi pembagian beban antar 2 sling diagonal tidak setara."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Dalam standar DNVGL-ST-N001, bila beban diangkat menggunakan 4 sling, perlu dikalikan dengan SKL faktor sebesar 1.25 apa alasannya ?"
+    }
+   ],
+   "options": [
+    "Mengantisipasi terjadinya pertambahan berat karena kondisi beban berayun/tidak diam",
+    "Mengantisipasi terjadinya pertambahan berat di sling akibat pergeseran titik berat",
+    "Mengantisipasi terjadinya pertambahan berat karena benda miring saat diangkat",
+    "Mengantisipasi distribusi beban antar 2 sling diagonal tidak setara."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "Dalam standar DNVGL-ST-N001, bila beban diangkat perlu dikalikan Yaw factor 1.05, apa alasannya"
+    }
+   ],
+   "options": [
+    "Mengantisipasi terjadinya pertambahan berat karena kondisi beban berayun/tidak diam",
+    "Mengantisipasi terjadinya pertambahan berat di sling akibat obyek berotasi di sumbu vertikal",
+    "Mengantisipasi terjadinya pertambahan berat karena benda miring saat diangkat",
+    "Mengantisipasi distribusi beban antar 2 sling diagonal tidak setara."
+   ],
+   "answer": 2
+  }
+ ],
+ "esai": null,
+ "praktik": {
+  "template": "lifting.zip",
+  "template_name": "Ujian Praktik V2 - Lifting Engineer.zip",
+  "duration": 0,
+  "panduan": "A. PRAKTIK PENGHITUNGAN (CALCULATION)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nTUGAS\n\nCALCULATION - C\n1. Tentukan Load Factor untuk kondisi Tail Lifting seperti ini\n2. Hitung Maximal Dynamic Sling Load untuk Main & Crane dari beban ini\n3. Hitung Maximum Sling Tension pada Main Crane & Tail Crane\n4. Pilih Sling & Shackle yang tepat untuk Main Crane & Tail Crane\n5. Buat Tabel Lifting Gear yang digunakan\n6. Hitung Dynamic Hook Load (DHL) untuk Main Crane & Tail Crane\n7. Tentukan Working radius yang aman untuk Main & Tail Crane pada operasi ini\n8. Hitung Crane utilization & SF & GBP Cdari crane ini\n9. Tentukan lifting Sequence dari mulai Site Preparation, Setting Crane, Lifting Execution, Dismantling Crane dan Site Clearance\n10. Buatlah dokumen Lifting Method untuk operasi lifting ini\n11. Buatlah Lifting Operational Procedur (template disediakan)\n12. Buatlah JSA untuk operasi ini\n\nB. PRAKTIK GAMBAR\nBuatlah gambar lifting plan untuk operasi tailing lifting ini, yang menggandung informasi :\n1. Working radius aman untuk Main dan Tail Crane untuk operasi ini\n2. Ilustrasi posisi load saat 0,30,60 dan 90 derajat dan setelah slewing, dan placed beban\n3. Rigging Arraggement dan tabelnya (halaman berbeda)\n4. Tabel crane utilization\n5. Load Chart Crane\n6. Catatan/Note penting\n7. Kepada/Kop gambar yang lengkap\n\nGambar posisi Main Crane & Tail Crane, data crane, template Lifting Operation Plan, JSA, Lifting Method, dan bahan gambar ada di template (file ZIP). Kumpulkan seluruh hasil (perhitungan, Lifting Method, LOP, JSA, gambar lifting plan) dalam satu file ZIP, lalu unggah (maks. 20 MB)."
+ }
+}

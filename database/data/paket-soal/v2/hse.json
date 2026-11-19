@@ -1,0 +1,1570 @@
+{
+ "key": "hse",
+ "classroom_code": "K3L",
+ "nama": "Laboratory HSE Officer / Petugas K3L Laboratorium",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda Laboratory HSE Officer (Petugas K3L Laboratorium).pdf",
+  "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai HSE.pdf",
+  "praktik": "FR.IA.04 Ujian Keterampilan - HSE-V1.docx"
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Apa tujuan utama dari unit kompetensi \"Melakukan Identifikasi Bahaya dan Penilaian Risiko (HIRADC) di Laboratorium\"?"
+    }
+   ],
+   "options": [
+    "Mengidentifikasi bahaya, menilai risiko, dan menetapkan pengendalian yang efektif",
+    "Hanya untuk mengetahui letak alat pemadam api ringan",
+    "Menghitung jumlah bahan kimia di laboratorium",
+    "Menilai kinerja asesi dalam menggunakan mikroskop"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Berikut ini adalah potensi bahaya yang harus diidentifikasi sesuai karakteristik laboratorium, kecuali ..."
+    }
+   ],
+   "options": [
+    "Bahaya Kimia dan Biologi",
+    "Bahaya Fisik dan Ergonomi",
+    "Bahaya Finansial",
+    "Bahaya Psikososial"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "Dokumen literatur keselamatan apa yang digunakan sebagai referensi utama dalam mengidentifikasi bahaya bahan kimia?"
+    }
+   ],
+   "options": [
+    "SOP",
+    "ISO 45001",
+    "Job Safety Analysis (JSA)",
+    "Material Safety Data Sheet (MSDS)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Nilai tingkat risiko dihitung berdasarkan dua faktor utama, yaitu..."
+    }
+   ],
+   "options": [
+    "Eliminasi dan Substitusi",
+    "Likelihood (kemungkinan) dan Severity (keparahan)",
+    "Bahaya dan Dampak",
+    "Waktu dan Biaya"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Berdasarkan matriks risiko yang ditetapkan, tingkat risiko umumnya dikategorikan menjadi..."
+    }
+   ],
+   "options": [
+    "Rendah, Sedang, Tinggi",
+    "Aman, Waspada, Bahaya",
+    "Low, Medium, High, Extreme",
+    "Acceptable dan Unacceptable"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "Risiko yang masih tersisa setelah dievaluasi dan mempertimbangkan pengendalian yang sudah ada disebut..."
+    }
+   ],
+   "options": [
+    "Residual risk (risiko sisa)",
+    "Inherent risk",
+    "Extreme risk",
+    "Acceptable risk"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Urutan Hierarki Pengendalian Risiko yang benar dari yang paling utama adalah..."
+    }
+   ],
+   "options": [
+    "APD, Administratif, Rekayasa Teknis, Substitusi, Eliminasi",
+    "Eliminasi, Substitusi, Rekayasa Teknis, Administratif, APD",
+    "Substitusi, Eliminasi, APD, Administratif, Rekayasa Teknis",
+    "Administratif, Eliminasi, Substitusi, APD, Rekayasa Teknis"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "Sifat bahaya di laboratorium seringkali tidak kasat mata. Istilah lain untuk bahaya yang tidak kasat mata ini adalah..."
+    }
+   ],
+   "options": [
+    "Physical hazard",
+    "Biological hazard",
+    "Residual hazard",
+    "Latent hazard"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Contoh bahaya kimia berupa inkompatibilitas bahan (bahan yang tidak boleh dicampur) di laboratorium adalah..."
+    }
+   ],
+   "options": [
+    "Air dengan garam",
+    "Benzena dengan toluena",
+    "Nitrogen cair dengan udara",
+    "Asam nitrat dengan pelarut organik"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Bahaya apa yang dapat timbul dari bahan kimia eter jika disimpan dalam waktu yang terlalu lama?"
+    }
+   ],
+   "options": [
+    "Penguapan air",
+    "Pembentukan peroksida",
+    "Penurunan suhu drastis",
+    "Perubahan warna menjadi gelap"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Risiko infeksi yang berasal dari sampel darah atau bakteri patogen termasuk dalam kategori bahaya..."
+    }
+   ],
+   "options": [
+    "Biologi",
+    "Kimia",
+    "Fisik",
+    "Ergonomi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Konsep apa yang sangat penting untuk dipahami oleh asesi terkait dengan penanganan bahaya biologi?"
+    }
+   ],
+   "options": [
+    "Job Safety Analysis (JSA)",
+    "Material Safety Data Sheet (MSDS)",
+    "Biosafety Level (BSL)",
+    "Residual Risk"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Bahaya fisik kriogenik di laboratorium, seperti penggunaan nitrogen cair, dapat menyebabkan..."
+    }
+   ],
+   "options": [
+    "Paparan kronis dan karsinogenik",
+    "Cold burn (luka bakar dingin) atau asfiksia",
+    "Infeksi patogen",
+    "Tuli permanen"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Kebisingan yang ditimbulkan dari mesin fume hood (lemari asam) dikategorikan sebagai bahaya..."
+    }
+   ],
+   "options": [
+    "Ergonomi",
+    "Kimia",
+    "Psikososial",
+    "Fisik"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Dalam melakukan penilaian risiko, asesi harus mampu membedakan antara risiko yang dapat diterima (acceptable) dan risiko yang..."
+    }
+   ],
+   "options": [
+    "Tidak dapat dihindari",
+    "Hanya perlu dicatat",
+    "Memerlukan tindakan segera (unacceptable)",
+    "Bisa diabaikan sementara"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Tindakan mengganti penggunaan benzena (yang bersifat karsinogen) dengan toluena atau xilena merupakan bentuk pengendalian risiko pada hierarki..."
+    }
+   ],
+   "options": [
+    "Substitusi",
+    "Eliminasi",
+    "Rekayasa Teknis",
+    "Administratif"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Menggunakan fume hood (lemari asam) untuk mereaksikan bahan-bahan kimia yang volatil (mudah menguap) termasuk dalam pengendalian tingkat..."
+    }
+   ],
+   "options": [
+    "Rekayasa Teknis (Engineering)",
+    "Substitusi",
+    "Administratif",
+    "Alat Pelindung Diri (APD)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Pembuatan Standar Operasional Prosedur (SOP) kerja, pelatihan pekerja, dan pembatasan akses masuk ke laboratorium adalah contoh pengendalian..."
+    }
+   ],
+   "options": [
+    "Rekayasa Teknis",
+    "Eliminasi",
+    "Administratif",
+    "Substitusi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Penggunaan jas lab, kacamata keselamatan (goggles), dan sarung tangan nitril merupakan upaya pengendalian bahaya pada tingkat..."
+    }
+   ],
+   "options": [
+    "Administratif",
+    "Substitusi",
+    "Engineering",
+    "APD (Alat Pelindung Diri)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "Dalam aspek kritis panduan penilaian, asesi dituntut untuk mampu membedakan antara \"bahaya\" dan \"risiko\". Apa definisi sederhana dari bahaya dalam konteks ini?"
+    }
+   ],
+   "options": [
+    "Dampak dari suatu kejadian",
+    "Sumber yang berpotensi menyebabkan kerugian/celaka",
+    "Peluang terjadinya kecelakaan",
+    "Tingkat keparahan luka"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Berbeda dengan bahaya, apa yang dimaksud dengan \"risiko\" dalam panduan penilaian keselamatan kerja?"
+    }
+   ],
+   "options": [
+    "Sumber kecelakaan",
+    "Alat Pelindung Diri",
+    "Dampak atau akibat dari suatu bahaya",
+    "Pengendalian teknis"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Ketepatan dalam memilih jenis Alat Pelindung Diri (APD) yang sesuai untuk suatu bahan kimia harus didasarkan pada informasi yang terdapat di dalam..."
+    }
+   ],
+   "options": [
+    "Material Safety Data Sheet (MSDS)",
+    "Buku panduan alat",
+    "Label harga bahan",
+    "SNI"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Dalam elemen menyiapkan penyimpanan bahan kimia, fasilitas penyimpanan seperti kabinet dan rak harus dipastikan memenuhi persyaratan teknis. Berikut ini yang termasuk persyaratan teknis tersebut adalah..."
+    }
+   ],
+   "options": [
+    "Pencahayaan alami, suhu ruang, dan akses terbuka",
+    "Memiliki ventilasi, bundwall, dan ketahanan api",
+    "Dilengkapi dengan kunci otomatis dan alarm antimaling",
+    "Terbuat dari bahan kaca transparan agar mudah diawasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Mengapa prinsip segregasi (pemisahan) sangat ditekankan dalam menyimpan bahan kimia di laboratorium?"
+    }
+   ],
+   "options": [
+    "Agar bahan kimia terlihat lebih rapi di rak",
+    "Untuk memudahkan penghitungan inventaris di akhir bulan",
+    "Menghindari bahan kimia terpapar cahaya matahari langsung",
+    "Mencegah reaksi berbahaya akibat mencampur bahan inkompatibel"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "Salah satu pelanggaran fatal yang sering terjadi dalam prinsip segregasi menurut bagian Insight adalah menyimpan bahan kimia oksidator berdekatan dengan bahan organik. Contoh spesifik dari kesalahan ini adalah..."
+    }
+   ],
+   "options": [
+    "Menyimpan Air dengan Garam Dapur",
+    "Menyimpan Asam Klorida dengan Natrium Hidroksida",
+    "Menyimpan Benzena dengan Toluena",
+    "Menyimpan Asam Perklorat dengan Alkohol"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "Dalam memahami LDKB/MSDS, indikator spesifik apa yang digunakan untuk menentukan tingkat toksisitas suatu bahan kimia?"
+    }
+   ],
+   "options": [
+    "Flash point",
+    "LD50 (Lethal Dose 50)",
+    "Nilai pH",
+    "Titik didih"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Untuk mengklasifikasikan apakah suatu cairan termasuk dalam kategori mudah terbakar (flammable), informasi apa pada MSDS yang menjadi patokan utama?"
+    }
+   ],
+   "options": [
+    "Titik nyala (flash point)",
+    "Tekanan uap",
+    "Batas eksposur (PEL/TLV)",
+    "Berat jenis (specific gravity)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Di mana seharusnya bahan kimia yang bersifat korosif (corrosives) disimpan?"
+    }
+   ],
+   "options": [
+    "Di dalam flammable safety cabinet",
+    "Di rak paling atas agar tidak mudah dijangkau anak-anak",
+    "Di rak rendah yang tahan korosi (polyethylene tray)",
+    "Di lemari pendingin bersuhu di bawah nol derajat celcius"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Bahan kimia pembentuk peroksida (peroxide formers) seperti eter membutuhkan penanganan khusus. Apa yang harus dilakukan secara berkala terhadap bahan ini dan mengapa?"
+    }
+   ],
+   "options": [
+    "Dipanaskan untuk menghilangkan kadar air",
+    "Dites peroksidanya secara berkala karena berpotensi meledak",
+    "Disaring untuk membuang endapan kristal",
+    "Ditambahkan air agar konsentrasinya menurun"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Berdasarkan analisis penanganan tumpahan, tindakan apa yang benar jika terjadi tumpahan asam di laboratorium?"
+    }
+   ],
+   "options": [
+    "Disiram dengan air mengalir sebanyak mungkin",
+    "Dilap menggunakan kain majun hingga kering",
+    "Dinetralkan menggunakan asam kuat dengan konsentrasi tinggi",
+    "Dinetralkan dengan basa lemah seperti soda ash"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "Standar global yang mengatur tentang pelabelan dan piktogram bahaya bahan kimia yang disebutkan dalam unit ini adalah..."
+    }
+   ],
+   "options": [
+    "ISO 14001",
+    "OHSAS 18001",
+    "GHS (Globally Harmonized System)",
+    "NIOSH"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Fasilitas penyimpanan untuk bahan kimia mudah terbakar (flammables) harus memenuhi syarat khusus, yaitu..."
+    }
+   ],
+   "options": [
+    "Disimpan di flammable safety cabinet yang tahan api",
+    "Menggunakan rak berbahan kayu lapis",
+    "Disimpan bersama bahan korosif di polyethylene tray",
+    "Diletakkan di ruang terbuka tanpa atap"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Sesuai dengan batasan variabel, APD kimia apa saja yang secara spesifik disebutkan untuk perlengkapan menangani bahan kimia?"
+    }
+   ],
+   "options": [
+    "Respirator, apron, dan gloves (sarung tangan)",
+    "Sabuk pengaman, helm proyek, dan pelindung telinga",
+    "Kacamata minus, jas laboratorium, dan sepatu kets",
+    "Masker bedah dan pelindung wajah (face shield) biasa"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Komponen utama yang biasanya terdapat di dalam Spill Kit (peralatan penanganan tumpahan) sesuai Insight skema ini adalah..."
+    }
+   ],
+   "options": [
+    "Kantong plastik hitam dan sapu lidi",
+    "Pasir basah dan selang air",
+    "Penyerap dan netralisator",
+    "Busa pemadam api (FOAM) dan CO2"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Untuk mencegah tumpahan meluas di area fasilitas penyimpanan bahan kimia cair, modifikasi struktur fisik apa yang dipersyaratkan?"
+    }
+   ],
+   "options": [
+    "Pemasangan tirai plastik (PVC curtain)",
+    "Penggunaan lantai keramik licin",
+    "Pembuatan atap dengan exhaust fan besar",
+    "Penyediaan bundwall (tanggul penahan tumpahan)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Pelanggaran fatal mencampur asam kuat dengan basa kuat tidak boleh dilakukan karena menyalahi prinsip..."
+    }
+   ],
+   "options": [
+    "Inventarisasi",
+    "Segregasi (pemisahan berdasarkan kompatibilitas)",
+    "Pelabelan GHS",
+    "Lethal Dose"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Apa fungsi dari pembaruan chemical inventory (inventaris bahan kimia) secara berkala?"
+    }
+   ],
+   "options": [
+    "Menghindari pajak bahan berbahaya dari pemerintah",
+    "Menurunkan nilai asuransi laboratorium",
+    "Memastikan tidak ada bahan kadaluarsa dan mengetahui riwayat penyimpanan",
+    "Memenuhi kuota pembelian bahan dari distributor"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Menggunakan air untuk menetralkan tumpahan asam pekat di laboratorium adalah tindakan yang..."
+    }
+   ],
+   "options": [
+    "Salah, karena berisiko memicu reaksi eksotermis; seharusnya dinetralkan dengan basa lemah",
+    "Benar, asalkan air yang digunakan bersuhu dingin",
+    "Benar, karena air adalah pelarut universal",
+    "Salah, karena air dapat merusak lantai laboratorium"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Saat praktik di laboratorium, Anda menemukan campuran pelarut bekas dan sisa asam. Berdasarkan kriteria unjuk kerja, langkah pertama yang harus dilakukan adalah..."
+    }
+   ],
+   "options": [
+    "Membuang langsung ke wastafel",
+    "Memilah limbah sesuai karakteristiknya (cair organik, cair anorganik, dll)",
+    "Mencampur semuanya ke dalam satu wadah besar",
+    "Membakar limbah di tempat terbuka"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Anda ditugaskan mengemas limbah cair B3. Wadah yang paling tepat dan direkomendasikan karena kuat, tidak bocor, dan kompatibel dengan limbah adalah..."
+    }
+   ],
+   "options": [
+    "Kardus bekas",
+    "Kantong plastik hitam",
+    "Botol kaca tipis",
+    "Jerigen HDPE"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "Setelah menggunakan alat medis atau alat gelas, Anda menemukan pecahan kaca preparat dan jarum suntik bekas. Limbah benda tajam tersebut secara praktik harus dimasukkan ke dalam..."
+    }
+   ],
+   "options": [
+    "Tempat sampah organik",
+    "Kantong kresek merah",
+    "Drum besi",
+    "Safety box anti-tusuk"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Anda baru saja selesai mengemas limbah ke dalam jerigen. Pada saat melakukan pelabelan, informasi wajib yang harus tertera pada label sesuai regulasi adalah..."
+    }
+   ],
+   "options": [
+    "Nama petugas kebersihan lab",
+    "Kode limbah, tanggal pengemasan, dan sifat bahaya",
+    "Harga beli bahan kimia sebelumnya",
+    "Rute evakuasi menuju titik kumpul"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Anda mengemas limbah padat B3 ke dalam kemasan kotak kardus. Tanda khusus apa yang harus dipasang pada kemasan tersebut untuk memastikan kotak diletakkan dengan benar?"
+    }
+   ],
+   "options": [
+    "Tanda arah panah (posisi)",
+    "Tanda silang merah",
+    "Label harga",
+    "Pita kuning hitam"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "Setelah limbah dikemas dan diberi label yang benar di laboratorium, limbah tersebut tidak boleh dibiarkan di meja kerja, melainkan harus segera dipindahkan ke..."
+    }
+   ],
+   "options": [
+    "Gudang alat rusak",
+    "Ruang istirahat karyawan",
+    "Tempat Penyimpanan Sementara (TPS) Limbah B3",
+    "Kantin"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Di area TPS Limbah B3, Anda dilarang meletakkan jerigen limbah langsung di atas lantai. Limbah tersebut harus disusun di atas..."
+    }
+   ],
+   "options": [
+    "Karpet karet",
+    "Palet",
+    "Meja kayu",
+    "Rak buku"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Setiap kali Anda memindahkan jerigen limbah masuk atau keluar dari TPS, tindakan pencatatan akurat yang harus Anda lakukan adalah mengisi..."
+    }
+   ],
+   "options": [
+    "Jurnal praktikum mahasiswa",
+    "Buku absensi karyawan",
+    "Laporan keuangan bulanan",
+    "Logbook (neraca limbah)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "Laboratorium tempat Anda bekerja menghasilkan limbah B3. Berdasarkan PP No. 22 Tahun 2021, laboratorium memiliki tanggung jawab mutlak terhadap limbahnya yang dikenal dengan istilah..."
+    }
+   ],
+   "options": [
+    "From lab to river",
+    "Lepas tangan setelah pihak ketiga datang",
+    "Cradle to grave",
+    "Bebas tanggung jawab setelah 90 hari"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Jika Anda bekerja di laboratorium industri besar yang menghasilkan limbah B3 lebih dari 50 kg per hari, batas waktu maksimal penyimpanan limbah tersebut di TPS adalah..."
+    }
+   ],
+   "options": [
+    "90 hari",
+    "30 hari",
+    "180 hari",
+    "365 hari"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Anda hendak menempelkan simbol limbah B3 untuk limbah pelarut organik yang mudah menyala. Warna dasar simbol yang harus Anda pilih adalah..."
+    }
+   ],
+   "options": [
+    "Merah",
+    "Hijau",
+    "Kuning",
+    "Biru"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Untuk membedakannya dari piktogram bahan kimia murni (GHS) yang berbentuk wajik, simbol khusus untuk limbah B3 memiliki bentuk..."
+    }
+   ],
+   "options": [
+    "Lingkaran",
+    "Segitiga",
+    "Belah ketupat",
+    "Persegi panjang"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Selain menempelkan simbol, Anda harus mengisi formulir label limbah. Label ini minimal harus memuat informasi mengenai..."
+    }
+   ],
+   "options": [
+    "Nama asisten laboratorium dan shift kerja",
+    "Merk bahan, pabrik pembuat, dan harga",
+    "Suhu ruangan, pH, dan kekentalan",
+    "Penghasil, tanggal, dan berat limbah"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Saat praktik pencatatan, pastikan Anda tidak salah menuliskan kode limbah B3. Kesalahan kodefikasi ini merupakan hal serius karena dapat berakibat..."
+    }
+   ],
+   "options": [
+    "Limbah dikembalikan ke laboratorium",
+    "Sanksi hukum",
+    "Penurunan nilai estetika TPS",
+    "Pemotongan gaji harian"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Asesor sedang mengamati Anda bekerja menata limbah di dalam TPS. Berdasarkan panduan penilaian skema ini, aspek kritis yang menjadi fokus utama penilaian mereka adalah..."
+    }
+   ],
+   "options": [
+    "Kecepatan fisik asesi mengangkat jerigen",
+    "Kemampuan membersihkan lantai TPS dengan alat pel",
+    "Kepatuhan terhadap aturan pelabelan dan pemisahan jenis limbah di TPS",
+    "Kerapian dalam mengenakan seragam kerja"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Di dalam TPS, penyusunan limbah di atas palet tidak boleh dilakukan secara acak. Limbah tersebut harus disusun dan dikelompokkan sesuai dengan..."
+    }
+   ],
+   "options": [
+    "Blok penyimpanan",
+    "Nama petugas yang membuang",
+    "Warna jerigen limbah",
+    "Hari pengumpulan limbah"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Anda bertugas melabeli jerigen berisi limbah sisa oksidator (reaktif). Berdasarkan pedoman visual, warna dasar simbol limbah B3 untuk sifat bahaya ini adalah..."
+    }
+   ],
+   "options": [
+    "Merah",
+    "Kuning",
+    "Hitam",
+    "Putih"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Lingkup dari proses penanganan limbah (waste handling), mulai dari awal hingga penyimpanan. Proses tersebut terdiri dari..."
+    }
+   ],
+   "options": [
+    "Pembakaran, penimbunan, dan pembuangan ke sungai",
+    "Pengambilan sampel, pengujian, dan sterilisasi",
+    "Pembelian bahan, rekapitulasi, dan pelaporan",
+    "Identifikasi, pengemasan, pelabelan, hingga penyimpanan di TPS"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Jika Anda membuang limbah pecahan gelas beker langsung ke dalam tong sampah berbahan plastik tipis, Anda melanggar Kriteria Unjuk Kerja yang mensyaratkan bahwa kemasan limbah harus..."
+    }
+   ],
+   "options": [
+    "Memiliki warna yang cerah",
+    "Ringan dan mudah dihancurkan",
+    "Bisa didaur ulang menjadi kompos",
+    "Kuat, tidak bocor, dan kompatibel"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Pemahaman asesi terhadap manajemen waktu simpan limbah di TPS (misal: 90 hari atau 365 hari) sangat penting saat di lapangan agar mencegah terjadinya..."
+    }
+   ],
+   "options": [
+    "Kenaikan harga limbah",
+    "Over-storage (penyimpanan melebihi batas waktu)",
+    "Kekurangan stok jerigen kosong",
+    "Penguapan bahan kimia murni"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Anda baru saja meletakkan 3 jerigen limbah infeksius (medis) di atas palet di TPS. Setelah memastikan label dan arah panah benar, hal terakhir yang segera Anda lakukan adalah..."
+    }
+   ],
+   "options": [
+    "Mengisi logbook (neraca limbah masuk) dengan akurat",
+    "Mengunci TPS dan mematikan lampu selamanya",
+    "Memfoto area TPS untuk laporan pribadi",
+    "Menghubungi pihak ketiga untuk mengambil limbah hari itu juga"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Apa tujuan utama dari mengelola tindakan tanggap darurat di laboratorium?"
+    }
+   ],
+   "options": [
+    "Menghitung kerugian finansial perusahaan",
+    "Menyusun jadwal piket kebersihan laboratorium",
+    "Merespons situasi darurat secara cepat dan tepat untuk meminimalisir dampak korban dan kerugian",
+    "Mengganti semua peralatan yang rusak akibat bahan kimia"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Jika mata seorang analis kimia terpapar bahan kimia asam atau basa, berapa lama durasi minimal pembilasan (flushing) mata yang diwajibkan?"
+    }
+   ],
+   "options": [
+    "5 menit",
+    "15 menit",
+    "10 menit",
+    "30 menit"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Apa alasan fisiologis di balik keharusan melakukan pembilasan mata selama 15 menit akibat paparan kimia?"
+    }
+   ],
+   "options": [
+    "Untuk membersihkan area wajah secara menyeluruh",
+    "Untuk mempermudah dokter memberikan obat tetes",
+    "Untuk menurunkan suhu tubuh pasien",
+    "Untuk mencegah kerusakan kornea permanen"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Ke mana evakuasi harus dilakukan saat terjadi keadaan darurat ?"
+    }
+   ],
+   "options": [
+    "Ke ruang manajer laboratorium",
+    "Ke toilet terdekat untuk bersembunyi",
+    "Menuju titik kumpul melalui jalur yang aman",
+    "Ke ruang penyimpanan bahan kimia"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Setelah insiden darurat berhasil ditangani, kepada siapa kejadian tersebut harus dilaporkan ?"
+    }
+   ],
+   "options": [
+    "Kepada tim tanggap darurat atau manajemen",
+    "Kepada keluarga korban saja",
+    "Kepada rekan kerja di divisi lain",
+    "Kepada pihak kepolisian secara langsung tanpa lewat manajemen"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Laporan kejadian darurat yang disusun setidaknya harus mencakup informasi mengenai..."
+    }
+   ],
+   "options": [
+    "Kronologi kejadian dan tindakan yang diambil",
+    "Daftar alat yang harus dibeli ulang",
+    "Rencana anggaran perbaikan gedung",
+    "Nama-nama saksi mata dan alamat rumahnya"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Standar internasional apa yang mewajibkan organisasi memiliki kesiapsiagaan darurat (Klausul 8.2)?"
+    }
+   ],
+   "options": [
+    "ISO 9001",
+    "ISO 14001",
+    "ISO 45001",
+    "ISO 17025"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Kebakaran yang melibatkan logam seperti Natrium atau Magnesium diklasifikasikan sebagai kebakaran..."
+    }
+   ],
+   "options": [
+    "Kelas A",
+    "Kelas B",
+    "Kelas C",
+    "Kelas D"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Media pemadam apa yang sangat dilarang digunakan untuk memadamkan kebakaran logam (Kelas D)?"
+    }
+   ],
+   "options": [
+    "Pasir kering dan bubuk khusus",
+    "Air atau APAR CO2",
+    "Karung goni basah",
+    "Busa (Foam)"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Cara yang tepat dan aman untuk memadamkan kebakaran logam (Kelas D) adalah menggunakan..."
+    }
+   ],
+   "options": [
+    "Air mengalir",
+    "APAR CO2",
+    "Pasir kering atau bubuk khusus",
+    "Emergency Shower"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Keterampilan wajib apa yang harus dikuasai pekerja terkait paparan kimia menurut bagian Insight?"
+    }
+   ],
+   "options": [
+    "Penggunaan Emergency Eye Wash dan Shower",
+    "Menggunakan fume hood",
+    "Mencampur larutan penyangga (buffer)",
+    "Menggunakan tabung pemadam api berat"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Bagaimana cara memastikan jalur evakuasi tetap aman dan berfungsi dengan baik?"
+    }
+   ],
+   "options": [
+    "Memasang karpet tebal di sepanjang jalur",
+    "Memastikan jalur tidak terhalang (housekeeping yang baik)",
+    "Meletakkan pot tanaman untuk dekorasi jalur",
+    "Mengunci semua pintu darurat dari luar"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Berdasarkan batasan variabel, jenis Alat Pemadam Api Ringan (APAR) apa yang umum disiapkan?"
+    }
+   ],
+   "options": [
+    "Air dan Busa",
+    "Water mist dan Wet Chemical",
+    "Halon dan Pasir",
+    "CO2 dan Dry Chemical"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Jika terjadi tumpahan bahan kimia berbahaya (B3), peralatan apa yang harus digunakan untuk menangani situasi tersebut sesuai batasan variabel?"
+    }
+   ],
+   "options": [
+    "Kain lap biasa",
+    "Pasir basah",
+    "Alat pel lantai",
+    "Spill Kit"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Langkah mengidentifikasi situasi darurat bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Menyalahkan karyawan yang ceroboh",
+    "Menentukan respon yang tepat",
+    "Menghitung ganti rugi",
+    "Menunggu bantuan dari luar"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Di bawah ini yang bukan merupakan bagian dari mengelola tindakan tanggap darurat di laboratorium adalah..."
+    }
+   ],
+   "options": [
+    "Membuang limbah B3 ke saluran air",
+    "Mengoperasikan APAR",
+    "Melakukan flushing mata 15 menit",
+    "Melakukan evakuasi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "Bunyi alarm yang tiba-tiba berdering di laboratorium merupakan salah satu tanda untuk melakukan..."
+    }
+   ],
+   "options": [
+    "Penggantian shift kerja",
+    "Pembersihan alat kaca",
+    "Identifikasi situasi darurat",
+    "Inventarisasi bahan kimia"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Darurat medis, seperti pingsan atau luka potong akibat pecahan alat gelas, diklasifikasikan ke dalam..."
+    }
+   ],
+   "options": [
+    "Penilaian risiko",
+    "Jenis keadaan darurat",
+    "Hierarki pengendalian",
+    "Pelaporan kronologi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Mengoperasikan perlengkapan Pertolongan Pertama Pada Kecelakaan (P3K) merupakan bagian dari elemen kompetensi..."
+    }
+   ],
+   "options": [
+    "Mengidentifikasi situasi darurat",
+    "Melaporkan kejadian",
+    "Melakukan investigasi kecelakaan",
+    "Merespons keadaan darurat"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Mengapa tindakan yang diambil selama keadaan darurat harus dicantumkan dalam laporan kejadian?"
+    }
+   ],
+   "options": [
+    "Untuk dipublikasikan di media sosial",
+    "Untuk meminta anggaran tambahan",
+    "Sebagai evaluasi kronologi dan memastikan prosedur telah dijalankan",
+    "Agar manajemen bisa memotong gaji pekerja yang terlibat"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Saat menyusun rencana inspeksi harian untuk area kerja para analis kimia, langkah pertama yang harus Anda lakukan adalah..."
+    }
+   ],
+   "options": [
+    "Menentukan objek inspeksi (peralatan, lingkungan, perilaku)",
+    "Menyiapkan denda pelanggaran",
+    "Menyusun laporan akhir",
+    "Memotret seluruh ruangan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Sebelum berkeliling ke ruang preparasi mikrobiologi, Anda menyusun lembar periksa (checklist). Agar inspeksi berjalan standar, checklist ini harus disiapkan dengan mengacu pada..."
+    }
+   ],
+   "options": [
+    "Regulasi",
+    "Kondisi cuaca harian",
+    "Kebiasaan pekerja lama",
+    "Permintaan klien"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "Inspeksi K3 yang Anda lakukan secara rutin terhadap fasilitas dan analis laboratorium pengujian merupakan bentuk tindakan manajemen K3 yang bersifat..."
+    }
+   ],
+   "options": [
+    "Reaktif (lagging indicator)",
+    "Administratif murni",
+    "Proaktif (leading indicator)",
+    "Represif"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Saat inspeksi lapangan, Anda melihat seorang analis memipet larutan sampel langsung menggunakan mulut (pipetting by mouth). Temuan ini harus diklasifikasikan ke dalam kategori..."
+    }
+   ],
+   "options": [
+    "Unsafe condition (Kondisi tidak aman)",
+    "Near miss (Hampir celaka)",
+    "First aid (Pertolongan pertama)",
+    "Unsafe act (Tindakan tidak aman)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Di sudut ruang inkubator mikrobiologi, Anda mendapati kabel alat yang terkelupas sehingga kawat tembaganya terlihat jelas. Dalam laporan, temuan inspeksi ini dicatat sebagai..."
+    }
+   ],
+   "options": [
+    "Unsafe act (Tindakan tidak aman)",
+    "Unsafe condition (Kondisi tidak aman)",
+    "Housekeeping yang buruk",
+    "Fasilitas sanitasi yang minim"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Saat memeriksa ruang kerja para analis sensori dan organoleptik, Anda perlu mengevaluasi kenyamanan dan keamanan fisik. Menurut Kriteria Unjuk Kerja 2.2, faktor lingkungan kerja apa saja yang harus diperiksa kesesuaiannya?"
+    }
+   ],
+   "options": [
+    "Merk AC dan kapasitas lampu",
+    "Warna cat dinding dan jenis lantai",
+    "Pencahayaan, kebisingan, suhu, dan ventilasi",
+    "Jumlah meja dan kursi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Anda menggunakan Lux meter di meja kerja analis kimia yang sedang melakukan pekerjaan analitik yang menuntut ketelitian tinggi. Berdasarkan standar referensi inspeksi K3, pencahayaan di area tersebut minimal harus..."
+    }
+   ],
+   "options": [
+    "300-500 Lux",
+    "100-200 Lux",
+    "50-100 Lux",
+    "1000-2000 Lux"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Anda mencium bau pelarut yang menyengat di ruang asam. Anda segera mengecek sistem ventilasi karena fungsinya yang sangat vital di laboratorium untuk..."
+    }
+   ],
+   "options": [
+    "Mendinginkan suhu ruangan",
+    "Membuang uap kimia",
+    "Mengurangi kebisingan alat",
+    "Menambah estetika ruangan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Setelah menemukan tumpahan cairan yang licin di jalur evakuasi, Anda segera memotretnya menggunakan kamera. Tindakan memotret ini dilakukan agar temuan inspeksi didokumentasikan dengan..."
+    }
+   ],
+   "options": [
+    "Narasi yang panjang",
+    "Asumsi pribadi",
+    "Laporan lisan",
+    "Bukti objektif"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Untuk menunjang akurasi inspeksi lingkungan fisik di laboratorium, alat bantu ukur dan dokumentasi apa saja yang termasuk dalam batasan variabel unit ini?"
+    }
+   ],
+   "options": [
+    "Meteran, timbangan, dan mikroskop",
+    "Kalkulator dan kertas buram",
+    "Termometer badan dan stetoskop",
+    "Checklist, Lux meter, dan Kamera"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Anda mendapati meja kerja di lab kimia penuh dengan sampel sisa pengujian kemarin yang dibiarkan berserakan. Anda menyarankan implementasi metode housekeeping untuk mencegah kecelakaan, yang dikenal dengan prinsip..."
+    }
+   ],
+   "options": [
+    "PDCA (Plan, Do, Check, Act)",
+    "5R/5S (Ringkas, Rapi, Resik, Rawat, Rajin)",
+    "HIRADC",
+    "LOTO (Lock Out Tag Out)"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Anda menegur seorang analis kimia karena tertangkap mata tidak menggunakan kacamata pelindung (safety goggles) saat mencampur larutan korosif. Perilaku asesi tersebut merupakan contoh dari..."
+    }
+   ],
+   "options": [
+    "Unsafe act (Tindakan tidak aman)",
+    "Kondisi tidak aman",
+    "Tindakan proaktif",
+    "Unsafe condition"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Selain mengacu pada regulasi K3 nasional, laboratorium yang beroperasi di bawah sistem manajemen mutu juga merujuk klausul 6.3 terkait kondisi fasilitas dan lingkungan dari standar..."
+    }
+   ],
+   "options": [
+    "ISO 14001",
+    "OHSAS 18001",
+    "Standar ISO/IEC 17025",
+    "Standar ISO 22000"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Di area dekat pintu keluar laboratorium mikrobiologi, Anda rutin mengecek apakah sabun cuci tangan, tisu, dan air mengalir tersedia dengan cukup. Ini merupakan langkah inspeksi untuk memastikan..."
+    }
+   ],
+   "options": [
+    "Kesesuaian suhu dan ventilasi",
+    "Ketersediaan fasilitas sanitasi dan kebersihan",
+    "Kondisi tidak aman pada peralatan",
+    "Ketersediaan APAR"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Anda telah selesai menyusun draf laporan inspeksi K3 bulanan beserta rekomendasinya. Apa tindak lanjut operasional berikutnya?"
+    }
+   ],
+   "options": [
+    "Menyimpan laporan tersebut di laci meja Anda",
+    "Menghancurkan catatan inspeksi lapangan",
+    "Mengunggah laporan ke media sosial",
+    "Menyampaikan laporan kepada pihak terkait untuk tindak lanjut"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Saat melaksanakan inspeksi berkeliling laboratorium, metode utama yang Anda gunakan untuk mengidentifikasi unsafe condition dan unsafe act adalah melalui..."
+    }
+   ],
+   "options": [
+    "Wawancara mendalam",
+    "Kuesioner online",
+    "Observasi",
+    "Rapat tertutup"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "Pada area mesin homogenizer, Anda menyadari bahwa pelindung mesin (guarding) telah dicopot oleh seseorang dan tidak dipasang kembali. Berdasarkan konteks K3L, hilangnya pelindung mesin ini digolongkan sebagai..."
+    }
+   ],
+   "options": [
+    "Kondisi tidak aman (Unsafe condition)",
+    "Tindakan tidak aman (Unsafe act)",
+    "Faktor lingkungan kerja",
+    "Housekeeping"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Menyiapkan daftar periksa (checklist) dan menentukan apakah hari ini akan menginspeksi peralatan atau lingkungan merupakan bagian dari elemen kompetensi..."
+    }
+   ],
+   "options": [
+    "Merencanakan inspeksi",
+    "Melaksanakan inspeksi",
+    "Melaporkan hasil inspeksi",
+    "Melakukan perbaikan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Mengapa inspeksi lapangan Anda di laboratorium tidak boleh hanya berfokus pada kondisi alat yang rusak saja?"
+    }
+   ],
+   "options": [
+    "Karena peralatan laboratorium sangat mahal harganya",
+    "Karena teknisi perbaikan sedang cuti",
+    "Karena inspeksi harus seimbang melihat kondisi alat (kondisi tidak aman) dan perilaku manusia (tindakan tidak aman)",
+    "Karena inspeksi perilaku manusia lebih cepat dilakukan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Anda memberikan briefing pagi kepada seluruh analis untuk selalu menjaga kebersihan dan kerapian area kerja demi mencegah insiden tak terduga. Penanaman kebiasaan kebersihan ini selaras dengan konsep..."
+    }
+   ],
+   "options": [
+    "LDKB/MSDS",
+    "HIRADC",
+    "JSA (Job Safety Analysis)",
+    "Housekeeping"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "Tujuan pokok dari seluruh rangkaian aktivitas \"Melakukan Inspeksi K3 dan Lingkungan Kerja Laboratorium\" ini adalah untuk..."
+    }
+   ],
+   "options": [
+    "Mengisi waktu luang saat tidak ada sampel masuk",
+    "Menjamin kesesuaian kondisi fisik, higiene, dan perilaku kerja dengan standar",
+    "Mencari-cari kesalahan personel untuk mengurangi bonus",
+    "Menghabiskan anggaran tahunan departemen K3 Catatan: • Pertanyaan juga bisa menjadi pilihan benar dan salah. • Daftar pertanyaan dapat berisi pertanyaan dari semua dimensi kompetensi, keterampilan kerja, dan aspek kritis. Jika ada pertanyaan yang tidak dijawab, maka dapat dieksplorasi dari menilai melalui pertanyaan verbal. • Pertanyaan juga dapat difokuskan pada akurasi dan presisi yang dapat membantu memberikan rekomendasi tindak lanjut untuk menilai. • Pertanyaan presisi jika tidak dapat dijawab, penilai disarankan untuk menambahkan lebih banyak latihan / bekerja di bawah pengawasan, sedangkan jika pertanyaan akurasi dilewatkan maka penilai direkomendasikan untuk pelatihan ulang."
+   ],
+   "answer": 2
+  }
+ ],
+ "esai": [
+  {
+   "no": 1,
+   "question": "<p>Jelaskan perbedaan mendasar antara \"Bahaya\" (Hazard) dan \"Risiko\" (Risk) dalam konteks laboratorium, serta berikan satu contoh konkret yang melibatkan bahan kimia spesifik.</p>",
+   "answer": "<p>Bahaya adalah sumber, situasi, atau tindakan yang berpotensi menimbulkan cedera atau penyakit (seperti sifat intrinsik bahan kimia). Risiko adalah kombinasi dari kemungkinan terjadinya kejadian berbahaya dengan keparahan cedera yang disebabkan oleh kejadian tersebut. Contoh: Asam Nitrat pekat adalah bahaya karena sifat korosifnya. Risikonya adalah potensi luka bakar kimia pada kulit asesi jika asam tersebut tumpah saat proses pemindahan tanpa APD yang tepat.</p>"
+  },
+  {
+   "no": 2,
+   "question": "<p>Dalam metode HIRADC, terdapat \"Hierarki Pengendalian Risiko\". Jika ditemukan risiko tinggi pada penggunaan Benzena (karsinogen) di laboratorium, susunlah langkah pengendalian berdasarkan hierarki tersebut dari yang paling efektif hingga kurang efektif.</p>",
+   "answer": "<ul><li>Eliminasi: Menghilangkan penggunaan Benzena jika proses pengujian memungkinkan.</li><li>Substitusi: Mengganti Benzena dengan pelarut yang lebih aman seperti Toluena atau Xilena.</li><li>Engineering (Rekayasa Teknis): Melakukan reaksi kimia di dalam fume hood (lemari asam) untuk mengisolasi uap.</li><li>Administratif: Menyusun SOP khusus, melakukan pelatihan, dan membatasi akses personel.</li><li>APD: Mewajibkan penggunaan jas lab, sarung tangan nitril, dan pelindung mata (goggles).</li></ul>"
+  },
+  {
+   "no": 3,
+   "question": "<p>Prinsip segregasi (pemisahan) adalah kompetensi kunci dalam penyimpanan B3. Mengapa menyimpan Asam Perklorat (oksidator) berdekatan dengan Alkohol (bahan organik) dianggap sebagai pelanggaran fatal?</p>",
+   "answer": "<p>Karena kedua bahan tersebut memiliki inkompatibilitas kimia. Pertemuan antara oksidator kuat (Asam Perklorat) dengan bahan organik yang mudah terbakar (Alkohol) dapat memicu reaksi eksotermik yang sangat kuat, menyebabkan kebakaran, atau ledakan.</p>"
+  },
+  {
+   "no": 4,
+   "question": "<p>Jika terjadi kebakaran yang melibatkan logam Natrium atau Magnesium (Kelas D) di laboratorium, mengapa penggunaan air atau APAR CO2 dilarang keras? Apa media pemadam yang harus digunakan?</p>",
+   "answer": "<p>Air atau CO2 dapat bereaksi hebat dengan logam alkali/alkali tanah yang sedang terbakar, berpotensi menyebabkan ledakan atau memperparah api. Media yang tepat adalah menggunakan pasir kering atau bubuk kimia khusus untuk kebakaran logam.</p>"
+  },
+  {
+   "no": 5,
+   "question": "<p>Mengapa dalam penanganan paparan bahan kimia pada mata di Emergency Eye Wash, pembilasan harus dilakukan minimal selama 15 menit secara terus-menerus? Jelaskan dari sudut pandang keselamatan kerja.</p>",
+   "answer": "<p>Pembilasan 15 menit diperlukan untuk memastikan penetrasi bahan kimia ke jaringan mata benar-benar terhenti, mengencerkan konsentrasi bahan kimia secara maksimal, dan menetralisir suhu (jika terjadi reaksi panas). Hal ini sangat kritis secara fisiologis untuk mencegah kerusakan kornea permanen akibat paparan asam atau basa.</p>"
+  },
+  {
+   "no": 6,
+   "question": "<p>Dalam inspeksi K3, asesi harus membedakan antara Unsafe Act (Tindakan Tidak Aman) dan Unsafe Condition (Kondisi Tidak Aman). Berikan masing-masing 2 contoh spesifik yang sering ditemui di lingkungan laboratorium.</p>",
+   "answer": "<ul><li>Unsafe Condition: Kabel peralatan yang terkelupas dan ventilasi/lemari asam yang tidak berfungsi optimal.</li><li>Unsafe Act: Personel yang tidak menggunakan kacamata pelindung saat mereaksikan zat dan melakukan pemipetan menggunakan mulut (pipetting by mouth).</li></ul>"
+  },
+  {
+   "no": 7,
+   "question": "<p>Dalam sebuah observasi lapangan, Anda menemukan seorang teknisi sedang mereaksikan bahan kimia volatil di atas meja kerja terbuka karena fume hood (lemari asam) sedang penuh. Identifikasi bahaya laten yang ada dan tentukan satu langkah pengendalian berdasarkan Hierarki Kontrol selain penggunaan APD.</p>",
+   "answer": "<p>Bahaya laten yang ada adalah paparan uap kimia berbahaya secara inhalasi yang dapat bersifat akut maupun kronis. Langkah pengendalian selain APD adalah Engineering Control (Rekayasa Teknis), yaitu menjadwalkan ulang pekerjaan agar reaksi hanya dilakukan di dalam fume hood yang berfungsi baik untuk mengisolasi uap.</p>"
+  },
+  {
+   "no": 8,
+   "question": "<p>Interpretasikan informasi LD50 dan Flash Point dalam MSDS sebuah bahan kimia baru di laboratorium Anda. Bagaimana kedua data ini menentukan teknis penyimpanan bahan tersebut?</p>",
+   "answer": "<p>LD50 (Lethal Dose 50) menunjukkan tingkat toksisitas; semakin rendah nilainya, semakin beracun bahan tersebut, sehingga memerlukan penyimpanan khusus (misal: lemari terkunci). Flash Point (Titik Nyala) menentukan klasifikasi kemudahan terbakar; jika titik nyalanya rendah, bahan harus disimpan di dalam flammable safety cabinet yang tahan api.</p>"
+  },
+  {
+   "no": 9,
+   "question": "<p>Laboratorium Anda menghasilkan limbah berupa jerigen berisi campuran sisa pelarut organik. Jelaskan persyaratan pengemasan dan pelabelan yang harus dipenuhi sebelum limbah tersebut dipindahkan ke TPS Limbah B3.</p>",
+   "answer": "<p>Limbah harus dikemas dalam wadah yang kuat dan tidak bocor (seperti jerigen HDPE). Label harus memuat informasi kode limbah (misal: A337-4), identitas penghasil, tanggal pengemasan, berat, dan simbol limbah B3 berbentuk belah ketupat yang sesuai dengan sifat bahayanya.</p>"
+  },
+  {
+   "no": 10,
+   "question": "<p>Bagaimana penerapan metode 5R/5S (Ringkas, Rapi, Resik, Rawat, Rajin) dapat berperan sebagai leading indicator dalam mencegah kecelakaan kerja di laboratorium dibandingkan hanya mengandalkan inspeksi tahunan?</p>",
+   "answer": "<p>5R/5S adalah tindakan proaktif yang menciptakan lingkungan kerja teratur secara harian (misal: memastikan jalur evakuasi tidak terhalang atau tidak ada ceceran kimia di meja kerja). Ini berfungsi sebagai leading indicator karena mendeteksi dan mengeliminasi potensi bahaya (seperti tumpahan atau tersandung) sebelum kecelakaan benar-benar terjadi, sedangkan inspeksi tahunan seringkali hanya bersifat reaktif terhadap temuan sesaat.</p>"
+  }
+ ],
+ "praktik": {
+  "template": "hse.docx",
+  "template_name": "Ujian Praktik V2 - Laboratory HSE Officer.docx",
+  "duration": 0,
+  "panduan": "Latar Belakang: Anda baru saja diangkat sebagai Implementer K3L di sebuah Laboratorium Pengujian Kimia yang baru mulai beroperasi. Laboratorium ini menangani berbagai pengujian analitik yang melibatkan bahan kimia berbahaya, peralatan khusus, dan pengelolaan limbah yang ketat. Sebagai petugas K3L, Anda dituntut untuk memastikan seluruh operasional berjalan aman, terhindar dari kecelakaan kerja, dan mematuhi regulasi lingkungan.\n\nKronologi Hari Ini (Skenario Insiden & Operasional):\nPada suatu hari kerja, Anda memantau dan menghadapi serangkaian situasi berikut di area laboratorium:\n- Aktivitas Analisis Rutin: Di area analisis, Anda mengamati seorang analis yang sedang bersiap melakukan proses ekstraksi pelarut organik menggunakan lemari asam (fume hood).\n- Penerimaan Bahan Kimia: Gudang penyimpanan baru saja menerima 5 botol bahan kimia baru dengan label GHS yang berbeda-beda. Di antaranya terdapat Asam Kuat, Basa Kuat, Pelarut Flammable, dan Oksidator beserta tumpukan dokumen LDKB/MSDS yang harus segera dipilah.\n- Kecelakaan Darurat: Tiba-tiba terdengar teriakan dari sudut lab yang lain. Mata seorang rekan kerja Anda tidak sengaja terpercik bahan kimia korosif saat sedang menakar larutan.\nTugas dan Instruksi Penyelesaian Kasus:\nSebagai Implementer K3L, selesaikan kelima tugas di bawah ini berdasarkan kronologi kasus di atas:\n\nTugas 1: Identifikasi Bahaya & Penilaian Risiko\n- Lakukan inventarisasi peralatan, bahan, dan langkah kerja pada aktivitas \"ekstraksi pelarut organik di dalam lemari asam\".\n- Identifikasi potensi bahaya kimia, fisik, maupun ergonomi yang muncul dari aktivitas tersebut.\n- Hitung tingkat risikonya berdasarkan matriks dengan menentukan nilai likelihood dan severity.\n- Tuliskan tindakan pengendalian berdasarkan Hierarki Pengendalian (Eliminasi, Substitusi, Rekayasa Teknis, Administratif, APD) dan tuangkan dalam format HIRADC/JSA.\n\nTugas 2: Penanganan Bahan Berbahaya & Tumpahan\n- Berdasarkan MSDS, jelaskan bagaimana Anda mengidentifikasi sifat bahaya (seperti flammable, corrosive, toxic, reactive) dari 5 bahan kimia yang baru datang.\n- Jelaskan strategi segregasi (pemisahan) bahan-bahan tersebut ke dalam kabinet penyimpanan agar tidak terjadi reaksi inkompatibilitas.\n- Uraikan langkah demi langkah penanganan tumpahan Asam Sulfat 100ml menggunakan spill kit secara aman dan lincah.\n\nTugas 3: Tanggap Darurat Medis\n- Tentukan jenis keadaan darurat dari insiden percikan bahan korosif tersebut dan putuskan respons paling cepat yang harus diambil dengan tenang.\n- Uraikan cara melakukan pertolongan pertama menggunakan Eye Wash, termasuk kewajiban melakukan flushing selama 15 menit.\n- Buatlah draf simulasi pelaporan kejadian (incident report) kepada tim tanggap darurat yang berisi kronologi kejadian dan tindakan medis yang sudah dilakukan.\n\nDokumen MSDS kelima bahan kimia dan lembar jawaban ada di template (file Word). Isi lembar jawaban di file tersebut, simpan, lalu unggah."
+ }
+}

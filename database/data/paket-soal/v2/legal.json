@@ -1,0 +1,1597 @@
+{
+ "key": "legal",
+ "classroom_code": "CLO",
+ "nama": "Corporate Legal Officer",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda Corporate Legal Officer -Edit.pdf",
+  "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai Corporate Legal.pdf",
+  "praktik": "FR.IA.04 Pertanyaan dan Jawaban Tugas Keterampilan Corporate Legal Officer-.docx"
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Sistem perizinan terintegrasi secara elektronik di Indonesia yang menggunakan pendekatan berbasis risiko disebut dengan …."
+    }
+   ],
+   "options": [
+    "AHU Online",
+    "OSS RBA (One Single Submission Risk-Based Approach)",
+    "Sistem INATRADE",
+    "Portal DJP Online"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Saat ini proses perizinan usaha di Indonesia menggunakan satu sistem yaitu Online Single Submission (OSS), yang mana dapat menerbitkan izin usaha. Manakah yang termasuk izin usaha yang diterbitkan oleh OSS RBA …."
+    }
+   ],
+   "options": [
+    "Izin Usaha Dasar (NIB) & PB UMKU",
+    "Gambar Teknis Bangunan",
+    "Keterangan Rencana Kota",
+    "Sertifikat Hak Paten"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "Apa langkah pertama yang harus dilakukan oleh seorang Corporate Legal Officer dalam mengidentifikasi kebutuhan perizinan perusahaan?"
+    }
+   ],
+   "options": [
+    "Memetakan dan mengklasifikasikan kegiatan usaha ke dalam KBLI yang tepat dan spesifik",
+    "Menghubungi pihak notaris untuk membuat akta baru",
+    "Langsung mengunggah dokumen ke sistem OSS tanpa verifikasi",
+    "Membayar biaya administrasi perizinan ke kas negara"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Dalam memetakan kewajiban perizinan, mengapa pemilihan kode KBLI (Klasifikasi Baku Lapangan Usaha Indonesia) harus dilakukan secara tepat?"
+    }
+   ],
+   "options": [
+    "Agar nama perusahaan terlihat lebih profesional di mata publik",
+    "Karena KBLI menentukan jenis izin, tingkat risiko, dan kewajiban hukum yang harus dipenuhi",
+    "Untuk menghindari proses audit internal perusahaan",
+    "Agar perusahaan mendapatkan potongan pajak secara otomatis"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Sebelum berlakunya UU Cipta Kerja, minimal modal pendirian PT adalah 50jt. Namun, setelah berlakunya UU Cipta Kerja, pendirian PT memiliki ketentuan modal tersendiri. Berapa modal yang perlu ditempatkan untuk mendirikan PT?"
+    }
+   ],
+   "options": [
+    "Tidak ada batas minimal",
+    "Minimal 20jt",
+    "Maksimal 25% dari pajak pendiri",
+    "Minimal 50jt"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "Dalam menjalankan usaha, Pelaku Usaha atau Perusahaan wajib mencantumkan KBLI yang akan dijalankan usaha atau perusahaan dalam akta pendirian, siapakah yang berhak mendaftarkan KBLI?"
+    }
+   ],
+   "options": [
+    "Pelaku usaha pada sistem OSS",
+    "Pelaku usaha pada sistem AHU Online",
+    "Notaris pada sistem AHU Online",
+    "Notaris pada sistem OSS"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Sejak berlakunya Peraturan Pemerintah Nomor 28 Tahun 2025, apa saja yang termasuk dalam persyaratan dasar pada sistem OSS, kecuali …."
+    }
+   ],
+   "options": [
+    "Surat Tanda Pendaftaran Distributor",
+    "Data Tata Ruang",
+    "Data Bangunan",
+    "Data Lingkungan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "Dalam penerbitan izin usaha, sistem OSS akan mendeteksi kesesuaian tata ruang dengan penerbitan Persetujuan Kesesuaian Kegiatan Penyesuaian Tata Ruang (PKKPR). Apa yang menjadi dasar OSS untuk menerbitkan PKKPR?"
+    }
+   ],
+   "options": [
+    "AMDAL",
+    "RDTR/RTRW",
+    "Akta Pendirian",
+    "Sertifikat Kepemilikan Tanah"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Dengan mengedepankan risiko, berapa risiko yang ditetapkan oleh OSS RBA?"
+    }
+   ],
+   "options": [
+    "2 risiko, yaitu risiko rendah dan risiko tinggi.",
+    "4 risiko, yaitu risiko mikro, risiko kecil, risiko menengah, dan risiko besar.",
+    "3 risiko, yaitu risiko mikro, risiko menengah, dan risiko tinggi.",
+    "4 risiko, yaitu risiko rendah, risiko rendah menengah, risiko menengah tinggi, dan risiko tinggi"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Apakah jenis risiko pada sistem OSS akan berpengaruh pada dokumen izin yang diterbitkan?"
+    }
+   ],
+   "options": [
+    "Ya",
+    "Bergantung pada lokasi",
+    "Tidak",
+    "Bergantung dengan bentuk usaha"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Terhadap perubahan atau penambahan KBLI pada NIB perusahaan, apakah penambahan KBLI dapat dilakukan kapan saja?"
+    }
+   ],
+   "options": [
+    "Tidak dapat dilakukan perubahan KBLI",
+    "Dapat dilakukan sepanjang KBLI yang akan ditambahkan telah tercantum pada Akta Pendirian",
+    "Dapat dilakukan pada periode tertentu",
+    "Dapat dilakukan, tetapi harus mengurangi KBLI yang sudah terdaftar"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Dokumen Legalitas apa yang wajib dimiliki oleh dan hanya perusahaan manufaktur dalam melaksanakan kegiatan operasionalnya?"
+    }
+   ],
+   "options": [
+    "Izin Usaha Industri",
+    "Standar Operasional Prosedur",
+    "Nomor Induk Bangunan",
+    "Gambar Teknis Bangunan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Dokumen persetujuan pemerintah yang menyatakan kegiatan usaha telah sesuai dengan tata ruang, disebut sebagai?"
+    }
+   ],
+   "options": [
+    "Persetujuan Kesesuaian Kegiatan Pemanfaatan Ruang (PKKPR)",
+    "Gambar Teknis",
+    "Peta Poligon",
+    "Rencara Detail Tata Ruang (RDTR)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Perhatikan peta berikut!"
+    },
+    {
+     "image": "legal/legal-q014-1.jpg"
+    },
+    {
+     "text": "Berdasarkan titik koordinat di atas, zona tersebut adalah Zona Kuning. Apa peruntukan zona tersebut?"
+    }
+   ],
+   "options": [
+    "Peruntukan Industri",
+    "Kawasan Hijau",
+    "Peruntukan Perumahan",
+    "Kawasan Jasa dan Perdagangan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Dalam menerbitkan izin berusaha, salah satu aspek izin yang harus dipenuhi adalah Izin Lingkungan. Apa produk hukum yang merupakan izin lingkungan, KECUALI?"
+    }
+   ],
+   "options": [
+    "Surat Pernyataan Kesanggupan Pengelolaan Pemantauan Lingkungan Hidup (SPPL)",
+    "Amdal",
+    "UKL-UPL",
+    "Rencara Detail Tata Ruang (RDTR)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Dalam sebuah perseroan terbatas (PT), terdapat akta pendirian yang menjadi salah satu dokumen hukum perusahaan. Apabila terdapat perubahan maksud dan tujuan perusahaan, apa yang yang harus dilakukan oleh perusahaan untuk mengakomodir perubahan tersebut?"
+    }
+   ],
+   "options": [
+    "Tidak melakukan apapun",
+    "Mengadakan perubahan akta pendirian melalui RUPS",
+    "Tidak mengubah akta pendirian, tetapi melakukan perubahan informasi pada sistem perizinan",
+    "Mengadakan RUPS untuk melakukan jual beli saham"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Pada saat perusahaan hendak melakukan sebuah perjanjian kerjasama, elemen utama apa yang harus anda identifikasi pada saat penyusunan kontrak?"
+    }
+   ],
+   "options": [
+    "Untuk menentukan besaran pajak yang harus dihindari oleh perusahaan",
+    "Agar durasi negosiasi dengan pihak eksternal menjadi lebih singkat",
+    "Untuk memastikan jenis kontrak yang disusun sesuai dengan kebutuhan dan target bisnis perusahaan",
+    "Untuk mengganti peran notaris dalam pembuatan akta otentik"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Langkah awal yang harus dilakukan oleh seorang Corporate Legal Officer untuk memitigasi potensi kerugian sebelum kontrak disusun adalah ...."
+    }
+   ],
+   "options": [
+    "Menandatangani draf kontrak kosong",
+    "Menyerahkan seluruh data rahasia perusahaan kepada calon mitra",
+    "Mempublikasikan rencana kerja sama di media massa",
+    "Mengidentifikasi risiko awal dari kerja sama yang terjalin"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Apa syarat sah perjanjian berdasarkan Pasal 1320 KUH Perdata, kecuali?"
+    }
+   ],
+   "options": [
+    "Jabatan para pihak",
+    "Kesepakatan",
+    "Kecakapan",
+    "Klausula yang halal"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "Perjanjian wajib dilaksanakan sesuai dengan syarat sah perjanjian yang termuat pada Pasal 1320 KUH Perdata. Apa konsekuensi yang terjadi apabila suatu kontrak atau perjanjian tidak memenuhi unsur objektif pada Pasal 1320 KUH Perdata?"
+    }
+   ],
+   "options": [
+    "Perjanjian batal demi hukum",
+    "Perjanjian dapat dibatalkan",
+    "Perjanjian membatalkan hukum",
+    "Perjanjian tetap sah"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Dalam suatu dokumen hukum, kontrak dibagi menjadi beberapa anatomi. Apa sebutan dari struktur kontrak yang menerangkan identitas dan posisi para pihak dalam perjanjian?"
+    }
+   ],
+   "options": [
+    "Premis",
+    "Komparisi",
+    "Pasal Definisi",
+    "Penutup"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Sebagai bentuk kontrol terhadap dokumen hukum perusahaan (khususnya kontrak), aspek mana yang paling krusial dalam peninjauan rutin kontrak?"
+    }
+   ],
+   "options": [
+    "Jenis Perjanjian",
+    "Para Pihak dalam Perjanjian",
+    "Masa Berlaku Perjanjian",
+    "Tempat Pembuatan Perjanjian"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Suatu kontrak atau perjanjian yang memuat informasi kesepakatan antara dua belah atau lebih pihak mengenai kerahasiaan informasi dari perusahaan, disebut sebagai ….."
+    }
+   ],
+   "options": [
+    "Employment Agreement",
+    "Memorandum of Understanding",
+    "Purchase Agreement",
+    "Non-Disclosure Agreement"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Dalam Undang-undang Nomor 8 Tahun 1999 tentang Perlindungan Konsumen (UU PK), terdapat istilah “klausula baku”, apa yang dimaksud dengan klausula baku dalam perjanjian?"
+    }
+   ],
+   "options": [
+    "Klausula yang telah disiapkan oleh salah satu pihak dan tidak adanya ruang negosiasi",
+    "Klausula yang memuat informasi mengenai definisi tiap istilah dalam perjanjian",
+    "Klausula yang memuat mengenai informasi kewajiban para pihak",
+    "Klausula yang menjelaskan mengenai objek perjanjian"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "Kemampuan untuk menentukan jenis kontrak yang sesuai dengan kebutuhan perusahaan (misal: MOU, NDA, atau Perjanjian Jual Beli) merupakan bagian dari elemen...."
+    }
+   ],
+   "options": [
+    "Identifikasi kebutuhan kontrak",
+    "Pemeliharaan arsip hukum",
+    "Sosialisasi regulasi baru",
+    "Penanganan investigasi regulator"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "Seorang Legal Officer di sebuah perusahaan manufaktur multinasional diminta menyusun dan mereview dokumen kerja sama distribusi eksklusif dengan pihak distributor lokal. Dalam proses final review, ditemukan beberapa kondisi berikut : 1. Klausul penyelesaian sengketa menyebutkan bahwa sengketa diselesaikan melalui arbitrase di Singapura berdasarkan aturan SIAC; 2. Klausul force majeure memasukkan “perubahan kebijakan pemerintah” tanpa batasan definisi yang jelas; 3. Penandatangan pihak distributor dilakukan oleh Direktur Operasional berdasarkan surat kuasa internal yang belum pernah diperlihatkan kepada perusahaan; 4. Draft perjanjian menggunakan bilingual clause, namun terdapat perbedaan substansi antara versi Bahasa Indonesia dan Bahasa Inggris terkait klausul pembatasan tanggung jawab; 5. Perjanjian akan berlaku efektif setelah ditandatangani para pihak, tetapi objek distribusi mencakup produk yang masih dalam proses perizinan BPOM Sebagai Legal Officer, tindakan PALING tepat dan paling komprehensif sebelum perjanjian ditandatangani adalah"
+    }
+   ],
+   "options": [
+    "Tetap melanjutkan penandatanganan karena substansi komersial telah disepakati dan kekurangan administratif dapat diperbaiki melalui addendum setelah perjanjian berlaku",
+    "Melakukan legal review menyeluruh dengan memastikan kewenangan penandatangan melalui verifikasi corporate documents dan surat kuasa, harmonisasi bilingual clause, memperjelas ruang lingkup force majeure, serta menambahkan condition precedent terkait efektivitas distribusi setelah izin BPOM diterbitkan",
+    "Meminta seluruh klausul menggunakan hukum Indonesia dan pengadilan negeri Indonesia karena penggunaan arbitrase internasional berpotensi merugikan perusahaan",
+    "Menyarankan manajemen untuk menunda kerja sama hingga seluruh izin BPOM selesai tanpa perlu melakukan review lebih lanjut terhadap substansi perjanjian"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Seorang legal officer diminta memberikan opini atas konflik antara Peraturan Menteri dan Undang-Undang. Prinsip hukum apa yang paling tepat digunakan?"
+    }
+   ],
+   "options": [
+    "Lex posterior derogat legi priori",
+    "Lex superior derogat legi inferiori",
+    "Lex specialis derogat legi generali",
+    "Pacta sunt servanda"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Dalam menyusun legal opinion, langkah awal yang paling tepat adalah …."
+    }
+   ],
+   "options": [
+    "Memberikan kesimpulan hukum",
+    "Mengutip pendapat ahli",
+    "Menyusun rekomendasi bisnis",
+    "Mengidentifikasi fakta hukum yang relevan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Jika terdapat dua aturan setingkat yang mengatur hal yang sama, namun salah satunya lebih spesifik, maka pendekatan yang digunakan adalah …."
+    }
+   ],
+   "options": [
+    "Lex superior",
+    "Lex posterior",
+    "Lex specialis",
+    "Stare decisis"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Tujuan utama dari legal opinion dalam konteks korporasi adalah …."
+    }
+   ],
+   "options": [
+    "Membela perusahaan di pengadilan",
+    "Memberikan pandangan hukum yang objektif sebagai dasar pengambilan keputusan",
+    "Menghindari pajak perusahaan",
+    "Menyusun kontrak bisnis"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "Dalam mengaitkan beberapa regulasi yang berbeda, seorang legal officer harus mengutamakan …."
+    }
+   ],
+   "options": [
+    "Konsistensi sistem hukum dan hierarki peraturan",
+    "Kepentingan bisnis semata",
+    "Pendapat pribadi",
+    "Instruksi atasan tanpa analisis"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Manakah yang termasuk bagian analisis dalam legal opinion?"
+    }
+   ],
+   "options": [
+    "Ringkasan profil perusahaan",
+    "Penjabaran fakta tanpa interpretasi",
+    "Penafsiran hukum terhadap fakta yang ada",
+    "Daftar pustaka"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Jika terdapat kekosongan hukum dalam suatu kasus, pendekatan yang dapat digunakan adalah …."
+    }
+   ],
+   "options": [
+    "Menunda penyusunan opini",
+    "Mengabaikan kasus tersebut",
+    "Melakukan penafsiran hukum dan analogi",
+    "Menunggu putusan pengadilan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Seorang legal officer harus kritis terhadap regulasi. Sikap kritis tersebut tercermin dalam …."
+    }
+   ],
+   "options": [
+    "Mengikuti semua aturan tanpa analisis",
+    "Mengidentifikasi potensi konflik dan celah hukum",
+    "Mengutamakan kepentingan pribadi",
+    "Menolak semua regulasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Rekomendasi hukum yang baik dalam legal opinion harus …."
+    }
+   ],
+   "options": [
+    "Bersifat ambigu agar fleksibel",
+    "Tidak perlu didasarkan pada analisis",
+    "Jelas, aplikatif, dan berbasis risiko hukum",
+    "Menguntungkan semua pihak tanpa pengecualian"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Dalam konteks corporate legal, legal opinion yang baik harus mempertimbangkan …."
+    }
+   ],
+   "options": [
+    "Hanya aspek hukum",
+    "Aspek hukum dan dampak bisnis",
+    "Hanya kepentingan pemegang saham",
+    "Hanya opini publik"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Dalam membuat legal opinion, seorang legal officer wajib mempertimbangkan fakta- fakta yang ada. Apa fakta yang wajib tercantum dalam legal opinion?"
+    }
+   ],
+   "options": [
+    "Fakta Umum",
+    "Fakta Hukum",
+    "Fakta Sosial",
+    "Fakta Abstrak"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Perusahaan memiliki beberapa akta perubahan anggaran dasar yang dibuat di hadapan notaris pada tahun berbeda. Dalam arsip internal, akta tahun 2021 ditempatkan setelah akta tahun 2023. Apa risiko utama dari kesalahan ini?"
+    }
+   ],
+   "options": [
+    "Tidak ada risiko karena semua akta tetap sah",
+    "Kesalahan administratif biasa tanpa dampak hukum",
+    "Kesalahan dalam menentukan akta terakhir yang berlaku",
+    "Hanya mempengaruhi audit internal"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Dalam Prinsip Arsip Kronologis vs Substantif, Legal officer menemukan bahwa dokumen kontrak diarsipkan berdasarkan jenis dokumen, bukan tanggal penandatanganan. Apa pendekatan terbaik yang dapat dilakukan?"
+    }
+   ],
+   "options": [
+    "Kombinasikan klasifikasi + indeks kronologis",
+    "Ubah menjadi sistem kronologis penuh",
+    "Biarkan karena lebih rapi secara kategori",
+    "Hapus dokumen lama"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Pada kasus Dokumen Tidak Lengkap dalam proses audit, ditemukan bahwa salinan akta tidak memiliki lampiran persetujuan kementerian. Apa implikasi hukumnya?"
+    }
+   ],
+   "options": [
+    "Tidak masalah selama akta ada",
+    "Akta otomatis batal",
+    "Hanya masalah internal",
+    "Berpotensi tidak dapat dibuktikan keabsahannya secara administratif"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "Terdapat beberapa versi kontrak yang beredar di internal perusahaan tanpa penandaan versi yang jelas. Apakah risiko utamanya?"
+    }
+   ],
+   "options": [
+    "Kesalahan estetika dokumen",
+    "Tidak ada risiko",
+    "Penggunaan versi yang tidak final dalam pengambilan keputusan",
+    "Duplikasi data biasa"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Perusahaan berencana memusnahkan dokumen lama untuk efisiensi ruang, termasuk dokumen hukum berusia lebih dari 5 tahun. Apa yang harus dilakukan legal officer?"
+    }
+   ],
+   "options": [
+    "Menyetujui pemusnahan semua dokumen lama",
+    "Menolak seluruhnya",
+    "Menentukan retensi arsip berdasarkan ketentuan hukum yang berlaku",
+    "Menyerahkan ke bagian lain"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Perusahaan menghadapi sengketa, namun tidak dapat menunjukkan dokumen kontrak asli karena arsip tidak terkelola dengan baik. Apa dampak paling krusial?"
+    }
+   ],
+   "options": [
+    "Kerugian reputasi saja",
+    "Lemahnya posisi pembuktian hukum perusahaan",
+    "Tidak bisa mengikuti sidang",
+    "Tidak berdampak"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "Dalam Pengarsipan Akta Terbaru, Legal officer menemukan bahwa akta terbaru belum diinput ke sistem arsip digital. Langkah terbaik yang dapat dilakukan adalah …."
+    }
+   ],
+   "options": [
+    "Segera melakukan pembaruan dan sinkronisasi arsip",
+    "Mengabaikan karena sudah ada hardcopy",
+    "Menunggu update berkala",
+    "Menghapus versi lama"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Dokumen hukum penting dapat diakses oleh seluruh karyawan tanpa pembatasan. Apakah risiko utamanya?"
+    }
+   ],
+   "options": [
+    "Efisiensi tinggi",
+    "Kebocoran informasi dan pelanggaran kerahasiaan",
+    "Tidak ada risiko",
+    "Mempermudah kerja"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Legal officer tidak membedakan antara dokumen legal (akta, kontrak) dan dokumen administratif umum. Apa dampaknya?"
+    }
+   ],
+   "options": [
+    "Tidak ada dampak",
+    "Sulitnya penelusuran dokumen kritikal",
+    "Hanya memperlambat kerja",
+    "Tidak relevan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "Saat dilakukan due diligence oleh investor, perusahaan membutuhkan dokumen legal secara cepat namun arsip tidak terstruktur. Apa kesimpulan yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Masalah operasional biasa",
+    "Hanya kesalahan kecil",
+    "Tidak berpengaruh terhadap investasi",
+    "Menunjukkan lemahnya tata kelola hukum perusahaan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Perusahaan atau Pelaku Usaha memiliki kewajiban utama berupa laporan rutin. Manakah yang merupakan Laporan Rutin Investasi yang wajib dilaporkan oleh SEMUA jenis pelaku usaha?"
+    }
+   ],
+   "options": [
+    "LKPM",
+    "SIINAS",
+    "Cortax",
+    "BPJS Ketenagakerjaan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Kewajiban pelaporan rutin LKPM bagi tiap pelaku usaha disesuaikan dengan skala usaha tiap perusahaan atau pelaku usaha. Kapan periode pelaporan LKPM bagi skala usaha mikro sampai skala usaha kecil?"
+    }
+   ],
+   "options": [
+    "Per 4 bulan sekali",
+    "Per 6 bulan sekali",
+    "Per 3 bulan sekali",
+    "Per 12 bulan sekali"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Laporan Kewajiban Penanaman Modal atau LKPM memiliki beberapa komponen jenis data inputan. Apa komponen data yang tidak termasuk dalam LKPM?"
+    }
+   ],
+   "options": [
+    "Modal Tetap",
+    "Modal Kerja",
+    "Jumlah Tenaga Kerja",
+    "Jumlah Kecelakaan Kerja"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Manakah komponen data yang masuk dalam MODAL TETAP untuk LKPM?"
+    }
+   ],
+   "options": [
+    "Pematangan Tanah",
+    "Upah Pekerja",
+    "Biaya Bahan Baku",
+    "Pembelian Mesin"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Dalam LKPM, apabila perusahaan belum melakukan produksi komersial, atahap apa yang harus dilaporkan dalam sistem OSS?"
+    }
+   ],
+   "options": [
+    "Tahap Penjualan",
+    "Tahap Likuidasi",
+    "Tahap Ekspor",
+    "Tahap Konstruksi"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Apa dasar hukum utama terkait kewajiban Laporan Industri pada sistem SIINAS?"
+    }
+   ],
+   "options": [
+    "Undang-undang Nomor 3 Tahun 2014 tentang Perindustrian",
+    "Undang-undang Nomor 25 Tahun 2007 tentang Penanaman Modal",
+    "Peraturan Pemerintah Nomor 28 Tahun 2025 tentang Penyelenggaraan Perizinan Berusaha Berbasis Risiko",
+    "Peraturan Pemerintah Nomor 7 Tahun 2021 tentang Kemudahan, Perlindungan, dan Pemberdayaan Koperasi dan Usaha Mikro, Kecil, dan Menengah"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Sebagai perusahaan yang bergerak di bidang industri, wajib melaporkan Laporan Industri pada sistem SIINAS, apa komponen utama dalam Laporan Industri SIINAS?"
+    }
+   ],
+   "options": [
+    "Struktur Organisasi Departemen Legal",
+    "Data Kapasitas Produksi, Jenis Produk, Dan Penggunaan Bahan Baku",
+    "Daftar Hadir Karyawan",
+    "Laporan Pajak Direksi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Cermati Tabel Berikut!"
+    },
+    {
+     "image": "legal/legal-q055-1.png"
+    },
+    {
+     "text": "Apakah tabel data di atas sesuai?"
+    }
+   ],
+   "options": [
+    "Benar semua",
+    "Salah Sebagian, jumlah tenaga kerja saat ini kurang tepat",
+    "Salah Sebagian, jumlah tenaga kerja asing dan tenaga kerja lokal tidak dihitung",
+    "Salah semua"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Data kapasitas pada Laporan SIINAS menggunakan satuan kg (kilogram), sedangkan data yang Anda terima dalam satuan SELAIN kg (kilogram), apa yang harus Anda lakukan dalam proses input laporan SIINAS?"
+    }
+   ],
+   "options": [
+    "Menginput sesuai dengan jumlah data yang diterima",
+    "Melakukan konversi satuan dari satuan asli ke satuan kg (kilogram)",
+    "Melakukan perubahan satuan pada sistem SIINAS",
+    "Tidak melaporkan item data yang bukan satuan kg (kilogram)"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Manakah pernyataan di bawah ini yang sesuai?"
+    }
+   ],
+   "options": [
+    "Data kapasitas produksi disesuaikan dengan Data P3C",
+    "Jumlah tenaga kerja yang diinput pada sistem SIINAS diperbolehkan tidak sesuai dengan jumlah Pendidikan tenaga kerja",
+    "Data Pengeluaran yang diinput pada sistem SIINAS disesuaikan dengan tagihan tiap bulan perusahaan",
+    "Upah pekerja tidak termasuk pada salah satu komponen Laporan Industri"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Laporan ketenagakerjaan merupakan salah satu laporan wajib yang dilakukan olejh perusahaan untuk melaporkan jumlah tenaga kerja yang ada di perusahaan tersebut. Pelaporan mengenai tenaga kerja dilakukan pada sistem Wajib Lapor Ketenagakerjaan di Perusahaan (WLKP). Kapan periode pelaporan WLKP bagi perusahaan?"
+    }
+   ],
+   "options": [
+    "6 bulan sekali",
+    "4 bulan sekali",
+    "Pada saat pendirian, perubahan, atau pembubaran",
+    "3 bulan sekali"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Dalam sistem peraturan perundang-undangan, apa dasar hukum adanya hierarki peraturan perundang-undangan?"
+    }
+   ],
+   "options": [
+    "Undang-undang Nomor 40 Tahun 2007 tentang Perseroan Terbatas",
+    "Undang-undang Nomor 13 Tahun 2022 tentang Pembentukan Peraturan Perundang- undangan",
+    "Undang-undang Nomor 6 Tahun 2023 tentang Cipta Kerja",
+    "Undang-undang Nomor 8 Tahun 1999 tentang Perlindungan Konsumen"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Jika ditemukan adanya pertentangan antara Peraturan Menteri dengan Peraturan Pemerintah (PP) terkait suatu prosedur perizinan, manakah yang harus diutamakan berdasarkan hierarki perundang-undangan?"
+    }
+   ],
+   "options": [
+    "Keputusan Direksi Perusahaan",
+    "Regulasi yang terbit terbaru",
+    "Peraturan Pemerintah (PP)",
+    "Peraturan Menteri"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Apa yang dimaksud dengan istilah 'Vacatio Legis' dalam proses monitoring perubahan regulasi?"
+    }
+   ],
+   "options": [
+    "Masa berlaku regulasi",
+    "Proses pengujian regulasi di Mahkamah Konstitusi’",
+    "Masa antara pengundangan peraturan hingga saat berlakunya secara efektif",
+    "Proses pembatalan oleh DPR"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Jika terdapat perubahan regulasi yang berdampak pada kontrak berjalan, maka tindakan yang paling tepat adalah"
+    }
+   ],
+   "options": [
+    "Menghentikan kontrak",
+    "Mengabaikan perubahan",
+    "Melakukan review dan penyesuaian kontrak",
+    "Membuat kontrak baru tanpa analisis"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Apa dampak hukum paling krusial dari perubahan klasifikasi risiko usaha menjadi resiko tinggi?"
+    }
+   ],
+   "options": [
+    "Tidak ada perubahan signifikan",
+    "Perusahaan wajib meningkatkan standar perizinan dan compliance",
+    "Perusahaan hanya perlu update internal SOP",
+    "Perusahaan bisa tetap beroperasi tanpa perubahan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Berdasarkan Undang-Undang Nomor 12 Tahun 2011 tentang Pembentukan Peraturan Perundang-undangan sebagaimana diubah terakhir dengan UU Nomor 13 Tahun 2022, asas yang menghendaki agar suatu regulasi dapat dilaksanakan secara efektif di masyarakat adalah?"
+    }
+   ],
+   "options": [
+    "Asas Keterbukaan",
+    "Asas Kejelasan Tujuan",
+    "Asas Kedayagunaan",
+    "Asas Kebangsaan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Perusahaan mengetahui bahwa gedung yang telah disewakan masih menggunakan dokumen IMB lama, padahal pada saat gedung disewa dokumen IMB telah berganti menjadi PBG. Apa langkah yang tepat untuk kondisi tersebut?"
+    }
+   ],
+   "options": [
+    "Melakukan review legal status bangunan dan menyesuaikan dengan ketentuan PBG yang berlaku",
+    "Tetap menggunakan IMB lama tanpa penyesuaian",
+    "Menghentikan seluruh operasional perusahaan",
+    "Mengabaikan perbuahan regulasi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Perusahaan mengetahui bahwa gedung yang telah disewakan masih menggunakan dokumen IMB lama, padahal pada saat gedung disewa dokumen IMB telah berganti menjadi PBG. Apa langkah yang tepat untuk kondisi tersebut?"
+    }
+   ],
+   "options": [
+    "Melakukan review legal status bangunan dan menyesuaikan dengan ketentuan PBG yang berlaku",
+    "Tetap menggunakan IMB lama tanpa penyesuaian",
+    "Menghentikan seluruh operasional perusahaan",
+    "Mengabaikan perbuahan regulasi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Sejak diberlakukannya Peraturan Pemerintah Nomor 28 Tahun 2024 tentang Peraturan Pelaksanaan Undang-undang Nomor 17 Tahun 2023 tentang Kesehatan, ketentuan peringatan kesehatan pada kemasan produk hasil tembakau harus seluas 50%, sedangkan perusahaan Anda masih memiliki stok produk yang kemasannya memuat peringatan kesehatan seluas 30%. Apa langkah yang harus anda lakukan?"
+    }
+   ],
+   "options": [
+    "Menunggu teguran dari regulator sebelum melakukan perubahan",
+    "Tetap menggunakan kemasan yang lama karena PP 28 Tahun 2024 rilis setelah kemasan didaftarkan sehingga tidak berlaku surut.",
+    "Mengubah seluruh desain kemasan dan produk yang terstok tidak didistribusikan",
+    "Stok lama tetap dihabiskan dan mengubah desain kemasan terbaru sesuai dengan ketenuan PP 28 Tahun 2024"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Alih daya (outsourcing) adalah salah satu bentuk praktik bisnis yang menyediakan tenaga kerja bagi perusahaan guna memangkas biaya produksi. Mengacu pada Peraturan Menteri Ketenagakerjaan Nomor 7 Tahun 2026, pemerintah membatasi jenis pekerjaan yang masuk kategori alih daya. Manakah di bawah ini pekerjaan yang diperbolehkan dengan skema outsourcing, kecuali?"
+    }
+   ],
+   "options": [
+    "Cleaning Service",
+    "Tenaga Produksi",
+    "Supir",
+    "Satpam"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Terhadap pemberlakukan Peraturan Menteri Ketenagakerjaan Nomor 7 Tahun 2026, beberapa jenis pekerjaan yang mulanya dapat dilakukan outsourcing saat ini dilarang. Berkenaan dengan hal tersebut, bagaimana status perjanjian alih daya bagi pekerjaan yang dilarang, tetapi masih berlaku saat regulasi ini diundangkan?"
+    }
+   ],
+   "options": [
+    "Berakhir secara otomatis",
+    "Berakhir bersyarat",
+    "Tetap berjalan hingga waktu berakhirnya perjanjian",
+    "Tetap berjalan dan dapat diperpanjang"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Perusahaan telah memiliki Nomor Induk Berusaha (NIB), namun untuk kegiatan usahanya seharusnya juga diwajibkan memiliki Sertifikat Standar yang belum dimiliki. Apa analisis paling tepat?"
+    }
+   ],
+   "options": [
+    "NIB sudah cukup untuk semua kegiatan usaha",
+    "Perusahaan dalam kondisi non-compliant",
+    "Sertifikat Standar tidak wajib",
+    "Tidak ada risiko hukum"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Sebagai legal officer, kamu menemukan gap perizinan seperti di atas. Langkah pertama yang paling tepat adalah …."
+    }
+   ],
+   "options": [
+    "Langsung melaporkan ke regulator",
+    "Mengabaikan",
+    "Menunggu audit eksternal",
+    "Menyusun daftar gap dan pemetaan kewajiban hukum"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Perusahaan tetap beroperasi tanpa Sertifikat Standar. Risiko utamanya adalah …."
+    }
+   ],
+   "options": [
+    "Risiko administratif kecil",
+    "Potensi sanksi administratif hingga penghentian usaha",
+    "Tidak ada risiko",
+    "Hanya teguran lisan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Dalam audit ditemukan bahwa beberapa izin penting perusahaan telah melewati masa berlaku (expired), namun masih digunakan sebagai dasar operasional oleh unit bisnis. Pihak operasional beranggapan bahwa izin tersebut tetap dapat digunakan selama belum ada peringatan dari instansi terkait. Bagaimana sikap dan rekomendasi hukum yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Menganggap izin tetap berlaku selama tidak ada teguran",
+    "Menyarankan penghentian sementara kegiatan usaha",
+    "Mengabaikan karena merupakan tanggung jawab operasional",
+    "Merekomendasikan pembaruan izin dan memastikan kepatuhan terhadap masa berlaku"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Dalam proses audit, Anda menemukan bahwa tidak ada sistem monitoring terhadap kewajiban perizinan perusahaan, sehingga potensi keterlambatan atau kelalaian sangat tinggi. Selama ini, perusahaan hanya bersifat reaktif ketika ada permintaan dokumen dari regulator. Sebagai legal officer yang berperan sebagai gatekeeper kepatuhan, pendekatan apa yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Menunggu hingga terjadi pelanggaran untuk kemudian diperbaiki",
+    "Mengandalkan audit eksternal secara berkala",
+    "Membangun sistem monitoring dan kontrol kepatuhan secara proaktif",
+    "Menyerahkan seluruh tanggung jawab kepada manajemen"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Sebuah perusahaan di sektor makanan dan minuman diketahui hanya memiliki izin usaha dasar, namun belum memiliki izin edar produk, sertifikasi halal, dan izin terkait lingkungan yang relevan dengan kegiatan produksinya. Dalam menyusun legal due diligence, bagaimana pendekatan analisis yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Fokus pada izin usaha sebagai izin utama",
+    "Mengkaji seluruh kewajiban perizinan lintas sektor secara terintegras",
+    "Mengabaikan izin tambahan yang belum dimiliki",
+    "Menunggu arahan dari regulator"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "Dalam proses audit oleh pihak eksternal, perusahaan tidak dapat menunjukkan dokumen asli atau salinan sah dari beberapa izin yang diklaim telah dimiliki. Dokumen tersebut hilang akibat sistem pengarsipan yang tidak terkelola dengan baik. Apa implikasi hukum yang paling krusial?"
+    }
+   ],
+   "options": [
+    "Tidak ada implikasi selama izin pernah dimiliki",
+    "Lemahnya posisi perusahaan dalam membuktikan kepatuhan hukum",
+    "Hanya berdampak pada administrasi internal",
+    "Dapat digantikan dengan pernyataan lisan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Setelah melakukan audit, Anda menemukan berbagai ketidakpatuhan dengan tingkat risiko yang berbeda-beda, mulai dari dokumen administratif hingga izin krusial yang belum dimiliki. Bagaimana bentuk rekomendasi hukum yang paling efektif?"
+    }
+   ],
+   "options": [
+    "Menyusun rekomendasi berbasis tingkat risiko dan urgensi perbaikan",
+    "Menyampaikan semua temuan tanpa prioritas",
+    "Menyerahkan seluruh keputusan kepada manajemen tanpa analisis",
+    "Menunda rekomendasi hingga audit berikutnya"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Perusahaan memiliki banyak unit bisnis dengan tingkat kepatuhan yang berbeda-beda. Tidak semua ketidakpatuhan dapat diselesaikan dalam waktu singkat karena keterbatasan sumber daya. Apa strategi terbaik yang harus disusun oleh legal officer?"
+    }
+   ],
+   "options": [
+    "Menyelesaikan semua masalah secara bersamaan tanpa prioritas",
+    "Menunggu intervensi regulator",
+    "Menghentikan seluruh kegiatan usaha",
+    "Menyusun roadmap kepatuhan hukum berbasis prioritas risiko"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Dalam suatu forum manajemen, fungsi legal sering dianggap hanya sebagai pendukung administratif. Namun, dalam konteks legal due diligence dan audit kepatuhan hukum, peran legal officer memiliki dimensi yang lebih strategis. Manakah pernyataan yang paling tepat menggambarkan peran tersebut?"
+    }
+   ],
+   "options": [
+    "Legal officer hanya bertugas mengelola dokumen hukum",
+    "Legal officer berperan sebagai gatekeeper kepatuhan hukum dan mitigasi risiko perusahaan",
+    "Legal officer tidak terlibat dalam pengambilan keputusan strategis",
+    "Legal officer hanya bertindak ketika terjadi sengketa"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Perusahaan Anda sedang dalam proses pengurusan izin operasional yang memerlukan klarifikasi langsung dengan instansi pemerintah. Dalam pertemuan awal, perwakilan perusahaan sebelumnya cenderung bersikap defensif dan menekankan kepentingan bisnis tanpa memperhatikan perspektif regulator. Sebagai legal officer yang baru mengambil alih, pendekatan komunikasi apa yang paling tepat untuk memperbaiki hubungan tersebut?"
+    }
+   ],
+   "options": [
+    "Menegaskan kembali kepentingan perusahaan secara agresif",
+    "Menghindari komunikasi langsung dengan regulator",
+    "Menggunakan pendekatan kolaboratif dengan memahami perspektif regulator",
+    "Menyerahkan seluruh komunikasi kepada konsultan eksternal"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Dalam suatu proyek ekspansi, perusahaan harus berinteraksi dengan berbagai pihak, termasuk pemerintah daerah, kementerian teknis, dan masyarakat sekitar. Namun, tidak ada pemetaan stakeholder yang jelas sehingga komunikasi menjadi tidak efektif. Apa langkah awal yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Fokus pada stakeholder yang paling berpengaruh saja",
+    "Menyusun stakeholder mapping berdasarkan kepentingan dan pengaruh",
+    "Menunggu arahan dari manajemen",
+    "Menghubungi semua pihak tanpa prioritas"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "Dalam proses pengurusan izin, seorang oknum menawarkan percepatan proses dengan imbalan tertentu di luar ketentuan resmi. Sebagai legal officer, tindakan yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Menerima untuk mempercepat proses bisnis",
+    "Menolak dan tetap mengikuti prosedur resmi yang berlaku",
+    "Melaporkan kepada manajemen tanpa tindakan lanjutan",
+    "Mengabaikan tawaran tersebut tanpa tindak lanjut"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Perusahaan Anda hanya berinteraksi dengan regulator saat membutuhkan izin, tanpa adanya hubungan berkelanjutan. Apa strategi terbaik untuk meningkatkan hubungan jangka panjang?"
+    }
+   ],
+   "options": [
+    "Tetap berkomunikasi hanya saat diperlukan",
+    "Mengandalkan pihak ketiga",
+    "Menghindari interaksi agar tidak menimbulkan risiko",
+    "Membangun komunikasi yang berkelanjutan dan profesional"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Masyarakat sekitar menolak kegiatan operasional perusahaan karena dianggap berdampak negatif terhadap lingkungan, meskipun perusahaan telah memenuhi persyaratan hukum. Apa pendekatan terbaik?"
+    }
+   ],
+   "options": [
+    "Melakukan komunikasi terbuka dan pendekatan persuasif",
+    "Menghadapi dengan pendekatan hukum semata",
+    "Mengabaikan karena perusahaan sudah comply",
+    "Menghentikan operasi sepenuhnya"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Dalam pertemuan dengan regulator, Anda diminta menjelaskan posisi hukum perusahaan terkait suatu isu yang sensitif. Informasi yang disampaikan harus akurat namun tetap menjaga kepentingan perusahaan. Pendekatan terbaik adalah:"
+    }
+   ],
+   "options": [
+    "Memberikan semua informasi tanpa filter",
+    "Menyampaikan informasi secara selektif, akurat, dan terukur",
+    "Menolak memberikan informasi",
+    "Memberikan jawaban normatif tanpa substansi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Perusahaan Anda memiliki catatan keterlambatan dalam pemenuhan kewajiban hukum di masa lalu, yang diketahui oleh regulator. Apa langkah terbaik untuk memperbaiki reputasi tersebut?"
+    }
+   ],
+   "options": [
+    "Mengabaikan reputasi masa lalu",
+    "Menyalahkan pihak internal sebelumnya",
+    "Menghindari interaksi dengan regulator",
+    "Menunjukkan komitmen perbaikan melalui kepatuhan yang konsisten"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Legal officer sering mengalami kesulitan karena data yang diberikan oleh unit internal tidak lengkap saat berhadapan dengan regulator. Apa solusi terbaik?"
+    }
+   ],
+   "options": [
+    "Tetap menggunakan data yang ada",
+    "Menyalahkan unit internal",
+    "Membangun koordinasi internal yang kuat sebelum berinteraksi eksternal",
+    "Menunda semua proses"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Dalam suatu forum diskusi dengan regulator, terdapat perbedaan interpretasi terhadap suatu regulasi yang berdampak pada operasional perusahaan. Apa sikap yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Memaksakan interpretasi perusahaan",
+    "Menghindari diskusi",
+    "Menyampaikan argumentasi hukum secara konstruktif dan berbasis regulasi",
+    "Mengikuti semua pendapat regulator tanpa analisis"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Dalam konteks hubungan dengan regulator dan stakeholder, legal officer tidak hanya berperan sebagai komunikator, tetapi juga sebagai bagian dari strategi perusahaan. Manakah pernyataan yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Legal officer hanya menyampaikan dokumen",
+    "Legal officer berperan sebagai jembatan strategis antara kepentingan bisnis dan kepatuhan hukum",
+    "Legal officer tidak terlibat dalam strategi",
+    "Legal officer hanya bertugas administratif"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Dalam suatu inspeksi mendadak, tim regulator meminta klarifikasi terkait salah satu izin operasional yang belum dapat ditunjukkan secara langsung. Anda mengetahui bahwa izin tersebut masih dalam proses penerbitan. Sebagai legal officer, apa respons paling tepat?"
+    }
+   ],
+   "options": [
+    "Menyatakan bahwa izin sudah ada meskipun belum terbit",
+    "Menyampaikan bahwa izin masih dalam proses disertai bukti pendukung pengajuan",
+    "Menghindari pertanyaan dan mengalihkan pembahasan",
+    "Menyalahkan pihak ketiga yang mengurus izin"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Dalam proses inspeksi, regulator meminta akses ke seluruh dokumen perusahaan, termasuk yang tidak relevan dengan ruang lingkup pemeriksaan. Apa tindakan paling tepat?"
+    }
+   ],
+   "options": [
+    "Memberikan seluruh dokumen tanpa seleksi",
+    "Menolak seluruh permintaan regulator",
+    "Memberikan dokumen yang relevan sesuai ruang lingkup inspeksi secara profesional",
+    "Menunda tanpa alasan jelas"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Anda mengetahui bahwa terdapat satu izin yang belum diajukan sama sekali, namun regulator belum menanyakan secara spesifik. Apa pendekatan terbaik?"
+    }
+   ],
+   "options": [
+    "Menyiapkan strategi komunikasi jika isu tersebut muncul",
+    "Menunggu sampai ditanyakan",
+    "Menyembunyikan fakta tersebut sepenuhnya",
+    "Mengakui secara langsung tanpa konteks"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Perusahaan belum memiliki dokumen final, namun telah memiliki bukti pengajuan dan korespondensi dengan instansi terkait. Bagaimana cara terbaik memposisikan hal ini?"
+    }
+   ],
+   "options": [
+    "Menganggap tidak ada masalah",
+    "Menyampaikan bahwa perusahaan sedang dalam proses pemenuhan kewajiban dengan bukti konkret",
+    "Menyatakan dokumen sudah lengkap",
+    "Tidak menyampaikan apapun"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Selama inspeksi, perwakilan regulator bersikap kritis dan menekan perusahaan dengan berbagai pertanyaan. Apa sikap terbaik sebagai legal officer?"
+    }
+   ],
+   "options": [
+    "Bersikap defensif dan emosional",
+    "Menghindari komunikasi langsung",
+    "Tetap tenang, profesional, dan berbasis data",
+    "Menyerahkan seluruh jawaban ke pihak lain"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Dalam sesi inspeksi, terdapat perbedaan jawaban antara tim legal dan tim operasional terkait status suatu izin. Apa risiko utama dari kondisi ini?"
+    }
+   ],
+   "options": [
+    "Tidak ada risiko signifikan",
+    "Menurunnya kredibilitas perusahaan di mata regulator",
+    "Hanya masalah komunikasi internal",
+    "Tidak berdampak pada hasil inspeksi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "Regulator menanyakan timeline penyelesaian izin yang masih dalam proses. Apa jawaban terbaik?"
+    }
+   ],
+   "options": [
+    "Memberikan jawaban yang tidak pasti",
+    "Memberikan jawaban yang terlalu optimistis tanpa dasar",
+    "Menolak menjawab",
+    "Memberikan estimasi realistis disertai langkah yang telah dilakukan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Saat inspeksi berlangsung, beberapa dokumen sulit ditemukan karena tidak terarsip dengan baik. Apa pelajaran utama dari kondisi ini?"
+    }
+   ],
+   "options": [
+    "Arsip tidak terlalu penting",
+    "Dokumentasi tidak berpengaruh pada inspeksi",
+    "Kesiapan dokumentasi merupakan kunci dalam menghadapi inspeksi",
+    "Hanya berdampak internal"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Perusahaan memiliki sebagian besar izin yang telah sesuai, namun terdapat beberapa aspek minor yang belum sepenuhnya comply. Bagaimana cara terbaik memposisikan perusahaan?"
+    }
+   ],
+   "options": [
+    "Menekankan komitmen kepatuhan dan ongoing compliance process",
+    "Menyatakan perusahaan tidak memiliki masalah sama sekali",
+    "Fokus pada kekurangan saja",
+    "Menyalahkan regulasi yang kompleks"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Dalam konteks inspeksi pemerintah, legal officer tidak hanya bertugas menjawab pertanyaan, tetapi juga menjaga posisi perusahaan secara strategis. Manakah pernyataan yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Legal officer hanya sebagai penyedia dokumen",
+    "Legal officer berperan sebagai representasi kepatuhan dan pengelola risiko komunikasi hukum",
+    "Legal officer tidak berperan penting",
+    "Legal officer hanya bertugas administratif"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "PT Sinar Distribusi menerima inspeksi mendadak dari instansi pemerintah terkait legalitas operasional gudang perusahaan. Dalam pemeriksaan tersebut, petugas meminta dokumen Tanda Daftar Gudang (TDG). Namun, perusahaan diketahui belum memiliki TDG karena proses pengurusannya masih berjalan dan dokumen permohonan telah diajukan beberapa minggu sebelumnya. Sebagai Legal Officer, tindakan yang PALING tepat dilakukan saat menghadapi pemeriksaan tersebut adalah"
+    }
+   ],
+   "options": [
+    "Menyatakan bahwa perusahaan tidak membutuhkan TDG karena gudang sudah beroperasi cukup lama",
+    "Menolak memberikan keterangan kepada petugas pemeriksa agar perusahaan terhindar dari sanksi",
+    "Menyampaikan secara kooperatif bahwa proses pengurusan TDG sedang berjalan serta menunjukkan bukti pengajuan dan dokumen pendukung administrasi kepada petugas pemeriksa",
+    "Membuat dokumen TDG sementara secara internal agar pemeriksaan segera selesai Catatan: • Pertanyaan juga bisa menjadi pilihan benar dan salah. • Daftar pertanyaan dapat berisi pertanyaan dari semua dimensi kompetensi, keterampilan kerja, dan aspek kritis. Jika ada pertanyaan yang tidak dijawab, maka dapat dieksplorasi dari menilai melalui pertanyaan verbal. • Pertanyaan juga dapat difokuskan pada akurasi dan presisi yang dapat membantu memberikan rekomendasi tindak lanjut untuk menilai. • Pertanyaan presisi jika tidak dapat dijawab, penilai disarankan untuk menambahkan lebih banyak latihan / bekerja di bawah pengawasan, sedangkan jika pertanyaan akurasi dilewatkan maka penilai direkomendasikan untuk pelatihan ulang."
+   ],
+   "answer": 3
+  }
+ ],
+ "esai": [
+  {
+   "no": 1,
+   "question": "<p>Badan usaha di Indonesia dibagi menjadi 2 (dua) jenis, yaitu badan usaha berbadan hukum, dan badan usaha tidak berbadan hukum. Berdasarkan regulasi terbaru, apa perbedaan antara kedua jenis badan usaha tersebut dan bagaimana implikasinya terhadap dokumen legalitas pendirian yang dimiliki tiap badan usaha?</p>",
+   "answer": "<p>Perbedaan Utama:</p><ul><li>Badan Usaha Berbadan Hukum (contoh: PT, Yayasan, Koperasi): Terdapat pemisahan harta kekayaan yang tegas antara pemilik/pengurus dengan badan usaha. Subjek hukumnya adalah badan usaha itu sendiri, sehingga tanggung jawab pemilik bersifat terbatas (limited liability).</li><li>Badan Usaha Tidak Berbadan Hukum (contoh: CV, Firma, Persekutuan Perdata): Tidak ada pemisahan harta kekayaan antara pemilik/sekutu dengan badan usaha. Subjek hukumnya tetap melekat pada pribadi para sekutu, sehingga tanggung jawab atas perikatan/utang menjangkau hingga harta pribadi. Implikasi Terhadap Dokumen Legalitas Pendirian:</li><li>Berbadan Hukum: Selain membutuhkan Akta Pendirian Notaris, status badan hukum wajib dan baru sah setelah memperoleh Keputusan Pengesahan Badan Hukum dari Menkumham melalui AHU Online.</li><li>Tidak Berbadan Hukum: Pendirian dilakukan dengan Akta Notaris dan didaftarkan pada Sistem Administrasi Badan Usaha (SABU) Kemenkumham untuk memperoleh Surat Keterangan Terdaftar (SKT), namun pendaftaran ini bersifat administratif dan tidak melahirkan subjek hukum baru yang terpisah.</li></ul>"
+  },
+  {
+   "no": 2,
+   "question": "<p>Akta dibagi menjadi 2 jenis, yaitu akta otentik dan akta di bawah tangan. Akta otentik merupakan akta yang dibuat oleh pejabat yang berwenang sehingga memiliki kekuatan pembuktian yang sempurna. Sedangkan, akta di bawah tangan merupakan akta yang dibuat oleh para pihak, baik dihadapan atau tidak dihadapan notaris . Sebagai upaya untuk melegalisasi akta dibawah tangan, terdapat 2 (dua) cara, yaitu legalisasi dan waarmerking. Jelaskan perbedaan antara legalisasi dan waarmerking!</p>",
+   "answer": "<ul><li>Legalisasi: Notaris menyaksikan langsung penandatanganan dokumen di hadapannya oleh para pihak yang bersangkutan. Notaris menjamin kepastian tanggal, kebenaran tanda tangan, dan identitas para pihak.</li><li>Waarmerking (Pendaftaran): Notaris hanya mencatatkan/mendaftarkan surat di bawah tangan yang telah ditandatangani terlebih dahulu oleh para pihak ke dalam buku khusus Notaris. Notaris tidak menyaksikan penandatanganan, sehingga hanya menjamin kepastian tanggal pendaftaran surat tersebut.</li></ul>"
+  },
+  {
+   "no": 3,
+   "question": "<p>Berdasarkan Pasal 13 Undang-undang Nomor 8 Tahun 1997 tentang Dokumen Perusahaan, ditegaskan bahwa pengalihan dokumen perusahaan wajib melakukan legalisasi. Setiap legalisasi wajib dituangkan dalam berita acara. Sebutkan minimal muatan informasi yang tertuang dalam Berita Acara Pengalihan Dokumen Perusahaan berdasarkan Undang-undang Nomor 8 Tahun 1997 tentang Dokumen Perusahaan!</p>",
+   "answer": "<p>Muatan Informasi Berita Acara Pengalihan Dokumen Perusahaan (UU No. 8/1997) Berdasarkan Pasal 13 UU No. 8 Tahun 1997, Berita Acara Pengalihan Dokumen Perusahaan sekurang-kurangnya memuat:</p><ul><li>Hari, tanggal, bulan, dan tahun pengalihan;</li><li>Tempat pengalihan dilakukan;</li><li>Keterangan mengenai dokumen yang dialihkan (jenis, jumlah, dan pertanggungan);</li><li>Keterangan bahwa pengalihan dilakukan atas persetujuan pimpinan perusahaan;</li><li>Tanda tangan pihak yang menyerahkan dan pihak yang menerima pengalihan dokumen.</li></ul>"
+  },
+  {
+   "no": 4,
+   "question": "<p>Dalam hukum perusahaan, terdapat pembaharuan berkaitan Rapat Umum Pemegang Saham (RUPS) sesuai dengan pemberlakukan Peraturan Pemerintah Nomor 49 Tahun 2025 tentang Syarat, Tata Cara Pendirian, Perubahan, Dan Pembubaran Badan Hukum Perseroan Terbatas. Salah satu aspek perubahannya adalah laporan tahunan RUPS yang dilakukan oleh notaris atas dasar laporan tahunan perusahaan. Mengacu pada Pasal 16 PP 49/2025, apa saja dokumen pendukung yang termuat dalam laporan tahunan perusahaan?</p>",
+   "answer": "<p>Dokumen Pendukung Laporan Tahun Perusahaan Mengacu Pasal 16 PP No. 49 Tahun 2025 Dokumen pendukung yang wajib termuat dalam laporan tahunan perusahaan meliputi:</p><ul><li>Laporan keuangan yang telah disusun/diaudit;</li><li>Laporan mengenai kegiatan dan kinerja perseroan selama tahun buku;</li><li>Laporan pelaksanaan Tanggung Jawab Sosial dan Lingkungan (TJSL/CSR);</li><li>Rincian masalah atau hambatan yang mempengaruhi kegiatan perseroan;</li><li>Laporan tugas pengawasan yang telah dilaksanakan oleh Dewan Komisaris.</li></ul>"
+  },
+  {
+   "no": 5,
+   "question": "<p>Jelaskan alur penerbitan NIB untuk skala menengah rendah dan sebutkan dokumen pendukung apa saja yang dibutuhkan untuk menerbitkan NIB</p>",
+   "answer": "<p>Alur Penerbitan NIB Skala Menengah Rendah &amp; Dokumen Pendukung</p><ul><li>Alur Penerbitan:</li></ul><p>1. Registrasi akun OSS RBA (Online Single Submission Risk-Based Approach) menggunakan NIK/Akses Usaha Badan.</p><p>2. Mengisi Data Profil Perusahaan dan Data Usaha (KBLI, modal usaha, lokasi, dan rencana kegiatan usaha).</p><p>3. Sistem OSS melakukan validasi data tata ruang (KKPR/GISTARU) dan kesesuaian tingkat risiko (Menengah Rendah).</p><p>4. Pemohon menyetujui Pernyataan Mandiri (kesanggupan pemenuhan standar K3L, lingkungan, dll.).</p><p>5. Sistem OSS menerbitkan NIB beserta Sertifikat Standar otomatis (unverified / langsung berlaku sebagai izin).</p><ul><li>Dokumen Pendukung: Akta Pendirian &amp; Pengesahan Menkumham, NPWP Badan/Perusahaan, Identitas Direksi/Penanggung Jawab (KTP/KITAS), serta Dokumen Penguasaan Lahan/Lokasi Usaha.</li></ul>"
+  },
+  {
+   "no": 6,
+   "question": "<p>Jelaskan apa yang dimaksud dengan klausula baku? Mengacu pada UU Perlindungan Konsumen, klausula baku apa saja yang dilarang?</p>",
+   "answer": "<p>Pengertian Klausula Baku &amp; Larangannya (UU Perlindungan Konsumen)</p><ul><li>Pengertian: Klausula baku adalah setiap aturan atau ketentuan dan syarat-syarat yang telah dipersiapkan dan ditetapkan terlebih dahulu secara sepihak oleh pelaku usaha yang dituangkan dalam suatu dokumen/perjanjian yang mengikat dan wajib dipenuhi oleh konsumen.</li><li>Klausula Baku yang Dilarang (Pasal 18 UU No. 8/1999):</li><li>Menyatakan pengalihan tanggung jawab pelaku usaha;</li><li>Menyatakan bahwa pelaku usaha berhak menolak penyerahan kembali barang/uang;</li><li>Menyatakan bahwa konsumen tunduk pada aturan baru yang ditetapkan sepihak;</li><li>Memberi hak kepada pelaku usaha untuk mengurangi fungsi/manfaat barang/jasa;</li><li>Mengatur pembuktian atas hilangnya kegunaan barang/jasa yang dibeli;</li><li>Memberi hak kepada pelaku usaha untuk mencabut/mengubah perbuatan hukum secara sepihak.</li></ul>"
+  },
+  {
+   "no": 7,
+   "question": "<p>Menurut Anda, apa yang dimaksud dengan fakta hukum? Bagaimana cara anda menarik fakta hukum dari kasus posisi yang disajikan?</p>",
+   "answer": "<p>Pengertian dan Cara Menarik Fakta Hukum</p><ul><li>Fakta Hukum: Kejadian, peristiwa, atau tindakan nyata yang memiliki konsekuensi atau relevansi hukum dan dapat dibuktikan berdasarkan alat bukti yang sah.</li><li>Cara Menarik Fakta Hukum dari Kasus Posisi:</li></ul><p>1. Inventarisasi Kronologi: Mengurai urutan peristiwa berdasarkan dokumen, perjanjian, dan kronologi kasus secara sistematis.</p><p>2. Filterisasi Kualifikasi: Memisahkan fakta relevan (yang berhubungan dengan hak dan kewajiban) dari fakta non-hukum (aspek emosional, klaim tanpa bukti).</p><p>3. Konfrontasi Alat Bukti: Memverifikasi ketersediaan bukti (dokumen, saksi, korespondensi) untuk setiap klaim.</p><p>4. Konstruksi Hukum: Mengelompokkan fakta terpilih ke dalam unsur-unsur pasal regulasi/klausula perjanjian terkait.</p>"
+  },
+  {
+   "no": 8,
+   "question": "<p>Bagaimana cara anda melakukan arsip data terhadap dokumen lama yang harus disesuaikan dengan format dokumen terkini?</p>",
+   "answer": "<p>Metode Pengarsipan Dokumen Lama ke Format Terkini</p><ul><li>Inventarisasi &amp; Auditing: Melakukan pendataan ulang (stock opname) terhadap fisik dokumen lama dan memverifikasi relevansi/masa berlakunya.</li><li>Digitalisasi &amp; Alih Media: Mengonversi dokumen fisik menjadi format digital (PDF/A terenkripsi) dengan resolusi standar legal.</li><li>Metadata &amp; Standardisasi Nomenklatur: Memberikan indexing/metadata (nomor registrasi, kategori, tanggal terbit, masa berlaku, KBLI terkait) sesuai dengan skema penamaan terbaru.</li><li>Restrukturisasi Repository (e-Archiving): Mengunggah dokumen ke dalam sistem Document Management System (DMS) berbasis hak akses (Role-Based Access Control).</li><li>Retensi Dokumen: Menentukan Jadwal Retensi Arsip (JRA) untuk dokumen fisik lama sesuai peraturan perundang-undangan sebelum pemusnahan/penyimpanan permanen.</li></ul>"
+  },
+  {
+   "no": 9,
+   "question": "<p>Jelaskan secara detail mengenai tahapan dalam pelaporan LKPM!</p>",
+   "answer": "<p>Tahapan Pelaporan LKPM (Laporan Kegiatan Penanaman Modal)</p><p>1. Persiapan Data: Mengumpulkan data realisasi investasi (modal tetap, modal kerja), penyerapan tenaga kerja (TKI &amp; TKA), serta kendala operasional perusahaan selama periode berjalan.</p><p>2. Akses Sistem OSS: Login ke portal OSS RBA menggunakan hak akses perusahaan.</p><p>3. Pilihan Menu LKPM: Memilih periode pelaporan (Triwulanan untuk tahap Konstruksi/Komersial atau Semesteran sesuai skala usaha).</p><p>4. Pengisian Form Realisasi: Input realisasi modal (pembelian tanah, bangunan, mesin, pengeluaran lain) serta jumlah tenaga kerja baru.</p><p>5. Deskripsi Permasalahan: Mengisi kendala yang dihadapi (jika ada) seperti perizinan daerah, lahan, atau masalah kemitraan.</p><p>6. Submit &amp; Evaluasi: Mengirimkan laporan untuk diverifikasi oleh Kementerian Investasi/BKPM atau DPMPTSP.</p><p>7. Perbaikan (Jika Ada): Merespons catatan/revisi dari verifikator apabila status LKPM dikembalikan untuk perbaikan.</p>"
+  },
+  {
+   "no": 10,
+   "question": "<p>Bagaimana cara Anda mengidentifikasi dampak regulasi tersebut terhadap operasional perusahaan serta langkah mitigasi yang harus dilakukan?</p>",
+   "answer": "<p>Identifikasi Dampak Regulasi &amp; Langkah Mitigasi</p><ul><li>Cara Mengidentifikasi Dampak:</li><li>Gap Analysis: Membandingkan ketentuan dalam regulasi baru dengan SOP/dokumen internal perusahaan yang sedang berjalan.</li><li>Impact Assessment: Mengukur area mana saja yang terdampak (operasional, perizinan, finansial, compliance, ketenagakerjaan).</li><li>Langkah Mitigasi:</li></ul><p>1. Menyusun Legal Brief / Ringkasan Eksekutif untuk Direksi.</p><p>2. Memperbarui dokumen hukum internal (SOP, template kontrak, Peraturan Perusahaan).</p><p>3. Mengajukan/menyesuaikan perizinan ke otoritas terkait jika diperlukan.</p><p>4. Mengadakan sosialisasi/sosialisasi internal kepada divisi terdampak.</p>"
+  },
+  {
+   "no": 11,
+   "question": "<p>Dalam proses audit kepatuhan, Anda menemukan berbagai ketidaksesuaian dokumen dengan tingkat risiko yang berbeda. Jelaskan bagaimana Anda mengklasifikasikan temuan tersebut dan menentukan prioritas perbaikan berbasis risiko!</p>",
+   "answer": "<p>Klasifikasi Temuan &amp; Prioritas Perbaikan Berbasis Risiko (Risk-Based Prioritization)</p><ul><li>Klasifikasi Temuan:</li><li>High Risk (Risiko Tinggi): Pelanggaran berat yang berpotensi menimbulkan sanksi pidana, pencabutan izin usaha, atau kerugian finansial material (contoh: NIB mati, tidak ada AMDAL/UKL-UPL, default kontrak utama).</li><li>Medium Risk (Risiko Sedang): Ketidaksesuaian administratif yang berdampak pada sanksi teguran bertahap atau denda administratif ringan (contoh: keterlambatan pelaporan LKPM, klausula kontrak tidak up-to-date).</li><li>Low Risk (Risiko Rendah): Kekurangan tata kelola administratif internal yang tidak melanggar ketentuan hukum substantif (contoh: penataan nomor arsip tidak konsisten).</li><li>Penentuan Prioritas Perbaikan:</li><li>Skala Prioritas 1 (Urgent/Immediate): Perbaikan High Risk dilakukan maksimal 1–14 hari kerja.</li><li>Skala Prioritas 2 (Medium Term): Perbaikan Medium Risk diselesaikan dalam kurun 30 hari kerja.</li><li>Skala Prioritas 3 (Routine Maintenance): Perbaikan Low Risk dimasukkan ke dalam program kerja berkala.</li></ul>"
+  },
+  {
+   "no": 12,
+   "question": "<p>Dalam suatu pertemuan dengan regulator, terdapat perbedaan interpretasi terhadap suatu ketentuan hukum yang berdampak signifikan terhadap operasional perusahaan. Jelaskan bagaimana Anda menyampaikan posisi hukum perusahaan tanpa menimbulkan konflik namun tetap melindungi kepentingan perusahaan!</p>",
+   "answer": "<p>Penyampaian Posisi Hukum Tanpa Konflik</p><ul><li>Prinsip Kebijakan Diplomatik: Menggunakan pendekatan soft-diplomacy dan objective analysis.</li><li>Langkah Konkret:</li></ul><p>1. Apresiasi &amp; Asertif: Menghargai pandangan regulator terlebih dahulu sebelum menyampaikan perspektif perusahaan.</p><p>2. Penggunaan Basis Argumentasi Hukum: Menyampaikan posisi hukum berbasis teks perundang-undangan, doktrin, atau preseden tanpa bersifat konfrontatif.</p><p>3. Penawaran Solusi Alternatif (Win-Win Approach): Mengajukan opsi penafsiran atau bridge-solution yang mengakomodasi kepatuhan hukum tanpa menghentikan operasional perusahaan.</p><p>4. Pernyataan Tertulis Resmi: Meminta konfirmasi/petunjuk resmi (legal opinion/affirmation) secara tertulis agar dokumen pertimbangan memiliki kekuatan acuan yang sah.</p>"
+  },
+  {
+   "no": 13,
+   "question": "<p>Selama pemeriksaan berlangsung, terdapat perbedaan informasi antara tim legal dan tim operasional. Bagaimana Anda mengelola situasi tersebut agar tidak merusak kredibilitas perusahaan di hadapan regulator?</p>",
+   "answer": "<p>Penanganan Perbedaan Informasi Internal Saat Pemeriksaan</p><p>1. Single Door Policy: Memastikan seluruh komunikasi formal dengan tim pemeriksa regulator dikendalikan oleh Legal Lead sebagai spokesperson.</p><p>2. Klarifikasi Internal Segera (Skorsing/Caucus): Meminta jeda (break) singkat secara sopan untuk melakukan penyelarasan data secara internal antara tim legal dan operasional.</p><p>3. Penyelarasan Data Berbasis Bukti: Memverifikasi dokumen pendukung utama (source of truth) untuk mengonfirmasi mana data operasional yang aktual dan sesuai fakta hukum.</p><p>4. Penyampaian Koreksi Secara Transparan: Menyampaikan klarifikasi perbaikan data kepada regulator secara jujur, profesional, dan disertai bukti pendukung yang valid guna menjaga integritas dan kredibilitas perusahaan.</p>"
+  }
+ ],
+ "praktik": {
+  "template": "legal.docx",
+  "template_name": "Ujian Praktik V2 - Corporate Legal Officer.docx",
+  "duration": 0,
+  "panduan": "- Studi Kasus 1\nKetentuan:\n- Peserta diwajibkan membuat legal opinion berdasarkan kasus posisi yang telah diberikan;\n- Metode yang digunakan oleh peserta adalah IRAC (Issue, Rule, Analysis, dan Conclusion);\n- Segala bentuk keterlambatan pengumpulan akan memperoleh sanksi konsekuensi dari pihak LSP.\n\nKASUS POSISI\nLEGAL OPINION\nBapak Eka Daniharja (ED) merupakan pemilik dari PT INTISARI ABADI JAYA (IAJ), sebuah perseroan terbatas yang bergerak di bidang industri hasil tembakau dan berkedudukan di Indonesia. ED telah mengembangkan bisnisnya selama 10 (sepuluh) tahun terakhir dengan merek rokok kretek yang dikenal dengan “GAMELAN”. Seiring berjalannya waktu, ED bermaksud melakukan ekspansi pasar melalui peluncuran produk rokok baru yaitu rokok filter beraneka rasa dengan merek dagang \"SRIKANDI 72\". Sebagai bentuk kepatuhan terhadap aspek legalitas kekayaan intelektual, IAJ mengajukan permohonan pendaftaran merek tersebut kepada Direktorat Jenderal Kekayaan Intelektual (DJKI) pada 18 November 2025. Permohonan ini diajukan untuk klasifikasi barang Kelas 34, yang secara spesifik mencakup jenis barang berupa rokok kretek, rokok putih, tembakau iris, serta produk-produk turunan tembakau lainnya.\nDalam prosesnya, permohonan pendaftaran merek \"SRIKANDI 72\" telah melewati tahapan pemeriksaan formalitas dan memasuki tahapan pemeriksaan substantif oleh Pemeriksa Merek. Namun, berdasarkan hasil pemeriksaan tersebut, DJKI menerbitkan surat pemberitahuan usulan penolakan dengan alasan adanya indikasi kuat mengenai Persamaan Pada Pokoknya (deceptively similar) terhadap merek dagang pihak lain yang telah terdaftar terlebih dahulu di Daftar Umum Merek, yaitu merek \"SRIKANDI\". Pihak Pemeriksa berargumen bahwa penggunaan elemen kata \"SRIKANDI\" pada merek milik IAJ bersifat dominan dan identik secara fonetik serta konseptual dengan merek \"SRIKANDI\" milik pihak ketiga, yang juga terdaftar pada Kelas 34 untuk jenis barang yang sejenis.\nDJKI memberikan penilaian bahwa penambahan elemen angka \"72\" pada bagian belakang kata \"SRIKANDI\" tidak memberikan daya pembeda (distinctiveness) yang cukup signifikan untuk menghapuskan kesan kemiripan di mata konsumen. Hal ini dikhawatirkan dapat menimbulkan penyesatan atau kebingungan di masyarakat (likelihood of confusion) mengenai asal-usul barang, hubungan hukum antara kedua pemilik merek, maupun kualitas produk yang ditawarkan. Di sisi lain, IAJ berkeyakinan bahwa merek \"SRIKANDI 72\" memiliki karakteristik visual yang berbeda, termasuk penggunaan logo, komposisi warna, serta tipografi khusus yang secara keseluruhan membentuk kesatuan identitas merek yang baru dan mandiri jika dibandingkan dengan merek \"SRIKANDI\" yang telah ada.\nSituasi saat ini menunjukkan bahwa permohonan IAJ terancam ditolak secara tetap jika perusahaan tidak segera memberikan tanggapan atau keberatan tertulis yang didukung oleh argumentasi yuridis yang kuat. Oleh karena itu, diperlukan sebuah tinjauan hukum yang mendalam untuk menganalisis mengenai merek \"SRIKANDI 72\"\nBerdasarkan fakta-fakta yang dijelaskan sebelumnya, ED meminta pendapat anda sebagai ahli hukum di Indonesia untuk memberikan pendapat hukum atas kemauan ED. Apakah menurut Anda merk SRIKANDI 72 tetap dapat didaftarkan ke DJKI?\nDalam sesi konsultasi, ED menanyakan beberapa hal sebagai berikut :\n- Apa yang menjadi dasar pendaftaran merek rokok kretek di Indonesia?\n- Apakah merek “SRIKANDI 72” memiliki unsur kesamaan dengan merek “SRIKANDI” yang telah beredar?\n- Bagaimana sanggahan Anda sebagai legal officer terhadap penolakan yang diberikan oleh DJKI?\nPosisikan diri Anda sebagai legal officer pada IAJ dan legal opinion ini akan anda sampaikan pada jajaran management.\n- Studi Kasus 2\nKetentuan:\n- Peserta diwajibkan membuat surat kuasa berdasarkan kasus posisi yang telah diberikan;\n- Model surat kuasa dibebaskan sesuai dengan kreativitas peserta sesuai dengan keperluan yang dimaksudkan pada kasus posisi;\n- Segala bentuk keterlambatan pengumpulan akan memperoleh sanksi konsekuensi dari pihak LSP\n\nKASUS POSISI\nPEMBUATAN SURAT KUASA\nSeorang pebisnis atas nama Ratna Wulandari (RW), selaku Direktur Utama dan pemilik PT Andaya Sari Tobacco (AST), sebuah perusahaan yang bergerak di bidang industri Hasil Pengolahan Tembakau Lainnya (HPTL), berencana melakukan ekspansi bisnis dengan menjadi distributor resmi di Indonesia untuk produk tembakau kunyah dengan merek dagang \"TOBACA\" yang berasal dari Eropa. Mengingat karakteristik produk tembakau kunyah yang masuk dalam kategori barang kena cukai serta adanya regulasi perdagangan yang bersifat ketat di Indonesia, RW menyadari perlunya pemenuhan aspek legalitas yang komprehensif guna memastikan operasional distribusi berjalan sesuai dengan koridor hukum yang berlaku. Namun, dikarenakan keterbatasan pemahaman dan teknis di bidang hukum operasional, RW secara resmi memberikan kuasa penuh kepada Aditya Noval (AN) selaku Legal Officer perusahaan untuk bertindak atas nama AST dalam mengurus seluruh rangkaian perizinan yang diperlukan.\nDalam menjalankan mandat tersebut, AN memikul tanggung jawab utama untuk memastikan kepatuhan administrasi pada dua instansi terkait, yaitu Kementerian Perdagangan serta Direktorat Jenderal Bea dan Cukai. Langkah pertama yang menjadi urgensi perusahaan adalah memproses perolehan Surat Tanda Pendaftaran Distributor (STP-D) sebagai syarat mutlak bagi ASTuntuk dapat bertindak sebagai distributor resmi produk \"TOBACA\" di wilayah hukum Indonesia. Tanpa adanya STP-D, perusahaan tidak memiliki legalitas untuk melakukan pendistribusian barang secara skala besar dan formal. Secara paralel, AN juga berkewajiban melakukan pengurusan Nomor Pokok Pengusaha Barang Kena Cukai (NPPBKC). Dokumen ini merupakan identitas atau izin utama bagi setiap badan hukum yang menjalankan kegiatan sebagai penyalur atau pengusaha tempat penjualan eceran barang kena cukai, dalam hal ini produk HPTL \"TOBACA\".\nSelanjutnya, tahapan yang paling krusial dalam rantai pasok produk ini adalah memastikan bahwa produk \"TOBACA\" yang akan diedarkan telah memenuhi kewajiban fiskal negara melalui pengurusan P3C (Permohonan Penyediaan Pita Cukai). Proses ini sangat teknis karena melibatkan penetapan tarif dan pemesanan pita cukai yang sesuai dengan spesifikasi produk. Setelah proses P3C disetujui, AN harus menuntaskan kewajiban administratif terakhir berupa pengajuan CK-1 (Dokumen Pemesanan Pita Cukai) agar pita cukai dapat diterbitkan dan dilekatkan pada kemasan produk \"TOBACA\". Tanpa pelekatan pita cukai yang sah berdasarkan dokumen CK-1 tersebut, produk tembakau kunyah milik AST akan dikategorikan sebagai produk ilegal yang dapat dikenakan sanksi pidana maupun administrasi. Kasus ini kini berada pada tahap persiapan dokumen pendukung, di mana AN harus memastikan seluruh sinkronisasi data antara NIB perusahaan dengan sistem pada portal Bea Cukai serta Kementerian Perdagangan berjalan tanpa kendala teknis.\nBerdasarkan fakta-fakta yang dijelaskan sebelumnya, buatlah SURAT KUASA KHUSUS yang menjadi dasar bertindaknya AN sebagai Account Representative (AR) dari AST\nBatasan Surat Kuasa :\n- AN hanya bertindak sebagai AR hingga tahap PEMESANAN PITA CUKAI (CK-1)\n- AN hanya diberi kuasa dengan interval waktu 1 tahun, yaitu sejak 4 Maret 2026 - 3 Maret 2027\n\nSusun Legal Opinion (Studi Kasus 1) dan Surat Kuasa Khusus (Studi Kasus 2). Gabungkan keduanya dalam satu file Word/PDF (atau satu file ZIP), lalu unggah."
+ }
+}

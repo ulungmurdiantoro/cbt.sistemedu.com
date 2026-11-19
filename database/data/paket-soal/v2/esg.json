@@ -1,0 +1,1570 @@
+{
+ "key": "esg",
+ "classroom_code": "ESG",
+ "nama": "ESG Officer",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda ESG Officer v1 (1).pdf",
+  "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai ESG Officer - V1.docx",
+  "praktik": "FR.IA.04 Tugas Keterampilan - ESG Officer - Rev.docx + FR.IA.04 Lembar Kerja Asesi ESG Officer.xlsx"
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Tujuan utama mengidentifikasi pemangku kepentingan di awal proses ESG adalah:"
+    }
+   ],
+   "options": [
+    "Menyusun daftar undangan acara tahunan perusahaan",
+    "Mengetahui pihak yang terdampak atau dapat memengaruhi isu ESG perusahaan",
+    "Menentukan pelanggan dengan nilai pembelian terbesar",
+    "Menentukan pihak yang berhak menerima dividen"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Manakah yang termasuk pemangku kepentingan eksternal bagi sebuah pabrik?"
+    }
+   ],
+   "options": [
+    "Masyarakat yang tinggal di sekitar pabrik",
+    "Komisaris perusahaan",
+    "Anggota direksi",
+    "Karyawan bagian produksi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "PT XYZ menerima keluhan dari warga sekitar terkait limbah cair. Dalam pemetaan pemangku kepentingan, warga tersebut paling tepat dinilai memiliki:"
+    }
+   ],
+   "options": [
+    "Pengaruh tinggi saja, tanpa perlu menilai tingkat kepentingannya",
+    "Kepentingan rendah, karena keluhan belum diajukan melalui jalur hukum",
+    "Kepentingan tinggi, karena mereka terdampak langsung oleh limbah",
+    "Kepentingan rendah, karena mereka tidak memiliki saham perusahaan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Pemangku kepentingan dengan pengaruh tinggi dan kepentingan tinggi sebaiknya:"
+    }
+   ],
+   "options": [
+    "Cukup diberi informasi umum melalui situs web",
+    "Dikeluarkan dari pemetaan agar analisis lebih fokus",
+    "Dilibatkan secara aktif dan dikelola secara dekat",
+    "Cukup dipantau secara berkala"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Pemangku kepentingan dengan pengaruh rendah dan kepentingan rendah sebaiknya:"
+    }
+   ],
+   "options": [
+    "Tetap dipantau secara berkala dengan upaya yang proporsional",
+    "Dihapus secara permanen dari daftar pemangku kepentingan",
+    "Diberi prioritas komunikasi yang sama dengan regulator",
+    "Dilibatkan dalam setiap rapat pengambilan keputusan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "Sebelum memberi nilai pengaruh dan kepentingan untuk setiap pemangku kepentingan, langkah yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Meminta atasan memberi nilai berdasarkan pengalamannya",
+    "Memberi nilai berdasarkan kesan pribadi agar pekerjaan cepat selesai",
+    "Menetapkan dan menuliskan kriteria penilaian yang akan digunakan",
+    "Langsung menggambar matriks tanpa menyusun daftar pemangku kepentingan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Investor meminta efisiensi biaya, sementara warga meminta perbaikan pengolahan limbah. Sebagai staf ESG, tindakan yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Tidak mencantumkan kedua kepentingan agar tidak memicu konflik",
+    "Mencatat kedua kepentingan beserta dasarnya, lalu melaporkannya untuk dibahas manajemen",
+    "Mengutamakan kepentingan warga karena jumlahnya lebih banyak",
+    "Mengutamakan kepentingan investor karena mereka menyediakan modal"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "PT XYZ memiliki pemasok dari 3 negara dengan profil risiko ketenagakerjaan yang berbeda. Cara memetakan pemasok yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Hanya memetakan pemasok dengan nilai pembelian terbesar",
+    "Menggabungkan semua pemasok menjadi satu kelompok agar sederhana",
+    "Memetakan pemasok per negara karena profil risikonya berbeda",
+    "Tidak memetakan pemasok karena bukan bagian dari perusahaan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Pemetaan pemangku kepentingan terakhir diperbarui tiga tahun lalu, dan perusahaan baru saja membuka pabrik di daerah lain. Langkah yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Memperbarui pemetaan karena ada pihak dan dampak baru",
+    "Menyalin pemangku kepentingan pabrik lama ke daerah baru",
+    "Tetap memakai peta lama karena sudah pernah disetujui",
+    "Menunggu keluhan dari daerah baru sebelum memperbarui"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Sebagai staf baru, sumber informasi yang paling tepat untuk mengidentifikasi pemangku kepentingan masyarakat adalah:"
+    }
+   ],
+   "options": [
+    "Komentar di media sosial perusahaan saja",
+    "Daftar nama karyawan dari bagian SDM",
+    "Catatan keluhan, dokumen kegiatan CSR, dan diskusi dengan fungsi terkait",
+    "Asumsi pribadi tentang siapa yang mungkin terdampak"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Manakah contoh kelompok rentan yang perlu mendapat perhatian khusus dalam pemetaan pemangku kepentingan PT XYZ?"
+    }
+   ],
+   "options": [
+    "Kantor pusat perusahaan",
+    "Warga berpenghasilan rendah yang bergantung pada sumur dangkal di sekitar pabrik",
+    "Pemegang saham mayoritas perusahaan",
+    "Bank yang memberikan kredit modal kerja"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Sebuah kelompok warga belum pernah menyampaikan keluhan resmi. Sikap yang tepat dalam pemetaan adalah:"
+    }
+   ],
+   "options": [
+    "Tetap dipetakan, karena tidak adanya keluhan bukan berarti tidak ada dampak",
+    "Dipetakan hanya jika jumlah anggotanya besar",
+    "Dipetakan setelah kelompok tersebut mengajukan keluhan",
+    "Tidak dipetakan, karena tidak ada keluhan berarti tidak ada masalah"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Hasil kerja yang menunjukkan pemetaan pemangku kepentingan sudah dilakukan dengan baik adalah:"
+    }
+   ],
+   "options": [
+    "Daftar kontak pemangku kepentingan tanpa klasifikasi",
+    "Ringkasan laporan keuangan tahunan",
+    "Daftar pemangku kepentingan, matriks pengaruh–kepentingan, dan catatan dasar penilaian",
+    "Dokumentasi foto kegiatan sosialisasi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Dinas lingkungan hidup setempat paling tepat dinilai memiliki:"
+    }
+   ],
+   "options": [
+    "Pengaruh rendah, karena bukan pelanggan perusahaan",
+    "Pengaruh rendah, karena hanya berkunjung saat ada inspeksi",
+    "Pengaruh yang sama dengan pemasok bahan baku",
+    "Pengaruh tinggi, karena dapat menerbitkan izin dan menjatuhkan sanksi"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Perbedaan antara isu ESG dan risiko ESG adalah:"
+    }
+   ],
+   "options": [
+    "Risiko adalah isu yang sudah pasti terjadi",
+    "Isu selalu bersifat finansial, sedangkan risiko selalu bersifat lingkungan",
+    "Isu adalah topik atau kondisi, sedangkan risiko adalah kemungkinan dampaknya bagi organisasi",
+    "Isu dan risiko memiliki arti yang sama"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Dari kondisi PT XYZ berikut, manakah yang termasuk isu lingkungan (Environmental)?"
+    }
+   ],
+   "options": [
+    "Belum adanya pelatihan K3 bagi pekerja baru",
+    "Upah lembur yang dibayar terlambat",
+    "Belum adanya pembagian tanggung jawab ESG",
+    "Penggunaan air tanah dalam jumlah besar"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Manakah yang termasuk isu sosial (Social)?"
+    }
+   ],
+   "options": [
+    "Kebocoran tangki bahan kimia",
+    "Kebijakan anti-korupsi yang belum diperbarui",
+    "Konsumsi listrik yang tinggi",
+    "Praktik ketenagakerjaan di pemasok"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Manakah yang termasuk isu tata kelola (Governance)?"
+    }
+   ],
+   "options": [
+    "Debu dari aktivitas bongkar muat",
+    "Tidak adanya pembagian peran dan tanggung jawab ESG yang jelas",
+    "Limbah padat dari kantin",
+    "Keluhan warga terkait kebisingan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Isu \"keluhan warga terkait limbah cair\" paling tepat diturunkan menjadi risiko berikut:"
+    }
+   ],
+   "options": [
+    "Risiko turunnya harga bahan baku",
+    "Risiko sanksi dari regulator dan memburuknya hubungan dengan masyarakat",
+    "Risiko naiknya gaji karyawan",
+    "Risiko meningkatnya biaya iklan produk"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "PT XYZ sangat bergantung pada air tanah, sementara musim kemarau di daerahnya makin panjang. Tindakan yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Mencatatnya hanya jika produksi sudah berhenti",
+    "Menyerahkan sepenuhnya kepada bagian teknik tanpa dicatat",
+    "Tidak mencatatnya karena air tanah tidak dibeli",
+    "Mencatatnya sebagai risiko karena ketersediaan air untuk produksi dapat terganggu"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Kesalahan umum dalam mengidentifikasi isu ESG adalah:"
+    }
+   ],
+   "options": [
+    "Mengandalkan asumsi tanpa melihat aktivitas bisnis dan data yang ada",
+    "Menggunakan referensi eksternal sebagai pembanding",
+    "Mendokumentasikan sumber setiap isu",
+    "Mengaitkan isu dengan aktivitas operasional"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Untuk menyusun daftar awal isu ESG, sumber yang paling lengkap adalah:"
+    }
+   ],
+   "options": [
+    "Pendapat satu orang manajer senior",
+    "Aktivitas operasional, keluhan pemangku kepentingan, regulasi, dan data internal",
+    "Daftar isu milik perusahaan lain di sektor berbeda",
+    "Berita yang paling banyak dibaca minggu ini"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Pencemaran limbah ternyata juga memengaruhi kesehatan warga sekitar. Cara mencatat isu ini yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Sebagai isu yang saling terkait, dengan dampak lingkungan dan sosial",
+    "Menghapusnya karena membingungkan kategorisasi",
+    "Memasukkannya ke kategori tata kelola saja",
+    "Memilih salah satu kategori saja agar tidak dobel"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Staf ESG menemukan indikasi praktik ketenagakerjaan di salah satu pemasok yang berpotensi melanggar hak pekerja. Tindakan yang paling tepat sesuai perannya adalah:"
+    }
+   ],
+   "options": [
+    "Mengabaikannya karena terjadi di luar perusahaan",
+    "Menunggu sampai ada pemberitaan media",
+    "Mencatatnya sebagai isu sosial di rantai pasok dan melaporkannya kepada atasan",
+    "Langsung memutus kontrak pemasok atas nama perusahaan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "Pemerintah menerbitkan aturan lingkungan baru yang lebih ketat. Dampaknya terhadap daftar isu dan risiko ESG adalah:"
+    }
+   ],
+   "options": [
+    "Ditunda sampai audit tahunan berikutnya",
+    "Daftar perlu ditinjau ulang dan diperbarui",
+    "Tidak berpengaruh karena aturan berlaku untuk semua perusahaan",
+    "Cukup dibahas di laporan keuangan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "Perusahaan akan berekspansi ke wilayah baru. Yang perlu dilakukan terkait isu dan risiko ESG adalah:"
+    }
+   ],
+   "options": [
+    "Menunggu operasi berjalan satu tahun",
+    "Mengurangi jumlah isu agar lebih ringkas",
+    "Menggunakan daftar isu lama tanpa perubahan",
+    "Mengidentifikasi ulang isu, risiko, dan pemangku kepentingan di lokasi baru"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Risiko transisi adalah risiko yang muncul akibat:"
+    }
+   ],
+   "options": [
+    "Perpindahan kantor ke gedung baru",
+    "Perubahan aturan, teknologi, atau preferensi pasar menuju ekonomi rendah karbon",
+    "Kerusakan fisik akibat banjir atau badai",
+    "Pergantian pengurus organisasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Manakah contoh risiko fisik terkait iklim?"
+    }
+   ],
+   "options": [
+    "Pajak karbon diberlakukan",
+    "Investor meminta pengungkapan emisi",
+    "Pelanggan beralih ke produk rendah emisi",
+    "Gudang terendam banjir akibat curah hujan ekstrem"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Staf ESG mendapati proses pengadaan tidak memiliki kontrol yang memadai sehingga berisiko disalahgunakan. Tindakan yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Mendiamkan karena bukan bagian dari tugas ESG",
+    "Membahasnya di grup percakapan antarkaryawan",
+    "Menyelidiki sendiri pihak yang dicurigai",
+    "Mencatatnya sebagai risiko tata kelola dan melaporkannya melalui jalur yang berlaku"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Tingkat risiko (risk rating) umumnya ditentukan oleh kombinasi:"
+    }
+   ],
+   "options": [
+    "Popularitas isu di media",
+    "Kemungkinan terjadi dan besarnya dampak",
+    "Jumlah pemangku kepentingan dan jumlah karyawan",
+    "Jumlah keluhan dan pendapat manajemen"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "Dengan skala 1–5 dan rumus risk rating = kemungkinan × dampak, sebuah risiko dengan kemungkinan 4 dan dampak 3 memiliki skor:"
+    }
+   ],
+   "options": [
+    "7",
+    "12",
+    "43",
+    "1"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Risiko A: kemungkinan 2, dampak 5. Risiko B: kemungkinan 4, dampak 4. Dengan rumus kemungkinan × dampak, risiko yang lebih diprioritaskan adalah:"
+    }
+   ],
+   "options": [
+    "Risiko A, karena dampaknya paling tinggi",
+    "Keduanya sama, karena sama-sama di atas 5",
+    "Risiko B, karena skornya 16 lebih tinggi dari 10",
+    "Tidak dapat ditentukan tanpa data keuangan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Sebuah risiko memiliki kemungkinan kecil tetapi dampaknya sangat besar. Dalam penilaian risiko, risiko ini sebaiknya:"
+    }
+   ],
+   "options": [
+    "Disatukan dengan risiko kecil lainnya",
+    "Tetap dinilai dan dicatat karena konsekuensinya signifikan",
+    "Diabaikan karena jarang terjadi",
+    "Dihapus dari daftar agar fokus"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Agar penilaian risiko konsisten, hal yang perlu dipastikan sebelum memberi skor adalah:"
+    }
+   ],
+   "options": [
+    "Skala dan definisi setiap tingkat skor sudah disepakati dan tertulis",
+    "Setiap penilai bebas menggunakan skalanya sendiri",
+    "Hanya risiko lingkungan yang diberi skor",
+    "Skor ditentukan oleh siapa pun yang paling senior"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Data untuk menilai sebuah risiko belum lengkap. Pendekatan yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Menggunakan asumsi tanpa catatan",
+    "Menghapus risiko tersebut sampai data lengkap",
+    "Mendokumentasikan keterbatasan data dan asumsi yang dipakai, lalu memperbarui saat data tersedia",
+    "Memberi skor paling rendah agar aman"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Dalam menilai dampak sosial, aspek yang paling penting diperhatikan adalah:"
+    }
+   ],
+   "options": [
+    "Persepsi media semata",
+    "Pergerakan harga saham",
+    "Tingkat kerentanan kelompok yang terdampak",
+    "Jumlah pesaing di pasar"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Sebuah risiko berdampak finansial kecil tetapi berdampak besar pada reputasi. Risiko ini sebaiknya:"
+    }
+   ],
+   "options": [
+    "Tetap diperhitungkan karena dampak reputasi juga bagian dari dampak",
+    "Diabaikan karena reputasi sulit diukur",
+    "Dinilai rendah karena kerugian uangnya kecil",
+    "Dihapus dari matriks risiko"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Dua penilai memberi skor berbeda untuk risiko yang sama. Langkah yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Mengambil skor tertinggi tanpa diskusi",
+    "Mengambil skor terendah agar laporan terlihat baik",
+    "Membatalkan penilaian risiko tersebut",
+    "Membandingkan dasar penilaian masing-masing dan menyepakati kriteria bersama"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Risiko residual adalah:"
+    }
+   ],
+   "options": [
+    "Risiko yang tersisa setelah pengendalian yang ada diperhitungkan",
+    "Risiko sebelum ada pengendalian apa pun",
+    "Risiko yang sudah pasti hilang",
+    "Risiko yang hanya berdampak finansial"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Atasan meminta Anda menurunkan skor sebuah risiko tanpa ada data atau alasan baru. Sikap yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Menolak dan menyampaikannya ke pihak luar perusahaan",
+    "Menghapus risiko tersebut dari daftar",
+    "Langsung menurunkan skor tanpa catatan",
+    "Meminta dasar atau data pendukung, dan mencatat alasannya jika skor memang diubah"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "Matriks risiko membantu organisasi untuk:"
+    }
+   ],
+   "options": [
+    "Menghindari kewajiban pelaporan",
+    "Mengurangi jumlah dokumen",
+    "Mengurutkan risiko berdasarkan prioritas",
+    "Menghapus risiko yang kecil"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Penggunaan data kuantitatif dalam penilaian dampak penting karena:"
+    }
+   ],
+   "options": [
+    "Membuat penilaian tidak perlu ditinjau ulang",
+    "Memberi dasar yang objektif dan dapat diperiksa ulang",
+    "Menggantikan kebutuhan dokumentasi",
+    "Membuat laporan terlihat lebih panjang"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Pengendalian (mitigasi) yang sudah diterapkan ternyata tidak efektif. Yang perlu dilakukan terhadap risikonya adalah:"
+    }
+   ],
+   "options": [
+    "Menilai ulang risiko tersebut",
+    "Menganggap risiko sudah selesai ditangani",
+    "Tidak mencatat apa pun",
+    "Menghapus risiko dari daftar"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "Ketika menilai risiko yang berasal dari rantai pasok, cakupan penilaian sebaiknya:"
+    }
+   ],
+   "options": [
+    "Ditunda sampai kontrak pemasok diperpanjang",
+    "Hanya mencakup operasional di dalam pabrik",
+    "Mempertimbangkan risiko di pemasok utama, bukan hanya di dalam perusahaan",
+    "Menunggu pemasok melaporkan sendiri risikonya"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Dalam konteks ESG, isu disebut \"material\" apabila:"
+    }
+   ],
+   "options": [
+    "Paling mudah diukur",
+    "Paling mahal biaya penanganannya",
+    "Signifikan dampaknya dan penting bagi keputusan pemangku kepentingan",
+    "Paling sering muncul di media sosial"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Tujuan utama penyusunan matriks materialitas adalah:"
+    }
+   ],
+   "options": [
+    "Memprioritaskan isu ESG berdasarkan signifikansinya",
+    "Menghitung kewajiban pajak",
+    "Menentukan besaran bonus direksi",
+    "Mengurangi jumlah laporan perusahaan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "Dua dimensi yang umum digunakan dalam matriks materialitas adalah:"
+    }
+   ],
+   "options": [
+    "Tingkat kepentingan bagi pemangku kepentingan dan tingkat dampak bagi organisasi",
+    "Biaya implementasi dan jumlah karyawan",
+    "Jumlah cabang dan jumlah pelanggan",
+    "Volume produksi dan harga jual"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Masukan (input) yang paling tepat untuk menyusun matriks materialitas adalah:"
+    }
+   ],
+   "options": [
+    "Rencana anggaran pemasaran",
+    "Laporan penjualan bulanan",
+    "Daftar hadir rapat",
+    "Hasil pemetaan pemangku kepentingan dan hasil penilaian dampak/risiko"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Sebuah isu berdampak tinggi terhadap organisasi, tetapi kepentingan pemangku kepentingan terhadapnya masih rendah. Isu ini sebaiknya:"
+    }
+   ],
+   "options": [
+    "Dihapus dari matriks",
+    "Diabaikan karena pemangku kepentingan tidak peduli",
+    "Diturunkan bobotnya tanpa analisis",
+    "Tetap dianalisis karena dampaknya signifikan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Warga menganggap sebuah isu sangat penting, tetapi manajemen menganggapnya tidak penting. Langkah profesional yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Mengkaji ulang dengan data dampak dan dialog tambahan",
+    "Mengurangi bobot isu tanpa penjelasan",
+    "Menghapus isu tersebut",
+    "Mengikuti pendapat manajemen saja"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Hasil penilaian menunjukkan terlalu banyak isu masuk kategori prioritas. Langkah yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Menjadikan semua isu sebagai fokus utama",
+    "Menajamkan kriteria prioritas",
+    "Mengabaikan hasil penilaian",
+    "Mengurangi isu secara acak"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Proses materialitas yang tidak melibatkan pemangku kepentingan berisiko:"
+    }
+   ],
+   "options": [
+    "Menjadi lebih objektif",
+    "Tidak memiliki dampak apa pun",
+    "Selalu menghasilkan isu yang lebih sedikit",
+    "Kurang mencerminkan pandangan pihak eksternal"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Dokumentasi proses materialitas penting karena:"
+    }
+   ],
+   "options": [
+    "Mengurangi kebutuhan konsultasi",
+    "Membuat laporan lebih panjang",
+    "Menghapus isu kecil secara otomatis",
+    "Proses dapat ditelusuri dan dipertanggungjawabkan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Materialitas perlu ditinjau ulang secara berkala karena:"
+    }
+   ],
+   "options": [
+    "Format laporan berganti setiap tahun",
+    "Jumlah karyawan bertambah",
+    "Konteks bisnis dan lingkungan eksternal terus berubah",
+    "Target perusahaan selalu naik"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Sebuah isu turun tingkat materialitasnya pada penilaian tahun ini. Isu tersebut sebaiknya:"
+    }
+   ],
+   "options": [
+    "Tetap dipantau sesuai tingkat risikonya",
+    "Langsung dihapus dari semua catatan",
+    "Tidak perlu dicatat lagi",
+    "Dikeluarkan dari sistem manajemen risiko"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Di PT XYZ, isu penggunaan air tanah dan isu limbah cair sama-sama bernilai tinggi pada kedua sumbu matriks. Kesimpulan yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Kedua isu cukup dicatat tanpa tindak lanjut",
+    "Hanya satu isu yang boleh dipilih sebagai isu material",
+    "Kedua isu perlu menunggu penilaian tahun depan",
+    "Kedua isu termasuk isu material dan perlu diprioritaskan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Kesalahan umum dalam menentukan prioritas isu adalah:"
+    }
+   ],
+   "options": [
+    "Menggunakan kriteria yang jelas",
+    "Mengutamakan opini individu tanpa data",
+    "Mendokumentasikan proses",
+    "Berkonsultasi dengan pemangku kepentingan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Isu dengan skor materialitas tertinggi sebaiknya:"
+    }
+   ],
+   "options": [
+    "Dihapus dari laporan agar tidak menarik perhatian",
+    "Dibiarkan tanpa rencana karena sudah tercatat",
+    "Dibahas kembali tahun depan",
+    "Diprioritaskan dalam rencana tindak lanjut dan pengungkapan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Perusahaan mengubah model bisnisnya secara signifikan. Dampaknya terhadap materialitas adalah:"
+    }
+   ],
+   "options": [
+    "Tidak ada dampak karena isu ESG bersifat tetap",
+    "Penilaian materialitas perlu diperbarui karena risiko dan dampaknya ikut berubah",
+    "Cukup mengganti judul laporan",
+    "Isu lama otomatis tetap berlaku"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Tujuan mengintegrasikan risiko ESG ke dalam manajemen risiko perusahaan (ERM) adalah:"
+    }
+   ],
+   "options": [
+    "Agar risiko keuangan tidak perlu lagi dicatat",
+    "Agar tim ESG memiliki daftar risiko tersendiri yang terpisah",
+    "Agar seluruh risiko lama diganti dengan risiko ESG",
+    "Agar risiko ESG dikelola dengan cara yang sama seperti risiko perusahaan lainnya"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Risk register sebaiknya memuat:"
+    }
+   ],
+   "options": [
+    "Daftar pelanggan utama",
+    "Deskripsi risiko, skor, pengendalian, dan penanggung jawab",
+    "Nama auditor eksternal",
+    "Struktur organisasi lengkap"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Saat menambahkan risiko ESG ke risk register yang sudah ada, langkah yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Mencatatnya di lembar terpisah tanpa skor",
+    "Menghapus risiko lama agar ada ruang",
+    "Membuat skala penilaian baru khusus risiko ESG",
+    "Menyesuaikan dengan kategori dan skala penilaian yang sudah dipakai di risk register"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Sebuah risiko ESG bernilai tinggi tetapi belum memiliki rencana mitigasi. Langkah yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Menurunkan skornya agar tidak menonjol",
+    "Menyembunyikannya dari laporan risiko",
+    "Membiarkannya sampai ada kejadian",
+    "Mengusulkan tindakan pengendalian beserta penanggung jawabnya"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Rencana mitigasi risiko yang baik mencakup:"
+    }
+   ],
+   "options": [
+    "Tindakan spesifik, penanggung jawab, dan tenggat waktu",
+    "Pengurangan jumlah indikator",
+    "Grafik tambahan",
+    "Pernyataan umum tanpa rincian"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Penanggung jawab (risk owner) sebuah risiko ESG sebaiknya adalah:"
+    }
+   ],
+   "options": [
+    "Pihak eksternal seperti konsultan",
+    "Selalu staf ESG, apa pun risikonya",
+    "Tidak perlu ditentukan",
+    "Fungsi yang mengelola aktivitas penyebab risiko tersebut"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Evaluasi berkala terhadap risiko ESG bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Mengurangi jumlah risiko secara otomatis",
+    "Menambah beban administrasi",
+    "Menyesuaikan dengan perubahan kondisi internal dan eksternal",
+    "Menghindari audit"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Risiko ESG dikelola tim ESG di dokumen terpisah dan tidak pernah dibahas dalam rapat risiko perusahaan. Akibat yang paling mungkin adalah:"
+    }
+   ],
+   "options": [
+    "Risiko ESG tidak terlihat dalam pengambilan keputusan perusahaan",
+    "Pengelolaan risiko menjadi lebih terintegrasi",
+    "Tidak ada akibat apa pun",
+    "Target perusahaan lebih mudah tercapai"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Terjadi kebocoran limbah cair di PT XYZ. Tindakan pertama staf ESG yang paling sesuai perannya adalah:"
+    }
+   ],
+   "options": [
+    "Menghapus risiko limbah karena sudah terjadi",
+    "Menunggu laporan resmi dari warga",
+    "Menyusun siaran pers sendiri",
+    "Mencatat kejadian, melaporkannya kepada penanggung jawab, dan memperbarui status risiko"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Sebelum mengusulkan pengendalian tambahan untuk sebuah risiko, hal yang perlu dicatat terlebih dahulu adalah:"
+    }
+   ],
+   "options": [
+    "Anggaran pemasaran tahun berjalan",
+    "Nama seluruh anggota direksi",
+    "Pengendalian yang sudah ada dan efektivitasnya",
+    "Jumlah halaman risk register"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Risiko ESG jangka panjang sering terabaikan karena:"
+    }
+   ],
+   "options": [
+    "Dampaknya tidak langsung terasa",
+    "Selalu bernilai kecil",
+    "Tidak relevan bagi organisasi",
+    "Lebih mudah diukur"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Dari daftar risiko ESG, Anda diminta memilih tiga risiko untuk diintegrasikan ke risk register perusahaan. Dasar pemilihan yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Tiga risiko yang dipilih secara acak",
+    "Tiga risiko yang paling mudah ditangani",
+    "Tiga risiko yang paling sering dibahas di media",
+    "Tiga risiko dengan skor tertinggi dari hasil penilaian"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Bukti bahwa risiko ESG sudah terintegrasi ke ERM adalah:"
+    }
+   ],
+   "options": [
+    "Risiko ESG disebut dalam pidato direksi",
+    "Tim ESG memiliki folder risiko sendiri",
+    "Risiko ESG dicetak dalam brosur perusahaan",
+    "Risiko ESG tercantum di risk register perusahaan dan ikut dibahas dalam pelaporan risiko"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Dasar utama dalam menentukan informasi yang perlu diungkapkan dalam laporan ESG adalah:"
+    }
+   ],
+   "options": [
+    "Isu yang paling mudah dihitung",
+    "Isu yang diungkapkan pesaing",
+    "Isu material",
+    "Isu yang paling positif"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Pengungkapan ESG yang baik harus:"
+    }
+   ],
+   "options": [
+    "Hanya memuat kinerja yang positif",
+    "Bersifat rahasia",
+    "Konsisten dengan isu material dan didukung data yang dapat ditelusuri",
+    "Tidak perlu diverifikasi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Ditemukan ketidaksesuaian antara daftar isu material dan isi laporan. Langkah yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Menghapus isu dari matriks materialitas",
+    "Menyesuaikan pengungkapan agar konsisten dengan isu material",
+    "Menunggu pertanyaan dari pembaca laporan",
+    "Membiarkannya karena laporan sudah disusun"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "Tersedia beberapa standar dan kerangka pelaporan. Langkah pertama yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Memahami kebutuhan informasi pengguna laporan, lalu memilih acuan yang relevan",
+    "Menggunakan semua kerangka sekaligus",
+    "Memilih kerangka yang paling populer tanpa pertimbangan",
+    "Tidak memakai acuan apa pun"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Jumlah keluhan warga meningkat dibanding tahun lalu. Dalam laporan ESG, informasi ini sebaiknya:"
+    }
+   ],
+   "options": [
+    "Tidak dicantumkan karena merugikan citra",
+    "Diganti dengan cerita kegiatan CSR",
+    "Tetap diungkapkan secara jujur beserta upaya perbaikannya",
+    "Dicantumkan dengan angka yang dibulatkan ke bawah"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Indikator yang paling relevan untuk isu penggunaan air tanah adalah:"
+    }
+   ],
+   "options": [
+    "Jumlah halaman laporan tahunan",
+    "Volume air tanah yang diambil per periode",
+    "Jumlah rapat direksi",
+    "Jumlah pengikut akun media sosial"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Indikator yang paling relevan untuk isu keluhan masyarakat adalah:"
+    }
+   ],
+   "options": [
+    "Jumlah keluhan yang masuk dan yang sudah diselesaikan",
+    "Jumlah pemasok luar negeri",
+    "Nilai penjualan per wilayah",
+    "Jumlah karyawan kantor pusat"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Data konsumsi air dari bagian produksi dan bagian fasilitas berbeda. Sebelum dicantumkan dalam laporan, langkah yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Memakai rata-rata keduanya tanpa penjelasan",
+    "Menelusuri sumber data dan metode perhitungannya",
+    "Tidak mencantumkan data air",
+    "Memakai angka yang lebih kecil"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Tujuan menyusun catatan verifikasi konsistensi dalam pengungkapan adalah:"
+    }
+   ],
+   "options": [
+    "Menambah jumlah lampiran",
+    "Menghindari pemeriksaan",
+    "Menunjukkan bahwa setiap isu material sudah tercermin dalam pengungkapan",
+    "Menggantikan matriks materialitas"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "Data dalam laporan yang tidak memiliki dokumentasi sumber akan:"
+    }
+   ],
+   "options": [
+    "Sulit diverifikasi",
+    "Otomatis dianggap akurat",
+    "Lebih mudah dipercaya",
+    "Tidak berpengaruh apa pun"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Transparansi dalam pengungkapan ESG membantu organisasi untuk:"
+    }
+   ],
+   "options": [
+    "Menghapus risiko",
+    "Mengurangi kewajiban audit",
+    "Menghindari tanggung jawab",
+    "Membangun kepercayaan pemangku kepentingan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Rekan kerja meminta Anda menghapus data kinerja yang kurang baik dari draf laporan. Sikap yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Langsung menghapus data tersebut",
+    "Menyampaikan bahwa data material perlu diungkapkan dan mengeskalasi bila perlu",
+    "Memindahkan data ke lampiran tanpa penjelasan",
+    "Mengganti data dengan angka perkiraan yang lebih baik"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Standar pengungkapan ESG digunakan untuk:"
+    }
+   ],
+   "options": [
+    "Mengurangi beban kerja manajemen",
+    "Menyusun informasi sesuai kerangka yang diakui sehingga dapat dibandingkan",
+    "Menentukan harga produk",
+    "Mengurangi pajak"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Indikator yang baik untuk pengungkapan ESG adalah indikator yang:"
+    }
+   ],
+   "options": [
+    "Selalu menunjukkan hasil positif",
+    "Paling banyak dipakai perusahaan lain",
+    "Relevan dengan isu, dapat diukur, dan datanya tersedia",
+    "Tidak memerlukan data"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Fungsi utama kebijakan ESG organisasi adalah:"
+    }
+   ],
+   "options": [
+    "Menggantikan seluruh SOP teknis",
+    "Memberi arah dan komitmen formal organisasi",
+    "Menambah jumlah arsip",
+    "Menjadi bahan promosi semata"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Tata kelola ESG yang baik mencakup:"
+    }
+   ],
+   "options": [
+    "Pembagian peran, tanggung jawab, dan mekanisme pelaporan yang jelas",
+    "Tidak adanya penanggung jawab tertentu",
+    "Satu orang yang menangani semua urusan ESG",
+    "Komitmen lisan tanpa dokumen"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Tata kelola ESG yang lemah biasanya ditandai dengan:"
+    }
+   ],
+   "options": [
+    "Struktur tanggung jawab yang jelas",
+    "Tidak jelasnya pembagian peran dan akuntabilitas",
+    "Evaluasi berkala",
+    "Dokumentasi yang lengkap"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Peran direksi atau manajemen puncak dalam tata kelola ESG adalah:"
+    }
+   ],
+   "options": [
+    "Mengelola data harian",
+    "Mengisi formulir pengumpulan data",
+    "Menyusun grafik laporan",
+    "Memberi arah dan pengawasan strategis"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Kebijakan ESG yang sudah disahkan sebaiknya:"
+    }
+   ],
+   "options": [
+    "Disimpan sebagai dokumen rahasia",
+    "Dibaca hanya saat audit",
+    "Disosialisasikan dan dipahami di internal organisasi",
+    "Hanya diketahui manajemen puncak"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Langkah pertama dalam analisis kesenjangan (gap) kebijakan ESG adalah:"
+    }
+   ],
+   "options": [
+    "Menunggu permintaan dari regulator",
+    "Menyalin kebijakan perusahaan lain",
+    "Membandingkan kebijakan yang ada dengan isu material dan risiko ESG",
+    "Menulis ulang seluruh kebijakan dari awal"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Bagian CSR dan bagian produksi sama-sama merasa bertanggung jawab melaporkan data limbah, sehingga laporannya dobel. Usulan yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Memperjelas pembagian peran agar tidak tumpang tindih",
+    "Membiarkan keduanya melapor agar data lebih banyak",
+    "Memilih laporan yang angkanya lebih kecil",
+    "Menghentikan pelaporan data limbah"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Independensi staf ESG paling diuji ketika:"
+    }
+   ],
+   "options": [
+    "Menyusun desain laporan",
+    "Menyampaikan temuan yang mungkin tidak disukai manajemen",
+    "Mengarsipkan dokumen",
+    "Menentukan jadwal rapat"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Memasukkan target ESG ke dalam KPI manajemen bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Mengurangi tanggung jawab manajemen",
+    "Menghapus risiko",
+    "Menguatkan akuntabilitas kinerja",
+    "Menurunkan target perusahaan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "Hasil evaluasi menunjukkan sebuah program ESG tidak mencapai tujuannya. Langkah yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Melakukan perbaikan dan penyesuaian berdasarkan hasil evaluasi",
+    "Menyembunyikan hasil evaluasi",
+    "Menghentikan program tanpa analisis",
+    "Menurunkan target agar terlihat tercapai"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Perusahaan belum memiliki kebijakan tertulis tentang hak asasi manusia. Kontribusi yang paling sesuai dengan peran staf ESG adalah:"
+    }
+   ],
+   "options": [
+    "Mengumumkan kekurangan ini ke publik",
+    "Mengesahkan kebijakan sendiri atas nama perusahaan",
+    "Mengabaikannya karena bukan kewajiban hukum",
+    "Mengidentifikasi kesenjangan dan menyiapkan bahan usulan kebijakan untuk dibahas manajemen"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Target ESG tidak tercapai karena koordinasi antardivisi lemah. Usulan yang paling tepat adalah:"
+    }
+   ],
+   "options": [
+    "Menyerahkan semua tugas kepada satu divisi",
+    "Membentuk forum koordinasi lintas fungsi dengan peran yang jelas",
+    "Menunggu tahun depan",
+    "Menghapus target ESG"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Staf ESG yang profesional harus mampu:"
+    }
+   ],
+   "options": [
+    "Menyampaikan temuan berbasis data secara objektif",
+    "Mengubah angka sesuai keinginan atasan",
+    "Menghindari isu yang sensitif",
+    "Menghindari semua bentuk perbedaan pendapat"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "Kebijakan ESG perlu ditinjau secara berkala karena:"
+    }
+   ],
+   "options": [
+    "Risiko, regulasi, dan kondisi organisasi dapat berubah",
+    "Agar jumlah kebijakan bertambah",
+    "Kebijakan harus selalu lebih panjang",
+    "Format dokumen perlu diperbarui"
+   ],
+   "answer": 1
+  }
+ ],
+ "esai": [
+  {
+   "no": 1,
+   "question": "<p><strong>Konteks:</strong> PT XYZ adalah perusahaan manufaktur tekstil yang menggunakan air tanah dalam jumlah besar, memiliki pemasok dari 3 negara, dan sedang menghadapi keluhan warga terkait limbah cair. Perusahaan belum memiliki kebijakan ESG tertulis.</p><p><strong>Pertanyaan:</strong> Anda diminta menyiapkan bahan awal untuk draf kebijakan ESG yang ringkas. Sebutkan minimal 4 bagian yang perlu ada dalam draf tersebut dan jelaskan secara singkat isi setiap bagian.</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Tujuan dan ruang lingkup kebijakan (unit/lokasi/pihak yang dicakup)</li><li>Komitmen terhadap isu yang relevan bagi PT XYZ (air tanah, limbah cair, praktik ketenagakerjaan pemasok)</li><li>Peran dan tanggung jawab (siapa melakukan apa)</li><li>Mekanisme pelaporan, pemantauan, dan peninjauan kebijakan secara berkala</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menyebut ≥4 bagian dengan isi yang jelas; komitmen dikaitkan langsung dengan isu PT XYZ; menyebut mekanisme peninjauan berkala.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyebut 4 bagian dengan isi yang benar, tetapi kaitan dengan isu PT XYZ masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Menyebut 2–3 bagian yang benar, atau 4 bagian tanpa penjelasan isi.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Menyebut ≤1 bagian yang benar atau jawaban tidak relevan dengan kebijakan ESG.</td></tr></table>"
+  },
+  {
+   "no": 2,
+   "question": "<p><strong>Konteks:</strong> Keluhan warga tentang limbah cair di PT XYZ diterima oleh bagian CSR, bagian produksi, dan bagian legal. Masing-masing menganggap pihak lain yang seharusnya menindaklanjuti, sehingga keluhan menumpuk tanpa jawaban.</p><p><strong>Pertanyaan:</strong> Usulkan pembagian peran sederhana untuk menangani keluhan tersebut: siapa menerima, siapa menindaklanjuti, siapa memantau, dan ke mana hasilnya dilaporkan. Jelaskan mengapa peran tidak boleh tumpang tindih.</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Satu pintu penerimaan keluhan yang jelas</li><li>Penanggung jawab tindak lanjut sesuai sumber masalah (mis. produksi untuk limbah)</li><li>Fungsi pemantau/koordinator (mis. staf ESG) dan jalur pelaporan ke atasan/manajemen</li><li>Alasan: tumpang tindih menyebabkan keluhan tidak tertangani dan tidak ada akuntabilitas</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Keempat peran dibagi dengan jelas tanpa tumpang tindih, jalur pelaporan disebut, dan alasan akuntabilitas dijelaskan dengan tepat.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Peran utama dan jalur pelaporan sudah jelas, tetapi alasan pentingnya pembagian peran kurang lengkap.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Pembagian peran masih sebagian atau masih tumpang tindih; jalur pelaporan tidak jelas.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Tidak ada pembagian peran yang dapat dijalankan, atau jawaban hanya menyalahkan salah satu bagian.</td></tr></table>"
+  },
+  {
+   "no": 3,
+   "question": "<p><strong>Konteks:</strong> PT XYZ sudah mengesahkan kebijakan ESG, tetapi survei singkat menunjukkan sebagian besar karyawan produksi tidak mengetahui isinya.</p><p><strong>Pertanyaan:</strong> Jelaskan langkah-langkah yang dapat Anda usulkan agar kebijakan tersebut diketahui dan dipahami karyawan, serta bagaimana cara mengetahui bahwa langkah tersebut berhasil.</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Materi sosialisasi yang sederhana dan sesuai audiens (bahasa mudah, contoh dari pekerjaan sehari-hari)</li><li>Saluran yang menjangkau karyawan produksi (briefing, papan informasi, pelatihan singkat)</li><li>Melibatkan atasan langsung/pemimpin unit</li><li>Cara mengukur keberhasilan: kuis/survei ulang, umpan balik, pemantauan berkala</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menyusun ≥3 langkah yang sesuai karyawan produksi dan menyebut cara mengukur keberhasilan secara konkret.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyusun langkah sosialisasi yang tepat, tetapi cara mengukur keberhasilan masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Langkah sosialisasi tidak sesuai audiens (mis. hanya mengirim email) atau tidak ada cara mengukur keberhasilan.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Jawaban tidak memberikan langkah yang dapat dijalankan.</td></tr></table>"
+  },
+  {
+   "no": 4,
+   "question": "<p><strong>Konteks:</strong> Saat menyiapkan data untuk laporan ESG, Anda menemukan hasil uji limbah cair bulan lalu melebihi baku mutu. Atasan langsung meminta Anda tidak mencantumkannya dulu sampai audit selesai.</p><p><strong>Pertanyaan:</strong> Apa yang sebaiknya Anda lakukan? Jelaskan alasan Anda dan langkah yang sesuai dengan peran staf ESG.</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Tidak menghapus atau mengubah data; mendokumentasikan temuan apa adanya</li><li>Menyampaikan kepada atasan bahwa data material perlu diungkapkan, disertai alasan</li><li>Mengeskalasi melalui jalur resmi bila permintaan tetap dipertahankan (atasan berikutnya, fungsi kepatuhan, atau saluran pelaporan pelanggaran)</li><li>Alasan: integritas data, risiko sanksi, dan kepercayaan pemangku kepentingan</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menolak menghapus data, mendokumentasikan temuan, berdialog dengan atasan, menyebut jalur eskalasi resmi, dan menjelaskan alasan integritas serta risiko.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menolak menghapus data dan menyebut eskalasi, tetapi alasan atau dokumentasi kurang lengkap.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Jawaban ragu-ragu (mis. menunda tanpa dokumentasi) atau eskalasi langsung ke pihak luar tanpa melalui jalur internal.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Mengikuti permintaan menghapus data atau mengubah angka.</td></tr></table>"
+  },
+  {
+   "no": 5,
+   "question": "<p><strong>Konteks:</strong> Kebijakan ESG PT XYZ saat ini hanya mengatur efisiensi energi. Hasil penilaian materialitas menunjukkan tiga isu material: penggunaan air tanah, limbah cair, dan praktik ketenagakerjaan di pemasok.</p><p><strong>Pertanyaan:</strong> Identifikasi kesenjangan antara kebijakan yang ada dan isu material tersebut, lalu susun rekomendasi pembaruan kebijakan yang dapat Anda ajukan kepada atasan.</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Kesenjangan: air tanah, limbah cair, dan praktik ketenagakerjaan pemasok belum diatur</li><li>Rekomendasi komitmen untuk setiap isu yang belum diatur</li><li>Urutan prioritas dengan alasan (mis. limbah cair karena sudah ada keluhan warga)</li><li>Rekomendasi diajukan untuk dibahas dan disahkan manajemen, bukan diputuskan sendiri</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>90–100</td><td>Sangat baik</td><td>Ketiga kesenjangan teridentifikasi, setiap kesenjangan punya rekomendasi, prioritas diberi alasan, dan jalur persetujuan manajemen disebut.</td></tr><tr><td>70–80</td><td>Kompeten</td><td>Ketiga kesenjangan teridentifikasi dengan rekomendasi, tetapi prioritas atau jalur persetujuan tidak disebut.</td></tr><tr><td>40–60</td><td>Belum memadai</td><td>Hanya 1–2 kesenjangan teridentifikasi, atau rekomendasi tidak terkait dengan isu material.</td></tr><tr><td>10–30</td><td>Tidak memadai</td><td>Tidak mengidentifikasi kesenjangan yang benar.</td></tr></table>"
+  },
+  {
+   "no": 6,
+   "question": "<p><strong>Konteks:</strong> PT XYZ sedang menghadapi keluhan warga sekitar pabrik terkait limbah cair. Pada saat yang sama, dua merek global pembeli utama meminta informasi tentang praktik ketenagakerjaan di pemasok. Pemasok PT XYZ berasal dari 3 negara dengan profil risiko ketenagakerjaan yang berbeda.</p><p><strong>Pertanyaan:</strong> Sebutkan minimal 5 kelompok pemangku kepentingan yang terkait dengan kedua isu tersebut. Pilih 2 kelompok, lalu jelaskan tingkat pengaruh dan kepentingannya serta cara yang tepat untuk melibatkan mereka.</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Minimal 5 kelompok yang relevan (mis. warga sekitar pabrik, pekerja di pemasok, merek pembeli, instansi lingkungan hidup daerah, karyawan dan fungsi internal terkait, pemasok, LSM)</li><li>Tingkat pengaruh dan kepentingan dinilai dengan alasan yang bersumber dari kasus</li><li>Cara keterlibatan sesuai posisi kelompok (memberi informasi, berkonsultasi, melibatkan aktif, atau mengelola secara dekat)</li><li>Kelompok yang terdampak langsung atau rentan (warga, pekerja pemasok) tetap diperhatikan walaupun pengaruh formalnya rendah</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menyebut ≥5 kelompok relevan; dua kelompok dinilai pengaruh dan kepentingannya dengan alasan dari kasus; cara keterlibatan tepat; menyinggung kelompok terdampak/rentan.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyebut ≥5 kelompok relevan; penilaian dan cara keterlibatan benar, tetapi alasannya masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Menyebut 3–4 kelompok relevan, atau penilaian tanpa alasan, atau cara keterlibatan tidak sesuai posisi kelompok.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Menyebut ≤2 kelompok relevan atau jawaban tidak terkait kasus.</td></tr></table>"
+  },
+  {
+   "no": 7,
+   "question": "<p><strong>Konteks:</strong> Pemakaian air tanah PT XYZ naik 15% dalam setahun. Dalam tiga bulan terakhir, warga melaporkan sumur dangkal mereka makin cepat kering pada musim kemarau. Perusahaan menilai risiko dengan skala 1–5 untuk kemungkinan dan dampak; tingkat risiko = kemungkinan × dampak (1–6 rendah, 8–12 sedang, 15–25 tinggi).</p><p><strong>Pertanyaan:</strong> Rumuskan isu dan risiko ESG dari kondisi tersebut, lalu lakukan penilaian sederhana memakai skala perusahaan. Jelaskan alasan skor yang Anda berikan dan data tambahan apa yang perlu dikumpulkan.</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Isu dibedakan dari risiko (isu: pemakaian air tanah dan dampaknya pada sumur warga; risiko: konflik dengan warga, pembatasan izin, gangguan pasokan air produksi, reputasi)</li><li>Skor kemungkinan dan dampak diberi alasan berbasis data kasus; perhitungan dan kategori benar</li><li>Data tambahan yang relevan (catatan meter per sumur, catatan keluhan, data izin dan muka air tanah, rencana produksi)</li><li>Asumsi dan keterbatasan data dicatat; skor diperbarui saat data tersedia</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Isu dan risiko dibedakan dengan jelas; skor diberi alasan dari kasus dan dihitung benar; menyebut ≥2 data tambahan yang relevan serta mencatat asumsi.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Isu dan risiko dibedakan; skor dan kategori benar; alasan atau data tambahan masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Isu dan risiko tercampur, atau skor tanpa alasan, atau perhitungan/kategori salah.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Tidak merumuskan risiko atau tidak melakukan penilaian.</td></tr></table>"
+  },
+  {
+   "no": 8,
+   "question": "<p><strong>Konteks:</strong> Tim PT XYZ menilai lima isu dengan skala 1–5 pada dua sumbu: signifikansi dampak terhadap lingkungan/masyarakat dan tingkat kepentingan bagi pemangku kepentingan. Ambang material: ≥3,5 pada kedua sumbu. Hasilnya: limbah cair (4,5; 4,6), penggunaan air tanah (4,2; 3,8), praktik ketenagakerjaan pemasok (4,0; 4,3), efisiensi energi (2,8; 3,0), dan kemasan plastik (3,4; 3,7).</p><p><strong>Pertanyaan:</strong> Tentukan isu mana yang material dan jelaskan alasannya. Apa yang sebaiknya dilakukan terhadap isu kemasan plastik, dan apa saja yang perlu didokumentasikan dari proses ini?</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Isu material: limbah cair, penggunaan air tanah, dan praktik ketenagakerjaan pemasok (memenuhi ambang pada kedua sumbu)</li><li>Efisiensi energi tidak material; kemasan plastik hampir material (dampak 3,4 di bawah ambang)</li><li>Kemasan plastik dicatat dan dipantau untuk ditinjau ulang; tidak dihapus dan tidak dinaikkan tanpa dasar</li><li>Dokumentasi: sumber skor, pihak yang dilibatkan, ambang yang dipakai, alasan keputusan, dan jadwal peninjauan</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>Skor</td><td>Kategori</td><td>Tiga isu material tepat dengan alasan ambang; kemasan diperlakukan sebagai isu yang dipantau; menyebut ≥3 hal yang perlu didokumentasikan.</td></tr><tr><td>81–100</td><td>Sangat baik</td><td>Tiga isu material tepat; perlakuan kemasan benar; dokumentasi disebut secara umum.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Ada kesalahan menentukan isu material, atau kemasan dihapus/dinaikkan tanpa dasar, atau tidak menyebut dokumentasi.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Tidak memakai ambang atau jawaban tidak relevan.</td></tr></table>"
+  },
+  {
+   "no": 9,
+   "question": "<p><strong>Konteks:</strong> Laporan sebuah LSM menyebut indikasi praktik kerja yang serius merugikan hak pekerja di salah satu pemasok PT XYZ di Negara C, yang memasok 25% kebutuhan kain. Register risiko perusahaan (ERM) sudah memuat risiko keuangan dan operasional, tetapi belum memuat risiko ESG. Anda diminta membantu memasukkan risiko ini ke register.</p><p><strong>Pertanyaan:</strong> Jelaskan langkah Anda untuk memasukkan risiko tersebut ke register risiko perusahaan, termasuk informasi apa saja yang perlu diisi.</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Memverifikasi atau mengklarifikasi laporan LSM sebelum menyimpulkan, tanpa mengabaikannya</li><li>Merumuskan risiko dari sisi perusahaan (gangguan pasokan, kehilangan pembeli, reputasi) dan dampak bagi pekerja</li><li>Menilai dengan skala dan format ERM yang sama; mengusulkan pemilik risiko dari fungsi yang mengendalikan sumbernya (mis. pengadaan), bukan staf ESG</li><li>Mengisi pengendalian yang ada, rencana mitigasi (klarifikasi, audit, rencana perbaikan, pemasok alternatif), serta pemantauan dan pelaporan berkala</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Langkah runtut dari verifikasi sampai pemantauan; memakai format ERM yang sama; pemilik risiko tepat; mitigasi dan pelaporan disebut jelas.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyebut perumusan risiko, penilaian dengan skala ERM, pemilik risiko, dan mitigasi; urutan atau rinciannya kurang lengkap.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Hanya menyebut sebagian (mis. mencatat risiko tanpa pemilik atau tanpa mitigasi), atau memakai skala terpisah dari ERM.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Tidak menjelaskan cara memasukkan risiko ke register atau jawaban tidak relevan.</td></tr></table>"
+  },
+  {
+   "no": 10,
+   "question": "<p><strong>Konteks:</strong> Anda menyiapkan data pemakaian air tanah tahun 2025 untuk laporan keberlanjutan PT XYZ. Catatan meter sumur menunjukkan 480.000 m³, sedangkan rekap bagian produksi menunjukkan 430.000 m³. Data meter bulan Agustus tidak tersedia karena meter rusak.</p><p><strong>Pertanyaan:</strong> Jelaskan langkah Anda agar angka yang diungkapkan akurat dan dapat ditelusuri, termasuk cara menangani perbedaan data dan data bulan yang hilang.</p>",
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Menelusuri sumber dan metode kedua angka (rekonsiliasi) dan mengonfirmasi ke pemilik data</li><li>Tidak memilih angka yang lebih kecil atau lebih menguntungkan tanpa dasar</li><li>Data bulan yang hilang diestimasi dengan metode wajar dan diungkapkan sebagai estimasi, atau keterbatasannya diungkapkan</li><li>Mendokumentasikan jejak perhitungan, melaporkan kepada atasan, dan mengusulkan perbaikan (perbaikan meter, pengecekan rutin)</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Melakukan rekonsiliasi dengan pemilik data; menangani data hilang secara transparan; mendokumentasikan jejak perhitungan; mengusulkan perbaikan.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menangani perbedaan data dan data hilang dengan benar; dokumentasi atau usulan perbaikan masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Memilih salah satu angka tanpa penelusuran, atau mengabaikan data yang hilang.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Memilih angka yang lebih menguntungkan, mengarang data, atau jawaban tidak relevan.</td></tr></table>"
+  }
+ ],
+ "praktik": {
+  "template": "esg.zip",
+  "template_name": "Ujian Praktik V2 - ESG Officer.zip",
+  "duration": 120,
+  "panduan": "Lembar Data Kasus — PT XYZ\n\nKonteks: PT XYZ adalah perusahaan manufaktur tekstil yang menggunakan air tanah dalam jumlah besar, memiliki pemasok dari 3 negara dengan profil risiko ketenagakerjaan yang berbeda, menghadapi keluhan warga terkait limbah cair, dan belum memiliki matriks materialitas formal. Anda adalah staf ESG yang baru bergabung.\n\n- No.: 1; Data / Temuan: Pemakaian air tanah tahun 2025 sebesar 480.000 m³, naik 15% dari tahun sebelumnya. Izin pengambilan air tanah berlaku sampai 2027.; Sumber: Catatan meter sumur (bagian utilitas)\n- No.: 2; Data / Temuan: Warga desa di sekitar pabrik menyampaikan 9 keluhan dalam 6 bulan terakhir: air sumur dangkal keruh dan berbau di dekat saluran pembuangan.; Sumber: Catatan keluhan (bagian CSR)\n- No.: 3; Data / Temuan: Hasil uji limbah cair: 2 dari 6 bulan terakhir melebihi baku mutu.; Sumber: Laporan laboratorium eksternal\n- No.: 4; Data / Temuan: Instansi lingkungan hidup kabupaten melakukan kunjungan pengawasan 2 bulan lalu; tindak lanjut temuan belum dilaporkan.; Sumber: Notulen kunjungan\n- No.: 5; Data / Temuan: Pemasok kain dari Negara A (40% pasokan, belum ada temuan), Negara B (35%, laporan jam lembur berlebih), dan Negara C (25%, laporan LSM tentang indikasi praktik kerja yang serius merugikan hak pekerja).; Sumber: Data pengadaan dan laporan publik\n- No.: 6; Data / Temuan: Dua merek global pembeli utama meminta data air dan data praktik ketenagakerjaan pemasok untuk evaluasi kontrak tahun depan.; Sumber: Surel bagian pemasaran\n- No.: 7; Data / Temuan: Konsumsi listrik naik 4%, terutama dari mesin produksi. Kemasan plastik produk sekitar 120 ton per tahun; belum ada keluhan.; Sumber: Tagihan listrik dan data gudang\n- No.: 8; Data / Temuan: Perusahaan sudah memiliki register risiko perusahaan (ERM) tetapi belum memuat risiko ESG. Matriks materialitas belum pernah disusun.; Sumber: Bagian manajemen risiko\n\nKRONOLOGI (disusun dari lembar data; tidak ada fakta tambahan)\n\n- Waktu: Tahun 2025 (tahun lalu); Kejadian: Pemakaian air tanah 480.000 m³, naik 15% dari tahun sebelumnya. Konsumsi listrik naik 4%.; Data no.: 1, 7\n- Waktu: 6 bulan terakhir; Kejadian: 9 keluhan warga tentang air sumur dangkal keruh dan berbau. 2 dari 6 hasil uji bulanan limbah cair melebihi baku mutu.; Data no.: 2, 3\n- Waktu: 2 bulan lalu; Kejadian: Kunjungan pengawasan instansi lingkungan hidup kabupaten. Sampai hari ini tindak lanjut temuan belum dilaporkan.; Data no.: 4\n- Waktu: Saat ini; Kejadian: Dua merek global pembeli utama meminta data air dan data praktik ketenagakerjaan pemasok. Register ERM belum memuat risiko ESG; matriks materialitas belum ada.; Data no.: 6, 8\n- Waktu: Tahun depan; Kejadian: Merek pembeli mengevaluasi kontrak dengan PT XYZ.; Data no.: 6\n- Waktu: 2027; Kejadian: Izin pengambilan air tanah berakhir.; Data no.: 1\n\n- Tugas 1 — Memetakan Pemangku Kepentingan (±25 menit)\nInstruksi: Identifikasi minimal 6 kelompok pemangku kepentingan PT XYZ berdasarkan Lembar Data Kasus. Petakan setiap kelompok dalam matriks pengaruh–kepentingan (tinggi/rendah) dan tentukan cara keterlibatannya (memberi informasi, berkonsultasi, melibatkan aktif, atau mengelola secara dekat).\nOutput: Tabel pemangku kepentingan berisi: nama kelompok, isu/kepentingan, tingkat pengaruh, tingkat kepentingan, dasar penilaian, dan cara keterlibatan.\n- Tugas 2 — Daftar Isu dan Penilaian Risiko ESG (±35 menit)\nInstruksi: Susun daftar minimal 5 isu ESG yang mencakup aspek lingkungan, sosial, dan tata kelola. Untuk setiap isu, rumuskan risikonya bagi perusahaan, beri skor kemungkinan (1–5) dan dampak (1–5), hitung tingkat risiko = kemungkinan × dampak, lalu beri kategori (1–6 rendah, 8–12 sedang, 15–25 tinggi). Cantumkan nomor data kasus yang menjadi sumber dan asumsi yang Anda pakai.\nOutput: Register isu dan risiko ESG berisi: isu, aspek (E/S/G), rumusan risiko, skor kemungkinan, skor dampak, tingkat dan kategori risiko, sumber data, serta asumsi.\n- Tugas 3 — Matriks Materialitas Sederhana (±30 menit)\nInstruksi: Nilai isu dari Tugas 2 pada dua sumbu berskala 1–5: (a) signifikansi dampak terhadap lingkungan/masyarakat dan (b) tingkat kepentingan bagi pemangku kepentingan (gunakan hasil Tugas 1). Gambarkan dalam matriks dua sumbu dan tentukan isu material dengan ambang ≥3 pada kedua sumbu. Tulis alasan singkat untuk setiap isu material, dan catat satu isu yang hampir material beserta tindak lanjutnya.\nOutput: Matriks materialitas dan tabel pendukung berisi: isu, skor kedua sumbu, status (material/hampir material/tidak material), dan alasan.\n- Tugas 4 — Ringkasan Bahan Pengungkapan (±30 menit)\nInstruksi: Untuk dua isu material teratas dari Tugas 3, susun ringkasan bahan pengungkapan untuk atasan (maksimal 1 halaman): isu, alasan material, data yang tersedia beserta sumbernya, kesenjangan data, dan informasi yang belum dapat diungkapkan beserta tindak lanjutnya. Pastikan isinya konsisten dengan hasil Tugas 3.\nOutput: Ringkasan bahan pengungkapan (maksimal 1 halaman) untuk dua isu material teratas.\n\nKerjakan Tugas 1–4 pada Lembar Kerja Asesi (file Excel di template). Simpan, lalu unggah file Excel yang sudah diisi."
+ }
+}
