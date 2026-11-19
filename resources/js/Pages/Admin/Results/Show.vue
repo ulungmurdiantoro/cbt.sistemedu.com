@@ -127,6 +127,7 @@
                             <tr>
                                 <th class="border-0" style="width:3%">No.</th>
                                 <th class="border-0">Peserta</th>
+                                <th class="border-0 text-center" v-if="show_tugas">Tugas</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_pg">PG</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_esai">Esai</th>
                                 <th class="border-0 text-center" v-if="exam_session.has_wawancara">Wawancara</th>
@@ -149,6 +150,17 @@
                                         <span v-if="row.asesor_name" class="text-muted"><i class="fa fa-user-tie me-1"></i>{{ row.asesor_name }}</span>
                                         <span v-else class="text-muted fst-italic">Asesor belum ditugaskan</span>
                                     </div>
+                                </td>
+                                <!-- Tugas / Ujian Praktik yang diunggah peserta -->
+                                <td class="text-center" v-if="show_tugas">
+                                    <a v-if="tugas[row.student_id]"
+                                       :href="`/admin/results/${exam_session.id}/tugas/${row.student_id}`"
+                                       target="_blank"
+                                       :title="`Lihat ${tugas[row.student_id].original_filename}`"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <span v-else class="text-muted" title="Belum diunggah">—</span>
                                 </td>
                                 <!-- Angka PG / Esai → detail jawaban peserta (eks Laporan Nilai) -->
                                 <td class="text-center num" v-if="exam_session.exam_id_pg">
@@ -363,14 +375,6 @@
                             <td>
                                 <StatusBadge :tone="frAk14Badge[detail.fr_ak_14.state].tone" :label="frAk14Badge[detail.fr_ak_14.state].label" />
                                 <a v-if="detail.fr_ak_14.state !== 'unsigned'" :href="`/admin/results/${exam_session.id}/fr-ak-14/${detail.student_id}`" target="_blank" class="btn btn-sm btn-gray-100 border ms-1"><i class="fa fa-file-pdf me-1"></i>PDF</a>
-                            </td>
-                        </tr>
-                        <tr v-if="show_tugas">
-                            <td>Tugas peserta</td>
-                            <td>
-                                <a v-if="tugas[detail.student_id]" :href="`/admin/results/${exam_session.id}/tugas/${detail.student_id}`" target="_blank" class="btn btn-sm btn-gray-100 border"
-                                    :title="tugas[detail.student_id].original_filename"><i class="fa fa-eye me-1"></i>Lihat</a>
-                                <span v-else class="text-muted small">Belum diunggah</span>
                             </td>
                         </tr>
                         <template v-if="detail.is_finalized">
