@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Exceptions\PeruriStampingException;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -21,6 +23,15 @@ class PeruriService
     private const CACHE_KEY = 'peruri_jwt_token';
 
     /**
+     * Login & cek saldo aman diulang (tidak memakai saldo): bila koneksi ke Peruri putus
+     * (mis. cURL 56 "Connection reset by peer", timeout), coba lagi sampai RETRY_TIMES kali
+     * dengan jeda RETRY_SLEEP_MS. Generate Serial Number & stamping TIDAK diulang otomatis —
+     * permintaan yang sempat diterima Peruri sudah memakai saldo.
+     */
+    public const RETRY_TIMES    = 3;
+    public const RETRY_SLEEP_MS = 1500;
+
+    /**
      * Login ke Peruri, kembalikan token JWT. Di-cache ~23 jam (token asli
      * berlaku 24 jam) supaya tidak login ulang di setiap panggilan.
      */
@@ -31,10 +42,11 @@ class PeruriService
         }
 
         return Cache::remember(self::CACHE_KEY, now()->addHours(23), function () {
-            $response = Http::timeout(30)->post(config('materai.peruri.login_url'), [
+            $url      = config('materai.peruri.login_url');
+            $response = $this->connect('Login Peruri', $url, fn () => $this->http(retry: true)->post($url, [
                 'user'     => config('materai.peruri.username'),
                 'password' => config('materai.peruri.password'),
-            ]);
+            ]));
 
             $body = $response->json();
 
@@ -46,6 +58,38 @@ class PeruriService
 
             return $body['token'];
         });
+    }
+
+    private function http(int $timeout = 30, bool $retry = false): PendingRequest
+    {
+        $request = Http::timeout($timeout);
+
+        // throw: false — status HTTP gagal tetap dikembalikan & dibaca pemanggil; hanya putus koneksi yang diulang.
+        return $retry
+            ? $request->retry(self::RETRY_TIMES, self::RETRY_SLEEP_MS, fn ($e) => $e instanceof ConnectionException, throw: false)
+            : $request;
+    }
+
+    /**
+     * Jalankan permintaan HTTP; koneksi putus/ditolak/timeout diubah jadi pesan yang bisa dibaca admin
+     * (tampil di kartu saldo & alasan gagal di Log Materai), bukan pesan cURL mentah.
+     */
+    private function connect(string $what, ?string $url, callable $send, ?string $note = null)
+    {
+        try {
+            return $send();
+        } catch (ConnectionException $e) {
+            $host = parse_url((string) $url, PHP_URL_HOST) ?: (string) $url;
+            Log::warning("{$what}: koneksi gagal", ['host' => $host, 'error' => $e->getMessage()]);
+
+            throw new PeruriStampingException(
+                "{$what} gagal: tidak dapat terhubung ke {$host} (koneksi terputus/ditolak/timeout). "
+                . 'Coba lagi beberapa saat; bila terus terjadi, periksa koneksi internet server dan pastikan IP server terdaftar di Peruri.'
+                . ($note ? " {$note}" : '')
+                . ' [' . Str::limit($e->getMessage(), 120) . ']',
+                previous: $e,
+            );
+        }
     }
 
     /**
@@ -68,14 +112,16 @@ class PeruriService
 
     private function callGenerateSn(string $token, array $doc, bool $retried = false): array
     {
-        $response = Http::timeout(30)->withToken($token)->post(config('materai.peruri.generate_sn_url'), [
+        // Tidak diulang otomatis saat koneksi putus: permintaan yang sempat diterima Peruri sudah memakai saldo.
+        $url      = config('materai.peruri.generate_sn_url');
+        $response = $this->connect('Generate Serial Number Peruri', $url, fn () => $this->http()->withToken($token)->post($url, [
             'isUpload' => false,
             'namadoc'  => $doc['namadoc'] ?? config('materai.peruri.namadoc'),
             'nodoc'    => $doc['nodoc'] ?? '0',
             'tgldoc'   => $doc['tgldoc'],
             'namafile' => $doc['namafile'],
             'snOnly'   => false,
-        ]);
+        ]), note: 'Tidak diulang otomatis karena saldo bisa sudah terpakai — cek saldo sebelum membubuhkan ulang.');
 
         $body = $response->json();
 
@@ -124,9 +170,10 @@ class PeruriService
         $url = 'https://' . parse_url((string) config('materai.peruri.login_url'), PHP_URL_HOST) . '/function/saldopos';
 
         // Token kadaluarsa/invalid (status "01") — login ulang sekali lalu coba lagi.
-        $response = Http::timeout(30)->withToken($this->login())->get($url);
+        $get      = fn (string $token) => $this->connect('Cek saldo Peruri', $url, fn () => $this->http(retry: true)->withToken($token)->get($url));
+        $response = $get($this->login());
         if (($response->json('status')) === '01') {
-            $response = Http::timeout(30)->withToken($this->login(forceFresh: true))->get($url);
+            $response = $get($this->login(forceFresh: true));
         }
 
         $result = $response->json('result');
@@ -171,8 +218,9 @@ class PeruriService
 
         try {
             $token    = $this->login();
-            $response = Http::timeout(60)->withToken($token)
-                ->post(rtrim(config('materai.peruri.sign_adapter_url'), '/') . '/adapter/pdfsigning/rest/docSigningZ', [
+            $url      = rtrim(config('materai.peruri.sign_adapter_url'), '/') . '/adapter/pdfsigning/rest/docSigningZ';
+            $response = $this->connect('Stamping lewat Sign Adapter', $url, fn () => $this->http(60)->withToken($token)
+                ->post($url, [
                     'certificatelevel'  => 'NOT_CERTIFIED',
                     'dest'              => $destPath,
                     'docpass'           => '',
@@ -188,7 +236,7 @@ class PeruriService
                     'visURX'            => $meta['visURX'],
                     'visURY'            => $meta['visURY'],
                     'visSignaturePage'  => $meta['visSignaturePage'],
-                ]);
+                ]));
 
             $body = $response->json();
 
