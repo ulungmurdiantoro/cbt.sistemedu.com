@@ -32,6 +32,8 @@ Route::prefix('admin')->group(function () {
         Route::resource('/exams', \App\Http\Controllers\Admin\ExamController::class, ['as' => 'admin']);
 
         // Soal pilihan ganda
+        // Ujian Praktik: unduh template (pratinjau admin)
+        Route::get('/exams/{exam}/praktik-template',               [\App\Http\Controllers\Admin\ExamController::class, 'praktikTemplate'])->name('admin.exams.praktikTemplate');
         Route::get('/exams/{exam}/questions/import',               [\App\Http\Controllers\Admin\ExamController::class, 'import'])->name('admin.exam.questionImport');
         Route::post('/exams/{exam}/questions/import',              [\App\Http\Controllers\Admin\ExamController::class, 'storeImport'])->name('admin.exam.questionStoreImport');
         Route::get('/exams/{exam}/questions/create',               [\App\Http\Controllers\Admin\ExamController::class, 'createQuestion'])->name('admin.exams.createQuestion');
@@ -285,6 +287,8 @@ Route::prefix('student')->middleware('student')->group(function () {
     Route::get('/dashboard', App\Http\Controllers\Student\DashboardController::class)->name('student.dashboard');
 
     Route::get('/tugas/{exam_session_id}', [\App\Http\Controllers\Student\StudentTaskController::class, 'show'])->name('student.tugas.show');
+    Route::get('/tugas/{exam_session_id}/template', [\App\Http\Controllers\Student\StudentTaskController::class, 'template'])->name('student.tugas.template');
+    Route::post('/tugas/{exam_session_id}/mulai',   [\App\Http\Controllers\Student\StudentTaskController::class, 'start'])->name('student.tugas.start');
     Route::post('/tugas',                  [\App\Http\Controllers\Student\StudentTaskController::class, 'store'])->name('student.tugas.store');
 
     // Pilihan ganda
@@ -369,6 +373,7 @@ Route::prefix('peserta')->middleware('participant')->group(function () {
     Route::post('/aplikasi/{application}/revisi',             [App\Http\Controllers\Peserta\ApplicationController::class, 'revisi'])->name('peserta.application.revisi');
     Route::post('/aplikasi/{application}/submit',             [App\Http\Controllers\Peserta\ApplicationController::class, 'submit'])->name('peserta.application.submit');
     Route::post('/aplikasi/{application}/tugas',              [App\Http\Controllers\Peserta\TaskController::class, 'store'])->name('peserta.application.tugas.store');
+    Route::get('/aplikasi/{application}/tugas/template',      [App\Http\Controllers\Peserta\TaskController::class, 'template'])->name('peserta.application.tugas.template');
 
     Route::get('/hasil/{sessionId}/{studentId}/sp',         [App\Http\Controllers\Peserta\ResultController::class, 'downloadSp'])->name('peserta.hasil.sp');
     Route::get('/hasil/{sessionId}/{studentId}/sk',         [App\Http\Controllers\Peserta\ResultController::class, 'downloadSk'])->name('peserta.hasil.sk');

@@ -35,6 +35,20 @@ class DashboardController extends Controller
             ? StudentTask::where('student_id', $student->id)->get()->keyBy('exam_session_id')
             : collect();
 
+        // Per sesi: "Tugas" atau "Ujian Praktik" (sesi memilih ujian praktik), dan apakah Ujian Praktik
+        // berwaktu sudah habis waktunya — syarat tugas dianggap selesai, ujian lain terbuka.
+        $tugas_label_by_session  = [];
+        $tugas_closed_by_session = [];
+        if ($requires_tugas) {
+            foreach ($exam_groups->pluck('exam_session_id')->unique() as $sid) {
+                $praktik = \App\Support\UjianPraktik::examFor((int) $sid);
+                $tugas_label_by_session[$sid] = $praktik ? 'Ujian Praktik' : 'Tugas';
+                if (\App\Support\UjianPraktik::closed($praktik, $student->id, (int) $sid)) {
+                    $tugas_closed_by_session[$sid] = true;
+                }
+            }
+        }
+
         //define variable array
         $data = [];
 
@@ -75,6 +89,8 @@ class DashboardController extends Controller
             'exam_groups'       => $data,
             'requires_tugas'    => $requires_tugas,
             'tugas_by_session'  => $tugas_by_session,
+            'tugas_label_by_session'  => (object) $tugas_label_by_session,
+            'tugas_closed_by_session' => (object) $tugas_closed_by_session,
         ]);
     }
 }

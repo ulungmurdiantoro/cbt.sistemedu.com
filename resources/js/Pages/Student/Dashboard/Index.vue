@@ -46,20 +46,30 @@
                     <!-- selalu tampil supaya peserta bisa kembali mengganti tugas kapan saja -->
                     <div v-if="requires_tugas" class="mb-2">
                         <div v-if="tugas_by_session[data.exam_group.exam_session.id]" class="alert alert-success border-0 shadow mb-2 py-2 px-3">
-                            <i class="fa fa-check-circle me-2"></i> Tugas sudah diunggah.
+                            <i class="fa fa-check-circle me-2"></i> {{ tugas_label_by_session[data.exam_group.exam_session.id] || 'Tugas' }} sudah diunggah.
+                        </div>
+                        <div v-else-if="tugas_closed_by_session[data.exam_group.exam_session.id]" class="alert bg-gray-100 text-gray-800 border-0 shadow mb-2 py-2 px-3">
+                            <i class="fa fa-hourglass-end me-2"></i> Waktu Ujian Praktik sudah habis; hasil tidak diunggah.
                         </div>
                         <div v-else class="alert alert-warning border-0 shadow mb-2 py-2 px-3">
-                            <i class="fa fa-exclamation-triangle me-2"></i> Anda wajib mengunggah tugas sebelum dapat mengerjakan ujian ini.
+                            <i class="fa fa-exclamation-triangle me-2"></i>
+                            <template v-if="tugas_label_by_session[data.exam_group.exam_session.id] === 'Ujian Praktik'">Anda wajib mengerjakan dan mengunggah hasil ujian praktik sebelum dapat mengerjakan ujian ini.</template>
+                            <template v-else>Anda wajib mengunggah tugas sebelum dapat mengerjakan ujian ini.</template>
                         </div>
                         <Link :href="`/student/tugas/${data.exam_group.exam_session.id}`"
                             class="btn btn-md border-0 shadow w-100"
                             :class="tugas_by_session[data.exam_group.exam_session.id] ? 'btn-outline-secondary' : 'btn-warning text-white'">
-                            {{ tugas_by_session[data.exam_group.exam_session.id] ? 'Lihat / Ganti Tugas' : 'Upload Tugas' }}
+                            <template v-if="tugas_label_by_session[data.exam_group.exam_session.id] === 'Ujian Praktik'">
+                                {{ tugas_by_session[data.exam_group.exam_session.id] ? 'Lihat / Ganti Hasil Ujian Praktik' : 'Kerjakan Ujian Praktik' }}
+                            </template>
+                            <template v-else>
+                                {{ tugas_by_session[data.exam_group.exam_session.id] ? 'Lihat / Ganti Tugas' : 'Upload Tugas' }}
+                            </template>
                         </Link>
                     </div>
 
                     <!-- cek waktu selesai -->
-                    <div v-if="data.grade.end_time == null && (!requires_tugas || tugas_by_session[data.exam_group.exam_session.id])">
+                    <div v-if="data.grade.end_time == null && (!requires_tugas || tugas_by_session[data.exam_group.exam_session.id] || tugas_closed_by_session[data.exam_group.exam_session.id])">
 
                         <!-- cek apakah ujian sudah dimulai, tapi waktu masih ada -->
                         <div v-if="examTimeRangeChecker(data.exam_group.exam_session.start_time, data.exam_group.exam_session.end_time)">
@@ -148,6 +158,8 @@
             auth: Object,
             requires_tugas: Boolean,
             tugas_by_session: Object,
+            tugas_label_by_session: { type: Object, default: () => ({}) },
+            tugas_closed_by_session: { type: Object, default: () => ({}) },
         }
 
     }

@@ -17,6 +17,8 @@ class StoreExamSessionRequest extends FormRequest
             'title'           => 'required|string|max:255',
             'exam_id_pg'      => 'nullable|exists:exams,id',
             'exam_id_esai'    => 'nullable|exists:exams,id',
+            // Ujian Praktik (panduan + template). Kosong = peserta hanya Upload Tugas.
+            'exam_id_praktik' => ['nullable', \Illuminate\Validation\Rule::exists('exams', 'id')->where('type', \App\Models\Exam::TYPE_PRAKTIK)],
             'has_wawancara'   => 'boolean',
             'verifikasi_tuk'  => 'boolean',
             'start_time'      => 'required',
@@ -30,7 +32,7 @@ class StoreExamSessionRequest extends FormRequest
     public function withValidator($validator): void
     {
         $validator->after(function ($validator) {
-            if (!$this->exam_id_pg && !$this->exam_id_esai && !$this->has_wawancara) {
+            if (!$this->exam_id_pg && !$this->exam_id_esai && !$this->exam_id_praktik && !$this->has_wawancara) {
                 $validator->errors()->add('exam_id_pg', 'Pilih minimal satu jenis ujian.');
             }
         });

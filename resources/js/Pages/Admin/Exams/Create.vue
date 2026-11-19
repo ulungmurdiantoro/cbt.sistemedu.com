@@ -28,6 +28,7 @@
                                             <option value="Pilihan Ganda">Pilihan Ganda</option>
                                             <option value="Essay">Essay</option>
                                             <option value="Essay Migas">Essay Migas</option>
+                                            <option value="Ujian Praktik">Ujian Praktik</option>
                                         </select>
                                         <div v-if="errors.type" class="alert alert-danger mt-2">
                                             {{ errors.type }}
@@ -63,7 +64,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div v-if="!isPraktik" class="row">
                                 <div class="col-md-6">
                                     <div class="mb-4">
                                         <label>Acak Soal</label>
@@ -91,7 +92,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div v-if="!isPraktik" class="col-md-6">
                                     <div class="mb-4">
                                         <label>Tampilkan Hasil</label>
                                         <select class="form-select" v-model="form.show_answer">
@@ -105,12 +106,41 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label>Durasi (Menit)</label>
-                                        <input type="number" min="1" class="form-control" placeholder="Masukkan Durasi Ujian (Menit)" v-model="form.duration">
+                                        <label>{{ isPraktik ? 'Durasi (menit, 0 = tanpa batas waktu)' : 'Durasi (Menit)' }}</label>
+                                        <input type="number" :min="isPraktik ? 0 : 1" class="form-control" placeholder="Masukkan Durasi Ujian (Menit)" v-model="form.duration">
                                         <div v-if="errors.duration" class="alert alert-danger mt-2">
                                             {{ errors.duration }}
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <!-- Ujian Praktik: panduan + template yang diunduh peserta, hasilnya diunggah ulang -->
+                            <div v-if="isPraktik" class="border rounded p-3 mb-4">
+                                <h6 class="fw-bolder mb-3"><i class="fa fa-clipboard-check me-1"></i> Ujian Praktik</h6>
+                                <div class="mb-3">
+                                    <label>Panduan untuk peserta</label>
+                                    <textarea class="form-control" rows="8" v-model="form.praktik_panduan"
+                                        placeholder="Contoh: Unduh template lembar kerja, isi semua bagian sesuai skenario, lalu unggah kembali dalam format DOCX atau PDF."></textarea>
+                                    <div class="form-text">Teks biasa. Baris baru ditampilkan apa adanya kepada peserta.</div>
+                                    <div v-if="errors.praktik_panduan" class="alert alert-danger mt-2">{{ errors.praktik_panduan }}</div>
+                                </div>
+                                <div>
+                                    <label>Template yang diunduh peserta <span v-if="!templateName" class="text-danger">*</span></label>
+                                    <div v-if="templateName" class="small my-1">
+                                        <i class="fa fa-file-alt text-muted me-1"></i>
+                                        <a :href="templateUrl">{{ templateName }}</a>
+                                    </div>
+                                    <input type="file" class="form-control" :accept="file_accept" @change="form.template = $event.target.files[0] ?? null">
+                                    <div class="form-text">
+                                        {{ templateName ? 'Pilih file hanya bila ingin mengganti template.' : 'Wajib untuk Ujian Praktik.' }}
+                                        Tipe file: {{ file_accept }} — maks. 20 MB.
+                                    </div>
+                                    <div v-if="errors.template" class="alert alert-danger mt-2">{{ errors.template }}</div>
+                                </div>
+                                <div class="form-text mt-3">
+                                    Pilih ujian ini di form <strong>Sesi Ujian</strong> (kolom Ujian Praktik). Durasi 0 = tanpa batas waktu; bila diisi,
+                                    waktu berjalan sejak peserta menekan Mulai Ujian Praktik dan unggahan ditutup saat waktu habis.
                                 </div>
                             </div>
 
@@ -136,7 +166,7 @@
     } from '@inertiajs/vue3';
 
     //import reactive from vue
-    import { reactive } from 'vue';
+    import { reactive, computed } from 'vue';
 
     //import sweet alert2
     import Swal from 'sweetalert2';
@@ -161,6 +191,7 @@
             errors: Object,
             // lessons: Array,
             classrooms: Array,
+            file_accept: String,
         },
 
         //inisialisasi composition API
@@ -176,23 +207,31 @@
                 random_question: '',
                 random_answer: '',
                 show_answer: '',
+                praktik_panduan: '',
+                template: null,
             });
+
+            const isPraktik    = computed(() => form.type === 'Ujian Praktik');
+            const templateName = null;
+            const templateUrl  = null;
 
             //method "submit"
             const submit = () => {
 
                 //send data to server
                 router.post('/admin/exams', {
+                    ...(isPraktik.value ? { praktik_panduan: form.praktik_panduan, template: form.template } : {}),
                     //data
                     title: form.title,
                     type: form.type,
                     classroom_id: form.classroom_id,
                     duration: form.duration,
                     description: form.description,
-                    random_question: form.random_question,
-                    random_answer: form.random_answer,
-                    show_answer: form.show_answer,
+                    random_question: form.random_question || 'N',
+                    random_answer: form.random_answer || 'N',
+                    show_answer: form.show_answer || 'N',
                 }, {
+                    forceFormData: isPraktik.value,
                     onSuccess: () => {
                         //show success alert
                         Swal.fire({
@@ -210,6 +249,9 @@
             return {
                 form,
                 submit,
+                isPraktik,
+                templateName,
+                templateUrl,
             };
 
         }

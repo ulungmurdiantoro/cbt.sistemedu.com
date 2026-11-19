@@ -260,6 +260,20 @@ File upload peserta (Essay Migas & tugas) lewat `App\Support\AnswerFile`: tipe d
 (`student.essaysmigas.download`, `admin.essay_migas.download`). File lama di disk `public`
 dipindah dengan `php artisan answer-files:move-private` (`--dry-run` untuk cek dulu).
 
+**Ujian Praktik** = jenis ujian `Exam::TYPE_PRAKTIK` ('Ujian Praktik') di admin/exams, dipilih per sesi lewat
+`exam_sessions.exam_id_praktik` (setiap versi soal = ujian tersendiri, sesi lama tetap memakai versinya). Ujiannya berisi
+panduan (`exams.praktik_panduan`, teks biasa) + template (`praktik_template_path`, disk private, wajib; `$hidden`).
+Sesi tanpa ujian praktik = "Upload Tugas" biasa. Tidak dibuatkan ExamGroup: peserta mengerjakannya di halaman tugas
+(`student.tugas.show`) — membaca panduan, unduh template (`student.tugas.template` / `peserta.application.tugas.template`,
+cek terdaftar di sesi), lalu hasilnya diunggah lewat alur `StudentTask` yang sama (asesor melihatnya di halaman wawancara).
+Data ke halaman peserta lewat `UjianPraktik::examFor($sesi)` + `tugasProps()`. Skema di
+`Student::TUGAS_EXEMPT_CLASSROOM_CODES` tetap tidak wajib tugas.
+Durasi = `exams.duration` (0 = tanpa batas) — aturannya di `App\Support\UjianPraktik`: waktu mulai saat peserta
+menekan Mulai (POST `student.tugas.start`, sekali per sesi di `student_praktik_attempts`, durasi dibekukan saat mulai);
+panduan & template baru dikirim setelah mulai; unggah ditolak setelah batas + `UPLOAD_GRACE_MINUTES` (2); waktu habis
+tanpa unggahan **tidak** mengunci ujian lain (`UjianPraktik::closed()` di `tugasRedirectIfRequired`). Praktik berwaktu
+hanya dari portal ujian — portal peserta menolak unduh/unggah dan menampilkan petunjuk.
+
 Admin bisa mengganti/mengunggah dokumen persyaratan peserta di detail permohonan (POST
 `admin.applications.documents.replace`, file baru langsung Terverifikasi, file lama dihapus) — hanya bila saklar
 `ADMIN_REPLACE_DOCUMENTS=true` (`config('lsp.admin_replace_documents')`, default mati: tombol tersembunyi & route 403).

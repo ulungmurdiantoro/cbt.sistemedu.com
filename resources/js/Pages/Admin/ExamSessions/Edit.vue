@@ -37,7 +37,7 @@
                                 <div class="card-header bg-white border-bottom fw-bolder py-3">Jenis Ujian</div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-3 mb-3">
                                             <label class="fw-bolder small">Ujian Pilihan Ganda</label>
                                             <select class="form-select" v-model="form.exam_id_pg">
                                                 <option value="">— Tidak ada —</option>
@@ -45,7 +45,7 @@
                                             </select>
                                             <div v-if="errors.exam_id_pg" class="alert alert-danger mt-2">{{ errors.exam_id_pg }}</div>
                                         </div>
-                                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-3 mb-3">
                                             <label class="fw-bolder small">Ujian Esai</label>
                                             <select class="form-select" v-model="form.exam_id_esai">
                                                 <option value="">— Tidak ada —</option>
@@ -53,7 +53,16 @@
                                             </select>
                                             <div v-if="errors.exam_id_esai" class="alert alert-danger mt-2">{{ errors.exam_id_esai }}</div>
                                         </div>
-                                        <div class="col-md-4 mb-3 d-flex align-items-end">
+                                        <div class="col-md-3 mb-3">
+                                            <label class="fw-bolder small">Ujian Praktik</label>
+                                            <select class="form-select" v-model="form.exam_id_praktik">
+                                                <option value="">— Tidak ada (Upload Tugas) —</option>
+                                                <option v-for="e in examsPraktik" :key="e.id" :value="e.id">{{ e.title }}</option>
+                                            </select>
+                                            <div class="text-muted small mt-1">Panduan + template dari menu Ujian</div>
+                                            <div v-if="errors.exam_id_praktik" class="alert alert-danger mt-2">{{ errors.exam_id_praktik }}</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3 d-flex align-items-end">
                                             <div class="form-check form-switch mb-2">
                                                 <input class="form-check-input" type="checkbox" id="has_wawancara" v-model="form.has_wawancara">
                                                 <label class="form-check-label fw-bolder" for="has_wawancara">Ujian Wawancara</label>
@@ -140,6 +149,7 @@ export default {
             title:            props.exam_session.title,
             exam_id_pg:       props.exam_session.exam_id_pg   ?? '',
             exam_id_esai:     props.exam_session.exam_id_esai ?? '',
+            exam_id_praktik:  props.exam_session.exam_id_praktik ?? '',
             has_wawancara:    props.exam_session.has_wawancara ?? false,
             verifikasi_tuk:   props.exam_session.verifikasi_tuk ?? false,
             start_time:       props.exam_session.start_time,
@@ -153,12 +163,14 @@ export default {
 
         const examsPG   = computed(() => props.exams.filter(e => e.type === 'Pilihan Ganda'));
         const examsEsai = computed(() => props.exams.filter(e => e.type === 'Essay' || e.type === 'Essay Migas'));
+        const examsPraktik = computed(() => props.exams.filter(e => e.type === 'Ujian Praktik'));
 
         const submit = () => {
             router.put(`/admin/exam_sessions/${props.exam_session.id}`, {
                 title:           form.title,
                 exam_id_pg:      form.exam_id_pg      || null,
                 exam_id_esai:    form.exam_id_esai    || null,
+                exam_id_praktik: form.exam_id_praktik || null,
                 has_wawancara:   form.has_wawancara,
                 verifikasi_tuk:  form.verifikasi_tuk,
                 start_time:      form.start_time,
@@ -181,7 +193,7 @@ export default {
             });
         };
 
-        return { form, examsPG, examsEsai, submit };
+        return { form, examsPG, examsEsai, examsPraktik, submit };
     },
 }
 </script>

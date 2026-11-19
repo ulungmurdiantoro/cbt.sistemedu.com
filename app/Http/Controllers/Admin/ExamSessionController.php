@@ -26,7 +26,7 @@ class ExamSessionController extends Controller
     {
         $exam_sessions = ExamSession::when(request()->q, function ($q) {
             $q->where('title', 'like', '%' . request()->q . '%');
-        })->with('examPg.classroom', 'examEsai.classroom')
+        })->with('examPg.classroom', 'examEsai.classroom', 'examPraktik:id,title,type,duration,classroom_id')
           // Peserta unik berakun aktif, sama seperti daftar peserta di detail sesi.
           ->withActiveStudentsCount()
           ->orderByRaw('CASE WHEN end_time > NOW() THEN 0 ELSE 1 END ASC')
@@ -57,6 +57,7 @@ class ExamSessionController extends Controller
             'title'              => $request->title,
             'exam_id_pg'         => $request->exam_id_pg,
             'exam_id_esai'       => $request->exam_id_esai,
+            'exam_id_praktik'    => $request->exam_id_praktik,
             'has_wawancara'      => $request->boolean('has_wawancara'),
             'verifikasi_tuk'     => $request->boolean('verifikasi_tuk'),
             'start_time'         => date('Y-m-d H:i:s', strtotime($request->start_time)),
@@ -72,7 +73,7 @@ class ExamSessionController extends Controller
     /** Detail sesi: peserta + status permohonan + penugasan asesor dalam satu tabel. */
     public function show($id)
     {
-        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom')->findOrFail($id);
+        $exam_session = ExamSession::with('examPg.classroom', 'examEsai.classroom', 'examPraktik.classroom')->findOrFail($id);
 
         // Akun nonaktif (akun lama hasil re-issue / merge duplikat) tidak ditampilkan
         // supaya nama tidak muncul dobel, termasuk saat asesor menilai.
@@ -162,6 +163,7 @@ class ExamSessionController extends Controller
                 'title'           => $request->title,
                 'exam_id_pg'      => $request->exam_id_pg,
                 'exam_id_esai'    => $request->exam_id_esai,
+                'exam_id_praktik' => $request->exam_id_praktik,
                 'has_wawancara'   => $request->boolean('has_wawancara'),
                 'verifikasi_tuk'  => $request->boolean('verifikasi_tuk'),
                 'start_time'      => date('Y-m-d H:i:s', strtotime($request->start_time)),

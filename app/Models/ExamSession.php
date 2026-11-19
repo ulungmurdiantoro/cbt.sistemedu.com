@@ -13,6 +13,7 @@ class ExamSession extends Model
         'exam_sessions_code',
         'exam_id_pg',
         'exam_id_esai',
+        'exam_id_praktik',
         'has_wawancara',
         'verifikasi_tuk',
         'title',
@@ -53,10 +54,19 @@ class ExamSession extends Model
         return $this->belongsTo(Exam::class, 'exam_id_esai');
     }
 
+    /**
+     * Ujian Praktik sesi ini (panduan + template). Tidak dibuatkan ExamGroup — dikerjakan lewat
+     * halaman tugas peserta. Sesi tanpa ujian praktik memakai "Upload Tugas" biasa.
+     */
+    public function examPraktik()
+    {
+        return $this->belongsTo(Exam::class, 'exam_id_praktik');
+    }
+
     /** Kembalikan exam pertama yang tidak null (untuk mendapat classroom_id) */
     public function getReferenceExamAttribute(): ?Exam
     {
-        return $this->examPg ?? $this->examEsai;
+        return $this->examPg ?? $this->examEsai ?? $this->examPraktik;
     }
 
     /**

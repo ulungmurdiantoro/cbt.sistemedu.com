@@ -38,7 +38,9 @@ abstract class BaseExamController extends Controller
             ->where('exam_session_id', $exam_group->exam_session_id)
             ->exists();
 
-        if ($uploaded) {
+        // Ujian Praktik berwaktu yang sudah habis waktunya tidak mengunci ujian lain, walau tanpa unggahan.
+        $praktik = \App\Support\UjianPraktik::examFor($exam_group->exam_session_id);
+        if ($uploaded || \App\Support\UjianPraktik::closed($praktik, $student->id, $exam_group->exam_session_id)) {
             return null;
         }
 

@@ -46,10 +46,13 @@
                                 <li v-if="s.exam_esai" class="text-truncate" :title="s.exam_esai.title">
                                     <span class="badge bg-success me-1">Esai</span>{{ s.exam_esai.title }}
                                 </li>
+                                <li v-if="s.exam_praktik" class="text-truncate" :title="s.exam_praktik.title">
+                                    <span class="badge bg-danger me-1">Praktik</span>{{ s.exam_praktik.title }}
+                                </li>
                                 <li v-if="s.has_wawancara">
                                     <span class="badge bg-warning text-gray-800 me-1">Wawancara</span>
                                 </li>
-                                <li v-if="!s.exam_pg && !s.exam_esai && !s.has_wawancara" class="text-muted">—</li>
+                                <li v-if="!s.exam_pg && !s.exam_esai && !s.exam_praktik && !s.has_wawancara" class="text-muted">—</li>
                             </ul>
                         </td>
                         <td class="text-center">{{ s[countKey] ?? 0 }}</td>

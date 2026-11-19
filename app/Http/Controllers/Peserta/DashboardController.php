@@ -32,6 +32,10 @@ class DashboardController extends Controller
                 : null;
             $app->setAttribute('tugas', $requiresTugas ? [
                 'file' => $task ? ['name' => $task->original_filename, 'uploaded_at' => $task->uploaded_at] : null,
+                // Upload Tugas atau Ujian Praktik (panduan + template) — diatur admin per skema
+                ...\App\Support\UjianPraktik::tugasProps($praktik = \App\Support\UjianPraktik::examFor($app->exam_session_id)),
+                // Berwaktu: dikerjakan di portal ujian — panduan & template tidak dibuka di sini
+                ...(\App\Support\UjianPraktik::timed($praktik) ? ['panduan' => null, 'template_name' => null] : []),
             ] : null);
 
             $app->setAttribute('docs_required', $app->classroom->documentRequirements->where('is_required', true)->count());

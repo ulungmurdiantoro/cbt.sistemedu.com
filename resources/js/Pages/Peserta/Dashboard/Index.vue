@@ -135,11 +135,39 @@
 
                         <!-- Upload tugas (sama dengan student/tugas/{sesi} di portal ujian) -->
                         <div v-if="app.tugas && !app.result?.is_finalized" class="border rounded p-3 mb-2">
-                            <h6 class="fw-bold small mb-1"><i class="fa fa-upload me-1 text-muted"></i>Upload Tugas</h6>
-                            <p class="small text-muted mb-2">
-                                Wajib diunggah sebelum mengerjakan ujian. Tugas ini diperiksa asesor pada saat ujian wawancara.
-                            </p>
+                            <!-- Ujian Praktik berwaktu: hanya dari portal ujian (waktu dicatat di sana) -->
+                            <template v-if="app.tugas.praktik && app.tugas.durasi">
+                                <h6 class="fw-bold small mb-1"><i class="fa fa-stopwatch me-1 text-muted"></i>Ujian Praktik ({{ app.tugas.durasi }} menit)</h6>
+                                <p class="small text-muted mb-2">
+                                    Ujian Praktik ini berbatas waktu dan dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta),
+                                    sebelum mengerjakan ujian lain. Waktu berjalan sejak Anda menekan Mulai Ujian Praktik.
+                                </p>
+                                <div v-if="app.tugas.file" class="alert alert-success p-2 small mb-0">
+                                    <i class="fa fa-check-circle me-1"></i>Hasil sudah diunggah: <strong>{{ app.tugas.file.name }}</strong>
+                                </div>
+                            </template>
+                            <template v-else-if="app.tugas.praktik">
+                                <h6 class="fw-bold small mb-1"><i class="fa fa-clipboard-check me-1 text-muted"></i>Ujian Praktik</h6>
+                                <p class="small text-muted mb-2">
+                                    Baca panduan, unduh template, isi sesuai panduan, lalu unggah kembali sebelum mengerjakan ujian.
+                                </p>
+                                <div v-if="app.tugas.panduan" class="small border rounded p-2 mb-2 bg-gray-100" style="white-space: pre-line">{{ app.tugas.panduan }}</div>
+                                <div class="mb-2">
+                                    <a v-if="app.tugas.template_name" :href="`/peserta/aplikasi/${app.id}/tugas/template`" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-download me-1"></i>Unduh Template
+                                    </a>
+                                    <span v-if="app.tugas.template_name" class="small text-muted ms-2">{{ app.tugas.template_name }}</span>
+                                    <span v-else class="small text-warning"><i class="fa fa-exclamation-triangle me-1"></i>Template belum tersedia. Hubungi panitia.</span>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <h6 class="fw-bold small mb-1"><i class="fa fa-upload me-1 text-muted"></i>Upload Tugas</h6>
+                                <p class="small text-muted mb-2">
+                                    Wajib diunggah sebelum mengerjakan ujian. Tugas ini diperiksa asesor pada saat ujian wawancara.
+                                </p>
+                            </template>
 
+                            <template v-if="!(app.tugas.praktik && app.tugas.durasi)">
                             <div v-if="app.tugas.file" class="alert alert-success p-2 small mb-2">
                                 <i class="fa fa-check-circle me-1"></i>Sudah diunggah: <strong>{{ app.tugas.file.name }}</strong>
                                 <div v-if="app.tugas.file.uploaded_at" class="text-muted">Diunggah {{ formatDateTime(app.tugas.file.uploaded_at) }}</div>
@@ -162,6 +190,7 @@
                                 <i class="fa fa-upload me-1"></i>
                                 {{ uploadingId === app.id ? 'Mengunggah...' : (app.tugas.file ? 'Ganti Tugas' : 'Unggah Tugas') }}
                             </button>
+                            </template>
                         </div>
 
                         <!-- Hasil penilaian (setelah finalisasi) -->

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use App\Imports\QuestionsImport;
 use App\Imports\EssaysImport;
 use App\Http\Controllers\Controller;
+use App\Support\AnswerFile;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
@@ -32,12 +33,13 @@ class ExamController extends Controller
     {
         return inertia('Admin/Exams/Create', [
             'classrooms' => Classroom::all(),
+            'file_accept' => AnswerFile::accept(),
         ]);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $request->validate(array_merge([
             'title'             => 'required',
             'type'              => 'required',
             'classroom_id'      => 'required|integer',
@@ -46,9 +48,9 @@ class ExamController extends Controller
             'random_question'   => 'required',
             'random_answer'     => 'required',
             'show_answer'       => 'required',
-        ]);
+        ], $this->praktikRules($request)), $this->praktikMessages());
 
-        Exam::create([
+        $exam = Exam::create([
             'exams_code'        => 'exms-' . Str::ulid(),
             'title'             => $request->title,
             'type'              => $request->type,
@@ -60,7 +62,69 @@ class ExamController extends Controller
             'show_answer'       => $request->show_answer,
         ]);
 
+        $this->savePraktik($request, $exam);
+
         return redirect()->route('admin.exams.index');
+    }
+
+    /**
+     * Ujian Praktik: panduan (teks biasa) + template wajib; durasi boleh 0 = tanpa batas waktu.
+     * $exam diisi saat update — template lama tetap dipakai bila tidak diganti.
+     */
+    private function praktikRules(Request $request, ?Exam $exam = null): array
+    {
+        if ($request->input('type') !== Exam::TYPE_PRAKTIK) {
+            return [];
+        }
+
+        $hasTemplate = $exam?->praktik_template_path !== null;
+
+        return [
+            'duration'        => 'required|integer|min:0|max:1440',
+            'praktik_panduan' => 'nullable|string|max:20000',
+            'template'        => $hasTemplate
+                ? array_merge(['nullable'], array_slice(AnswerFile::rules(), 1))
+                : AnswerFile::rules(),
+        ];
+    }
+
+    private function praktikMessages(): array
+    {
+        return array_merge(AnswerFile::messages('template'), [
+            'template.required' => 'Template wajib diunggah untuk Ujian Praktik.',
+        ]);
+    }
+
+    private function savePraktik(Request $request, Exam $exam): void
+    {
+        if (! $exam->isPraktik()) {
+            return;
+        }
+
+        $exam->praktik_panduan = $request->input('praktik_panduan');
+
+        if ($file = $request->file('template')) {
+            $oldPath = $exam->praktik_template_path;
+
+            $exam->praktik_template_path = AnswerFile::store($file, "praktik_templates/{$exam->id}");
+            $exam->praktik_template_name = $file->getClientOriginalName();
+            $exam->save();
+
+            // Hapus file lama setelah yang baru tersimpan, supaya upload gagal tidak menghilangkan template.
+            AnswerFile::delete($oldPath);
+
+            return;
+        }
+
+        $exam->save();
+    }
+
+    /** Unduh template Ujian Praktik (pratinjau admin). */
+    public function praktikTemplate(Exam $exam)
+    {
+        abort_unless($exam->isPraktik() && $exam->praktik_template_path, 404, 'Template belum diunggah.');
+
+        return AnswerFile::download($exam->praktik_template_path, $exam->praktik_template_name);
     }
 
     public function show($id)
@@ -78,15 +142,19 @@ class ExamController extends Controller
 
     public function edit($id)
     {
+        $exam = Exam::findOrFail($id);
+
         return inertia('Admin/Exams/Edit', [
-            'exam'       => Exam::findOrFail($id),
+            // Nama template ikut ditampilkan; path tetap tersembunyi ($hidden)
+            'exam'       => $exam->toArray() + ['has_template' => $exam->praktik_template_path !== null],
+            'file_accept' => AnswerFile::accept(),
             'classrooms' => Classroom::all(),
         ]);
     }
 
     public function update(Request $request, Exam $exam)
     {
-        $request->validate([
+        $request->validate(array_merge([
             'title'             => 'required',
             'type'              => 'required',
             'classroom_id'      => 'required|integer',
@@ -95,7 +163,7 @@ class ExamController extends Controller
             'random_question'   => 'required',
             'random_answer'     => 'required',
             'show_answer'       => 'required',
-        ]);
+        ], $this->praktikRules($request, $exam)), $this->praktikMessages());
 
         $exam->update([
             'title'             => $request->title,
@@ -107,6 +175,8 @@ class ExamController extends Controller
             'random_answer'     => $request->random_answer,
             'show_answer'       => $request->show_answer,
         ]);
+
+        $this->savePraktik($request, $exam);
 
         return redirect()->route('admin.exams.index');
     }

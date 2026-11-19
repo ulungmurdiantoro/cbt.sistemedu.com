@@ -23,14 +23,14 @@
                                         <td class="fw-bold">Skema</td>
                                         <td>{{ exam.classroom.title }}</td>
                                     </tr>
-                                    <tr>
+                                    <tr v-if="exam.type != 'Ujian Praktik'">
                                         <td class="fw-bold">Jumlah Soal</td>
                                         <td v-if="exam.type == 'Essay'">{{ exam.essays.data.length }}</td>
                                         <td v-else>{{ exam.questions.data.length }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Durasi (Menit)</td>
-                                        <td>{{ exam.duration }} Menit</td>
+                                        <td>{{ exam.type == 'Ujian Praktik' && !exam.duration ? 'Tanpa batas waktu' : exam.duration + ' Menit' }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -79,6 +79,20 @@
                             </table>
                         </div>
                         <Pagination :links="exam.questions.links" align="end" />
+                    </div>
+                    <!-- Ujian Praktik: tanpa bank soal — panduan + template -->
+                    <div v-else-if="exam.type == 'Ujian Praktik'" class="card-body">
+                        <h5><i class="fa fa-clipboard-check"></i> Ujian Praktik</h5>
+                        <hr>
+                        <h6 class="fw-bold">Panduan untuk peserta</h6>
+                        <div v-if="exam.praktik_panduan" class="border rounded p-3 mb-3 small" style="white-space: pre-line">{{ exam.praktik_panduan }}</div>
+                        <p v-else class="text-muted small">Belum ada panduan.</p>
+                        <h6 class="fw-bold">Template</h6>
+                        <p class="mb-3">
+                            <a v-if="exam.praktik_template_name" :href="`/admin/exams/${exam.id}/praktik-template`"><i class="fa fa-download me-1"></i>{{ exam.praktik_template_name }}</a>
+                            <span v-else class="text-danger small">Template belum diunggah.</span>
+                        </p>
+                        <Link :href="`/admin/exams/${exam.id}/edit`" class="btn btn-md btn-primary border-0 shadow"><i class="fa fa-pencil-alt me-1"></i> Ubah Panduan / Template</Link>
                     </div>
                     <div v-else class="card-body">
                         <h5> <i class="fa fa-question-circle"></i> Soal Ujian</h5>

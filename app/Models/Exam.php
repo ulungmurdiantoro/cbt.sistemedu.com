@@ -9,6 +9,9 @@ class Exam extends Model
 {
     use HasFactory;
 
+    /** Ujian Praktik: panduan + template yang diunduh peserta, hasilnya diunggah (lihat App\Support\UjianPraktik). */
+    public const TYPE_PRAKTIK = 'Ujian Praktik';
+
     /**
      * fillable
      *
@@ -24,7 +27,16 @@ class Exam extends Model
         'random_question',
         'random_answer',
         'show_answer',
+        'praktik_panduan',
     ];
+
+    /** Path file template di disk private — jangan dikirim ke browser. */
+    protected $hidden = ['praktik_template_path'];
+
+    public function isPraktik(): bool
+    {
+        return $this->type === self::TYPE_PRAKTIK;
+    }
 
     /**
      * lesson

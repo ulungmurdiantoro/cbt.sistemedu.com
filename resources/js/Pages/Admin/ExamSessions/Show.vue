@@ -37,6 +37,16 @@
                                 <div class="fw-bolder">{{ exam_session.exam_esai?.title ?? '—' }}</div>
                             </div>
                             <div class="col-6 col-md-3">
+                                <div class="text-muted">Ujian Praktik</div>
+                                <div class="fw-bolder">
+                                    <template v-if="exam_session.exam_praktik">
+                                        {{ exam_session.exam_praktik.title }}
+                                        <span class="text-muted fw-normal">· {{ exam_session.exam_praktik.duration ? exam_session.exam_praktik.duration + ' menit' : 'tanpa batas waktu' }}</span>
+                                    </template>
+                                    <span v-else class="text-muted fw-normal">— (Upload Tugas)</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
                                 <div class="text-muted">Wawancara · Verifikasi TUK</div>
                                 <div>
                                     <StatusBadge :tone="exam_session.has_wawancara ? 'accent' : 'neutral'" :label="exam_session.has_wawancara ? 'Wawancara' : 'Tanpa wawancara'" />
@@ -202,7 +212,8 @@ export default {
 
     computed: {
         skema() {
-            return this.exam_session.exam_pg?.classroom?.title ?? this.exam_session.exam_esai?.classroom?.title;
+            return this.exam_session.exam_pg?.classroom?.title ?? this.exam_session.exam_esai?.classroom?.title
+                ?? this.exam_session.exam_praktik?.classroom?.title;
         },
         changedCount() {
             return this.form.filter((row, i) => row.user_id !== (this.students[i]?.asesor_id ?? null)).length;
