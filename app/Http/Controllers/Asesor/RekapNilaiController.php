@@ -60,6 +60,7 @@ class RekapNilaiController extends Controller
             'nilai_esai'         => $r->nilai_esai,
             'esai_belum_dinilai' => (int) ($esaiBelumDinilai[$r->student_id] ?? 0),
             'nilai_wawancara'    => $r->nilai_wawancara,
+            'nilai_praktik'      => $r->nilai_praktik,
             'nilai_akhir'        => $r->nilai_akhir,
             'keputusan'          => $r->keputusan,
             'is_finalized'       => (bool) $r->is_finalized,
@@ -77,6 +78,8 @@ class RekapNilaiController extends Controller
                 'bobot_pg'        => (float) ($scheme?->bobot_pg ?? 0),
                 'bobot_esai'      => (float) ($scheme?->bobot_esai ?? 0),
                 'bobot_wawancara' => (float) ($scheme?->bobot_wawancara ?? 0),
+                // Ujian Praktik dinilai terpisah (mis. Lifting) — 0 = praktik lewat wawancara
+                'bobot_praktik'   => array_sum(\App\Support\NilaiPraktik::weights($examSession, $scheme)),
                 'nilai_kelulusan' => (float) ($scheme?->nilai_kelulusan ?? 70),
             ],
         ]);

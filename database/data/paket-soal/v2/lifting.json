@@ -6,6 +6,17 @@
   "pg": "FR.IA.05 Pilihan Ganda Lifting Engineer for Heavy & Crirical Lifting - R1.pdf",
   "praktik": "FR.IA.04 Praktek Lifting Engineer for Heavy & Critical Lifting - Calculation dan Gambar.pdf + LAMPIRAN SOAL HEAVY LIFTING (dipecah: bagian 1 Calculation, bagian 2 Gambar)"
  },
+ "durasi": {
+  "pg": 60
+ },
+ "komposisi": {
+  "bobot_ujian_tulis": 20,
+  "proporsi_pg": 100,
+  "bobot_wawancara": 0,
+  "bobot_praktik_1": 50,
+  "bobot_praktik_2": 30,
+  "nilai_kelulusan": 70
+ },
  "pilihan_ganda": [
   {
    "no": 1,

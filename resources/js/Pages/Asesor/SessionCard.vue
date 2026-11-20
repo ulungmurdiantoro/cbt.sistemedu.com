@@ -56,6 +56,11 @@
                     :class="variant === 'completed' ? 'btn btn-sm btn-outline-success' : 'btn btn-sm btn-success border-0 shadow'">
                     <i class="fa fa-comments me-1"></i> Wawancara
                 </Link>
+                <!-- Skema dengan Ujian Praktik dinilai terpisah (mis. Lifting: Calculation & Gambar) -->
+                <Link v-if="hasPraktik" :href="'/asesor/penilaian/' + session.id + '/praktik'"
+                    :class="variant === 'completed' ? 'btn btn-sm btn-outline-danger' : 'btn btn-sm btn-danger border-0 shadow'">
+                    <i class="fa fa-drafting-compass me-1"></i> Praktik
+                </Link>
                 <Link :href="'/asesor/penilaian/' + session.id + '/rekap'"
                     :class="variant === 'completed' ? 'btn btn-sm btn-outline-info' : 'btn btn-sm btn-info border-0 shadow'">
                     <i class="fa fa-chart-bar me-1"></i> Rekap Nilai
@@ -84,13 +89,16 @@ export default {
         variant: { type: String, default: 'active' }, // 'active' | 'completed'
     },
     computed: {
+        hasPraktik() {
+            return Object.keys(this.session.praktik_weights ?? {}).length > 0;
+        },
         classroomTitle() {
             const exam = this.session.examPg ?? this.session.examEsai;
             return exam?.classroom?.title ?? '—';
         },
         // Dari Asesor\DashboardController::progress() — null untuk sesi lama (pakai jam selesai sesi)
         progressItems() {
-            const labels = { ak01: 'TTD AK.01', esai: 'Esai', wawancara: 'Wawancara' };
+            const labels = { ak01: 'TTD AK.01', esai: 'Esai', wawancara: 'Wawancara', praktik: 'Praktik' };
             const items  = this.session.progress?.items ?? {};
 
             return Object.keys(labels)

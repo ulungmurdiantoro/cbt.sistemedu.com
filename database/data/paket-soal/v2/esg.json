@@ -7,6 +7,18 @@
   "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai ESG Officer - V1.docx",
   "praktik": "FR.IA.04 Tugas Keterampilan - ESG Officer - Rev.docx + FR.IA.04 Lembar Kerja Asesi ESG Officer.xlsx"
  },
+ "durasi": {
+  "pg": 120,
+  "esai": 90
+ },
+ "komposisi": {
+  "bobot_ujian_tulis": 70,
+  "proporsi_pg": 65,
+  "bobot_wawancara": 30,
+  "bobot_praktik_1": 0,
+  "bobot_praktik_2": 0,
+  "nilai_kelulusan": 60
+ },
  "pilihan_ganda": [
   {
    "no": 1,

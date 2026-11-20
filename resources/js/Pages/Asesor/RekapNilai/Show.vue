@@ -26,6 +26,7 @@
                                         <th v-if="exam_session.exam_id_pg" class="text-center" style="min-width:80px">PG</th>
                                         <th v-if="exam_session.exam_id_esai" class="text-center" style="min-width:100px">Esai</th>
                                         <th v-if="exam_session.has_wawancara" class="text-center" style="min-width:100px">Wawancara</th>
+                                        <th v-if="scheme.bobot_praktik > 0" class="text-center" style="min-width:100px">Praktik</th>
                                         <th class="text-center" style="min-width:95px">Nilai Akhir</th>
                                         <th class="text-center" style="min-width:140px">Keputusan</th>
                                         <th class="text-center" style="min-width:80px" title="Rekomendasi Kompeten / Belum Kompeten Anda di Laporan Asesmen">K/BK</th>
@@ -53,6 +54,10 @@
                                             <template v-if="row.nilai_wawancara !== null">{{ fmt(row.nilai_wawancara) }}</template>
                                             <span v-else class="badge bg-warning text-gray-800">belum dinilai</span>
                                         </td>
+                                        <td v-if="scheme.bobot_praktik > 0" class="text-end num">
+                                            <template v-if="row.nilai_praktik !== null">{{ fmt(row.nilai_praktik) }}</template>
+                                            <span v-else class="badge bg-warning text-gray-800">belum dinilai</span>
+                                        </td>
 
                                         <td class="text-end num fw-bold">{{ row.nilai_akhir !== null ? fmt(row.nilai_akhir) : '—' }}</td>
                                         <td class="text-center">
@@ -71,6 +76,7 @@
                                         <td v-if="exam_session.exam_id_pg" class="text-end num fw-bold">{{ avg('nilai_pg') }}</td>
                                         <td v-if="exam_session.exam_id_esai" class="text-end num fw-bold">{{ avg('nilai_esai') }}</td>
                                         <td v-if="exam_session.has_wawancara" class="text-end num fw-bold">{{ avg('nilai_wawancara') }}</td>
+                                        <td v-if="scheme.bobot_praktik > 0" class="text-end num fw-bold">{{ avg('nilai_praktik') }}</td>
                                         <td class="text-end num fw-bold">{{ avg('nilai_akhir') }}</td>
                                         <td colspan="2"></td>
                                     </tr>
@@ -116,6 +122,7 @@ export default {
             if (this.exam_session.exam_id_pg) parts.push(`PG ${this.fmtPct(this.scheme.bobot_pg)}`);
             if (this.exam_session.exam_id_esai) parts.push(`Esai ${this.fmtPct(this.scheme.bobot_esai)}`);
             if (this.exam_session.has_wawancara) parts.push(`Wawancara ${this.fmtPct(this.scheme.bobot_wawancara)}`);
+            if (this.scheme.bobot_praktik > 0) parts.push(`Praktik ${this.fmtPct(this.scheme.bobot_praktik)}`);
             return parts.join(' · ') || '-';
         },
         lengkapCount() {
@@ -136,7 +143,8 @@ export default {
         isLengkap(row) {
             return (!this.exam_session.exam_id_pg || row.nilai_pg !== null)
                 && (!this.exam_session.exam_id_esai || (row.nilai_esai !== null && !row.esai_belum_dinilai))
-                && (!this.exam_session.has_wawancara || row.nilai_wawancara !== null);
+                && (!this.exam_session.has_wawancara || row.nilai_wawancara !== null)
+                && (!(this.scheme.bobot_praktik > 0) || row.nilai_praktik !== null);
         },
         keputusan(row) {
             if (!row.keputusan) return { tone: 'neutral', label: 'Belum ada nilai' };

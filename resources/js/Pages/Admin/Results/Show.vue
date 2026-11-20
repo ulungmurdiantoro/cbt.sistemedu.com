@@ -131,6 +131,7 @@
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_pg">PG</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_esai">Esai</th>
                                 <th class="border-0 text-center" v-if="exam_session.has_wawancara">Wawancara</th>
+                                <th class="border-0 text-center" v-if="praktik_parts.length">Praktik</th>
                                 <th class="border-0 text-center">Nilai Akhir</th>
                                 <th class="border-0 text-center">Keputusan</th>
                                 <th class="border-0">Progres</th>
@@ -191,6 +192,15 @@
                                     </a>
                                     <StatusBadge v-else-if="awaitsScore(row, 'wawancara')" tone="secondary" label="Belum dinilai" />
                                     <template v-else>{{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}</template>
+                                </td>
+                                <!-- Ujian Praktik dinilai terpisah (mis. Lifting): nilai gabungan, rincian per bagian di tooltip -->
+                                <td class="text-center num" v-if="praktik_parts.length" :title="praktikTooltip(row)">
+                                    <span v-if="isAbsent(row)" class="score-note">Tidak ikut</span>
+                                    <StatusBadge v-else-if="row.nilai_praktik === null && awaitsScore(row, 'praktik')" tone="secondary" label="Belum dinilai" />
+                                    <template v-else>
+                                        {{ row.nilai_praktik !== null ? fmt(row.nilai_praktik) : '—' }}
+                                        <div v-if="row.nilai_praktik !== null && awaitsScore(row, 'praktik')" class="mt-1"><StatusBadge tone="secondary" label="Belum lengkap" /></div>
+                                    </template>
                                 </td>
                                 <td class="text-center fw-bold num">
                                     <span v-if="row.nilai_akhir !== null" :class="nilaiColor(row)">
@@ -305,6 +315,14 @@
                                 <a v-if="detail.wawancara" href="#" @click.prevent="showWawancara(detail)">{{ fmt(detail.nilai_wawancara) }} <i class="fa fa-search-plus small"></i></a>
                                 <template v-else>{{ fmt(detail.nilai_wawancara) }}</template>
                             </td>
+                        </tr>
+                        <tr v-if="praktik_parts.length">
+                            <td>Praktik
+                                <div v-for="p in praktik_parts" :key="p.bagian" class="small text-muted">
+                                    {{ p.title }} ({{ p.bobot }}%): {{ fmt(detail.praktik?.[p.bagian] ?? null) }}
+                                </div>
+                            </td>
+                            <td class="num">{{ fmt(detail.nilai_praktik) }}</td>
                         </tr>
                         <tr class="fw-bolder">
                             <td>Nilai Akhir</td>
@@ -459,6 +477,8 @@ export default {
         show_tugas:   Boolean,
         // Judul bagian Ujian Praktik { [bagian]: judul } — kosong bila hanya satu bagian
         tugas_parts:  { type: Object, default: () => ({}) },
+        // Ujian Praktik dinilai terpisah: [{ bagian, title, bobot }] — kosong = praktik dinilai lewat wawancara
+        praktik_parts: { type: Array, default: () => [] },
         fr_ak_14_requires_materai: Boolean,
         // { key: { label, title, waiting } } urut tahap — ResultProgressService::STEPS
         steps:        { type: Object, default: () => ({}) },
@@ -510,6 +530,10 @@ export default {
             st.note, st.by, st.at ? formatDate(st.at) : null,
         ].filter(Boolean).join(' · ');
         const isAbsent = (row) => !!row.progress?.absent;
+        // Rincian nilai praktik per bagian (tooltip kolom Praktik)
+        const praktikTooltip = (row) => props.praktik_parts
+            .map(p => `${p.title} (${p.bobot}%): ${row.praktik?.[p.bagian] ?? '—'}`)
+            .join('\n');
         // "Belum dinilai" di kolom Esai/Wawancara: peserta ikut ujian tapi asesor belum menilai bagian itu
         const awaitsScore = (row, part) => {
             const st = row.progress?.steps?.nilai;
@@ -657,7 +681,7 @@ export default {
             hasFinalized, finalizedCount, spSentCount, finalSentCount, decisionMakers,
             frAk14Rows, frAk14StampedCount, frAk14SignedCount, frAk14Badge, formatDate,
             nilaiColor, fmt, pct, showWawancara, distributeSp, distribute,
-            visibleSteps, stateText, stateIcon, stepTooltip, isAbsent, awaitsScore, summary, absentCount,
+            visibleSteps, stateText, stateIcon, stepTooltip, isAbsent, awaitsScore, praktikTooltip, summary, absentCount,
             filter, rowNumber, stageOptions, filteredRows, isFiltered, resetFilter, toggleStepFilter,
             detail, openDetail, closeDetail,
         };

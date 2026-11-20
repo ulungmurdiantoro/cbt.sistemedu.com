@@ -6,6 +6,8 @@ use App\Models\Classroom;
 use App\Models\Essay;
 use App\Models\Exam;
 use App\Models\ExamSession;
+use App\Models\Grade;
+use App\Models\GradingScheme;
 use App\Models\Question;
 use App\Models\StudentPraktikAttempt;
 use App\Models\StudentTask;
@@ -28,9 +30,13 @@ use Illuminate\Support\Str;
  * Template Ujian Praktik (bisa > 20 MB, jadi tidak lewat upload) dibaca dari folder --templates
  * (default storage/app/paket-soal/{versi}/templates) lalu disalin ke disk private.
  *
- * --perbarui-praktik: Ujian Praktik yang sudah terpasang disamakan dengan paket (panduan, durasi, template) —
- * hanya selama belum dipakai peserta (belum ada yang mulai / mengunggah di sesi yang memakainya). Yang sudah
- * dipakai tidak diubah: ujian = versi soal, jadi revisi untuk sesi berikutnya dibuat sebagai versi paket baru.
+ * Paket juga membawa durasi PG/Esai (`durasi`) dan Komposisi Nilai skema (`komposisi`) sesuai dokumen skema.
+ *
+ * --perbarui (alias lama --perbarui-praktik): yang sudah terpasang disamakan dengan paket — Ujian Praktik (judul,
+ * panduan, durasi, template), durasi ujian PG/Esai, dan Komposisi Nilai skema. Ujian hanya diubah selama belum
+ * dipakai peserta (belum ada yang mulai / mengunggah); yang sudah dipakai tidak diubah: ujian = versi soal, jadi
+ * revisi untuk sesi berikutnya dibuat sebagai versi paket baru. Komposisi Nilai berlaku per skema, termasuk hasil
+ * sesi lama yang belum Final.
  */
 class PasangPaketSoal extends Command
 {
@@ -40,6 +46,9 @@ class PasangPaketSoal extends Command
 
     /** Sesi menampung dua bagian Ujian Praktik (exam_id_praktik, exam_id_praktik_2). */
     private const MAX_PRAKTIK_PARTS = 2;
+
+    /** Isian `komposisi` paket (persen) = form Komposisi Nilai skema. */
+    private const KOMPOSISI_FIELDS = ['bobot_ujian_tulis', 'proporsi_pg', 'bobot_wawancara', 'bobot_praktik_1', 'bobot_praktik_2', 'nilai_kelulusan'];
 
     /** Bila belum ada ujian sejenis di kelas itu untuk dicontoh pengaturannya. */
     private const DEFAULTS = [
@@ -51,7 +60,8 @@ class PasangPaketSoal extends Command
         {versi=v2 : Folder paket di database/data/paket-soal}
         {--skema=* : Hanya skema tertentu (nama file tanpa .json, mis. lifting)}
         {--templates= : Folder template Ujian Praktik (default storage/app/paket-soal/{versi}/templates)}
-        {--perbarui-praktik : Samakan Ujian Praktik yang sudah terpasang dengan paket (selama belum dipakai peserta)}
+        {--perbarui : Samakan yang sudah terpasang dengan paket: Ujian Praktik, durasi PG/Esai, Komposisi Nilai}
+        {--perbarui-praktik : Alias lama --perbarui}
         {--dry-run : Periksa data dan tampilkan rencana tanpa menyimpan}
         {--force : Jalankan tanpa konfirmasi}';
 
@@ -90,7 +100,7 @@ class PasangPaketSoal extends Command
         }
 
         $this->info('Paket Soal ' . $this->label() . " — template praktik dari: {$this->templates}");
-        $this->table(['Skema', 'Kelas', 'Pilihan Ganda', 'Esai', 'Ujian Praktik'], $rows);
+        $this->table(['Skema', 'Kelas', 'Pilihan Ganda', 'Esai', 'Ujian Praktik', 'Komposisi Nilai'], $rows);
 
         if (!$this->praktikReady()) {
             $this->warn('Fitur Ujian Praktik belum terpasang di database ini (migrasi add_ujian_praktik_exam_type) — bagian praktik dilewati.');
@@ -205,7 +215,32 @@ class PasangPaketSoal extends Command
             }
         }
 
+        foreach ($data['durasi'] ?? [] as $part => $menit) {
+            if (!in_array($part, ['pg', 'esai'], true) || !is_int($menit) || $menit < 1 || $menit > 1440) {
+                $problems[] = "durasi {$part}: harus pg/esai, 1–1440 menit";
+            }
+        }
+
         $parts = $this->praktikParts($data);
+        if ($komposisi = $data['komposisi'] ?? null) {
+            foreach (self::KOMPOSISI_FIELDS as $field) {
+                $v = $komposisi[$field] ?? null;
+                if (!is_int($v) && !is_float($v) || $v < 0 || $v > 100) {
+                    $problems[] = "komposisi: {$field} harus 0–100";
+                }
+            }
+            $total = ($komposisi['bobot_ujian_tulis'] ?? 0) + ($komposisi['bobot_wawancara'] ?? 0)
+                + ($komposisi['bobot_praktik_1'] ?? 0) + ($komposisi['bobot_praktik_2'] ?? 0);
+            if (abs($total - 100) > 0.01) {
+                $problems[] = "komposisi: Ujian Tulis + Lisan + Praktik harus 100% (sekarang {$total}%)";
+            }
+            foreach ([1, 2] as $bagian) {
+                if (($komposisi["bobot_praktik_{$bagian}"] ?? 0) > 0 && !isset($parts[$bagian])) {
+                    $problems[] = "komposisi: bobot praktik bagian {$bagian} tanpa Ujian Praktik bagian {$bagian}";
+                }
+            }
+        }
+
         if (count($parts) > self::MAX_PRAKTIK_PARTS) {
             $problems[] = 'praktik: maksimal ' . self::MAX_PRAKTIK_PARTS . ' bagian per sesi';
         }
@@ -237,10 +272,12 @@ class PasangPaketSoal extends Command
 
         $pg = $data['pilihan_ganda'] ?? [];
         $images = collect($pg)->flatMap(fn ($q) => collect($q['blocks'])->pluck('image')->filter())->unique()->count();
-        $pgCell = count($pg) . ' soal' . ($images ? ", {$images} gambar" : '') . ' → ' . $this->status($classroom, $key, 'pg', self::TYPE_PG);
+        $durasi = $data['durasi'] ?? [];
+        $pgCell = count($pg) . ' soal' . ($images ? ", {$images} gambar" : '') . ' → '
+            . $this->status($classroom, $key, 'pg', self::TYPE_PG, $durasi['pg'] ?? null);
 
         $esaiCell = !empty($data['esai'])
-            ? count($data['esai']) . ' soal → ' . $this->status($classroom, $key, 'esai', self::TYPE_ESAI)
+            ? count($data['esai']) . ' soal → ' . $this->status($classroom, $key, 'esai', self::TYPE_ESAI, $durasi['esai'] ?? null)
             : '— (tanpa esai)';
 
         $parts = $this->praktikParts($data);
@@ -255,10 +292,14 @@ class PasangPaketSoal extends Command
         }
         $praktikCell = $lines ? implode("\n", $lines) : '—';
 
-        return [$key, $kelas, $pgCell, $esaiCell, $praktikCell];
+        $komposisiCell = isset($data['komposisi'])
+            ? $this->komposisiText($data['komposisi']) . ' → ' . $this->komposisiStatus($classroom, $data['komposisi'])
+            : '—';
+
+        return [$key, $kelas, $pgCell, $esaiCell, $praktikCell, $komposisiCell];
     }
 
-    private function status(?Classroom $classroom, string $key, string $part, ?string $type): string
+    private function status(?Classroom $classroom, string $key, string $part, string $type, ?int $durasi): string
     {
         if (!$classroom) {
             return 'dilewati';
@@ -267,17 +308,29 @@ class PasangPaketSoal extends Command
         $exam = Exam::where('exams_code', $this->code($key, $part))->first();
         if ($exam) {
             $n = $part === 'pg' ? $exam->questions()->count() : $exam->essays()->count();
+            $text = $n ? "sudah ada ({$n} soal)" : 'sudah ada (kosong), soal diisi';
+            if ($durasi === null || (int) $exam->duration === $durasi) {
+                return $text . ", {$exam->duration} mnt";
+            }
+            if (!$this->perbarui()) {
+                return $text . ", {$exam->duration} mnt (paket {$durasi}) — pakai --perbarui";
+            }
 
-            return $n ? "sudah ada ({$n} soal), dilewati" : 'sudah ada (kosong), soal diisi';
-        }
-
-        if ($type === null) {
-            return 'baru';
+            return $text . ($this->examUsed($exam)
+                ? ", sudah dipakai — durasi {$exam->duration} mnt tidak diubah"
+                : ", durasi {$exam->duration} → {$durasi} mnt");
         }
 
         [$settings, $from] = $this->settings($classroom, $type);
+        $menit = $durasi ?? $settings['duration'];
 
-        return "baru ({$settings['duration']} mnt, acak soal {$settings['random_question']}; {$from})";
+        return "baru ({$menit} mnt" . ($durasi ? ' dari paket' : '') . ", acak soal {$settings['random_question']}; {$from})";
+    }
+
+    /** Ujian PG/Esai sudah dikerjakan peserta (ada yang mulai) — durasinya tidak diubah lagi. */
+    private function examUsed(Exam $exam): bool
+    {
+        return Grade::where('exam_id', $exam->id)->whereNotNull('start_time')->exists();
     }
 
     private function praktikStatus(?Classroom $classroom, string $key, array $praktik, int $bagian, int $count): string
@@ -297,9 +350,9 @@ class PasangPaketSoal extends Command
         }
 
         $list = implode(', ', $changes);
-        if (!$this->option('perbarui-praktik')) {
+        if (!$this->perbarui()) {
             return $exam->praktik_template_path
-                ? "sudah ada, beda dengan paket ({$list}) — pakai --perbarui-praktik"
+                ? "sudah ada, beda dengan paket ({$list}) — pakai --perbarui"
                 : 'sudah ada, template dilengkapi';
         }
 
@@ -357,8 +410,9 @@ class PasangPaketSoal extends Command
 
         $this->copyImages($data);
         $label = $this->label();
+        $durasi = $data['durasi'] ?? [];
 
-        $this->installPart($key, 'pg', $classroom, self::TYPE_PG, "{$classroom->title} - Pilihan Ganda {$label}",
+        $this->installPart($key, 'pg', $classroom, self::TYPE_PG, $durasi['pg'] ?? null, "{$classroom->title} - Pilihan Ganda {$label}",
             'Paket Soal ' . $label . ' — FR.IA.05 Pilihan Ganda (' . count($data['pilihan_ganda']) . ' soal).',
             function (Exam $exam) use ($data) {
                 foreach ($data['pilihan_ganda'] as $q) {
@@ -380,7 +434,7 @@ class PasangPaketSoal extends Command
 
         if (!empty($data['esai'])) {
             $isEssay = Schema::hasColumn('essays', 'is_essay');
-            $this->installPart($key, 'esai', $classroom, self::TYPE_ESAI, "{$classroom->title} - Esai {$label}",
+            $this->installPart($key, 'esai', $classroom, self::TYPE_ESAI, $durasi['esai'] ?? null, "{$classroom->title} - Esai {$label}",
                 'Paket Soal ' . $label . ' — FR.IA.06 Esai (' . count($data['esai']) . ' soal).',
                 function (Exam $exam) use ($data, $isEssay) {
                     foreach ($data['esai'] as $e) {
@@ -402,13 +456,27 @@ class PasangPaketSoal extends Command
                 $this->installPraktik($key, $classroom, $praktik, $bagian, count($parts));
             }
         }
+
+        if (isset($data['komposisi'])) {
+            $this->applyKomposisi($key, $classroom, $data['komposisi']);
+        }
     }
 
-    private function installPart(string $key, string $part, Classroom $classroom, string $type, string $title, string $description, \Closure $fill): void
+    private function installPart(string $key, string $part, Classroom $classroom, string $type, ?int $durasi, string $title, string $description, \Closure $fill): void
     {
         $code = $this->code($key, $part);
         $exam = Exam::where('exams_code', $code)->first();
         $count = $exam ? ($part === 'pg' ? $exam->questions()->count() : $exam->essays()->count()) : 0;
+
+        // Durasi dari dokumen skema: ujian yang sudah ada disamakan dengan --perbarui, selama belum dikerjakan peserta
+        if ($exam && $durasi !== null && (int) $exam->duration !== $durasi && $this->perbarui()) {
+            if ($this->examUsed($exam)) {
+                $this->warn("{$key}: {$exam->title} sudah dikerjakan peserta — durasi {$exam->duration} menit tidak diubah.");
+            } else {
+                $this->info("{$key}: {$exam->title} — durasi {$exam->duration} → {$durasi} menit.");
+                $exam->update(['duration' => $durasi]);
+            }
+        }
 
         if ($exam && $count) {
             $this->line("{$key}: {$title} sudah ada ({$count} soal) — dilewati.");
@@ -416,9 +484,12 @@ class PasangPaketSoal extends Command
             return;
         }
 
-        DB::transaction(function () use (&$exam, $code, $classroom, $type, $title, $description, $fill, $key) {
+        DB::transaction(function () use (&$exam, $code, $classroom, $type, $durasi, $title, $description, $fill, $key) {
             if (!$exam) {
                 [$settings] = $this->settings($classroom, $type);
+                if ($durasi !== null) {
+                    $settings['duration'] = $durasi;
+                }
                 $exam = Exam::create([
                     'exams_code'   => $code,
                     'title'        => $title,
@@ -454,7 +525,7 @@ class PasangPaketSoal extends Command
                 'praktik_panduan' => $praktik['panduan'],
             ]);
             $this->info("{$key}: {$title} dibuat (ujian #{$exam->id}).");
-        } elseif ($this->option('perbarui-praktik')) {
+        } elseif ($this->perbarui()) {
             $this->updatePraktik($key, $exam, $praktik, $title);
 
             return;
@@ -581,6 +652,101 @@ class PasangPaketSoal extends Command
     private function classroom(array $data): ?Classroom
     {
         return Classroom::where('classrooms_code', $data['classroom_code'])->first();
+    }
+
+    private function perbarui(): bool
+    {
+        return (bool) ($this->option('perbarui') || $this->option('perbarui-praktik'));
+    }
+
+    private function komposisiText(array $k): string
+    {
+        $parts = ["Tulis {$k['bobot_ujian_tulis']}% (PG {$k['proporsi_pg']}%)"];
+        if ($k['bobot_wawancara'] > 0) {
+            $parts[] = "Lisan {$k['bobot_wawancara']}%";
+        }
+        if ($k['bobot_praktik_1'] > 0 || $k['bobot_praktik_2'] > 0) {
+            $parts[] = 'Praktik ' . implode('/', array_filter([$k['bobot_praktik_1'], $k['bobot_praktik_2']])) . '%';
+        }
+
+        return implode(' + ', $parts) . ", lulus ≥{$k['nilai_kelulusan']}";
+    }
+
+    /** Kolom grading_schemes dari komposisi paket (bobot efektif PG/Esai dihitung seperti form Komposisi Nilai). */
+    private function komposisiAttributes(array $k): array
+    {
+        return [
+            'bobot_ujian_tulis' => $k['bobot_ujian_tulis'],
+            'proporsi_pg'       => $k['proporsi_pg'],
+            'bobot_pg'          => round($k['bobot_ujian_tulis'] * $k['proporsi_pg'] / 100, 2),
+            'bobot_esai'        => round($k['bobot_ujian_tulis'] * (100 - $k['proporsi_pg']) / 100, 2),
+            'bobot_wawancara'   => $k['bobot_wawancara'],
+            'bobot_praktik_1'   => $k['bobot_praktik_1'],
+            'bobot_praktik_2'   => $k['bobot_praktik_2'],
+            'nilai_kelulusan'   => $k['nilai_kelulusan'],
+        ];
+    }
+
+    private function komposisiDiffers(GradingScheme $scheme, array $k): bool
+    {
+        foreach ($this->komposisiAttributes($k) as $field => $value) {
+            if (abs((float) $scheme->{$field} - (float) $value) > 0.001) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function komposisiReady(): bool
+    {
+        return Schema::hasColumn('grading_schemes', 'bobot_praktik_1');
+    }
+
+    private function komposisiStatus(?Classroom $classroom, array $k): string
+    {
+        if (!$classroom) {
+            return 'dilewati';
+        }
+        if (!$this->komposisiReady()) {
+            return 'dilewati (migrasi Nilai Praktik belum dijalankan)';
+        }
+
+        $scheme = GradingScheme::where('classroom_id', $classroom->id)->first();
+        if (!$scheme) {
+            return 'baru';
+        }
+        if (!$this->komposisiDiffers($scheme, $k)) {
+            return 'sama';
+        }
+
+        return $this->perbarui() ? 'diperbarui' : 'beda dengan yang berlaku — pakai --perbarui';
+    }
+
+    /** Komposisi Nilai skema dari dokumen skema. Yang sudah ada & berbeda hanya diubah dengan --perbarui. */
+    private function applyKomposisi(string $key, Classroom $classroom, array $k): void
+    {
+        if (!$this->komposisiReady()) {
+            $this->warn("{$key}: Komposisi Nilai dilewati — jalankan migrasi Nilai Praktik dulu.");
+
+            return;
+        }
+
+        $scheme = GradingScheme::where('classroom_id', $classroom->id)->first();
+        if ($scheme && !$this->komposisiDiffers($scheme, $k)) {
+            return;
+        }
+        if ($scheme && !$this->perbarui()) {
+            $this->warn("{$key}: Komposisi Nilai {$classroom->title} beda dengan paket — tidak diubah (pakai --perbarui).");
+
+            return;
+        }
+
+        GradingScheme::updateOrCreate(['classroom_id' => $classroom->id], $this->komposisiAttributes($k));
+        $this->info("{$key}: Komposisi Nilai {$classroom->title} = " . $this->komposisiText($k) . '.');
+        if ($scheme) {
+            $this->line('   Berlaku per skema: hasil sesi lama yang belum Final ikut dihitung ulang saat Rekap dibuka.');
+        }
     }
 
     /** Bagian Ujian Praktik paket: [bagian => data]. `praktik` = satu objek, atau daftar bagian (mis. Lifting). */

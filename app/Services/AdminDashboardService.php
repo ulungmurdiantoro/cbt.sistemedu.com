@@ -106,7 +106,8 @@ class AdminDashboardService
     {
         $ids      = ExamSession::activeStudentIds($s->id);
         $written  = $s->exam_id_pg || $s->exam_id_esai;
-        $needsAsesor = (bool) ($s->exam_id_esai || $s->has_wawancara);
+        $praktikBagian = array_keys(\App\Support\NilaiPraktik::weights($s));
+        $needsAsesor = (bool) ($s->exam_id_esai || $s->has_wawancara || $praktikBagian);
 
         // Sesi tanpa ujian tertulis (hanya wawancara): semua peserta dianggap ikut.
         $started = $written
@@ -135,6 +136,18 @@ class AdminDashboardService
                 ->whereNotNull('total_nilai')
                 ->pluck('student_id');
             $unassessed = $unassessed->merge($started->diff($interviewed));
+        }
+        if ($praktikBagian) {
+            // Ujian Praktik dinilai terpisah (mis. Lifting): semua bagian harus bernilai
+            $praktikDone = \App\Models\PraktikScore::where('exam_session_id', $s->id)
+                ->whereIn('student_id', $started)
+                ->whereIn('bagian', $praktikBagian)
+                ->whereNotNull('score')
+                ->get(['student_id'])
+                ->countBy('student_id')
+                ->filter(fn (int $n) => $n >= count($praktikBagian))
+                ->keys();
+            $unassessed = $unassessed->merge($started->diff($praktikDone));
         }
 
         $results = ParticipantResult::where('exam_session_id', $s->id)->enrolled()

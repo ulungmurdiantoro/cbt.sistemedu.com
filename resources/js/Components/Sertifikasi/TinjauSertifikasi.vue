@@ -73,6 +73,7 @@
                                 <th class="border-0 text-center">PG</th>
                                 <th class="border-0 text-center">Esai</th>
                                 <th class="border-0 text-center">Wawancara</th>
+                                <th v-if="hasPraktik" class="border-0 text-center">Praktik</th>
                                 <th class="border-0 text-center">Nilai Akhir</th>
                                 <th class="border-0 text-center">Keputusan</th>
                                 <th class="border-0 text-center">Verifikasi<div class="stage-label">Pengambil Keputusan</div></th>
@@ -152,6 +153,8 @@
                                 <td class="text-center num">{{ row.nilai_pg !== null ? fmt(row.nilai_pg) : '—' }}</td>
                                 <td class="text-center num">{{ row.nilai_esai !== null ? fmt(row.nilai_esai) : '—' }}</td>
                                 <td class="text-center num">{{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}</td>
+                                <!-- Ujian Praktik dinilai terpisah (mis. Lifting) -->
+                                <td v-if="hasPraktik" class="text-center num">{{ row.nilai_praktik !== null ? fmt(row.nilai_praktik) : '—' }}</td>
                                 <td class="text-center fw-bold num">
                                     <span v-if="row.nilai_akhir !== null" :class="nilaiColor(row)">{{ fmt(row.nilai_akhir) }}</span>
                                     <span v-else class="text-muted">—</span>
@@ -331,6 +334,8 @@ export default {
     setup(props) {
         const isCertManager = computed(() => props.stage === 'ms');
         const hasFinalizableRows = computed(() => props.rows.some(r => !r.is_finalized && r.manager_verified_at && r.cert_manager_verified_at));
+        // Kolom Praktik hanya bila ada nilai Ujian Praktik yang dinilai terpisah (mis. Lifting)
+        const hasPraktik = computed(() => props.rows.some(r => r.nilai_praktik !== null && r.nilai_praktik !== undefined));
 
         const togglingId = ref(null);
 
@@ -415,7 +420,7 @@ export default {
         };
 
         return {
-            isCertManager, hasFinalizableRows, togglingId, nilaiColor, fmt, toggleVerify, confirmFinalize,
+            isCertManager, hasFinalizableRows, hasPraktik, togglingId, nilaiColor, fmt, toggleVerify, confirmFinalize,
             dokumenModal, openDokumenModal, closeDokumenModal, getModalDoc, docStatusClass, badgeClass, badgeLabel,
         };
     },

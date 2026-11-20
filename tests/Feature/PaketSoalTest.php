@@ -133,7 +133,9 @@ class PaketSoalTest extends TestCase
         $this->pasang(['--skema' => ['esg']])->assertSuccessful();
 
         $pg = Exam::where('exams_code', 'exms-v2-esg-pg')->first();
-        $this->assertSame(90, (int) $pg->duration);
+        // Durasi dari dokumen skema (paket), pengaturan acak dari ujian sejenis terakhir
+        $this->assertSame(120, (int) $pg->duration);
+        $this->assertSame(90, (int) Exam::where('exams_code', 'exms-v2-esg-esai')->value('duration'));
         $this->assertSame('Y', $pg->random_answer);
         // Ujian lama tidak berubah
         $this->assertSame(0, $old->fresh()->questions()->count());
@@ -192,7 +194,7 @@ class PaketSoalTest extends TestCase
         $paket = json_decode(File::get(database_path('data/paket-soal/v2/legal.json')), true)['praktik'];
 
         // Tanpa opsi: hanya diberi tahu, tidak diubah
-        $this->pasang(['--skema' => ['legal']])->expectsOutputToContain('--perbarui-praktik')->assertSuccessful();
+        $this->pasang(['--skema' => ['legal']])->expectsOutputToContain('pakai --perbarui')->assertSuccessful();
         $this->assertSame($oldPath, $exam->fresh()->praktik_template_path);
         $this->assertStringContainsString('LEGAL OPINION', $exam->fresh()->praktik_panduan);
 
@@ -263,6 +265,58 @@ class PaketSoalTest extends TestCase
         $this->assertStringContainsString('LEGAL OPINION', $exam->praktik_panduan);
         $this->assertSame($oldPath, $exam->praktik_template_path);
         Storage::disk('private')->assertExists($oldPath);
+    }
+
+    public function test_durasi_dan_komposisi_nilai_sesuai_dokumen_skema(): void
+    {
+        $this->classrooms();
+        $this->templateFiles();
+        $this->pasang()->assertSuccessful();
+
+        // Corporate Legal / HSE / ESG: PG 120, Esai 90; Tulis 70 (PG 65) + Lisan & Keterampilan 30; lulus 60
+        foreach (['legal' => 'CLO', 'hse' => 'K3L', 'esg' => 'ESG'] as $key => $code) {
+            $this->assertSame(120, (int) Exam::where('exams_code', "exms-v2-{$key}-pg")->value('duration'), $key);
+            $this->assertSame(90, (int) Exam::where('exams_code', "exms-v2-{$key}-esai")->value('duration'), $key);
+            $scheme = \App\Models\GradingScheme::where('classroom_id', \App\Models\Classroom::where('classrooms_code', $code)->value('id'))->firstOrFail();
+            $this->assertSame([45.5, 24.5, 30.0, 0.0, 0.0, 60.0],
+                [$scheme->bobot_pg, $scheme->bobot_esai, $scheme->bobot_wawancara, $scheme->bobot_praktik_1, $scheme->bobot_praktik_2, $scheme->nilai_kelulusan], $key);
+        }
+
+        // Lifting: PG 60 menit 20%, Praktek Calculation 50%, Praktek Gambar 30%; lulus 70
+        $this->assertSame(60, (int) Exam::where('exams_code', 'exms-v2-lifting-pg')->value('duration'));
+        $lhc = \App\Models\GradingScheme::where('classroom_id', \App\Models\Classroom::where('classrooms_code', 'LHC')->value('id'))->firstOrFail();
+        $this->assertSame([20.0, 0.0, 0.0, 50.0, 30.0, 70.0],
+            [$lhc->bobot_pg, $lhc->bobot_esai, $lhc->bobot_wawancara, $lhc->bobot_praktik_1, $lhc->bobot_praktik_2, $lhc->nilai_kelulusan]);
+    }
+
+    public function test_perbarui_menyamakan_durasi_dan_komposisi_yang_sudah_ada(): void
+    {
+        $this->classrooms();
+        $esg = \App\Models\Classroom::where('classrooms_code', 'ESG')->first();
+        \App\Models\GradingScheme::create(['classroom_id' => $esg->id, 'bobot_pg' => 40, 'bobot_esai' => 35, 'bobot_wawancara' => 25,
+            'bobot_ujian_tulis' => 75, 'proporsi_pg' => 53.33, 'nilai_kelulusan' => 70]);
+        $this->pasang(['--skema' => ['esg']])->assertSuccessful();
+
+        // Yang sudah ada: durasi ujian diubah manual & komposisi lama tidak ditimpa tanpa --perbarui
+        $pg = Exam::where('exams_code', 'exms-v2-esg-pg')->firstOrFail();
+        $pg->update(['duration' => 100]);
+        $this->assertSame(40.0, \App\Models\GradingScheme::where('classroom_id', $esg->id)->value('bobot_pg') + 0.0);
+        $this->pasang(['--skema' => ['esg'], '--dry-run' => true])
+            ->expectsOutputToContain('pakai --perbarui')
+            ->assertSuccessful();
+
+        $this->pasang(['--skema' => ['esg'], '--perbarui' => true])->assertSuccessful();
+        $this->assertSame(120, (int) $pg->fresh()->duration);
+        $scheme = \App\Models\GradingScheme::where('classroom_id', $esg->id)->first();
+        $this->assertSame([45.5, 24.5, 30.0, 60.0], [$scheme->bobot_pg, $scheme->bobot_esai, $scheme->bobot_wawancara, $scheme->nilai_kelulusan]);
+
+        // Ujian yang sudah dikerjakan peserta tidak diubah durasinya
+        $pg->refresh()->update(['duration' => 100]);
+        $session = $this->makeSession($pg);
+        \App\Models\Grade::forceCreate(['grades_code' => 'g-' . Str::random(6), 'exam_id' => $pg->id, 'exam_session_id' => $session->id,
+            'student_id' => $this->makeStudent($esg)->id, 'duration' => 0, 'total_correct' => 0, 'grade' => 0, 'start_time' => now()]);
+        $this->pasang(['--skema' => ['esg'], '--perbarui' => true])->expectsOutputToContain('sudah dikerjakan peserta')->assertSuccessful();
+        $this->assertSame(100, (int) $pg->fresh()->duration);
     }
 
     public function test_skema_tanpa_kelas_dilewati(): void

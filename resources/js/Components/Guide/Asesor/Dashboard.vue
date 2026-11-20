@@ -6,13 +6,14 @@
         <strong>nilai esai</strong> dan <strong>nilai wawancara</strong>. Progresnya terlihat di kartu
         (mis. <span class="badge bg-gray-200 text-gray-800 border">Esai 3/5</span>). Peserta yang tidak mengikuti ujian
         tidak dihitung. Kartu di tab Sesi Selesai tetap bisa dibuka. Nama sesi bisa sama untuk beberapa batch, jadi bedakan lewat
-        label <span class="badge bg-gray-200 text-gray-800 border">Batch</span> dan jadwalnya. Tiap kartu punya lima tombol:
+        label <span class="badge bg-gray-200 text-gray-800 border">Batch</span> dan jadwalnya. Tombol di tiap kartu:
     </p>
     <div class="table-responsive mb-2">
         <table class="table table-sm table-bordered mb-0">
             <tbody>
                 <tr><td style="width:130px"><span class="badge bg-primary">Esai</span></td><td>Beri nilai jawaban esai peserta di sesi itu.</td></tr>
                 <tr><td><span class="badge bg-success">Wawancara</span></td><td>Isi nilai empat kriteria wawancara per peserta.</td></tr>
+                <tr><td><span class="badge bg-danger">Praktik</span></td><td>Hanya untuk skema yang menilai Ujian Praktik terpisah (mis. Lifting): isi nilai Calculation &amp; Gambar per peserta. Progresnya juga tampil di kartu.</td></tr>
                 <tr><td><span class="badge bg-info">Rekap Nilai</span></td><td>Lihat nilai PG, Esai, Wawancara, Nilai Akhir dan keputusan peserta Anda (baca saja).</td></tr>
                 <tr><td><span class="badge bg-gray-800 text-white">Laporan</span></td><td>Simpan TTD Anda, isi rekomendasi Kompeten/Belum Kompeten, lengkapi catatan, lalu unduh FR.AK.05.</td></tr>
                 <tr><td><span class="badge bg-warning text-gray-800">TTD AK.01</span></td><td>Tandatangani FR.AK.01 untuk tiap peserta yang ditugaskan kepada Anda.</td></tr>

@@ -98,10 +98,20 @@ class ResultController extends Controller
                 ->keyBy('student_id')
             : collect();
 
+        // Ujian Praktik dinilai terpisah per bagian (mis. Lifting) → kolom Praktik + rincian per bagian
+        $praktikWeights = \App\Support\NilaiPraktik::weights($examSession);
+        $praktikScores = $praktikWeights
+            ? \App\Models\PraktikScore::where('exam_session_id', $examSession->id)
+                ->whereIn('student_id', $studentIds)
+                ->get(['student_id', 'bagian', 'score'])
+                ->groupBy('student_id')
+                ->map(fn ($rows) => $rows->pluck('score', 'bagian'))
+            : collect();
+
         // Progres per peserta setelah ujian: tahap, yang sedang ditunggu, riwayat, dokumen
         $progress = $this->progress->forSession($examSession, $results);
 
-        $rows = $results->map(function ($r) use ($students, $gradeIds, $assignments, $interviews, $examSession, $progress) {
+        $rows = $results->map(function ($r) use ($students, $gradeIds, $assignments, $interviews, $examSession, $progress, $praktikScores) {
             $student = $students->get($r->student_id);
             $grades  = $gradeIds->get($r->student_id, collect());
             $ia      = $interviews->get($r->student_id);
@@ -126,6 +136,8 @@ class ResultController extends Controller
                     'asesor_name'                 => $ia->asesor?->name,
                     'updated_at'                  => $ia->updated_at,
                 ] : null,
+                'nilai_praktik'     => $r->nilai_praktik,
+                'praktik'           => $praktikScores->get($r->student_id),
                 'nilai_akhir'       => $r->nilai_akhir,
                 'keputusan'         => $r->keputusan,
                 'is_finalized'      => $r->is_finalized,
@@ -163,6 +175,12 @@ class ResultController extends Controller
             'show_tugas'   => $tugas->isNotEmpty() || $students->contains(fn (Student $s) => $s->requiresTugasFor($examSession->id)),
             // Judul bagian Ujian Praktik ({bagian: judul}) bila sesi punya lebih dari satu bagian
             'tugas_parts'  => \App\Support\UjianPraktik::partTitles($examSession->id),
+            // Bagian praktik yang dinilai terpisah: [{bagian, title, bobot}] — kosong = praktik lewat wawancara
+            'praktik_parts' => collect($praktikWeights)->map(fn (float $bobot, int $bagian) => [
+                'bagian' => $bagian,
+                'title'  => \App\Support\UjianPraktik::examFor($examSession->id, $bagian)?->title,
+                'bobot'  => $bobot,
+            ])->values(),
             'fr_ak_14_requires_materai' => ParticipantResult::sessionRequiresFrAk14Materai($examSession->id),
             // Urutan & label tahap untuk ringkasan progres dan kolom Progres
             'steps'        => ResultProgressService::STEPS,

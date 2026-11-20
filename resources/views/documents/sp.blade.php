@@ -335,7 +335,8 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 12pt; c
             <td class="nth" style="width:21%;">STATUS</td>
         </tr>
         <tr>
-            <td>{{ $result->nilai_wawancara !== null ? number_format($result->nilai_wawancara, 2) : '-' }}</td>
+            @php($nilaiKolom1 = $result->nilai_praktik ?? $result->nilai_wawancara)
+            <td>{{ $nilaiKolom1 !== null ? number_format($nilaiKolom1, 2) : '-' }}</td>
             <td>{{ $result->nilai_pg        !== null ? number_format($result->nilai_pg, 2)        : '-' }}</td>
             <td>{{ $result->nilai_esai      !== null ? number_format($result->nilai_esai, 2)      : '-' }}</td>
             <td><strong>{{ $result->nilai_akhir !== null ? number_format($result->nilai_akhir, 2) : '-' }}</strong></td>

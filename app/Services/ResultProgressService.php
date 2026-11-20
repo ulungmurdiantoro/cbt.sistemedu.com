@@ -94,6 +94,16 @@ class ResultProgressService
                 ->groupBy('student_id')
             : collect();
 
+        // Ujian Praktik dinilai terpisah per bagian (mis. Lifting) — lihat NilaiPraktik
+        $praktikBagian = array_keys(\App\Support\NilaiPraktik::weights($session));
+        $praktikScores = $praktikBagian
+            ? \App\Models\PraktikScore::where('exam_session_id', $session->id)->whereIn('student_id', $ids)
+                ->whereIn('bagian', $praktikBagian)->whereNotNull('score')
+                ->with('asesor:id,name')
+                ->get(['student_id', 'bagian', 'asesor_id', 'updated_at'])
+                ->groupBy('student_id')
+            : collect();
+
         $interviews = $session->has_wawancara
             ? InterviewAssessment::where('exam_session_id', $session->id)->whereIn('student_id', $ids)
                 ->with('asesor:id,name')
@@ -116,7 +126,7 @@ class ResultProgressService
 
         return $results->mapWithKeys(function (ParticipantResult $r) use (
             $session, $written, $examNames, $ended, $applications, $tuk, $grades, $essays, $interviews,
-            $assignments, $reported, $users
+            $assignments, $reported, $users, $praktikBagian, $praktikScores
         ) {
             $sid    = $r->student_id;
             $app    = $applications->get($sid);
@@ -163,28 +173,34 @@ class ResultProgressService
                 $this->event($events, $g->end_time, "Selesai ujian {$name}");
             }
 
-            // Dinilai asesor: semua jawaban esai bernilai + nilai wawancara terisi.
+            // Dinilai asesor: semua jawaban esai bernilai + nilai wawancara terisi + nilai semua bagian praktik (bila dinilai terpisah).
             $needsEsai      = (bool) $session->exam_id_esai && $ans->isNotEmpty();
             $needsWawancara = (bool) $session->has_wawancara;
+            $needsPraktik   = $praktikBagian !== [];
+            $ps             = $praktikScores->get($r->student_id, collect());
             $esaiDone       = !$needsEsai || $ans->every(fn ($a) => $a->score !== null);
             $wawancaraDone  = !$needsWawancara || $ia?->total_nilai !== null;
+            $praktikDone    = !$needsPraktik || $ps->count() >= count($praktikBagian);
             $esaiAt         = $ans->max('assessed_at');
             $esaiBy         = $ans->pluck('assessed_by')->filter()->unique()->map(fn ($id) => $users[$id] ?? null)->filter()->implode(', ');
-            if (!$session->exam_id_esai && !$needsWawancara) {
+            if (!$session->exam_id_esai && !$needsWawancara && !$needsPraktik) {
                 $steps['nilai'] = $this->step('na');
             } elseif ($steps['ujian']['state'] === 'absent') {
                 $steps['nilai'] = $this->step('na', note: 'Tidak ikut ujian');
             } else {
-                $missing = array_values(array_filter([!$esaiDone ? 'esai' : null, !$wawancaraDone ? 'wawancara' : null]));
+                $missing = array_values(array_filter([!$esaiDone ? 'esai' : null, !$wawancaraDone ? 'wawancara' : null, !$praktikDone ? 'praktik' : null]));
                 $steps['nilai'] = $missing
                     ? $this->step('pending', by: $asesor?->name, note: 'Belum dinilai: ' . implode(' & ', $missing))
-                    : $this->step('done', collect([$esaiAt, $ia?->updated_at])->map(fn ($t) => $this->iso($t))->filter()->max(), $asesor?->name);
+                    : $this->step('done', collect([$esaiAt, $ia?->updated_at, $ps->max('updated_at')])->map(fn ($t) => $this->iso($t))->filter()->max(), $asesor?->name);
             }
             if ($needsEsai && $esaiDone) {
                 $this->event($events, $esaiAt, 'Esai dinilai', $esaiBy ?: null);
             }
             if ($ia?->total_nilai !== null) {
                 $this->event($events, $ia->updated_at, 'Wawancara dinilai', $ia->asesor?->name);
+            }
+            if ($needsPraktik && $praktikDone) {
+                $this->event($events, $ps->max('updated_at'), 'Ujian Praktik dinilai', $ps->pluck('asesor.name')->filter()->unique()->implode(', ') ?: null);
             }
 
             // Rekomendasi K/BK asesor (Laporan Asesmen) — tidak punya waktu tersimpan

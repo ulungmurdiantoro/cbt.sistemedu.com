@@ -185,6 +185,9 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
 
     Route::get('/penilaian/{exam_session_id}/wawancara',  [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'show'])->name('asesor.wawancara.show');
     Route::post('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'store'])->name('asesor.wawancara.store');
+    // Nilai Ujian Praktik per bagian (skema dengan bobot praktik, mis. Lifting: Calculation & Gambar)
+    Route::get('/penilaian/{exam_session_id}/praktik',  [\App\Http\Controllers\Asesor\PraktikScoreController::class, 'show'])->name('asesor.praktik.show');
+    Route::post('/penilaian/{exam_session_id}/praktik', [\App\Http\Controllers\Asesor\PraktikScoreController::class, 'store'])->name('asesor.praktik.store');
     Route::get('/penilaian/{exam_session_id}/wawancara/tugas/{student_id}', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'previewTugas'])->name('asesor.wawancara.tugas.preview');
     Route::get('/penilaian/{exam_session_id}/wawancara/tugas/{student_id}/file', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'fileTugas'])->name('asesor.wawancara.tugas.file');
     Route::get('/penilaian/{exam_session_id}/wawancara/tugas/{student_id}/unduh', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'downloadTugas'])->name('asesor.wawancara.tugas.download');

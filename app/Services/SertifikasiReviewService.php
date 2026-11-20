@@ -99,6 +99,7 @@ class SertifikasiReviewService
                 'nilai_pg'        => $r->nilai_pg,
                 'nilai_esai'      => $r->nilai_esai,
                 'nilai_wawancara' => $r->nilai_wawancara,
+                'nilai_praktik'   => $r->nilai_praktik,
                 'nilai_akhir'     => $r->nilai_akhir,
                 'keputusan'       => $r->keputusan,
                 'is_finalized'    => $r->is_finalized,

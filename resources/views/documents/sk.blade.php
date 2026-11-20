@@ -348,10 +348,15 @@ body { font-family: cambria, serif; font-size: 12pt; color: #000; line-height: 1
 </table>
 
 </div>{{-- /wrap — tabel keluar dari indent --}}
+@php
+    // Ujian Praktik dinilai terpisah (mis. Lifting: Calculation & Gambar) dan tanpa wawancara → kolom pertama = Nilai Praktik
+    $kolomPraktik = $result->nilai_praktik !== null && $result->nilai_wawancara === null;
+    $nilaiKolom1  = $kolomPraktik ? $result->nilai_praktik : $result->nilai_wawancara;
+@endphp
 <table class="nilai-table">
     <tbody>
         <tr>
-            <td rowspan="2" class="nth" style="width:18%;">NILAI<br>WAWANCARA</td>
+            <td rowspan="2" class="nth" style="width:18%;">NILAI<br>{{ $kolomPraktik ? 'PRAKTIK' : 'WAWANCARA' }}</td>
             <td rowspan="2" class="nth" style="width:20%;">NILAI PILIHAN<br>GANDA</td>
             <td rowspan="2" class="nth" style="width:14%;">NILAI ESAI</td>
             <td colspan="2" class="nth" style="width:34%;">REKAPITULASI HASIL ASESMEN</td>
@@ -362,7 +367,7 @@ body { font-family: cambria, serif; font-size: 12pt; color: #000; line-height: 1
             <td class="nth" style="width:17%;">STATUS</td>
         </tr>
         <tr>
-            <td>{{ $result->nilai_wawancara !== null ? number_format($result->nilai_wawancara, 2) : '-' }}</td>
+            <td>{{ $nilaiKolom1 !== null ? number_format($nilaiKolom1, 2) : '-' }}</td>
             <td>{{ $result->nilai_pg !== null ? number_format($result->nilai_pg, 2) : '-' }}</td>
             <td>{{ $result->nilai_esai !== null ? number_format($result->nilai_esai, 2) : '-' }}</td>
             <td><strong>{{ $result->nilai_akhir !== null ? number_format($result->nilai_akhir, 2) : '-' }}</strong></td>

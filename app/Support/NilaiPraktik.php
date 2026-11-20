@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Support;
+
+use App\Models\ExamSession;
+use App\Models\GradingScheme;
+
+/**
+ * Nilai Ujian Praktik sebagai komponen nilai sendiri. Berlaku bila Komposisi Nilai skema memberi bobot praktik
+ * (grading_schemes.bobot_praktik_1/2 > 0, persen dari nilai akhir) DAN sesi memilih bagian praktik tersebut.
+ * Contoh Lifting: PG 20 + Calculation (bagian 1) 50 + Gambar (bagian 2) 30.
+ *
+ * Skema tanpa bobot praktik (mis. Corporate Legal, HSE, ESG) tetap menilai keterampilan lewat kriteria
+ * "Hasil Pengerjaan Worksheet" di wawancara — halaman Nilai Praktik tidak dipakai.
+ */
+class NilaiPraktik
+{
+    /** Komposisi Nilai skema sesi (kelas ujian PG/Esai/Praktik pertama). */
+    public static function schemeFor(ExamSession $session): ?GradingScheme
+    {
+        $classroomId = $session->referenceExam?->classroom_id;
+
+        return $classroomId ? GradingScheme::where('classroom_id', $classroomId)->first() : null;
+    }
+
+    /** [bagian => bobot (% nilai akhir)] untuk bagian praktik sesi yang dinilai terpisah; kosong = tidak berlaku. */
+    public static function weights(ExamSession $session, ?GradingScheme $scheme = null): array
+    {
+        $scheme ??= self::schemeFor($session);
+        if (! $scheme) {
+            return [];
+        }
+
+        $weights = [1 => (float) $scheme->bobot_praktik_1, 2 => (float) $scheme->bobot_praktik_2];
+
+        return array_filter(array_intersect_key($weights, UjianPraktik::parts($session->id)), fn (float $b) => $b > 0);
+    }
+
+    public static function applies(ExamSession $session, ?GradingScheme $scheme = null): bool
+    {
+        return self::weights($session, $scheme) !== [];
+    }
+
+    /**
+     * Nilai praktik gabungan dari nilai per bagian ([bagian => nilai|null]) — rata-rata berbobot bagian yang sudah
+     * dinilai — dan jumlah bobotnya (dipakai ResultCalculatorService seperti bobot komponen lain).
+     *
+     * @return array{0: ?float, 1: float}  [nilai 0–100 atau null, bobot]
+     */
+    public static function combine(array $scores, array $weights): array
+    {
+        $sum = 0.0;
+        $bobot = 0.0;
+        foreach ($weights as $bagian => $b) {
+            if (isset($scores[$bagian]) && $scores[$bagian] !== null) {
+                $sum += (float) $scores[$bagian] * $b;
+                $bobot += $b;
+            }
+        }
+
+        return $bobot > 0 ? [round($sum / $bobot, 2), $bobot] : [null, 0.0];
+    }
+}

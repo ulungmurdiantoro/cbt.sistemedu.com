@@ -8,7 +8,9 @@ use App\Models\Grade;
 use App\Models\GradingScheme;
 use App\Models\InterviewAssessment;
 use App\Models\ParticipantResult;
+use App\Models\PraktikScore;
 use App\Models\Student;
+use App\Support\NilaiPraktik;
 
 class ResultCalculatorService
 {
@@ -80,6 +82,18 @@ class ResultCalculatorService
             ->whereIn('student_id', $studentIds)
             ->pluck('total_nilai', 'student_id');
 
+        // Ujian Praktik sebagai komponen sendiri (bobot per bagian di Komposisi Nilai, mis. Lifting) — lihat NilaiPraktik
+        $praktikWeights = NilaiPraktik::weights($session, $scheme);
+        $praktikScores  = $praktikWeights
+            ? PraktikScore::where('exam_session_id', $session->id)
+                ->whereIn('student_id', $studentIds)
+                ->whereIn('bagian', array_keys($praktikWeights))
+                ->whereNotNull('score')
+                ->get(['student_id', 'bagian', 'score'])
+                ->groupBy('student_id')
+                ->map(fn ($rows) => $rows->pluck('score', 'bagian')->all())
+            : collect();
+
         $existingResults = ParticipantResult::where('exam_session_id', $session->id)
             ->whereIn('student_id', $studentIds)
             ->get()
@@ -91,12 +105,14 @@ class ResultCalculatorService
             $nilaiPg        = isset($pgGrades[$studentId])        ? (float) $pgGrades[$studentId]                  : null;
             $nilaiEsai      = isset($esaiScores[$studentId])      ? round((float) $esaiScores[$studentId], 2)      : null;
             $nilaiWawancara = isset($wawancaraScores[$studentId]) ? (float) $wawancaraScores[$studentId]           : null;
+            [$nilaiPraktik, $bobotPraktik] = NilaiPraktik::combine($praktikScores->get($studentId, []), $praktikWeights);
 
             // Normalise weights based on which components exist
             $bobotTotal = 0;
             if ($session->exam_id_pg   && $nilaiPg        !== null) $bobotTotal += $bobotPg;
             if ($session->exam_id_esai && $nilaiEsai      !== null) $bobotTotal += $bobotEsai;
             if ($session->has_wawancara && $nilaiWawancara !== null) $bobotTotal += $bobotWawancara;
+            if ($nilaiPraktik !== null) $bobotTotal += $bobotPraktik;
 
             $nilaiAkhir = null;
             if ($bobotTotal > 0) {
@@ -104,6 +120,7 @@ class ResultCalculatorService
                 if ($nilaiPg        !== null) $sum += $nilaiPg        * ($bobotPg        / $bobotTotal);
                 if ($nilaiEsai      !== null) $sum += $nilaiEsai      * ($bobotEsai      / $bobotTotal);
                 if ($nilaiWawancara !== null) $sum += $nilaiWawancara * ($bobotWawancara / $bobotTotal);
+                if ($nilaiPraktik   !== null) $sum += $nilaiPraktik   * ($bobotPraktik   / $bobotTotal);
                 $nilaiAkhir = round($sum, 2);
             }
 
@@ -124,6 +141,7 @@ class ResultCalculatorService
                 $result->nilai_pg        = $nilaiPg;
                 $result->nilai_esai      = $nilaiEsai;
                 $result->nilai_wawancara = $nilaiWawancara;
+                $result->nilai_praktik   = $nilaiPraktik;
                 $result->nilai_akhir     = $nilaiAkhir;
                 $result->keputusan       = $keputusan;
             }

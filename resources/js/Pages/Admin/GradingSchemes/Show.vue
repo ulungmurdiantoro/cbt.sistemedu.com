@@ -53,6 +53,18 @@
                                         <span class="badge bg-warning text-gray-800">{{ form.bobot_wawancara }}%</span>
                                     </td>
                                 </tr>
+                                <!-- Ujian Praktik dinilai terpisah (mis. Lifting) -->
+                                <tr v-if="bobotPraktik > 0">
+                                    <td>
+                                        <div class="fw-bolder small">Ujian Praktik</div>
+                                        <div class="text-muted" style="font-size:0.78rem">Dinilai asesor per bagian (halaman Nilai Praktik)</div>
+                                    </td>
+                                    <td class="text-center fw-bold">{{ bobotPraktik }}%</td>
+                                    <td class="text-center">
+                                        <span v-if="form.bobot_praktik_1 > 0" class="badge bg-danger me-1">Bagian 1 {{ form.bobot_praktik_1 }}%</span>
+                                        <span v-if="form.bobot_praktik_2 > 0" class="badge bg-danger">Bagian 2 {{ form.bobot_praktik_2 }}%</span>
+                                    </td>
+                                </tr>
                                 <!-- Total -->
                                 <tr class="table-secondary">
                                     <td class="fw-bolder small">Total</td>
@@ -113,6 +125,30 @@
                             </div>
                         </div>
 
+                        <div class="mb-3 border rounded p-2 bg-gray-100">
+                            <label class="fw-bolder small">Ujian Praktik dinilai terpisah <span class="text-muted fw-normal">(opsional)</span></label>
+                            <div class="form-text mt-0 mb-2">
+                                Isi bila skema menilai praktik sebagai komponen sendiri per bagian (mis. Lifting: Calculation 50%, Gambar 30%).
+                                Biarkan 0 bila keterampilan dinilai lewat wawancara (kriteria Worksheet).
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text">Bagian 1</span>
+                                        <input type="number" class="form-control" v-model.number="form.bobot_praktik_1" min="0" max="100" step="0.01" @input="syncBobotLisan">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text">Bagian 2</span>
+                                        <input type="number" class="form-control" v-model.number="form.bobot_praktik_2" min="0" max="100" step="0.01" @input="syncBobotLisan">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mb-4">
                             <label class="fw-bolder small">Nilai Kelulusan <span class="text-danger">*</span></label>
                             <div class="input-group mt-1">
@@ -163,16 +199,20 @@ export default {
             bobot_ujian_tulis: props.scheme?.bobot_ujian_tulis ?? 70,
             proporsi_pg:       props.scheme?.proporsi_pg       ?? 65,
             bobot_wawancara:   props.scheme?.bobot_wawancara   ?? 30,
+            bobot_praktik_1:   props.scheme?.bobot_praktik_1   ?? 0,
+            bobot_praktik_2:   props.scheme?.bobot_praktik_2   ?? 0,
             nilai_kelulusan:   props.scheme?.nilai_kelulusan   ?? 60,
         });
 
         const proporsiEsai     = computed(() => +(100 - form.proporsi_pg).toFixed(2));
         const bobotPgEfektif   = computed(() => +(form.bobot_ujian_tulis * form.proporsi_pg / 100).toFixed(2));
         const bobotEsaiEfektif = computed(() => +(form.bobot_ujian_tulis * (100 - form.proporsi_pg) / 100).toFixed(2));
-        const totalBobot       = computed(() => +(form.bobot_ujian_tulis + form.bobot_wawancara).toFixed(2));
+        const bobotPraktik     = computed(() => +((Number(form.bobot_praktik_1) || 0) + (Number(form.bobot_praktik_2) || 0)).toFixed(2));
+        const totalBobot       = computed(() => +(form.bobot_ujian_tulis + form.bobot_wawancara + bobotPraktik.value).toFixed(2));
 
-        const syncBobotLisan = () => { form.bobot_wawancara = +(100 - form.bobot_ujian_tulis).toFixed(2); };
-        const syncBobotTulis = () => { form.bobot_ujian_tulis = +(100 - form.bobot_wawancara).toFixed(2); };
+        // Lisan menyesuaikan Tulis & Praktik; Tulis menyesuaikan Lisan & Praktik (total 100)
+        const syncBobotLisan = () => { form.bobot_wawancara = Math.max(0, +(100 - form.bobot_ujian_tulis - bobotPraktik.value).toFixed(2)); };
+        const syncBobotTulis = () => { form.bobot_ujian_tulis = Math.max(0, +(100 - form.bobot_wawancara - bobotPraktik.value).toFixed(2)); };
 
         const submit = () => {
             if (totalBobot.value !== 100) return;
@@ -184,7 +224,7 @@ export default {
 
         return {
             form, processing, editMode,
-            proporsiEsai, bobotPgEfektif, bobotEsaiEfektif, totalBobot,
+            proporsiEsai, bobotPgEfektif, bobotEsaiEfektif, bobotPraktik, totalBobot,
             syncBobotLisan, syncBobotTulis, submit,
         };
     },

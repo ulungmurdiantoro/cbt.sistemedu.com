@@ -9,7 +9,9 @@ use App\Models\AssessmentApplication;
 use App\Models\ExamSession;
 use App\Models\Grade;
 use App\Models\InterviewAssessment;
+use App\Models\PraktikScore;
 use App\Models\Student;
+use App\Support\NilaiPraktik;
 use Illuminate\Support\Collection;
 
 class DashboardController extends Controller
@@ -28,7 +30,7 @@ class DashboardController extends Controller
             ->pluck('exam_session_id')
             ->unique();
 
-        $all = ExamSession::with('examPg.classroom', 'examEsai.classroom')
+        $all = ExamSession::with('examPg.classroom', 'examEsai.classroom', 'examPraktik.classroom')
             ->whereIn('id', $session_ids)
             ->orderBy('end_time', 'desc')
             ->get()
@@ -38,6 +40,8 @@ class DashboardController extends Controller
                     ->pluck('student_id');
 
                 $session->student_count = $studentIds->count();
+                // Bagian Ujian Praktik yang dinilai terpisah (mis. Lifting) → tombol Nilai Praktik
+                $session->praktik_weights = NilaiPraktik::weights($session);
                 $session->progress      = $session->id >= self::PROGRESS_FROM_SESSION_ID
                     ? $this->progress($session, $studentIds)
                     : null;
@@ -60,7 +64,8 @@ class DashboardController extends Controller
      * Kelengkapan tugas asesor di satu sesi, atas peserta aktif yang ditugaskan kepadanya:
      * - ak01      : peserta yang punya permohonan sudah ditandatangani FR.AK.01-nya;
      * - esai      : semua jawaban esai sudah dinilai (peserta yang tidak mengerjakan tidak dihitung);
-     * - wawancara : peserta yang sudah mulai ujian punya nilai wawancara.
+     * - wawancara : peserta yang sudah mulai ujian punya nilai wawancara;
+     * - praktik   : (skema dengan bobot praktik) peserta yang sudah mulai ujian punya nilai di semua bagian praktik.
      * Sesi baru "complete" kalau semuanya lengkap DAN sudah ada peserta yang mulai ujian —
      * supaya sesi yang belum berjalan tidak langsung pindah ke Sesi Selesai.
      */
@@ -105,6 +110,20 @@ class DashboardController extends Controller
                 'done'  => InterviewAssessment::where('exam_session_id', $session->id)
                     ->whereIn('student_id', $started)
                     ->whereNotNull('total_nilai')
+                    ->count(),
+                'total' => $started->count(),
+            ];
+        }
+
+        if ($bagian = array_keys($session->praktik_weights ?? [])) {
+            $items['praktik'] = [
+                'done'  => PraktikScore::where('exam_session_id', $session->id)
+                    ->whereIn('student_id', $started)
+                    ->whereIn('bagian', $bagian)
+                    ->whereNotNull('score')
+                    ->get(['student_id'])
+                    ->countBy('student_id')
+                    ->filter(fn (int $n) => $n >= count($bagian))
                     ->count(),
                 'total' => $started->count(),
             ];

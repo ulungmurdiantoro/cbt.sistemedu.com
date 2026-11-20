@@ -7,6 +7,18 @@
   "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai Corporate Legal.pdf",
   "praktik": "FR.IA.04 Pertanyaan dan Jawaban Tugas Keterampilan Corporate Legal Officer-.docx (hanya Studi Kasus 2 — Surat Kuasa Khusus)"
  },
+ "durasi": {
+  "pg": 120,
+  "esai": 90
+ },
+ "komposisi": {
+  "bobot_ujian_tulis": 70,
+  "proporsi_pg": 65,
+  "bobot_wawancara": 30,
+  "bobot_praktik_1": 0,
+  "bobot_praktik_2": 0,
+  "nilai_kelulusan": 60
+ },
  "pilihan_ganda": [
   {
    "no": 1,

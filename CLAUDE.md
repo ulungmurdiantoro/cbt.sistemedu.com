@@ -218,6 +218,19 @@ No Peserta | Nama | Gaya Wawancara | Penguasaan Materi | Kemampuan Menghadapi Pe
   - Contoh: (88 + 86 + 86 + 88) / 4 = **87**
 - Bobot wawancara diterapkan **sekali** di `ResultCalculatorService` (bukan di controller)
 
+### Nilai Praktik (komponen terpisah, mis. Lifting)
+Komposisi Nilai skema (`grading_schemes`, form `/admin/classrooms/{id}/grading-scheme`) = Ujian Tulis (`bobot_ujian_tulis`,
+`proporsi_pg`) + Lisan & Keterampilan (`bobot_wawancara`; keterampilan = kriteria Worksheet = 25% wawancara) +
+**Ujian Praktik per bagian** (`bobot_praktik_1/2`, persen nilai akhir; total ketiganya 100). Bila bobot praktik > 0 dan sesi
+memilih bagian praktik itu (`App\Support\NilaiPraktik::weights()`), asesor mengisi nilai per bagian di
+`/asesor/penilaian/{sesi}/praktik` (`asesor.praktik.show/store`, tabel `praktik_scores` unik sesi+peserta+bagian, tombol
+"Praktik" di kartu sesi + progres). `ResultCalculatorService` menghitung `participant_results.nilai_praktik` = rata-rata
+berbobot bagian yang sudah dinilai (`NilaiPraktik::combine`) dan memakainya seperti komponen lain (normalisasi bobot
+komponen yang ada). Tampil di Rekap Hasil (kolom Praktik, rincian per bagian), Rekap Nilai asesor, Tinjau Sertifikasi,
+tahap "Nilai" (`ResultProgressService`) & Pipeline dashboard. SK: kolom pertama jadi "NILAI PRAKTIK" bila ada nilai praktik
+tanpa wawancara; SP: kolom NILAI PRAKTIK berisi `nilai_praktik ?? nilai_wawancara`. Lifting V2: PG 20 + Calculation 50 +
+Gambar 30, lulus ≥ 70 (sesi Lifting tanpa wawancara). Skema lain (CLO/K3L/ESG V2): Tulis 70 (PG 65/Esai 35) + Lisan 30, lulus ≥ 60.
+
 ---
 
 ## Alur Kelulusan: Pengambil Keputusan → Manager Sertifikasi
@@ -350,6 +363,10 @@ FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda 
   `exms-v2-lifting-praktik`, judul "… - Ujian Praktik V2 - Calculation"), bagian 2 Gambar 180 mnt (`exms-v2-lifting-praktik-2`).
   Template `lifting-calculation.zip` & `lifting-gambar.zip`. `--perbarui-praktik` juga menyamakan judul, jadi ujian Lifting
   gabungan yang sudah terpasang berubah jadi bagian 1 dan bagian 2 dibuat baru.
+- Paket juga membawa `durasi` (`pg`/`esai`, menit) dan `komposisi` (isian form Komposisi Nilai) per skema dari dokumen skema R2.
+  Ujian baru memakai durasi paket; Komposisi Nilai dibuat bila skema belum punya. Yang sudah ada & berbeda disamakan dengan
+  **`--perbarui`** (alias lama `--perbarui-praktik`): durasi PG/Esai hanya bila belum ada peserta yang mulai (`grades.start_time`),
+  Komposisi Nilai berlaku per skema — hasil sesi lama yang belum Final ikut dihitung ulang saat Rekap dibuka.
 - Data rusak (kunci di luar opsi, gambar hilang, dll.) → perintah gagal tanpa memasang apa pun.
 
 ---
