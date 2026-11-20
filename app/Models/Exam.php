@@ -9,8 +9,8 @@ class Exam extends Model
 {
     use HasFactory;
 
-    /** Ujian Praktik: panduan + template yang diunduh peserta, hasilnya diunggah (lihat App\Support\UjianPraktik). */
-    public const TYPE_PRAKTIK = 'Ujian Praktik';
+    /** Ujian Praktik/Keterampilan: panduan + template yang diunduh peserta, hasilnya diunggah (lihat App\Support\UjianPraktik). */
+    public const TYPE_PRAKTIK = 'Ujian Praktik/Keterampilan';
 
     /**
      * fillable
@@ -35,13 +35,13 @@ class Exam extends Model
 
     protected function casts(): array
     {
-        // Aspek penilaian Ujian Praktik: [{no, nama, bobot}] — lihat App\Support\NilaiPraktik::aspekScore()
+        // Aspek penilaian Ujian Praktik/Keterampilan: [{no, nama, bobot}] — lihat App\Support\NilaiPraktik::aspekScore()
         return ['praktik_aspek' => 'array'];
     }
 
     /**
      * Path file template di disk private & rubrik penilaian asesor — jangan dikirim ke browser
-     * (rubrik dikirim eksplisit hanya ke halaman Nilai Praktik / Nilai Esai asesor).
+     * (rubrik dikirim eksplisit hanya ke halaman Nilai Praktik/Keterampilan / Nilai Esai asesor).
      */
     protected $hidden = ['praktik_template_path', 'praktik_rubrik', 'praktik_aspek', 'esai_panduan'];
 

@@ -39,7 +39,7 @@ class GradingSchemeController extends Controller
             'proporsi_pg'       => 'required|numeric|min:0|max:100',
             'nilai_kelulusan'   => 'required|numeric|min:0|max:100',
             'bobot_wawancara'   => 'required|numeric|min:0|max:100',
-            // Ujian Praktik dinilai terpisah per bagian (mis. Lifting: Calculation 50, Gambar 30) — 0 = lewat wawancara
+            // Ujian Praktik/Keterampilan dinilai terpisah per bagian (mis. Lifting: Calculation 50, Gambar 30) — 0 = lewat wawancara
             'bobot_praktik_1'   => 'nullable|numeric|min:0|max:100',
             'bobot_praktik_2'   => 'nullable|numeric|min:0|max:100',
         ]);
@@ -49,7 +49,7 @@ class GradingSchemeController extends Controller
         $total = round($data['bobot_ujian_tulis'] + $data['bobot_wawancara'] + $data['bobot_praktik_1'] + $data['bobot_praktik_2'], 2);
         if (abs($total - 100) > 0.01) {
             return back()->withErrors([
-                'bobot_ujian_tulis' => "Total Ujian Tulis + Ujian Lisan + Ujian Praktik harus 100%. Saat ini: {$total}%",
+                'bobot_ujian_tulis' => "Total Ujian Tulis + Ujian Lisan + Ujian Praktik/Keterampilan harus 100%. Saat ini: {$total}%",
             ]);
         }
 

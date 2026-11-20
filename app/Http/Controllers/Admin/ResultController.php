@@ -65,7 +65,7 @@ class ResultController extends Controller
         $studentIds = $results->pluck('student_id');
         $students   = Student::whereIn('id', $studentIds)->with('participant', 'classroom')->get()->keyBy('id');
 
-        // Per peserta: daftar unggahan per bagian (Ujian Praktik bisa dua bagian; Upload Tugas = bagian 1)
+        // Per peserta: daftar unggahan per bagian (Ujian Praktik/Keterampilan bisa dua bagian; Upload Tugas = bagian 1)
         $tugas = StudentTask::where('exam_session_id', $examSession->id)
             ->whereIn('student_id', $studentIds)
             ->orderBy('bagian')
@@ -98,7 +98,7 @@ class ResultController extends Controller
                 ->keyBy('student_id')
             : collect();
 
-        // Ujian Praktik dinilai terpisah per bagian (mis. Lifting) → kolom Praktik + rincian per bagian
+        // Ujian Praktik/Keterampilan dinilai terpisah per bagian (mis. Lifting) → kolom Praktik + rincian per bagian
         $praktikWeights = \App\Support\NilaiPraktik::weights($examSession);
         $praktikScores = $praktikWeights
             ? \App\Models\PraktikScore::where('exam_session_id', $examSession->id)
@@ -173,7 +173,7 @@ class ResultController extends Controller
             // Kolom Tugas disembunyikan untuk skema yang tidak wajib upload tugas
             // (Student::requiresTugas), kecuali ada yang tetap mengunggah.
             'show_tugas'   => $tugas->isNotEmpty() || $students->contains(fn (Student $s) => $s->requiresTugasFor($examSession->id)),
-            // Judul bagian Ujian Praktik ({bagian: judul}) bila sesi punya lebih dari satu bagian
+            // Judul bagian Ujian Praktik/Keterampilan ({bagian: judul}) bila sesi punya lebih dari satu bagian
             'tugas_parts'  => \App\Support\UjianPraktik::partTitles($examSession->id),
             // Bagian praktik yang dinilai terpisah: [{bagian, title, bobot}] — kosong = praktik lewat wawancara
             'praktik_parts' => collect($praktikWeights)->map(fn (float $bobot, int $bagian) => [
@@ -238,7 +238,7 @@ class ResultController extends Controller
         return AnswerFile::download($task->file_path, $task->original_filename);
     }
 
-    /** Judul bagian Ujian Praktik — hanya untuk sesi dengan lebih dari satu bagian. */
+    /** Judul bagian Ujian Praktik/Keterampilan — hanya untuk sesi dengan lebih dari satu bagian. */
     private function partTitle(ExamSession $examSession, StudentTask $task): ?string
     {
         $parts = \App\Support\UjianPraktik::parts($examSession->id);
@@ -246,7 +246,7 @@ class ResultController extends Controller
         return count($parts) > 1 ? ($parts[$task->bagian]->title ?? null) : null;
     }
 
-    /** Unggahan peserta; ?bagian=2 untuk bagian 2 Ujian Praktik (bawaan bagian 1). */
+    /** Unggahan peserta; ?bagian=2 untuk bagian 2 Ujian Praktik/Keterampilan (bawaan bagian 1). */
     private function task(ExamSession $examSession, Student $student): StudentTask
     {
         $task = StudentTask::where('exam_session_id', $examSession->id)

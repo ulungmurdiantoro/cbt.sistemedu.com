@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-/** Waktu mulai Ujian Praktik berwaktu seorang peserta pada satu sesi (lihat App\Support\UjianPraktik). */
+/** Waktu mulai Ujian Praktik/Keterampilan berwaktu seorang peserta pada satu sesi (lihat App\Support\UjianPraktik). */
 class StudentPraktikAttempt extends Model
 {
     protected $fillable = ['student_id', 'exam_session_id', 'bagian', 'exam_id', 'started_at', 'durasi'];

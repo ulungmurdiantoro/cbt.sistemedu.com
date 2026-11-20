@@ -34,7 +34,7 @@
                                         <td><StatusBadge :tone="tipeTone(exam.type)" :label="exam.type" /></td>
                                         <td class="cell-wrap">{{ exam.classroom?.title }}</td>
                                         <td v-if="exam.type == 'Pilihan Ganda'" class="text-center">{{ exam.questions.length }}</td>
-                                        <td v-else-if="exam.type == 'Ujian Praktik'" class="text-center text-muted">—</td>
+                                        <td v-else-if="exam.type == 'Ujian Praktik/Keterampilan'" class="text-center text-muted">—</td>
                                         <td v-else class="text-center">{{ exam.essays.length }}</td>
                                         <!-- <td class="text-center">{{ exam.questions.length }}</td> -->
                                         <td class="text-center">{{ exam.id }}</td>
@@ -117,7 +117,7 @@
                 if (type === 'Pilihan Ganda') return 'accent';
                 if (type === 'Essay') return 'success';
                 if (type === 'Essay Migas') return 'secondary';
-                if (type === 'Ujian Praktik') return 'danger';
+                if (type === 'Ujian Praktik/Keterampilan') return 'danger';
                 return 'neutral';
             };
 

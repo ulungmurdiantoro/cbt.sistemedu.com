@@ -32,7 +32,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('/exams', \App\Http\Controllers\Admin\ExamController::class, ['as' => 'admin']);
 
         // Soal pilihan ganda
-        // Ujian Praktik: unduh template (pratinjau admin)
+        // Ujian Praktik/Keterampilan: unduh template (pratinjau admin)
         Route::get('/exams/{exam}/praktik-template',               [\App\Http\Controllers\Admin\ExamController::class, 'praktikTemplate'])->name('admin.exams.praktikTemplate');
         Route::get('/exams/{exam}/questions/import',               [\App\Http\Controllers\Admin\ExamController::class, 'import'])->name('admin.exam.questionImport');
         Route::post('/exams/{exam}/questions/import',              [\App\Http\Controllers\Admin\ExamController::class, 'storeImport'])->name('admin.exam.questionStoreImport');
@@ -185,7 +185,7 @@ Route::prefix('asesor')->middleware(['auth', 'asesor'])->group(function () {
 
     Route::get('/penilaian/{exam_session_id}/wawancara',  [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'show'])->name('asesor.wawancara.show');
     Route::post('/penilaian/{exam_session_id}/wawancara', [\App\Http\Controllers\Asesor\InterviewAssessmentController::class, 'store'])->name('asesor.wawancara.store');
-    // Nilai Ujian Praktik per bagian (skema dengan bobot praktik, mis. Lifting: Calculation & Gambar)
+    // Nilai Ujian Praktik/Keterampilan per bagian (skema dengan bobot praktik, mis. Lifting: Calculation & Gambar)
     Route::get('/penilaian/{exam_session_id}/praktik',  [\App\Http\Controllers\Asesor\PraktikScoreController::class, 'show'])->name('asesor.praktik.show');
     Route::post('/penilaian/{exam_session_id}/praktik', [\App\Http\Controllers\Asesor\PraktikScoreController::class, 'store'])->name('asesor.praktik.store');
     Route::get('/penilaian/{exam_session_id}/praktik/peserta/{student_id}', [\App\Http\Controllers\Asesor\PraktikScoreController::class, 'grade'])->name('asesor.praktik.grade');

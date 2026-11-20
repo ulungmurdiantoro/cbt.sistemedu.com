@@ -37,7 +37,7 @@
                                 <div class="fw-bolder">{{ exam_session.exam_esai?.title ?? '—' }}</div>
                             </div>
                             <div class="col-6 col-md-3">
-                                <div class="text-muted">Ujian Praktik</div>
+                                <div class="text-muted">Ujian Praktik/Keterampilan</div>
                                 <div class="fw-bolder">
                                     <template v-if="exam_session.exam_praktik">
                                         <span v-if="exam_session.exam_praktik2" class="text-muted fw-normal">1.</span>

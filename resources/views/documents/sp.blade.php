@@ -325,7 +325,7 @@ body { font-family: Cambria, 'Times New Roman', Times, serif; font-size: 12pt; c
 <table class="nilai-table">
     <tbody>
         <tr>
-            <td rowspan="2" class="nth" style="width:20%;">NILAI<br>PRAKTIK</td>
+            <td rowspan="2" class="nth" style="width:20%;">NILAI<br>PRAKTIK/<br>KETERAMPILAN</td>
             <td rowspan="2" class="nth" style="width:22%;">NILAI PILIHAN<br>GANDA</td>
             <td rowspan="2" class="nth" style="width:16%;">NILAI ESAI</td>
             <td colspan="2" class="nth" style="width:42%;">REKAPITULASI HASIL ASESMEN</td>

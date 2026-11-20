@@ -6,12 +6,12 @@ use App\Models\ExamSession;
 use App\Models\GradingScheme;
 
 /**
- * Nilai Ujian Praktik sebagai komponen nilai sendiri. Berlaku bila Komposisi Nilai skema memberi bobot praktik
+ * Nilai Ujian Praktik/Keterampilan sebagai komponen nilai sendiri. Berlaku bila Komposisi Nilai skema memberi bobot praktik
  * (grading_schemes.bobot_praktik_1/2 > 0, persen dari nilai akhir) DAN sesi memilih bagian praktik tersebut.
  * Contoh Lifting: PG 20 + Calculation (bagian 1) 50 + Gambar (bagian 2) 30.
  *
  * Skema tanpa bobot praktik (mis. Corporate Legal, HSE, ESG) tetap menilai keterampilan lewat kriteria
- * "Hasil Pengerjaan Worksheet" di wawancara — halaman Nilai Praktik tidak dipakai.
+ * "Hasil Pengerjaan Worksheet" di wawancara — halaman Nilai Praktik/Keterampilan tidak dipakai.
  */
 class NilaiPraktik
 {
@@ -80,7 +80,7 @@ class NilaiPraktik
     }
 
     /**
-     * Nilai praktik gabungan dari nilai per bagian ([bagian => nilai|null]) — rata-rata berbobot bagian yang sudah
+     * Nilai praktik/keterampilan gabungan dari nilai per bagian ([bagian => nilai|null]) — rata-rata berbobot bagian yang sudah
      * dinilai — dan jumlah bobotnya (dipakai ResultCalculatorService seperti bobot komponen lain).
      *
      * @return array{0: ?float, 1: float}  [nilai 0–100 atau null, bobot]

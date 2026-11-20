@@ -28,7 +28,7 @@
                                             <option value="Pilihan Ganda">Pilihan Ganda</option>
                                             <option value="Essay">Essay</option>
                                             <option value="Essay Migas">Essay Migas</option>
-                                            <option value="Ujian Praktik">Ujian Praktik</option>
+                                            <option value="Ujian Praktik/Keterampilan">Ujian Praktik/Keterampilan</option>
                                         </select>
                                         <div v-if="errors.type" class="alert alert-danger mt-2">
                                             {{ errors.type }}
@@ -115,9 +115,9 @@
                                 </div>
                             </div>
 
-                            <!-- Ujian Praktik: panduan + template yang diunduh peserta, hasilnya diunggah ulang -->
+                            <!-- Ujian Praktik/Keterampilan: panduan + template yang diunduh peserta, hasilnya diunggah ulang -->
                             <div v-if="isPraktik" class="border rounded p-3 mb-4">
-                                <h6 class="fw-bolder mb-3"><i class="fa fa-clipboard-check me-1"></i> Ujian Praktik</h6>
+                                <h6 class="fw-bolder mb-3"><i class="fa fa-clipboard-check me-1"></i> Ujian Praktik/Keterampilan</h6>
                                 <div class="mb-3">
                                     <label>Panduan untuk peserta</label>
                                     <textarea class="form-control" rows="8" v-model="form.praktik_panduan"
@@ -133,14 +133,14 @@
                                     </div>
                                     <input type="file" class="form-control" :accept="file_accept" @change="form.template = $event.target.files[0] ?? null">
                                     <div class="form-text">
-                                        {{ templateName ? 'Pilih file hanya bila ingin mengganti template.' : 'Wajib untuk Ujian Praktik.' }}
+                                        {{ templateName ? 'Pilih file hanya bila ingin mengganti template.' : 'Wajib untuk Ujian Praktik/Keterampilan.' }}
                                         Tipe file: {{ file_accept }} — maks. 20 MB.
                                     </div>
                                     <div v-if="errors.template" class="alert alert-danger mt-2">{{ errors.template }}</div>
                                 </div>
                                 <div class="form-text mt-3">
-                                    Pilih ujian ini di form <strong>Sesi Ujian</strong> (kolom Ujian Praktik). Durasi 0 = tanpa batas waktu; bila diisi,
-                                    waktu berjalan sejak peserta menekan Mulai Ujian Praktik dan unggahan ditutup saat waktu habis.
+                                    Pilih ujian ini di form <strong>Sesi Ujian</strong> (kolom Ujian Praktik/Keterampilan). Durasi 0 = tanpa batas waktu; bila diisi,
+                                    waktu berjalan sejak peserta menekan Mulai Ujian Praktik/Keterampilan dan unggahan ditutup saat waktu habis.
                                 </div>
                             </div>
 
@@ -211,7 +211,7 @@
                 template: null,
             });
 
-            const isPraktik    = computed(() => form.type === 'Ujian Praktik');
+            const isPraktik    = computed(() => form.type === 'Ujian Praktik/Keterampilan');
             const templateName = null;
             const templateUrl  = null;
 

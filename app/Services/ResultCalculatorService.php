@@ -82,7 +82,7 @@ class ResultCalculatorService
             ->whereIn('student_id', $studentIds)
             ->pluck('total_nilai', 'student_id');
 
-        // Ujian Praktik sebagai komponen sendiri (bobot per bagian di Komposisi Nilai, mis. Lifting) — lihat NilaiPraktik
+        // Ujian Praktik/Keterampilan sebagai komponen sendiri (bobot per bagian di Komposisi Nilai, mis. Lifting) — lihat NilaiPraktik
         $praktikWeights = NilaiPraktik::weights($session, $scheme);
         $praktikScores  = $praktikWeights
             ? PraktikScore::where('exam_session_id', $session->id)

@@ -53,7 +53,7 @@
 
                                         <td class="text-center text-nowrap">
                                             <template v-if="students[i] && tugas[students[i].id]">
-                                                <!-- Satu tombol per unggahan; Ujian Praktik dua bagian → tombol bernomor bagian -->
+                                                <!-- Satu tombol per unggahan; Ujian Praktik/Keterampilan dua bagian → tombol bernomor bagian -->
                                                 <a v-for="t in tugas[students[i].id]" :key="t.bagian"
                                                     :href="tugasUrl(students[i], t.bagian)" target="_blank"
                                                     :title="tugasTitle(t)"
@@ -135,7 +135,7 @@
                                 <div class="col-md-6"><span class="fw-bolder">(C) Pertanyaan</span> — Kemampuan Menghadapi Pertanyaan</div>
                                 <div v-if="!praktik_terpisah" class="col-md-6"><span class="fw-bolder">(D) Worksheet</span> — Hasil Pengerjaan Worksheet Ujian Keterampilan</div>
                             </div>
-                            <div v-if="praktik_terpisah" class="mt-1">* Total = rata-rata (A + B + C). Ujian Keterampilan dinilai di halaman <strong>Nilai Praktik</strong> (tombol Praktik di dashboard).</div>
+                            <div v-if="praktik_terpisah" class="mt-1">* Total = rata-rata (A + B + C). Ujian Keterampilan dinilai di halaman <strong>Nilai Praktik/Keterampilan</strong> (tombol Praktik/Keterampilan di dashboard).</div>
                             <div class="mt-1">* Total = rata-rata kriteria — bobot {{ (bobot * 100).toFixed(1) }}% baru diterapkan saat menghitung Nilai Akhir</div>
                         </div>
                 </SectionCard>
@@ -163,10 +163,10 @@ export default {
         assessments: Object,
         // { [student_id]: [{ bagian, original_filename }] }
         tugas: Object,
-        // Judul bagian Ujian Praktik { [bagian]: judul } — kosong bila hanya satu bagian
+        // Judul bagian Ujian Praktik/Keterampilan { [bagian]: judul } — kosong bila hanya satu bagian
         tugas_parts: { type: Object, default: () => ({}) },
         bobot: Number,
-        // Keterampilan dinilai di halaman Nilai Praktik → kolom (D) Worksheet disembunyikan
+        // Keterampilan dinilai di halaman Nilai Praktik/Keterampilan → kolom (D) Worksheet disembunyikan
         praktik_terpisah: { type: Boolean, default: false },
     },
 

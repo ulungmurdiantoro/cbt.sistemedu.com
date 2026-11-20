@@ -135,9 +135,9 @@
 
                         <!-- Upload tugas (sama dengan student/tugas/{sesi} di portal ujian) -->
                         <div v-if="app.tugas && !app.result?.is_finalized" class="border rounded p-3 mb-2">
-                            <!-- Ujian Praktik berwaktu / beberapa bagian: hanya dari portal ujian (waktu per bagian dicatat di sana) -->
+                            <!-- Ujian Praktik/Keterampilan berwaktu / beberapa bagian: hanya dari portal ujian (waktu per bagian dicatat di sana) -->
                             <template v-if="app.tugas.exam_portal_only && app.tugas.parts?.length > 1">
-                                <h6 class="fw-bold small mb-1"><i class="fa fa-stopwatch me-1 text-muted"></i>Ujian Praktik ({{ app.tugas.parts.length }} bagian)</h6>
+                                <h6 class="fw-bold small mb-1"><i class="fa fa-stopwatch me-1 text-muted"></i>Ujian Praktik/Keterampilan ({{ app.tugas.parts.length }} bagian)</h6>
                                 <p class="small text-muted mb-2">
                                     Dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta), sebelum mengerjakan ujian lain.
                                     Setiap bagian dimulai, diberi waktu, dan diunggah sendiri.
@@ -150,17 +150,17 @@
                                 </ul>
                             </template>
                             <template v-else-if="app.tugas.exam_portal_only">
-                                <h6 class="fw-bold small mb-1"><i class="fa fa-stopwatch me-1 text-muted"></i>Ujian Praktik ({{ app.tugas.durasi }} menit)</h6>
+                                <h6 class="fw-bold small mb-1"><i class="fa fa-stopwatch me-1 text-muted"></i>Ujian Praktik/Keterampilan ({{ app.tugas.durasi }} menit)</h6>
                                 <p class="small text-muted mb-2">
-                                    Ujian Praktik ini berbatas waktu dan dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta),
-                                    sebelum mengerjakan ujian lain. Waktu berjalan sejak Anda menekan Mulai Ujian Praktik.
+                                    Ujian Praktik/Keterampilan ini berbatas waktu dan dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta),
+                                    sebelum mengerjakan ujian lain. Waktu berjalan sejak Anda menekan Mulai Ujian Praktik/Keterampilan.
                                 </p>
                                 <div v-if="app.tugas.file" class="alert alert-success p-2 small mb-0">
                                     <i class="fa fa-check-circle me-1"></i>Hasil sudah diunggah: <strong>{{ app.tugas.file.name }}</strong>
                                 </div>
                             </template>
                             <template v-else-if="app.tugas.praktik">
-                                <h6 class="fw-bold small mb-1"><i class="fa fa-clipboard-check me-1 text-muted"></i>Ujian Praktik</h6>
+                                <h6 class="fw-bold small mb-1"><i class="fa fa-clipboard-check me-1 text-muted"></i>Ujian Praktik/Keterampilan</h6>
                                 <p class="small text-muted mb-2">
                                     Baca panduan, unduh template, isi sesuai panduan, lalu unggah kembali sebelum mengerjakan ujian.
                                 </p>

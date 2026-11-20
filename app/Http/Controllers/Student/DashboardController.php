@@ -27,13 +27,13 @@ class DashboardController extends Controller
 
         //wajib upload tugas sebelum ujian, kecuali skema yang dikecualikan
         //(lihat Student::requiresTugas) — tugas ini nantinya dilihat asesor
-        //saat menilai wawancara peserta. Sesi yang memilih Ujian Praktik wajib
+        //saat menilai wawancara peserta. Sesi yang memilih Ujian Praktik/Keterampilan wajib
         //untuk semua skema (Student::requiresTugasFor) → tugas_required_by_session.
         $requires_tugas = $student->requiresTugas();
 
-        // Per sesi: "Tugas" atau "Ujian Praktik" (sesi memilih ujian praktik); sudah diunggah semua bagian;
-        // selesai tanpa unggahan lengkap (Ujian Praktik berwaktu yang habis waktunya — ujian lain tetap terbuka);
-        // dan progres bila Ujian Praktik terdiri dari beberapa bagian.
+        // Per sesi: "Tugas" atau "Ujian Praktik/Keterampilan" (sesi memilih ujian praktik/keterampilan); sudah diunggah semua bagian;
+        // selesai tanpa unggahan lengkap (Ujian Praktik/Keterampilan berwaktu yang habis waktunya — ujian lain tetap terbuka);
+        // dan progres bila Ujian Praktik/Keterampilan terdiri dari beberapa bagian.
         $tugas_required_by_session = [];
         $tugas_by_session         = [];
         $tugas_label_by_session   = [];

@@ -131,7 +131,7 @@
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_pg">PG</th>
                                 <th class="border-0 text-center" v-if="exam_session.exam_id_esai">Esai</th>
                                 <th class="border-0 text-center" v-if="exam_session.has_wawancara">Wawancara</th>
-                                <th class="border-0 text-center" v-if="praktik_parts.length">Praktik</th>
+                                <th class="border-0 text-center" v-if="praktik_parts.length">Praktik/Keterampilan</th>
                                 <th class="border-0 text-center">Nilai Akhir</th>
                                 <th class="border-0 text-center">Keputusan</th>
                                 <th class="border-0">Progres</th>
@@ -152,9 +152,9 @@
                                         <span v-else class="text-muted fst-italic">Asesor belum ditugaskan</span>
                                     </div>
                                 </td>
-                                <!-- Tugas / Ujian Praktik yang diunggah peserta -->
+                                <!-- Tugas / Ujian Praktik/Keterampilan yang diunggah peserta -->
                                 <td class="text-center text-nowrap" v-if="show_tugas">
-                                    <!-- Satu tombol per unggahan; Ujian Praktik dua bagian → tombol bernomor bagian -->
+                                    <!-- Satu tombol per unggahan; Ujian Praktik/Keterampilan dua bagian → tombol bernomor bagian -->
                                     <template v-if="tugas[row.student_id]">
                                         <a v-for="t in tugas[row.student_id]" :key="t.bagian"
                                            :href="`/admin/results/${exam_session.id}/tugas/${row.student_id}` + (t.bagian > 1 ? `?bagian=${t.bagian}` : '')"
@@ -193,7 +193,7 @@
                                     <StatusBadge v-else-if="awaitsScore(row, 'wawancara')" tone="secondary" label="Belum dinilai" />
                                     <template v-else>{{ row.nilai_wawancara !== null ? fmt(row.nilai_wawancara) : '—' }}</template>
                                 </td>
-                                <!-- Ujian Praktik dinilai terpisah (mis. Lifting): nilai gabungan, rincian per bagian di tooltip -->
+                                <!-- Ujian Praktik/Keterampilan dinilai terpisah (mis. Lifting): nilai gabungan, rincian per bagian di tooltip -->
                                 <td class="text-center num" v-if="praktik_parts.length" :title="praktikTooltip(row)">
                                     <span v-if="isAbsent(row)" class="score-note">Tidak ikut</span>
                                     <StatusBadge v-else-if="row.nilai_praktik === null && awaitsScore(row, 'praktik')" tone="secondary" label="Belum dinilai" />
@@ -317,7 +317,7 @@
                             </td>
                         </tr>
                         <tr v-if="praktik_parts.length">
-                            <td>Praktik
+                            <td>Praktik/Keterampilan
                                 <div v-for="p in praktik_parts" :key="p.bagian" class="small text-muted">
                                     {{ p.title }} ({{ p.bobot }}%): {{ fmt(detail.praktik?.[p.bagian] ?? null) }}
                                 </div>
@@ -475,9 +475,9 @@ export default {
         // { [student_id]: [{ bagian, original_filename }] }
         tugas:        Object,
         show_tugas:   Boolean,
-        // Judul bagian Ujian Praktik { [bagian]: judul } — kosong bila hanya satu bagian
+        // Judul bagian Ujian Praktik/Keterampilan { [bagian]: judul } — kosong bila hanya satu bagian
         tugas_parts:  { type: Object, default: () => ({}) },
-        // Ujian Praktik dinilai terpisah: [{ bagian, title, bobot }] — kosong = praktik dinilai lewat wawancara
+        // Ujian Praktik/Keterampilan dinilai terpisah: [{ bagian, title, bobot }] — kosong = praktik dinilai lewat wawancara
         praktik_parts: { type: Array, default: () => [] },
         fr_ak_14_requires_materai: Boolean,
         // { key: { label, title, waiting } } urut tahap — ResultProgressService::STEPS
@@ -530,7 +530,7 @@ export default {
             st.note, st.by, st.at ? formatDate(st.at) : null,
         ].filter(Boolean).join(' · ');
         const isAbsent = (row) => !!row.progress?.absent;
-        // Rincian nilai praktik per bagian (tooltip kolom Praktik)
+        // Rincian nilai praktik/keterampilan per bagian (tooltip kolom Praktik)
         const praktikTooltip = (row) => props.praktik_parts
             .map(p => `${p.title} (${p.bobot}%): ${row.praktik?.[p.bagian] ?? '—'}`)
             .join('\n');

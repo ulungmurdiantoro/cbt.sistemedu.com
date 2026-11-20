@@ -349,14 +349,14 @@ body { font-family: cambria, serif; font-size: 12pt; color: #000; line-height: 1
 
 </div>{{-- /wrap — tabel keluar dari indent --}}
 @php
-    // Ujian Praktik dinilai terpisah (mis. Lifting: Calculation & Gambar) dan tanpa wawancara → kolom pertama = Nilai Praktik
+    // Ujian Praktik/Keterampilan dinilai terpisah (mis. Lifting: Calculation & Gambar) dan tanpa wawancara → kolom pertama = Nilai Praktik/Keterampilan
     $kolomPraktik = $result->nilai_praktik !== null && $result->nilai_wawancara === null;
     $nilaiKolom1  = $kolomPraktik ? $result->nilai_praktik : $result->nilai_wawancara;
 @endphp
 <table class="nilai-table">
     <tbody>
         <tr>
-            <td rowspan="2" class="nth" style="width:18%;">NILAI<br>{{ $kolomPraktik ? 'PRAKTIK' : 'WAWANCARA' }}</td>
+            <td rowspan="2" class="nth" style="width:18%;">NILAI<br>{!! $kolomPraktik ? 'PRAKTIK/<br>KETERAMPILAN' : 'WAWANCARA' !!}</td>
             <td rowspan="2" class="nth" style="width:20%;">NILAI PILIHAN<br>GANDA</td>
             <td rowspan="2" class="nth" style="width:14%;">NILAI ESAI</td>
             <td colspan="2" class="nth" style="width:34%;">REKAPITULASI HASIL ASESMEN</td>

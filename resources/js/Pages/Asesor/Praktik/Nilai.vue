@@ -1,10 +1,10 @@
 <template>
-    <Head><title>Nilai Praktik — {{ student.name }}</title></Head>
+    <Head><title>Nilai Praktik/Keterampilan — {{ student.name }}</title></Head>
     <div class="container-fluid mb-5 mt-5 page-pad">
         <div class="row">
             <div class="col-12">
 
-                <SessionHeader title="Penilaian Ujian Praktik" icon="fa-drafting-compass" :exam-session="exam_session" :back-href="listUrl"
+                <SessionHeader title="Penilaian Ujian Praktik/Keterampilan" icon="fa-drafting-compass" :exam-session="exam_session" :back-href="listUrl"
                     :extra="[{ label: 'Bobot', value: parts.map(p => `${p.title}: ${p.bobot}%`).join(' · ') }]" />
 
                 <div v-if="successMsg" class="alert alert-success alert-dismissible">
@@ -20,7 +20,7 @@
                     </template>
                     <template #actions>
                         <div class="text-end me-2">
-                            <div class="small text-muted">Nilai Praktik</div>
+                            <div class="small text-muted">Nilai Praktik/Keterampilan</div>
                             <div class="fs-4 fw-bold num lh-1" :class="total !== null ? 'text-success' : 'text-muted'">
                                 {{ total !== null ? total.toFixed(2) : '—' }}
                             </div>
@@ -386,10 +386,10 @@ export default {
                 preserveScroll: true,
                 onSuccess: () => {
                     this.saved = this.snapshot;
-                    this.successMsg = 'Nilai praktik berhasil disimpan.';
+                    this.successMsg = 'Nilai praktik/keterampilan berhasil disimpan.';
                     if (nextId) this.go(nextId);
                 },
-                onError: (errors) => { this.errorMsg = Object.values(errors)[0] ?? 'Gagal menyimpan nilai praktik.'; },
+                onError: (errors) => { this.errorMsg = Object.values(errors)[0] ?? 'Gagal menyimpan nilai praktik/keterampilan.'; },
                 onFinish: () => { this.saving = false; },
             });
         },

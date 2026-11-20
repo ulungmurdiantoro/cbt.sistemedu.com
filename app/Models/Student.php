@@ -52,8 +52,8 @@ class Student extends Authenticatable
     }
 
     /**
-     * Wajib tugas di sesi ini: skema yang wajib Upload Tugas, atau sesi yang memilih Ujian Praktik —
-     * Ujian Praktik berlaku juga untuk skema yang dikecualikan dari Upload Tugas (mis. Lifting LHC).
+     * Wajib tugas di sesi ini: skema yang wajib Upload Tugas, atau sesi yang memilih Ujian Praktik/Keterampilan —
+     * Ujian Praktik/Keterampilan berlaku juga untuk skema yang dikecualikan dari Upload Tugas (mis. Lifting LHC).
      */
     public function requiresTugasFor(?int $sessionId): bool
     {

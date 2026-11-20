@@ -138,7 +138,7 @@ class AdminDashboardService
             $unassessed = $unassessed->merge($started->diff($interviewed));
         }
         if ($praktikBagian) {
-            // Ujian Praktik dinilai terpisah (mis. Lifting): semua bagian harus bernilai
+            // Ujian Praktik/Keterampilan dinilai terpisah (mis. Lifting): semua bagian harus bernilai
             $praktikDone = \App\Models\PraktikScore::where('exam_session_id', $s->id)
                 ->whereIn('student_id', $started)
                 ->whereIn('bagian', $praktikBagian)

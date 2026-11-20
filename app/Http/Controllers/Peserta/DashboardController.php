@@ -34,7 +34,7 @@ class DashboardController extends Controller
             $status = $examPortalOnly ? \App\Support\UjianPraktik::tugasStatus($app->exam_session_id, $app->student_id) : null;
             $app->setAttribute('tugas', $requiresTugas ? [
                 'file' => $task ? ['name' => $task->original_filename, 'uploaded_at' => $task->uploaded_at] : null,
-                // Upload Tugas atau Ujian Praktik (panduan + template) — diatur admin per skema
+                // Upload Tugas atau Ujian Praktik/Keterampilan (panduan + template) — diatur admin per skema
                 ...\App\Support\UjianPraktik::tugasProps(\App\Support\UjianPraktik::examFor($app->exam_session_id)),
                 // Berwaktu / beberapa bagian: dikerjakan di portal ujian — panduan & template tidak dibuka di sini
                 'exam_portal_only' => $examPortalOnly,

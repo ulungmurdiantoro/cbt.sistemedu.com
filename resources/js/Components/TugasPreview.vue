@@ -76,7 +76,7 @@ export default {
     },
 
     computed: {
-        // Bagian 2 Ujian Praktik → ?bagian=2 pada route file/unduh (bagian 1 tanpa query)
+        // Bagian 2 Ujian Praktik/Keterampilan → ?bagian=2 pada route file/unduh (bagian 1 tanpa query)
         query() {
             return this.tugas.bagian > 1 ? `?bagian=${this.tugas.bagian}` : '';
         },

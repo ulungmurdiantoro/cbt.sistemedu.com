@@ -54,7 +54,7 @@
                                             <div v-if="errors.exam_id_esai" class="alert alert-danger mt-2">{{ errors.exam_id_esai }}</div>
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <label class="fw-bolder small">Ujian Praktik</label>
+                                            <label class="fw-bolder small">Ujian Praktik/Keterampilan</label>
                                             <select class="form-select" v-model="form.exam_id_praktik">
                                                 <option value="">— Tidak ada (Upload Tugas) —</option>
                                                 <option v-for="e in examsPraktik" :key="e.id" :value="e.id">{{ e.title }}</option>
@@ -63,7 +63,7 @@
                                             <div v-if="errors.exam_id_praktik" class="alert alert-danger mt-2">{{ errors.exam_id_praktik }}</div>
                                             <!-- Bagian 2 (opsional): waktu & unggahan sendiri, mis. Lifting Calculation lalu Gambar -->
                                             <template v-if="form.exam_id_praktik">
-                                                <label class="fw-bolder small mt-3">Ujian Praktik Bagian 2 <span class="text-muted fw-normal">(opsional)</span></label>
+                                                <label class="fw-bolder small mt-3">Ujian Praktik/Keterampilan Bagian 2 <span class="text-muted fw-normal">(opsional)</span></label>
                                                 <select class="form-select" v-model="form.exam_id_praktik_2">
                                                     <option value="">— Tidak ada —</option>
                                                     <option v-for="e in examsPraktik" :key="e.id" :value="e.id" :disabled="e.id === form.exam_id_praktik">{{ e.title }}</option>
@@ -151,7 +151,7 @@ export default {
 
         const examsPG   = computed(() => props.exams.filter(e => e.type === 'Pilihan Ganda'));
         const examsEsai = computed(() => props.exams.filter(e => e.type === 'Essay' || e.type === 'Essay Migas'));
-        const examsPraktik = computed(() => props.exams.filter(e => e.type === 'Ujian Praktik'));
+        const examsPraktik = computed(() => props.exams.filter(e => e.type === 'Ujian Praktik/Keterampilan'));
 
         const submit = () => {
             router.post('/admin/exam_sessions', {

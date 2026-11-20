@@ -40,7 +40,7 @@ class DashboardController extends Controller
                     ->pluck('student_id');
 
                 $session->student_count = $studentIds->count();
-                // Bagian Ujian Praktik yang dinilai terpisah (mis. Lifting) → tombol Nilai Praktik
+                // Bagian Ujian Praktik/Keterampilan yang dinilai terpisah (mis. Lifting) → tombol Nilai Praktik/Keterampilan
                 $session->praktik_weights = NilaiPraktik::weights($session);
                 $session->progress      = $session->id >= self::PROGRESS_FROM_SESSION_ID
                     ? $this->progress($session, $studentIds)

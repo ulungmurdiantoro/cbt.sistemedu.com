@@ -19,7 +19,7 @@ class StudentTaskController extends BaseExamController
 
         $exam_session = ExamSession::findOrFail($exam_session_id);
 
-        // Ujian Praktik bisa dua bagian (?bagian=2); bawaan = bagian pertama yang belum selesai.
+        // Ujian Praktik/Keterampilan bisa dua bagian (?bagian=2); bawaan = bagian pertama yang belum selesai.
         $status = UjianPraktik::tugasStatus($exam_session_id, $student->id);
         $bagian = $this->bagian($request, $status);
 
@@ -28,8 +28,8 @@ class StudentTaskController extends BaseExamController
             ->where('bagian', $bagian)
             ->first();
 
-        // Upload Tugas, atau Ujian Praktik bila sesi memilih ujian praktik (panduan + template).
-        // Ujian Praktik berwaktu: panduan & template baru dikirim setelah peserta mulai dan selama waktu berjalan.
+        // Upload Tugas, atau Ujian Praktik/Keterampilan bila sesi memilih ujian praktik/keterampilan (panduan + template).
+        // Ujian Praktik/Keterampilan berwaktu: panduan & template baru dikirim setelah peserta mulai dan selama waktu berjalan.
         $praktik = UjianPraktik::examFor($exam_session_id, $bagian);
         $tugas   = UjianPraktik::tugasProps($praktik);
         if (! UjianPraktik::materialsOpen($praktik, $student->id, $exam_session_id, $bagian)) {
@@ -52,7 +52,7 @@ class StudentTaskController extends BaseExamController
         ]);
     }
 
-    /** Mulai Ujian Praktik berwaktu (per bagian). Sekali saja: menekan lagi tidak mereset waktu. */
+    /** Mulai Ujian Praktik/Keterampilan berwaktu (per bagian). Sekali saja: menekan lagi tidak mereset waktu. */
     public function start(Request $request, int $exam_session_id)
     {
         $student = auth()->guard('student')->user()->load('classroom');
@@ -67,7 +67,7 @@ class StudentTaskController extends BaseExamController
         return redirect()->route('student.tugas.show', ['exam_session_id' => $exam_session_id] + ($bagian > 1 ? ['bagian' => $bagian] : []));
     }
 
-    /** Unduh template Ujian Praktik sesi (per bagian; hanya peserta yang terdaftar di sesi). */
+    /** Unduh template Ujian Praktik/Keterampilan sesi (per bagian; hanya peserta yang terdaftar di sesi). */
     public function template(Request $request, int $exam_session_id)
     {
         $student = auth()->guard('student')->user()->load('classroom');
@@ -80,7 +80,7 @@ class StudentTaskController extends BaseExamController
         abort_unless(
             UjianPraktik::materialsOpen($praktik, $student->id, $exam_session_id, $bagian),
             403,
-            'Mulai Ujian Praktik terlebih dahulu, atau waktunya sudah habis.'
+            'Mulai Ujian Praktik/Keterampilan terlebih dahulu, atau waktunya sudah habis.'
         );
 
         return AnswerFile::download($praktik->praktik_template_path, $praktik->praktik_template_name);

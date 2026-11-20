@@ -1,10 +1,10 @@
 <template>
-    <Head><title>Penilaian Praktik — {{ exam_session.title }}</title></Head>
+    <Head><title>Penilaian Praktik/Keterampilan — {{ exam_session.title }}</title></Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
 
-                <SessionHeader title="Penilaian Ujian Praktik" icon="fa-drafting-compass" :exam-session="exam_session"
+                <SessionHeader title="Penilaian Ujian Praktik/Keterampilan" icon="fa-drafting-compass" :exam-session="exam_session"
                     :extra="[{ label: 'Bobot', value: parts.map(p => `${p.title}: ${p.bobot}%`).join(' · ') }]" />
 
                 <PageGuide storage-key="asesor.praktik"><GuidePraktik /></PageGuide>
@@ -27,7 +27,7 @@
                                         {{ multi ? p.title : 'Hasil & Nilai' }}
                                         <div v-if="multi" class="small fw-normal">Bobot {{ p.bobot }}%</div>
                                     </th>
-                                    <th v-if="multi" class="text-center" style="min-width:110px">Total Praktik</th>
+                                    <th v-if="multi" class="text-center" style="min-width:110px">Total Praktik/Keterampilan</th>
                                     <th class="text-center" style="width:110px">Aksi</th>
                                 </tr>
                             </thead>
@@ -67,7 +67,7 @@
 
                     <div class="mt-3 small text-muted border-top pt-2">
                         Klik <strong>Nilai</strong> untuk menilai satu peserta per aspek rubrik.
-                        <template v-if="multi">Total Praktik = rata-rata berbobot bagian ({{ parts.map(p => `${p.title} ${p.bobot}%`).join(', ') }}).</template>
+                        <template v-if="multi">Total Praktik/Keterampilan = rata-rata berbobot bagian ({{ parts.map(p => `${p.title} ${p.bobot}%`).join(', ') }}).</template>
                         Bobot diterapkan sekali saat Nilai Akhir dihitung.
                     </div>
                 </SectionCard>

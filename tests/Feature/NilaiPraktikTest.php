@@ -21,7 +21,7 @@ use Tests\Feature\Concerns\CreatesExamFixtures;
 use Tests\TestCase;
 
 /**
- * Ujian Praktik sebagai komponen nilai sendiri (Komposisi Nilai: bobot_praktik_1/2), mis. Lifting:
+ * Ujian Praktik/Keterampilan sebagai komponen nilai sendiri (Komposisi Nilai: bobot_praktik_1/2), mis. Lifting:
  * PG 20% + Praktek Calculation 50% + Praktek Gambar 30%, lulus ≥ 70. Asesor mengisi nilai per bagian.
  */
 class NilaiPraktikTest extends TestCase
@@ -127,7 +127,7 @@ class NilaiPraktikTest extends TestCase
         $this->assertSame(60.0, (float) $result->nilai_akhir); // 18 + 30 + 12
         $this->assertSame('TIDAK_LULUS', $result->keputusan);
 
-        // Mengosongkan satu bagian menghapus nilainya; nilai praktik = bagian yang tersisa
+        // Mengosongkan satu bagian menghapus nilainya; nilai praktik/keterampilan = bagian yang tersisa
         $this->nilai([1 => 80, 2 => null])->assertSessionHasNoErrors();
         $this->assertNull(PraktikScore::where('bagian', 2)->value('score'));
         $result = collect(app(ResultCalculatorService::class)->recalcForSession($this->ctx['session']))->first();
@@ -288,7 +288,7 @@ class NilaiPraktikTest extends TestCase
         $this->actingAs($this->ctx['asesor'])
             ->get("/asesor/penilaian/{$this->ctx['session']->id}/praktik")
             ->assertNotFound();
-        // Tanpa nilai praktik yang ditunggu, tugas asesor di sesi ini lengkap → Sesi Selesai, tanpa tombol Praktik
+        // Tanpa nilai praktik/keterampilan yang ditunggu, tugas asesor di sesi ini lengkap → Sesi Selesai, tanpa tombol Praktik
         $this->get('/asesor/dashboard')->assertInertia(fn (Assert $page) => $page
             ->where('completed_sessions.0.praktik_weights', [])
             ->missing('completed_sessions.0.progress.items.praktik')

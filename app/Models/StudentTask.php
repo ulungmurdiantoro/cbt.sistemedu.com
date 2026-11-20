@@ -33,7 +33,7 @@ class StudentTask extends Model
      * Simpan (atau ganti) file tugas peserta untuk satu sesi — dipakai portal ujian
      * (student/tugas) dan portal peserta (dashboard). File baru disimpan dulu, baru
      * file lama dihapus, supaya upload yang gagal tidak menghilangkan tugas lama.
-     * $bagian = bagian Ujian Praktik (1, atau 2 untuk sesi dengan dua bagian); Upload Tugas biasa = 1.
+     * $bagian = bagian Ujian Praktik/Keterampilan (1, atau 2 untuk sesi dengan dua bagian); Upload Tugas biasa = 1.
      */
     public static function storeUpload(int $studentId, int $sessionId, UploadedFile $file, int $bagian = 1): self
     {

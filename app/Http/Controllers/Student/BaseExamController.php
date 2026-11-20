@@ -33,7 +33,7 @@ abstract class BaseExamController extends Controller
             return null;
         }
 
-        // Semua bagian Ujian Praktik sudah diunggah — atau waktunya habis (tidak mengunci ujian lain walau tanpa unggahan).
+        // Semua bagian Ujian Praktik/Keterampilan sudah diunggah — atau waktunya habis (tidak mengunci ujian lain walau tanpa unggahan).
         if (\App\Support\UjianPraktik::tugasDone($exam_group->exam_session_id, $student->id)) {
             return null;
         }

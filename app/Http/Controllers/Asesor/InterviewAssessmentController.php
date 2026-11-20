@@ -59,7 +59,7 @@ class InterviewAssessmentController extends Controller
             ->get()
             ->keyBy('student_id');
 
-        // Per peserta: daftar unggahan per bagian (Ujian Praktik bisa dua bagian; Upload Tugas = bagian 1)
+        // Per peserta: daftar unggahan per bagian (Ujian Praktik/Keterampilan bisa dua bagian; Upload Tugas = bagian 1)
         $tugas = StudentTask::where('exam_session_id', $exam_session_id)
             ->whereIn('student_id', $assigned_student_ids)
             ->orderBy('bagian')
@@ -75,10 +75,10 @@ class InterviewAssessmentController extends Controller
             'students'     => $students,
             'assessments'  => $assessments,
             'tugas'        => $tugas,
-            // Judul bagian Ujian Praktik ({bagian: judul}) bila sesi punya lebih dari satu bagian
+            // Judul bagian Ujian Praktik/Keterampilan ({bagian: judul}) bila sesi punya lebih dari satu bagian
             'tugas_parts'  => \App\Support\UjianPraktik::partTitles($exam_session_id),
             'bobot'        => $this->getBobotWawancaraFraction($exam_session_id),
-            // Keterampilan dinilai terpisah di halaman Nilai Praktik → kriteria (D) Worksheet tidak dipakai
+            // Keterampilan dinilai terpisah di halaman Nilai Praktik/Keterampilan → kriteria (D) Worksheet tidak dipakai
             'praktik_terpisah' => \App\Support\NilaiPraktik::applies($exam_session),
         ]);
     }
@@ -96,7 +96,7 @@ class InterviewAssessmentController extends Controller
         return inertia('Asesor/Wawancara/Tugas', [
             'exam_session' => ExamSession::select('id', 'title')->findOrFail($exam_session_id),
             'student'      => Student::select('id', 'no_participant', 'name')->findOrFail($student_id),
-            // Judul bagian hanya untuk Ujian Praktik dengan lebih dari satu bagian
+            // Judul bagian hanya untuk Ujian Praktik/Keterampilan dengan lebih dari satu bagian
             'tugas'        => $task->previewProps() + ['part_title' => count($parts) > 1 ? ($parts[$task->bagian]->title ?? null) : null],
         ]);
     }
@@ -126,7 +126,7 @@ class InterviewAssessmentController extends Controller
 
         abort_unless($assigned, 403, 'Anda tidak ditugaskan untuk menilai peserta ini.');
 
-        // ?bagian=2 untuk bagian 2 Ujian Praktik (bawaan bagian 1)
+        // ?bagian=2 untuk bagian 2 Ujian Praktik/Keterampilan (bawaan bagian 1)
         $task = StudentTask::where('exam_session_id', $exam_session_id)
             ->where('student_id', $student_id)
             ->where('bagian', request()->integer('bagian', 1))
@@ -146,7 +146,7 @@ class InterviewAssessmentController extends Controller
             ->pluck('student_id')
             ->all();
 
-        // Keterampilan dinilai terpisah (halaman Nilai Praktik) → total wawancara = rata-rata 3 kriteria lisan
+        // Keterampilan dinilai terpisah (halaman Nilai Praktik/Keterampilan) → total wawancara = rata-rata 3 kriteria lisan
         $praktikTerpisah = \App\Support\NilaiPraktik::applies(ExamSession::findOrFail($exam_session_id));
 
         foreach ($request->assessments as $item) {

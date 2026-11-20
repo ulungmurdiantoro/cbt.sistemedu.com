@@ -69,7 +69,7 @@ export default {
                 { id: 's1', title: 'Dashboard tugas',                           component: markRaw(GuideDashboard) },
                 { id: 's2', title: 'Menilai esai',                              component: markRaw(GuideEsai) },
                 { id: 's3', title: 'Menilai wawancara',                         component: markRaw(GuideWawancara) },
-                { id: 's8', title: 'Menilai Ujian Praktik',                     component: markRaw(GuidePraktik) },
+                { id: 's8', title: 'Menilai Ujian Praktik/Keterampilan',                     component: markRaw(GuidePraktik) },
                 { id: 's7', title: 'Rekap Nilai',                               component: markRaw(GuideRekapNilai) },
                 { id: 's4', title: 'Laporan Asesmen (FR.AK.05) & tanda tangan', component: markRaw(GuideLaporan) },
                 { id: 's5', title: 'TTD AK.01',                                 component: markRaw(GuideTtdAk01) },

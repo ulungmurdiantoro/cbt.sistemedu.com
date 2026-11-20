@@ -21,8 +21,8 @@ use Tests\Feature\Concerns\CreatesExamFixtures;
 use Tests\TestCase;
 
 /**
- * Ujian Praktik = jenis ujian (admin/exams) berisi panduan + template, dipilih per sesi lewat
- * exam_id_praktik. Sesi tanpa ujian praktik = Upload Tugas biasa. Hasil diunggah lewat alur tugas.
+ * Ujian Praktik/Keterampilan = jenis ujian (admin/exams) berisi panduan + template, dipilih per sesi lewat
+ * exam_id_praktik. Sesi tanpa ujian praktik/keterampilan = Upload Tugas biasa. Hasil diunggah lewat alur tugas.
  */
 class UjianPraktikTest extends TestCase
 {
@@ -76,7 +76,7 @@ class UjianPraktikTest extends TestCase
         ], $over);
     }
 
-    /** Buat ujian praktik lewat form admin lalu pasang di sesi. */
+    /** Buat ujian praktik/keterampilan lewat form admin lalu pasang di sesi. */
     private function attachPraktik(ExamSession $session, Classroom $classroom, int $durasi = 0): Exam
     {
         $this->actingAs($this->admin())
@@ -113,7 +113,7 @@ class UjianPraktikTest extends TestCase
         return $app;
     }
 
-    // ── Admin: ujian praktik ───────────────────────────────────────────────
+    // ── Admin: ujian praktik/keterampilan ───────────────────────────────────────────────
 
     public function test_admin_creates_ujian_praktik_with_template(): void
     {
@@ -182,18 +182,18 @@ class UjianPraktikTest extends TestCase
 
         $this->post('/admin/exam_sessions', $base + ['exam_id_praktik' => $pg->id])->assertSessionHasErrors('exam_id_praktik');
 
-        // Sesi hanya ujian praktik tetap sah
+        // Sesi hanya ujian praktik/keterampilan tetap sah
         $this->post('/admin/exam_sessions', $base + ['exam_id_praktik' => $praktik->id])->assertSessionHasNoErrors();
         $this->assertSame($praktik->id, ExamSession::latest('id')->firstOrFail()->exam_id_praktik);
 
-        // Mengubah sesi tidak membuat ExamGroup untuk ujian praktik
+        // Mengubah sesi tidak membuat ExamGroup untuk ujian praktik/keterampilan
         $this->put("/admin/exam_sessions/{$session->id}", $base + ['exam_id_pg' => $pg->id, 'exam_id_praktik' => $praktik->id])
             ->assertSessionHasNoErrors();
         $this->assertSame(0, ExamGroup::where('exam_id', $praktik->id)->count());
         $this->assertSame($praktik->id, $session->refresh()->exam_id_praktik);
     }
 
-    // Seperti sesi Lifting V2: hanya PG + wawancara, Ujian Esai & Ujian Praktik "— Tidak ada —".
+    // Seperti sesi Lifting V2: hanya PG + wawancara, Ujian Esai & Ujian Praktik/Keterampilan "— Tidak ada —".
     public function test_session_without_esai_and_praktik_saves(): void
     {
         [$classroom, $session] = $this->enrolledStudent();
@@ -267,7 +267,7 @@ class UjianPraktikTest extends TestCase
             ->where('tugas.template_name', 'Lembar Kerja GLP.docx')
             ->where('timer.timed', false)
         );
-        $this->get('/student/dashboard')->assertInertia(fn (Assert $page) => $page->where("tugas_label_by_session.{$session->id}", 'Ujian Praktik'));
+        $this->get('/student/dashboard')->assertInertia(fn (Assert $page) => $page->where("tugas_label_by_session.{$session->id}", 'Ujian Praktik/Keterampilan'));
         $this->get("/student/tugas/{$session->id}/template")->assertOk()->assertDownload('Lembar Kerja GLP.docx');
         $this->post("/student/tugas/{$session->id}/mulai")->assertNotFound();
 
@@ -325,7 +325,7 @@ class UjianPraktikTest extends TestCase
             ->where('tugas.template_name', null)
         );
         $this->get("/student/tugas/{$session->id}/template")->assertForbidden();
-        $this->uploadHasil($session)->assertForbidden()->assertJson(['message' => 'Mulai Ujian Praktik terlebih dahulu.']);
+        $this->uploadHasil($session)->assertForbidden()->assertJson(['message' => 'Mulai Ujian Praktik/Keterampilan terlebih dahulu.']);
 
         $this->post("/student/tugas/{$session->id}/mulai")->assertRedirect("/student/tugas/{$session->id}");
 
@@ -377,7 +377,7 @@ class UjianPraktikTest extends TestCase
         // Lewat toleransi: unggah ditutup, ujian lain terbuka walau tanpa unggahan
         $this->travel(2)->minutes();
         $this->uploadHasil($session)->assertForbidden()
-            ->assertJson(['message' => 'Waktu Ujian Praktik sudah habis. Hasil tidak dapat diunggah lagi.']);
+            ->assertJson(['message' => 'Waktu Ujian Praktik/Keterampilan sudah habis. Hasil tidak dapat diunggah lagi.']);
         $this->get("/student/tugas/{$session->id}")->assertInertia(fn (Assert $page) => $page
             ->where('timer.expired', true)
             ->where('timer.remaining_seconds', 0)

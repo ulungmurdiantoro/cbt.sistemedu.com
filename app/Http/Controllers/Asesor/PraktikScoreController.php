@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 /**
- * Nilai Ujian Praktik (mis. Corporate Legal Studi Kasus 2, Lifting Calculation & Gambar) — hanya untuk sesi yang
+ * Nilai Ujian Praktik/Keterampilan (mis. Corporate Legal Studi Kasus 2, Lifting Calculation & Gambar) — hanya untuk sesi yang
  * Komposisi Nilai skemanya memberi bobot praktik (NilaiPraktik::weights).
  * - show  : daftar peserta (baca saja) — progres aspek, nilai per bagian, tombol Nilai;
  * - grade : nilai satu peserta — kartu per aspek rubrik (kriteria per rentang skor + nilai + catatan), atau satu
@@ -122,9 +122,9 @@ class PraktikScoreController extends Controller
             'scores.*.aspek.*.*.numeric' => 'Nilai aspek harus berupa angka.',
             'scores.*.aspek.*.*.min'     => 'Nilai aspek minimal 0.',
             'scores.*.aspek.*.*.max'     => 'Nilai aspek maksimal 100.',
-            'scores.*.nilai.*.numeric'   => 'Nilai praktik harus berupa angka.',
-            'scores.*.nilai.*.min'       => 'Nilai praktik minimal 0.',
-            'scores.*.nilai.*.max'       => 'Nilai praktik maksimal 100.',
+            'scores.*.nilai.*.numeric'   => 'Nilai praktik/keterampilan harus berupa angka.',
+            'scores.*.nilai.*.min'       => 'Nilai praktik/keterampilan minimal 0.',
+            'scores.*.nilai.*.max'       => 'Nilai praktik/keterampilan maksimal 100.',
             'scores.*.catatan.*.*.max'   => 'Catatan maksimal 1000 karakter.',
         ]);
 
@@ -199,7 +199,7 @@ class PraktikScoreController extends Controller
             }
         }
 
-        return back()->with('success', 'Nilai praktik berhasil disimpan.');
+        return back()->with('success', 'Nilai praktik/keterampilan berhasil disimpan.');
     }
 
     /** Sesi, bobot praktik (404 bila tidak berlaku) dan peserta aktif yang ditugaskan, urut No. Peserta. */
@@ -207,7 +207,7 @@ class PraktikScoreController extends Controller
     {
         $session = ExamSession::with('examPg.classroom', 'examEsai.classroom', 'examPraktik.classroom')->findOrFail($sessionId);
         $weights = NilaiPraktik::weights($session);
-        abort_if($weights === [], 404, 'Sesi ini tidak memakai Nilai Praktik terpisah.');
+        abort_if($weights === [], 404, 'Sesi ini tidak memakai Nilai Praktik/Keterampilan terpisah.');
 
         $ids = AsesorAssignment::where('user_id', auth()->id())
             ->where('exam_session_id', $sessionId)

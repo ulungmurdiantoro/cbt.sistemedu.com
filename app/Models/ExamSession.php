@@ -56,15 +56,15 @@ class ExamSession extends Model
     }
 
     /**
-     * Ujian Praktik sesi ini (panduan + template). Tidak dibuatkan ExamGroup — dikerjakan lewat
-     * halaman tugas peserta. Sesi tanpa ujian praktik memakai "Upload Tugas" biasa.
+     * Ujian Praktik/Keterampilan sesi ini (panduan + template). Tidak dibuatkan ExamGroup — dikerjakan lewat
+     * halaman tugas peserta. Sesi tanpa ujian praktik/keterampilan memakai "Upload Tugas" biasa.
      */
     public function examPraktik()
     {
         return $this->belongsTo(Exam::class, 'exam_id_praktik');
     }
 
-    /** Ujian Praktik bagian 2 (opsional, mis. Lifting: Gambar setelah Calculation) — lihat App\Support\UjianPraktik. */
+    /** Ujian Praktik/Keterampilan bagian 2 (opsional, mis. Lifting: Gambar setelah Calculation) — lihat App\Support\UjianPraktik. */
     public function examPraktik2()
     {
         return $this->belongsTo(Exam::class, 'exam_id_praktik_2');

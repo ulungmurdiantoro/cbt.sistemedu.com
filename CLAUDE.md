@@ -304,7 +304,8 @@ File upload peserta (Essay Migas & tugas) lewat `App\Support\AnswerFile`: tipe d
 (`student.essaysmigas.download`, `admin.essay_migas.download`). File lama di disk `public`
 dipindah dengan `php artisan answer-files:move-private` (`--dry-run` untuk cek dulu).
 
-**Ujian Praktik** = jenis ujian `Exam::TYPE_PRAKTIK` ('Ujian Praktik') di admin/exams, dipilih per sesi lewat
+**Ujian Praktik/Keterampilan** = jenis ujian `Exam::TYPE_PRAKTIK` ('Ujian Praktik/Keterampilan' — dulu 'Ujian Praktik', diganti
+  migrasi `2026_11_21_000001` beserta judul ujiannya; label tampilan "Praktik" juga jadi "Praktik/Keterampilan") di admin/exams, dipilih per sesi lewat
 `exam_sessions.exam_id_praktik` (setiap versi soal = ujian tersendiri, sesi lama tetap memakai versinya). Ujiannya berisi
 panduan (`exams.praktik_panduan`, teks biasa) + template (`praktik_template_path`, disk private, wajib; `$hidden`).
 Sesi tanpa ujian praktik = "Upload Tugas" biasa. Tidak dibuatkan ExamGroup: peserta mengerjakannya di halaman tugas

@@ -8,8 +8,8 @@ use App\Models\StudentPraktikAttempt;
 use App\Models\StudentTask;
 
 /**
- * Ujian Praktik = ujian berjenis Exam::TYPE_PRAKTIK yang dipilih sesi. Peserta membaca panduan, mengunduh
- * template, lalu mengunggah hasil lewat alur tugas (StudentTask). Sesi tanpa ujian praktik memakai "Upload Tugas" biasa.
+ * Ujian Praktik/Keterampilan = ujian berjenis Exam::TYPE_PRAKTIK yang dipilih sesi. Peserta membaca panduan, mengunduh
+ * template, lalu mengunggah hasil lewat alur tugas (StudentTask). Sesi tanpa ujian praktik/keterampilan memakai "Upload Tugas" biasa.
  *
  * Satu sesi bisa punya dua bagian (mis. Lifting: Calculation lalu Gambar): bagian 1 = exam_sessions.exam_id_praktik,
  * bagian 2 = exam_id_praktik_2. Setiap bagian punya waktu mulai & unggahan sendiri (kolom `bagian` di
@@ -26,7 +26,7 @@ class UjianPraktik
 {
     public const UPLOAD_GRACE_MINUTES = 2;
 
-    /** Bagian Ujian Praktik sesi: [bagian => Exam], kosong bila sesi memakai Upload Tugas. */
+    /** Bagian Ujian Praktik/Keterampilan sesi: [bagian => Exam], kosong bila sesi memakai Upload Tugas. */
     public static function parts(int $sessionId): array
     {
         $session = ExamSession::with('examPraktik', 'examPraktik2')->find($sessionId);
@@ -57,7 +57,7 @@ class UjianPraktik
     }
 
     /**
-     * Ujian Praktik berwaktu atau yang terdiri dari beberapa bagian hanya dikerjakan dari portal ujian
+     * Ujian Praktik/Keterampilan berwaktu atau yang terdiri dari beberapa bagian hanya dikerjakan dari portal ujian
      * (waktu mulai & unggahan per bagian dicatat di sana), bukan dari dashboard portal peserta.
      */
     public static function examPortalOnly(int $sessionId): bool
@@ -76,7 +76,7 @@ class UjianPraktik
 
         return [
             'praktik'       => true,
-            'label'         => 'Ujian Praktik',
+            'label'         => 'Ujian Praktik/Keterampilan',
             'title'         => $exam->title,
             'panduan'       => $exam->praktik_panduan,
             'template_name' => $exam->praktik_template_path ? $exam->praktik_template_name : null,
@@ -141,11 +141,11 @@ class UjianPraktik
         $attempt = self::attempt($studentId, $sessionId, $bagian);
 
         if (! $attempt) {
-            return 'Mulai Ujian Praktik terlebih dahulu.';
+            return 'Mulai Ujian Praktik/Keterampilan terlebih dahulu.';
         }
 
         if (now()->greaterThan($attempt->deadline()->addMinutes(self::UPLOAD_GRACE_MINUTES))) {
-            return 'Waktu Ujian Praktik sudah habis. Hasil tidak dapat diunggah lagi.';
+            return 'Waktu Ujian Praktik/Keterampilan sudah habis. Hasil tidak dapat diunggah lagi.';
         }
 
         return null;
@@ -196,7 +196,7 @@ class UjianPraktik
         $doneCount = count(array_filter($parts, fn ($p) => $p['done']));
 
         return [
-            'label'        => $exams[1] ? 'Ujian Praktik' : 'Tugas',
+            'label'        => $exams[1] ? 'Ujian Praktik/Keterampilan' : 'Tugas',
             'parts'        => $parts,
             'uploaded_all' => ! in_array(false, array_column($parts, 'uploaded'), true),
             'done'         => $doneCount === count($parts),

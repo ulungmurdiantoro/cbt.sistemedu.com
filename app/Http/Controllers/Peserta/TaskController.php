@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 // "wajib upload tugas sebelum ujian" dan terlihat asesor saat menilai wawancara.
 class TaskController extends Controller
 {
-    private const TIMED_MESSAGE = 'Ujian Praktik ini berbatas waktu atau terdiri dari beberapa bagian, dan dikerjakan dari portal ujian (login dengan No. Peserta).';
+    private const TIMED_MESSAGE = 'Ujian Praktik/Keterampilan ini berbatas waktu atau terdiri dari beberapa bagian, dan dikerjakan dari portal ujian (login dengan No. Peserta).';
 
     public function store(Request $request, AssessmentApplication $application)
     {
@@ -31,7 +31,7 @@ class TaskController extends Controller
             'Akun ujian Anda tidak terdaftar pada sesi ini.'
         );
 
-        // Ujian Praktik berwaktu / beberapa bagian hanya dikerjakan dari portal ujian (waktu mulai per bagian dicatat di sana).
+        // Ujian Praktik/Keterampilan berwaktu / beberapa bagian hanya dikerjakan dari portal ujian (waktu mulai per bagian dicatat di sana).
         if (UjianPraktik::examPortalOnly($application->exam_session_id)) {
             return back()->withErrors(['file' => self::TIMED_MESSAGE]);
         }
@@ -43,7 +43,7 @@ class TaskController extends Controller
         return back()->with('success', 'Tugas berhasil diunggah.');
     }
 
-    /** Unduh template Ujian Praktik sesi permohonan ini (hanya Ujian Praktik tanpa batas waktu). */
+    /** Unduh template Ujian Praktik/Keterampilan sesi permohonan ini (hanya Ujian Praktik/Keterampilan tanpa batas waktu). */
     public function template(AssessmentApplication $application)
     {
         abort_if($application->participant_id !== auth()->guard('participant')->id(), 403);

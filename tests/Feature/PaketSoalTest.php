@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 /**
  * paket-soal:pasang memasang paket soal V2 (database/data/paket-soal/v2) sebagai ujian baru per skema:
- * PG + Esai (Lifting tanpa esai) + Ujian Praktik, tanpa import dan tanpa menyentuh ujian lama.
+ * PG + Esai (Lifting tanpa esai) + Ujian Praktik/Keterampilan, tanpa import dan tanpa menyentuh ujian lama.
  */
 class PaketSoalTest extends TestCase
 {
@@ -85,7 +85,7 @@ class PaketSoalTest extends TestCase
             $praktik = Exam::where('exams_code', "exms-v2-{$key}-praktik")->firstOrFail();
             $this->assertSame(Exam::TYPE_PRAKTIK, $praktik->type);
             $this->assertNotEmpty($praktik->praktik_panduan);
-            $this->assertStringStartsWith('Ujian Praktik V2', $praktik->praktik_template_name);
+            $this->assertStringStartsWith('Ujian Praktik Keterampilan V2', $praktik->praktik_template_name);
             Storage::disk('private')->assertExists($praktik->praktik_template_path);
         }
 
@@ -113,9 +113,9 @@ class PaketSoalTest extends TestCase
         $calc = Exam::where('exams_code', 'exms-v2-lifting-praktik')->firstOrFail();
         $gambar = Exam::where('exams_code', 'exms-v2-lifting-praktik-2')->firstOrFail();
         $this->assertSame([300, 180], [(int) $calc->duration, (int) $gambar->duration]);
-        $this->assertStringEndsWith('Ujian Praktik V2 - Calculation', $calc->title);
-        $this->assertStringEndsWith('Ujian Praktik V2 - Gambar', $gambar->title);
-        $this->assertSame('Ujian Praktik V2 - Lifting Gambar.zip', $gambar->praktik_template_name);
+        $this->assertStringEndsWith('Ujian Praktik/Keterampilan V2 - Calculation', $calc->title);
+        $this->assertStringEndsWith('Ujian Praktik/Keterampilan V2 - Gambar', $gambar->title);
+        $this->assertSame('Ujian Praktik Keterampilan V2 - Lifting Gambar.zip', $gambar->praktik_template_name);
         $this->assertSame('isi lifting-gambar.zip', Storage::disk('private')->get($gambar->praktik_template_path));
         $this->assertStringContainsString('CALCULATION - C', $calc->praktik_panduan);
         $this->assertStringNotContainsString('B. PRAKTIK GAMBAR', $calc->praktik_panduan);
@@ -384,7 +384,7 @@ class PaketSoalTest extends TestCase
         $this->assertStringNotContainsString('LEGAL OPINION', $panduan);
     }
 
-    /** Simulasikan Ujian Praktik Corporate Legal versi lama (dua studi kasus) yang sudah terpasang. */
+    /** Simulasikan Ujian Praktik/Keterampilan Corporate Legal versi lama (dua studi kasus) yang sudah terpasang. */
     private function legalPraktikLama(): Exam
     {
         $this->classrooms();
@@ -435,11 +435,11 @@ class PaketSoalTest extends TestCase
         $this->templateFiles();
         $this->pasang(['--skema' => ['lifting']])->assertSuccessful();
 
-        // Seperti yang sudah terpasang di server: satu ujian praktik gabungan tanpa batas waktu
+        // Seperti yang sudah terpasang di server: satu ujian praktik/keterampilan gabungan tanpa batas waktu
         $calc = Exam::where('exams_code', 'exms-v2-lifting-praktik')->firstOrFail();
         Exam::where('exams_code', 'exms-v2-lifting-praktik-2')->delete();
         $kelas = \App\Models\Classroom::where('classrooms_code', 'LHC')->value('title');
-        $calc->update(['title' => "{$kelas} - Ujian Praktik V2", 'duration' => 0, 'praktik_panduan' => 'A. ... B. PRAKTIK GAMBAR ...']);
+        $calc->update(['title' => "{$kelas} - Ujian Praktik/Keterampilan V2", 'duration' => 0, 'praktik_panduan' => 'A. ... B. PRAKTIK GAMBAR ...']);
 
         $this->pasang(['--skema' => ['lifting'], '--perbarui-praktik' => true, '--dry-run' => true])
             ->expectsOutputToContain('diperbarui: judul, panduan, durasi')
@@ -448,7 +448,7 @@ class PaketSoalTest extends TestCase
         $this->pasang(['--skema' => ['lifting'], '--perbarui-praktik' => true])->assertSuccessful();
 
         $calc->refresh();
-        $this->assertSame("{$kelas} - Ujian Praktik V2 - Calculation", $calc->title);
+        $this->assertSame("{$kelas} - Ujian Praktik/Keterampilan V2 - Calculation", $calc->title);
         $this->assertSame(300, (int) $calc->duration);
         $gambar = Exam::where('exams_code', 'exms-v2-lifting-praktik-2')->firstOrFail();
         $this->assertSame(180, (int) $gambar->duration);

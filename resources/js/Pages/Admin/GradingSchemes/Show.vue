@@ -53,11 +53,11 @@
                                         <span class="badge bg-warning text-gray-800">{{ form.bobot_wawancara }}%</span>
                                     </td>
                                 </tr>
-                                <!-- Ujian Praktik dinilai terpisah (mis. Lifting) -->
+                                <!-- Ujian Praktik/Keterampilan dinilai terpisah (mis. Lifting) -->
                                 <tr v-if="bobotPraktik > 0">
                                     <td>
-                                        <div class="fw-bolder small">Ujian Praktik</div>
-                                        <div class="text-muted" style="font-size:0.78rem">Dinilai asesor per bagian (halaman Nilai Praktik)</div>
+                                        <div class="fw-bolder small">Ujian Praktik/Keterampilan</div>
+                                        <div class="text-muted" style="font-size:0.78rem">Dinilai asesor per bagian (halaman Nilai Praktik/Keterampilan)</div>
                                     </td>
                                     <td class="text-center fw-bold">{{ bobotPraktik }}%</td>
                                     <td class="text-center">
@@ -126,9 +126,9 @@
                         </div>
 
                         <div class="mb-3 border rounded p-2 bg-gray-100">
-                            <label class="fw-bolder small">Ujian Praktik dinilai terpisah <span class="text-muted fw-normal">(opsional)</span></label>
+                            <label class="fw-bolder small">Ujian Praktik/Keterampilan dinilai terpisah <span class="text-muted fw-normal">(opsional)</span></label>
                             <div class="form-text mt-0 mb-2">
-                                Isi bila skema menilai praktik sebagai komponen sendiri per bagian (mis. Lifting: Calculation 50%, Gambar 30%).
+                                Isi bila skema menilai praktik/keterampilan sebagai komponen sendiri per bagian (mis. Lifting: Calculation 50%, Gambar 30%).
                                 Biarkan 0 bila keterampilan dinilai lewat wawancara (kriteria Worksheet).
                             </div>
                             <div class="row g-2">
@@ -210,7 +210,7 @@ export default {
         const bobotPraktik     = computed(() => +((Number(form.bobot_praktik_1) || 0) + (Number(form.bobot_praktik_2) || 0)).toFixed(2));
         const totalBobot       = computed(() => +(form.bobot_ujian_tulis + form.bobot_wawancara + bobotPraktik.value).toFixed(2));
 
-        // Lisan menyesuaikan Tulis & Praktik; Tulis menyesuaikan Lisan & Praktik (total 100)
+        // Lisan menyesuaikan Tulis & Praktik/Keterampilan; Tulis menyesuaikan Lisan & Praktik/Keterampilan (total 100)
         const syncBobotLisan = () => { form.bobot_wawancara = Math.max(0, +(100 - form.bobot_ujian_tulis - bobotPraktik.value).toFixed(2)); };
         const syncBobotTulis = () => { form.bobot_ujian_tulis = Math.max(0, +(100 - form.bobot_wawancara - bobotPraktik.value).toFixed(2)); };
 

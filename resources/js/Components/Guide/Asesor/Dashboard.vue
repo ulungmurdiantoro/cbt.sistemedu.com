@@ -13,7 +13,7 @@
             <tbody>
                 <tr><td style="width:130px"><span class="badge bg-primary">Esai</span></td><td>Beri nilai jawaban esai peserta di sesi itu.</td></tr>
                 <tr><td><span class="badge bg-success">Wawancara</span></td><td>Isi nilai empat kriteria wawancara per peserta.</td></tr>
-                <tr><td><span class="badge bg-danger">Praktik</span></td><td>Untuk skema yang menilai Ujian Praktik terpisah (mis. Corporate Legal, Lifting): isi nilai praktik per peserta dengan panduan rubrik FR.IA.04. Progresnya juga tampil di kartu.</td></tr>
+                <tr><td><span class="badge bg-danger">Praktik/Keterampilan</span></td><td>Untuk skema yang menilai Ujian Praktik/Keterampilan terpisah (mis. Corporate Legal, Lifting): isi nilai praktik/keterampilan per peserta dengan panduan rubrik FR.IA.04. Progresnya juga tampil di kartu.</td></tr>
                 <tr><td><span class="badge bg-info">Rekap Nilai</span></td><td>Lihat nilai PG, Esai, Wawancara, Nilai Akhir dan keputusan peserta Anda (baca saja).</td></tr>
                 <tr><td><span class="badge bg-gray-800 text-white">Laporan</span></td><td>Simpan TTD Anda, isi rekomendasi Kompeten/Belum Kompeten, lengkapi catatan, lalu unduh FR.AK.05.</td></tr>
                 <tr><td><span class="badge bg-warning text-gray-800">TTD AK.01</span></td><td>Tandatangani FR.AK.01 untuk tiap peserta yang ditugaskan kepada Anda.</td></tr>

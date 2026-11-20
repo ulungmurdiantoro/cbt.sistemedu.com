@@ -26,7 +26,7 @@
                                         <th v-if="exam_session.exam_id_pg" class="text-center" style="min-width:80px">PG</th>
                                         <th v-if="exam_session.exam_id_esai" class="text-center" style="min-width:100px">Esai</th>
                                         <th v-if="exam_session.has_wawancara" class="text-center" style="min-width:100px">Wawancara</th>
-                                        <th v-if="scheme.bobot_praktik > 0" class="text-center" style="min-width:100px">Praktik</th>
+                                        <th v-if="scheme.bobot_praktik > 0" class="text-center" style="min-width:100px">Praktik/Keterampilan</th>
                                         <th class="text-center" style="min-width:95px">Nilai Akhir</th>
                                         <th class="text-center" style="min-width:140px">Keputusan</th>
                                         <th class="text-center" style="min-width:80px" title="Rekomendasi Kompeten / Belum Kompeten Anda di Laporan Asesmen">K/BK</th>
@@ -122,7 +122,7 @@ export default {
             if (this.exam_session.exam_id_pg) parts.push(`PG ${this.fmtPct(this.scheme.bobot_pg)}`);
             if (this.exam_session.exam_id_esai) parts.push(`Esai ${this.fmtPct(this.scheme.bobot_esai)}`);
             if (this.exam_session.has_wawancara) parts.push(`Wawancara ${this.fmtPct(this.scheme.bobot_wawancara)}`);
-            if (this.scheme.bobot_praktik > 0) parts.push(`Praktik ${this.fmtPct(this.scheme.bobot_praktik)}`);
+            if (this.scheme.bobot_praktik > 0) parts.push(`Praktik/Keterampilan ${this.fmtPct(this.scheme.bobot_praktik)}`);
             return parts.join(' · ') || '-';
         },
         lengkapCount() {

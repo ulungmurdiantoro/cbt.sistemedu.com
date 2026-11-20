@@ -94,7 +94,7 @@ class ResultProgressService
                 ->groupBy('student_id')
             : collect();
 
-        // Ujian Praktik dinilai terpisah per bagian (mis. Lifting) — lihat NilaiPraktik
+        // Ujian Praktik/Keterampilan dinilai terpisah per bagian (mis. Lifting) — lihat NilaiPraktik
         $praktikBagian = array_keys(\App\Support\NilaiPraktik::weights($session));
         $praktikScores = $praktikBagian
             ? \App\Models\PraktikScore::where('exam_session_id', $session->id)->whereIn('student_id', $ids)
@@ -200,7 +200,7 @@ class ResultProgressService
                 $this->event($events, $ia->updated_at, 'Wawancara dinilai', $ia->asesor?->name);
             }
             if ($needsPraktik && $praktikDone) {
-                $this->event($events, $ps->max('updated_at'), 'Ujian Praktik dinilai', $ps->pluck('asesor.name')->filter()->unique()->implode(', ') ?: null);
+                $this->event($events, $ps->max('updated_at'), 'Ujian Praktik/Keterampilan dinilai', $ps->pluck('asesor.name')->filter()->unique()->implode(', ') ?: null);
             }
 
             // Rekomendasi K/BK asesor (Laporan Asesmen) — tidak punya waktu tersimpan

@@ -78,7 +78,7 @@ class RekapNilaiController extends Controller
                 'bobot_pg'        => (float) ($scheme?->bobot_pg ?? 0),
                 'bobot_esai'      => (float) ($scheme?->bobot_esai ?? 0),
                 'bobot_wawancara' => (float) ($scheme?->bobot_wawancara ?? 0),
-                // Ujian Praktik dinilai terpisah (mis. Lifting) — 0 = praktik lewat wawancara
+                // Ujian Praktik/Keterampilan dinilai terpisah (mis. Lifting) — 0 = praktik lewat wawancara
                 'bobot_praktik'   => array_sum(\App\Support\NilaiPraktik::weights($examSession, $scheme)),
                 'nilai_kelulusan' => (float) ($scheme?->nilai_kelulusan ?? 70),
             ],

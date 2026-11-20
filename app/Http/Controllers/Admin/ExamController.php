@@ -68,7 +68,7 @@ class ExamController extends Controller
     }
 
     /**
-     * Ujian Praktik: panduan (teks biasa) + template wajib; durasi boleh 0 = tanpa batas waktu.
+     * Ujian Praktik/Keterampilan: panduan (teks biasa) + template wajib; durasi boleh 0 = tanpa batas waktu.
      * $exam diisi saat update — template lama tetap dipakai bila tidak diganti.
      */
     private function praktikRules(Request $request, ?Exam $exam = null): array
@@ -91,7 +91,7 @@ class ExamController extends Controller
     private function praktikMessages(): array
     {
         return array_merge(AnswerFile::messages('template'), [
-            'template.required' => 'Template wajib diunggah untuk Ujian Praktik.',
+            'template.required' => 'Template wajib diunggah untuk Ujian Praktik/Keterampilan.',
         ]);
     }
 
@@ -119,7 +119,7 @@ class ExamController extends Controller
         $exam->save();
     }
 
-    /** Unduh template Ujian Praktik (pratinjau admin). */
+    /** Unduh template Ujian Praktik/Keterampilan (pratinjau admin). */
     public function praktikTemplate(Exam $exam)
     {
         abort_unless($exam->isPraktik() && $exam->praktik_template_path, 404, 'Template belum diunggah.');
