@@ -261,24 +261,26 @@ class PaketSoalTest extends TestCase
             $this->assertStringNotContainsString('RUBRIK', $praktik->praktik_panduan, $key);
         }
 
-        // Komposisi Nilai & durasi disamakan dengan CLO/HSE/ESG; Panelis tanpa esai → Ujian Tulis seluruhnya PG
+        // Komposisi Nilai & durasi disamakan dengan CLO/HSE/ESG
         foreach ($skema as $key => $code) {
             $scheme = \App\Models\GradingScheme::where('classroom_id', \App\Models\Classroom::where('classrooms_code', $code)->value('id'))->firstOrFail();
-            $expected = $key === 'panelis' ? [70.0, 0.0, 22.5, 7.5, 60.0] : [45.5, 24.5, 22.5, 7.5, 60.0];
-            $this->assertSame($expected, [(float) $scheme->bobot_pg, (float) $scheme->bobot_esai, (float) $scheme->bobot_wawancara,
+            $this->assertSame([45.5, 24.5, 22.5, 7.5, 60.0], [(float) $scheme->bobot_pg, (float) $scheme->bobot_esai, (float) $scheme->bobot_wawancara,
                 (float) $scheme->bobot_praktik_1, (float) $scheme->nilai_kelulusan], $key);
             $this->assertSame(120, (int) Exam::where('exams_code', "exms-v2-{$key}-pg")->value('duration'), $key);
         }
         $this->assertSame(90, (int) Exam::where('exams_code', 'exms-v2-glp-esai')->value('duration'));
 
-        // Panelis tanpa esai; skema lain 10 soal esai bermatriks + Panduan Penilaian Umum
-        $this->assertNull(Exam::where('exams_code', 'exms-v2-panelis-esai')->first());
-        foreach (['glp' => 5, 'qc' => 5, 'fsms' => 4, 'rnd' => 5, 'iso17025' => 4] as $key => $bands) {
+        // 10 soal esai bermatriks + panduan penilaian (Panelis: dari panduan skoring SENSORI)
+        foreach (['glp' => 5, 'qc' => 5, 'fsms' => 4, 'rnd' => 5, 'iso17025' => 4, 'panelis' => 5] as $key => $bands) {
             $esai = Exam::where('exams_code', "exms-v2-{$key}-esai")->firstOrFail();
             $this->assertSame(10, $esai->essays()->count(), $key);
-            $this->assertStringContainsString('Panduan Penilaian Umum', $esai->esai_panduan, $key);
+            $this->assertStringContainsString($key === 'panelis' ? 'Panduan Penilaian' : 'Panduan Penilaian Umum', $esai->esai_panduan, $key);
             $this->assertCount($bands, $esai->essays()->first()->rubrik, $key);
         }
+        $panelis = Exam::where('exams_code', 'exms-v2-panelis-esai')->firstOrFail()->essays()->get();
+        $this->assertStringContainsString('Duo-Trio', $panelis[2]->question);
+        $this->assertStringContainsString('33.3%', $panelis[2]->answer);
+        $this->assertStringContainsString('kondisi kesehatan prima.</p>', $panelis[0]->answer);   // angka catatan kaki dibuang
 
         // Rubrik bergerbang (sumber bukti, poin kunci, gerbang kritis maks. 50) — GLP A1–A4: 20/35/25/20
         $glp = Exam::where('exams_code', 'exms-v2-glp-praktik')->firstOrFail()->praktik_aspek;

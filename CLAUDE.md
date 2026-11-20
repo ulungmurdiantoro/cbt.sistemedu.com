@@ -372,10 +372,10 @@ dibuat — sertifikat/SK yang sudah ter-cache tetap, PDF yang dibuat ulang memak
 FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda V2", "- Esai V2", "- Ujian Praktik V2".
 - Data: `database/data/paket-soal/{versi}/{skema}.json` (+ `images/`). Kelas dicocokkan lewat `classrooms_code`
   (V2: LHC, K3L, CLO, ESG dari folder "24-25"; GLP, QCA, FMO, RDO, PSP, LQO dari folder "27-28" — kunci JSON glp, qc, fsms, rnd,
-  panelis, iso17025; kelas dicari lewat `classroom_code`, lalu `kode_lama` (FMO←FSI, LQO←ISL seperti competency-units:sync), lalu `judul_cocok`
-  (judul kelas memuat kata itu, hanya bila tepat satu kelas) — dry-run menampilkan kode yang dipakai "(paket: FMO)"; Panelis tanpa esai; koreksi pengguna: GLP PG 26 membawa konteks soal 25, QC PG 99 kunci C, R&D soal 101 dihapus → 100 soal). PG = blok teks/gambar + opsi + kunci (kunci = opsi berstabilo di dokumen sumber).
+  panelis, iso17025; esai Panelis = soal + kunci dari FR.IA.06 Panelis, matriks per soal dari "panduan skoringi soal esai - SENSORI.docx"; kelas dicari lewat `classroom_code`, lalu `kode_lama` (FMO←FSI, LQO←ISL seperti competency-units:sync), lalu `judul_cocok`
+  (judul kelas memuat kata itu, hanya bila tepat satu kelas) — dry-run menampilkan kode yang dipakai "(paket: FMO)"; koreksi pengguna: GLP PG 26 membawa konteks soal 25, QC PG 99 kunci C, R&D soal 101 dihapus → 100 soal). PG = blok teks/gambar + opsi + kunci (kunci = opsi berstabilo di dokumen sumber).
   Skema 27-28: `durasi`/`komposisi` disamakan dengan CLO/HSE/ESG atas permintaan pengguna (dokumen skema belum diterima): PG 120 / Esai 90,
-  Tulis 70 (PG 65/Esai 35) + Lisan 22,5 + Praktik 7,5, lulus 60; Panelis (tanpa esai) proporsi PG 100.
+  Tulis 70 (PG 65/Esai 35) + Lisan 22,5 + Praktik 7,5, lulus 60.
   Praktik skema 27-28: template = bagian untuk asesi saja (bagian asesor, kunci, rubrik dibuang; GLP tanpa lembar F-01 "milik Petugas X"
   yang dibuat fisik asesor; Panelis = PDF formulir uji). Rubrik bergerbang (GLP, QC, Food Safety, Panelis) seperti ESG; ISO 17025 = KUK
   seperti HSE; R&D = rubrik per nomor soal (5 pita) dikelompokkan per tugas. Food Safety: bobot dari Rekapitulasi (20% per tugas),
