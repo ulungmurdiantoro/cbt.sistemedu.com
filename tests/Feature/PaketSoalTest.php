@@ -245,7 +245,7 @@ class PaketSoalTest extends TestCase
         $skema = ['glp' => 'GLP', 'qc' => 'QCA', 'fsms' => 'FMO', 'rnd' => 'RDO', 'panelis' => 'PSP', 'iso17025' => 'LQO'];
         foreach ($skema as $key => $code) {
             $this->makeClassroom($code);
-            File::put("{$this->templates}/" . ($key === 'panelis' ? 'panelis.pdf' : "{$key}.docx"), "isi {$key}");
+            File::put("{$this->templates}/" . "{$key}.docx", "isi {$key}");
         }
 
         $this->pasang(['--skema' => array_keys($skema)])->assertSuccessful();
@@ -281,6 +281,10 @@ class PaketSoalTest extends TestCase
         $this->assertStringContainsString('Duo-Trio', $panelis[2]->question);
         $this->assertStringContainsString('33.3%', $panelis[2]->answer);
         $this->assertStringContainsString('kondisi kesehatan prima.</p>', $panelis[0]->answer);
+        // Praktik Panelis: template Lembar Kerja Asesi (DOCX), panduan berisi instruksi 7 tes
+        $panelisPraktik = Exam::where('exams_code', 'exms-v2-panelis-praktik')->firstOrFail();
+        $this->assertStringEndsWith('.docx', $panelisPraktik->praktik_template_name);
+        $this->assertStringContainsString('Tes 6 — Uji skoring', $panelisPraktik->praktik_panduan);
         $this->assertStringContainsString('Pemahaman Konsep Sensori:', Exam::where('exams_code', 'exms-v2-panelis-esai')->value('esai_panduan'));   // angka catatan kaki dibuang
 
         // Rubrik bergerbang (sumber bukti, poin kunci, gerbang kritis maks. 50) — GLP A1–A4: 20/35/25/20
@@ -313,7 +317,7 @@ class PaketSoalTest extends TestCase
         $fsi = \App\Models\Classroom::forceCreate(['classrooms_code' => 'FSI', 'title' => 'Food Safety Management Officer']);
         $isl = \App\Models\Classroom::forceCreate(['classrooms_code' => 'ISL', 'title' => 'Laboratory Quality System Officer ISO/IEC 17025']);
         $pan = \App\Models\Classroom::forceCreate(['classrooms_code' => 'PTS', 'title' => 'Panelis Terlatih Pengujian Sensori Pangan']);
-        foreach (['fsms.docx', 'iso17025.docx', 'panelis.pdf'] as $f) {
+        foreach (['fsms.docx', 'iso17025.docx', 'panelis.docx'] as $f) {
             File::put("{$this->templates}/{$f}", "isi {$f}");
         }
 

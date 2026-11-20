@@ -379,7 +379,8 @@ FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda 
   Skema 27-28: `durasi`/`komposisi` disamakan dengan CLO/HSE/ESG atas permintaan pengguna (dokumen skema belum diterima): PG 120 / Esai 90,
   Tulis 70 (PG 65/Esai 35) + Lisan 22,5 + Praktik 7,5, lulus 60.
   Praktik skema 27-28: template = bagian untuk asesi saja (bagian asesor, kunci, rubrik dibuang; GLP tanpa lembar F-01 "milik Petugas X"
-  yang dibuat fisik asesor; Panelis = PDF formulir uji). Rubrik bergerbang (GLP, QC, Food Safety, Panelis) seperti ESG; ISO 17025 = KUK
+  yang dibuat fisik asesor; Panelis = Lembar Kerja Asesi DOCX dari `FR.IA.04 Ujian Praktik - Panelis-V2.docx` (root repo, standar
+  soal A–K): petunjuk + instruksi 7 tes + Lembar 1–7, 24 pelat Ishihara sesuai lampiran, garis skoring tepat 10 cm). Rubrik bergerbang (GLP, QC, Food Safety, Panelis) seperti ESG; ISO 17025 = KUK
   seperti HSE; R&D = rubrik per nomor soal (5 pita) dikelompokkan per tugas. Food Safety: bobot dari Rekapitulasi (20% per tugas),
   bukan "Skor maks" di tabel petunjuk.
   Gambar soal disalin ke disk public dan dirujuk `/storage/paket-soal/{versi}/…` (kolom `questions.question` TEXT —
