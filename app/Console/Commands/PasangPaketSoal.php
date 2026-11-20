@@ -177,6 +177,11 @@ class PasangPaketSoal extends Command
         if (empty($data['classroom_code'])) {
             $problems[] = 'classroom_code kosong';
         }
+        foreach (['kode_lama', 'judul_cocok'] as $field) {
+            if (isset($data[$field]) && (!is_array($data[$field]) || collect($data[$field])->contains(fn ($v) => !is_string($v) || trim($v) === ''))) {
+                $problems[] = "{$field}: harus daftar teks";
+            }
+        }
 
         $pg = $data['pilihan_ganda'] ?? [];
         if (!$pg) {
@@ -303,7 +308,9 @@ class PasangPaketSoal extends Command
     private function planRow(string $key, array $data): array
     {
         $classroom = $this->classroom($data);
-        $kelas = $classroom ? "{$classroom->classrooms_code} — {$classroom->title}" : "{$data['classroom_code']} — TIDAK DITEMUKAN";
+        $kelas = $classroom
+            ? "{$classroom->classrooms_code} — {$classroom->title}" . ($classroom->classrooms_code !== $data['classroom_code'] ? " (paket: {$data['classroom_code']})" : '')
+            : "{$data['classroom_code']} — TIDAK DITEMUKAN";
 
         $pg = $data['pilihan_ganda'] ?? [];
         $images = collect($pg)->flatMap(fn ($q) => collect($q['blocks'])->pluck('image')->filter())->unique()->count();
@@ -703,9 +710,25 @@ class PasangPaketSoal extends Command
         ], "contoh ujian #{$prev->id}"];
     }
 
+    /**
+     * Kelas skema: kode resmi, lalu kode lama yang masih dipakai di database (`kode_lama`, mis. FSI → FMO, ISL → LQO —
+     * sama dengan competency-units:sync), lalu judul kelas yang memuat salah satu `judul_cocok` (hanya bila tepat satu kelas).
+     */
     private function classroom(array $data): ?Classroom
     {
-        return Classroom::where('classrooms_code', $data['classroom_code'])->first();
+        foreach ([$data['classroom_code'], ...($data['kode_lama'] ?? [])] as $code) {
+            if ($classroom = Classroom::where('classrooms_code', $code)->first()) {
+                return $classroom;
+            }
+        }
+        foreach ($data['judul_cocok'] ?? [] as $kata) {
+            $found = Classroom::where('title', 'like', '%' . $kata . '%')->limit(2)->get();
+            if ($found->count() === 1) {
+                return $found->first();
+            }
+        }
+
+        return null;
     }
 
     /** Rubrik penilaian asesor (HTML dari FR.IA.04) — hanya tag tabel/paragraf yang dipertahankan. */

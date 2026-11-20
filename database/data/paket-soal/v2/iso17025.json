@@ -1,6 +1,13 @@
 {
  "key": "iso17025",
  "classroom_code": "LQO",
+ "kode_lama": [
+  "ISL"
+ ],
+ "judul_cocok": [
+  "Quality System Officer",
+  "Sistem Mutu Laboratorium"
+ ],
  "nama": "Laboratory Quality System Officer ISO/IEC 17025 / Petugas Sistem Mutu Laboratorium ISO/IEC 17025",
  "sumber": {
   "pg": "FR.IA.05 Pilihan Ganda - Skema Laboratory Quality System Officer ISOIEC 17025 (Petugas Sistem Mutu Laboratorium ISOIEC 170.pdf",

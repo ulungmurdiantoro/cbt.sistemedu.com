@@ -304,6 +304,40 @@ class PaketSoalTest extends TestCase
             ->orderBy('id')->skip(19)->value('option_4'));
     }
 
+    public function test_kelas_dengan_kode_lama_atau_kode_lain_tetap_ditemukan(): void
+    {
+        // Database produksi: Food Safety masih FSI, ISO 17025 masih ISL, Panelis memakai kode lain
+        $fsi = \App\Models\Classroom::forceCreate(['classrooms_code' => 'FSI', 'title' => 'Food Safety Management Officer']);
+        $isl = \App\Models\Classroom::forceCreate(['classrooms_code' => 'ISL', 'title' => 'Laboratory Quality System Officer ISO/IEC 17025']);
+        $pan = \App\Models\Classroom::forceCreate(['classrooms_code' => 'PTS', 'title' => 'Panelis Terlatih Pengujian Sensori Pangan']);
+        foreach (['fsms.docx', 'iso17025.docx', 'panelis.pdf'] as $f) {
+            File::put("{$this->templates}/{$f}", "isi {$f}");
+        }
+
+        $this->pasang(['--skema' => ['fsms', 'iso17025', 'panelis'], '--dry-run' => true])
+            ->expectsOutputToContain('FSI — Food Safety Management Officer (paket: FMO)')
+            ->assertSuccessful();
+
+        $this->pasang(['--skema' => ['fsms', 'iso17025', 'panelis']])->assertSuccessful();
+
+        foreach (['fsms' => $fsi, 'iso17025' => $isl, 'panelis' => $pan] as $key => $classroom) {
+            foreach (['pg', 'praktik'] as $part) {
+                $this->assertSame($classroom->id, Exam::where('exams_code', "exms-v2-{$key}-{$part}")->value('classroom_id'), "{$key} {$part}");
+            }
+        }
+        $this->assertSame($fsi->id, Exam::where('exams_code', 'exms-v2-fsms-esai')->value('classroom_id'));
+        $this->assertTrue(\App\Models\GradingScheme::where('classroom_id', $pan->id)->exists());
+    }
+
+    public function test_judul_yang_cocok_lebih_dari_satu_kelas_tidak_dipakai(): void
+    {
+        \App\Models\Classroom::forceCreate(['classrooms_code' => 'PT1', 'title' => 'Panelis Terlatih A']);
+        \App\Models\Classroom::forceCreate(['classrooms_code' => 'PT2', 'title' => 'Panelis Terlatih B']);
+
+        $this->pasang(['--skema' => ['panelis']])->expectsOutputToContain('tidak ditemukan')->assertSuccessful();
+        $this->assertSame(0, Exam::count());
+    }
+
     public function test_hse_praktik_dinilai_per_kuk(): void
     {
         $this->classrooms();

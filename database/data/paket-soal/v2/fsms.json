@@ -1,6 +1,12 @@
 {
  "key": "fsms",
  "classroom_code": "FMO",
+ "kode_lama": [
+  "FSI"
+ ],
+ "judul_cocok": [
+  "Food Safety"
+ ],
  "nama": "Food Safety Management Officer / Petugas Sistem Keamanan Pangan",
  "sumber": {
   "pg": "FR.IA.05 Pilihan Ganda - Skema Food Safety Management Officer Petugas Sistem Keamanan Pangan.pdf",

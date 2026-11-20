@@ -1,6 +1,10 @@
 {
  "key": "qc",
  "classroom_code": "QCA",
+ "judul_cocok": [
+  "QC Laboratory Analyst",
+  "Analis QC"
+ ],
  "nama": "QC Laboratory Analyst / Analis QC Laboratorium",
  "sumber": {
   "pg": "FR.IA.05 Pilihan Ganda QC Laboratory Analyst(Analis QC Laboratorium).pdf",
