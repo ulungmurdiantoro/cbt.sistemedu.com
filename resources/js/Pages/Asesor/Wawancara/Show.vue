@@ -38,7 +38,7 @@
                                         <th class="text-center" style="min-width:100px" title="Gaya Wawancara">(A) Gaya</th>
                                         <th class="text-center" style="min-width:110px" title="Penguasaan Materi">(B) Penguasaan</th>
                                         <th class="text-center" style="min-width:110px" title="Kemampuan Menghadapi Pertanyaan">(C) Pertanyaan</th>
-                                        <th class="text-center" style="min-width:110px" title="Hasil Pengerjaan Worksheet Ujian Keterampilan">(D) Worksheet</th>
+                                        <th v-if="!praktik_terpisah" class="text-center" style="min-width:110px" title="Hasil Pengerjaan Worksheet Ujian Keterampilan">(D) Worksheet</th>
                                         <th class="text-center" style="min-width:100px">Total</th>
                                         <th style="min-width:160px">Catatan</th>
                                     </tr>
@@ -93,7 +93,7 @@
                                                 style="width:90px;margin:auto"
                                                 placeholder="0–100" />
                                         </td>
-                                        <td class="text-center">
+                                        <td v-if="!praktik_terpisah" class="text-center">
                                             <input type="number" min="0" max="100" step="0.01"
                                                 v-model.number="row.hasil_worksheet"
                                                 @input="recalcTotal(i)"
@@ -119,7 +119,7 @@
                                         <td class="text-center fw-bold">{{ colAvg('gaya_wawancara') }}</td>
                                         <td class="text-center fw-bold">{{ colAvg('penguasaan_materi') }}</td>
                                         <td class="text-center fw-bold">{{ colAvg('kemampuan_hadapi_pertanyaan') }}</td>
-                                        <td class="text-center fw-bold">{{ colAvg('hasil_worksheet') }}</td>
+                                        <td v-if="!praktik_terpisah" class="text-center fw-bold">{{ colAvg('hasil_worksheet') }}</td>
                                         <td class="text-center fw-bold text-success">{{ colAvg('total') }}</td>
                                         <td></td>
                                     </tr>
@@ -133,9 +133,10 @@
                                 <div class="col-md-6"><span class="fw-bolder">(A) Gaya</span> — Gaya Wawancara</div>
                                 <div class="col-md-6"><span class="fw-bolder">(B) Penguasaan</span> — Penguasaan Materi</div>
                                 <div class="col-md-6"><span class="fw-bolder">(C) Pertanyaan</span> — Kemampuan Menghadapi Pertanyaan</div>
-                                <div class="col-md-6"><span class="fw-bolder">(D) Worksheet</span> — Hasil Pengerjaan Worksheet Ujian Keterampilan</div>
+                                <div v-if="!praktik_terpisah" class="col-md-6"><span class="fw-bolder">(D) Worksheet</span> — Hasil Pengerjaan Worksheet Ujian Keterampilan</div>
                             </div>
-                            <div class="mt-1">* Total = rata-rata (A + B + C + D) — bobot {{ (bobot * 100).toFixed(1) }}% baru diterapkan saat menghitung Nilai Akhir</div>
+                            <div v-if="praktik_terpisah" class="mt-1">* Total = rata-rata (A + B + C). Ujian Keterampilan dinilai di halaman <strong>Nilai Praktik</strong> (tombol Praktik di dashboard).</div>
+                            <div class="mt-1">* Total = rata-rata kriteria — bobot {{ (bobot * 100).toFixed(1) }}% baru diterapkan saat menghitung Nilai Akhir</div>
                         </div>
                 </SectionCard>
 
@@ -165,6 +166,8 @@ export default {
         // Judul bagian Ujian Praktik { [bagian]: judul } — kosong bila hanya satu bagian
         tugas_parts: { type: Object, default: () => ({}) },
         bobot: Number,
+        // Keterampilan dinilai di halaman Nilai Praktik → kolom (D) Worksheet disembunyikan
+        praktik_terpisah: { type: Boolean, default: false },
     },
 
     data() {
@@ -182,7 +185,9 @@ export default {
         // Peserta yang keempat kriterianya sudah terisi
         scoredCount() {
             const filled = v => v !== null && v !== '' && !isNaN(v);
-            return this.form.filter(r => [r.gaya_wawancara, r.penguasaan_materi, r.kemampuan_hadapi_pertanyaan, r.hasil_worksheet].every(filled)).length;
+            const fields = r => [r.gaya_wawancara, r.penguasaan_materi, r.kemampuan_hadapi_pertanyaan]
+                .concat(this.praktik_terpisah ? [] : [r.hasil_worksheet]);
+            return this.form.filter(r => fields(r).every(filled)).length;
         },
     },
 
@@ -209,7 +214,7 @@ export default {
                     gaya_wawancara:              gaya,
                     penguasaan_materi:           peng,
                     kemampuan_hadapi_pertanyaan: kemp,
-                    hasil_worksheet:             hasil,
+                    hasil_worksheet:             this.praktik_terpisah ? null : hasil,
                     catatan:                     existing?.catatan ?? '',
                     total: this.calcTotal(gaya, peng, kemp, hasil),
                 };

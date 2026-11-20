@@ -1,0 +1,2064 @@
+{
+ "key": "fsms",
+ "classroom_code": "FMO",
+ "nama": "Food Safety Management Officer / Petugas Sistem Keamanan Pangan",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda - Skema Food Safety Management Officer Petugas Sistem Keamanan Pangan.pdf",
+  "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai Food Safety.pdf",
+  "praktik": "FR.IA.04 Ujian Keterampilan - Food Safety-V1.docx"
+ },
+ "durasi": {
+  "pg": 120,
+  "esai": 90
+ },
+ "komposisi": {
+  "bobot_ujian_tulis": 70,
+  "proporsi_pg": 65,
+  "bobot_wawancara": 22.5,
+  "bobot_praktik_1": 7.5,
+  "bobot_praktik_2": 0,
+  "nilai_kelulusan": 60
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Tujuan utama penerapan sistem keamanan pangan di industri adalah:"
+    }
+   ],
+   "options": [
+    "Agar produk terasa enak dan disukai konsumen.",
+    "Mencegah produk pangan menyebabkan sakit atau cedera pada konsumen saat dikonsumsi.",
+    "Memenuhi target penjualan tahunan.",
+    "Mengurangi biaya produksi seminimal mungkin."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Manakah di bawah ini yang merupakan contoh \"Bahaya Biologis\" dalam keamanan pangan?"
+    }
+   ],
+   "options": [
+    "Pecahan kaca pada selai nanas.",
+    "Residu pestisida pada sayuran.",
+    "Bakteri Salmonella sp. pada daging ayam.",
+    "Potongan plastik pada kemasan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "Undang-Undang Republik Indonesia yang menjadi landasan utama tentang Pangan adalah:"
+    }
+   ],
+   "options": [
+    "UUNo. 1 Tahun 1970",
+    "UU No. 13 Tahun 2003",
+    "UU No. 36 Tahun 2009",
+    "UU No. 18 Tahun 2012"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Apa perbedaan mendasar antara \"Keamanan Pangan\" (Food Safety) dan \"Mutu Pangan\" (Food Quality)?"
+    }
+   ],
+   "options": [
+    "Tidak ada bedanya.",
+    "Keamanan pangan berkaitan dengan kesehatan (tidak bikin sakit), Mutu berkaitan dengan kepuasan (rasa, warna, ukuran).",
+    "Keamanan pangan bersifat sukarela, Mutu bersifat wajib.",
+    "Keamanan pangan hanya untuk ekspor, Mutu untuk lokal."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Salah satu elemen kunci dalam ISO 22000 adalah \"Komunikasi Interaktif\". Apa tujuannya?"
+    }
+   ],
+   "options": [
+    "Memastikan informasi bahaya pangan mengalir lancar dari supplier, internal proses, hingga ke pelanggan.",
+    "Agar karyawan sering mengobrol.",
+    "Untuk mempromosikan produk baru.",
+    "Agar audit berjalan lama."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "\"Food Safety Culture\" (Budaya Keamanan Pangan) menuntut komitmen dari:"
+    }
+   ],
+   "options": [
+    "Hanya tim Quality Control.",
+    "Hanya operator produksi.",
+    "Seluruh level organisasi dari Top Management hingga petugas kebersihan.",
+    "Hanya pihak eksternal (Konsultan)."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Organisasi internasional yang menerbitkan standar dasar HACCP dan prinsip kebersihan pangan (General Principles of Food Hygiene) adalah:"
+    }
+   ],
+   "options": [
+    "WHO (World Health Organization) saja",
+    "BPOM",
+    "FDA Amerika",
+    "Codex Alimentarius Commission"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "Kontaminasi yang terjadi karena perpindahan bakteri dari bahan mentah ke produk matang melalui perantara (pisau, tangan, talenan) disebut:"
+    }
+   ],
+   "options": [
+    "Kontaminasi Fisik.",
+    "Kontaminasi Kimia.",
+    "Kontaminasi Silang (Cross Contamination).",
+    "Spoilage."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Benda asing seperti rambut, staples, atau kerikil dalam makanan dikategorikan sebagai:"
+    }
+   ],
+   "options": [
+    "Bahaya Fisik.",
+    "Bahaya Kimia.",
+    "Bahaya Biologis.",
+    "Bahaya Radiologi."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Alergen pangan (seperti kacang, susu, telur) dikategorikan sebagai bahaya jenis apa dalam sistem HACCP modern?"
+    }
+   ],
+   "options": [
+    "Bahaya Fisik.",
+    "Bahaya Kimia.",
+    "Bahaya Biologis.",
+    "Bukan bahaya."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Program Prasyarat (PRP) atau sering disebut GMP berfungsi untuk:"
+    }
+   ],
+   "options": [
+    "Mengendalikan bahaya spesifik di satu titik kritis.",
+    "Menciptakan kondisi lingkungan dasar yang higienis agar produksi pangan aman.",
+    "Menggantikan sistem HACCP.",
+    "Meningkatkan rasa makanan."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Dalam desain layout pabrik, alur proses (flow process) sebaiknya:"
+    }
+   ],
+   "options": [
+    "Searah (linear) untuk mencegah pertemuan antara bahan mentah (kotor) dan produk jadi (bersih).",
+    "Zig-zag agar hemat tempat.",
+    "Berputar-putar.",
+    "Acak sesuai keinginan operator."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Seorang operator sakit diare dan demam. Tindakan apa yang paling tepat sesuai prosedur GMP?"
+    }
+   ],
+   "options": [
+    "Tetap bekerja namun memakai masker ganda.",
+    "Pindah ke bagian gudang bahan baku.",
+    "Minum obat lalu lanjut bekerja di area pengemasan.",
+    "Melapor ke penyelia dan tidak diperbolehkan menangani produk pangan terbuka sampai sembuh."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Apa prinsip utama \"Zoning\" (Pembagian Zona) di industri pangan (High Care vs Low Care)?"
+    }
+   ],
+   "options": [
+    "Memisahkan karyawan senior dan junior.",
+    "Memisahkan area manajemen dan buruh.",
+    "Memisahkan area panas dan dingin.",
+    "Memisahkan area yang memiliki risiko mikrobiologi tinggi (produk matang) dengan area risiko rendah (bahan mentah) secara fisik dan akses."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Dalam manajemen hama (Pest Control), penggunaan racun tikus (rodentisida) DI LARANG KERAS digunakan di:"
+    }
+   ],
+   "options": [
+    "Area taman luar pabrik.",
+    "Area pembuangan sampah luar.",
+    "Area produksi/pengolahan makanan terbuka.",
+    "Pos satpam."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Prosedur SSOP (Sanitation Standard Operating Procedures) mengatur tentang 8 kunci sanitasi, salah satunya adalah:"
+    }
+   ],
+   "options": [
+    "Cara menghitung gaji karyawan.",
+    "Keamanan air yang digunakan untuk pengolahan.",
+    "Cara pemasaran produk.",
+    "Cara negosiasi dengan supplier."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Lampu penerangan di area produksi harus diberi penutup (cover/shatterproof). Tujuannya adalah:"
+    }
+   ],
+   "options": [
+    "Agar cahaya lebih redup.",
+    "Agar hemat listrik.",
+    "Mencegah pecahan kaca jatuh ke dalam produk jika lampu pecah.",
+    "Agar terlihat estetik."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Penyimpanan bahan baku di gudang harus menerapkan prinsip FIFO/FEFO. Apa kepanjangan FEFO?"
+    }
+   ],
+   "options": [
+    "First Eat First Out.",
+    "First Expired First Out (Yang kadaluarsa duluan, keluar duluan).",
+    "Fast Entry Fast Output.",
+    "Final Entry Final Out."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Manakah material yang HARUS DIHINDARI penggunaannya di area produksi pangan karena sulit dibersihkan dan menyerap air?"
+    }
+   ],
+   "options": [
+    "Stainless Steel (Baja Tahan Karat).",
+    "Kaca temper.",
+    "Kayu.",
+    "Plastik Food Grade"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "Tujuan utama dari manajemen Allergen adalah:"
+    }
+   ],
+   "options": [
+    "Menghilangkan semua bahan alergen dari pabrik.",
+    "Mengurangi biaya bahan baku.",
+    "Membuat produk khusus orang sakit.",
+    "Mencegah kontak silang alergen ke produk non-alergen dan memastikan pelabelan yang benar."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Wadah sampah di area produksi sebaiknya:"
+    }
+   ],
+   "options": [
+    "Terbuka agar mudah melempar sampah.",
+    "Tertutup, dioperasikan dengan injakan kaki (foot pedal), dan diberi label jelas.",
+    "Ditaruh di atas meja kerja.",
+    "Digabung dengan wadah bahan baku."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Apa yang dimaksud dengan \"Food Grade Lubricant\"?"
+    }
+   ],
+   "options": [
+    "Pelumas mesin yang boleh dimakan sebagai camilan.",
+    "Minyak goreng bekas.",
+    "Pelumas mesin yang aman jika terjadi kontak insidental (tidak sengaja) dengan pangan dalam jumlah sangat kecil.",
+    "Pelumas yang baunya wangi."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Sebelum masuk ke area produksi, karyawan wajib mencuci tangan. Kapan waktu yang mewajibkan cuci tangan ulang?"
+    }
+   ],
+   "options": [
+    "Setiap 5 menit sekali.",
+    "Setelah menyentuh wajah, dari toilet, atau memegang benda kotor (tempat sampah).",
+    "Hanya saat mau pulang.",
+    "Hanya saat ditegur atasan."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Permukaan yang kontak langsung dengan pangan (Food Contact Surface) harus bersifat, KECUALI:"
+    }
+   ],
+   "options": [
+    "Halus dan tidak berpori.",
+    "Tahan karat/korosi.",
+    "Mudah dibersihkan.",
+    "Menyerap air dan bau."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "Perbedaan istilah \"Cleaning\" (Pembersihan) dan \"Sanitizing\" (Sanitasi) adalah:"
+    }
+   ],
+   "options": [
+    "Cleaning menghilangkan kotoran terlihat (fisik/kimia); Sanitizing membunuh mikroba ke level aman.",
+    "Cleaning menggunakan air panas; Sanitizing menggunakan sabun.",
+    "Cleaning dilakukan pagi hari; Sanitizing sore hari.",
+    "Sama saja."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "Dalam Pest Control, alat \"Insect Killer\" (lampu UV penangkap lalat) sebaiknya TIDAK dipasang di:"
+    }
+   ],
+   "options": [
+    "Dekat pintu masuk area produksi.",
+    "Tepat di atas jalur produk terbuka (karena bangkai lalat bisa jatuh).",
+    "Di koridor menuju produksi.",
+    "Di area penerimaan barang tertutup."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Air yang digunakan untuk mencuci bahan baku pangan harus memenuhi standar:"
+    }
+   ],
+   "options": [
+    "Air sungai.",
+    "Air minum sesuai regulasi pemerintah.",
+    "Air suling.",
+    "Air laut."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Jika ditemukan kaca jendela pecah di area gudang bahan baku, tindakan pertama PRPs adalah:"
+    }
+   ],
+   "options": [
+    "Menyapu pecahan dan membuangnya.",
+    "Segera mengganti kaca tanpa lapor.",
+    "Mengisolasi area (karantina), menghentikan pergerakan barang, dan memeriksa apakah ada bahan baku yang terkena pecahan.",
+    "Membiarkan saja sampai shift selesai."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Pengendalian akses masuk pabrik (Visitor Policy) termasuk PRPs yang bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Food Defense (Pertahanan Pangan) dan mencegah kontaminasi dari pihak luar yang tidak terlatih.",
+    "Mencegah teroris.",
+    "Agar pabrik terlihat eksklusif.",
+    "Mendata sumbangan tamu."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Label bahan kimia pembersih (Cleaning Chemical) harus jelas agar:"
+    }
+   ],
+   "options": [
+    "Tidak tertukar dengan bahan pangan (food ingredient).",
+    "Karyawan tahu harganya.",
+    "Karyawan tahu merknya.",
+    "Bagus saat difoto. Topik: Langkah Awal (Preliminary Steps) & Prinsip 1 (Analisis Bahaya)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "HACCP adalah sistem manajemen keamanan pangan yang bersifat:"
+    }
+   ],
+   "options": [
+    "Reaktif (Menangani masalah setelah produk jadi).",
+    "Insidental (Hanya diterapkan saat ada audit).",
+    "Administratif (Hanya urusan dokumen).",
+    "Preventif (Mencegah bahaya terjadi sebelum/selama proses)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Ada berapa langkah dalam penerapan HACCP menurut Codex Alimentarius (gabungan langkah awal dan prinsip)?"
+    }
+   ],
+   "options": [
+    "7 Langkah.",
+    "10 Langkah.",
+    "12 Langkah.",
+    "5 Langkah."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Langkah pertama dalam penyusunan rencana HACCP adalah:"
+    }
+   ],
+   "options": [
+    "Membuat Diagram Alir.",
+    "Menetapkan Batas Kritis.",
+    "Pembentukan Tim HACCP.",
+    "Analisis Bahaya."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Saat melakukan \"Deskripsi Produk\", informasi \"Intended Use\" (Tujuan Penggunaan) sangat penting untuk mengidentifikasi:"
+    }
+   ],
+   "options": [
+    "Harga jual produk.",
+    "Kelompok konsumen rentan (bayi, lansia, imunokompromis).",
+    "Desain kemasan yang menarik.",
+    "Supplier bahan baku."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Mengapa Tim HACCP harus melakukan \"Verifikasi Diagram Alir di Tempat\" (On-site verification)?"
+    }
+   ],
+   "options": [
+    "Untuk berolahraga jalan santai di pabrik.",
+    "Memastikan diagram alir di kertas sesuai dengan praktik aktual di lapangan (termasuk rework, bypass, dll).",
+    "Mencari kesalahan operator.",
+    "Menghitung jumlah mesin."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Dalam Prinsip 1 (Analisis Bahaya), yang dimaksud dengan \"Bahaya\" (Hazard) adalah:"
+    }
+   ],
+   "options": [
+    "Agen biologis, kimia, atau fisik dalam pangan yang berpotensi menyebabkan dampak kesehatan yang merugikan.",
+    "Peluang terjadinya sesuatu yang buruk.",
+    "Kesalahan penulisan label.",
+    "Kerugian finansial perusahaan."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Apa perbedaan antara \"Hazard\" (Bahaya) dan \"Risk\" (Risiko) dalam konteks keamanan pangan?"
+    }
+   ],
+   "options": [
+    "Sama saja.",
+    "Hazard bisa dihitung; Risiko tidak bisa.",
+    "Hazard itu benda fisik; Risiko itu bakteri.",
+    "Hazard adalah agen penyebabnya; Risiko adalah fungsi dari peluang kejadian (probability) dan keparahan (severity)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Bakteri Clostridium botulinum pada makanan kaleng adalah contoh bahaya yang memiliki karakteristik:"
+    }
+   ],
+   "options": [
+    "Probability tinggi, Severity rendah.",
+    "Probability rendah, Severity sangat tinggi (bisa mematikan).",
+    "Tidak berbahaya.",
+    "Mudah dilihat mata telanjang."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Histamin pada ikan tongkol/tuna yang tidak segar termasuk jenis bahaya:"
+    }
+   ],
+   "options": [
+    "Fisik.",
+    "Biologis (Bakteri hidup).",
+    "Kimia (Racun akibat aktivitas bakteri).",
+    "Allergen."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Residu antibiotik pada susu sapi atau daging ayam termasuk bahaya:"
+    }
+   ],
+   "options": [
+    "Kimia.",
+    "Biologis.",
+    "Fisik.",
+    "Radiologi. Topik: Prinsip 2 (Menetapkan CCP)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "CCP (Critical Control Point) adalah:"
+    }
+   ],
+   "options": [
+    "Tahapan di mana pengendalian dapat diterapkan dan PENTING untuk mencegah/menghilangkan bahaya keamanan pangan atau menguranginya ke level yang dapat diterima.",
+    "Tahapan di mana kualitas produk diperiksa (rasa/warna).",
+    "Semua tahapan dalam proses produksi.",
+    "Titik di mana manajer melakukan inspeksi."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Alat bantu berpikir yang umum digunakan untuk menentukan apakah suatu tahapan adalah CCP atau bukan disebut:"
+    }
+   ],
+   "options": [
+    "Fishbone Diagram.",
+    "Pareto Chart.",
+    "CCP Decision Tree (Pohon Keputusan).",
+    "Gantt Chart."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Jika bahaya dapat dikendalikan sepenuhnya oleh Program Prasyarat (misal: sanitasi rutin atau pest control), maka tahapan tersebut biasanya:"
+    }
+   ],
+   "options": [
+    "Tetap menjadi CCP.",
+    "Bukan CCP.",
+    "Menjadi OPRP.",
+    "Dihapus dari diagram alir."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "Dalam proses pasteurisasi susu, tahapan pemanasan (suhu dan waktu) biasanya dikategorikan sebagai:"
+    }
+   ],
+   "options": [
+    "Control Point (CP) biasa.",
+    "Quality Control Point (QCP).",
+    "Critical Control Point (CCP) karena langkah ini didesain khusus membunuh patogen.",
+    "Bukan tahapan penting."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Penggunaan Metal Detector di akhir line pengemasan biasanya ditetapkan sebagai CCP untuk bahaya:"
+    }
+   ],
+   "options": [
+    "Kimia (logam berat).",
+    "Fisik (serpihan logam).",
+    "Biologis (bakteri besi).",
+    "Mutu (berat produk)."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Dalam Decision Tree, jika pertanyaan \"Apakah tahapan ini dirancang khusus untuk menghilangkan/mengurangi bahaya...?\" dijawab \"YA\", maka:"
+    }
+   ],
+   "options": [
+    "Lanjut ke pertanyaan berikutnya",
+    "Tahapan tersebut otomatis BUKAN CCP",
+    "Tahapan tersebut kemungkinan besar adalah CCP.",
+    "Proses berhenti. Topik: Prinsip 3 (Batas Kritis), 4 (Monitoring), & 5 (Tindakan Koreksi)"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "Batas Kritis (Critical Limit) pada sebuah CCP harus:"
+    }
+   ],
+   "options": [
+    "Berupa kalimat kualitatif seperti \"masak sampai matang\".",
+    "Sama dengan batas operasional mesin.",
+    "Berdasarkan perkiraan operator.",
+    "Terukur (measurable) atau teramati (observable) dengan parameter jelas (misal: Suhu min 72°C, Waktu min 15 detik)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Apa yang membedakan \"Batas Kritis\" (Critical Limit) dengan \"Batas Operasional\" (Operating Limit)?"
+    }
+   ],
+   "options": [
+    "Batas Operasional biasanya lebih ketat dari Batas Kritis untuk mencegah terjadinya deviasi (sebagai buffer).",
+    "Batas Kritis lebih ketat.",
+    "Batas Operasional untuk mutu, Batas Kritis untuk keamanan.",
+    "Tidak ada bedanya."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Validasi Batas Kritis bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Membuktikan bahwa nilai batas (misal: 72°C selama 15 detik) benar-benar efektif membunuh bakteri target secara ilmiah.",
+    "Memeriksa apakah termometer rusak.",
+    "Mengecek kedisiplinan operator.",
+    "Memenuhi syarat ISO 9001."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Sistem Pemantauan (Monitoring) CCP harus mampu menjawab 4 pertanyaan (4W/1H), KECUALI:"
+    }
+   ],
+   "options": [
+    "What (Apa yang diukur?).",
+    "Who (Siapa yang melakukan?).",
+    "How (Bagaimana cara mengukurnya?).",
+    "Where (Di mana rumah operatornya?)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Mengapa pengujian mikrobiologi pada produk akhir JARANG digunakan sebagai metode Monitoring CCP?"
+    }
+   ],
+   "options": [
+    "Karena biayanya murah.",
+    "Karena hasilnya keluar terlalu lama (butuh waktu inkubasi berhari-hari), sehingga tidak real-time untuk pengendalian proses.",
+    "Karena bakteri sulit dilihat.",
+    "Karena mikrobiologi tidak penting."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Metode monitoring CCP yang paling ideal adalah:"
+    }
+   ],
+   "options": [
+    "Kontinu/Berkelanjutan (misal: Chart recorder suhu otomatis).",
+    "Diskrit (diambil sampel setiap 5 jam).",
+    "Visual (dilihat saja).",
+    "Organoleptik (dicicipi)."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Tindakan Koreksi (Corrective Action) harus dilakukan segera ketika:"
+    }
+   ],
+   "options": [
+    "Hasil monitoring menunjukkan penyimpangan dari Batas Operasional.",
+    "Karyawan meminta pulang cepat.",
+    "Hasil monitoring menunjukkan penyimpangan/melampaui Batas Kritis (Loss of Control).",
+    "Ada audit eksternal."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Sebuah Tindakan Koreksi yang lengkap harus mencakup dua elemen utama:"
+    }
+   ],
+   "options": [
+    "Memarahi operator & memotong gaji.",
+    "Menutup pabrik & lapor polisi.",
+    "Tindakan pada produk yang terdampak (Disposisi) & Tindakan menghilangkan akar penyebab (Root Cause) agar tidak terulang.",
+    "Mencatat di logbook & melupakan."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Produk yang diproduksi saat CCP melampaui batas kritis (Deviasi) harus statusnya:"
+    }
+   ],
+   "options": [
+    "Langsung dijual murah (diskon).",
+    "Ditahan (Hold/Quarantine), dievaluasi keamanannya, lalu diputuskan (Rework, Release, atau Musnahkan).",
+    "Langsung dibuang ke sungai.",
+    "Dicampur dengan produk bagus. Topik: Prinsip 6 (Verifikasi) & 7 (Dokumentasi)"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Apa perbedaan \"Validasi\" dan \"Verifikasi\" dalam HACCP?"
+    }
+   ],
+   "options": [
+    "Validasi dilakukan di awal (apakah rencana ini ilmiah/benar?); Verifikasi dilakukan rutin (apakah rencana dijalankan dan dipatuhi?).",
+    "Validasi oleh bos; Verifikasi oleh staf.",
+    "Validasi untuk alat; Verifikasi untuk orang.",
+    "Sama saja."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Kalibrasi termometer yang digunakan di CCP Pasteurisasi termasuk kegiatan:"
+    }
+   ],
+   "options": [
+    "Monitoring.",
+    "Verifikasi.",
+    "Tindakan Koreksi.",
+    "Validasi."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Pengkajian ulang (Review) rencana HACCP wajib dilakukan jika:"
+    }
+   ],
+   "options": [
+    "Ada perubahan bahan baku, mesin baru, atau muncul informasi bahaya baru.",
+    "Setiap hari Senin.",
+    "Saat operator ulang tahun.",
+    "Tidak perlu direview selamanya."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Audit Internal HACCP bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Mencari kesalahan personal untuk pemecatan.",
+    "Memastikan sistem HACCP diterapkan secara konsisten dan efektif sesuai rencana tertulis.",
+    "Menghibur karyawan.",
+    "Menaikkan gaji auditor."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Mengapa dokumentasi dan rekaman (Record keeping) sangat vital dalam HACCP?"
+    }
+   ],
+   "options": [
+    "Untuk menambah tumpukan kertas di gudang.",
+    "Untuk menyulitkan pekerjaan admin.",
+    "Agar auditor senang melihat kertas yang rapi.",
+    "Sebagai bukti hukum (\"Due Diligence\") bahwa perusahaan telah memproduksi pangan dengan aman dan sesuai prosedur jika terjadi masalah di kemudian hari. (15 Soal)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Tujuan utama sistem Ketertelusuran (Traceability) di industri pangan adalah:"
+    }
+   ],
+   "options": [
+    "Agar pesaing bisa meniru resep kita.",
+    "Menghitung stok gudang.",
+    "Memungkinkan perusahaan melacak riwayat produk, penggunaan bahan, dan lokasi produk untuk memfasilitasi penarikan (recall) jika terjadi masalah",
+    "Memenuhi syarat desain kemasan."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Ketertelusuran harus mampu dilakukan dua arah, yaitu:"
+    }
+   ],
+   "options": [
+    "Ke Atas (Langit) dan Ke Bawah (Bumi).",
+    "Ke Kiri (Gudang) dan Ke Kanan (Produksi).",
+    "Ke Hulu (Backward ke supplier) dan Ke Hilir (Forward ke pelanggan).",
+    "Ke Dalam dan Ke Luar pabrik."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Kode produksi (Batch Code/Lot Number) pada kemasan produk berfungsi sebagai:"
+    }
+   ],
+   "options": [
+    "Hiasan kemasan.",
+    "Tanggal kadaluarsa saja.",
+    "Penanda harga produk.",
+    "Identitas unik yang menghubungkan produk fisik dengan rekaman produksi (kapan dibuat, bahan bakunya apa, siapa operatornya)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Apa perbedaan antara \"Recall\" (Penarikan) dan \"Withdrawal\"?"
+    }
+   ],
+   "options": [
+    "Recall adalah penarikan produk yang sudah sampai ke konsumen karena alasan keamanan; Withdrawal adalah penarikan produk yang belum sampai ke konsumen (masih di rantai distribusi) karena alasan mutu/logistik.",
+    "Recall dilakukan oleh pemerintah; Withdrawal oleh perusahaan.",
+    "Recall untuk produk makanan; Withdrawal untuk minuman.",
+    "Sama saja."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Simulasi Penarikan Produk (Mock Recall) wajib dilakukan secara berkala. Tujuannya adalah:"
+    }
+   ],
+   "options": [
+    "Menghabiskan stok lama.",
+    "Menguji kecepatan dan efektivitas tim dalam melacak data dan menarik produk (biasanya ada target waktu, misal: < 4 jam).",
+    "Mengerjai karyawan gudang.",
+    "Menarik perhatian media."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Produk yang dicurigai tidak aman (Potentially Unsafe Product) harus segera dipisahkan"
+    }
+   ],
+   "options": [
+    "\"RELEASE\" (Lulus).",
+    "\"QUARANTINE / HOLD\" (Tahan).",
+    "\"REJECT\" (Tolak).",
+    "\"SALE\" (Diskon)."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Jika produk yang di-HOLD diputuskan untuk diolah ulang (Rework), syarat utamanya adalah:"
+    }
+   ],
+   "options": [
+    "Langsung campur saja sedikit demi sedikit ke produk baru.",
+    "Tidak perlu dicatat.",
+    "Rework dilakukan diam-diam malam hari.",
+    "Rework harus memiliki prosedur yang jelas, alasan rework terdokumentasi, dan keamanannya terverifikasi (tidak membawa bahaya baru)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Dalam situasi darurat seperti banjir atau mati listrik (Power Outage) lebih dari 4 jam, apa fokus utama tim keamanan pangan?"
+    }
+   ],
+   "options": [
+    "Menghitung kerugian uang.",
+    "Menyelamatkan mesin.",
+    "Mengevaluasi dampak pada produk (misal: suhu kulkas naik) dan memastikan produk yang terpapar kondisi buruk tidak dilepas ke konsumen.",
+    "Menyuruh karyawan pulang."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Tindakan pertama jika konsumen melaporkan keracunan makanan setelah mengonsumsi produk perusahaan adalah:"
+    }
+   ],
+   "options": [
+    "Menyangkal tuduhan tersebut secepatnya.",
+    "Mengumpulkan informasi detail (kode batch, gejala, waktu konsumsi) dan melakukan investigasi internal pada batch terkait (Sample Retention).",
+    "Menuntut balik konsumen.",
+    "Menutup telepon."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Waktu \"Mass Balance\" (Neraca Massa) dalam latihan ketertelusuran bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Menimbang berat badan operator.",
+    "Membandingkan jumlah bahan baku yang dipakai dengan jumlah produk jadi yang dihasilkan (harus logis/seimbang) untuk memastikan tidak ada produk \"siluman\" atau bahan yang hilang.",
+    "Menghitung keuntungan penjualan.",
+    "Menyeimbangkan neraca keuangan."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Siapa yang berwenang memutuskan nasib produk yang tidak sesuai (Release, Rework, atau Destroy)?"
+    }
+   ],
+   "options": [
+    "Operator produksi.",
+    "Satpam.",
+    "Personel yang memiliki otoritas/kompetensi yang ditunjuk (misal: Manajer QA).",
+    "Bagian Sales."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Pemusnahan (Disposal) produk yang mengandung bahaya keamanan pangan harus"
+    }
+   ],
+   "options": [
+    "Dijual murah ke karyawan.",
+    "Dibuang sembarangan di kebun belakang.",
+    "Dimusnahkan dengan cara yang mencegah produk tersebut dikonsumsi manusia atau masuk kembali ke rantai pangan (misal: dibakar, dihancurkan, dikubur, atau dijadikan pakan ternak jika aman).",
+    "Disumbangkan ke panti asuhan."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Jika terjadi kesalahan cetak label di mana alergen \"Tepung Terigu\" tidak tertulis di komposisi, tindakan yang wajib diambil adalah:"
+    }
+   ],
+   "options": [
+    "Membiarkan saja karena jumlahnya sedikit.",
+    "Melakukan Recall (Penarikan) karena dapat membahayakan konsumen yang alergi gluten.",
+    "Menempel stiker manual di toko satu per satu.",
+    "Memberi diskon besar."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Salah satu persiapan menghadapi situasi darurat (Emergency Preparedness) adalah:"
+    }
+   ],
+   "options": [
+    "Menyediakan daftar kontak darurat (Pemadam, Polisi, Supplier air bersih, Laboratorium eksternal).",
+    "Menyediakan uang tunai yang banyak.",
+    "Membeli senjata api.",
+    "Membuat bunker bawah tanah."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Produk \"Retained Sample\" (Sampel Pertinggal) disimpan laboratorium QA untuk tujuan:"
+    }
+   ],
+   "options": [
+    "Cadangan jika direksi minta sampel.",
+    "Dijual kembali saat stok habis.",
+    "Pajangan di lemari etalase.",
+    "Bahan referensi investigasi jika ada komplain atau masalah di masa depan (selama masa simpan produk)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "Perbedaan audit internal dan inspeksi harian adalah:"
+    }
+   ],
+   "options": [
+    "Inspeksi harian fokus pada kondisi sesaat (spot check); Audit internal fokus pada sistem secara menyeluruh dan kepatuhan terhadap prosedur.",
+    "Inspeksi dilakukan orang luar; Audit oleh orang dalam.",
+    "Inspeksi butuh biaya mahal; Audit gratis.",
+    "Tidak ada beda."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Seorang Auditor Internal TIDAK BOLEH mengaudit:"
+    }
+   ],
+   "options": [
+    "Departemen lain.",
+    "Pekerjaannya sendiri sendiri atau sendiri atau departemennya sendiri atau departemennya sendiri sendiri atau departemennya sendiri (untuk sendiri atau departemennya sendiri (untuk menjaga independensi/objektivitas).",
+    "Dokumen rahasia.",
+    "Area produksi."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Dalam siklus PDCA (Plan-Do-Check-Act), Tinjauan Manajemen (Management Review) berada di tahap:"
+    }
+   ],
+   "options": [
+    "Plan",
+    "DO.",
+    "Check.",
+    "Act (Evaluasi & Keputusan Perbaikan)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Input wajib dalam rapat Tinjauan Manajemen Keamanan Pangan meliputi, KECUALI:"
+    }
+   ],
+   "options": [
+    "Hasil audit (internal/eksternal).",
+    "Kinerja proses dan kesesuaian produk.",
+    "Gosip selebriti terbaru.",
+    "Status tindakan pencegahan dan perbaikan."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Analisis tren (Trend Analysis) data monitoring CCP berguna untuk:"
+    }
+   ],
+   "options": [
+    "Memprediksi kapan mesin akan rusak atau proses mulai menyimpang sebelum batas kritis terlampaui.",
+    "Membuat grafik yang indah.",
+    "Mengisi waktu luang.",
+    "Syarat administrasi saja."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Sistem FSMS harus diperbarui (Update) jika:"
+    }
+   ],
+   "options": [
+    "Auditor sedang datang.",
+    "Saat manajer diganti.",
+    "Setahun sekali saja.",
+    "Ada perubahan regulasi, bahan baku baru, metode proses baru, atau temuan bahaya baru."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "\"Continuous Improvement\" (Peningkatan Berkelanjutan) dapat dicapai melalui:"
+    }
+   ],
+   "options": [
+    "Mempertahankan status quo (yang penting jalan).",
+    "Tindakan korektif, hasil audit, analisis data, dan tinjauan manajemen.",
+    "Mengurangi jumlah karyawan.",
+    "Menaikkan harga jual."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Evaluasi supplier (Supplier Evaluation) termasuk dalam verifikasi sistem untuk memastikan:"
+    }
+   ],
+   "options": [
+    "Supplier memberikan harga termurah.",
+    "Supplier konsisten menyuplai bahan baku yang aman dan sesuai spesifikasi yang disepakati.",
+    "Supplier mau diajak makan siang.",
+    "Lokasi supplier dekat."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Jika hasil audit internal menemukan ketidaksesuaian (NC), auditee (pihak yang diaudit) bertanggung jawab untuk:"
+    }
+   ],
+   "options": [
+    "Marah kepada auditor.",
+    "Mengabaikan temuan.",
+    "Menetapkan akar masalah dan melakukan tindakan perbaikan dalam batas waktu yang ditentukan.",
+    "Menyembunyikan bukti."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Sertifikasi ISO 22000 / FSSC 22000 berlaku selama:"
+    }
+   ],
+   "options": [
+    "Seumur hidup.",
+    "6 Bulan.",
+    "10 Tahun.",
+    "3 Tahun (dengan audit surveillance tahunan)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Apa fungsi dari \"Verification Activity Result Analysis\"?"
+    }
+   ],
+   "options": [
+    "Menganalisis hasil verifikasi (seperti uji lab produk akhir, kalibrasi, audit) untuk melihat apakah sistem secara keseluruhan efektif.",
+    "Menganalisis keuntungan perusahaan.",
+    "Menganalisis kinerja satpam.",
+    "Menghitung jumlah limbah."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Siapa yang harus memimpin Rapat Tinjauan Manajemen?"
+    }
+   ],
+   "options": [
+    "Konsultan.",
+    "Manajer Produksi.",
+    "Manajemen Puncak (Top Management).",
+    "Sekretaris."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Klausul \"Update of the FSMS\" mensyaratkan tim HACCP untuk:"
+    }
+   ],
+   "options": [
+    "Tidak boleh mengubah dokumen HACCP yang sudah jadi.",
+    "Meninjau rencana HACCP secara berkala dan memperbaruinya agar tetap relevan dengan kondisi terkini.",
+    "Membuat dokumen baru setiap minggu.",
+    "Menunggu instruksi pemerintah."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Verifikasi penerapan PRPs (GMP/SSOP) biasanya dilakukan dengan cara:"
+    }
+   ],
+   "options": [
+    "Inspeksi visual lapangan dan uji swab mikrobiologi lingkungan/permukaan alat.",
+    "Wawancara satpam.",
+    "Melihat CCTV dari rumah.",
+    "Cukup percaya pada laporan operator."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Sistem manajemen yang baik tidak hanya bergantung pada \"Orang\", tetapi bergantung pada:"
+    }
+   ],
+   "options": [
+    "\"Sistem dan Proses\" yang baku (sehingga siapapun orangnya, hasilnya tetap konsisten).",
+    "Mesin yang mahal.",
+    "Konsultan yang pintar.",
+    "Keberuntungan."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Pelatihan (Training) keamanan pangan wajib diberikan kepada:"
+    }
+   ],
+   "options": [
+    "Hanya manajer.",
+    "Hanya tim HACCP.",
+    "Semua personel yang kegiatannya berdampak pada keamanan pangan (termasuk operator, gudang, teknik, cleaning service).",
+    "Hanya karyawan tetap."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Pelatihan \"Induksi\" bagi karyawan baru bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Mengenalkan aturan dasar perusahaan termasuk kebijakan keamanan pangan dan GMP dasar sebelum mereka mulai bekerja.",
+    "Menguji mental karyawan baru.",
+    "Mengajarkan cara membolos.",
+    "Pesta penyambutan."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Mengukur efektivitas pelatihan TIDAK CUKUP hanya dengan daftar hadir. Cara yang lebih baik adalah:"
+    }
+   ],
+   "options": [
+    "Foto bersama.",
+    "Ujian tertulis (Post-test) atau observasi kinerja di lapangan setelah pelatihan (evaluasi perilaku).",
+    "Meminta tanda tangan instruktur.",
+    "Menghitung jumlah konsumsi saat training."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Komunikasi Eksternal dalam ISO 22000 mengatur hubungan perusahaan dengan, KECUALI:"
+    }
+   ],
+   "options": [
+    "Supplier dan Kontraktor.",
+    "Pelanggan/Konsumen.",
+    "Otoritas Pemerintah (Regulator).",
+    "Pasangan/Keluarga karyawan."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Jika ada perubahan pada bahan baku atau formula produk, Tim R&D wajib mengomunikasikannya kepada:"
+    }
+   ],
+   "options": [
+    "Tim Marketing saja.",
+    "Satpam.",
+    "Tim Keuangan.",
+    "Tim HACCP (untuk memperbarui analisis bahaya)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "\"Whistleblowing System\" dalam budaya keamanan pangan berfungsi untuk:"
+    }
+   ],
+   "options": [
+    "Meniup peluit saat istirahat.",
+    "Saluran pelaporan pelanggaran keamanan pangan secara rahasia tanpa takut intimidasi (untuk integritas sistem).",
+    "Lomba menyanyi.",
+    "Alat komunikasi saat keadaan darurat."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Bahasa yang digunakan dalam instruksi kerja atau pelatihan operator sebaiknya:"
+    }
+   ],
+   "options": [
+    "Bahasa Inggris tingkat tinggi.",
+    "Bahasa hukum yang rumit.",
+    "Bahasa yang sederhana, mudah dipahami, dan sesuai dengan bahasa ibu tenaga kerja setempat.",
+    "Bahasa sandi rahasia."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Kompetensi Tim HACCP harus dibuktikan dengan:"
+    }
+   ],
+   "options": [
+    "Pengakuan lisan (\"Saya bisa\").",
+    "Pendidikan, Pelatihan, Keahlian, dan Pengalaman yang terdokumentasi (CV/Sertifikat).",
+    "Lamanya bekerja di perusahaan.",
+    "Kedekatan dengan atasan."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Peran \"Supervisor\" dalam komunikasi keamanan pangan di lantai produksi adalah:"
+    }
+   ],
+   "options": [
+    "Menjadi jembatan informasi antara manajemen dan operator serta memastikan instruksi dipahami.",
+    "Hanya memantau dari jauh.",
+    "Memarahi operator yang salah tanpa memberi solusi.",
+    "Menyembunyikan masalah dari manajer."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "Refresher Training (Pelatihan Penyegaran) perlu dilakukan:"
+    }
+   ],
+   "options": [
+    "Tidak perlu jika sudah pernah training.",
+    "Secara berkala (misal: setahun sekali) atau jika terjadi insiden/penyimpangan berulang.",
+    "Hanya saat ada uang sisa anggaran.",
+    "Saat mesin rusak."
+   ],
+   "answer": 2
+  }
+ ],
+ "esai": [
+  {
+   "no": 1,
+   "question": "<p>Seringkali istilah \"Mutu Pangan\" (Food Quality) dan \"Keamanan Pangan\" (Food Safety) dianggap sama oleh orang awam. Jelaskan secara teknis perbedaan mendasar antara keduanya! Berikan masing-masing 2 contoh kasus penyimpangan mutu dan penyimpangan keamanan pangan.</p>",
+   "answer": "<p>Safety vs Quality</p><p>Kunci:</p><ul><li>Food Safety: Berkaitan dengan kesehatan/keselamatan jiwa. Jika gagal, konsumen sakit, cidera, atau mati. Sifatnya mutlak (tidak bisa ditawar).</li><li>Food Quality: Berkaitan dengan kepuasan/ekspektasi konsumen (rasa, warna, tekstur). Jika gagal, konsumen kecewa tapi tidak sakit.</li><li>Contoh Safety: Ada pecahan kaca, ada bakteri Salmonella, ada residu pestisida.</li><li>Contoh Quality: Biskuit gosong, kemasan penyok, rasa kurang manis.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Eksplisit menyebutkan Safety berkaitan dengan keselamatan jiwa/penyakit (mutlak), dan Quality berkaitan dengan ekspektasi/kepuasan (bisa ditawar). Memberikan masing- masing 2 contoh yang tepat (Misal: Safety = Salmonella, Kaca; Quality = Gosong, Penyok)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan perbedaan dengan benar namun contoh yang diberikan hanya 1 untuk masing- masing kategori, atau contohnya kurang spesifik (misal: \"makanannya rusak\")."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menjelaskan bahwa Safety itu aman dimakan dan Quality itu kualitasnya bagus, tanpa menjelaskan dampak fatalitasnya."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Terbalik dalam mendefinisikan Safety dan Quality, atau menyamakan keduanya."
+    }
+   ]
+  },
+  {
+   "no": 2,
+   "question": "<p>Dalam merancang layout pabrik pangan, dikenal istilah pembagian zona (Zoning) seperti High Care Area dan Low Risk Area. Jelaskan mengapa pemisahan fisik dan alur ini sangat kritikal? Apa dampaknya jika karyawan dari area penerimaan bahan baku (kotor) bisa bebas masuk ke area pengemasan produk matang (bersih)?</p>",
+   "answer": "<p>Zonasi &amp; Kontaminasi Silang</p><p>Kunci:</p><ul><li>Tujuannya mencegah Kontaminasi Silang (Cross-contamination) dari bahan mentah (yang masih mengandung patogen) ke produk matang (yang sudah steril/siap makan).</li><li>Dampak jika dicampur: Produk matang akan tercemar ulang (re-contaminated) oleh bakteri dari area kotor melalui perantara manusia (sepatu/baju) atau peralatan, menyebabkan keracunan masal meskipun produk sudah dimasak.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan tujuan pencegahan kontaminasi silang (cross-contamination). Menganalisis dampak masuknya bakteri patogen dari bahan mentah/area kotor ke produk matang (re- contamination) melalui perantara pekerja."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan agar kotoran tidak campur dengan makanan bersih, namun tidak menyebutkan spesifik terkait kontaminasi silang bakteri/patogen pada produk matang."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab agar pabrik terlihat rapi atau agar pekerja tidak bertabrakan, tanpa menyentuh aspek mikrobiologi."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Salah memahami konsep zonasi (misal: menganggap high care adalah area direktur perusahaan)."
+    }
+   ]
+  },
+  {
+   "no": 3,
+   "question": "<p>Dalam prosedur SSOP (Sanitation Standard Operating Procedures), terdapat perbedaan tegas antara aktivitas \"Cleaning\" (Pencucian) dan \"Sanitizing\" (Sanitasi). Jelaskan perbedaan tujuan dan metodenya! Mengapa proses sanitasi menjadi tidak efektif jika proses cleaning belum tuntas?</p>",
+   "answer": "<p>Cleaning vs Sanitizing</p><p>Kunci:</p><ul><li>Cleaning: Menghilangkan kotoran fisik/kimia (sisa makanan, lemak, debu) yang terlihat mata. Menggunakan deterjen/sabun.</li><li>Sanitizing: Membunuh mikroorganisme (tak terlihat) hingga level aman. Menggunakan panas atau bahan kimia (klorin/alkohol).</li><li>Logika: Sanitizer tidak bisa bekerja jika permukaan masih kotor (masih ada biofilm/lemak) karena zat aktifnya akan bereaksi dengan kotoran, bukan membunuh bakteri. Jadi harus bersih dulu, baru disanitasi.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Membedakan Cleaning (menghilangkan kotoran fisik/terlihat dengan sabun) dan Sanitizing (membunuh mikroba tak terlihat dengan panas/klorin). Memberikan logika bahwa sanitizer bereaksi dengan kotoran/biofilm jika cleaning tidak tuntas."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Definisi benar, namun kurang tajam dalam menjelaskan mengapa sanitasi gagal jika permukaan masih kotor (hanya menjawab \"karena kumannya tertutup\")."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menganggap keduanya adalah proses mencuci biasa, hanya beda alat/cairan yang digunakan."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Terbalik mengartikan cleaning dan sanitizing."
+    }
+   ]
+  },
+  {
+   "no": 4,
+   "question": "<p>Dalam Prinsip 1 HACCP, kita melakukan Analisis Bahaya. Jelaskan perbedaan definisi \"Bahaya\" (Hazard) dan \"Risiko\" (Risk) dalam konteks keamanan pangan! Berikan contoh bahaya biologi pada produk susu dan jelaskan bagaimana risikonya dinilai.</p>",
+   "answer": "<p>Bahaya vs Risiko</p><p>Kunci:</p><ul><li>Bahaya (Hazard): Agen penyebabnya (Bakteri, Kimia, Fisik).</li><li>Risiko (Risk): Peluang terjadinya (Probability) dikali tingkat keparahan (Severity).</li><li>Contoh: Bahaya pada susu = Salmonella sp. Risiko = Tinggi (karena susu media baik bakteri) x Tinggi (bisa menyebabkan kematian).</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Hazard adalah agen/sumbernya (biologi/kimia/fisik), sedangkan Risk adalah perhitungan peluang (probability) x tingkat keparahan (severity). Contoh pada susu (Salmonella) dinilai berdasarkan peluang tumbuh yang tinggi dan fatalitas yang tinggi."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan hazard sebagai bahaya dan risk sebagai akibatnya, namun tidak memasukkan elemen probabilitas/peluang dalam definisi risiko."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Jawaban awam. Menganggap bahaya dan risiko adalah hal yang sama (sinonim) tanpa ada perhitungan atau pemisahan konsep."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Contoh dan definisi salah kaprah (misal: bahaya susu adalah tumpah, risikonya dimarahi bos)."
+    }
+   ]
+  },
+  {
+   "no": 5,
+   "question": "<p>Tidak semua tahapan proses adalah CCP (Critical Control Point). Jelaskan logika atau kriteria apa yang membedakan sebuah tahapan ditetapkan sebagai CCP, OPRP (Operational Prerequisite Program), atau cukup dikendalikan dengan PRP (GMP) biasa? Gunakan konsep \"Pohon Keputusan\" (Decision Tree) dalam penjelasan Anda.</p>",
+   "answer": "<p>Penentuan CCP</p><p>Kunci:</p><ul><li>CCP adalah tahapan \"hidup mati\" atau pertahanan terakhir.</li><li>Kriteria CCP: (1) Ada bahaya signifikan, (2) Tahapan tersebut dirancang khusus untuk menghilangkan/mengurangi bahaya ke level aman, (3) Tidak ada tahapan selanjutnya yang bisa menghilangkan bahaya tersebut.</li><li>Jika bahaya bisa dikendalikan lewat prosedur kebersihan umum, itu PRP. Jika butuh kontrol ketat tapi bukan pembunuh utama, itu OPRP.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan CCP sebagai titik kritis/pertahanan terakhir yang dirancang khusus menghilangkan bahaya; PRP sebagai kontrol kebersihan umum dasar; dan OPRP di antara keduanya (penting tapi bukan pembasmi utama)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Bisa mendefinisikan CCP secara tepat, namun kurang jelas dalam membedakan batas antara OPRP dan PRP."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya mendefinisikan kepanjangan singkatannya tanpa menjelaskan kriteria penentuan atau logika pohon keputusan (decision tree)."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Mengartikan CCP sebagai titik kumpul evakuasi atau kesalahan fatal konsep HACCP lainnya."
+    }
+   ]
+  },
+  {
+   "no": 6,
+   "question": "<p>Salah satu syarat Batas Kritis (Critical Limit) pada CCP adalah harus dapat divalidasi dan dipantau secara cepat (real-time). Mengapa parameter mikrobiologi (seperti Total Plate Count) pada produk akhir TIDAK BOLEH dijadikan sebagai Batas Kritis untuk memantau proses produksi yang sedang berjalan? Apa alternatif parameter penggantinya?</p>",
+   "answer": "<p>Batas Kritis (Mikrobiologi vs Fisik)</p><p>Kunci:</p><ul><li>Uji mikrobiologi butuh waktu (inkubasi 2-5 hari). Jika dipakai sebagai batas kritis, produk sudah terlanjur dipacking atau dikirim sebelum hasil keluar. Tidak bisa untuk tindakan segera.</li><li>Alternatif: Gunakan parameter fisik/kimia yang bisa dibaca detik itu juga, seperti Suhu, Waktu, pH, atau Aw. (Misal: Suhu 72°C selama 15 detik terbukti membunuh bakteri).</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan uji mikrobiologi butuh waktu lama (hari) sehingga gagal memenuhi prinsip real- time monitoring (tindakan koreksi terlambat). Alternatif fisik/kimia (suhu, waktu, pH) disebutkan dengan tepat karena bisa dipantau saat itu juga."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan uji bakteri lama sehingga keburu dijual, namun tidak menyebutkan secara spesifik apa alternatif parameternya (hanya menjawab \"pakai alat ukur lain\")."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Jawaban mengambang, seperti \"karena alat mikrobiologi mahal\" atau \"karena susah dilakukan operator\"."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Berargumen bahwa mikrobiologi justru wajib dijadikan batas kritis karena paling akurat, menunjukkan ketidakpahaman atas konsep dasar CCP."
+    }
+   ]
+  },
+  {
+   "no": 7,
+   "question": "<p>Jelaskan prinsip ketertelusuran \"Satu Langkah ke Depan, Satu Langkah ke Belakang\" (One step up, one step down)! Mengapa sistem kode produksi (Batch number) sangat vital saat terjadi penarikan produk (Product Recall)?</p>",
+   "answer": "<p>Traceability (One Step Up/Down)</p><p>Kunci:</p><ul><li>One Step Up: Tahu dari mana bahan baku didapat (Supplier siapa, Lot berapa).</li><li>One Step Down: Tahu ke mana produk dijual (Distributor mana, Toko apa).</li><li>Fungsi Batch Number: Mengisolasi masalah. Jika ada recall, perusahaan hanya perlu menarik kode batch yang bermasalah, tidak perlu menarik seluruh produk di pasar (efisiensi biaya &amp; reputasi).</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "One step up (tahu asal supplier/bahan) dan one step down (tahu kemana produk dijual/distributor). Menjelaskan fungsi batch number untuk mengisolasi masalah agar recall efisien dan tepat sasaran."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan arti traceability secara umum, namun melupakan salah satu arah (hanya menjelaskan telusur ke belakang)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjelaskan pentingnya batch number untuk penanggalan kedaluwarsa tanpa mengaitkan dengan penarikan produk terarah."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap one step up/down adalah jenjang karir karyawan atau posisi mesin di pabrik."
+    }
+   ]
+  },
+  {
+   "no": 8,
+   "question": "<p>Banyak fresh graduate bingung membedakan Validasi dan Verifikasi. Gunakan contoh proses \"Pemanasan/Pasteurisasi\". Jelaskan kegiatan apa yang disebut Validasi pasteurisasi dan kegiatan apa yang disebut Verifikasi pasteurisasi!</p>",
+   "answer": "<p>Validasi vs Verifikasi (Contoh Pasteurisasi)</p><p>Kunci:</p><ul><li>Validasi (Sebelum diterapkan/Awal): Studi ilmiah/percobaan membuktikan bahwa suhu 72°C selama 15 detik benar-benar mampu membunuh E.coli target. (Menjawab: Apakah rencananya benar?).</li><li>Verifikasi (Saat berjalan/Rutin): Mengecek apakah termometer akurat (kalibrasi), mengecek logbook apakah operator benar-benar memanaskan di suhu 72°C. (Menjawab: Apakah rencana dijalankan dengan patuh?).</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Validasi = studi ilmiah awal (apakah suhu 72°C benar-benar efektif membunuh target mikroba?). Verifikasi = pengecekan rutin operasional (kalibrasi alat, cek logbook apakah 72°C diterapkan konsisten)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Membedakan waktu pelaksanaannya (Validasi di awal, Verifikasi harian), tapi contohnya kurang spesifik pada proses pasteurisasi."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Definisi tumpang tindih, namun tahu bahwa keduanya penting untuk memastikan pemanasan susu berjalan baik."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Terbalik mengartikan validasi dan verifikasi, atau menyamakan keduanya sebagai \"pengecekan oleh atasan\"."
+    }
+   ]
+  },
+  {
+   "no": 9,
+   "question": "<p>Jika monitoring CCP menunjukkan suhu pasteurisasi turun di bawah batas kritis (Deviasi), tindakan apa yang harus dilakukan implementer terhadap: a. Produk yang dihasilkan selama suhu turun?</p><p>b. Proses/Mesin agar kejadian tidak berulang?</p>",
+   "answer": "<p>Tindakan Koreksi (Produk &amp; Proses)</p><p>Kunci:</p><ul></ul><p>a. Terhadap Produk: HOLD/Karantina. Jangan dijual. Lakukan evaluasi (cek lab atau re-process ulang jika aman). Jika tidak bisa diselamatkan, musnahkan. b. Terhadap Proses: Cari Akar Penyebab (Root Cause Analysis). Apakah steam habis? Apakah pompa rusak? Perbaiki penyebabnya agar besok tidak terulang lagi (bukan sekadar menaikkan suhu sesaat).</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Memisahkan tindakan dengan jelas. Terhadap produk: Hold/Karantina, evaluasi, re-process, atau reject. Terhadap proses: Investigasi akar masalah (root cause) dan perbaikan permanen mesin/prosedur."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan produk ditahan dan mesin diperbaiki, namun tidak menyentuh analisis akar masalah (root cause) untuk pencegahan ulang."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab satu sisi (misal: \"buang produknya\" atau \"suhunya dinaikkan lagi\") tanpa tindakan menyeluruh."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan tindakan pemalsuan data logbook atau tetap meloloskan produk."
+    }
+   ]
+  },
+  {
+   "no": 10,
+   "question": "<p>Anda ditugaskan melatih operator pabrik yang pendidikannya rendah tentang \"Cuci Tangan\". Metode komunikasi dan evaluasi seperti apa yang paling efektif untuk memastikan mereka paham dan mau menerapkannya? Mengapa sekadar \"Daftar Hadir Training\" tidak cukup sebagai bukti kompetensi?</p>",
+   "answer": "<p>Kunci:</p><ul><li>Metode: Gunakan visual (poster gambar), praktik langsung (demonstrasi), dan bahasa sederhana/lokal. Jangan pakai istilah teknis rumit.</li><li>Evaluasi: Daftar hadir hanya bukti datang, bukan bukti paham. Gunakan Observasi Lapangan (cek diam-diam apakah mereka cuci tangan dengan benar) atau tes praktik langsung.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyarankan metode visual/demonstrasi praktik langsung tanpa jargon rumit. Menjelaskan evaluasi harus berupa observasi lapangan/praktik, karena daftar hadir tidak mengukur pemahaman dan kepatuhan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyarankan praktik langsung, tapi tidak menyinggung masalah mengapa daftar hadir tidak cukup sebagai bukti kompetensi."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menyarankan pelatihan menggunakan PowerPoint biasa di kelas, yang kurang relevan untuk operator berpendidikan rendah."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menjawab dengan tindakan hukuman/pemotongan gaji agar pekerja patuh, bukan pendekatan kompetensi/pelatihan."
+    }
+   ]
+  }
+ ],
+ "esai_panduan": "<p><strong>Panduan Penilaian Umum (Rentang Skor 10–100)</strong></p>\n<p><strong>Skor 90 – 100: Sangat Baik (Komprehensif &amp; Presisi)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Menyebutkan seluruh elemen kunci dari jawaban dengan akurat.</li>\n<li><strong>Penalaran &amp; Konsep:</strong> Pemahaman konsep (HACCP, GMP/SSOP) sangat tajam, logis, dan mampu memberikan contoh nyata yang relevan.</li>\n<li><strong>Penggunaan Istilah:</strong> Menggunakan istilah teknis dengan tepat (misal: cross-contamination, severity, root cause, traceability).</li>\n</ul>\n<p><strong>Skor 70 – 89: Baik (Memadai &amp; Relevan)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Menyebutkan sebagian besar poin kunci, mungkin ada satu detail kecil atau contoh yang terlewat.</li>\n<li><strong>Penalaran &amp; Konsep:</strong> Penjelasan logis dan benar secara prinsip, namun penjabarannya kurang tajam atau menggunakan bahasa yang sedikit umum.</li>\n</ul>\n<p><strong>Skor 50 – 69: Cukup (Parsial &amp; Terlalu Umum)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Hanya mampu menyebutkan sebagian kecil poin kunci atau menjawab setengah-setengah.</li>\n<li><strong>Penalaran &amp; Konsep:</strong> Penjelasan terlalu awam, mengambang, dan kurang menargetkan prinsip sistem keamanan pangan secara spesifik.</li>\n</ul>\n<p><strong>Skor 30 – 49: Kurang (Dangkal &amp; Miskonsepsi)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Gagal menangkap substansi pertanyaan utama.</li>\n<li><strong>Penalaran &amp; Konsep:</strong> Terdapat kesalahan pemahaman yang fatal mengenai definisi dasar, prosedur, atau bahaya pangan.</li>\n</ul>\n<p><strong>Skor 10 – 29: Sangat Kurang (Tidak Relevan)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Jawaban tidak ada kaitannya dengan sistem keamanan pangan. Nilai 10 adalah nilai dasar bagi peserta yang menuliskan jawaban.</li>\n</ul>",
+ "praktik": {
+  "template": "fsms.docx",
+  "template_name": "Ujian Praktik V2 - Food Safety Management Officer.docx",
+  "duration": 120,
+  "panduan": "Petunjuk Umum dan Alokasi Waktu\nBaca seluruh Lembar Kasus sebelum mulai. Waktu membaca sudah termasuk dalam alokasi Tugas 1.\nKerjakan Tugas 1 sampai 5 secara berurutan. Hasil tugas sebelumnya menjadi masukan tugas berikutnya.\nGunakan hanya data dalam kasus. Bila data tidak tersedia, tuliskan asumsi Anda secara eksplisit.\nSetiap keputusan (signifikansi bahaya, CCP, batas kritis) wajib disertai alasan singkat. Jawaban tanpa alasan tidak mendapat nilai penuh.\nUjian bersifat mandiri dan tertutup. Pelanggaran tata tertib mengikuti ketentuan skema 5.6 D butir 4–7 (nilai 0 dan dinyatakan tidak lulus).\nTugas | Isi | Waktu | Skor maks\nBaca kasus + Tugas 1 | Deskripsi produk, tujuan penggunaan, konsumen | 20 menit | 15\nTugas 2 | Verifikasi dan perbaikan diagram alir | 20 menit | 20\nTugas 3 | Analisis bahaya dan tindakan pengendalian | 30 menit | 25\nTugas 4 | Penentuan CCP dengan decision tree | 15 menit | 10\nTugas 5 | Lembar rencana HACCP (batas kritis, pemantauan, koreksi) | 30 menit | 30\nPemeriksaan akhir | Cek kelengkapan jawaban | 5 menit | —\nTotal | 120 menit | 100\n\nLembar Kasus, Lembar Tugas dan Jawaban, serta Lampiran (matriks risiko, CCP decision tree) ada di file template.",
+  "rubrik": "<p><strong>RUBRIK PENILAIAN</strong></p>\n<table><tr><th>Nilai</th><th>Label</th><th>Patokan umum</th></tr><tr><td>76-100</td><td>Sepenuhnya Kompeten</td><td>Semua poin kunci terpenuhi dengan benar.</td></tr><tr><td>51-75</td><td>Kompeten dengan Catatan</td><td>Semua gerbang kritis terpenuhi; kekurangan kecil pada poin non-kritis yang tidak mengubah hasil (pedoman: paling banyak sekitar ¼ poin kunci).</td></tr><tr><td>26-50</td><td>Belum Kompeten</td><td>Satu gerbang kritis gagal, ATAU kekurangan lebih banyak dari batas pita 51-75.</td></tr><tr><td>0-25</td><td>Belum Kompeten</td><td>Sebagian besar poin kunci salah atau tidak dikerjakan.</td></tr></table>\n<p><strong>Tugas 1 - Deskripsi Produk &amp; Tujuan Penggunaan</strong></p><table><tr><td>Sumber bukti</td><td>Lembar Jawaban Tugas 1a dan 1b</td></tr><tr><td>Poin kunci</td><td>Sepuluh elemen deskripsi produk terisi sesuai Lembar Kasus<br>Karakteristik keamanan: pH 3,7–3,9 (asam), aw ± 0,98, tanpa pengawet; patogen tahan asam tetap relevan<br>Tujuan penggunaan: siap minum tanpa pemanasan<br>Konsumen termasuk anak sekolah dasar sebagai kelompok rentan<br>Label: petunjuk simpan setelah dibuka, kode lot/kedaluwarsa, peringatan \"dapat mengandung susu\" selama pembersihan alergen belum divalidasi<br>Penyalahgunaan wajar: disimpan di suhu ruang atau lebih dari 3 hari setelah dibuka<br>1b: dua informasi yang paling memengaruhi analisis bahaya beserta alasan</td></tr><tr><td>Gerbang kritis</td><td>Kelompok rentan (anak sekolah dasar) tidak diidentifikasi → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Seluruh elemen benar dan lengkap; kelompok rentan, peringatan alergen, dan penyalahgunaan disebut; 1b beralasan.</td></tr><tr><td>51-75</td><td>Gerbang kritis terpenuhi; kekurangan kecil, misalnya peringatan alergen tidak disebut, satu elemen kurang tepat, atau 1b hanya satu yang beralasan.</td></tr><tr><td>26-50</td><td>Gerbang kritis gagal, ATAU beberapa elemen salah/kosong.</td></tr><tr><td>0-25</td><td>Deskripsi produk sebagian besar kosong atau tidak sesuai kasus.</td></tr></table>\n<p><strong>Tugas 2 - Verifikasi Diagram Alir</strong></p><table><tr><td>Sumber bukti</td><td>Lembar Jawaban Tugas 2a, 2b, 2c</td></tr><tr><td>Poin kunci</td><td>2a: enam ketidaksesuaian ditemukan (jalur kemasan, air olahan, balance tank + FDV, inversi, posisi detektor logam, rework)<br>2b: diagram diperbaiki dengan semua input bahan dan kemasan<br>2b: alur balik FDV ke balance tank dan alur rework ke pencampuran digambar<br>2b: parameter proses utama dicantumkan (klorin 100 ppm/2 menit, 90 °C/30 detik, ≥ 85 °C, inversi ≥ 3 menit, ≤ 40 °C)<br>2c: diverifikasi tim HACCP di lokasi saat operasi (semua shift), ditandatangani ketua tim; diulang saat ada perubahan dan tinjauan berkala</td></tr><tr><td>Gerbang kritis</td><td>Posisi detektor logam atau alur rework tidak diperbaiki di diagram → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Enam temuan, diagram lengkap dengan input, loop, dan parameter; 2c benar.</td></tr><tr><td>51-75</td><td>Gerbang kritis terpenuhi; kekurangan kecil, misalnya 5 dari 6 temuan, parameter tidak lengkap, atau 2c tanpa frekuensi ulang.</td></tr><tr><td>26-50</td><td>Gerbang kritis gagal, ATAU kurang dari 4 temuan, ATAU diagram tidak diperbaiki.</td></tr><tr><td>0-25</td><td>Tugas sebagian besar tidak dikerjakan.</td></tr></table>\n<p><strong>Tugas 3 - Analisis Bahaya</strong></p><table><tr><td>Sumber bukti</td><td>Lembar Jawaban Tugas 3</td></tr><tr><td>Poin kunci</td><td>Bahaya B, K (termasuk alergen), F yang realistis untuk ketujuh tahap, dengan sumber/penyebab<br>S × L dihitung benar dan status signifikan sesuai ambang ≥ 6 (Lampiran 1)<br>Signifikan: patogen di penerimaan dan pasteurisasi, kontaminasi ulang di hot fill, alergen susu di pencampuran, logam di pulping/detektor logam<br>Bahaya tidak signifikan diarahkan ke PRP yang tepat (pemasok/uji residu, kontrol klorin, sortasi, torsi tutup)<br>Alasan merujuk data kasus (D1–D7, catatan lapangan)<br>Tindakan pengendalian spesifik untuk setiap bahaya signifikan</td></tr><tr><td>Gerbang kritis</td><td>Patogen di pasteurisasi atau alergen susu tidak dinyatakan signifikan → maksimal 50<br>Ada keputusan signifikan yang bertentangan dengan S × L yang ditulis asesi sendiri → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Bahaya lengkap dan realistis, skor dan keputusan konsisten, pengendalian dan PRP tepat, alasan merujuk data.</td></tr><tr><td>51-75</td><td>Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya satu bahaya terlewat, satu skor berbeda tanpa alasan kuat, atau pengendalian satu bahaya kurang spesifik.</td></tr><tr><td>26-50</td><td>Salah satu gerbang kritis gagal, ATAU beberapa tahap tanpa bahaya yang relevan.</td></tr><tr><td>0-25</td><td>Analisis bahaya sebagian besar kosong atau tidak relevan.</td></tr></table>\n<p><strong>Tugas 4 - Penentuan CCP</strong></p><table><tr><td>Sumber bukti</td><td>Lembar Jawaban Tugas 4</td></tr><tr><td>Poin kunci</td><td>Decision tree diterapkan berurutan (P1–P4) pada setiap bahaya signifikan dari Tugas 3<br>CCP 1 pasteurisasi, CCP 2 pengisian panas + inversi, CCP 3 detektor logam<br>Patogen di penerimaan dan logam di pulping bukan CCP, dengan pengendali tahap berikutnya disebut<br>Alergen susu: CCP atau OPRP (validasi pembersihan, penjadwalan) dengan alasan logis</td></tr><tr><td>Gerbang kritis</td><td>- Pasteurisasi tidak ditetapkan sebagai CCP → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Semua jawaban P1–P4 benar dan konsisten dengan Tugas 3; tiga CCP tepat; alergen beralasan.</td></tr><tr><td>51-75</td><td>Gerbang kritis terpenuhi; kekurangan kecil, misalnya satu jawaban P salah tanpa mengubah kesimpulan, atau pengendali non-CCP tidak disebut.</td></tr><tr><td>26-50</td><td>Gerbang kritis gagal, ATAU dua CCP lain salah.</td></tr><tr><td>0-25</td><td>Decision tree tidak diterapkan.</td></tr></table>\n<p><strong>Tugas 5 - Rencana HACCP &amp; Tindakan Koreksi</strong></p><table><tr><td>Sumber bukti</td><td>Lembar Jawaban Tugas 5a, 5b</td></tr><tr><td>Poin kunci</td><td>5a: batas kritis terukur dan merujuk data validasi (D1–D4)<br>5a: pemantauan apa, bagaimana, kapan, siapa untuk setiap CCP<br>5a: tindakan koreksi terhadap produk dan proses, serta rekaman<br>5b: urutan benar — hentikan, tahan ± 3.000 botol sejak 10.00, disposisi proses ulang/musnah, perbaiki FDV dan suhu, catat + analisis akar masalah, beri tahu pihak terkait</td></tr><tr><td>Gerbang kritis</td><td>Batas kritis pasteurisasi di bawah 90 °C/30 detik atau tidak terukur → maksimal 50<br>5b melepas produk hanya berdasarkan uji mikrobiologi atau tanpa menahannya → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Rencana HACCP lengkap dan tervalidasi untuk ketiga CCP; 5b dan 5c lengkap dan berurutan.</td></tr><tr><td>51-75</td><td>Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya frekuensi pemantauan satu CCP kosong, rekaman tidak lengkap, atau 5c hanya satu tindakan.</td></tr><tr><td>26-50</td><td>Salah satu gerbang kritis gagal, ATAU satu CCP tanpa batas kritis/pemantauan.</td></tr><tr><td>0-25</td><td>Rencana HACCP sebagian besar kosong.</td></tr></table>\n<p><strong>REKAPITULASI NILAI</strong></p>\n<table><tr><th>Tugas</th><th>Bobot</th></tr><tr><td>Tugas 1 - Deskripsi Produk &amp; Tujuan Penggunaan</td><td>20%</td></tr><tr><td>Tugas 2 - Verifikasi Diagram Alir</td><td>20%</td></tr><tr><td>Tugas 3 - Analisis Bahaya dan tindakan pengendalian</td><td>20%</td></tr><tr><td>Tugas 4 - Penentuan CCP</td><td>20%</td></tr><tr><td>Tugas 5 - Rencana HACCP &amp; Tindakan Koreksi</td><td>20%</td></tr><tr><td>Nilai (Jumlah Nilai × Bobot)</td><td>100%</td></tr></table>",
+  "aspek": [
+   {
+    "no": 1,
+    "nama": "Tugas 1 - Deskripsi Produk & Tujuan Penggunaan",
+    "bobot": 20,
+    "sumber": "Lembar Jawaban Tugas 1a dan 1b",
+    "poin_kunci": [
+     "Sepuluh elemen deskripsi produk terisi sesuai Lembar Kasus",
+     "Karakteristik keamanan: pH 3,7–3,9 (asam), aw ± 0,98, tanpa pengawet; patogen tahan asam tetap relevan",
+     "Tujuan penggunaan: siap minum tanpa pemanasan",
+     "Konsumen termasuk anak sekolah dasar sebagai kelompok rentan",
+     "Label: petunjuk simpan setelah dibuka, kode lot/kedaluwarsa, peringatan \"dapat mengandung susu\" selama pembersihan alergen belum divalidasi",
+     "Penyalahgunaan wajar: disimpan di suhu ruang atau lebih dari 3 hari setelah dibuka",
+     "1b: dua informasi yang paling memengaruhi analisis bahaya beserta alasan"
+    ],
+    "gerbang": [
+     "Kelompok rentan (anak sekolah dasar) tidak diidentifikasi"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Seluruh elemen benar dan lengkap; kelompok rentan, peringatan alergen, dan penyalahgunaan disebut; 1b beralasan."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Gerbang kritis terpenuhi; kekurangan kecil, misalnya peringatan alergen tidak disebut, satu elemen kurang tepat, atau 1b hanya satu yang beralasan."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Gerbang kritis gagal, ATAU beberapa elemen salah/kosong."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Deskripsi produk sebagian besar kosong atau tidak sesuai kasus."
+     }
+    ]
+   },
+   {
+    "no": 2,
+    "nama": "Tugas 2 - Verifikasi Diagram Alir",
+    "bobot": 20,
+    "sumber": "Lembar Jawaban Tugas 2a, 2b, 2c",
+    "poin_kunci": [
+     "2a: enam ketidaksesuaian ditemukan (jalur kemasan, air olahan, balance tank + FDV, inversi, posisi detektor logam, rework)",
+     "2b: diagram diperbaiki dengan semua input bahan dan kemasan",
+     "2b: alur balik FDV ke balance tank dan alur rework ke pencampuran digambar",
+     "2b: parameter proses utama dicantumkan (klorin 100 ppm/2 menit, 90 °C/30 detik, ≥ 85 °C, inversi ≥ 3 menit, ≤ 40 °C)",
+     "2c: diverifikasi tim HACCP di lokasi saat operasi (semua shift), ditandatangani ketua tim; diulang saat ada perubahan dan tinjauan berkala"
+    ],
+    "gerbang": [
+     "Posisi detektor logam atau alur rework tidak diperbaiki di diagram"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Enam temuan, diagram lengkap dengan input, loop, dan parameter; 2c benar."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Gerbang kritis terpenuhi; kekurangan kecil, misalnya 5 dari 6 temuan, parameter tidak lengkap, atau 2c tanpa frekuensi ulang."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Gerbang kritis gagal, ATAU kurang dari 4 temuan, ATAU diagram tidak diperbaiki."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Tugas sebagian besar tidak dikerjakan."
+     }
+    ]
+   },
+   {
+    "no": 3,
+    "nama": "Tugas 3 - Analisis Bahaya",
+    "bobot": 20,
+    "sumber": "Lembar Jawaban Tugas 3",
+    "poin_kunci": [
+     "Bahaya B, K (termasuk alergen), F yang realistis untuk ketujuh tahap, dengan sumber/penyebab",
+     "S × L dihitung benar dan status signifikan sesuai ambang ≥ 6 (Lampiran 1)",
+     "Signifikan: patogen di penerimaan dan pasteurisasi, kontaminasi ulang di hot fill, alergen susu di pencampuran, logam di pulping/detektor logam",
+     "Bahaya tidak signifikan diarahkan ke PRP yang tepat (pemasok/uji residu, kontrol klorin, sortasi, torsi tutup)",
+     "Alasan merujuk data kasus (D1–D7, catatan lapangan)",
+     "Tindakan pengendalian spesifik untuk setiap bahaya signifikan"
+    ],
+    "gerbang": [
+     "Patogen di pasteurisasi atau alergen susu tidak dinyatakan signifikan",
+     "Ada keputusan signifikan yang bertentangan dengan S × L yang ditulis asesi sendiri"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Bahaya lengkap dan realistis, skor dan keputusan konsisten, pengendalian dan PRP tepat, alasan merujuk data."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya satu bahaya terlewat, satu skor berbeda tanpa alasan kuat, atau pengendalian satu bahaya kurang spesifik."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU beberapa tahap tanpa bahaya yang relevan."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Analisis bahaya sebagian besar kosong atau tidak relevan."
+     }
+    ]
+   },
+   {
+    "no": 4,
+    "nama": "Tugas 4 - Penentuan CCP",
+    "bobot": 20,
+    "sumber": "Lembar Jawaban Tugas 4",
+    "poin_kunci": [
+     "Decision tree diterapkan berurutan (P1–P4) pada setiap bahaya signifikan dari Tugas 3",
+     "CCP 1 pasteurisasi, CCP 2 pengisian panas + inversi, CCP 3 detektor logam",
+     "Patogen di penerimaan dan logam di pulping bukan CCP, dengan pengendali tahap berikutnya disebut",
+     "Alergen susu: CCP atau OPRP (validasi pembersihan, penjadwalan) dengan alasan logis"
+    ],
+    "gerbang": [
+     "Pasteurisasi tidak ditetapkan sebagai CCP"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Semua jawaban P1–P4 benar dan konsisten dengan Tugas 3; tiga CCP tepat; alergen beralasan."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Gerbang kritis terpenuhi; kekurangan kecil, misalnya satu jawaban P salah tanpa mengubah kesimpulan, atau pengendali non-CCP tidak disebut."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Gerbang kritis gagal, ATAU dua CCP lain salah."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Decision tree tidak diterapkan."
+     }
+    ]
+   },
+   {
+    "no": 5,
+    "nama": "Tugas 5 - Rencana HACCP & Tindakan Koreksi",
+    "bobot": 20,
+    "sumber": "Lembar Jawaban Tugas 5a, 5b",
+    "poin_kunci": [
+     "5a: batas kritis terukur dan merujuk data validasi (D1–D4)",
+     "5a: pemantauan apa, bagaimana, kapan, siapa untuk setiap CCP",
+     "5a: tindakan koreksi terhadap produk dan proses, serta rekaman",
+     "5b: urutan benar — hentikan, tahan ± 3.000 botol sejak 10.00, disposisi proses ulang/musnah, perbaiki FDV dan suhu, catat + analisis akar masalah, beri tahu pihak terkait"
+    ],
+    "gerbang": [
+     "Batas kritis pasteurisasi di bawah 90 °C/30 detik atau tidak terukur",
+     "5b melepas produk hanya berdasarkan uji mikrobiologi atau tanpa menahannya"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Rencana HACCP lengkap dan tervalidasi untuk ketiga CCP; 5b dan 5c lengkap dan berurutan."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya frekuensi pemantauan satu CCP kosong, rekaman tidak lengkap, atau 5c hanya satu tindakan."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU satu CCP tanpa batas kritis/pemantauan."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Rencana HACCP sebagian besar kosong."
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -28,10 +28,28 @@ class Exam extends Model
         'random_answer',
         'show_answer',
         'praktik_panduan',
+        'praktik_rubrik',
+        'praktik_aspek',
+        'esai_panduan',
     ];
 
-    /** Path file template di disk private — jangan dikirim ke browser. */
-    protected $hidden = ['praktik_template_path'];
+    protected function casts(): array
+    {
+        // Aspek penilaian Ujian Praktik: [{no, nama, bobot}] — lihat App\Support\NilaiPraktik::aspekScore()
+        return ['praktik_aspek' => 'array'];
+    }
+
+    /**
+     * Path file template di disk private & rubrik penilaian asesor — jangan dikirim ke browser
+     * (rubrik dikirim eksplisit hanya ke halaman Nilai Praktik / Nilai Esai asesor).
+     */
+    protected $hidden = ['praktik_template_path', 'praktik_rubrik', 'praktik_aspek', 'esai_panduan'];
+
+    /** Tag yang boleh ada di rubrik praktik (HTML dari paket soal, dirender v-html di halaman asesor). */
+    public const RUBRIK_TAGS = '<p><strong><br><table><thead><tbody><tr><th><td>';
+
+    /** Tag yang boleh ada di Panduan Penilaian Umum esai (FR.IA.06). */
+    public const PANDUAN_ESAI_TAGS = '<p><strong><br><ul><ol><li>';
 
     public function isPraktik(): bool
     {

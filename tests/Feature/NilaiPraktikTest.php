@@ -104,11 +104,16 @@ class NilaiPraktikTest extends TestCase
                 ->where('parts.0.title', 'Lifting - Calculation')
                 ->where('parts.0.bobot', 50)
                 ->where('parts.1.bobot', 30)
-                ->has('students', 1)
+                ->has('rows', 1)
+                ->where('rows.0.parts.0.score', null)
             );
 
         $this->nilai([1 => 80, 2 => 70])->assertSessionHasNoErrors()->assertRedirect();
         $this->assertSame(2, PraktikScore::whereNotNull('score')->count());
+        $this->get("/asesor/penilaian/{$this->ctx['session']->id}/praktik")->assertInertia(fn (Assert $page) => $page
+            ->where('rows.0.parts.1.score', 70)
+            ->where('rows.0.total', 76.25)
+        );
 
         $result = collect(app(ResultCalculatorService::class)->recalcForSession($this->ctx['session']))->first();
         // Praktik = (80×50 + 70×30) / 80 = 76,25; akhir = 90×0,2 + 80×0,5 + 70×0,3 = 79 → LULUS (≥ 70)
@@ -127,6 +132,137 @@ class NilaiPraktikTest extends TestCase
         $this->assertNull(PraktikScore::where('bagian', 2)->value('score'));
         $result = collect(app(ResultCalculatorService::class)->recalcForSession($this->ctx['session']))->first();
         $this->assertSame(80.0, $result->nilai_praktik);
+    }
+
+    public function test_practical_page_shows_rubric_and_interview_drops_worksheet(): void
+    {
+        Exam::whereKey($this->ctx['session']->exam_id_praktik)->update(['praktik_rubrik' => '<p><strong>C. RUBRIK STUDI KASUS 2</strong></p><table><tr><th>Aspek</th></tr></table>']);
+        $this->ctx['session']->forceFill(['has_wawancara' => true])->save();
+
+        // Rubrik hanya di halaman nilai per peserta, tidak di daftar
+        $this->actingAs($this->ctx['asesor'])
+            ->get("/asesor/penilaian/{$this->ctx['session']->id}/praktik")
+            ->assertInertia(fn (Assert $page) => $page->missing('parts.0.rubrik'));
+        $this->get("/asesor/penilaian/{$this->ctx['session']->id}/praktik/peserta/{$this->ctx['student']->id}")
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('Asesor/Praktik/Nilai')
+                ->where('parts.0.rubrik', fn ($html) => str_contains($html, 'RUBRIK STUDI KASUS 2'))
+                ->where('parts.1.rubrik', null)
+                ->where('nav.position', 1)
+                ->where('nav.next_id', null)
+            );
+
+        // Keterampilan dinilai di halaman Praktik → wawancara = rata-rata 3 kriteria lisan, Worksheet diabaikan
+        $this->get("/asesor/penilaian/{$this->ctx['session']->id}/wawancara")
+            ->assertInertia(fn (Assert $page) => $page->where('praktik_terpisah', true));
+        $this->post("/asesor/penilaian/{$this->ctx['session']->id}/wawancara", ['assessments' => [[
+            'student_id' => $this->ctx['student']->id, 'gaya_wawancara' => 80, 'penguasaan_materi' => 70,
+            'kemampuan_hadapi_pertanyaan' => 90, 'hasil_worksheet' => 10,
+        ]]])->assertSessionHasNoErrors();
+
+        $ia = \App\Models\InterviewAssessment::firstOrFail();
+        $this->assertNull($ia->hasil_worksheet);
+        $this->assertSame(80.0, (float) $ia->total_nilai);
+    }
+
+    public function test_part_scored_per_rubric_aspect(): void
+    {
+        // Bagian 1 dinilai per aspek (mis. Corporate Legal Studi Kasus 2): bobot 60 + 40
+        $kriteria = [['min' => 90, 'max' => 100, 'label' => 'Sangat Baik', 'deskripsi' => 'Lengkap']];
+        Exam::whereKey($this->ctx['session']->exam_id_praktik)->firstOrFail()->update(['praktik_aspek' => [
+            ['no' => 1, 'nama' => 'Struktur', 'bobot' => 60, 'kriteria' => $kriteria],
+            ['no' => 2, 'nama' => 'Ruang lingkup', 'bobot' => 40, 'kriteria' => $kriteria],
+        ]]);
+        $url = "/asesor/penilaian/{$this->ctx['session']->id}/praktik";
+        $gradeUrl = "{$url}/peserta/{$this->ctx['student']->id}";
+        $post = fn (array $aspek, array $nilai = [], array $catatan = []) => $this->actingAs($this->ctx['asesor'])->post($url, [
+            'scores' => [['student_id' => $this->ctx['student']->id, 'nilai' => $nilai, 'aspek' => [1 => $aspek], 'catatan' => [1 => $catatan]]],
+        ]);
+
+        $this->actingAs($this->ctx['asesor'])->get($gradeUrl)->assertInertia(fn (Assert $page) => $page
+            ->has('parts.0.aspek', 2)
+            ->where('parts.0.aspek.0.bobot', 60)
+            ->where('parts.0.aspek.0.kriteria.0.label', 'Sangat Baik')
+            ->where('parts.1.aspek', [])
+        );
+        $this->get($url)->assertInertia(fn (Assert $page) => $page->where('parts.0.aspek_count', 2));
+
+        // Belum lengkap: nilai aspek tersimpan, nilai bagian belum dihitung (nilai langsung dari browser diabaikan)
+        $post([1 => 80, 2 => null], [1 => 99, 2 => 70], [1 => 'Format lengkap'])->assertSessionHasNoErrors();
+        $ps = PraktikScore::where('bagian', 1)->firstOrFail();
+        $this->assertNull($ps->score);
+        $this->assertSame(80, (int) $ps->aspek[1]);
+        $this->assertSame('Format lengkap', $ps->catatan[1]);
+        $this->get($url)->assertInertia(fn (Assert $page) => $page->where('rows.0.parts.0.filled', 1));
+
+        // Lengkap: 80 × 60% + 90 × 40% = 84
+        $post([1 => 80, 2 => 90], [2 => 70])->assertSessionHasNoErrors();
+        $this->assertSame(84.0, PraktikScore::where('bagian', 1)->value('score'));
+        $this->get($gradeUrl)->assertInertia(fn (Assert $page) => $page
+            ->where('parts.0.nilai.2', 90)
+            ->where('parts.0.score', 84)
+        );
+
+        $post([1 => 120])->assertSessionHasErrors();
+    }
+
+    public function test_lifting_aspects_scored_per_item(): void
+    {
+        // Lifting Calculation: B1 (2 butir × 50) bobot 60 + B2 (1 butir × 100) bobot 40 — pilihan Ada & Benar / Salah / Tidak Ada
+        $opsi = fn (int $max) => [['label' => 'Ada & Benar', 'nilai' => $max], ['label' => 'Ada tapi Salah', 'nilai' => $max / 2], ['label' => 'Tidak Ada', 'nilai' => 0]];
+        Exam::whereKey($this->ctx['session']->exam_id_praktik)->firstOrFail()->update(['praktik_aspek' => [
+            ['no' => 1, 'nama' => 'B1', 'bobot' => 60, 'item' => [['no' => 1, 'nama' => 'Load Factor'], ['no' => 2, 'nama' => 'Working Radius']], 'pilihan' => $opsi(50)],
+            ['no' => 2, 'nama' => 'B2', 'bobot' => 40, 'item' => [['no' => 1, 'nama' => 'Site Preparation']], 'pilihan' => $opsi(100)],
+        ]]);
+        $url = "/asesor/penilaian/{$this->ctx['session']->id}/praktik";
+        $post = fn (array $rincian) => $this->actingAs($this->ctx['asesor'])->post($url, [
+            'scores' => [['student_id' => $this->ctx['student']->id, 'rincian' => [1 => $rincian]]],
+        ]);
+
+        // Belum semua butir dipilih: pilihan tersimpan, nilai aspek & bagian belum ada
+        $post([1 => [1 => 50]])->assertSessionHasNoErrors();
+        $ps = PraktikScore::where('bagian', 1)->firstOrFail();
+        $this->assertNull($ps->score);
+        $this->assertNull($ps->aspek[1]);
+        $this->assertSame(50, (int) $ps->rincian[1][1]);
+
+        // Lengkap: B1 = 50 + 25 = 75, B2 = 100 → 75 × 60% + 100 × 40% = 85
+        $post([1 => [1 => 50, 2 => 25], 2 => [1 => 100]])->assertSessionHasNoErrors();
+        $ps->refresh();
+        $this->assertSame(75, (int) $ps->aspek[1]);
+        $this->assertSame(85.0, $ps->score);
+        $this->get("{$url}/peserta/{$this->ctx['student']->id}")->assertInertia(fn (Assert $page) => $page
+            ->has('parts.0.aspek.0.item', 2)
+            ->where('parts.0.rincian.1.2', 25)
+        );
+
+        // Nilai di luar pilihan ditolak
+        $post([1 => [1 => 37]])->assertStatus(422);
+    }
+
+    public function test_failed_critical_gate_caps_aspect_at_50(): void
+    {
+        // ESG: Tugas 1 & 2 (bobot 50/50) dengan gerbang kritis — gagal → nilai aspek maks. 50
+        $aspek = fn (int $no) => ['no' => $no, 'nama' => "Tugas {$no}", 'bobot' => 50, 'poin_kunci' => ['Poin'],
+            'gerbang' => ['Warga sekitar tidak dipetakan'], 'maks_gerbang' => 50];
+        Exam::whereKey($this->ctx['session']->exam_id_praktik)->firstOrFail()->update(['praktik_aspek' => [$aspek(1), $aspek(2)]]);
+        $url = "/asesor/penilaian/{$this->ctx['session']->id}/praktik";
+        $post = fn (array $nilai, array $rincian) => $this->actingAs($this->ctx['asesor'])->post($url, [
+            'scores' => [['student_id' => $this->ctx['student']->id, 'aspek' => [1 => $nilai], 'rincian' => [1 => $rincian]]],
+        ]);
+
+        // Gerbang gagal tapi nilai 80 → ditolak
+        $post([1 => 80, 2 => 90], [1 => ['gerbang' => true]])->assertStatus(422);
+
+        $post([1 => 45, 2 => 90], [1 => ['gerbang' => true], 2 => ['gerbang' => false]])->assertSessionHasNoErrors();
+        $ps = PraktikScore::where('bagian', 1)->firstOrFail();
+        $this->assertSame(67.5, $ps->score);
+        $this->assertTrue($ps->rincian[1]['gerbang']);
+        $this->assertArrayNotHasKey(2, $ps->rincian);
+        $this->get("{$url}/peserta/{$this->ctx['student']->id}")->assertInertia(fn (Assert $page) => $page
+            ->where('parts.0.aspek.0.gerbang.0', 'Warga sekitar tidak dipetakan')
+            ->where('parts.0.rincian.1.gerbang', true)
+        );
     }
 
     public function test_scores_are_validated_and_limited_to_assigned_participants(): void

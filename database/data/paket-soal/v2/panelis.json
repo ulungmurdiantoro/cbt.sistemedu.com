@@ -1,0 +1,1733 @@
+{
+ "key": "panelis",
+ "classroom_code": "PSP",
+ "nama": "Panelis Terlatih Pengujian Sensori Pangan",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda Panelis Terlatih Pengujian Sensori Pangan.pdf",
+  "praktik": "FR.IA.04 Ujian Praktik - Panelis rev.docx (rubrik) + FR.IA.04 Praktek Panelis Terlatih Pengujian Sensori Pangan.pdf (formulir)"
+ },
+ "durasi": {
+  "pg": 120
+ },
+ "komposisi": {
+  "bobot_ujian_tulis": 70,
+  "proporsi_pg": 100,
+  "bobot_wawancara": 22.5,
+  "bobot_praktik_1": 7.5,
+  "bobot_praktik_2": 0,
+  "nilai_kelulusan": 60
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Dalam konteks industri pangan, peran utama evaluasi sensori adalah:"
+    }
+   ],
+   "options": [
+    "Menentukan harga jual produk",
+    "Menjembatani produk dengan persepsi konsumen",
+    "Menggantikan uji mikrobiologi",
+    "Mendesain kemasan produk"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Seorang panelis terlatih dalam pengujian sensori dipandang sebagai:"
+    }
+   ],
+   "options": [
+    "Konsumen awam",
+    "Tim pemasaran",
+    "Pengambil keputusan bisnis",
+    "Instrumen analitis yang presisi"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "Tujuan utama sertifikasi kompetensi panelis adalah:"
+    }
+   ],
+   "options": [
+    "Meningkatkan gaji panelis",
+    "Menjamin validitas dan reprodusibilitas data sensori",
+    "Memenuhi syarat administrasi HRD",
+    "Mengurangi biaya produksi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Standar acuan utama untuk lembaga sertifikasi person yang digunakan dalam skema ini adalah:"
+    }
+   ],
+   "options": [
+    "ISO 9001",
+    "ISO 17025",
+    "ISO/IEC 17024",
+    "ISO 22000"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Manakah yang bukan merupakan ruang lingkup sertifikasi Panelis Terlatih ini?"
+    }
+   ],
+   "options": [
+    "Memimpin panel dan merancang studi (Panel Leader)",
+    "Melakukan uji pembedaan",
+    "Melakukan uji deskriptif",
+    "Menilai atribut sensori"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "Istilah untuk ketidakmampuan mencium aroma adalah:"
+    }
+   ],
+   "options": [
+    "Ageusia",
+    "Anosmia",
+    "Buta warna",
+    "Amnesia"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Indra pengecap (gustatory) bertanggung jawab untuk mendeteksi:"
+    }
+   ],
+   "options": [
+    "Aroma",
+    "Rasa dasar (manis, asam, asin, pahit, umami)",
+    "Tekstur",
+    "Suara kerenyahan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "Atribut \"kerenyahan\" (crispness) dinilai terutama menggunakan indra:"
+    }
+   ],
+   "options": [
+    "Penglihatan",
+    "Pendengaran (auditory) dan Peraba (tactile)",
+    "Penciuman",
+    "Pengecap"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Jenis pengujian yang bertujuan menentukan apakah ada perbedaan antara dua sampel adalah:"
+    }
+   ],
+   "options": [
+    "Uji Afektif",
+    "Uji Deskriptif",
+    "Uji Pembedaan (Discrimination)",
+    "Uji Konsumen"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Standar ISO yang mengatur tentang \"Kosakata Analisis Sensori\" adalah:"
+    }
+   ],
+   "options": [
+    "ISO 8586",
+    "ISO 6658",
+    "ISO 11132",
+    "ISO 5492"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Pendidikan minimal untuk menjadi panelis terlatih sesuai skema adalah:"
+    }
+   ],
+   "options": [
+    "S1 Teknologi Pangan",
+    "D3",
+    "SMA/SMK atau sederajat",
+    "SMP"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Tes Ishihara digunakan untuk memverifikasi kondisi:"
+    }
+   ],
+   "options": [
+    "Buta warna",
+    "Anosmia",
+    "Ageusia",
+    "Ambang batas rasa"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Jika panelis menderita flu berat saat jadwal pengujian, tindakan yang tepat adalah:"
+    }
+   ],
+   "options": [
+    "Tetap datang menggunakan masker",
+    "Melapor ke pemimpin panel dan tidak mengikuti uji",
+    "Meminum obat lalu menguji",
+    "Hanya melakukan uji visual"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Prinsip \"Objektivitas\" dalam kode etik berarti:"
+    }
+   ],
+   "options": [
+    "Menilai berdasarkan merek produk",
+    "Menilai berdasarkan preferensi pribadi",
+    "Menilai murni berdasarkan persepsi sensori produk",
+    "Menilai sesuai pendapat teman"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Selama sesi pengujian, panelis dilarang keras untuk:"
+    }
+   ],
+   "options": [
+    "Minum air penetral",
+    "Mencatat hasil",
+    "Berkumur",
+    "Berdiskusi dengan panelis lain"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Panelis tidak boleh menggunakan produk berikut sebelum pengujian:"
+    }
+   ],
+   "options": [
+    "Kacamata",
+    "Jam tangan",
+    "Parfum atau losion beraroma kuat",
+    "Pakaian berwarna cerah"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Menjaga kerahasiaan mencakup hal-hal berikut, kecuali:"
+    }
+   ],
+   "options": [
+    "Identitas klien",
+    "Hasil pengujian",
+    "Metodologi spesifik",
+    "Jadwal makan siang panelis"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Batas waktu minimal menghindari makan pedas/rokok sebelum uji biasanya diatur untuk:"
+    }
+   ],
+   "options": [
+    "Menjaga kesehatan gigi",
+    "Menjaga sensitivitas indra",
+    "Menghemat pengeluaran",
+    "Alasan keagamaan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Kondisi fisiologis yang menjadi penghalang mutlak menjadi panelis adalah:"
+    }
+   ],
+   "options": [
+    "Memiliki alergi terhadap bahan pangan uji",
+    "Menggunakan kacamata",
+    "Berusia di atas 40 tahun",
+    "Tidak suka makanan pedas"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "Pelanggaran kode etik dapat menyebabkan:"
+    }
+   ],
+   "options": [
+    "Penurunan pangkat",
+    "Pembekuan atau pencabutan sertifikat",
+    "Denda uang",
+    "Teguran lisan saja"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Pada Uji Segitiga (Triangle Test), panelis menerima:"
+    }
+   ],
+   "options": [
+    "3 sampel (2 sama, 1 beda)",
+    "2 sampel",
+    "3 sampel berbeda semua",
+    "1 sampel referensi, 2 sampel uji"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Tugas panelis dalam Uji Segitiga adalah:"
+    }
+   ],
+   "options": [
+    "Memilih sampel yang paling disukai",
+    "Mengidentifikasi satu sampel yang berbeda",
+    "Mengurutkan intensitas",
+    "Mencocokkan dengan referensi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Peluang menebak benar (guessing probability) pada Uji Segitiga adalah:"
+    }
+   ],
+   "options": [
+    "1/2 (50%)",
+    "1/5 (20%)",
+    "1/4 (25%)",
+    "1/3 (33.3%)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Pada Uji Duo-Trio, sampel pertama yang disajikan adalah:"
+    }
+   ],
+   "options": [
+    "Sampel A",
+    "Sampel B",
+    "Sampel Referensi (R)",
+    "Sampel Blanko"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "Tugas panelis dalam Uji Duo-Trio adalah:"
+    }
+   ],
+   "options": [
+    "Mencari yang berbeda dari R",
+    "Mencari yang sama dengan R",
+    "Menilai intensitas R",
+    "Mendeskripsikan R"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "Peluang menebak benar pada Uji Duo-Trio adalah:"
+    }
+   ],
+   "options": [
+    "1/2 (50%)",
+    "1/3 (33.3%)",
+    "1/4 (25%)",
+    "100%"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Uji Perbandingan Pasangan (Paired Comparison) digunakan untuk:"
+    }
+   ],
+   "options": [
+    "Menentukan mana yang beda secara keseluruhan",
+    "Uji umur simpan",
+    "Menilai kesukaan",
+    "Membandingkan dua sampel berdasarkan satu atribut spesifik (misal: lebih manis)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Standar ISO untuk Uji Segitiga adalah:"
+    }
+   ],
+   "options": [
+    "ISO 4120",
+    "ISO 10399",
+    "ISO 5495",
+    "ISO 8586"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Standar ISO untuk Uji Duo-Trio adalah:"
+    }
+   ],
+   "options": [
+    "ISO 4120",
+    "ISO 10399",
+    "ISO 5495",
+    "ISO 6658"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Standar ISO untuk Uji Perbandingan Pasangan adalah:"
+    }
+   ],
+   "options": [
+    "ISO 4120",
+    "ISO 10399",
+    "ISO 5495",
+    "ISO 8589"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "Dalam Uji Segitiga, urutan penyajian sampel harus:"
+    }
+   ],
+   "options": [
+    "Selalu AAB",
+    "Selalu BBA",
+    "Diacak antara AAB, ABA, BAA, BBA, BAB, ABB (seimbang)",
+    "Dari yang paling enak"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Jika panelis diminta: \"Di depan Anda ada 3 sampel, mana yang beda?\", ini instruksi untuk:"
+    }
+   ],
+   "options": [
+    "Duo-Trio",
+    "Triangle Test",
+    "Paired Comparison",
+    "Ranking"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Jika panelis diminta: \"Mana yang lebih renyah?\", ini instruksi untuk:"
+    }
+   ],
+   "options": [
+    "Triangle Test",
+    "Duo-Trio",
+    "QDA",
+    "Paired Comparison (Directional)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Kode sampel yang digunakan dalam uji pembedaan adalah:"
+    }
+   ],
+   "options": [
+    "A, B, C",
+    "1, 2, 3",
+    "Tiga digit angka acak",
+    "Nama merek"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Analisis statistik untuk uji pembedaan biasanya menggunakan:"
+    }
+   ],
+   "options": [
+    "Tabel Binomial",
+    "ANOVA",
+    "Regresi",
+    "PCA"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Untuk lulus uji kompetensi praktik Uji Segitiga (Simulasi 1), tingkat jawaban benar minimal disarankan:"
+    }
+   ],
+   "options": [
+    "> 50%",
+    "> 60%",
+    "> 75%",
+    "100%"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Jika melakukan 7 kali uji segitiga, berapa minimal benar agar signifikan pada taraf 5%?"
+    }
+   ],
+   "options": [
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Uji pembedaan tidak memberikan informasi mengenai:"
+    }
+   ],
+   "options": [
+    "Ada tidaknya beda",
+    "/deskripsi perbedaan tersebut",
+    "Signifikansi perbedaan",
+    "Peluang tebakan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Kelebihan Uji Duo-Trio dibanding Segitiga adalah:"
+    }
+   ],
+   "options": [
+    "Lebih efisien secara statistik",
+    "Tidak ada kelebihan",
+    "Membutuhkan lebih sedikit sampel",
+    "Lebih sederhana secara kognitif bagi panelis"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Sampel dalam uji pembedaan harus disajikan identik dalam hal:"
+    }
+   ],
+   "options": [
+    "Suhu, volume, wadah",
+    "Rasa saja",
+    "Harga",
+    "Merek"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "Uji Deskriptif Kuantitatif (QDA) bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Mengukur kesukaan konsumen",
+    "Uji mikrobiologi",
+    "Menentukan produk gagal",
+    "Mengidentifikasi dan mengukur intensitas atribut sensori"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Langkah awal dalam QDA adalah pengembangan:"
+    }
+   ],
+   "options": [
+    "Resep produk",
+    "Leksikon (istilah/deskriptor)",
+    "Kemasan",
+    "Strategi pasar"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Skala yang umum digunakan dalam QDA adalah:"
+    }
+   ],
+   "options": [
+    "Skala Hedonik (1-9)",
+    "Skala Ranking",
+    "Skala Nominal",
+    "Skala Garis Tidak Terstruktur (misal 15 cm)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "Penanda pada ujung skala intensitas biasanya tertulis:"
+    }
+   ],
+   "options": [
+    "Suka - Tidak Suka",
+    "Baik – Buruk",
+    "Lemah/Rendah - Kuat/Tinggi",
+    "Asli - Palsu"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Panelis QDA harus memiliki kemampuan untuk:"
+    }
+   ],
+   "options": [
+    "Menilai secara subjektif",
+    "Konsisten dalam penggunaan skala",
+    "Mempengaruhi panelis lain",
+    "Menebak bahan baku"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Istilah \"Flavor\" mencakup gabungan persepsi:"
+    }
+   ],
+   "options": [
+    "Aroma dan Rasa (Taste)",
+    "Tekstur dan Suara",
+    "Warna dan Kilap",
+    "Panas dan Dingin"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "\"Aftertaste\" dinilai pada saat:"
+    }
+   ],
+   "options": [
+    "Sebelum sampel dimakan",
+    "Saat sampel dikunyah",
+    "Setelah sampel ditelan/dibuang",
+    "Saat melihat sampel"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Dalam QDA, peran Pemimpin Panel adalah:"
+    }
+   ],
+   "options": [
+    "Memfasilitasi diskusi dan pelatihan panel",
+    "Memberi nilai pada produk",
+    "Menyediakan konsumsi",
+    "Menentukan pemenang"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Atribut penampilan meliputi:"
+    }
+   ],
+   "options": [
+    "Warna, kilap, bentuk",
+    "Kerenyahan",
+    "Aroma",
+    "Rasa manis"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Atribut tekstur meliputi:"
+    }
+   ],
+   "options": [
+    "Masam, Pahit",
+    "Merah, Hijau",
+    "Harum, Apek",
+    "Kekerasan, Kekentalan, Kerenyahan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Standar ISO untuk pemantauan kinerja panel deskriptif adalah:"
+    }
+   ],
+   "options": [
+    "ISO 11132",
+    "ISO 8586",
+    "ISO 5492",
+    "ISO 6658"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Hasil data dari uji deskriptif berupa:"
+    }
+   ],
+   "options": [
+    "Data frekuensi",
+    "Data kualitatif saja",
+    "Profil sensori kuantitatif (Spider web chart)",
+    "Persentase kesukaan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Penilaian \"Memuaskan\" dalam uji praktik QDA didasarkan pada:"
+    }
+   ],
+   "options": [
+    "Kemampuan membedakan intensitas dan konsistensi",
+    "Kecepatan menilai",
+    "Kesamaan nilai dengan teman",
+    "Tulisan yang rapi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Kalibrasi panelis deskriptif bertujuan menyamakan:"
+    }
+   ],
+   "options": [
+    "Selera makan",
+    "Persepsi terhadap atribut dan penggunaan skala",
+    "Jam kerja",
+    "Latar belakang pendidikan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Lembar penilaian (scoresheet) QDA biasanya berisi:"
+    }
+   ],
+   "options": [
+    "Pertanyaan \"Apakah anda suka?\"",
+    "Kotak saran",
+    "Pilihan ganda A, B, C",
+    "Daftar atribut dan skala garis"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Bilik uji (booth) didesain sekat-sekat untuk:"
+    }
+   ],
+   "options": [
+    "Agar panelis bisa tidur",
+    "Menyimpan barang",
+    "Menghemat ruangan",
+    "Meminimalkan interaksi dan distraksi"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Bahan penetralis (palate cleanser) standar adalah:"
+    }
+   ],
+   "options": [
+    "Susu coklat",
+    "Air mineral suhu ruang dan biskuit tawar",
+    "Kopi panas",
+    "Jus lemon"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Fungsi penetralis adalah:"
+    }
+   ],
+   "options": [
+    "Mencegah carry-over effect (sisa rasa)",
+    "Menghilangkan rasa lapar",
+    "Memberi jeda istirahat",
+    "Menambah nilai gizi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Sampel harus disajikan dengan kode acak 3 digit untuk:"
+    }
+   ],
+   "options": [
+    "Mencegah bias identitas (blinding)",
+    "Memudahkan administrasi",
+    "Terlihat ilmiah",
+    "Syarat ISO"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Urutan evaluasi sampel sebaiknya:"
+    }
+   ],
+   "options": [
+    "Acak sesuka panelis",
+    "Dari kanan ke kiri",
+    "Dari kiri ke kanan sesuai instruksi",
+    "Dimakan sekaligus"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Suhu penyajian sampel harus:"
+    }
+   ],
+   "options": [
+    "Selalu panas",
+    "Selalu dingin",
+    "Terstandarisasi dan konsisten",
+    "Berubah-ubah"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Dalam observasi kinerja, asesor menilai:"
+    }
+   ],
+   "options": [
+    "Penampilan fisik panelis",
+    "Kepatuhan terhadap prosedur GSP",
+    "Kecepatan makan",
+    "Merk pakaian"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Panelis yang datang terlambat atau terburu-buru sebaiknya:"
+    }
+   ],
+   "options": [
+    "Dibiarkan masuk",
+    "Langsung menguji",
+    "Dihukum",
+    "Ditenangkan dulu sebelum uji atau dijadwal ulang"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Pencahayaan di ruang uji kadang dibuat berwarna (misal merah) untuk:"
+    }
+   ],
+   "options": [
+    "Estetika",
+    "Membuat rileks",
+    "Menghemat listrik",
+    "Menyamarkan perbedaan warna sampel (masking)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Standar ISO untuk desain ruang uji adalah:"
+    }
+   ],
+   "options": [
+    "ISO 8589",
+    "ISO 8586",
+    "ISO 11132",
+    "ISO 6658"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Kemampuan Diskriminasi (Discrimination Ability) adalah:"
+    }
+   ],
+   "options": [
+    "Kemampuan membedakan sampel yang berbeda",
+    "Kemampuan memberi nilai sama",
+    "Kemampuan bekerja cepat",
+    "Kemampuan mengenali merek"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Dalam ANOVA, kemampuan diskriminasi baik ditunjukkan oleh:"
+    }
+   ],
+   "options": [
+    "Interaksi tinggi",
+    "Nilai p (Produk) > 0.05",
+    "Nilai p (Produk) < 0.05 (Signifikan)",
+    "Error tinggi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Repetabilitas (Repeatability) adalah:"
+    }
+   ],
+   "options": [
+    "Kepekaan rasa",
+    "Kesamaan dengan panel lain",
+    "Konsistensi menilai sampel yang sama di waktu berbeda",
+    "Ketahanan fisik"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Indikator repetabilitas buruk dalam statistik adalah:"
+    }
+   ],
+   "options": [
+    "Varians error (residual) tinggi",
+    "Varians error rendah",
+    "Nilai p (Produk) signifikan",
+    "Interaksi Produk x Sesi tidak signifikan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Kesesuaian dengan Panel (Agreement) diukur melalui:"
+    }
+   ],
+   "options": [
+    "Interaksi Produk x Panelis",
+    "Efek Sesi",
+    "Efek Produk",
+    "Rata-rata"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Jika Interaksi Produk x Panelis signifikan, artinya:"
+    }
+   ],
+   "options": [
+    "Panelis sepakat",
+    "Ada panelis yang menilai dengan pola berbeda dari grup 66",
+    "Produk sangat berbeda",
+    "Data valid"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Monitoring kinerja panelis wajib dilakukan minimal:"
+    }
+   ],
+   "options": [
+    "1 bulan sekali",
+    "2 kali setahun",
+    "3 tahun sekali",
+    "Tidak wajib"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Metode statistik utama untuk memonitor kinerja panelis (ISO 11132) adalah:"
+    }
+   ],
+   "options": [
+    "ANOVA 68",
+    "Chi-Square",
+    "Uji T",
+    "Regresi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Sampel \"Jangkar\" dalam kalibrasi berfungsi sebagai:"
+    }
+   ],
+   "options": [
+    "Pengganggu",
+    "Sampel palsu",
+    "Referensi/patokan penilaian",
+    "Hadiah"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Analisis PCA (Principal Component Analysis) berguna untuk:"
+    }
+   ],
+   "options": [
+    "Menghitung gaji",
+    "Uji segitiga",
+    "Uji beda nyata",
+    "Visualisasi posisi panelis terhadap grup (outlier)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "Nilai kelulusan minimal untuk Ujian Tulis adalah:"
+    }
+   ],
+   "options": [
+    "60%",
+    "70%",
+    "75%",
+    "80%"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Syarat kelulusan Uji Identifikasi Rasa Dasar adalah:"
+    }
+   ],
+   "options": [
+    "100% Benar",
+    "80% Benar",
+    "Salah maksimal 1",
+    "50% Benar"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Konsentrasi larutan MANIS (Sukrosa) untuk seleksi adalah:"
+    }
+   ],
+   "options": [
+    "10 g/L",
+    "16 g/L 73",
+    "20 g/L",
+    "5 g/L"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Konsentrasi larutan ASIN (NaCl) untuk seleksi adalah:"
+    }
+   ],
+   "options": [
+    "1 g/L",
+    "2 g/L",
+    "3 g/L",
+    "5 g/L"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Konsentrasi larutan ASAM (Asam Sitrat) untuk seleksi adalah:"
+    }
+   ],
+   "options": [
+    "0.5 g/L",
+    "1 g/L",
+    "2 g/L",
+    "3 g/L"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Konsentrasi larutan PAHIT (Quinin Sulfat/Kafein) untuk seleksi adalah:"
+    }
+   ],
+   "options": [
+    "0.02 g/L (Quinin)",
+    "1 g/L",
+    "0.5 g/L",
+    "2 g/L"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "Konsentrasi larutan UMAMI (MSG) untuk seleksi adalah:"
+    }
+   ],
+   "options": [
+    "0.5 g/L",
+    "5 g/L",
+    "3 g/L",
+    "1 g/L"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Suhu air pelarut untuk larutan standar adalah:"
+    }
+   ],
+   "options": [
+    "Suhu ruang (20-25°C)",
+    "Dingin (4°C)",
+    "Hangat (40°C)",
+    "Mendidih"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Uji Ranking Intensitas mengharuskan kandidat untuk:"
+    }
+   ],
+   "options": [
+    "Menebak jenis rasa",
+    "Mengurutkan konsentrasi dari rendah ke tinggi dengan benar",
+    "Membedakan 3 sampel",
+    "Menilai kesukaan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Syarat kelulusan Uji Identifikasi Bau Dasar adalah:"
+    }
+   ],
+   "options": [
+    "70%Benar",
+    "90% Benar",
+    "80% Benar",
+    "100% Benar"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Masa berlaku sertifikat kompetensi panelis adalah:"
+    }
+   ],
+   "options": [
+    "1 tahun",
+    "2 tahun",
+    "3 tahun",
+    "Seumur hidup"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Pemegang sertifikat wajib memelihara kompetensi dengan:"
+    }
+   ],
+   "options": [
+    "Membayar iuran saja",
+    "Mengisi logbook kegiatan dan ikut monitoring",
+    "Mengulang ujian tulis tiap bulan",
+    "Tidak ada kewajiban"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Logbook kegiatan harus diserahkan kepada LSP setiap:"
+    }
+   ],
+   "options": [
+    "Bulan",
+    "Selesai proyek",
+    "3 Tahun",
+    "Tahun"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Sertifikasi ulang (Re-sertifikasi) dilakukan dengan cara:"
+    }
+   ],
+   "options": [
+    "Otomatis diperpanjang",
+    "Membayar biaya saja",
+    "Wawancara saja",
+    "Evaluasi portofolio, uji praktik ulang, dan ujian tulis update"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Sertifikat dapat DIBEKUKAN jika:"
+    }
+   ],
+   "options": [
+    "Panelis sakit",
+    "Gagal menyerahkan logbook tahunan",
+    "Pindah kerja",
+    "Lupa password"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Sertifikat dapat DICABUT jika:"
+    }
+   ],
+   "options": [
+    "Melakukan pelanggaran kode etik berat/berulang",
+    "Terlambat menyerahkan logbook 1 hari",
+    "Nilai kinerja menurun sedikit",
+    "Tidak ikut makan siang"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Batas waktu pengajuan BANDING setelah keputusan diterima adalah:"
+    }
+   ],
+   "options": [
+    "7 hari",
+    "14 hari",
+    "30 hari kalender",
+    "60 hari"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Komite Banding harus terdiri dari:"
+    }
+   ],
+   "options": [
+    "Asesor yang menguji",
+    "Personel yang TIDAK terlibat dalam asesmen awal",
+    "Teman dekat panelis",
+    "Pengacara"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Pihak ketiga dapat mengajukan KELUHAN terkait:"
+    }
+   ],
+   "options": [
+    "Masalah pribadi panelis",
+    "Lokasi kantor LSP",
+    "Harga produk",
+    "Kinerja panelis atau proses sertifikasi"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Logbook panelis berisi catatan tentang:"
+    }
+   ],
+   "options": [
+    "Partisipasi uji dan hasil monitoring/kalibrasi",
+    "Menu makanan harian",
+    "Curhatan pribadi",
+    "Absensi kantor"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "Tujuan \"Surveilan\" adalah:"
+    }
+   ],
+   "options": [
+    "Memata-matai panelis",
+    "Memverifikasi pemeliharaan kompetensi selama masa berlaku sertifikat",
+    "Mencari kesalahan untuk denda",
+    "Menjual pelatihan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Uji Praktik Simulasi 2 (QDA) dinilai berdasarkan:"
+    }
+   ],
+   "options": [
+    "Jumlah jawaban benar",
+    "Kerapian tulisan",
+    "Kecepatan selesai",
+    "Demonstrasi penggunaan skala yang logis dan konsisten"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Kuesioner seleksi awal panelis menanyakan hal berikut, kecuali:"
+    }
+   ],
+   "options": [
+    "Alergi makanan",
+    "Kebiasaan merokok",
+    "Status perkawinan",
+    "Ketersediaan waktu"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Bahan untuk uji bau dasar biasanya berupa:"
+    }
+   ],
+   "options": [
+    "Parfum mahal",
+    "Bahan dengan aroma khas (eugenol, lemon, asap) dalam wadah tertutup",
+    "Makanan basi",
+    "Bunga segar"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "Filosofi dasar skema ini adalah memperlakukan panelis sebagai:"
+    }
+   ],
+   "options": [
+    "Instrumen yang terkalibrasi",
+    "Pekerja buruh",
+    "Penikmat makanan",
+    "Kritikus makanan"
+   ],
+   "answer": 1
+  }
+ ],
+ "esai": null,
+ "praktik": {
+  "template": "panelis.pdf",
+  "template_name": "Ujian Praktik V2 - Panelis Terlatih Pengujian Sensori Pangan.pdf",
+  "duration": 120,
+  "panduan": "Soal Ujian Praktik\nAlat dan Bahan yang Dibutuhkan\nPelaksanaan pengujian harus mematuhi standar Good Sensory Practices (GSP) dengan fasilitas yang terkendali. Berikut adalah kebutuhan peralatan dan bahan berdasarkan skema sertifikasi:\nFasilitas Ruang: Bilik uji individual (booth) yang dirancang untuk meminimalkan distraksi dan interaksi antar panelis.\nPerlengkapan Umum: Meja panelis, alat tulis, jam/timer, tempat sampah, dan tisu.\nWadah & Pengkodean: Wadah sampel yang identik atau seragam, dilabeli dengan kode acak berupa 3 digit angka\nPenetral Rasa: Air mineral bersuhu ruang dan biskuit tawar untuk membersihkan langit-langit mulut\nPenetral Aroma : serbuk kopi hitam\nBahan Uji Khusus:\nBuku Ishihara (untuk tes warna).\nLarutan untuk 5 rasa dasar (manis, asin, asam, pahit, umami) dan air minum netral\n8 jenis standar aroma dalam wadah tertutup.\nSampel produk pangan untuk uji perbedaan, rating, dan scoring.\nDokumen: Kuesioner kesehatan, lembar penilaian sensori\nPelaksanaan Ujian Praktik\nSebelum tes dimulai, pastikan seluruh peserta/kandidat menerapkan praktik GSP, yaitu datang tanpa menggunakan parfum atau produk beraroma, mematuhi instruksi puasa sebelum sesi pengujian, dan bersedia bekerja secara mandiri di dalam bilik uji. Selama perpindahan antar sampel, panelis wajib menggunakan bahan penetralis rasa untuk menghindari efek sisa rasa (carry-over effect).\n1. Tes Kesehatan (Kuesioner)\nTujuan: Memastikan kondisi fisik panelis prima.\nPelaksanaan: Panelis mengisi kuesioner skrining yang mencakup riwayat alergi, kondisi tubuh saat ini (misalnya flu, sariawan, lapar, atau kelelahan indrawi), karena faktor tersebut dapat memengaruhi akurasi penilaian.\n2. Tes Warna (Buku Ishihara)\nTujuan: Menguji indera penglihatan (visual) dalam mendeteksi dan membedakan atribut warna.\nPelaksanaan: Panelis diminta mengidentifikasi angka atau pola yang tersembunyi di dalam lembar Buku Ishihara untuk mengonfirmasi bahwa panelis tidak mengalami buta warna.\n3. Tes Rasa Dasar (12 Sampel)\nTujuan: Mengidentifikasi ambang batas deteksi (detection threshold) terhadap 5 rasa dasar tanpa bias subjektif.\nPelaksanaan: Menggunakan indera perasa (gustatory) untuk mendeteksi larutan rasa. Disajikan 12 sampel berkode acak (5 rasa dasar + 1 air netral, disajikan secara duplo). Panelis wajib mencicipi, mengidentifikasi rasa pada setiap kode, dan membuang sisa cairan (disediakan wadah khusus/spittoon).\n4. Tes Aroma (12 Sampel)\nTujuan: Menguji indera penciuman (olfactory) dalam mendeteksi dan mengidentifikasi aroma spesifik.\nPelaksanaan: Panelis dihadapkan pada 16 wadah (vial) berkode acak (6 aroma dasar secara duplo). Panelis mencium aroma secara perlahan (teknik sniffing) dan menuliskan profil aroma (misal: aroma buah, aroma sangit) pada lembar jawaban.\n5. Tes Perbedaan / Discrimination Testing (12 Sampel)\nTujuan: Mengukur kemampuan panelis dalam mendeteksi ada atau tidaknya perbedaan sensori antar sampel.\nPelaksanaan: Disajikan 4 jenis sampel uji yang masing-masing diberikan secara triplo (total 12 sampel berkode acak 3 digit). Panelis mengevaluasi setiap sampel secara sistematis dan mengidentifikasi sampel yang berbeda menggunakan metode Uji Segitiga (Triangle Test), di mana dua sampel identik dan satu berbeda.\n6. Tes Ranking (9 Sampel)\nTujuan: Mengurutkan sampel berdasarkan besaran suatu atribut sensori\nPelaksanaan: Panelis diberikan 3 produk disajikan secara triplo (9 sampel). Sampel disajikan secara bersamaan dalam satu waktu dengan urutan penyajian yang diacak, Panelis diminta mencicipi/mengamati semua sampel dan mengurutkannya. Peringkat 1 diberikan untuk intensitas tertinggi atau sampel yang paling disukai, diikuti peringkat 2, 3, dan seterusnya.\n7. Tes Scoring (9 Sampel)\nTujuan: Mengukur intensitas spesifik menggunakan skala ukur\nPelaksanaan: Terdapat 3 produk disajikan secara triplo (9 sampel). Panelis memberikan skor secara objektif pada atribut sensori. Panelis harus memberikan skor kuantitatif yang representatif secara konsisten.\n\nFormulir seleksi calon panelis dan lembar penilaian setiap uji ada di file template; uji dilakukan di bilik uji sesuai arahan asesor.",
+  "rubrik": "<p><strong>RUBRIK PENILAIAN</strong></p>\n<table><tr><th>Nilai</th><th>Label</th><th>Patokan umum</th></tr><tr><td>76-100</td><td>Sepenuhnya Kompeten</td><td>Semua poin kunci terpenuhi dengan benar.</td></tr><tr><td>51-75</td><td>Kompeten dengan Catatan</td><td>Semua gerbang kritis terpenuhi; kekurangan kecil pada poin non-kritis yang tidak mengubah hasil (pedoman: paling banyak sekitar ¼ poin kunci).</td></tr><tr><td>26-50</td><td>Belum Kompeten</td><td>Satu gerbang kritis gagal, ATAU kekurangan lebih banyak dari batas pita 51-75.</td></tr><tr><td>0-25</td><td>Belum Kompeten</td><td>Sebagian besar poin kunci salah atau tidak dikerjakan.</td></tr></table>\n<p><strong>Kesiapan Indrawi &amp; Good Sensory Practices</strong></p><table><tr><td>Sumber bukti</td><td>Formulir Seleksi Calon Panelis (Kesehatan), Formulir Uji Warna</td></tr><tr><td>Poin kunci</td><td>Hadir tanpa parfum, losion, atau produk beraroma; mematuhi instruksi puasa sebelum sesi<br>Kuesioner kesehatan diisi lengkap dan jujur<br>Ishihara: minimal 90% pelat dijawab benar (tidak ada indikasi buta warna)<br>Bekerja mandiri di bilik, tidak berbicara atau melihat jawaban panelis lain<br>Memakai penetral rasa (air, biskuit tawar) dan penetral aroma (serbuk kopi) di antara sampel<br>Membuang sisa sampel ke spittoon; mengevaluasi sampel sesuai urutan kode yang ditentukan</td></tr><tr><td>Gerbang kritis</td><td>Indikasi buta warna pada Ishihara (&lt; 90% benar) → maksimal 50<br>Memakai parfum/produk beraroma, berbicara dengan panelis lain, atau melihat jawaban orang lain → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Deskriptor (pilih pita yang paling sesuai)</th></tr><tr><td>76-100</td><td>Semua perilaku GSP dipatuhi, kuesioner lengkap, Ishihara ≥ 90% benar.</td></tr><tr><td>51-75</td><td>Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya sekali lupa memakai penetral atau urutan evaluasi tidak diikuti.</td></tr><tr><td>26-50</td><td>Salah satu gerbang kritis gagal, ATAU beberapa kali tidak memakai penetral.</td></tr><tr><td>0-25</td><td>GSP sebagian besar tidak dipatuhi.</td></tr></table>\n<p><strong>Sensitivitas Rasa Dasar</strong></p><table><tr><td>Sumber bukti</td><td>Formulir Uji Rasa Dasar</td></tr><tr><td>Poin kunci</td><td>1. 12 sampel (5 rasa dasar + air netral, duplo) diidentifikasi<br>2. Jawaban konsisten pada pasangan duplo</td></tr><tr><td>Gerbang kritis</td><td>- Air netral diidentifikasi sebagai salah satu rasa pada kedua duplonya → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Deskriptor (pilih pita yang paling sesuai)</th></tr><tr><td>76-100</td><td>11–12 dari 12 benar (≥ 90%).</td></tr><tr><td>51-75</td><td>9–10 dari 12 benar (75–89%).</td></tr><tr><td>26-50</td><td>6–8 benar, ATAU gerbang kritis gagal.</td></tr><tr><td>0-25</td><td>≤ 5 benar.</td></tr></table>\n<p><strong>Sensitivitas Aroma</strong></p><table><tr><td>Sumber bukti</td><td>Formulir Uji Aroma Dasar</td></tr><tr><td>Poin kunci</td><td>16 vial (8 aroma standar, duplo) diidentifikasi; deskriptor yang sekelompok diterima (lihat kunci)<br>Jawaban konsisten pada pasangan duplo<br>Teknik sniffing benar: mencium perlahan, tidak terlalu dekat/ lama, jeda dan penetral aroma di antara vial</td></tr><tr><td>Gerbang kritis</td><td>- Tidak ada; pita ditentukan dari jumlah jawaban benar</td></tr></table>\n<table><tr><th>Nilai</th><th>Deskriptor (pilih pita yang paling sesuai)</th></tr><tr><td>76-100</td><td>15–16 dari 16 benar (≥ 90%).</td></tr><tr><td>51-75</td><td>12–14 dari 16 benar (75–89%).</td></tr><tr><td>26-50</td><td>8–11 benar.</td></tr><tr><td>0-25</td><td>≤ 7 benar.</td></tr></table>\n<p><strong>Uji Pembedaan (Segitiga)</strong></p><table><tr><td>Sumber bukti</td><td>Formulir Uji Segitiga</td></tr><tr><td>Poin kunci</td><td>1. Empat set uji segitiga dievaluasi dari kiri ke kanan sesuai urutan kode<br>2. Sampel berbeda pada setiap set diidentifikasi (wajib memilih satu, tidak boleh \"tidak ada beda\")<br>3. Mengikuti instruksi: penetral di antara set, tidak mencicipi ulang berlebihan</td></tr><tr><td>Gerbang kritis</td><td>- Tidak ada; pita ditentukan dari jumlah jawaban benar</td></tr></table>\n<table><tr><th>Nilai</th><th>Deskriptor (pilih pita yang paling sesuai)</th></tr><tr><td>76-100</td><td>4 dari 4 set benar.</td></tr><tr><td>51-75</td><td>3 dari 4 set benar.</td></tr><tr><td>26-50</td><td>2 dari 4 set benar.</td></tr><tr><td>0-25</td><td>0–1 dari 4 set benar (setara peluang menebak).</td></tr></table>\n<p><strong>Uji Ranking &amp; Skoring Intensitas</strong></p><table><tr><td>Sumber bukti</td><td>Formulir Uji Ranking &amp; Skoring Intensitas</td></tr><tr><td>Poin kunci</td><td>Ranking: tiga set (masing-masing 3 sampel) diurutkan dari intensitas tertinggi sesuai urutan sebenarnya<br>Skoring: setiap produk diberi tanda pada skala garis 10 cm dengan rentang triplo ≤ 1,0 cm<br>Skoring: urutan rata-rata skor ketiga produk sesuai urutan intensitas sebenarnya<br>Penilaian bersifat intensitas atribut, bukan kesukaan</td></tr><tr><td>Gerbang kritis</td><td>Ranking atau skoring diisi berdasarkan kesukaan, bukan intensitas atribut → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Deskriptor (pilih pita yang paling sesuai)</th></tr><tr><td>76-100</td><td>Ranking 3 dari 3 set benar; skoring semua produk konsisten (rentang ≤ 1,0 cm) dan urutan rata-rata benar.</td></tr><tr><td>51-75</td><td>Ranking 2 dari 3 set benar, ATAU satu produk skoring melebihi rentang 1,0 cm; urutan rata-rata skoring tetap benar.</td></tr><tr><td>26-50</td><td>Ranking ≤ 1 set benar, ATAU urutan rata-rata skoring salah, ATAU gerbang kritis gagal.</td></tr><tr><td>0-25</td><td>Ranking dan skoring sebagian besar acak atau tidak diisi.</td></tr></table>\n<p><strong>REKAPITULASI NILAI</strong></p>\n<table><tr><th>Tugas</th><th>Bobot</th></tr><tr><td>Kesiapan Indrawi &amp; Good Sensory Practices</td><td>20%</td></tr><tr><td>Sensitivitas Rasa Dasar</td><td>20%</td></tr><tr><td>Sensitivitas Aroma</td><td>20%</td></tr><tr><td>Uji Pembedaan (Segitiga)</td><td>20%</td></tr><tr><td>Uji Ranking &amp; Skoring Intensitas</td><td>20%</td></tr><tr><td>Nilai (Jumlah Nilai × Bobot)</td><td>100%</td></tr></table>",
+  "aspek": [
+   {
+    "no": 1,
+    "nama": "Kesiapan Indrawi & Good Sensory Practices",
+    "bobot": 20,
+    "sumber": "Formulir Seleksi Calon Panelis (Kesehatan), Formulir Uji Warna",
+    "poin_kunci": [
+     "Hadir tanpa parfum, losion, atau produk beraroma; mematuhi instruksi puasa sebelum sesi",
+     "Kuesioner kesehatan diisi lengkap dan jujur",
+     "Ishihara: minimal 90% pelat dijawab benar (tidak ada indikasi buta warna)",
+     "Bekerja mandiri di bilik, tidak berbicara atau melihat jawaban panelis lain",
+     "Memakai penetral rasa (air, biskuit tawar) dan penetral aroma (serbuk kopi) di antara sampel",
+     "Membuang sisa sampel ke spittoon; mengevaluasi sampel sesuai urutan kode yang ditentukan"
+    ],
+    "gerbang": [
+     "Indikasi buta warna pada Ishihara (< 90% benar)",
+     "Memakai parfum/produk beraroma, berbicara dengan panelis lain, atau melihat jawaban orang lain"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Semua perilaku GSP dipatuhi, kuesioner lengkap, Ishihara ≥ 90% benar."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya sekali lupa memakai penetral atau urutan evaluasi tidak diikuti."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU beberapa kali tidak memakai penetral."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "GSP sebagian besar tidak dipatuhi."
+     }
+    ]
+   },
+   {
+    "no": 2,
+    "nama": "Sensitivitas Rasa Dasar",
+    "bobot": 20,
+    "sumber": "Formulir Uji Rasa Dasar",
+    "poin_kunci": [
+     "12 sampel (5 rasa dasar + air netral, duplo) diidentifikasi",
+     "Jawaban konsisten pada pasangan duplo"
+    ],
+    "gerbang": [
+     "Air netral diidentifikasi sebagai salah satu rasa pada kedua duplonya"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "11–12 dari 12 benar (≥ 90%)."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "9–10 dari 12 benar (75–89%)."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "6–8 benar, ATAU gerbang kritis gagal."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "≤ 5 benar."
+     }
+    ]
+   },
+   {
+    "no": 3,
+    "nama": "Sensitivitas Aroma",
+    "bobot": 20,
+    "sumber": "Formulir Uji Aroma Dasar",
+    "poin_kunci": [
+     "16 vial (8 aroma standar, duplo) diidentifikasi; deskriptor yang sekelompok diterima (lihat kunci)",
+     "Jawaban konsisten pada pasangan duplo",
+     "Teknik sniffing benar: mencium perlahan, tidak terlalu dekat/ lama, jeda dan penetral aroma di antara vial"
+    ],
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "15–16 dari 16 benar (≥ 90%)."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "12–14 dari 16 benar (75–89%)."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "8–11 benar."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "≤ 7 benar."
+     }
+    ]
+   },
+   {
+    "no": 4,
+    "nama": "Uji Pembedaan (Segitiga)",
+    "bobot": 20,
+    "sumber": "Formulir Uji Segitiga",
+    "poin_kunci": [
+     "Empat set uji segitiga dievaluasi dari kiri ke kanan sesuai urutan kode",
+     "Sampel berbeda pada setiap set diidentifikasi (wajib memilih satu, tidak boleh \"tidak ada beda\")",
+     "Mengikuti instruksi: penetral di antara set, tidak mencicipi ulang berlebihan"
+    ],
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "4 dari 4 set benar."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "3 dari 4 set benar."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "2 dari 4 set benar."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "0–1 dari 4 set benar (setara peluang menebak)."
+     }
+    ]
+   },
+   {
+    "no": 5,
+    "nama": "Uji Ranking & Skoring Intensitas",
+    "bobot": 20,
+    "sumber": "Formulir Uji Ranking & Skoring Intensitas",
+    "poin_kunci": [
+     "Ranking: tiga set (masing-masing 3 sampel) diurutkan dari intensitas tertinggi sesuai urutan sebenarnya",
+     "Skoring: setiap produk diberi tanda pada skala garis 10 cm dengan rentang triplo ≤ 1,0 cm",
+     "Skoring: urutan rata-rata skor ketiga produk sesuai urutan intensitas sebenarnya",
+     "Penilaian bersifat intensitas atribut, bukan kesukaan"
+    ],
+    "gerbang": [
+     "Ranking atau skoring diisi berdasarkan kesukaan, bukan intensitas atribut"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Ranking 3 dari 3 set benar; skoring semua produk konsisten (rentang ≤ 1,0 cm) dan urutan rata-rata benar."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Ranking 2 dari 3 set benar, ATAU satu produk skoring melebihi rentang 1,0 cm; urutan rata-rata skoring tetap benar."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Ranking ≤ 1 set benar, ATAU urutan rata-rata skoring salah, ATAU gerbang kritis gagal."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Ranking dan skoring sebagian besar acak atau tidak diisi."
+     }
+    ]
+   }
+  ]
+ }
+}

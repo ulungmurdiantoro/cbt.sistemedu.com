@@ -14,8 +14,8 @@
  "komposisi": {
   "bobot_ujian_tulis": 70,
   "proporsi_pg": 65,
-  "bobot_wawancara": 30,
-  "bobot_praktik_1": 0,
+  "bobot_wawancara": 22.5,
+  "bobot_praktik_1": 7.5,
   "bobot_praktik_2": 0,
   "nilai_kelulusan": 60
  },
@@ -1525,58 +1525,574 @@
   {
    "no": 1,
    "question": "<p>Jelaskan perbedaan mendasar antara \"Bahaya\" (Hazard) dan \"Risiko\" (Risk) dalam konteks laboratorium, serta berikan satu contoh konkret yang melibatkan bahan kimia spesifik.</p>",
-   "answer": "<p>Bahaya adalah sumber, situasi, atau tindakan yang berpotensi menimbulkan cedera atau penyakit (seperti sifat intrinsik bahan kimia). Risiko adalah kombinasi dari kemungkinan terjadinya kejadian berbahaya dengan keparahan cedera yang disebabkan oleh kejadian tersebut. Contoh: Asam Nitrat pekat adalah bahaya karena sifat korosifnya. Risikonya adalah potensi luka bakar kimia pada kulit asesi jika asam tersebut tumpah saat proses pemindahan tanpa APD yang tepat.</p>"
+   "answer": "<p>Bahaya adalah sumber, situasi, atau tindakan yang berpotensi menimbulkan cedera atau penyakit (seperti sifat intrinsik bahan kimia). Risiko adalah kombinasi dari kemungkinan terjadinya kejadian berbahaya dengan keparahan cedera yang disebabkan oleh kejadian tersebut. Contoh: Asam Nitrat pekat adalah bahaya karena sifat korosifnya. Risikonya adalah potensi luka bakar kimia pada kulit asesi jika asam tersebut tumpah saat proses pemindahan tanpa APD yang tepat.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Secara eksplisit membedakan Bahaya (sumber/potensi) dan Risiko (kombinasi peluang & keparahan). Memberikan contoh konkret bahan kimia beserta bahaya dan risikonya secara logis."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Membedakan kedua istilah dengan benar, namun definisi kurang berbasis K3 (misal: risiko tidak menyertakan elemen peluang/keparahan) atau contoh bahan kimia kurang spesifik."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menganggap bahaya dan risiko adalah hal yang hampir sama. Memberikan contoh yang terlalu umum (misal: \"bahayanya adalah api, risikonya kebakaran\")."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Terbalik dalam mendefinisikan bahaya dan risiko."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan konsep identifikasi bahaya."
+    }
+   ]
   },
   {
    "no": 2,
    "question": "<p>Dalam metode HIRADC, terdapat \"Hierarki Pengendalian Risiko\". Jika ditemukan risiko tinggi pada penggunaan Benzena (karsinogen) di laboratorium, susunlah langkah pengendalian berdasarkan hierarki tersebut dari yang paling efektif hingga kurang efektif.</p>",
-   "answer": "<ul><li>Eliminasi: Menghilangkan penggunaan Benzena jika proses pengujian memungkinkan.</li><li>Substitusi: Mengganti Benzena dengan pelarut yang lebih aman seperti Toluena atau Xilena.</li><li>Engineering (Rekayasa Teknis): Melakukan reaksi kimia di dalam fume hood (lemari asam) untuk mengisolasi uap.</li><li>Administratif: Menyusun SOP khusus, melakukan pelatihan, dan membatasi akses personel.</li><li>APD: Mewajibkan penggunaan jas lab, sarung tangan nitril, dan pelindung mata (goggles).</li></ul>"
+   "answer": "<ul><li>Eliminasi: Menghilangkan penggunaan Benzena jika proses pengujian memungkinkan.</li><li>Substitusi: Mengganti Benzena dengan pelarut yang lebih aman seperti Toluena atau Xilena.</li><li>Engineering (Rekayasa Teknis): Melakukan reaksi kimia di dalam fume hood (lemari asam) untuk mengisolasi uap.</li><li>Administratif: Menyusun SOP khusus, melakukan pelatihan, dan membatasi akses personel.</li><li>APD: Mewajibkan penggunaan jas lab, sarung tangan nitril, dan pelindung mata (goggles).</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Mengurutkan kelima hierarki dengan benar (Eliminasi, Substitusi, Rekayasa, Administratif, APD) dan memberikan contoh aplikasi yang spesifik untuk kasus Benzena di laboratorium."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan kelima hierarki, tetapi urutannya tertukar di bagian tengah atau contoh penerapannya terlalu normatif/umum."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebutkan 2-3 langkah pengendalian (misalnya hanya fokus pada APD dan SOP) tanpa memahami konsep hierarki."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan tindakan yang salah kaprah atau mengabaikan APD sama sekali."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban melenceng dari standar keselamatan bahan kimia."
+    }
+   ]
   },
   {
    "no": 3,
    "question": "<p>Prinsip segregasi (pemisahan) adalah kompetensi kunci dalam penyimpanan B3. Mengapa menyimpan Asam Perklorat (oksidator) berdekatan dengan Alkohol (bahan organik) dianggap sebagai pelanggaran fatal?</p>",
-   "answer": "<p>Karena kedua bahan tersebut memiliki inkompatibilitas kimia. Pertemuan antara oksidator kuat (Asam Perklorat) dengan bahan organik yang mudah terbakar (Alkohol) dapat memicu reaksi eksotermik yang sangat kuat, menyebabkan kebakaran, atau ledakan.</p>"
+   "answer": "<p>Karena kedua bahan tersebut memiliki inkompatibilitas kimia. Pertemuan antara oksidator kuat (Asam Perklorat) dengan bahan organik yang mudah terbakar (Alkohol) dapat memicu reaksi eksotermik yang sangat kuat, menyebabkan kebakaran, atau ledakan.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan prinsip \"inkompatibilitas kimia\". Menjelaskan reaksi fatal secara ilmiah (oksidator + bahan organik = reaksi eksotermik/kebakaran/ledakan)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjawab bahwa kedua bahan tersebut tidak boleh dicampur karena bisa meledak, tanpa menggunakan istilah inkompatibilitas atau menyebutkan sifat masing-masing bahan secara spesifik."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menjawab agar botol tidak tertukar atau agar ruang penyimpanan terlihat rapi."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap pencampuran diperbolehkan asal botolnya tertutup rapat."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas sifat kimia bahan."
+    }
+   ]
   },
   {
    "no": 4,
    "question": "<p>Jika terjadi kebakaran yang melibatkan logam Natrium atau Magnesium (Kelas D) di laboratorium, mengapa penggunaan air atau APAR CO2 dilarang keras? Apa media pemadam yang harus digunakan?</p>",
-   "answer": "<p>Air atau CO2 dapat bereaksi hebat dengan logam alkali/alkali tanah yang sedang terbakar, berpotensi menyebabkan ledakan atau memperparah api. Media yang tepat adalah menggunakan pasir kering atau bubuk kimia khusus untuk kebakaran logam.</p>"
+   "answer": "<p>Air atau CO2 dapat bereaksi hebat dengan logam alkali/alkali tanah yang sedang terbakar, berpotensi menyebabkan ledakan atau memperparah api. Media yang tepat adalah menggunakan pasir kering atau bubuk kimia khusus untuk kebakaran logam.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan bahwa air/CO2 memicu reaksi hebat/ledakan dengan logam alkali yang terbakar. Menyebutkan media yang tepat: pasir kering atau bubuk kimia khusus Kelas D."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Mengetahui bahwa air tidak boleh digunakan dan menyarankan pasir, tetapi gagal menjelaskan secara spesifik bahaya penggunaan APAR CO2 pada logam."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"pakai pasir\" tanpa menjelaskan alasan mengapa air/CO2 dilarang."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan penggunaan air atau kain basah untuk memadamkan api logam (miskonsepsi sangat berbahaya)."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan jenis kebakaran/pemadam."
+    }
+   ]
   },
   {
    "no": 5,
    "question": "<p>Mengapa dalam penanganan paparan bahan kimia pada mata di Emergency Eye Wash, pembilasan harus dilakukan minimal selama 15 menit secara terus-menerus? Jelaskan dari sudut pandang keselamatan kerja.</p>",
-   "answer": "<p>Pembilasan 15 menit diperlukan untuk memastikan penetrasi bahan kimia ke jaringan mata benar-benar terhenti, mengencerkan konsentrasi bahan kimia secara maksimal, dan menetralisir suhu (jika terjadi reaksi panas). Hal ini sangat kritis secara fisiologis untuk mencegah kerusakan kornea permanen akibat paparan asam atau basa.</p>"
+   "answer": "<p>Pembilasan 15 menit diperlukan untuk memastikan penetrasi bahan kimia ke jaringan mata benar-benar terhenti, mengencerkan konsentrasi bahan kimia secara maksimal, dan menetralisir suhu (jika terjadi reaksi panas). Hal ini sangat kritis secara fisiologis untuk mencegah kerusakan kornea permanen akibat paparan asam atau basa.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan tiga alasan fisiologis/medis: menghentikan penetrasi, mengencerkan konsentrasi secara maksimal, dan mencegah kerusakan kornea permanen akibat reaksi asam/basa."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan agar bahan kimia benar- benar hilang/bersih dari mata, namun tidak menyentuh aspek pencegahan kerusakan jaringan kornea secara spesifik."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menjawab sekadar karena itu aturan standar atau agar mata tidak perih."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan membilas mata menggunakan bahan kimia netralisir (misal: kena asam dibilas dengan basa lemah), yang merupakan pelanggaran prosedur pertolongan pertama mata."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas keselamatan mata."
+    }
+   ]
   },
   {
    "no": 6,
    "question": "<p>Dalam inspeksi K3, asesi harus membedakan antara Unsafe Act (Tindakan Tidak Aman) dan Unsafe Condition (Kondisi Tidak Aman). Berikan masing-masing 2 contoh spesifik yang sering ditemui di lingkungan laboratorium.</p>",
-   "answer": "<ul><li>Unsafe Condition: Kabel peralatan yang terkelupas dan ventilasi/lemari asam yang tidak berfungsi optimal.</li><li>Unsafe Act: Personel yang tidak menggunakan kacamata pelindung saat mereaksikan zat dan melakukan pemipetan menggunakan mulut (pipetting by mouth).</li></ul>"
+   "answer": "<ul><li>Unsafe Condition: Kabel peralatan yang terkelupas dan ventilasi/lemari asam yang tidak berfungsi optimal.</li><li>Unsafe Act: Personel yang tidak menggunakan kacamata pelindung saat mereaksikan zat dan melakukan pemipetan menggunakan mulut (pipetting by mouth).</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Definisi tepat. Memberikan masing-masing 2 contoh spesifik laboratorium (misal: Unsafe Act = memipet dengan mulut, tidak pakai kacamata; Unsafe Condition = kabel terkelupas, fume hood rusak)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Definisi benar, tetapi contoh yang diberikan kurang dari 2 atau contohnya berupa kondisi pabrik umum (bukan spesifik laboratorium)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Bisa memberikan contoh kejadian tidak aman, tetapi gagal memilah mana yang merupakan kesalahan perilaku (Act) dan mana yang kondisi fisik (Condition)."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Terbalik dalam mendefinisikan dan memberikan contoh kedua konsep tersebut."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban di luar konteks inspeksi K3."
+    }
+   ]
   },
   {
    "no": 7,
    "question": "<p>Dalam sebuah observasi lapangan, Anda menemukan seorang teknisi sedang mereaksikan bahan kimia volatil di atas meja kerja terbuka karena fume hood (lemari asam) sedang penuh. Identifikasi bahaya laten yang ada dan tentukan satu langkah pengendalian berdasarkan Hierarki Kontrol selain penggunaan APD.</p>",
-   "answer": "<p>Bahaya laten yang ada adalah paparan uap kimia berbahaya secara inhalasi yang dapat bersifat akut maupun kronis. Langkah pengendalian selain APD adalah Engineering Control (Rekayasa Teknis), yaitu menjadwalkan ulang pekerjaan agar reaksi hanya dilakukan di dalam fume hood yang berfungsi baik untuk mengisolasi uap.</p>"
+   "answer": "<p>Bahaya laten yang ada adalah paparan uap kimia berbahaya secara inhalasi yang dapat bersifat akut maupun kronis. Langkah pengendalian selain APD adalah Engineering Control (Rekayasa Teknis), yaitu menjadwalkan ulang pekerjaan agar reaksi hanya dilakukan di dalam fume hood yang berfungsi baik untuk mengisolasi uap.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Mengidentifikasi bahaya paparan uap inhalasi (akut/kronis). Menyarankan pengendalian level rekayasa/administratif yang rasional (misal: menjadwalkan ulang saat fume hood kosong)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Mengidentifikasi uap beracun, tetapi saran pengendaliannya kurang tepat sasaran secara hierarki (misal: menyuruh membuat pembatas kardus)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya mengidentifikasi bahaya baunya menyengat tanpa mengusulkan langkah pengendalian selain APD."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan penggunaan masker bedah biasa sebagai solusi pengganti fume hood (miskonsepsi APD kimia)."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas inhalasi bahan kimia."
+    }
+   ]
   },
   {
    "no": 8,
    "question": "<p>Interpretasikan informasi LD50 dan Flash Point dalam MSDS sebuah bahan kimia baru di laboratorium Anda. Bagaimana kedua data ini menentukan teknis penyimpanan bahan tersebut?</p>",
-   "answer": "<p>LD50 (Lethal Dose 50) menunjukkan tingkat toksisitas; semakin rendah nilainya, semakin beracun bahan tersebut, sehingga memerlukan penyimpanan khusus (misal: lemari terkunci). Flash Point (Titik Nyala) menentukan klasifikasi kemudahan terbakar; jika titik nyalanya rendah, bahan harus disimpan di dalam flammable safety cabinet yang tahan api.</p>"
+   "answer": "<p>LD50 (Lethal Dose 50) menunjukkan tingkat toksisitas; semakin rendah nilainya, semakin beracun bahan tersebut, sehingga memerlukan penyimpanan khusus (misal: lemari terkunci). Flash Point (Titik Nyala) menentukan klasifikasi kemudahan terbakar; jika titik nyalanya rendah, bahan harus disimpan di dalam flammable safety cabinet yang tahan api.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Tepat mengaitkan LD50 dengan tingkat toksisitas (butuh lemari terkunci) dan Flash Point dengan kemudahan terbakar (butuh flammable cabinet tahan api)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Memahami arti LD50 (racun) dan Flash Point (api), namun kurang spesifik dalam menjelaskan teknis kabinet penyimpanannya."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya bisa menjelaskan salah satu konsep saja (LD50 atau Flash Point) secara parsial."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Salah mengartikan LD50 sebagai titik beku atau Flash Point sebagai tanggal kedaluwarsa."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berhubungan dengan MSDS."
+    }
+   ]
   },
   {
    "no": 9,
    "question": "<p>Laboratorium Anda menghasilkan limbah berupa jerigen berisi campuran sisa pelarut organik. Jelaskan persyaratan pengemasan dan pelabelan yang harus dipenuhi sebelum limbah tersebut dipindahkan ke TPS Limbah B3.</p>",
-   "answer": "<p>Limbah harus dikemas dalam wadah yang kuat dan tidak bocor (seperti jerigen HDPE). Label harus memuat informasi kode limbah (misal: A337-4), identitas penghasil, tanggal pengemasan, berat, dan simbol limbah B3 berbentuk belah ketupat yang sesuai dengan sifat bahayanya.</p>"
+   "answer": "<p>Limbah harus dikemas dalam wadah yang kuat dan tidak bocor (seperti jerigen HDPE). Label harus memuat informasi kode limbah (misal: A337-4), identitas penghasil, tanggal pengemasan, berat, dan simbol limbah B3 berbentuk belah ketupat yang sesuai dengan sifat bahayanya.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan syarat wadah kuat/HDPE dan merincikan komponen label secara lengkap (simbol B3, kode limbah, identitas, tanggal, berat)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan penggunaan jerigen yang tidak bocor dan menempelkan label, tetapi komponen label tidak lengkap (misal: lupa kode limbah atau tanggal)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menjawab agar limbah tidak tumpah dan diberi nama pelarutnya."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan membuang pelarut organik ke wastafel jika jerigen penuh."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban di luar konteks pengelolaan limbah."
+    }
+   ]
   },
   {
    "no": 10,
    "question": "<p>Bagaimana penerapan metode 5R/5S (Ringkas, Rapi, Resik, Rawat, Rajin) dapat berperan sebagai leading indicator dalam mencegah kecelakaan kerja di laboratorium dibandingkan hanya mengandalkan inspeksi tahunan?</p>",
-   "answer": "<p>5R/5S adalah tindakan proaktif yang menciptakan lingkungan kerja teratur secara harian (misal: memastikan jalur evakuasi tidak terhalang atau tidak ada ceceran kimia di meja kerja). Ini berfungsi sebagai leading indicator karena mendeteksi dan mengeliminasi potensi bahaya (seperti tumpahan atau tersandung) sebelum kecelakaan benar-benar terjadi, sedangkan inspeksi tahunan seringkali hanya bersifat reaktif terhadap temuan sesaat.</p>"
+   "answer": "<p>5R/5S adalah tindakan proaktif yang menciptakan lingkungan kerja teratur secara harian (misal: memastikan jalur evakuasi tidak terhalang atau tidak ada ceceran kimia di meja kerja). Ini berfungsi sebagai leading indicator karena mendeteksi dan mengeliminasi potensi bahaya (seperti tumpahan atau tersandung) sebelum kecelakaan benar-benar terjadi, sedangkan inspeksi tahunan seringkali hanya bersifat reaktif terhadap temuan sesaat.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan 5R sebagai tindakan proaktif harian yang mendeteksi dan mengeliminasi bahaya (tumpahan/jalur terhalang) sebelum kecelakaan terjadi (leading indicator), berlawanan dengan inspeksi tahunan yang reaktif."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan bahwa 5R membuat lab bersih setiap hari sehingga lebih aman, namun tidak menggunakan terminologi leading indicator atau proaktif vs reaktif."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjabarkan kepanjangan 5R (Ringkas, Rapi, dsb.) tanpa menganalisis keunggulannya dibandingkan inspeksi tahunan."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap 5R adalah dokumen pelaporan kecelakaan yang diserahkan setiap tahun."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas perbaikan berkelanjutan atau pencegahan kecelakaan."
+    }
+   ]
   }
  ],
  "praktik": {
   "template": "hse.docx",
   "template_name": "Ujian Praktik V2 - Laboratory HSE Officer.docx",
   "duration": 120,
-  "panduan": "Latar Belakang: Anda baru saja diangkat sebagai Implementer K3L di sebuah Laboratorium Pengujian Kimia yang baru mulai beroperasi. Laboratorium ini menangani berbagai pengujian analitik yang melibatkan bahan kimia berbahaya, peralatan khusus, dan pengelolaan limbah yang ketat. Sebagai petugas K3L, Anda dituntut untuk memastikan seluruh operasional berjalan aman, terhindar dari kecelakaan kerja, dan mematuhi regulasi lingkungan.\n\nKronologi Hari Ini (Skenario Insiden & Operasional):\nPada suatu hari kerja, Anda memantau dan menghadapi serangkaian situasi berikut di area laboratorium:\n- Aktivitas Analisis Rutin: Di area analisis, Anda mengamati seorang analis yang sedang bersiap melakukan proses ekstraksi pelarut organik menggunakan lemari asam (fume hood).\n- Penerimaan Bahan Kimia: Gudang penyimpanan baru saja menerima 5 botol bahan kimia baru dengan label GHS yang berbeda-beda. Di antaranya terdapat Asam Kuat, Basa Kuat, Pelarut Flammable, dan Oksidator beserta tumpukan dokumen LDKB/MSDS yang harus segera dipilah.\n- Kecelakaan Darurat: Tiba-tiba terdengar teriakan dari sudut lab yang lain. Mata seorang rekan kerja Anda tidak sengaja terpercik bahan kimia korosif saat sedang menakar larutan.\nTugas dan Instruksi Penyelesaian Kasus:\nSebagai Implementer K3L, selesaikan kelima tugas di bawah ini berdasarkan kronologi kasus di atas:\n\nTugas 1: Identifikasi Bahaya & Penilaian Risiko\n- Lakukan inventarisasi peralatan, bahan, dan langkah kerja pada aktivitas \"ekstraksi pelarut organik di dalam lemari asam\".\n- Identifikasi potensi bahaya kimia, fisik, maupun ergonomi yang muncul dari aktivitas tersebut.\n- Hitung tingkat risikonya berdasarkan matriks dengan menentukan nilai likelihood dan severity.\n- Tuliskan tindakan pengendalian berdasarkan Hierarki Pengendalian (Eliminasi, Substitusi, Rekayasa Teknis, Administratif, APD) dan tuangkan dalam format HIRADC/JSA.\n\nTugas 2: Penanganan Bahan Berbahaya & Tumpahan\n- Berdasarkan MSDS, jelaskan bagaimana Anda mengidentifikasi sifat bahaya (seperti flammable, corrosive, toxic, reactive) dari 5 bahan kimia yang baru datang.\n- Jelaskan strategi segregasi (pemisahan) bahan-bahan tersebut ke dalam kabinet penyimpanan agar tidak terjadi reaksi inkompatibilitas.\n- Uraikan langkah demi langkah penanganan tumpahan Asam Sulfat 100ml menggunakan spill kit secara aman dan lincah.\n\nTugas 3: Tanggap Darurat Medis\n- Tentukan jenis keadaan darurat dari insiden percikan bahan korosif tersebut dan putuskan respons paling cepat yang harus diambil dengan tenang.\n- Uraikan cara melakukan pertolongan pertama menggunakan Eye Wash, termasuk kewajiban melakukan flushing selama 15 menit.\n- Buatlah draf simulasi pelaporan kejadian (incident report) kepada tim tanggap darurat yang berisi kronologi kejadian dan tindakan medis yang sudah dilakukan.\n\nDokumen MSDS kelima bahan kimia dan lembar jawaban ada di template (file Word). Isi lembar jawaban di file tersebut, simpan, lalu unggah."
- }
+  "panduan": "Latar Belakang: Anda baru saja diangkat sebagai Implementer K3L di sebuah Laboratorium Pengujian Kimia yang baru mulai beroperasi. Laboratorium ini menangani berbagai pengujian analitik yang melibatkan bahan kimia berbahaya, peralatan khusus, dan pengelolaan limbah yang ketat. Sebagai petugas K3L, Anda dituntut untuk memastikan seluruh operasional berjalan aman, terhindar dari kecelakaan kerja, dan mematuhi regulasi lingkungan.\n\nKronologi Hari Ini (Skenario Insiden & Operasional):\nPada suatu hari kerja, Anda memantau dan menghadapi serangkaian situasi berikut di area laboratorium:\n- Aktivitas Analisis Rutin: Di area analisis, Anda mengamati seorang analis yang sedang bersiap melakukan proses ekstraksi pelarut organik menggunakan lemari asam (fume hood).\n- Penerimaan Bahan Kimia: Gudang penyimpanan baru saja menerima 5 botol bahan kimia baru dengan label GHS yang berbeda-beda. Di antaranya terdapat Asam Kuat, Basa Kuat, Pelarut Flammable, dan Oksidator beserta tumpukan dokumen LDKB/MSDS yang harus segera dipilah.\n- Kecelakaan Darurat: Tiba-tiba terdengar teriakan dari sudut lab yang lain. Mata seorang rekan kerja Anda tidak sengaja terpercik bahan kimia korosif saat sedang menakar larutan.\nTugas dan Instruksi Penyelesaian Kasus:\nSebagai Implementer K3L, selesaikan kelima tugas di bawah ini berdasarkan kronologi kasus di atas:\n\nTugas 1: Identifikasi Bahaya & Penilaian Risiko\n- Lakukan inventarisasi peralatan, bahan, dan langkah kerja pada aktivitas \"ekstraksi pelarut organik di dalam lemari asam\".\n- Identifikasi potensi bahaya kimia, fisik, maupun ergonomi yang muncul dari aktivitas tersebut.\n- Hitung tingkat risikonya berdasarkan matriks dengan menentukan nilai likelihood dan severity.\n- Tuliskan tindakan pengendalian berdasarkan Hierarki Pengendalian (Eliminasi, Substitusi, Rekayasa Teknis, Administratif, APD) dan tuangkan dalam format HIRADC/JSA.\n\nTugas 2: Penanganan Bahan Berbahaya & Tumpahan\n- Berdasarkan MSDS, jelaskan bagaimana Anda mengidentifikasi sifat bahaya (seperti flammable, corrosive, toxic, reactive) dari 5 bahan kimia yang baru datang.\n- Jelaskan strategi segregasi (pemisahan) bahan-bahan tersebut ke dalam kabinet penyimpanan agar tidak terjadi reaksi inkompatibilitas.\n- Uraikan langkah demi langkah penanganan tumpahan Asam Sulfat 100ml menggunakan spill kit secara aman dan lincah.\n\nTugas 3: Tanggap Darurat Medis\n- Tentukan jenis keadaan darurat dari insiden percikan bahan korosif tersebut dan putuskan respons paling cepat yang harus diambil dengan tenang.\n- Uraikan cara melakukan pertolongan pertama menggunakan Eye Wash, termasuk kewajiban melakukan flushing selama 15 menit.\n- Buatlah draf simulasi pelaporan kejadian (incident report) kepada tim tanggap darurat yang berisi kronologi kejadian dan tindakan medis yang sudah dilakukan.\n\nDokumen MSDS kelima bahan kimia dan lembar jawaban ada di template (file Word). Isi lembar jawaban di file tersebut, simpan, lalu unggah.",
+  "aspek": [
+   {
+    "no": 1,
+    "nama": "Penyusunan Dokumen HIRADC / JSA (Identifikasi Bahaya, Penilaian Risiko, dan Tindakan Pengendalian)",
+    "kelompok": "Tugas 1: Identifikasi Bahaya & Penilaian Risiko (35%)",
+    "bobot": 35.0,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Mampu mengidentifikasi seluruh potensi bahaya (kimia, fisik, ergonomi), menentukan nilai risiko secara akurat, dan merumuskan hierarki pengendalian secara tepat dan komprehensif."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Mampu menyusun dokumen HIRADC, namun terdapat ketidaktepatan minor pada salah satu aspek (identifikasi, perhitungan risiko, atau usulan pengendalian)."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Hanya menyusun secara umum, dengan banyak kesalahan dalam klasifikasi bahaya, penentuan nilai risiko, maupun perumusan hierarki pengendalian."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak mampu menyusun atau salah sama sekali dalam mengidentifikasi, menilai, dan mengendalikan risiko pada aktivitas laboratorium."
+     }
+    ]
+   },
+   {
+    "no": 2,
+    "nama": "Segregasi dan Penyimpanan Bahan Kimia (Berdasarkan Kategori Bahaya NFPA)",
+    "kelompok": "Tugas 2: Penanganan Bahan Berbahaya & Tumpahan (35%)",
+    "bobot": 17.5,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Mampu mengidentifikasi kategori bahaya secara akurat dan menentukan lokasi kabinet segregasi yang tepat untuk seluruh (5) bahan kimia tanpa kesalahan."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Mampu melakukan segregasi bahan kimia, namun terdapat ketidaktepatan minor pada identifikasi bahaya atau penempatan kabinet pada 1 hingga 2 bahan kimia."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Hanya mampu menyusun secara umum, dengan banyak kesalahan (3-4 bahan) dalam mengklasifikasikan kategori bahaya dan penempatan kabinet segregasi."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak mampu atau salah sama sekali dalam mengidentifikasi kategori bahaya dan menentukan penempatan kabinet untuk seluruh bahan kimia."
+     }
+    ]
+   },
+   {
+    "no": 3,
+    "nama": "Penanganan Tumpahan Asam Sulfat (Penggunaan Spill Kit)",
+    "kelompok": "Tugas 2: Penanganan Bahan Berbahaya & Tumpahan (35%)",
+    "bobot": 17.5,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Ke-5 tahapan secara berurutan dan tepat: memakai APD lengkap, melokalisir tumpahan, menetralisasi dengan basa lemah, membuang limbah ke kantong kuning (tie-wrap), dan pembersihan akhir secara komprehensif."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Menangani tumpahan sesuai prosedur, namun terdapat ketidaktepatan minor (misal: urutan pembersihan akhir kurang sempurna atau cara pengemasan limbah kurang tepat)."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Hanya melakukan sebagian prosedur dengan mengabaikan 2-3 langkah penting, seperti kurang tepat dalam menetralisasi atau gagal melokalisir penyebaran tumpahan."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak mampu menangani tumpahan, tidak menggunakan APD yang dipersyaratkan, atau melakukan tindakan fatal (seperti tidak melakukan netralisasi sebelum dibersihkan)."
+     }
+    ]
+   },
+   {
+    "no": 4,
+    "nama": "Identifikasi Jenis Keadaan Darurat",
+    "kelompok": "Tugas 3: Tanggap Darurat Medis (30%)",
+    "bobot": 10.0,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Mampu mengidentifikasi secara akurat bahwa insiden adalah Darurat Medis akibat paparan bahan kimia (Chemical Exposure) dan meresponsnya dengan segera tanpa penundaan."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Mampu mengidentifikasi jenis darurat medis, namun menunjukkan sedikit keraguan atau sedikit penundaan dalam merespons urgensi kejadian."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Hanya menyebutkan keadaan darurat secara umum, respons lambat, dan tidak menyadari tingkat keparahan insiden paparan bahan kimia."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak mampu mengidentifikasi status kedaruratan atau tidak memberikan respons sama sekali terhadap korban."
+     }
+    ]
+   },
+   {
+    "no": 5,
+    "nama": "Prosedur Penggunaan Eye Wash",
+    "kelompok": "Tugas 3: Tanggap Darurat Medis (30%)",
+    "bobot": 10.0,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Melakukan kelima tahapan dengan tepat dan berurutan: (1) membimbing korban ke stasiun Eye Wash, (2) mengaktifkan air dan membantu korban menunduk, (3) menahan kelopak mata tetap terbuka, (4) melakukan flushing minimal 15 menit, dan (5) membawa korban ke fasilitas medis."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Mampu melakukan penanganan menggunakan Eye Wash, namun terdapat ketidaktepatan minor pada 1-2 langkah (misal: waktu flushing kurang dari 15 menit atau kurang maksimal menahan kelopak mata)."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Hanya melakukan sebagian prosedur flushing dengan mengabaikan 2-3 langkah penting (misal: membiarkan korban membilas sendiri tanpa ditahan kelopak matanya atau waktu bilas sangat singkat)."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak mampu mempraktikkan prosedur penggunaan Eye Wash sama sekali, atau melakukan tindakan yang membahayakan korban."
+     }
+    ]
+   },
+   {
+    "no": 6,
+    "nama": "Penyusunan Laporan Insiden",
+    "kelompok": "Tugas 3: Tanggap Darurat Medis (30%)",
+    "bobot": 10.0,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Mampu menyusun laporan insiden secara detail dan komprehensif mencakup: nama korban, waktu, lokasi, kronologi kejadian, tindakan flushing 15 menit, hingga kondisi akhir serta tindak lanjut rujukan medis."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Mampu menyusun laporan insiden secara sistematis, namun kehilangan 1-2 detail spesifik (misalnya lupa menuliskan durasi flushing atau rincian lokasi kejadian)."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Laporan disusun secara sangat umum, kehilangan banyak elemen penting (seperti tidak adanya kronologi yang jelas atau catatan tindakan medis yang diambil)."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak mampu menyusun laporan insiden yang relevan atau tidak membuat laporan sama sekali."
+     }
+    ]
+   }
+  ],
+  "rubrik": "<p><strong>RUBRIK PENILAIAN PRAKTIK (KRITERIA UNJUK KERJA)</strong></p>\n<p><strong>Tugas 1: Identifikasi Bahaya &amp; Penilaian Risiko (35%)</strong></p>\n<table><tr><th>Aspek Penilaian (Kriteria Unjuk Kerja)</th><th>Nilai 76-100 (Sangat Baik / Sepenuhnya Kompeten)</th><th>Nilai 51-75 (Baik / Kompeten dengan Catatan)</th><th>Nilai 26-50 (Cukup / Kurang Kompeten)</th><th>Nilai 0-25 (Kurang / Belum Kompeten)</th></tr><tr><td>Penyusunan Dokumen HIRADC / JSA (Identifikasi Bahaya, Penilaian Risiko, dan Tindakan Pengendalian)</td><td>Mampu mengidentifikasi seluruh potensi bahaya (kimia, fisik, ergonomi), menentukan nilai risiko secara akurat, dan merumuskan hierarki pengendalian secara tepat dan komprehensif.</td><td>Mampu menyusun dokumen HIRADC, namun terdapat ketidaktepatan minor pada salah satu aspek (identifikasi, perhitungan risiko, atau usulan pengendalian).</td><td>Hanya menyusun secara umum, dengan banyak kesalahan dalam klasifikasi bahaya, penentuan nilai risiko, maupun perumusan hierarki pengendalian.</td><td>Tidak mampu menyusun atau salah sama sekali dalam mengidentifikasi, menilai, dan mengendalikan risiko pada aktivitas laboratorium.</td></tr></table>\n<p><strong>Tugas 2: Penanganan Bahan Berbahaya &amp; Tumpahan (35%)</strong></p>\n<table><tr><th>Aspek Penilaian (Kriteria Unjuk Kerja)</th><th>Nilai 76-100 (Sangat Baik / Sepenuhnya Kompeten)</th><th>Nilai 51-75 (Baik / Kompeten dengan Catatan)</th><th>Nilai 26-50 (Cukup / Kurang Kompeten)</th><th>Nilai 0-25 (Kurang / Belum Kompeten)</th></tr><tr><td>1. Segregasi dan Penyimpanan Bahan Kimia (Berdasarkan Kategori Bahaya NFPA)</td><td>Mampu mengidentifikasi kategori bahaya secara akurat dan menentukan lokasi kabinet segregasi yang tepat untuk seluruh (5) bahan kimia tanpa kesalahan.</td><td>Mampu melakukan segregasi bahan kimia, namun terdapat ketidaktepatan minor pada identifikasi bahaya atau penempatan kabinet pada 1 hingga 2 bahan kimia.</td><td>Hanya mampu menyusun secara umum, dengan banyak kesalahan (3-4 bahan) dalam mengklasifikasikan kategori bahaya dan penempatan kabinet segregasi.</td><td>Tidak mampu atau salah sama sekali dalam mengidentifikasi kategori bahaya dan menentukan penempatan kabinet untuk seluruh bahan kimia.</td></tr><tr><td>2. Penanganan Tumpahan Asam Sulfat (Penggunaan Spill Kit)</td><td>ke-5 tahapan secara berurutan dan tepat: memakai APD lengkap, melokalisir tumpahan, menetralisasi dengan basa lemah, membuang limbah ke kantong kuning (tie-wrap), dan pembersihan akhir secara komprehensif.</td><td>menangani tumpahan sesuai prosedur, namun terdapat ketidaktepatan minor (misal: urutan pembersihan akhir kurang sempurna atau cara pengemasan limbah kurang tepat).</td><td>Hanya melakukan sebagian prosedur dengan mengabaikan 2-3 langkah penting, seperti kurang tepat dalam menetralisasi atau gagal melokalisir penyebaran tumpahan.</td><td>Tidak mampu menangani tumpahan, tidak menggunakan APD yang dipersyaratkan, atau melakukan tindakan fatal (seperti tidak melakukan netralisasi sebelum dibersihkan).</td></tr></table>\n<p><strong>Tugas 3: Tanggap Darurat Medis (30%)</strong></p>\n<table><tr><th>Aspek Penilaian (Kriteria Unjuk Kerja)</th><th>Nilai 76-100 (Sangat Baik / Sepenuhnya Kompeten)</th><th>Nilai 51-75 (Baik / Kompeten dengan Catatan)</th><th>Nilai 26-50 (Cukup / Kurang Kompeten)</th><th>Nilai 0-25 (Kurang / Belum Kompeten)</th></tr><tr><td>Identifikasi Jenis Keadaan Darurat</td><td>Mampu mengidentifikasi secara akurat bahwa insiden adalah Darurat Medis akibat paparan bahan kimia (Chemical Exposure) dan meresponsnya dengan segera tanpa penundaan.</td><td>Mampu mengidentifikasi jenis darurat medis, namun menunjukkan sedikit keraguan atau sedikit penundaan dalam merespons urgensi kejadian.</td><td>Hanya menyebutkan keadaan darurat secara umum, respons lambat, dan tidak menyadari tingkat keparahan insiden paparan bahan kimia.</td><td>Tidak mampu mengidentifikasi status kedaruratan atau tidak memberikan respons sama sekali terhadap korban.</td></tr><tr><td>Prosedur Penggunaan Eye Wash</td><td>Melakukan kelima tahapan dengan tepat dan berurutan: (1) membimbing korban ke stasiun Eye Wash, (2) mengaktifkan air dan membantu korban menunduk, (3) menahan kelopak mata tetap terbuka, (4) melakukan flushing minimal 15 menit, dan (5) membawa korban ke fasilitas medis.</td><td>Mampu melakukan penanganan menggunakan Eye Wash, namun terdapat ketidaktepatan minor pada 1-2 langkah (misal: waktu flushing kurang dari 15 menit atau kurang maksimal menahan kelopak mata).</td><td>Hanya melakukan sebagian prosedur flushing dengan mengabaikan 2-3 langkah penting (misal: membiarkan korban membilas sendiri tanpa ditahan kelopak matanya atau waktu bilas sangat singkat).</td><td>Tidak mampu mempraktikkan prosedur penggunaan Eye Wash sama sekali, atau melakukan tindakan yang membahayakan korban.</td></tr><tr><td>Penyusunan Laporan Insiden</td><td>Mampu menyusun laporan insiden secara detail dan komprehensif mencakup: nama korban, waktu, lokasi, kronologi kejadian, tindakan flushing 15 menit, hingga kondisi akhir serta tindak lanjut rujukan medis.</td><td>Mampu menyusun laporan insiden secara sistematis, namun kehilangan 1-2 detail spesifik (misalnya lupa menuliskan durasi flushing atau rincian lokasi kejadian).</td><td>Laporan disusun secara sangat umum, kehilangan banyak elemen penting (seperti tidak adanya kronologi yang jelas atau catatan tindakan medis yang diambil).</td><td>Tidak mampu menyusun laporan insiden yang relevan atau tidak membuat laporan sama sekali.</td></tr></table>\n<p><strong>REKAPITULASI NILAI</strong></p>\n<table><tr><th>Tugas</th><th>Bobot</th></tr><tr><td>Tugas 1: Identifikasi Bahaya &amp; Penilaian Risiko</td><td>35%</td></tr><tr><td>Tugas 2: Penanganan Bahan Berbahaya &amp; Tumpahan</td><td>35%</td></tr><tr><td>Tugas 3: Tanggap Darurat Medis</td><td>30%</td></tr><tr><td>Nilai (Jumlah Nilai × Bobot)</td><td>100%</td></tr></table>"
+ },
+ "esai_panduan": "<p><strong>Panduan Penilaian Umum (Rentang Skor 10–100)</strong></p>\n<p><strong>Skor 90 – 100: Sangat Baik (Komprehensif &amp; Presisi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan seluruh elemen kunci jawaban secara akurat dan lengkap.</li>\n<li><strong>Pemahaman Konsep (K3L):</strong> Menunjukkan pemahaman prinsip keselamatan dan kesehatan kerja yang tajam, logis, dan analitis.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Menggunakan istilah K3L/laboratorium dengan tepat (misal: HIRADC, segregasi, inkompatibilitas, leading indicator).</li>\n</ul>\n<p><strong>Skor 70 – 89: Baik (Memadai &amp; Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan sebagian besar poin kunci dengan benar. Terdapat toleransi untuk satu detail kecil yang terlewat.</li>\n<li><strong>Pemahaman Konsep (K3L):</strong> Penjelasan logis dan sesuai dengan standar keselamatan, namun penjabarannya kurang tajam atau menggunakan bahasa yang sedikit lebih umum.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Pemahaman konsep terlihat, meskipun istilah teknis K3L tidak digunakan secara menyeluruh.</li>\n</ul>\n<p><strong>Skor 50 – 69: Cukup (Parsial &amp; Terlalu Umum)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Hanya mampu menjawab secara parsial atau setengah-setengah dari kunci jawaban.</li>\n<li><strong>Pemahaman Konsep (K3L):</strong> Penjelasan terlalu awam, mengambang, dan kurang menargetkan standar spesifik K3L laboratorium.</li>\n</ul>\n<p><strong>Skor 30 – 49: Kurang (Dangkal &amp; Miskonsepsi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Gagal menangkap substansi instruksi soal atau memberikan jawaban yang membahayakan.</li>\n<li><strong>Pemahaman Konsep (K3L):</strong> Terdapat kesalahan pemahaman yang fatal mengenai aturan dasar keselamatan kerja.</li>\n</ul>\n<p><strong>Skor 10 – 29: Sangat Kurang (Tidak Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Jawaban sama sekali tidak berkaitan dengan pertanyaan atau prinsip keselamatan laboratorium. Nilai 10 diberikan sebagai nilai dasar karena peserta telah menuliskan respons.</li>\n</ul>"
 }

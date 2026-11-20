@@ -5,6 +5,15 @@
         <li>Untuk <strong>Essay Migas</strong>, berkas jawaban peserta ada di kartu paling atas (Pratinjau / Unduh).</li>
         <li>Di bawah pertanyaan, klik <strong>Lihat poin / kisi jawaban</strong> untuk membuka kunci jawaban soal itu sebagai
             acuan menilai. Tombol tidak muncul bila kunci soal belum diisi admin.</li>
+        <li>Pada skema yang membawa rubrik FR.IA.06 (mis. HSE, Corporate Legal, ESG):
+            <ul class="mb-0">
+                <li>Kartu <strong>Panduan Penilaian Umum</strong> di atas soal (klik untuk membuka) menjelaskan arti tiap
+                    rentang skor untuk semua soal.</li>
+                <li>Setiap soal punya <strong>Matriks penilaian</strong>: rentang skor (mis. 90–100 Sangat Baik … 10–29 Sangat
+                    Kurang) dengan kriteria khusus soal itu. Klik rentang yang paling sesuai dengan jawaban peserta: nilai
+                    tertinggi rentang itu terisi, lalu sesuaikan angkanya bila perlu. Rentang aktif ditandai warna.</li>
+            </ul>
+        </li>
         <li>Isi nilai <strong>0–100</strong> untuk tiap soal. <strong>Total Nilai</strong> = rata-rata nilai soal yang sudah diisi;
             nilai 0 ikut dihitung, soal yang dikosongkan tidak.</li>
         <li>Bar di kanan bawah: <span class="badge bg-success">Simpan</span> menyimpan nilai peserta ini,

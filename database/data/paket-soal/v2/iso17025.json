@@ -1,0 +1,1970 @@
+{
+ "key": "iso17025",
+ "classroom_code": "LQO",
+ "nama": "Laboratory Quality System Officer ISO/IEC 17025 / Petugas Sistem Mutu Laboratorium ISO/IEC 17025",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda - Skema Laboratory Quality System Officer ISOIEC 17025 (Petugas Sistem Mutu Laboratorium ISOIEC 170.pdf",
+  "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai Petugas ISO 17025.pdf",
+  "praktik": "FR.IA.04 Ujian Keterampilan - 17025-V1.docx"
+ },
+ "durasi": {
+  "pg": 120,
+  "esai": 90
+ },
+ "komposisi": {
+  "bobot_ujian_tulis": 70,
+  "proporsi_pg": 65,
+  "bobot_wawancara": 22.5,
+  "bobot_praktik_1": 7.5,
+  "bobot_praktik_2": 0,
+  "nilai_kelulusan": 60
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Apa makna \"Ketidakberpihakan\" dalam konteks laboratorium ISO 17025?"
+    }
+   ],
+   "options": [
+    "Tidak boleh berinteraksi dengan pelanggan sama sekali.",
+    "Adanya objektivitas, di mana konflik kepentingan tidak ada atau telah diselesaikan sehingga tidak memengaruhi kegiatan laboratorium.",
+    "Selalu membela pelanggan dalam setiap sengketa.",
+    "Tidak memiliki emosi saat bekerja."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Anda bekerja di laboratorium internal sebuah pabrik makanan. Manajer Produksi menekan Anda untuk meluluskan sampel produk yang sedikit \"out of spec\" agar target penjualan tercapai. Apa yang harus Anda lakukan?"
+    }
+   ],
+   "options": [
+    "Menuruti perintah karena dia atasan di perusahaan.",
+    "Meminta uang lembur sebagai kompensasi.",
+    "Menolak tekanan tersebut karena laboratorium harus bebas dari tekanan komersial/finansial yang mengkompromikan mutu.",
+    "Mengubah data sedikit saja agar masuk spesifikasi."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "Manakah situasi berikut yang merupakan risiko terhadap ketidakberpihakan?"
+    }
+   ],
+   "options": [
+    "Analis menguji sampel milik perusahaan saingan dari bisnis sampingan milik istrinya.",
+    "Analis menggunakan jas lab yang bersih.",
+    "Laboratorium menerima pembayaran biaya uji secara transfer bank resmi.",
+    "Laboratorium memberikan diskon harga untuk pengujian dalam jumlah banyak."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Laboratorium wajib mengidentifikasi risiko terhadap ketidakberpihakannya secara berkelanjutan. Jika risiko teridentifikasi, laboratorium harus:"
+    }
+   ],
+   "options": [
+    "Menyembunyikan risiko tersebut dari asesor.",
+    "Memecat semua karyawan.",
+    "Berhenti beroperasi selamanya.",
+    "Mampu membuktikan bagaimana cara menghilangkan atau meminimalkan risiko tersebut."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Untuk menjaga integritas, personel laboratorium tidak boleh:"
+    }
+   ],
+   "options": [
+    "Mendapatkan gaji yang layak.",
+    "Terlibat dalam kegiatan yang dapat mengurangi kepercayaan pada kompetensi, ketidakberpihakan, atau integritas operasionalnya (misal: memalsukan data).",
+    "Berbicara dengan rekan kerja.",
+    "Makan siang di kantin."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "Komitmen manajemen puncak terhadap ketidakberpihakan harus:"
+    }
+   ],
+   "options": [
+    "Hanya diucapkan secara lisan.",
+    "Tidak perlu didokumentasikan.",
+    "Dinyatakan secara resmi/terdokumentasi dan dijalankan.",
+    "Disimpan sebagai rahasia perusahaan."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Tekanan \"finansial\" yang dapat mengganggu ketidakberpihakan contohnya adalah:"
+    }
+   ],
+   "options": [
+    "Bonus analis didasarkan pada jumlah sampel yang dinyatakan \"Lulus\" (bukan pada jumlah sampel yang diuji).",
+    "Gaji dibayar tepat waktu setiap bulan.",
+    "Biaya lembur dibayar sesuai aturan pemerintah.",
+    "Adanya anggaran pembelian alat baru."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "Siapa yang bertanggung jawab atas pengelolaan semua informasi yang diperoleh selama pelaksanaan kegiatan laboratorium?"
+    }
+   ],
+   "options": [
+    "Satpam laboratorium.",
+    "Hanya manajer mutu.",
+    "Seluruh Personel",
+    "Pelanggan."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Kapan laboratorium diperbolehkan membuka rahasia/data pelanggan kepada pihak ketiga tanpa persetujuan pelanggan?"
+    }
+   ],
+   "options": [
+    "Jika diminta oleh tetangga pelanggan.",
+    "Jika ada tawaran uang dari pesaing pelanggan.",
+    "Jika analis ingin mempostingnya di media sosial.",
+    "Jika diwajibkan oleh undang-undang/hukum (misal: perintah pengadilan atau regulator)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Jika laboratorium diwajibkan oleh hukum untuk membuka informasi rahasia pelanggan, apa yang harus dilakukan laboratorium (kecuali dilarang hukum)?"
+    }
+   ],
+   "options": [
+    "Diam saja.",
+    "Meminta maaf di koran.",
+    "Menuntut balik pemerintah.",
+    "Memberitahu pelanggan atau individu yang bersangkutan tentang informasi yang diberikan."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Informasi tentang pelanggan yang diperoleh dari sumber selain pelanggan (misalnya dari pengadu/complainant atau regulator) harus:"
+    }
+   ],
+   "options": [
+    "Dikonfirmasi kebenarannya kepada pelanggan.",
+    "Dijaga kerahasiaannya dan sumbernya tidak boleh disebutkan kepada pelanggan (kecuali disetujui oleh sumber).",
+    "Diabaikan karena bukan dari pelanggan langsung.",
+    "Diumumkan di papan pengumuman."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Secara legalitas, laboratorium harus:"
+    }
+   ],
+   "options": [
+    "Merupakan suatu entitas legal (badan hukum) atau bagian dari entitas legal yang dapat bertanggung jawab secara hukum.",
+    "Boleh beroperasi tanpa izin apapun asalkan punya alat.",
+    "Harus milik pemerintah.",
+    "Harus berbentuk PT (Perseroan Terbatas)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Laboratorium harus menetapkan struktur organisasi dan manajemen. Hal ini bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Agar dinding kantor penuh dengan bagan.",
+    "Syarat administrasi kelurahan.",
+    "Menentukan hubungan antara manajemen, operasional teknis, dan layanan pendukung serta tanggung jawabnya.",
+    "Mengetahui siapa yang gajinya paling besar."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Kegiatan laboratorium dapat dilakukan di:"
+    }
+   ],
+   "options": [
+    "Fasilitas permanen saja.",
+    "Fasilitas permanen, lokasi di luar fasilitas permanen (on-site), atau fasilitas sementara/bergerak (mobile).",
+    "Rumah masing-masing analis.",
+    "Mana saja sesuka hati analis."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Laboratorium harus memiliki personel yang memiliki wewenang dan sumber daya untuk menjalankan tugasnya. Salah satu wewenang penting adalah:"
+    }
+   ],
+   "options": [
+    "Wewenang untuk mengimplementasikan, memelihara, dan meningkatkan sistem manajemen serta mengidentifikasi penyimpangan.",
+    "Wewenang untuk menaikkan gaji sendiri.",
+    "Wewenang untuk memarahi pelanggan.",
+    "Wewenang untuk menutup perusahaan."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Dalam ISO/IEC 17025:2017, memiliki gelar sarjana sains saja tidak cukup untuk dinyatakan \"kompeten\" dalam melakukan pengujian spesifik. Apa yang harus dimiliki personel selain kualifikasi pendidikan?"
+    }
+   ],
+   "options": [
+    "Surat rekomendasi dari dosen pembimbing.",
+    "Kemampuan yang didemonstrasikan (skill) dan dievaluasi.",
+    "Sertifikat keanggotaan organisasi profesi.",
+    "Pengalaman kerja minimal 5 tahun."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Siapakah yang berhak memberikan otorisasi kepada analis junior untuk melakukan pengoperasian peralatan rumit seperti HPLC atau GC-MS?"
+    }
+   ],
+   "options": [
+    "Manajer Puncak / Direktur.",
+    "Analis senior yang mendampingi.",
+    "Personel yang ditunjuk/berwenang di laboratorium (Manajer Teknis/Penyelia).",
+    "Vendor/supplier alat tersebut."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Anda adalah karyawan baru yang sedang dalam masa pelatihan. Bagaimana status Anda dalam melakukan pengujian sampel pelanggan?"
+    }
+   ],
+   "options": [
+    "Boleh melakukan pengujian sendiri asalkan sudah membaca SOP.",
+    "Tidak boleh menyentuh alat sama sekali sampai masa percobaan habis.",
+    "Boleh melakukan pengujian hanya untuk sampel yang tidak berbahaya.",
+    "Boleh melakukan pengujian namun harus disupervisi (diawasi) oleh personel yang kompeten."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Laboratorium harus mendokumentasikan persyaratan kompetensi untuk setiap fungsi yang berpengaruh terhadap hasil. Dokumen ini biasanya disebut:"
+    }
+   ],
+   "options": [
+    "Uraian Tugas (Job Description).",
+    "Struktur Organisasi.",
+    "Daftar Inventaris.",
+    "Logbook Alat."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "Mengapa laboratorium mikrobiologi dan laboratorium preparasi sampel kimia (yang menggunakan banyak debu/serbuk) harus dipisahkan ruangannya secara efektif?"
+    }
+   ],
+   "options": [
+    "Agar analis tidak bosan berada di satu ruangan.",
+    "Karena perbedaan suhu AC yang dibutuhkan.",
+    "Agar peralatan tidak tertukar.",
+    "Untuk mencegah kontaminasi silang yang dapat mempengaruhi keabsahan hasil."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Jika persyaratan metode pengujian mengharuskan suhu ruang 20°C ± 2°C, namun termometer ruangan menunjukkan suhu 25°C saat Anda akan bekerja. Apa yang harus dilakukan?"
+    }
+   ],
+   "options": [
+    "Tetap melakukan pengujian dan mencatat suhu apa adanya.",
+    "Menghentikan pengujian, memperbaiki kondisi lingkungan, dan mengevaluasi dampak.",
+    "Membuka pintu agar udara segar masuk.",
+    "Melakukan pengujian dengan cepat sebelum suhu naik lagi."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Siapa yang boleh memasuki area laboratorium tempat pengujian sensitif dilakukan?"
+    }
+   ],
+   "options": [
+    "Siapa saja karyawan perusahaan tersebut.",
+    "Tamu yang ingin melihat-lihat proses kerja.",
+    "Hanya personel yang berwenang, dan akses harus dikendalikan.",
+    "Petugas kebersihan kapan saja tanpa pendampingan."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Sebuah pipet volume gelas memiliki sertifikat kalibrasi yang masih berlaku. Apakah pipet tersebut termasuk \"Peralatan\" dalam definisi ISO 17025?"
+    }
+   ],
+   "options": [
+    "Tidak, karena tidak menggunakan listrik.",
+    "Tidak, itu hanya alat gelas biasa.",
+    "Ya, karena digunakan untuk pengukuran dan mempengaruhi hasil.",
+    "Ya, tapi hanya jika harganya mahal."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Anda menemukan stiker kalibrasi pada Neraca Analitik sudah kedaluwarsa (lewat tanggal). Tindakan apa yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Tetap menggunakannya karena neraca masih menyala dengan baik.",
+    "Menghentikan penggunaan, memberi label \"TIDAK BOLEH DIGUNAKAN\", dan lapor ke penyelia.",
+    "Mengkalibrasi sendiri dengan batu timbang seadanya.",
+    "Mencabut stiker agar tidak terlihat kedaluwarsa."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "Apa yang dimaksud dengan \"Pengecekan Antara\" (Intermediate Check) pada peralatan ukur?"
+    }
+   ],
+   "options": [
+    "Pengecekan berkala untuk memelihara keyakinan pada status kalibrasi alat (misal: cek pH meter dengan buffer tiap pagi).",
+    "Pengecekan status alat saat audit eksternal.",
+    "Pengecekan alat oleh teknisi pabrik saat pembelian.",
+    "Pengecekan harga alat di pasaran."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "Jika sertifikat kalibrasi Oven menunjukkan adanya faktor koreksi suhu sebesar +2°C pada set point 100°C. Saat Anda membutuhkan suhu tepat 100°C, di angka berapakah Anda harus menyeting display oven?"
+    }
+   ],
+   "options": [
+    "102°C",
+    "100°C",
+    "90°C",
+    "98°C"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Peralatan yang memberikan hasil meragukan atau telah mengalami beban berlebih (overload) harus..."
+    }
+   ],
+   "options": [
+    "Diisolasi/diberi label tidak boleh digunakan sampai diverifikasi kembali kinerjanya.",
+    "Dijual sebagai barang bekas.",
+    "Dicuci bersih dan langsung dipakai kembali.",
+    "Disimpan di gudang selamanya."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Laboratorium harus memiliki rekaman peralatan. Informasi apa yang TIDAK wajib ada dalam rekaman peralatan?"
+    }
+   ],
+   "options": [
+    "Identitas peralatan (No. Seri/ID).",
+    "Lokasi peralatan saat ini.",
+    "Harga beli peralatan.",
+    "Bukti verifikasi/kalibrasi dan tanggal kalibrasi berikutnya."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Apa tujuan utama dari Ketertelusuran Metrologi (Metrological Traceability)?"
+    }
+   ],
+   "options": [
+    "Agar alat terlihat canggih.",
+    "Menghubungkan hasil pengukuran ke referensi internasional (SI Unit) melalui rantai kalibrasi yang tak terputus.",
+    "Memastikan alat dibeli dari vendor resmi.",
+    "Agar laboratorium bisa menaikkan harga uji."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Manakah di bawah ini yang merupakan cara membuktikan ketertelusuran metrologi?"
+    }
+   ],
+   "options": [
+    "Membandingkan hasil dengan laboratorium tetangga yang belum akreditasi.",
+    "Menggunakan alat yang baru dibeli dari toko online.",
+    "Memiliki sertifikat kalibrasi dari laboratorium kalibrasi yang terakreditasi ISO/IEC 17025 (misal: LK-KAN).",
+    "Menggunakan reagen buatan sendiri."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "Dalam pengujian kimia, penggunaan CRM (Certified Reference Material) sangat dianjurkan. Apa fungsi CRM?"
+    }
+   ],
+   "options": [
+    "Sebagai standar acuan untuk mengkalibrasi instrumen atau memvalidasi metode.",
+    "Sebagai bahan pembersih alat gelas.",
+    "Sebagai sampel buta untuk menipu auditor.",
+    "Sebagai pengganti sampel pelanggan yang hilang."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Sebelum menggunakan bahan kimia (seperti Asam Sulfat pekat) yang baru dibeli dari supplier, apa yang harus dilakukan laboratorium?"
+    }
+   ],
+   "options": [
+    "Langsung menuangnya ke dalam buret.",
+    "Menyimpannya di lemari es apapun jenis bahannya.",
+    "Meminta pelanggan untuk memeriksanya.",
+    "Memverifikasi kesesuaiannya (cek label, grade, tanggal kadaluarsa, COA) dengan persyaratan pemesanan."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Jika laboratorium mensubkontrakkan sebagian pengujian ke laboratorium lain, laboratorium mana yang boleh dipilih?"
+    }
+   ],
+   "options": [
+    "Laboratorium mana saja yang paling murah.",
+    "Laboratorium milik teman dekat manajer.",
+    "Laboratorium kampus tanpa sistem mutu.",
+    "Laboratorium yang kompeten (sebaiknya terakreditasi ISO 17025) untuk lingkup tersebut."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Siapa yang bertanggung jawab kepada pelanggan atas hasil uji, meskipun sebagian pengujian disubkontrakkan?"
+    }
+   ],
+   "options": [
+    "Laboratorium pemberi order (laboratorium kita).",
+    "Laboratorium subkontraktor.",
+    "Supplier alat.",
+    "Tidak ada yang bertanggung jawab."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Laboratorium harus mengevaluasi kinerja supplier (pemasok). Contoh evaluasi yang tepat adalah..."
+    }
+   ],
+   "options": [
+    "Menilai keramahan sales marketingnya.",
+    "Menilai ketepatan waktu pengiriman dan kualitas bahan yang diterima sesuai spesifikasi.",
+    "Menilai seberapa sering supplier mentraktir makan siang.",
+    "Menilai jarak kantor supplier ke laboratorium."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Kapan kaji ulang permintaan (review of request) idealnya dilakukan?"
+    }
+   ],
+   "options": [
+    "Setelah laporan hasil uji terbit.",
+    "Saat sampel sedang diuji di laboratorium.",
+    "Sebelum laboratorium menyetujui untuk melakukan pengujian/menerima sampel.",
+    "Saat pelanggan melakukan pembayaran."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Pelanggan meminta pengujian menggunakan metode kuno (sudah tidak berlaku) karena alasan regulasi spesifik di negaranya. Apa yang harus dilakukan laboratorium?"
+    }
+   ],
+   "options": [
+    "Menolak mentah-mentah.",
+    "Mengganti diam-diam dengan metode baru agar hasilnya akurat.",
+    "Memarahi pelanggan karena tidak update.",
+    "Menggunakan metode tersebut namun mencantumkan status kadaluarsanya di laporan."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Jika terjadi penyimpangan dari kontrak (misalnya metode harus diubah di tengah jalan karena kendala teknis), siapa yang harus diberitahu?"
+    }
+   ],
+   "options": [
+    "Hanya manajer teknis.",
+    "Bagian keuangan.",
+    "Petugas keamanan.",
+    "Pelanggan."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Laboratorium Anda menggunakan metode standar internasional (misal: ISO atau SNI) edisi terbaru. Apa kewajiban teknis laboratorium sebelum rutin menggunakannya?"
+    }
+   ],
+   "options": [
+    "Melakukan Validasi Metode.",
+    "Melakukan Verifikasi Metode.",
+    "Langsung pakai saja karena sudah standar internasional.",
+    "Meminta izin pemerintah."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Validasi metode (bukan sekadar verifikasi) wajib dilakukan pada kondisi berikut, KECUALI:"
+    }
+   ],
+   "options": [
+    "Metode standar yang diadopsi persis tanpa modifikasi apapun.",
+    "Metode standar yang digunakan di luar lingkup yang dituju (dimodifikasi).",
+    "Metode yang dikembangkan sendiri oleh laboratorium (In-house method).",
+    "Metode standar yang digabungkan/diperluas penggunaannya."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "Parameter validasi yang menunjukkan kemampuan metode mendeteksi konsentrasi terendah analit (namun belum tentu kuantitatif) disebut:"
+    }
+   ],
+   "options": [
+    "Presisi.",
+    "Akurasi.",
+    "Limit of Detection (LOD).",
+    "Linearitas."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Jika laboratorium menggunakan metode SNI tahun 2005, padahal sudah terbit SNI tahun 2024 untuk parameter yang sama. Apa langkah yang paling tepat?"
+    }
+   ],
+   "options": [
+    "Mengkaji ulang apakah mampu menerapkan edisi 2024, lalu melakukan verifikasi ulang.",
+    "Tetap pakai 2005 selamanya karena sudah nyaman.",
+    "Menggunakan 2024 tapi prosedurnya tetap pakai cara 2005.",
+    "Menghapus tahun terbit di laporan agar tidak ketahuan."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Apa yang dimaksud dengan \"Akurasi\" (Ketepatan) dalam validasi metode?"
+    }
+   ],
+   "options": [
+    "Kedekatan antar hasil pengulangan (repeater).",
+    "Kedekatan hasil uji dengan nilai benar/nilai acuan.",
+    "Kemampuan alat membaca angka desimal terbanyak.",
+    "Kecepatan analisis sampel."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "\"Presisi\" sering diukur dengan parameter statistik berupa:"
+    }
+   ],
+   "options": [
+    "Persen Recovery (%R).",
+    "Koefisien Korelasi (r).",
+    "Slope dan Intercept.",
+    "Standar Deviasi Relatif (%RSD) atau CV."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Jika laboratorium melakukan pengambilan sampel (sampling), data apa yang WAJIB direkam di lapangan?"
+    }
+   ],
+   "options": [
+    "Tanggal, lokasi, kondisi lingkungan, dan identifikasi petugas sampling.",
+    "Harga bensin perjalanan dinas.",
+    "Merk mobil yang digunakan.",
+    "Menu makan siang petugas."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Apa perbedaan \"Metode Sampling\" dan \"Perencanaan Sampling\"?"
+    }
+   ],
+   "options": [
+    "Metode adalah cara mengambilnya (teknis), Perencanaan adalah strategi statistik (di mana dan berapa banyak).",
+    "Sama saja, hanya beda istilah.",
+    "Metode dilakukan di lab, Perencanaan dilakukan di lapangan.",
+    "Metode untuk sampel cair, Perencanaan untuk sampel padat."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "Pelanggan meminta deviasi sampling (misal: \"tolong ambil sampel air di permukaan saja, jangan di kedalaman 5 meter sesuai SOP\"). Apa yang harus dilakukan?"
+    }
+   ],
+   "options": [
+    "Menolak sampling.",
+    "Melakukan sesuai permintaan pelanggan dan mencatat deviasi tersebut serta dampaknya dalam laporan.",
+    "Melakukan sesuai SOP dan membohongi pelanggan.",
+    "Meminta pelanggan mengambil sendiri."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Saat sampel diterima, ditemukan kondisi botol retak dan sampel bocor. Apa tindakan penerima sampel?"
+    }
+   ],
+   "options": [
+    "Membuang sampel diam-diam.",
+    "Memindahkan ke botol baru dan pura-pura tidak tahu.",
+    "Langsung menguji apa adanya.",
+    "Merekam kondisi abnormal tersebut dan berkonsultasi dengan pelanggan sebelum lanjut."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Tujuan utama pemberian identifikasi unik (kode sampel) pada setiap barang uji adalah:"
+    }
+   ],
+   "options": [
+    "Agar terlihat keren.",
+    "Untuk memudahkan penagihan biaya.",
+    "Agar tidak tertukar dengan sampel lain secara fisik maupun dalam rekaman data.",
+    "Agar analis bingung."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Apa yang harus dilakukan terhadap sisa sampel setelah pengujian selesai?"
+    }
+   ],
+   "options": [
+    "Langsung dibuang ke wastafel.",
+    "Disimpan/dimusnahkan sesuai prosedur penanganan dan masa simpan yang ditetapkan.",
+    "Dibawa pulang oleh analis.",
+    "Dibiarkan menumpuk di meja kerja."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Jika sampel perlu disimpan dalam kondisi dingin (2-8°C), bagaimana cara memastikannya?"
+    }
+   ],
+   "options": [
+    "Cukup taruh di kulkas, tidak perlu dicek.",
+    "Memantau, mengendalikan, dan merekam suhu kulkas penyimpanan setiap hari.",
+    "Memasukkan tangan ke kulkas untuk cek dingin atau tidak.",
+    "Bertanya pada satpam."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Dalam ISO 17025, rekaman teknis (data hasil uji) harus memuat informasi yang cukup untuk memungkinkan:"
+    }
+   ],
+   "options": [
+    "Pengulangan pengujian (re-test) pada kondisi yang sedekat mungkin dengan aslinya.",
+    "Penulisan novel.",
+    "Penghitungan bonus karyawan.",
+    "Penghematan kertas."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Analis mencatat data penimbangan langsung di secarik tisu karena buku log tertinggal. Tindakan ini:"
+    }
+   ],
+   "options": [
+    "Diperbolehkan asal dipindah ke buku log nanti.",
+    "Boleh, asal tisunya bersih.",
+    "Tidak diperbolehkan, data harus dicatat langsung pada dokumen yang ditetapkan (worksheet/logbook) saat pengamatan dilakukan.",
+    "Boleh, jika analis sedang buru-buru."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Jika menggunakan sistem informasi laboratorium (LIMS) berbasis komputer, laboratorium harus memastikan:"
+    }
+   ],
+   "options": [
+    "Komputer bermerek mahal.",
+    "Semua orang tahu password komputer tersebut.",
+    "Integritas data terlindungi (ada backup, password, validasi software).",
+    "Komputer tidak terkoneksi internet."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Siapa yang bertanggung jawab memvalidasi bahwa data yang dipindahkan dari alat ke laporan adalah benar?"
+    }
+   ],
+   "options": [
+    "Petugas kebersihan.",
+    "Personel yang berwenang (Penyelia/Manajer Teknis) melalui pengecekan data.",
+    "Pelanggan.",
+    "Auditor eksternal."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Ketidakpastian pengukuran (Uncertainty) berbeda dengan Kesalahan (Error). Ketidakpastian adalah:"
+    }
+   ],
+   "options": [
+    "Kesalahan kerja analis.",
+    "Selisih antara hasil uji dengan nilai benar.",
+    "Parameter yang menetapkan rentang nilai di mana nilai benar diperkirakan berada.",
+    "Ketidaktahuan analis saat bekerja."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Laboratorium pengujian WAJIB mengevaluasi ketidakpastian pengukuran. Jika metode uji tidak memungkinkan hitungan matematis yang ketat, maka:"
+    }
+   ],
+   "options": [
+    "Tidak usah dihitung.",
+    "Mengestimasi berdasarkan pemahaman teoritis atau pengalaman praktis kinerja metode.",
+    "Mengarang angka.",
+    "Menggunakan angka keberuntungan."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Manakah yang merupakan sumber penyumbang ketidakpastian (budget uncertainty)?"
+    }
+   ],
+   "options": [
+    "Kalibrasi alat (neraca/pipet).",
+    "Kemurnian bahan standar.",
+    "Repitabilitas (pengulangan) personel.",
+    "Semua jawaban benar."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Kapan angka ketidakpastian WAJIB dilaporkan dalam sertifikat hasil uji?"
+    }
+   ],
+   "options": [
+    "Setiap saat, tanpa kecuali.",
+    "Jika hasilnya bagus saja.",
+    "Jika analis sedang rajin menghitung.",
+    "Hanya jika diminta pelanggan, atau memengaruhi kesesuaian dengan batas spesifikasi (decision rule)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Penggunaan Control Chart (Peta Kendali) di laboratorium bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Memantau tren stabilitas proses pengujian dari waktu ke waktu.",
+    "Hiasan dinding laboratorium.",
+    "Syarat administrasi saja.",
+    "Mencatat absen pegawai."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Uji Banding Antar Laboratorium atau Uji Profisiensi (Proficiency Testing) termasuk dalam kategori:"
+    }
+   ],
+   "options": [
+    "Internal Quality Control (IQC).",
+    "Validasi Metode.",
+    "Eksternal Quality Assurance (EQA).",
+    "Kalibrasi alat."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Apa fungsi dari \"Sampel Blanko\"?"
+    }
+   ],
+   "options": [
+    "Untuk mengecek apakah ada kontaminasi dari reagen atau wadah.",
+    "Untuk mengecek akurasi.",
+    "Untuk mengecek keterampilan analis.",
+    "Untuk menghemat sampel asli."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Jika hasil uji Control Sample (sampel kendali) masuk dalam rentang \"Out of Control\" (di luar batas keberterimaan), apa yang harus dilakukan?"
+    }
+   ],
+   "options": [
+    "Ulangi pengujian control sample dan sampel pelanggan setelah mencari penyebabnya.",
+    "Abaikan dan tetap laporkan hasil sampel pelanggan.",
+    "Ganti angka control sample agar masuk rentang.",
+    "Matikan alat dan pulang."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Replicate testing (pengujian duplikat/triplo) dilakukan untuk memantau:"
+    }
+   ],
+   "options": [
+    "Akurasi.",
+    "Linearitas.",
+    "Sensitivitas.",
+    "Presisi (Kedekatan antar hasil)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Melakukan pengujian ulang pada barang yang masih ada (retained item) disebut:"
+    }
+   ],
+   "options": [
+    "Replikasi.",
+    "Kalibrasi.",
+    "Intralab comparison (uji banding internal).",
+    "Sampling."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Laporan hasil uji (Sertifikat) harus disahkan oleh:"
+    }
+   ],
+   "options": [
+    "Personel yang berwenang (penandatangan yang disetujui).",
+    "Siapa saja yang ada di lab.",
+    "Satpam laboratorium.",
+    "Resepsionis."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Jika laboratorium laboratorium memberikan laboratorium memberikan pernyataan laboratorium memberikan pernyataan kesesuaian laboratorium memberikan pernyataan kesesuaian (Lulus/Gagal laboratorium memberikan pernyataan kesesuaian (Lulus/Gagal atau Memenuhi/Tidak Memenuhi Syarat), laboratorium harus:"
+    }
+   ],
+   "options": [
+    "Menggunakan perasaan.",
+    "Mengikuti kemauan pelanggan.",
+    "Melempar koin.",
+    "Menerapkan Aturan Aturan Keputusan Aturan Keputusan (Decision Aturan Keputusan (Decision Rule) yang Aturan Keputusan (Decision Rule) yang memperhitungkan ketidakpastian (jika relevan)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Apa yang dimaksud dengan \"Amandemen Laporan\"?"
+    }
+   ],
+   "options": [
+    "Mengganti laporan yang salah dengan menerbitkan dokumen baru yang unik dan merujuk pada dokumen asli.",
+    "Menghapus file lama di komputer dan menimpa dengan yang baru.",
+    "Meminta pelanggan membuang laporan lama.",
+    "Mencoret manual pada kertas laporan yang sudah dikirim."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Jika hasil berasal dari subkontraktor, bagaimana cara pelaporannya?"
+    }
+   ],
+   "options": [
+    "Mengakui sebagai hasil sendiri.",
+    "Tidak perlu dilaporkan.",
+    "Mengidentifikasi secara jelas mana hasil dari subkontraktor.",
+    "Menulis nama subkontraktor dengan huruf sangat kecil agar tidak terbaca."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Jika pelanggan menyampaikan keluhan (complain) lewat telepon, apa langkah pertama laboratorium?"
+    }
+   ],
+   "options": [
+    "Merekam/mencatat keluhan tersebut dan melakukan konfirmasi apakah keluhan berkaitan dengan aktivitas lab.",
+    "Menutup telepon.",
+    "Menyalahkan pelanggan.",
+    "Menyalahkan analis."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Siapa yang TIDAK boleh terlibat dalam investigasi dan pengambilan keputusan atas keluhan pelanggan?"
+    }
+   ],
+   "options": [
+    "Manajer Mutu.",
+    "Orang yang terlibat langsung dalam kegiatan yang dikeluhkan (untuk menjaga imparsialitas).",
+    "Manajer Puncak.",
+    "Personel administrasi."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Definisi \"Pekerjaan yang Tidak Sesuai\" (Nonconforming Work) adalah:"
+    }
+   ],
+   "options": [
+    "Pekerjaan yang gajinya kecil.",
+    "Pekerjaan yang dilakukan di malam hari.",
+    "Pekerjaan yang dilakukan oleh anak magang.",
+    "Kegiatan laboratorium yang tidak sesuai dengan prosedur sendiri atau persyaratan pelanggan."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Jika ditemukan pekerjaan tidak sesuai yang berdampak fatal pada hasil uji yang sudah keluar (misal: reagen ternyata expired saat dipakai), apa yang harus dilakukan?"
+    }
+   ],
+   "options": [
+    "Diam saja dan berdoa tidak ketahuan.",
+    "Memarahi supplier reagen.",
+    "Menghentikan pekerjaan, mengevaluasi dampak, dan jika perlu menarik kembali laporan (recall) serta memberitahu pelanggan.",
+    "Memecat analis seketika."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Tindakan perbaikan (corrective action) wajib diambil jika:"
+    }
+   ],
+   "options": [
+    "Pekerjaan tidak sesuai hanya terjadi sekali dan sepele.",
+    "Evaluasi menunjukkan pekerjaan tidak sesuai bisa terulang kembali (ada keraguan pada kesesuaian operasi).",
+    "Bos sedang marah.",
+    "Audit eksternal sudah dekat."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Otoritas untuk melanjutkan pekerjaan kembali (resumption of work) setelah masalah diselesaikan harus:"
+    }
+   ],
+   "options": [
+    "Tidak perlu ditentukan.",
+    "Menunggu pelanggan datang.",
+    "Terserah analis masing-masing.",
+    "Ditentukan/ditetapkan secara jelas personelnya."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "ISO 17025 memberikan dua opsi penerapan sistem manajemen, yaitu Opsi A dan Opsi B. Laboratorium memilih Opsi B jika:"
+    }
+   ],
+   "options": [
+    "Laboratorium ingin bekerja tanpa aturan.",
+    "Laboratorium telah menerapkan sistem manajemen ISO 9001.",
+    "Laboratorium hanya memiliki sedikit karyawan.",
+    "Laboratorium tidak ingin diaudit."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Dalam hierarki dokumentasi mutu, dokumen yang berisi instruksi langkah demi langkah yang sangat teknis (misal: cara menyalakan alat AAS) biasanya disebut:"
+    }
+   ],
+   "options": [
+    "Panduan Mutu (Quality Manual).",
+    "Kebijakan Mutu.",
+    "Instruksi Kerja (Work Instruction).",
+    "Formulir Kosong."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Sebuah dokumen prosedur (SOP) dinyatakan \"Sah\" dan boleh didistribusikan ke staf jika:"
+    }
+   ],
+   "options": [
+    "Sudah dicetak di kertas tebal.",
+    "Sudah dibaca oleh semua orang.",
+    "Sudah ada logo perusahaan.",
+    "Sudah ditinjau dan disetujui (di-approve) oleh personel berwenang."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Anda menemukan lembaran Instruksi Kerja (IK) edisi lama yang sudah dicoret-coret di laci meja laboratorium. Apa yang harus dilakukan sesuai prinsip pengendalian dokumen?"
+    }
+   ],
+   "options": [
+    "Menarik/memusnahkan dokumen usang tersebut agar tidak tidak sengaja digunakan (mencegah penggunaan dokumen kadaluarsa).",
+    "Tetap menggunakannya karena isinya masih mirip.",
+    "Menyimpannya sebagai kenang-kenangan.",
+    "Memberikannya kepada staf junior."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Dokumen eksternal seperti buku manual alat (User Manual) dari pabrikan:"
+    }
+   ],
+   "options": [
+    "Tidak perlu dikendalikan.",
+    "Boleh dibawa pulang oleh analis.",
+    "Harus dikendalikan (didaftar dan dipastikan ketersediaannya) sebagai bagian dari dokumen sistem manajemen.",
+    "Harus dibuang setelah alat dipasang."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Apa perbedaan mendasar antara \"Dokumen\" dan \"Rekaman\" (Record)?"
+    }
+   ],
+   "options": [
+    "Dokumen adalah acuan/aturan (hidup), Rekaman adalah bukti kegiatan masa lalu (statis/mati).",
+    "Dokumen ditulis tangan, Rekaman diketik.",
+    "Dokumen boleh dibuang, Rekaman harus disimpan selamanya.",
+    "Tidak ada bedanya."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "Berapa lama rekaman data mentah (raw data) hasil pengujian harus disimpan?"
+    }
+   ],
+   "options": [
+    "Selama-lamanya.",
+    "Sampai audit selesai, lalu langsung dibuang.",
+    "Sampai pelanggan membayar tagihan.",
+    "Sesuai periode waktu yang ditetapkan dalam prosedur laboratorium (misal: 3 tahun atau 5 tahun)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Jika rekaman disimpan secara elektronik di komputer, risiko apa yang wajib dimitigasi oleh laboratorium?"
+    }
+   ],
+   "options": [
+    "Risiko komputer berdebu.",
+    "Risiko kehilangan data (harus ada backup) dan akses tanpa izin (password).",
+    "Risiko layar monitor pecah.",
+    "Risiko mouse macet."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Pola pikir berbasis risiko (Risk-based thinking) dalam ISO 17025 bertujuan untuk:"
+    }
+   ],
+   "options": [
+    "Membuat pekerjaan menjadi lebih rumit.",
+    "Menakut-nakuti staf laboratorium.",
+    "Mencari siapa yang salah.",
+    "Mengidentifikasi potensi kegagalan sebelum terjadi dan menyiapkan langkah pencegahan."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Manakah di bawah ini yang merupakan contoh \"Risiko\" bagi laboratorium?"
+    }
+   ],
+   "options": [
+    "Laboratorium mendapatkan proyek besar.",
+    "Alat berfungsi dengan sangat baik.",
+    "Personel kunci (penyelia) tiba-tiba resign dan tidak ada penggantinya.",
+    "Pelanggan memuji hasil kerja."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Setelah mengidentifikasi risiko, laboratorium harus melakukan tindakan yang:"
+    }
+   ],
+   "options": [
+    "Proporsional (seimbang) dengan dampak potensialnya.",
+    "Membutuhkan biaya paling mahal.",
+    "Menghentikan semua kegiatan operasional.",
+    "Mengabaikan risiko kecil."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Laboratorium harus mencari umpan balik (feedback) dari pelanggan. Umpan balik ini bisa berupa:"
+    }
+   ],
+   "options": [
+    "Survei kepuasan pelanggan (kuesioner).",
+    "Komunikasi rutin saat rapat bersama pelanggan.",
+    "Keluhan atau pujian.",
+    "Semua jawaban benar."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Tujuan utama dari pengumpulan saran perbaikan dari staf laboratorium adalah:"
+    }
+   ],
+   "options": [
+    "Untuk mengisi kotak saran yang kosong.",
+    "Meningkatkan efektivitas sistem manajemen dan operasional laboratorium.",
+    "Menilai kinerja staf untuk kenaikan gaji.",
+    "Mencari kesalahan manajemen."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Langkah paling krusial dalam melakukan Tindakan Korektif adalah:"
+    }
+   ],
+   "options": [
+    "Meminta maaf kepada atasan.",
+    "Menghapus bukti kesalahan.",
+    "Melakukan Analisis Akar Penyebab Masalah (Root Cause Analysis).",
+    "Menyalahkan departemen lain."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Apa bedanya \"Koreksi\" dan \"Tindakan Korektif\"?"
+    }
+   ],
+   "options": [
+    "Koreksi itu memperbaiki kesalahan saat itu juga; Tindakan Korektif itu menghilangkan penyebab agar tidak terulang lagi.",
+    "Koreksi untuk alat; Tindakan Korektif untuk manusia.",
+    "Koreksi dilakukan manajer; Tindakan Korektif dilakukan staf.",
+    "Sama saja."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Teknik \"5 Why\" (5 Mengapa) sering digunakan untuk:"
+    }
+   ],
+   "options": [
+    "Menghitung jumlah sampel.",
+    "Menanya pelanggan kenapa tidak bayar.",
+    "Menguji kesabaran auditor.",
+    "Mencari akar penyebab masalah sampai ke lapisan terdalam."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Kapan sebuah tindakan korektif dinyatakan \"Selesai/Efektif\"?"
+    }
+   ],
+   "options": [
+    "Segera setelah formulir diisi.",
+    "Setelah manajer tanda tangan.",
+    "Setelah dilakukan pemantauan dan terbukti masalah yang sama tidak muncul kembali.",
+    "Setelah audit eksternal lewat."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Persyaratan utama seorang Auditor Internal adalah:"
+    }
+   ],
+   "options": [
+    "Harus galak dan tegas.",
+    "Independen (tidak boleh mengaudit pekerjaan sendiri).",
+    "Harus berasal dari pihak luar perusahaan.",
+    "Harus manajer puncak."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Audit internal dilakukan untuk memastikan:"
+    }
+   ],
+   "options": [
+    "Laboratorium mematuhi persyaratannya sendiri dan persyaratan ISO 17025.",
+    "Mencari kesalahan personel untuk diberi sanksi.",
+    "Menghabiskan anggaran tahunan.",
+    "Mengecek kebersihan lantai."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Berapa frekuensi pelaksanaan audit internal?"
+    }
+   ],
+   "options": [
+    "Setiap hari.",
+    "Pada interval yang direncanakan (biasanya minimal 1 tahun sekali).",
+    "Hanya saat ada masalah besar.",
+    "5 tahun sekali."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "Jika auditor menemukan ketidaksesuaian (temuan audit), apa yang harus dilakukan laboratorium?"
+    }
+   ],
+   "options": [
+    "Berdebat dengan auditor.",
+    "Melakukan tindakan korektif dalam jangka waktu yang disepakati.",
+    "Mengabaikan temuan tersebut.",
+    "Mengganti auditornya."
+   ],
+   "answer": 2
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Siapa yang memimpin rapat Tinjauan Manajemen (Management Review)?"
+    }
+   ],
+   "options": [
+    "Analis laboratorium.",
+    "Petugas administrasi.",
+    "Pelanggan.",
+    "Manajemen Puncak (Top Management/Direktur)."
+   ],
+   "answer": 4
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Manakah yang WAJIB menjadi pembahasan (Input) dalam Tinjauan Manajemen?"
+    }
+   ],
+   "options": [
+    "Gosip terbaru di kantor.",
+    "Menu makan siang karyawan.",
+    "Hasil audit internal/eksternal, umpan balik pelanggan, dan status tindakan korektif.",
+    "Rencana liburan tahunan."
+   ],
+   "answer": 3
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Output (Keluaran) dari Tinjauan Manajemen biasanya berupa:"
+    }
+   ],
+   "options": [
+    "Keputusan terkait sumber daya (misal: beli alat baru, rekrut staf) dan peningkatan.",
+    "Daftar hadir rapat saja.",
+    "Foto dokumentasi rapat.",
+    "Tidak ada output."
+   ],
+   "answer": 1
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "Apa perbedaan utama antara Audit Internal dan Tinjauan Manajemen?"
+    }
+   ],
+   "options": [
+    "Audit Internal mengecek kesesuaian (Compliance); Tinjauan Manajemen mengecek kesesuaian strategi & sumber daya (Suitability & Resources).",
+    "Audit dilakukan bos; Tinjauan Manajemen dilakukan staf.",
+    "Audit itu santai; Tinjauan Manajemen itu tegang.",
+    "Audit fokus pada uang; Tinjauan Manajemen fokus pada teknis."
+   ],
+   "answer": 1
+  }
+ ],
+ "esai": [
+  {
+   "no": 1,
+   "question": "<p>Banyak laboratorium sudah memiliki sertifikasi ISO 9001 (Sistem Manajemen Mutu). Jelaskan secara spesifik apa perbedaan utama antara ISO 9001 dengan ISO/IEC 17025? Mengapa sebuah laboratorium pengujian memerlukan akreditasi ISO 17025 meskipun sudah punya ISO 9001?</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>ISO 9001 fokus pada konsistensi manajemen dan kepuasan pelanggan (Generic).</li><li>ISO 17025 fokus pada Kompetensi Teknis laboratorium untuk menghasilkan data yang Valid.</li><li>Lab butuh ISO 17025 karena ISO 9001 tidak membahas kompetensi teknis (metode valid, alat tertelusur, personel kompeten teknis).</li></ul><p>Nilai penuh jika menyebutkan kata kunci: Kompetensi Teknis &amp; Keabsahan/Validitas Hasil.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Secara eksplisit menyebutkan ISO 9001 fokus pada manajemen/kepuasan pelanggan, sedangkan ISO 17025 fokus pada kompetensi teknis dan validitas hasil."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan ISO 17025 lebih spesifik untuk lab dan ISO 9001 untuk perusahaan umum, tapi kata \"kompetensi teknis\" atau \"validitas hasil\" diganti dengan istilah yang lebih awam (misal: \"agar hasilnya benar\")."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Jawaban berputar- putar pada definisi bahwa 17025 adalah akreditasi dan 9001 adalah sertifikasi tanpa menjelaskan esensi teknisnya."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyatakan terbalik (17025 untuk manajemen, 9001 untuk lab) atau miskonsepsi fatal lainnya."
+    }
+   ]
+  },
+  {
+   "no": 2,
+   "question": "<p>Dalam Klausul 6.5, laboratorium diharuskan memiliki ketertelusuran metrologi. Jelaskan apa yang dimaksud dengan ketertelusuran metrologi dan jelaskan bagaimana rantai ketertelusuran tersebut terbentuk dari alat ukur di laboratorium Anda hingga ke Satuan Internasional (SI)?</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Definisi: Sifat hasil ukur yang dapat dihubungkan ke referensi (biasanya standar nasional/internasional) melalui rantai kalibrasi tak terputus yang memiliki ketidakpastian.</li><li>Rantai: Alat Lab -&gt; Dikalibrasi oleh Lab Kalibrasi Terakreditasi (Standar Kerja) - &gt; Standar Nasional (SNSU/Puslit Metrologi) -&gt; Standar Internasional (SI Units).</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Mendefinisikan ketertelusuran sebagai rantai kalibrasi tak terputus dan berketidakpastian. Menjelaskan urutan dengan benar: Alat Lab → Lab Kalibrasi (Standar Kerja) → Standar Nasional (NMI/SNSU) → Standar Internasional (SI)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan bahwa alat harus dikalibrasi ke standar yang lebih tinggi hingga ke SI, namun tidak menyebutkan syarat \"rantai tak terputus\" atau \"ketidakpastian pengukuran\"."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya mendefinisikan bahwa alat harus dikalibrasi agar akurat, tanpa mampu merunut rantainya ke Satuan Internasional (SI)."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Salah memahami arti ketertelusuran metrologi (misal disamakan dengan ketertelusuran sampel/barcode)."
+    }
+   ]
+  },
+  {
+   "no": 3,
+   "question": "<p>Sebagai lulusan sains, Anda pasti familiar dengan metode analisis. Jelaskan perbedaan mendasar antara Verifikasi Metode dan Validasi Metode! Kapan laboratorium cukup melakukan verifikasi dan kapan laboratorium wajib melakukan validasi?</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Verifikasi: Membuktikan bahwa lab mampu menggunakan metode standar (baku) sesuai spesifikasinya. Dilakukan untuk metode baku (SNI/ASTM/ISO) yang diadopsi tanpa modifikasi.</li><li>Validasi: Membuktikan bahwa metode cocok untuk tujuan penggunaan tertentu melalui percobaan ekstensif. Wajib untuk metode non-baku, metode yang dikembangkan sendiri (In-house), metode baku yang dimodifikasi, atau metode baku di luar lingkupnya.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Jelas membedakan: Verifikasi untuk metode baku (membuktikan lab mampu melakukan), Validasi untuk metode non-baku/modifikasi (membuktikan metode cocok untuk tujuan)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Inti perbedaan benar, namun penjelasan kapan harus digunakan kurang lengkap (hanya menyebutkan salah satu contoh)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Pengertian tumpang tindih, namun tahu bahwa keduanya dilakukan sebelum metode digunakan untuk sampel rutin."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Terbalik mengartikan validasi dan verifikasi, atau menyamakan keduanya sebagai \"kalibrasi metode\"."
+    }
+   ]
+  },
+  {
+   "no": 4,
+   "question": "<p>Dalam ISO/IEC 17025:2017, saat laboratorium diminta memberikan pernyataan kesesuaian (misal: Lulus/Gagal atau Memenuhi/Tidak Memenuhi Syarat) terhadap suatu spesifikasi, laboratorium harus menerapkan \"Aturan Keputusan\". Jelaskan apa itu aturan keputusan dan mengapa ketidakpastian pengukuran (measurement uncertainty) harus diperhitungkan dalam aturan tersebut!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Aturan yang menjelaskan bagaimana ketidakpastian pengukuran diperhitungkan saat menyatakan status lulus/gagal.</li><li>Ketidakpastian menciptakan area ragu-ragu (grey area). Tanpa memperhitungkan ini, risiko \"salah vonis\" (False Accept/False Reject) menjadi tidak terkendali. Pelanggan perlu tahu risiko tersebut.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan bahwa ini adalah aturan penentuan lulus/gagal (Pass/Fail). Mengaitkan perlunya memperhitungkan ketidakpastian (grey area) untuk mengelola risiko salah vonis (False Accept/False Reject)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan aturan kelulusan dengan memasukkan margin of error/ketidakpastian, namun tidak menyebut soal manajemen risiko salah vonis pada pelanggan."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjelaskan sebagai prosedur untuk menentukan sampel masuk standar atau tidak, gagal menjelaskan kaitan signifikansinya dengan ketidakpastian pengukuran."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menjawab salah konteks (misal menganggap aturan keputusan adalah keputusan pimpinan lab untuk memecat karyawan)."
+    }
+   ]
+  },
+  {
+   "no": 5,
+   "question": "<p>Anda sedang melakukan analisis rutin, tiba-tiba QC (Quality Control) recovery sampel spike masuk sebesar 120%, padahal batas keberterimaan adalah 80-110%. Jelaskan langkah-langkah logis yang harus Anda lakukan sesuai prosedur penanganan pekerjaan yang tidak sesuai (Klausul 7.10) dari saat kejadian hingga keputusan pelaporan data!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>STOP: Hentikan analisis/jangan laporkan hasil dulu.</li><li>Evaluasi Dampak: Cek apakah kesalahan ini berdampak pada sampel pelanggan (apakah data sampel jadi bias?).</li><li>Investigasi: Cari tahu kenapa spike tinggi (kontaminasi? pipeting error?).</li><li>Keputusan: Jika terbukti error sistematis, lakukan pengujian ulang (re-test). Data spike 120% tidak boleh digunakan untuk meloloskan sampel.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan langkah sistematis: STOP pelaporan → Evaluasi dampak ke sampel pelanggan → Investigasi penyebab → Keputusan (Re-test, data tidak boleh diloloskan)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan tindakan menahan laporan dan menguji ulang (re-test), tetapi melupakan tahap evaluasi dampak risiko ke sampel lain atau tidak menginvestigasi sumber error."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Langsung menjawab \"dilakukan re-test\" tanpa menguraikan prosedur klausul pekerjaan tidak sesuai."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan tindakan memanipulasi data agar masuk range 80-110% atau tetap meloloskan sampel karena \"cuma beda 10%\"."
+    }
+   ]
+  },
+  {
+   "no": 6,
+   "question": "<p>Sebutkan dua contoh situasi \"Konflik Kepentingan\" yang mungkin terjadi pada personel laboratorium pengujian, dan jelaskan langkah mitigasi risiko apa yang harus dilakukan manajemen untuk menjaga ketidakberpihakan tersebut!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Contoh: Analis menguji sampel milik perusahaan keluarganya; Analis menerima hadiah dari pelanggan agar mempercepat hasil; Manajemen menekan analis agar hasil \"Masuk Syarat\".</li><li>Mitigasi: Menandatangani pakta integritas, memisahkan tugas (yang sampling beda dengan yang uji), kebijakan penolakan gratifikasi, review berjenjang.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Memberikan dua contoh rasional (gratifikasi, hubungan keluarga, tekanan target) dan mitigasi yang berbobot (pakta integritas, review buta/berjenjang, segregasi tugas)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Contoh yang diberikan valid, namun langkah mitigasinya terlalu normatif (misal: \"harus profesional\", \"diberi peringatan\")."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Memberikan satu contoh atau satu mitigasi saja, itupun kurang spesifik dengan kegiatan teknis di lab."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Kesalahan memahami konflik kepentingan (misal menganggapnya perselisihan/perkelahian fisik antar analis di laboratorium)."
+    }
+   ]
+  },
+  {
+   "no": 7,
+   "question": "<p>Dalam penanganan masalah atau temuan audit, sering terjadi kebingungan antara \"Koreksi\" dan \"Tindakan Korektif\". Jelaskan perbedaannya dengan contoh kasus konkret di laboratorium!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Koreksi: Tindakan instan memperbaiki masalah (Misal: Alat rusak -&gt; Diperbaiki/Servis).</li><li>Tindakan Korektif: Mencari Akar Penyebab (Root Cause) dan menghilangkannya agar tidak terulang (Misal: Alat rusak karena listrik tidak stabil -&gt; Pasang Stabilizer/UPS agar ke depan tidak rusak lagi).</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Definisi sangat clear: Koreksi adalah perbaikan instan/gejala; Tindakan Korektif mengatasi Akar Masalah (Root cause) agar tidak terulang. Contoh kasus nyata dan relevan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Definisi benar, namun contoh kasusnya kurang tepat atau agak rancu antara penanganan instan dan akar masalah."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Bisa memberikan contoh perbaikan, namun gagal menjelaskan definisi yang membedakan keduanya secara prinsip manajemen ISO."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Mengartikan sama persis atau penjelasannya tertukar antara koreksi dan tindakan korektif."
+    }
+   ]
+  },
+  {
+   "no": 8,
+   "question": "<p>ISO/IEC 17025:2017 mewajibkan laboratorium melakukan identifikasi risiko dan peluang (Klausul 8.5). Berikan satu contoh risiko teknis (terkait kegagalan pengujian) dan satu contoh risiko non-teknis (terkait operasional/bisnis), serta sebutkan rencana penanganan untuk masing-masing risiko tersebut!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Risiko Teknis: Contoh reagen expired, alat drift, kontaminasi silang. Penanganan: Stok opname rutin, cek antara (intermediate check).</li><li>Risiko Non-Teknis: Contoh staf resign, mati listrik, data hilang. Penanganan: Rencana pelatihan kaderisasi, genset, backup data cloud.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Memberikan masing- masing 1 contoh spesifik teknis (misal: alat drift/reagen kedaluwarsa) dan non- teknis (misal: mati listrik/turnover staf) lengkap dengan penanganan (mitigasi) logisnya."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Contoh risiko benar, namun mitigasinya kurang tajam (misal: risiko reagen kedaluwarsa → penanganannya \"dibuang\", seharusnya mitigasi pencegahan seperti \"stok opname\")."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Bisa memberikan contoh risiko, namun gagal membedakan mana yang murni teknis pengujian dan mana yang manajerial/non- teknis."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Contoh tidak logis atau tidak menjawab rencana penanganannya sama sekali."
+    }
+   ]
+  },
+  {
+   "no": 9,
+   "question": "<p>Mengapa ijazah sarjana sains saja tidak cukup untuk memberikan wewenang kepada seseorang melakukan pengujian dan menandatangani laporan hasil uji? Jelaskan proses apa yang harus dilalui seorang fresh graduate hingga dinyatakan \"Kompeten\" dan diberi \"Otorisasi\" oleh laboratorium!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Ijazah hanya bukti pengetahuan dasar (knowledge), belum membuktikan keterampilan spesifik (skill) menggunakan alat/metode tertentu di lab tersebut.</li><li>Proses: Seleksi -&gt; Pelatihan -&gt; Supervisi (Magang) -&gt; Uji Kompetensi Internal -&gt; Evaluasi -&gt; Penerbitan Surat Otorisasi oleh Manajemen.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan secara hierarkis bahwa ijazah adalah bukti pengetahuan, belum tentu keterampilan alat spesifik. Merunut tahapan: Pelatihan → Supervisi/Magang → Uji kompetensi (Z- score/blind sample) → Otorisasi formal."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan pentingnya training dan tes sebelum diberi wewenang, namun tahapannya melompat- lompat atau kurang terstruktur."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"karena di kampus belum tentu praktek langsung, jadi harus ditraining dulu\", tanpa menyinggung kewajiban manajemen mengeluarkan otorisasi."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menjawab dengan alasan yang salah (misal: ijazah bisa dipalsukan, jadi sarjana tidak boleh tanda tangan laporan)."
+    }
+   ]
+  },
+  {
+   "no": 10,
+   "question": "<p>Sebutkan minimal 3 metode pemastian keabsahan hasil (Jaminan Mutu) secara internal (Internal Quality Control) dan jelaskan tujuan dari keikutsertaan laboratorium dalam Uji Profisiensi (External Quality Assurance)!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>IQC (Internal): Penggunaan CRM/Standar, Blanko (cek kontaminasi), Replikasi (cek presisi), Spike (cek akurasi/recovery).</li><li>EQC (Eksternal/Profisiensi): Untuk membandingkan kinerja laboratorium kita dengan laboratorium lain (benchmarking) secara independen, guna mendeteksi bias sistematis yang mungkin tidak terdeteksi oleh IQC.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan minimal 3 IQC teknis (CRM, Blanko, Spike, Replikasi/Duplo). Menjelaskan tujuan Uji Profisiensi secara tepat: benchmarking eksternal dan mendeteksi bias/error sistematis laboratorium yang tidak tertangkap IQC."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan 2 jenis IQC. Penjelasan tujuan UP benar namun menggunakan istilah awam (misal: \"untuk membandingkan dengan lab lain biar tahu bagus atau tidak\")."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebutkan 1 jenis IQC atau menyebutkan kontrol alat seperti kalibrasi. Tujuan UP hanya dijawab singkat \"karena disuruh asesor KAN/regulasi\"."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Tidak tahu jenis IQC. Salah menjelaskan Uji Profisiensi (misal: disamakan dengan ujian praktek tertulis bagi analis)"
+    }
+   ]
+  }
+ ],
+ "esai_panduan": "<p><strong>Panduan Penilaian Umum (Rentang Skor 10–100)</strong></p>\n<p><strong>Skor 90 – 100: Sangat Baik (Komprehensif &amp; Presisi)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Menyebutkan seluruh elemen poin kunci dari kunci jawaban dengan sangat akurat.</li>\n<li><strong>Penalaran &amp; Konsep:</strong> Pemahaman terhadap klausul ISO/IEC 17025 sangat tajam, logis, dan mampu memberikan contoh nyata yang relevan.</li>\n<li><strong>Penggunaan Istilah:</strong> Menggunakan istilah teknis laboratorium/ISO dengan tepat (misal: ketertelusuran metrologi, aturan keputusan, tindakan korektif, root cause).</li>\n</ul>\n<p><strong>Skor 70 – 89: Baik (Memadai &amp; Relevan)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Menyebutkan sebagian besar poin kunci, mungkin ada satu detail kecil yang terlewat.</li>\n<li><strong>Penalaran &amp; Konsep:</strong> Penjelasan logis dan benar secara prinsip, namun kurang mendetail atau penjabarannya sedikit kurang tajam.</li>\n<li><strong>Penggunaan Istilah:</strong> Menggunakan istilah yang benar meski kadang dibantu dengan bahasa umum.</li>\n</ul>\n<p><strong>Skor 50 – 69: Cukup (Parsial &amp; Terlalu Umum)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Hanya mampu menyebutkan sebagian kecil poin kunci atau menjawab secara setengah-setengah.</li>\n<li><strong>Penalaran &amp; Konsep:</strong> Penjelasan terlalu awam, mengambang, atau kurang spesifik menargetkan persyaratan ISO 17025 (cenderung menjawab dengan common sense saja).</li>\n</ul>\n<p><strong>Skor 30 – 49: Kurang (Dangkal &amp; Miskonsepsi)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Gagal menangkap substansi pertanyaan utama.</li>\n<li><strong>Penalaran &amp; Konsep:</strong> Terdapat kesalahan pemahaman yang fatal (miskonsepsi) mengenai standar, istilah, atau prosedur dasar di laboratorium.</li>\n</ul>\n<p><strong>Skor 10 – 29: Sangat Kurang (Tidak Relevan)</strong></p>\n<ul>\n<li><strong>Poin Kunci:</strong> Jawaban tidak ada kaitannya dengan pertanyaan atau standar ISO/IEC 17025.</li>\n<li><strong>Penalaran &amp; Konsep:</strong> Tidak ada logika ilmiah atau manajerial laboratorium. Nilai 10 adalah nilai dasar bagi yang menuliskan jawaban.</li>\n</ul>",
+ "praktik": {
+  "template": "iso17025.docx",
+  "template_name": "Ujian Praktik V2 - Laboratory Quality System Officer ISO-IEC 17025.docx",
+  "duration": 120,
+  "panduan": "Soal Keterampilan\n1.Buatkan Instruksi Kerja Pengujian untuk pengujian tertentu ( misal Instruksi Kerja Pengujian Parameter Kadar Protein Sampel Biskuit) sesuai contoh template\n2.Berdasarkan data pengujian untuk 20 sampel duplo, buatlah nilai rerata dan % RPD\n3.Berdasarkan data buatkan control chart pengujian selama 1 tahun\n4.Dari poin 3, buatkan penjelasan & interpretasi tentang control chart tersebut!\n\nTemplate instruksi kerja, data pengujian (Soal 2), data CRM (Soal 3), dan formulir control chart ada di file template.",
+  "rubrik": "<p><strong>RUBRIK PENILAIAN PRAKTIK (KRITERIA UNJUK KERJA)</strong></p>\n<table><tr><th>No</th><th>Aspek Penilaian (Kriteria Unjuk Kerja)</th><th>Nilai 76-100 (Sangat Baik / Sepenuhnya Kompeten)</th><th>Nilai 51-75 (Baik / Kompeten dengan Catatan)</th><th>Nilai 26-50<br>(Cukup / Kurang Kompeten)</th><th>Nilai 0-25<br>(Kurang / Belum Kompeten)</th></tr><tr><td>1</td><td>Penyusunan Instruksi Kerja Pengujian</td><td>Mampu menyusun Instruksi Kerja pengujian secara lengkap, sistematis, detail, dan sesuai standar operasional laboratorium (mencakup alat, bahan, dan langkah kerja yang spesifik).</td><td>Mampu menyusun Instruksi Kerja pengujian, namun terdapat kekurangan minor pada kelengkapan tahapan prosedur atau spesifikasi alat/bahan.</td><td>Menyusun Instruksi Kerja secara umum atau kurang terstruktur, terdapat banyak tahapan prosedur yang terlewat atau tidak sesuai standar.</td><td>Tidak mampu menyusun Instruksi Kerja pengujian, atau dokumen yang dibuat sama sekali tidak relevan dengan prosedur laboratorium.</td></tr><tr><td>2</td><td>Pengolahan Data Pengujian (Duplo, Rerata, %RPD)</td><td>Mampu melakukan perhitungan matematis nilai rerata dan % RPD dengan tingkat akurasi 100% benar.</td><td>Mampu melakukan perhitungan matematis nilai rerata dan % RPD namun terdapat ketidaktepatan minor (salah hitung kecil) pada sebagian hasil perhitungan rerata atau % RPD.</td><td>Mampu melakukan perhitungan matematis nilai rerata dan % RPD namun terdapat banyak kesalahan rumus/perhitungan pada nilai rerata dan % RPD.</td><td>Tidak Mampu melakukan perhitungan matematis nilai rerata dan % RPD</td></tr><tr><td>3</td><td>Pembuatan Control Chart (Peta Kendali)</td><td>Mampu membuat control chart secara komprehensif dan presisi, lengkap dengan penentuan garis tengah (Central Line/CL) serta batas kendali atas dan bawah (UCL &amp; LCL) yang akurat.</td><td>Mampu membuat control chart namun terdapat ketidaktepatan minor pada peletakan plot titik data atau sedikit kesalahan penentuan nilai UCL/LCL.</td><td>Membuat control chart secara tidak lengkap, plot data banyak yang melenceng, atau penetapan garis batas kendali (UCL/LCL) tidak memiliki dasar perhitungan yang jelas.</td><td>Tidak mampu membuat control chart sama sekali, atau grafik yang digambar tidak berwujud peta kendali mutu statistik.</td></tr><tr><td>4</td><td>Interpretasi dan Analisis Control Chart</td><td>Mampu memberikan penjelasan dan interpretasi tren control chart secara tajam, akurat, dan sangat komprehensif (mampu mengidentifikasi pola normal maupun aturan out of control).</td><td>Mampu memberikan penjelasan dasar terkait grafik, namun interpretasi tren data kurang mendalam atau ada sedikit kesimpulan yang kurang tepat terkait status kendali.</td><td>Hanya memberikan deskripsi grafik yang sangat umum, tidak mampu mengidentifikasi pola penyimpangan statistik yang terjadi pada control chart.</td><td>Tidak mampu memberikan interpretasi sama sekali atau kesimpulan yang ditarik salah total dan bertolak belakang dengan kondisi pada grafik.</td></tr></table>\n<p><strong>REKAPITULASI NILAI</strong></p>\n<table><tr><th>Tugas</th><th>Bobot</th></tr><tr><td>Penyusunan Instruksi Kerja Pengujian</td><td>25%</td></tr><tr><td>Pengolahan Data Pengujian (Duplo, Rerata, %RPD)</td><td>25%</td></tr><tr><td>Pembuatan Control Chart (Peta Kendali)</td><td>25%</td></tr><tr><td>Interpretasi dan Analisis Control Chart</td><td>25%</td></tr><tr><td>Nilai (Jumlah Nilai × Bobot)</td><td>100%</td></tr></table>",
+  "aspek": [
+   {
+    "no": 1,
+    "nama": "Penyusunan Instruksi Kerja Pengujian",
+    "bobot": 25,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Mampu menyusun Instruksi Kerja pengujian secara lengkap, sistematis, detail, dan sesuai standar operasional laboratorium (mencakup alat, bahan, dan langkah kerja yang spesifik)."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Mampu menyusun Instruksi Kerja pengujian, namun terdapat kekurangan minor pada kelengkapan tahapan prosedur atau spesifikasi alat/bahan."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Menyusun Instruksi Kerja secara umum atau kurang terstruktur, terdapat banyak tahapan prosedur yang terlewat atau tidak sesuai standar."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak mampu menyusun Instruksi Kerja pengujian, atau dokumen yang dibuat sama sekali tidak relevan dengan prosedur laboratorium."
+     }
+    ]
+   },
+   {
+    "no": 2,
+    "nama": "Pengolahan Data Pengujian (Duplo, Rerata, %RPD)",
+    "bobot": 25,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Mampu melakukan perhitungan matematis nilai rerata dan % RPD dengan tingkat akurasi 100% benar."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Mampu melakukan perhitungan matematis nilai rerata dan % RPD namun terdapat ketidaktepatan minor (salah hitung kecil) pada sebagian hasil perhitungan rerata atau % RPD."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Mampu melakukan perhitungan matematis nilai rerata dan % RPD namun terdapat banyak kesalahan rumus/perhitungan pada nilai rerata dan % RPD."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak Mampu melakukan perhitungan matematis nilai rerata dan % RPD"
+     }
+    ]
+   },
+   {
+    "no": 3,
+    "nama": "Pembuatan Control Chart (Peta Kendali)",
+    "bobot": 25,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Mampu membuat control chart secara komprehensif dan presisi, lengkap dengan penentuan garis tengah (Central Line/CL) serta batas kendali atas dan bawah (UCL & LCL) yang akurat."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Mampu membuat control chart namun terdapat ketidaktepatan minor pada peletakan plot titik data atau sedikit kesalahan penentuan nilai UCL/LCL."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Membuat control chart secara tidak lengkap, plot data banyak yang melenceng, atau penetapan garis batas kendali (UCL/LCL) tidak memiliki dasar perhitungan yang jelas."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak mampu membuat control chart sama sekali, atau grafik yang digambar tidak berwujud peta kendali mutu statistik."
+     }
+    ]
+   },
+   {
+    "no": 4,
+    "nama": "Interpretasi dan Analisis Control Chart",
+    "bobot": 25,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sangat Baik / Sepenuhnya Kompeten",
+      "deskripsi": "Mampu memberikan penjelasan dan interpretasi tren control chart secara tajam, akurat, dan sangat komprehensif (mampu mengidentifikasi pola normal maupun aturan out of control)."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Baik / Kompeten dengan Catatan",
+      "deskripsi": "Mampu memberikan penjelasan dasar terkait grafik, namun interpretasi tren data kurang mendalam atau ada sedikit kesimpulan yang kurang tepat terkait status kendali."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Cukup / Kurang Kompeten",
+      "deskripsi": "Hanya memberikan deskripsi grafik yang sangat umum, tidak mampu mengidentifikasi pola penyimpangan statistik yang terjadi pada control chart."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Kurang / Belum Kompeten",
+      "deskripsi": "Tidak mampu memberikan interpretasi sama sekali atau kesimpulan yang ditarik salah total dan bertolak belakang dengan kondisi pada grafik."
+     }
+    ]
+   }
+  ]
+ }
+}

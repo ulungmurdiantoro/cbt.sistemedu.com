@@ -14,8 +14,8 @@
  "komposisi": {
   "bobot_ujian_tulis": 70,
   "proporsi_pg": 65,
-  "bobot_wawancara": 30,
-  "bobot_praktik_1": 0,
+  "bobot_wawancara": 22.5,
+  "bobot_praktik_1": 7.5,
   "bobot_praktik_2": 0,
   "nilai_kelulusan": 60
  },
@@ -1537,73 +1537,789 @@
   {
    "no": 1,
    "question": "<p>Badan usaha di Indonesia dibagi menjadi 2 (dua) jenis, yaitu badan usaha berbadan hukum, dan badan usaha tidak berbadan hukum. Berdasarkan regulasi terbaru, apa perbedaan antara kedua jenis badan usaha tersebut dan bagaimana implikasinya terhadap dokumen legalitas pendirian yang dimiliki tiap badan usaha?</p>",
-   "answer": "<p>Perbedaan Utama:</p><ul><li>Badan Usaha Berbadan Hukum (contoh: PT, Yayasan, Koperasi): Terdapat pemisahan harta kekayaan yang tegas antara pemilik/pengurus dengan badan usaha. Subjek hukumnya adalah badan usaha itu sendiri, sehingga tanggung jawab pemilik bersifat terbatas (limited liability).</li><li>Badan Usaha Tidak Berbadan Hukum (contoh: CV, Firma, Persekutuan Perdata): Tidak ada pemisahan harta kekayaan antara pemilik/sekutu dengan badan usaha. Subjek hukumnya tetap melekat pada pribadi para sekutu, sehingga tanggung jawab atas perikatan/utang menjangkau hingga harta pribadi. Implikasi Terhadap Dokumen Legalitas Pendirian:</li><li>Berbadan Hukum: Selain membutuhkan Akta Pendirian Notaris, status badan hukum wajib dan baru sah setelah memperoleh Keputusan Pengesahan Badan Hukum dari Menkumham melalui AHU Online.</li><li>Tidak Berbadan Hukum: Pendirian dilakukan dengan Akta Notaris dan didaftarkan pada Sistem Administrasi Badan Usaha (SABU) Kemenkumham untuk memperoleh Surat Keterangan Terdaftar (SKT), namun pendaftaran ini bersifat administratif dan tidak melahirkan subjek hukum baru yang terpisah.</li></ul>"
+   "answer": "<p>Perbedaan Utama:</p><ul><li>Badan Usaha Berbadan Hukum (contoh: PT, Yayasan, Koperasi): Terdapat pemisahan harta kekayaan yang tegas antara pemilik/pengurus dengan badan usaha. Subjek hukumnya adalah badan usaha itu sendiri, sehingga tanggung jawab pemilik bersifat terbatas (limited liability).</li><li>Badan Usaha Tidak Berbadan Hukum (contoh: CV, Firma, Persekutuan Perdata): Tidak ada pemisahan harta kekayaan antara pemilik/sekutu dengan badan usaha. Subjek hukumnya tetap melekat pada pribadi para sekutu, sehingga tanggung jawab atas perikatan/utang menjangkau hingga harta pribadi. Implikasi Terhadap Dokumen Legalitas Pendirian:</li><li>Berbadan Hukum: Selain membutuhkan Akta Pendirian Notaris, status badan hukum wajib dan baru sah setelah memperoleh Keputusan Pengesahan Badan Hukum dari Menkumham melalui AHU Online.</li><li>Tidak Berbadan Hukum: Pendirian dilakukan dengan Akta Notaris dan didaftarkan pada Sistem Administrasi Badan Usaha (SABU) Kemenkumham untuk memperoleh Surat Keterangan Terdaftar (SKT), namun pendaftaran ini bersifat administratif dan tidak melahirkan subjek hukum baru yang terpisah.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan pemisahan atau tidak adanya pemisahan kekayaan, kedudukan badan usaha/subjek hukum, konsekuensi tanggung jawab pemilik/sekutu, serta membedakan dokumen pendirian dan pengesahan/pendaftaran sesuai jenis badan usaha."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan perbedaan pokok pemisahan kekayaan dan tanggung jawab serta dokumen pendirian, tetapi kurang menguraikan status subjek hukum atau akibat pendaftarannya."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebut contoh badan usaha atau menyatakan PT berbadan hukum dan CV tidak, tanpa menjelaskan konsekuensi hukum dan dokumen legalitas secara memadai."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Keliru menyatakan badan usaha tidak berbadan hukum memiliki pemisahan kekayaan atau menganggap pendaftaran administratif melahirkan badan hukum baru."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas perbedaan jenis badan usaha maupun dokumen pendiriannya."
+    }
+   ]
   },
   {
    "no": 2,
    "question": "<p>Akta dibagi menjadi 2 jenis, yaitu akta otentik dan akta di bawah tangan. Akta otentik merupakan akta yang dibuat oleh pejabat yang berwenang sehingga memiliki kekuatan pembuktian yang sempurna. Sedangkan, akta di bawah tangan merupakan akta yang dibuat oleh para pihak, baik dihadapan atau tidak dihadapan notaris . Sebagai upaya untuk melegalisasi akta dibawah tangan, terdapat 2 (dua) cara, yaitu legalisasi dan waarmerking. Jelaskan perbedaan antara legalisasi dan waarmerking!</p>",
-   "answer": "<ul><li>Legalisasi: Notaris menyaksikan langsung penandatanganan dokumen di hadapannya oleh para pihak yang bersangkutan. Notaris menjamin kepastian tanggal, kebenaran tanda tangan, dan identitas para pihak.</li><li>Waarmerking (Pendaftaran): Notaris hanya mencatatkan/mendaftarkan surat di bawah tangan yang telah ditandatangani terlebih dahulu oleh para pihak ke dalam buku khusus Notaris. Notaris tidak menyaksikan penandatanganan, sehingga hanya menjamin kepastian tanggal pendaftaran surat tersebut.</li></ul>"
+   "answer": "<ul><li>Legalisasi: Notaris menyaksikan langsung penandatanganan dokumen di hadapannya oleh para pihak yang bersangkutan. Notaris menjamin kepastian tanggal, kebenaran tanda tangan, dan identitas para pihak.</li><li>Waarmerking (Pendaftaran): Notaris hanya mencatatkan/mendaftarkan surat di bawah tangan yang telah ditandatangani terlebih dahulu oleh para pihak ke dalam buku khusus Notaris. Notaris tidak menyaksikan penandatanganan, sehingga hanya menjamin kepastian tanggal pendaftaran surat tersebut.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan bahwa legalisasi dilakukan dengan penandatanganan di hadapan notaris dan notaris menjamin kepastian tanggal, tanda tangan, serta identitas; sedangkan waarmerking merupakan pendaftaran surat yang telah ditandatangani sebelumnya dan menjamin kepastian tanggal pendaftaran."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan perbedaan waktu penandatanganan di hadapan notaris dan pendaftaran setelah ditandatangani, tetapi tidak menguraikan seluruh akibat atau jaminan notaris."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebut legalisasi dan waarmerking sama-sama dilakukan notaris atau sekadar menyatakan salah satunya lebih kuat tanpa menjelaskan perbedaannya."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menukar pengertian legalisasi dan waarmerking atau menyatakan notaris menyaksikan penandatanganan dalam waarmerking."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak relevan dengan legalisasi maupun waarmerking."
+    }
+   ]
   },
   {
    "no": 3,
    "question": "<p>Berdasarkan Pasal 13 Undang-undang Nomor 8 Tahun 1997 tentang Dokumen Perusahaan, ditegaskan bahwa pengalihan dokumen perusahaan wajib melakukan legalisasi. Setiap legalisasi wajib dituangkan dalam berita acara. Sebutkan minimal muatan informasi yang tertuang dalam Berita Acara Pengalihan Dokumen Perusahaan berdasarkan Undang-undang Nomor 8 Tahun 1997 tentang Dokumen Perusahaan!</p>",
-   "answer": "<p>Muatan Informasi Berita Acara Pengalihan Dokumen Perusahaan (UU No. 8/1997) Berdasarkan Pasal 13 UU No. 8 Tahun 1997, Berita Acara Pengalihan Dokumen Perusahaan sekurang-kurangnya memuat:</p><ul><li>Hari, tanggal, bulan, dan tahun pengalihan;</li><li>Tempat pengalihan dilakukan;</li><li>Keterangan mengenai dokumen yang dialihkan (jenis, jumlah, dan pertanggungan);</li><li>Keterangan bahwa pengalihan dilakukan atas persetujuan pimpinan perusahaan;</li><li>Tanda tangan pihak yang menyerahkan dan pihak yang menerima pengalihan dokumen.</li></ul>"
+   "answer": "<p>Muatan Informasi Berita Acara Pengalihan Dokumen Perusahaan (UU No. 8/1997) Berdasarkan Pasal 13 UU No. 8 Tahun 1997, Berita Acara Pengalihan Dokumen Perusahaan sekurang-kurangnya memuat:</p><ul><li>Hari, tanggal, bulan, dan tahun pengalihan;</li><li>Tempat pengalihan dilakukan;</li><li>Keterangan mengenai dokumen yang dialihkan (jenis, jumlah, dan pertanggungan);</li><li>Keterangan bahwa pengalihan dilakukan atas persetujuan pimpinan perusahaan;</li><li>Tanda tangan pihak yang menyerahkan dan pihak yang menerima pengalihan dokumen.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan secara lengkap hari/tanggal/bulan/tahun, tempat pengalihan, keterangan dokumen (jenis, jumlah, dan pertanggungan), persetujuan pimpinan perusahaan, serta tanda tangan pihak yang menyerahkan dan menerima."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan sebagian besar muatan berita acara, tetapi melewatkan satu unsur kecil, misalnya persetujuan pimpinan atau rincian dokumen."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebut tanggal, nama pihak, dan tanda tangan tanpa merinci unsur wajib lainnya."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Beranggapan pengalihan cukup dilakukan secara lisan atau tidak memerlukan berita acara/legalisasi."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak menguraikan muatan Berita Acara Pengalihan Dokumen Perusahaan."
+    }
+   ]
   },
   {
    "no": 4,
    "question": "<p>Dalam hukum perusahaan, terdapat pembaharuan berkaitan Rapat Umum Pemegang Saham (RUPS) sesuai dengan pemberlakukan Peraturan Pemerintah Nomor 49 Tahun 2025 tentang Syarat, Tata Cara Pendirian, Perubahan, Dan Pembubaran Badan Hukum Perseroan Terbatas. Salah satu aspek perubahannya adalah laporan tahunan RUPS yang dilakukan oleh notaris atas dasar laporan tahunan perusahaan. Mengacu pada Pasal 16 PP 49/2025, apa saja dokumen pendukung yang termuat dalam laporan tahunan perusahaan?</p>",
-   "answer": "<p>Dokumen Pendukung Laporan Tahun Perusahaan Mengacu Pasal 16 PP No. 49 Tahun 2025 Dokumen pendukung yang wajib termuat dalam laporan tahunan perusahaan meliputi:</p><ul><li>Laporan keuangan yang telah disusun/diaudit;</li><li>Laporan mengenai kegiatan dan kinerja perseroan selama tahun buku;</li><li>Laporan pelaksanaan Tanggung Jawab Sosial dan Lingkungan (TJSL/CSR);</li><li>Rincian masalah atau hambatan yang mempengaruhi kegiatan perseroan;</li><li>Laporan tugas pengawasan yang telah dilaksanakan oleh Dewan Komisaris.</li></ul>"
+   "answer": "<p>Dokumen Pendukung Laporan Tahun Perusahaan Mengacu Pasal 16 PP No. 49 Tahun 2025 Dokumen pendukung yang wajib termuat dalam laporan tahunan perusahaan meliputi:</p><ul><li>Laporan keuangan yang telah disusun/diaudit;</li><li>Laporan mengenai kegiatan dan kinerja perseroan selama tahun buku;</li><li>Laporan pelaksanaan Tanggung Jawab Sosial dan Lingkungan (TJSL/CSR);</li><li>Rincian masalah atau hambatan yang mempengaruhi kegiatan perseroan;</li><li>Laporan tugas pengawasan yang telah dilaksanakan oleh Dewan Komisaris.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menguraikan seluruh dokumen: laporan keuangan yang disusun/diaudit, laporan kegiatan dan kinerja perseroan selama tahun buku, laporan TJSL/CSR, rincian masalah/hambatan yang memengaruhi kegiatan perseroan, dan laporan tugas pengawasan Dewan Komisaris."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan sebagian besar dokumen pendukung, tetapi melewatkan satu unsur atau kurang menjelaskan ruang lingkupnya."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebut laporan keuangan dan laporan kegiatan perusahaan tanpa mengidentifikasi dokumen pendukung lainnya."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Keliru menyatakan laporan tahunan hanya berupa laporan keuangan atau tidak memerlukan dokumen pendukung."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan laporan tahunan perseroan."
+    }
+   ]
   },
   {
    "no": 5,
    "question": "<p>Jelaskan alur penerbitan NIB untuk skala menengah rendah dan sebutkan dokumen pendukung apa saja yang dibutuhkan untuk menerbitkan NIB</p>",
-   "answer": "<p>Alur Penerbitan NIB Skala Menengah Rendah &amp; Dokumen Pendukung</p><ul><li>Alur Penerbitan:</li></ul><p>1. Registrasi akun OSS RBA (Online Single Submission Risk-Based Approach) menggunakan NIK/Akses Usaha Badan.</p><p>2. Mengisi Data Profil Perusahaan dan Data Usaha (KBLI, modal usaha, lokasi, dan rencana kegiatan usaha).</p><p>3. Sistem OSS melakukan validasi data tata ruang (KKPR/GISTARU) dan kesesuaian tingkat risiko (Menengah Rendah).</p><p>4. Pemohon menyetujui Pernyataan Mandiri (kesanggupan pemenuhan standar K3L, lingkungan, dll.).</p><p>5. Sistem OSS menerbitkan NIB beserta Sertifikat Standar otomatis (unverified / langsung berlaku sebagai izin).</p><ul><li>Dokumen Pendukung: Akta Pendirian &amp; Pengesahan Menkumham, NPWP Badan/Perusahaan, Identitas Direksi/Penanggung Jawab (KTP/KITAS), serta Dokumen Penguasaan Lahan/Lokasi Usaha.</li></ul>"
+   "answer": "<p>Alur Penerbitan NIB Skala Menengah Rendah &amp; Dokumen Pendukung</p><ul><li>Alur Penerbitan:</li></ul><p>1. Registrasi akun OSS RBA (Online Single Submission Risk-Based Approach) menggunakan NIK/Akses Usaha Badan.</p><p>2. Mengisi Data Profil Perusahaan dan Data Usaha (KBLI, modal usaha, lokasi, dan rencana kegiatan usaha).</p><p>3. Sistem OSS melakukan validasi data tata ruang (KKPR/GISTARU) dan kesesuaian tingkat risiko (Menengah Rendah).</p><p>4. Pemohon menyetujui Pernyataan Mandiri (kesanggupan pemenuhan standar K3L, lingkungan, dll.).</p><p>5. Sistem OSS menerbitkan NIB beserta Sertifikat Standar otomatis (unverified / langsung berlaku sebagai izin).</p><ul><li>Dokumen Pendukung: Akta Pendirian &amp; Pengesahan Menkumham, NPWP Badan/Perusahaan, Identitas Direksi/Penanggung Jawab (KTP/KITAS), serta Dokumen Penguasaan Lahan/Lokasi Usaha.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan alur secara runtut: registrasi OSS RBA, pengisian profil/data usaha (KBLI, modal, lokasi, rencana usaha), validasi tata ruang dan risiko, persetujuan pernyataan mandiri, hingga penerbitan NIB dan Sertifikat Standar; serta menyebut Akta dan pengesahan, NPWP badan, identitas direksi/PJ, dan dokumen penguasaan lahan/lokasi."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan sebagian besar tahapan dan dokumen pendukung dengan benar, tetapi ada satu tahap atau dokumen yang terlewat."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebut pendaftaran OSS dan pengisian data hingga NIB terbit, tanpa menjelaskan validasi, pernyataan mandiri, atau dokumen pendukung secara lengkap."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menjelaskan alur yang tidak sesuai, misalnya menyatakan NIB selalu diterbitkan manual oleh instansi atau mengabaikan proses OSS."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak menjelaskan proses penerbitan NIB."
+    }
+   ]
   },
   {
    "no": 6,
    "question": "<p>Jelaskan apa yang dimaksud dengan klausula baku? Mengacu pada UU Perlindungan Konsumen, klausula baku apa saja yang dilarang?</p>",
-   "answer": "<p>Pengertian Klausula Baku &amp; Larangannya (UU Perlindungan Konsumen)</p><ul><li>Pengertian: Klausula baku adalah setiap aturan atau ketentuan dan syarat-syarat yang telah dipersiapkan dan ditetapkan terlebih dahulu secara sepihak oleh pelaku usaha yang dituangkan dalam suatu dokumen/perjanjian yang mengikat dan wajib dipenuhi oleh konsumen.</li><li>Klausula Baku yang Dilarang (Pasal 18 UU No. 8/1999):</li><li>Menyatakan pengalihan tanggung jawab pelaku usaha;</li><li>Menyatakan bahwa pelaku usaha berhak menolak penyerahan kembali barang/uang;</li><li>Menyatakan bahwa konsumen tunduk pada aturan baru yang ditetapkan sepihak;</li><li>Memberi hak kepada pelaku usaha untuk mengurangi fungsi/manfaat barang/jasa;</li><li>Mengatur pembuktian atas hilangnya kegunaan barang/jasa yang dibeli;</li><li>Memberi hak kepada pelaku usaha untuk mencabut/mengubah perbuatan hukum secara sepihak.</li></ul>"
+   "answer": "<p>Pengertian Klausula Baku &amp; Larangannya (UU Perlindungan Konsumen)</p><ul><li>Pengertian: Klausula baku adalah setiap aturan atau ketentuan dan syarat-syarat yang telah dipersiapkan dan ditetapkan terlebih dahulu secara sepihak oleh pelaku usaha yang dituangkan dalam suatu dokumen/perjanjian yang mengikat dan wajib dipenuhi oleh konsumen.</li><li>Klausula Baku yang Dilarang (Pasal 18 UU No. 8/1999):</li><li>Menyatakan pengalihan tanggung jawab pelaku usaha;</li><li>Menyatakan bahwa pelaku usaha berhak menolak penyerahan kembali barang/uang;</li><li>Menyatakan bahwa konsumen tunduk pada aturan baru yang ditetapkan sepihak;</li><li>Memberi hak kepada pelaku usaha untuk mengurangi fungsi/manfaat barang/jasa;</li><li>Mengatur pembuktian atas hilangnya kegunaan barang/jasa yang dibeli;</li><li>Memberi hak kepada pelaku usaha untuk mencabut/mengubah perbuatan hukum secara sepihak.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan klausula baku sebagai ketentuan yang dipersiapkan/ditetapkan sepihak oleh pelaku usaha; serta menguraikan larangan Pasal 18, termasuk pengalihan tanggung jawab, penolakan pengembalian barang/uang, tunduk pada aturan baru sepihak, pengurangan manfaat, pembebanan pembuktian tertentu, dan perubahan/pencabutan sepihak."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan pengertian dengan benar dan menyebutkan sebagian besar larangan, tetapi tidak lengkap atau kurang tepat dalam satu-dua contoh."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjelaskan klausula baku sebagai syarat standar dalam perjanjian dan menyebut satu atau dua larangan secara umum."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Beranggapan semua klausula baku diperbolehkan karena disetujui konsumen atau tidak memahami larangan Pasal 18."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak relevan dengan klausula baku atau perlindungan konsumen."
+    }
+   ]
   },
   {
    "no": 7,
    "question": "<p>Menurut Anda, apa yang dimaksud dengan fakta hukum? Bagaimana cara anda menarik fakta hukum dari kasus posisi yang disajikan?</p>",
-   "answer": "<p>Pengertian dan Cara Menarik Fakta Hukum</p><ul><li>Fakta Hukum: Kejadian, peristiwa, atau tindakan nyata yang memiliki konsekuensi atau relevansi hukum dan dapat dibuktikan berdasarkan alat bukti yang sah.</li><li>Cara Menarik Fakta Hukum dari Kasus Posisi:</li></ul><p>1. Inventarisasi Kronologi: Mengurai urutan peristiwa berdasarkan dokumen, perjanjian, dan kronologi kasus secara sistematis.</p><p>2. Filterisasi Kualifikasi: Memisahkan fakta relevan (yang berhubungan dengan hak dan kewajiban) dari fakta non-hukum (aspek emosional, klaim tanpa bukti).</p><p>3. Konfrontasi Alat Bukti: Memverifikasi ketersediaan bukti (dokumen, saksi, korespondensi) untuk setiap klaim.</p><p>4. Konstruksi Hukum: Mengelompokkan fakta terpilih ke dalam unsur-unsur pasal regulasi/klausula perjanjian terkait.</p>"
+   "answer": "<p>Pengertian dan Cara Menarik Fakta Hukum</p><ul><li>Fakta Hukum: Kejadian, peristiwa, atau tindakan nyata yang memiliki konsekuensi atau relevansi hukum dan dapat dibuktikan berdasarkan alat bukti yang sah.</li><li>Cara Menarik Fakta Hukum dari Kasus Posisi:</li></ul><p>1. Inventarisasi Kronologi: Mengurai urutan peristiwa berdasarkan dokumen, perjanjian, dan kronologi kasus secara sistematis.</p><p>2. Filterisasi Kualifikasi: Memisahkan fakta relevan (yang berhubungan dengan hak dan kewajiban) dari fakta non-hukum (aspek emosional, klaim tanpa bukti).</p><p>3. Konfrontasi Alat Bukti: Memverifikasi ketersediaan bukti (dokumen, saksi, korespondensi) untuk setiap klaim.</p><p>4. Konstruksi Hukum: Mengelompokkan fakta terpilih ke dalam unsur-unsur pasal regulasi/klausula perjanjian terkait.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan fakta hukum sebagai peristiwa/tindakan nyata yang relevan dan memiliki konsekuensi hukum serta dapat dibuktikan; menguraikan inventarisasi kronologi, pemisahan fakta relevan dan non-hukum, verifikasi alat bukti, dan pengaitan fakta dengan unsur pasal/klausula."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan pengertian fakta hukum dan sebagian besar tahapan penarikan fakta, tetapi kurang mendalam pada verifikasi bukti atau konstruksi hukum."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyatakan fakta hukum adalah kejadian yang berkaitan dengan hukum dan menjelaskan pengumpulan kronologi secara umum."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Memperlakukan opini, asumsi, atau klaim tanpa bukti sebagai fakta hukum; tidak membedakan fakta dan pendapat."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas fakta hukum atau cara mengidentifikasinya."
+    }
+   ]
   },
   {
    "no": 8,
    "question": "<p>Bagaimana cara anda melakukan arsip data terhadap dokumen lama yang harus disesuaikan dengan format dokumen terkini?</p>",
-   "answer": "<p>Metode Pengarsipan Dokumen Lama ke Format Terkini</p><ul><li>Inventarisasi &amp; Auditing: Melakukan pendataan ulang (stock opname) terhadap fisik dokumen lama dan memverifikasi relevansi/masa berlakunya.</li><li>Digitalisasi &amp; Alih Media: Mengonversi dokumen fisik menjadi format digital (PDF/A terenkripsi) dengan resolusi standar legal.</li><li>Metadata &amp; Standardisasi Nomenklatur: Memberikan indexing/metadata (nomor registrasi, kategori, tanggal terbit, masa berlaku, KBLI terkait) sesuai dengan skema penamaan terbaru.</li><li>Restrukturisasi Repository (e-Archiving): Mengunggah dokumen ke dalam sistem Document Management System (DMS) berbasis hak akses (Role-Based Access Control).</li><li>Retensi Dokumen: Menentukan Jadwal Retensi Arsip (JRA) untuk dokumen fisik lama sesuai peraturan perundang-undangan sebelum pemusnahan/penyimpanan permanen.</li></ul>"
+   "answer": "<p>Metode Pengarsipan Dokumen Lama ke Format Terkini</p><ul><li>Inventarisasi &amp; Auditing: Melakukan pendataan ulang (stock opname) terhadap fisik dokumen lama dan memverifikasi relevansi/masa berlakunya.</li><li>Digitalisasi &amp; Alih Media: Mengonversi dokumen fisik menjadi format digital (PDF/A terenkripsi) dengan resolusi standar legal.</li><li>Metadata &amp; Standardisasi Nomenklatur: Memberikan indexing/metadata (nomor registrasi, kategori, tanggal terbit, masa berlaku, KBLI terkait) sesuai dengan skema penamaan terbaru.</li><li>Restrukturisasi Repository (e-Archiving): Mengunggah dokumen ke dalam sistem Document Management System (DMS) berbasis hak akses (Role-Based Access Control).</li><li>Retensi Dokumen: Menentukan Jadwal Retensi Arsip (JRA) untuk dokumen fisik lama sesuai peraturan perundang-undangan sebelum pemusnahan/penyimpanan permanen.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan inventarisasi/audit dokumen dan masa berlaku, digitalisasi/alih media, metadata dan standardisasi nomenklatur, penataan repository/DMS serta hak akses, dan penetapan retensi/JRA sebelum pemusnahan atau penyimpanan permanen."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan sebagian besar langkah pengarsipan, tetapi melewatkan satu aspek seperti metadata, pengaturan hak akses, atau retensi."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebut pemindaian dokumen dan penyimpanan digital tanpa menjelaskan inventarisasi, standardisasi, atau retensi."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan penggantian/pemusnahan dokumen lama tanpa pemeriksaan, pencatatan, atau memperhatikan masa retensi."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak relevan dengan pengarsipan dan penyesuaian dokumen."
+    }
+   ]
   },
   {
    "no": 9,
    "question": "<p>Jelaskan secara detail mengenai tahapan dalam pelaporan LKPM!</p>",
-   "answer": "<p>Tahapan Pelaporan LKPM (Laporan Kegiatan Penanaman Modal)</p><p>1. Persiapan Data: Mengumpulkan data realisasi investasi (modal tetap, modal kerja), penyerapan tenaga kerja (TKI &amp; TKA), serta kendala operasional perusahaan selama periode berjalan.</p><p>2. Akses Sistem OSS: Login ke portal OSS RBA menggunakan hak akses perusahaan.</p><p>3. Pilihan Menu LKPM: Memilih periode pelaporan (Triwulanan untuk tahap Konstruksi/Komersial atau Semesteran sesuai skala usaha).</p><p>4. Pengisian Form Realisasi: Input realisasi modal (pembelian tanah, bangunan, mesin, pengeluaran lain) serta jumlah tenaga kerja baru.</p><p>5. Deskripsi Permasalahan: Mengisi kendala yang dihadapi (jika ada) seperti perizinan daerah, lahan, atau masalah kemitraan.</p><p>6. Submit &amp; Evaluasi: Mengirimkan laporan untuk diverifikasi oleh Kementerian Investasi/BKPM atau DPMPTSP.</p><p>7. Perbaikan (Jika Ada): Merespons catatan/revisi dari verifikator apabila status LKPM dikembalikan untuk perbaikan.</p>"
+   "answer": "<p>Tahapan Pelaporan LKPM (Laporan Kegiatan Penanaman Modal)</p><p>1. Persiapan Data: Mengumpulkan data realisasi investasi (modal tetap, modal kerja), penyerapan tenaga kerja (TKI &amp; TKA), serta kendala operasional perusahaan selama periode berjalan.</p><p>2. Akses Sistem OSS: Login ke portal OSS RBA menggunakan hak akses perusahaan.</p><p>3. Pilihan Menu LKPM: Memilih periode pelaporan (Triwulanan untuk tahap Konstruksi/Komersial atau Semesteran sesuai skala usaha).</p><p>4. Pengisian Form Realisasi: Input realisasi modal (pembelian tanah, bangunan, mesin, pengeluaran lain) serta jumlah tenaga kerja baru.</p><p>5. Deskripsi Permasalahan: Mengisi kendala yang dihadapi (jika ada) seperti perizinan daerah, lahan, atau masalah kemitraan.</p><p>6. Submit &amp; Evaluasi: Mengirimkan laporan untuk diverifikasi oleh Kementerian Investasi/BKPM atau DPMPTSP.</p><p>7. Perbaikan (Jika Ada): Merespons catatan/revisi dari verifikator apabila status LKPM dikembalikan untuk perbaikan.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan tahapan lengkap: persiapan realisasi investasi, tenaga kerja dan kendala; akses OSS; pemilihan periode; pengisian realisasi modal dan tenaga kerja; pengisian kendala; submit/evaluasi; serta tindak lanjut perbaikan jika dikembalikan verifikator. Sangat Baik (Komprehensif & Presisi)"
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan sebagian besar tahapan secara runtut, tetapi melewatkan satu tahap atau detail data yang perlu disiapkan. Baik (Memadai & Relevan)"
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebut login OSS, mengisi data, dan submit tanpa menjelaskan persiapan data, periode, kendala, atau tindak lanjut revisi. Cukup (Parsial & Terlalu Umum)"
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Keliru memahami LKPM sebagai laporan yang cukup disampaikan secara informal atau tidak perlu melalui sistem dan periode pelaporan. Kurang (Dangkal & Miskonsepsi)"
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas tahapan LKPM. Sangat Kurang (Tidak Relevan)"
+    }
+   ]
   },
   {
    "no": 10,
    "question": "<p>Bagaimana cara Anda mengidentifikasi dampak regulasi tersebut terhadap operasional perusahaan serta langkah mitigasi yang harus dilakukan?</p>",
-   "answer": "<p>Identifikasi Dampak Regulasi &amp; Langkah Mitigasi</p><ul><li>Cara Mengidentifikasi Dampak:</li><li>Gap Analysis: Membandingkan ketentuan dalam regulasi baru dengan SOP/dokumen internal perusahaan yang sedang berjalan.</li><li>Impact Assessment: Mengukur area mana saja yang terdampak (operasional, perizinan, finansial, compliance, ketenagakerjaan).</li><li>Langkah Mitigasi:</li></ul><p>1. Menyusun Legal Brief / Ringkasan Eksekutif untuk Direksi.</p><p>2. Memperbarui dokumen hukum internal (SOP, template kontrak, Peraturan Perusahaan).</p><p>3. Mengajukan/menyesuaikan perizinan ke otoritas terkait jika diperlukan.</p><p>4. Mengadakan sosialisasi/sosialisasi internal kepada divisi terdampak.</p>"
+   "answer": "<p>Identifikasi Dampak Regulasi &amp; Langkah Mitigasi</p><ul><li>Cara Mengidentifikasi Dampak:</li><li>Gap Analysis: Membandingkan ketentuan dalam regulasi baru dengan SOP/dokumen internal perusahaan yang sedang berjalan.</li><li>Impact Assessment: Mengukur area mana saja yang terdampak (operasional, perizinan, finansial, compliance, ketenagakerjaan).</li><li>Langkah Mitigasi:</li></ul><p>1. Menyusun Legal Brief / Ringkasan Eksekutif untuk Direksi.</p><p>2. Memperbarui dokumen hukum internal (SOP, template kontrak, Peraturan Perusahaan).</p><p>3. Mengajukan/menyesuaikan perizinan ke otoritas terkait jika diperlukan.</p><p>4. Mengadakan sosialisasi/sosialisasi internal kepada divisi terdampak.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan gap analysis antara regulasi dan SOP/dokumen internal, impact assessment pada operasional/perizinan/keuangan/kepatuhan/kete nagakerjaan, serta mitigasi berupa legal brief untuk Direksi, pembaruan dokumen internal, penyesuaian izin, dan sosialisasi kepada divisi terdampak."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan metode identifikasi dampak dan sebagian besar langkah mitigasi, tetapi tidak menguraikan salah satu area dampak atau tindak lanjut."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyatakan perlu membaca regulasi baru dan menyesuaikan SOP tanpa metode analisis atau langkah mitigasi yang jelas."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Mengabaikan perubahan regulasi atau menyarankan perusahaan tetap menjalankan praktik lama tanpa analisis kepatuhan."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak relevan dengan monitoring regulasi dan mitigasi."
+    }
+   ]
   },
   {
    "no": 11,
    "question": "<p>Dalam proses audit kepatuhan, Anda menemukan berbagai ketidaksesuaian dokumen dengan tingkat risiko yang berbeda. Jelaskan bagaimana Anda mengklasifikasikan temuan tersebut dan menentukan prioritas perbaikan berbasis risiko!</p>",
-   "answer": "<p>Klasifikasi Temuan &amp; Prioritas Perbaikan Berbasis Risiko (Risk-Based Prioritization)</p><ul><li>Klasifikasi Temuan:</li><li>High Risk (Risiko Tinggi): Pelanggaran berat yang berpotensi menimbulkan sanksi pidana, pencabutan izin usaha, atau kerugian finansial material (contoh: NIB mati, tidak ada AMDAL/UKL-UPL, default kontrak utama).</li><li>Medium Risk (Risiko Sedang): Ketidaksesuaian administratif yang berdampak pada sanksi teguran bertahap atau denda administratif ringan (contoh: keterlambatan pelaporan LKPM, klausula kontrak tidak up-to-date).</li><li>Low Risk (Risiko Rendah): Kekurangan tata kelola administratif internal yang tidak melanggar ketentuan hukum substantif (contoh: penataan nomor arsip tidak konsisten).</li><li>Penentuan Prioritas Perbaikan:</li><li>Skala Prioritas 1 (Urgent/Immediate): Perbaikan High Risk dilakukan maksimal 1–14 hari kerja.</li><li>Skala Prioritas 2 (Medium Term): Perbaikan Medium Risk diselesaikan dalam kurun 30 hari kerja.</li><li>Skala Prioritas 3 (Routine Maintenance): Perbaikan Low Risk dimasukkan ke dalam program kerja berkala.</li></ul>"
+   "answer": "<p>Klasifikasi Temuan &amp; Prioritas Perbaikan Berbasis Risiko (Risk-Based Prioritization)</p><ul><li>Klasifikasi Temuan:</li><li>High Risk (Risiko Tinggi): Pelanggaran berat yang berpotensi menimbulkan sanksi pidana, pencabutan izin usaha, atau kerugian finansial material (contoh: NIB mati, tidak ada AMDAL/UKL-UPL, default kontrak utama).</li><li>Medium Risk (Risiko Sedang): Ketidaksesuaian administratif yang berdampak pada sanksi teguran bertahap atau denda administratif ringan (contoh: keterlambatan pelaporan LKPM, klausula kontrak tidak up-to-date).</li><li>Low Risk (Risiko Rendah): Kekurangan tata kelola administratif internal yang tidak melanggar ketentuan hukum substantif (contoh: penataan nomor arsip tidak konsisten).</li><li>Penentuan Prioritas Perbaikan:</li><li>Skala Prioritas 1 (Urgent/Immediate): Perbaikan High Risk dilakukan maksimal 1–14 hari kerja.</li><li>Skala Prioritas 2 (Medium Term): Perbaikan Medium Risk diselesaikan dalam kurun 30 hari kerja.</li><li>Skala Prioritas 3 (Routine Maintenance): Perbaikan Low Risk dimasukkan ke dalam program kerja berkala.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Mengklasifikasikan High, Medium, dan Low Risk beserta karakteristik/contoh yang relevan; menetapkan prioritas perbaikan secara proporsional: High Risk segera (maksimal 1–14 hari kerja), Medium Risk (30 hari kerja), dan Low Risk melalui program rutin."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan tiga tingkat risiko dan prioritas perbaikan dengan benar, tetapi contoh, tenggat, atau dasar penentuan prioritas belum lengkap."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya membedakan risiko tinggi, sedang, dan rendah secara umum tanpa contoh atau jadwal tindak lanjut."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menempatkan temuan berisiko tinggi sebagai prioritas rendah atau tidak mempertimbangkan dampak hukum/operasional dalam menentukan prioritas."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas klasifikasi temuan audit maupun prioritas perbaikannya."
+    }
+   ]
   },
   {
    "no": 12,
    "question": "<p>Dalam suatu pertemuan dengan regulator, terdapat perbedaan interpretasi terhadap suatu ketentuan hukum yang berdampak signifikan terhadap operasional perusahaan. Jelaskan bagaimana Anda menyampaikan posisi hukum perusahaan tanpa menimbulkan konflik namun tetap melindungi kepentingan perusahaan!</p>",
-   "answer": "<p>Penyampaian Posisi Hukum Tanpa Konflik</p><ul><li>Prinsip Kebijakan Diplomatik: Menggunakan pendekatan soft-diplomacy dan objective analysis.</li><li>Langkah Konkret:</li></ul><p>1. Apresiasi &amp; Asertif: Menghargai pandangan regulator terlebih dahulu sebelum menyampaikan perspektif perusahaan.</p><p>2. Penggunaan Basis Argumentasi Hukum: Menyampaikan posisi hukum berbasis teks perundang-undangan, doktrin, atau preseden tanpa bersifat konfrontatif.</p><p>3. Penawaran Solusi Alternatif (Win-Win Approach): Mengajukan opsi penafsiran atau bridge-solution yang mengakomodasi kepatuhan hukum tanpa menghentikan operasional perusahaan.</p><p>4. Pernyataan Tertulis Resmi: Meminta konfirmasi/petunjuk resmi (legal opinion/affirmation) secara tertulis agar dokumen pertimbangan memiliki kekuatan acuan yang sah.</p>"
+   "answer": "<p>Penyampaian Posisi Hukum Tanpa Konflik</p><ul><li>Prinsip Kebijakan Diplomatik: Menggunakan pendekatan soft-diplomacy dan objective analysis.</li><li>Langkah Konkret:</li></ul><p>1. Apresiasi &amp; Asertif: Menghargai pandangan regulator terlebih dahulu sebelum menyampaikan perspektif perusahaan.</p><p>2. Penggunaan Basis Argumentasi Hukum: Menyampaikan posisi hukum berbasis teks perundang-undangan, doktrin, atau preseden tanpa bersifat konfrontatif.</p><p>3. Penawaran Solusi Alternatif (Win-Win Approach): Mengajukan opsi penafsiran atau bridge-solution yang mengakomodasi kepatuhan hukum tanpa menghentikan operasional perusahaan.</p><p>4. Pernyataan Tertulis Resmi: Meminta konfirmasi/petunjuk resmi (legal opinion/affirmation) secara tertulis agar dokumen pertimbangan memiliki kekuatan acuan yang sah.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan pendekatan diplomatis dan objektif; mengapresiasi pandangan regulator secara asertif; menyampaikan argumentasi berdasarkan peraturan/doktrin/preseden; menawarkan solusi alternatif yang tetap patuh; serta meminta konfirmasi/petunjuk tertulis."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan komunikasi yang sopan dan argumentasi hukum berbasis regulasi serta menawarkan solusi, tetapi tidak menyebut tindak lanjut tertulis atau salah satu langkah penting."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyatakan harus berkomunikasi baik dan menjelaskan pendapat perusahaan tanpa struktur argumentasi hukum atau solusi alternatif."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan konfrontasi, mengabaikan regulator, atau menyampaikan posisi tanpa dasar hukum dan tanpa mempertimbangkan kepatuhan."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak relevan dengan komunikasi dan perbedaan interpretasi bersama regulator."
+    }
+   ]
   },
   {
    "no": 13,
    "question": "<p>Selama pemeriksaan berlangsung, terdapat perbedaan informasi antara tim legal dan tim operasional. Bagaimana Anda mengelola situasi tersebut agar tidak merusak kredibilitas perusahaan di hadapan regulator?</p>",
-   "answer": "<p>Penanganan Perbedaan Informasi Internal Saat Pemeriksaan</p><p>1. Single Door Policy: Memastikan seluruh komunikasi formal dengan tim pemeriksa regulator dikendalikan oleh Legal Lead sebagai spokesperson.</p><p>2. Klarifikasi Internal Segera (Skorsing/Caucus): Meminta jeda (break) singkat secara sopan untuk melakukan penyelarasan data secara internal antara tim legal dan operasional.</p><p>3. Penyelarasan Data Berbasis Bukti: Memverifikasi dokumen pendukung utama (source of truth) untuk mengonfirmasi mana data operasional yang aktual dan sesuai fakta hukum.</p><p>4. Penyampaian Koreksi Secara Transparan: Menyampaikan klarifikasi perbaikan data kepada regulator secara jujur, profesional, dan disertai bukti pendukung yang valid guna menjaga integritas dan kredibilitas perusahaan.</p>"
+   "answer": "<p>Penanganan Perbedaan Informasi Internal Saat Pemeriksaan</p><p>1. Single Door Policy: Memastikan seluruh komunikasi formal dengan tim pemeriksa regulator dikendalikan oleh Legal Lead sebagai spokesperson.</p><p>2. Klarifikasi Internal Segera (Skorsing/Caucus): Meminta jeda (break) singkat secara sopan untuk melakukan penyelarasan data secara internal antara tim legal dan operasional.</p><p>3. Penyelarasan Data Berbasis Bukti: Memverifikasi dokumen pendukung utama (source of truth) untuk mengonfirmasi mana data operasional yang aktual dan sesuai fakta hukum.</p><p>4. Penyampaian Koreksi Secara Transparan: Menyampaikan klarifikasi perbaikan data kepada regulator secara jujur, profesional, dan disertai bukti pendukung yang valid guna menjaga integritas dan kredibilitas perusahaan.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan single door policy melalui Legal Lead sebagai juru bicara; meminta jeda/klarifikasi internal; memverifikasi data berdasarkan dokumen sumber (source of truth); dan menyampaikan koreksi secara transparan, profesional, serta didukung bukti valid."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan koordinasi internal dan verifikasi dokumen serta penyampaian klarifikasi, tetapi kurang menguraikan pengendalian komunikasi atau transparansi koreksi."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyatakan tim legal harus berkoordinasi dengan operasional dan menyamakan data tanpa menjelaskan prosedur verifikasi atau komunikasi kepada regulator."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan menyembunyikan perbedaan data, memberikan informasi yang belum diverifikasi, atau membiarkan tiap divisi menyampaikan keterangan sendiri-sendiri."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak relevan dengan penanganan perbedaan informasi saat pemeriksaan."
+    }
+   ]
   }
  ],
  "praktik": {
   "template": "legal.docx",
   "template_name": "Ujian Praktik V2 - Corporate Legal Officer.docx",
   "duration": 120,
-  "panduan": "Studi Kasus 2\nKetentuan:\n- Peserta diwajibkan membuat surat kuasa berdasarkan kasus posisi yang telah diberikan;\n- Model surat kuasa dibebaskan sesuai dengan kreativitas peserta sesuai dengan keperluan yang dimaksudkan pada kasus posisi;\n- Segala bentuk keterlambatan pengumpulan akan memperoleh sanksi konsekuensi dari pihak LSP\n\nKASUS POSISI\nPEMBUATAN SURAT KUASA\nSeorang pebisnis atas nama Ratna Wulandari (RW), selaku Direktur Utama dan pemilik PT Andaya Sari Tobacco (AST), sebuah perusahaan yang bergerak di bidang industri Hasil Pengolahan Tembakau Lainnya (HPTL), berencana melakukan ekspansi bisnis dengan menjadi distributor resmi di Indonesia untuk produk tembakau kunyah dengan merek dagang \"TOBACA\" yang berasal dari Eropa. Mengingat karakteristik produk tembakau kunyah yang masuk dalam kategori barang kena cukai serta adanya regulasi perdagangan yang bersifat ketat di Indonesia, RW menyadari perlunya pemenuhan aspek legalitas yang komprehensif guna memastikan operasional distribusi berjalan sesuai dengan koridor hukum yang berlaku. Namun, dikarenakan keterbatasan pemahaman dan teknis di bidang hukum operasional, RW secara resmi memberikan kuasa penuh kepada Aditya Noval (AN) selaku Legal Officer perusahaan untuk bertindak atas nama AST dalam mengurus seluruh rangkaian perizinan yang diperlukan.\nDalam menjalankan mandat tersebut, AN memikul tanggung jawab utama untuk memastikan kepatuhan administrasi pada dua instansi terkait, yaitu Kementerian Perdagangan serta Direktorat Jenderal Bea dan Cukai. Langkah pertama yang menjadi urgensi perusahaan adalah memproses perolehan Surat Tanda Pendaftaran Distributor (STP-D) sebagai syarat mutlak bagi ASTuntuk dapat bertindak sebagai distributor resmi produk \"TOBACA\" di wilayah hukum Indonesia. Tanpa adanya STP-D, perusahaan tidak memiliki legalitas untuk melakukan pendistribusian barang secara skala besar dan formal. Secara paralel, AN juga berkewajiban melakukan pengurusan Nomor Pokok Pengusaha Barang Kena Cukai (NPPBKC). Dokumen ini merupakan identitas atau izin utama bagi setiap badan hukum yang menjalankan kegiatan sebagai penyalur atau pengusaha tempat penjualan eceran barang kena cukai, dalam hal ini produk HPTL \"TOBACA\".\nSelanjutnya, tahapan yang paling krusial dalam rantai pasok produk ini adalah memastikan bahwa produk \"TOBACA\" yang akan diedarkan telah memenuhi kewajiban fiskal negara melalui pengurusan P3C (Permohonan Penyediaan Pita Cukai). Proses ini sangat teknis karena melibatkan penetapan tarif dan pemesanan pita cukai yang sesuai dengan spesifikasi produk. Setelah proses P3C disetujui, AN harus menuntaskan kewajiban administratif terakhir berupa pengajuan CK-1 (Dokumen Pemesanan Pita Cukai) agar pita cukai dapat diterbitkan dan dilekatkan pada kemasan produk \"TOBACA\". Tanpa pelekatan pita cukai yang sah berdasarkan dokumen CK-1 tersebut, produk tembakau kunyah milik AST akan dikategorikan sebagai produk ilegal yang dapat dikenakan sanksi pidana maupun administrasi. Kasus ini kini berada pada tahap persiapan dokumen pendukung, di mana AN harus memastikan seluruh sinkronisasi data antara NIB perusahaan dengan sistem pada portal Bea Cukai serta Kementerian Perdagangan berjalan tanpa kendala teknis.\nBerdasarkan fakta-fakta yang dijelaskan sebelumnya, buatlah SURAT KUASA KHUSUS yang menjadi dasar bertindaknya AN sebagai Account Representative (AR) dari AST\nBatasan Surat Kuasa :\n- AN hanya bertindak sebagai AR hingga tahap PEMESANAN PITA CUKAI (CK-1)\n- AN hanya diberi kuasa dengan interval waktu 1 tahun, yaitu sejak 4 Maret 2026 - 3 Maret 2027\n\nSusun SURAT KUASA KHUSUS sesuai kasus posisi dan batasan di atas (model surat bebas). Simpan dalam satu file Word atau PDF, lalu unggah."
- }
+  "panduan": "Studi Kasus 2\nKetentuan:\n- Peserta diwajibkan membuat surat kuasa berdasarkan kasus posisi yang telah diberikan;\n- Model surat kuasa dibebaskan sesuai dengan kreativitas peserta sesuai dengan keperluan yang dimaksudkan pada kasus posisi;\n- Segala bentuk keterlambatan pengumpulan akan memperoleh sanksi konsekuensi dari pihak LSP\n\nKASUS POSISI\nPEMBUATAN SURAT KUASA\nSeorang pebisnis atas nama Ratna Wulandari (RW), selaku Direktur Utama dan pemilik PT Andaya Sari Tobacco (AST), sebuah perusahaan yang bergerak di bidang industri Hasil Pengolahan Tembakau Lainnya (HPTL), berencana melakukan ekspansi bisnis dengan menjadi distributor resmi di Indonesia untuk produk tembakau kunyah dengan merek dagang \"TOBACA\" yang berasal dari Eropa. Mengingat karakteristik produk tembakau kunyah yang masuk dalam kategori barang kena cukai serta adanya regulasi perdagangan yang bersifat ketat di Indonesia, RW menyadari perlunya pemenuhan aspek legalitas yang komprehensif guna memastikan operasional distribusi berjalan sesuai dengan koridor hukum yang berlaku. Namun, dikarenakan keterbatasan pemahaman dan teknis di bidang hukum operasional, RW secara resmi memberikan kuasa penuh kepada Aditya Noval (AN) selaku Legal Officer perusahaan untuk bertindak atas nama AST dalam mengurus seluruh rangkaian perizinan yang diperlukan.\nDalam menjalankan mandat tersebut, AN memikul tanggung jawab utama untuk memastikan kepatuhan administrasi pada dua instansi terkait, yaitu Kementerian Perdagangan serta Direktorat Jenderal Bea dan Cukai. Langkah pertama yang menjadi urgensi perusahaan adalah memproses perolehan Surat Tanda Pendaftaran Distributor (STP-D) sebagai syarat mutlak bagi ASTuntuk dapat bertindak sebagai distributor resmi produk \"TOBACA\" di wilayah hukum Indonesia. Tanpa adanya STP-D, perusahaan tidak memiliki legalitas untuk melakukan pendistribusian barang secara skala besar dan formal. Secara paralel, AN juga berkewajiban melakukan pengurusan Nomor Pokok Pengusaha Barang Kena Cukai (NPPBKC). Dokumen ini merupakan identitas atau izin utama bagi setiap badan hukum yang menjalankan kegiatan sebagai penyalur atau pengusaha tempat penjualan eceran barang kena cukai, dalam hal ini produk HPTL \"TOBACA\".\nSelanjutnya, tahapan yang paling krusial dalam rantai pasok produk ini adalah memastikan bahwa produk \"TOBACA\" yang akan diedarkan telah memenuhi kewajiban fiskal negara melalui pengurusan P3C (Permohonan Penyediaan Pita Cukai). Proses ini sangat teknis karena melibatkan penetapan tarif dan pemesanan pita cukai yang sesuai dengan spesifikasi produk. Setelah proses P3C disetujui, AN harus menuntaskan kewajiban administratif terakhir berupa pengajuan CK-1 (Dokumen Pemesanan Pita Cukai) agar pita cukai dapat diterbitkan dan dilekatkan pada kemasan produk \"TOBACA\". Tanpa pelekatan pita cukai yang sah berdasarkan dokumen CK-1 tersebut, produk tembakau kunyah milik AST akan dikategorikan sebagai produk ilegal yang dapat dikenakan sanksi pidana maupun administrasi. Kasus ini kini berada pada tahap persiapan dokumen pendukung, di mana AN harus memastikan seluruh sinkronisasi data antara NIB perusahaan dengan sistem pada portal Bea Cukai serta Kementerian Perdagangan berjalan tanpa kendala teknis.\nBerdasarkan fakta-fakta yang dijelaskan sebelumnya, buatlah SURAT KUASA KHUSUS yang menjadi dasar bertindaknya AN sebagai Account Representative (AR) dari AST\nBatasan Surat Kuasa :\n- AN hanya bertindak sebagai AR hingga tahap PEMESANAN PITA CUKAI (CK-1)\n- AN hanya diberi kuasa dengan interval waktu 1 tahun, yaitu sejak 4 Maret 2026 - 3 Maret 2027\n\nSusun SURAT KUASA KHUSUS sesuai kasus posisi dan batasan di atas (model surat bebas). Simpan dalam satu file Word atau PDF, lalu unggah.",
+  "rubrik": "<p><strong>A. PANDUAN PENILAIAN UMUM (RENTANG SKOR 10–100)</strong></p>\n<table><tr><th>Rentang Skor</th><th>Kategori</th><th>Deskripsi</th></tr><tr><td>90–100</td><td>Sangat Baik (Komprehensif &amp; Presisi)</td><td>Produk lengkap, presisi, profesional; seluruh instruksi terpenuhi; substansi hukum tepat, diterapkan mendalam pada fakta kasus; analisis/rekomendasi atau kewenangan jelas dan dapat digunakan.</td></tr><tr><td>70–89</td><td>Baik (Memadai &amp; Relevan)</td><td>Sebagian besar unsur instruksi dan substansi terpenuhi dengan benar; struktur dan penerapan kasus memadai; kekurangan minor tidak mengganggu tujuan dokumen.</td></tr><tr><td>50–69</td><td>Cukup (Parsial &amp; Terlalu Umum)</td><td>Dokumen relevan namun beberapa unsur penting kurang; analisis/penerapan masih umum; terdapat kekurangan substantif atau teknis.</td></tr><tr><td>30–49</td><td>Kurang (Dangkal &amp; Miskonsepsi)</td><td>Sejumlah unsur utama tidak terpenuhi; substansi hukum atau penerapan kasus mengandung kesalahan mendasar; produk tidak memadai.</td></tr><tr><td>10–29</td><td>Sangat Kurang (Tidak Relevan)</td><td>Produk tidak sesuai instruksi atau tidak menunjukkan kemampuan yang diuji; sangat tidak lengkap atau tidak relevan. Skor 10 sebagai nilai dasar atas upaya.</td></tr></table>\n<p><strong>C. RUBRIK STUDI KASUS 2 – SURAT KUASA KHUSUS</strong></p>\n<p>Peserta menyusun surat kuasa bagi Aditya Noval sebagai AR PT Andaya Sari Tobacco, dengan batas sampai pemesanan pita cukai CK-1 dan masa 4 Maret 2026–3 Maret 2027.</p>\n<table><tr><th>Aspek/<br>Kriteria</th><th>90–100 Sangat Baik</th><th>70–89 Baik</th><th>50–69 Cukup</th><th>30–49 Kurang</th><th>10–29 Sangat Kurang</th></tr><tr><td>1. Struktur dan kelengkapan formal</td><td>Format formal lengkap: judul, identitas, pembukaan, pemberian kuasa, ruang lingkup, penutup, tanggal, tanda tangan dan elemen relevan.</td><td>Format lengkap dengan kekurangan minor.</td><td>Format dikenali tetapi beberapa unsur formal kurang.</td><td>Format tidak memadai atau unsur formal utama hilang.</td><td>Tidak menyusun surat kuasa atau format tidak sesuai.</td></tr><tr><td>2. Identitas dan kapasitas pihak</td><td>Identitas RW dan AN jelas; kapasitas RW bertindak untuk AST dan AN sebagai penerima kuasa konsisten.</td><td>Identitas/kapasitas jelas dengan detail minor kurang.</td><td>Identitas disebut tetapi kapasitas atau detail penting kurang jelas.</td><td>Identitas/kapasitas keliru atau tidak konsisten.</td><td>Identitas pihak tidak dicantumkan/tidak relevan.</td></tr><tr><td>3. Ruang lingkup kuasa</td><td>Spesifik mencakup pengurusan relevan: STP-D, NPPBKC, P3C, CK-1 dan tindakan administratif/koordinasi dalam mandat.</td><td>Ruang lingkup relevan tetapi satu kegiatan/detail kurang jelas.</td><td>Ruang lingkup umum atau sebagian tahapan terlewat.</td><td>Ruang lingkup kabur, terlalu luas, atau tidak sesuai.</td><td>Ruang lingkup tidak mencerminkan tujuan kuasa.</td></tr><tr><td>4. Pembatasan sampai CK-1</td><td>Tegas membatasi kuasa sampai pemesanan pita cukai (CK-1), tidak meluas di luar mandat, mudah dipahami.</td><td>Batas sampai CK-1 jelas, ada redaksi minor yang dapat diperjelas.</td><td>Batas disebut namun tidak tegas atau tidak konsisten.</td><td>Berpotensi melampaui CK-1 atau batas kabur.</td><td>Pembatasan CK-1 tidak ada/bertentangan.</td></tr><tr><td>5. Masa berlaku kuasa</td><td>Mencantumkan secara eksplisit 4 Maret 2026–3 Maret 2027, konsisten.</td><td>Masa kuasa benar, redaksi/penempatan minor kurang jelas.</td><td>Masa disebut tetapi tanggal/format kurang tepat.</td><td>Masa tidak tepat atau kontradiktif.</td><td>Masa berlaku tidak dicantumkan.</td></tr><tr><td>6. Perumusan kewenangan dan klausul</td><td>Kewenangan, tindakan administratif, koordinasi, dokumen, dan klausul batasan/pertanggungjawaban jelas, tidak ambigu, sesuai mandat.</td><td>Klausul cukup jelas tetapi detail/batasan pendukung kurang.</td><td>Klausul umum dan kurang operasional.</td><td>Klausul ambigu, tidak konsisten, atau kewenangan tidak sesuai.</td><td>Klausul tidak relevan/tidak dapat dipahami.</td></tr><tr><td>7. Kesesuaian instansi dan administrasi</td><td>Mengakomodasi pengurusan ke Kemendag dan DJBC serta konteks sinkronisasi NIB dan administrasi sesuai kasus.</td><td>Instansi dan kebutuhan utama benar, detail pendukung kurang.</td><td>Instansi/tujuan disebut umum atau tidak lengkap.</td><td>Instansi atau tujuan keliru.</td><td>Tidak mengakomodasi kebutuhan administrasi kasus.</td></tr><tr><td>8. Kualitas dokumen dan profesionalisme</td><td>Rapi, formal, profesional, konsisten, minim kesalahan, siap ditinjau untuk penggunaan administratif.</td><td>Rapi dan profesional, kesalahan minor.</td><td>Terbaca namun format/bahasa/konsistensi kurang.</td><td>Tidak rapi atau kesalahan mengganggu.</td><td>Dokumen tidak dapat digunakan atau bukan surat kuasa.</td></tr></table>\n<p><strong>REKAPITULASI NILAI</strong></p>\n<p><strong>STUDI KASUS 2 – SURAT KUASA KHUSUS</strong></p>\n<table><tr><th>Tugas</th><th>Bobot</th></tr><tr><td>1. Struktur dan kelengkapan formal</td><td>10%</td></tr><tr><td>2. Identitas dan kapasitas pihak</td><td>15%</td></tr><tr><td>3. Ruang lingkup kuasa</td><td>10%</td></tr><tr><td>4. Pembatasan sampai CK-1</td><td>15%</td></tr><tr><td>5. Masa berlaku kuasa</td><td>15%</td></tr><tr><td>6. Perumusan kewenangan dan klausul</td><td>15%</td></tr><tr><td>7. Kesesuaian instansi dan administrasi</td><td>10%</td></tr><tr><td>8. Kualitas dokumen dan profesionalisme</td><td>10%</td></tr><tr><td>Nilai (Jumlah Nilai × Bobot)</td><td>100%</td></tr></table>",
+  "aspek": [
+   {
+    "no": 1,
+    "nama": "Struktur dan kelengkapan formal",
+    "bobot": 10,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Format formal lengkap: judul, identitas, pembukaan, pemberian kuasa, ruang lingkup, penutup, tanggal, tanda tangan dan elemen relevan."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Format lengkap dengan kekurangan minor."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Format dikenali tetapi beberapa unsur formal kurang."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Format tidak memadai atau unsur formal utama hilang."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Tidak menyusun surat kuasa atau format tidak sesuai."
+     }
+    ]
+   },
+   {
+    "no": 2,
+    "nama": "Identitas dan kapasitas pihak",
+    "bobot": 15,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Identitas RW dan AN jelas; kapasitas RW bertindak untuk AST dan AN sebagai penerima kuasa konsisten."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Identitas/kapasitas jelas dengan detail minor kurang."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Identitas disebut tetapi kapasitas atau detail penting kurang jelas."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Identitas/kapasitas keliru atau tidak konsisten."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Identitas pihak tidak dicantumkan/tidak relevan."
+     }
+    ]
+   },
+   {
+    "no": 3,
+    "nama": "Ruang lingkup kuasa",
+    "bobot": 10,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Spesifik mencakup pengurusan relevan: STP-D, NPPBKC, P3C, CK-1 dan tindakan administratif/koordinasi dalam mandat."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Ruang lingkup relevan tetapi satu kegiatan/detail kurang jelas."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Ruang lingkup umum atau sebagian tahapan terlewat."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Ruang lingkup kabur, terlalu luas, atau tidak sesuai."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Ruang lingkup tidak mencerminkan tujuan kuasa."
+     }
+    ]
+   },
+   {
+    "no": 4,
+    "nama": "Pembatasan sampai CK-1",
+    "bobot": 15,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Tegas membatasi kuasa sampai pemesanan pita cukai (CK-1), tidak meluas di luar mandat, mudah dipahami."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Batas sampai CK-1 jelas, ada redaksi minor yang dapat diperjelas."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Batas disebut namun tidak tegas atau tidak konsisten."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Berpotensi melampaui CK-1 atau batas kabur."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Pembatasan CK-1 tidak ada/bertentangan."
+     }
+    ]
+   },
+   {
+    "no": 5,
+    "nama": "Masa berlaku kuasa",
+    "bobot": 15,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Mencantumkan secara eksplisit 4 Maret 2026–3 Maret 2027, konsisten."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Masa kuasa benar, redaksi/penempatan minor kurang jelas."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Masa disebut tetapi tanggal/format kurang tepat."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Masa tidak tepat atau kontradiktif."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Masa berlaku tidak dicantumkan."
+     }
+    ]
+   },
+   {
+    "no": 6,
+    "nama": "Perumusan kewenangan dan klausul",
+    "bobot": 15,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Kewenangan, tindakan administratif, koordinasi, dokumen, dan klausul batasan/pertanggungjawaban jelas, tidak ambigu, sesuai mandat."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Klausul cukup jelas tetapi detail/batasan pendukung kurang."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Klausul umum dan kurang operasional."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Klausul ambigu, tidak konsisten, atau kewenangan tidak sesuai."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Klausul tidak relevan/tidak dapat dipahami."
+     }
+    ]
+   },
+   {
+    "no": 7,
+    "nama": "Kesesuaian instansi dan administrasi",
+    "bobot": 10,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Mengakomodasi pengurusan ke Kemendag dan DJBC serta konteks sinkronisasi NIB dan administrasi sesuai kasus."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Instansi dan kebutuhan utama benar, detail pendukung kurang."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Instansi/tujuan disebut umum atau tidak lengkap."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Instansi atau tujuan keliru."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Tidak mengakomodasi kebutuhan administrasi kasus."
+     }
+    ]
+   },
+   {
+    "no": 8,
+    "nama": "Kualitas dokumen dan profesionalisme",
+    "bobot": 10,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Rapi, formal, profesional, konsisten, minim kesalahan, siap ditinjau untuk penggunaan administratif."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Rapi dan profesional, kesalahan minor."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Terbaca namun format/bahasa/konsistensi kurang."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Tidak rapi atau kesalahan mengganggu."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Dokumen tidak dapat digunakan atau bukan surat kuasa."
+     }
+    ]
+   }
+  ]
+ },
+ "esai_panduan": "<p><strong>Panduan Penilaian Umum (Rentang Skor 10–100)</strong></p>\n<p><strong>Skor 90 – 100: Sangat Baik (Komprehensif &amp; Presisi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan seluruh elemen kunci jawaban secara lengkap dan akurat sesuai substansi soal Corporate Legal Officer, meliputi administrasi dan arsip hukum korporasi, dokumen hukum perusahaan, legal opinion, laporan legal dan kepatuhan, monitoring regulasi, legal due diligence, hubungan dengan regulator, serta penanganan pemeriksaan/investigasi regulator.</li>\n<li><strong>Pemahaman Konsep Hukum:</strong> Menunjukkan pemahaman prinsip hukum korporasi yang sangat tajam, logis, sistematis, dan analitis. Mampu mengidentifikasi konsekuensi hukum, risiko kepatuhan, serta memberikan rekomendasi yang tepat berdasarkan regulasi dan fakta yang relevan.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Menggunakan istilah teknis hukum korporasi secara tepat, seperti legal entity, legal due diligence, legal opinion, gap analysis, impact assessment, High/Medium/Low Risk, single door policy, source of truth, OSS RBA, NIB, LKPM, klausula baku, legal brief, dan retensi/JRA.</li>\n</ul>\n<p><strong>Skor 70 – 89: Baik (Memadai &amp; Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan sebagian besar poin kunci jawaban yang dipersyaratkan. Terdapat toleransi satu detail kecil yang terlewat, misalnya tidak menyebutkan salah satu dokumen pendukung perizinan, tahapan tindak lanjut, atau unsur administrasi hukum.</li>\n<li><strong>Pemahaman Konsep Hukum:</strong> Penjelasan logis dan benar secara prinsip hukum korporasi, namun penjabarannya kurang mendalam. Peserta mampu memahami permasalahan hukum dan memberikan solusi yang relevan, tetapi belum sepenuhnya menguraikan dasar hukum, risiko, atau langkah mitigasi secara komprehensif.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Memahami konsep teknis hukum korporasi meskipun terkadang menggunakan bahasa yang lebih umum. Istilah hukum yang digunakan sebagian besar tepat, namun belum sepenuhnya presisi dalam konteks penerapannya.</li>\n</ul>\n<p><strong>Skor 50 – 69: Cukup (Parsial &amp; Terlalu Umum)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Hanya mampu menjawab secara parsial atau setengah-setengah. Beberapa unsur penting dalam jawaban terlewat, seperti tahapan proses, dokumen pendukung, dasar hukum, atau mekanisme penanganan risiko.</li>\n<li><strong>Pemahaman Konsep Hukum:</strong> Penjelasan terlalu awam dan kurang menargetkan aspek spesifik hukum korporasi. Cenderung menjawab dengan logika umum (common sense) tanpa analisis hukum yang memadai. Peserta mengetahui gambaran umum permasalahan, tetapi belum mampu mengaitkan fakta, regulasi, dan konsekuensi hukum secara sistematis.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Penggunaan istilah hukum masih terbatas dan cenderung umum. Terdapat pemahaman dasar terhadap konsep hukum, tetapi belum mampu menjelaskan penerapannya secara tepat.</li>\n</ul>\n<p><strong>Skor 30 – 49: Kurang (Dangkal &amp; Miskonsepsi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Gagal menangkap substansi instruksi soal. Jawaban tidak memenuhi sebagian besar elemen kunci yang dipersyaratkan dan tidak menunjukkan alur penyelesaian permasalahan hukum yang tepat.</li>\n<li><strong>Pemahaman Konsep Hukum:</strong> Terdapat kesalahan pemahaman yang signifikan mengenai prinsip dasar hukum korporasi atau kepatuhan hukum. Misalnya, menganggap pendaftaran administratif selalu melahirkan badan hukum, mengabaikan kewajiban kepatuhan terhadap regulasi, menyarankan penyembunyian informasi saat pemeriksaan regulator, atau mengabaikan risiko hukum dalam pengambilan keputusan perusahaan.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Penggunaan istilah hukum tidak tepat, rancu, atau menunjukkan miskonsepsi terhadap konsep hukum yang mendasar.</li>\n</ul>\n<p><strong>Skor 10 – 29: Sangat Kurang (Tidak Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Jawaban sama sekali tidak berkaitan dengan pertanyaan atau kompetensi Corporate Legal Officer yang diujikan.</li>\n<li><strong>Pemahaman Konsep Hukum:</strong> Tidak menunjukkan pemahaman terhadap prinsip dasar hukum korporasi, administrasi hukum, kepatuhan, maupun penyelesaian permasalahan hukum perusahaan.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Tidak menggunakan istilah teknis hukum yang relevan atau menggunakan istilah yang sama sekali tidak sesuai dengan konteks soal. Nilai 10 diberikan sebagai nilai dasar (baseline) karena peserta telah berupaya memberikan respons.</li>\n</ul>"
 }

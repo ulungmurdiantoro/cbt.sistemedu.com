@@ -208,6 +208,10 @@ kartu per soal senada detail jawaban admin (pertanyaan lalu jawaban + nilai, ata
   hanya `essays.answer` yang diubah, plus `is_essay = true` pada soal yang cocok (label "Poin / kisi jawaban", bukan
   "Jawaban benar"; `"uraian": false` di data untuk melewati; kolom `is_essay` tidak dibuat migrasi, jadi dicek dulu).
   Contoh: `tot-obe-rev01` (TOT OBE, 26 soal; ujian 15 memakai 10 di antaranya)
+- **Rubrik FR.IA.06** (paket V2 HSE, Corporate Legal, ESG): `exams.esai_panduan` = Panduan Penilaian Umum (HTML, tag
+  `Exam::PANDUAN_ESAI_TAGS`, `$hidden`) → kartu yang bisa dibuka di atas halaman Nilai; `essays.rubrik` = matriks per soal
+  `[{min, max, label, deskripsi}]` (HSE/Legal 90–100 … 10–29, ESG per soal sendiri) → pita rentang di kartu soal, klik =
+  nilai tertinggi rentang terisi. Hanya panduan: server tetap menyimpan angka yang diketik. `rubrik` tidak masuk `STUDENT_COLUMNS`
 
 ### Tampilan Penilaian Wawancara
 Tabel kriteria tetap, satu baris per peserta:
@@ -229,7 +233,27 @@ berbobot bagian yang sudah dinilai (`NilaiPraktik::combine`) dan memakainya sepe
 komponen yang ada). Tampil di Rekap Hasil (kolom Praktik, rincian per bagian), Rekap Nilai asesor, Tinjau Sertifikasi,
 tahap "Nilai" (`ResultProgressService`) & Pipeline dashboard. SK: kolom pertama jadi "NILAI PRAKTIK" bila ada nilai praktik
 tanpa wawancara; SP: kolom NILAI PRAKTIK berisi `nilai_praktik ?? nilai_wawancara`. Lifting V2: PG 20 + Calculation 50 +
-Gambar 30, lulus ≥ 70 (sesi Lifting tanpa wawancara). Skema lain (CLO/K3L/ESG V2): Tulis 70 (PG 65/Esai 35) + Lisan 30, lulus ≥ 60.
+Gambar 30, lulus ≥ 70 (sesi Lifting tanpa wawancara). CLO/K3L/ESG V2: Tulis 70 (PG 65/Esai 35) + Lisan 22,5 + Keterampilan
+(praktik bagian 1) 7,5 (= 30% × 75/25% dokumen skema), lulus ≥ 60. Bila praktik dinilai terpisah, wawancara tidak memakai
+kriteria (D) Worksheet (`praktik_terpisah`; total = rata-rata 3 kriteria lisan, `hasil_worksheet` disimpan null).
+Rubrik penilaian per ujian praktik di `exams.praktik_rubrik` (HTML tabel dari FR.IA.04, tag dibatasi `Exam::RUBRIK_TAGS`,
+`$hidden` — hanya dikirim ke halaman Nilai Praktik asesor); diisi lewat paket (`praktik.rubrik`, contoh Corporate Legal
+Studi Kasus 2). **Penilaian per aspek**: `exams.praktik_aspek` = `[{no, nama, bobot}]` (total 100, dari tabel Rekapitulasi
+Nilai FR.IA.04; paket `praktik.aspek`) → asesor mengisi nilai per aspek (`praktik_scores.aspek` = `{no: nilai}`), server
+menghitung `score` = Σ nilai × bobot / Σ bobot (`NilaiPraktik::aspekScore`, null selama ada aspek kosong — nilai langsung
+dari browser diabaikan untuk bagian beraspek). Aspek membawa `kriteria` per rentang skor (`[{min, max, label, deskripsi}]`)
+dan catatan per aspek (`praktik_scores.catatan`). Halaman: daftar `/asesor/penilaian/{sesi}/praktik` (baca saja, progres
+aspek + tombol Nilai) → nilai per peserta `/praktik/peserta/{student_id}` (`asesor.praktik.grade`, page `Asesor/Praktik/Nilai`:
+kartu per aspek + rentang skor yang bisa diklik, bar melayang Sebelumnya / Simpan / Simpan & Berikutnya senada Nilai Esai).
+Aspek **per butir** (Lifting, Lampiran Rubrik Penilaian Asesor FR.IA.04): aspek punya `item` `[{no, nama}]` + `pilihan`
+`[{label, nilai}]` (Ada & Benar 10 / Ada tapi Salah 5 / Tidak Ada 0; Sequence 20/10/0; butir × nilai tertinggi = 100);
+pilihan disimpan di `praktik_scores.rincian` `{no aspek: {no butir: nilai}}`, nilai aspek = jumlah butir
+(`NilaiPraktik::itemScore`, server menolak nilai di luar pilihan). Lifting Calculation: B1 45 / B2 20 / B3 20 / B4 15;
+Gambar: C Lifting Plan Drawing 100. Aspek boleh membawa `sumber` (sumber bukti), `poin_kunci` dan `gerbang` (gerbang kritis)
++ `maks_gerbang` (50): asesor mencentang "gerbang gagal" → disimpan `rincian[no] = {gerbang: true}` dan server menolak nilai
+aspek > maks (ESG: Tugas 1–4 @25%, rentang 76–100 / 51–75 / 26–50 / 0–25; template = soal PDF hal. 1–3 + Lembar Kerja xlsx).
+HSE: "RUBRIK PENILAIAN PRAKTIK (KRITERIA UNJUK KERJA)" — aspek = KUK dengan `kelompok` (judul tugas di halaman nilai);
+Tugas 1 35% (1 KUK), Tugas 2 35% (2 KUK @17,5), Tugas 3 30% (3 KUK @10) = nilai tugas rata-rata KUK-nya.
 
 ---
 
@@ -347,7 +371,14 @@ dibuat — sertifikat/SK yang sudah ter-cache tetap, PDF yang dibuat ulang memak
 `php artisan paket-soal:pasang v2 [--dry-run] [--skema=esg] [--templates=folder]` memasang soal hasil ekstraksi dokumen
 FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda V2", "- Esai V2", "- Ujian Praktik V2".
 - Data: `database/data/paket-soal/{versi}/{skema}.json` (+ `images/`). Kelas dicocokkan lewat `classrooms_code`
-  (V2: LHC, K3L, CLO, ESG). PG = blok teks/gambar + opsi + kunci (kunci = opsi berstabilo di dokumen sumber).
+  (V2: LHC, K3L, CLO, ESG dari folder "24-25"; GLP, QCA, FMO, RDO, PSP, LQO dari folder "27-28" — kunci JSON glp, qc, fsms, rnd,
+  panelis, iso17025; Panelis tanpa esai; koreksi pengguna: GLP PG 26 membawa konteks soal 25, QC PG 99 kunci C, R&D soal 101 dihapus → 100 soal). PG = blok teks/gambar + opsi + kunci (kunci = opsi berstabilo di dokumen sumber).
+  Skema 27-28: `durasi`/`komposisi` disamakan dengan CLO/HSE/ESG atas permintaan pengguna (dokumen skema belum diterima): PG 120 / Esai 90,
+  Tulis 70 (PG 65/Esai 35) + Lisan 22,5 + Praktik 7,5, lulus 60; Panelis (tanpa esai) proporsi PG 100.
+  Praktik skema 27-28: template = bagian untuk asesi saja (bagian asesor, kunci, rubrik dibuang; GLP tanpa lembar F-01 "milik Petugas X"
+  yang dibuat fisik asesor; Panelis = PDF formulir uji). Rubrik bergerbang (GLP, QC, Food Safety, Panelis) seperti ESG; ISO 17025 = KUK
+  seperti HSE; R&D = rubrik per nomor soal (5 pita) dikelompokkan per tugas. Food Safety: bobot dari Rekapitulasi (20% per tugas),
+  bukan "Skor maks" di tabel petunjuk.
   Gambar soal disalin ke disk public dan dirujuk `/storage/paket-soal/{versi}/…` (kolom `questions.question` TEXT —
   jangan simpan gambar base64). Skema tanpa `esai` (Lifting V2) tidak dibuatkan ujian esai.
 - Ujian dikenali lewat `exams_code` `exms-{versi}-{skema}-{pg|esai|praktik}` → aman dijalankan ulang (yang sudah ada
@@ -367,6 +398,9 @@ FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda 
   Ujian baru memakai durasi paket; Komposisi Nilai dibuat bila skema belum punya. Yang sudah ada & berbeda disamakan dengan
   **`--perbarui`** (alias lama `--perbarui-praktik`): durasi PG/Esai hanya bila belum ada peserta yang mulai (`grades.start_time`),
   Komposisi Nilai berlaku per skema — hasil sesi lama yang belum Final ikut dihitung ulang saat Rekap dibuka.
+- Esai membawa `esai_panduan` (paket) + `esai[].rubrik`: ikut dipasang pada ujian esai baru; ujian esai yang sudah terpasang
+  disamakan dengan `--perbarui` (soal dicocokkan lewat teks pertanyaan seperti `kunci-esai:perbarui`), **termasuk** yang jawabannya
+  sudah dinilai — rubrik hanya tampilan asesor, nilai tersimpan tidak berubah.
 - Data rusak (kunci di luar opsi, gambar hilang, dll.) → perintah gagal tanpa memasang apa pun.
 
 ---

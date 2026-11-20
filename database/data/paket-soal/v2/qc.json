@@ -1,0 +1,2089 @@
+{
+ "key": "qc",
+ "classroom_code": "QCA",
+ "nama": "QC Laboratory Analyst / Analis QC Laboratorium",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda QC Laboratory Analyst(Analis QC Laboratorium).pdf",
+  "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai QC Laboratory Analyst(Analis QC Laboratorium).docx + panduan skoringi soal esai - QC LAB.docx",
+  "praktik": "FR.IA.04 Ujian Praktik - QC Analyst-V1.docx"
+ },
+ "durasi": {
+  "pg": 120,
+  "esai": 90
+ },
+ "komposisi": {
+  "bobot_ujian_tulis": 70,
+  "proporsi_pg": 65,
+  "bobot_wawancara": 22.5,
+  "bobot_praktik_1": 7.5,
+  "bobot_praktik_2": 0,
+  "nilai_kelulusan": 60
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Langkah pertama yang harus dilakukan analis QC ketika menerima permintaan pengujian baru adalah...."
+    }
+   ],
+   "options": [
+    "Langsung melakukan analisis sampel",
+    "Membeli reagen baru",
+    "Menyimpan sampel di lemari pendingin",
+    "Melakukan kaji ulang permintaan untuk memastikan kemampuan laboratorium"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Apabila laboratorium tidak mampu memenuhi sebagian permintaan pengujian dari pelanggan, analis harus...."
+    }
+   ],
+   "options": [
+    "Tetap menerima permintaan dan berusaha semampunya",
+    "Mengabaikan permintaan tersebut",
+    "Mengkomunikasikan ketidakmampuan tersebut kepada pelanggan",
+    "Meneruskan sampel ke laboratorium lain tanpa sepengetahuan pelanggan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "Verifikasi kesiapan laboratorium sebelum menerima kontrak pengujian meliputi hal- hal berikut, KECUALI...."
+    }
+   ],
+   "options": [
+    "Ketersediaan peralatan terkalibrasi",
+    "Ketersediaan personel kompeten",
+    "Harga pengujian yang paling murah",
+    "Ketersediaan metode yang tervalidasi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Dokumen yang menjadi acuan utama dalam pelaksanaan pengujian setelah kontrak disepakati adalah...."
+    }
+   ],
+   "options": [
+    "Brosur produk",
+    "Surat kabar",
+    "Iklan laboratorium",
+    "Kontrak atau perjanjian yang telah disepakati"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Apabila terjadi perubahan permintaan pengujian setelah pekerjaan dimulai, analis harus...."
+    }
+   ],
+   "options": [
+    "Mengabaikan perubahan tersebut",
+    "Menolak perubahan",
+    "Tetap menggunakan permintaan awal",
+    "Mencatat perubahan dan mengkomunikasikan kepada seluruh personel terkait"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "Tujuan utama kaji ulang kontrak pengujian adalah...."
+    }
+   ],
+   "options": [
+    "Memastikan laboratorium mampu memenuhi persyaratan yang diminta",
+    "Menaikkan harga pengujian",
+    "Memperpanjang waktu pengujian",
+    "Mengurangi beban kerja laboratorium"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Informasi yang TIDAK perlu dicantumkan dalam kontrak pengujian adalah...."
+    }
+   ],
+   "options": [
+    "Metode pengujian yang digunakan",
+    "Biaya pengujian",
+    "Jadwal penyelesaian",
+    "Nama lengkap analis yang akan menguji"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "Apabila pelanggan meminta metode pengujian yang tidak standar, analis harus...."
+    }
+   ],
+   "options": [
+    "Menolak permintaan",
+    "Memastikan metode tersebut telah divalidasi sebelum digunakan",
+    "Langsung menggunakan metode tersebut",
+    "Mengabaikan permintaan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Hasil kaji ulang kontrak harus didokumentasikan sebagai...."
+    }
+   ],
+   "options": [
+    "Rekaman teknis",
+    "Catatan pribadi",
+    "Arsip yang tidak perlu disimpan",
+    "Dokumen rahasia yang tidak boleh dibuka"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Perbedaan antara permintaan awal dan hasil kaji ulang harus...."
+    }
+   ],
+   "options": [
+    "Dirahasiakan",
+    "Diputuskan sepihak oleh laboratorium",
+    "Diabaikan",
+    "Diselesaikan bersama pelanggan dan didokumentasikan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Yang dimaksud dengan verifikasi metode adalah...."
+    }
+   ],
+   "options": [
+    "Membuktikan bahwa laboratorium mampu melaksanakan metode standar dengan kinerja yang memadai",
+    "Membuat metode baru dari awal",
+    "Mengubah metode standar tanpa prosedur",
+    "Mengabaikan metode standar"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Validasi metode wajib dilakukan untuk...."
+    }
+   ],
+   "options": [
+    "Metode standar ISO",
+    "Metode standar ASTM",
+    "Metode non-standar atau metode yang dikembangkan sendiri",
+    "Metode SNI"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Parameter validasi metode yang digunakan untuk mengukur kedekatan hasil uji dengan nilai sebenarnya disebut...."
+    }
+   ],
+   "options": [
+    "Presisi",
+    "Akurasi",
+    "Linearitas",
+    "Selektivitas"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Parameter validasi yang mengukur kemampuan metode membedakan analit dari komponen lain dalam matriks sampel adalah...."
+    }
+   ],
+   "options": [
+    "Akurasi",
+    "Presisi",
+    "Selektivitas/spesifisitas",
+    "Batas deteksi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Konsistensi hasil pengujian pada pengulangan yang sama (repeatability) termasuk dalam parameter...."
+    }
+   ],
+   "options": [
+    "Akurasi",
+    "Presisi",
+    "Selektivitas",
+    "Linearitas"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Bahan yang paling tepat digunakan untuk verifikasi akurasi metode adalah...."
+    }
+   ],
+   "options": [
+    "Air suling",
+    "Reagen grade teknis",
+    "Sampel pelanggan",
+    "Bahan acuan bersertifikat (CRM)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Linearitas dalam validasi metode menunjukkan...."
+    }
+   ],
+   "options": [
+    "Kemampuan metode memberikan respon proporsional terhadap konsentrasi analit",
+    "Batas terkecil analit yang dapat dideteksi",
+    "Ketahanan metode terhadap perubahan kecil",
+    "Konsistensi hasil antar analis"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Batas deteksi (LOD) adalah...."
+    }
+   ],
+   "options": [
+    "Konsentrasi terendah analit yang dapat diukur secara kuantitatif",
+    "Konsentrasi terendah analit yang dapat dideteksi tetapi tidak perlu diukur secara kuantitatif",
+    "Konsentrasi tertinggi analit yang dapat diukur",
+    "Rentang konsentrasi yang dapat diukur"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Batas kuantifikasi (LOQ) adalah...."
+    }
+   ],
+   "options": [
+    "Konsentrasi terendah analit yang dapat dideteksi",
+    "Konsentrasi tertinggi analit yang dapat diukur",
+    "Konsentrasi terendah analit yang dapat diukur secara kuantitatif dengan presisi dan akurasi yang dapat diterima",
+    "Konsentrasi analit dalam sampel"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "Apabila hasil verifikasi metode tidak memenuhi kriteria penerimaan, analis harus...."
+    }
+   ],
+   "options": [
+    "Tetap menggunakan metode tersebut",
+    "Memalsukan data verifikasi",
+    "Mengabaikan hasil verifikasi",
+    "Melakukan investigasi dan tindakan perbaikan, kemudian verifikasi ulang"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Metode standar yang telah diverifikasi, kinerjanya perlu dipantau secara berkala melalui...."
+    }
+   ],
+   "options": [
+    "Pengujian sampel acak",
+    "Laporan pelanggan",
+    "Perkiraan analis",
+    "Data kontrol mutu dan diagram kendali"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Dokumentasi hasil validasi metode harus mencakup hal-hal berikut, KECUALI...."
+    }
+   ],
+   "options": [
+    "Data mentah pengujian",
+    "Perhitungan statistik",
+    "Kesimpulan validasi",
+    "Opini pribadi analis"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Ruggedness/ketangguhan metode mengukur...."
+    }
+   ],
+   "options": [
+    "Ketahanan metode terhadap variasi kecil yang sengaja diperkenalkan",
+    "Akurasi metode",
+    "Linearitas metode",
+    "Selektivitas metode"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Recovery (% perolehan kembali) digunakan untuk mengevaluasi...."
+    }
+   ],
+   "options": [
+    "Presisi",
+    "Akurasi",
+    "Linearitas",
+    "Batas deteksi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "Apabila metode standar akan digunakan untuk matriks sampel yang berbeda dari ruang lingkup aslinya, maka yang harus dilakukan adalah...."
+    }
+   ],
+   "options": [
+    "Verifikasi parsial atau validasi ulang untuk matriks baru",
+    "Tetap menggunakan metode tanpa verifikasi",
+    "Menolak pengujian",
+    "Menggunakan metode lain tanpa prosedur"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "Tujuan utama pengambilan sampel yang representatif adalah...."
+    }
+   ],
+   "options": [
+    "Mengambil sampel sebanyak-banyaknya",
+    "Mengambil sampel termurah",
+    "Mengambil sampel yang mencerminkan karakteristik populasi secara keseluruhan",
+    "Mengambil sampel tercepat"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Alat pelindung diri yang WAJIB digunakan saat pengambilan sampel bahan kimia berbahaya adalah...."
+    }
+   ],
+   "options": [
+    "Jas laboratorium, sarung tangan, masker",
+    "Topi",
+    "Kacamata hitam",
+    "Sandal"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Informasi minimal yang harus tercantum pada label sampel adalah...."
+    }
+   ],
+   "options": [
+    "Harga sampel",
+    "Nama laboratorium pesaing",
+    "Kode sampel, tanggal pengambilan, dan inisial pengambil",
+    "Warna favorit pengambil"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Sampel yang memerlukan kondisi dingin selama transportasi harus disimpan dalam...."
+    }
+   ],
+   "options": [
+    "Oven",
+    "Lemari asam",
+    "Cool box dengan ice pack",
+    "Tempat terbuka"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Teknik pengambilan sampel di mana setiap anggota populasi memiliki peluang yang sama untuk terpilih disebut...."
+    }
+   ],
+   "options": [
+    "Sampling purposif",
+    "Sampling acak (random sampling)",
+    "Sampling sistematis",
+    "Sampling kuota"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "Apabila sampel yang diambil ternyata tidak mencukupi untuk kebutuhan analisis, analis harus...."
+    }
+   ],
+   "options": [
+    "Melakukan analisis dengan jumlah seadanya",
+    "Memalsukan data",
+    "Membatalkan pengujian",
+    "Mengambil sampel tambahan sesuai prosedur"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Formulir pencatatan sampling (log sheet) harus diisi...."
+    }
+   ],
+   "options": [
+    "Setelah sampai di rumah",
+    "Saat pelaksanaan pengambilan sampel",
+    "Seminggu kemudian",
+    "Hanya jika diminta atasan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Peralatan sampling yang telah digunakan harus...."
+    }
+   ],
+   "options": [
+    "Dibuang",
+    "Dipinjamkan ke laboratorium lain",
+    "Disimpan tanpa dibersihkan",
+    "Dibersihkan sesuai prosedur untuk mencegah kontaminasi silang"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Sampel komposit adalah...."
+    }
+   ],
+   "options": [
+    "Sampel yang diambil dari satu titik",
+    "Campuran beberapa sampel individual yang diambil dari waktu atau lokasi berbeda",
+    "Sampel yang paling mahal",
+    "Sampel yang tidak perlu dianalisis"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Serah terima sampel di laboratorium harus didokumentasikan dengan...."
+    }
+   ],
+   "options": [
+    "Formulir penerimaan sampel",
+    "Catatan di buku pribadi",
+    "Ingatan analis",
+    "Pesan singkat"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Langkah pertama yang dilakukan setelah mengambil sampel dari area penyimpanan adalah...."
+    }
+   ],
+   "options": [
+    "Langsung dianalisis",
+    "Membuang sampe",
+    "Memverifikasi identitas sampel dengan instruksi analisis l",
+    "Mencampur semua sampel"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Apabila ditemukan sampel bocor saat akan dipreparasi, analis harus...."
+    }
+   ],
+   "options": [
+    "Tetap memproses sampel",
+    "Mengganti dengan sampel lain",
+    "Membuang sampel diam-diam",
+    "Melaporkan kepada atasan dan mencatat ketidaksesuaian"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Tujuan pemberian label pada wadah sampel hasil preparasi adalah...."
+    }
+   ],
+   "options": [
+    "Agar terlihat banyak",
+    "Untuk hiasan",
+    "Menjaga ketertelusuran sampel",
+    "Agar tidak hilang"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Peralatan preparasi harus dalam kondisi...."
+    }
+   ],
+   "options": [
+    "Kotor",
+    "Tidak terkalibrasi",
+    "Rusak",
+    "Bersih dan siap pakai"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Sisa sampel dan limbah preparasi harus dibuang sesuai...."
+    }
+   ],
+   "options": [
+    "Prosedur pengelolaan limbah laboratorium",
+    "Keinginan analis",
+    "Tempat sampah umum",
+    "Saluran air"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "Preparasi sampel untuk analisis logam berat biasanya memerlukan proses...."
+    }
+   ],
+   "options": [
+    "Pengenceran dengan air biasa",
+    "Destruksi dengan asam",
+    "Pemanasan di atas 500°C",
+    "Pendinginan -80°C"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Sampel cadangan (retained sample) disimpan untuk tujuan...."
+    }
+   ],
+   "options": [
+    "Dijual",
+    "Pengujian ulang jika diperlukan atau verifikasi",
+    "Diberikan ke pelanggan",
+    "Dibuang segera"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Area kerja preparasi harus dijaga kebersihannya untuk...."
+    }
+   ],
+   "options": [
+    "Mencegah kontaminasi silang",
+    "Memperindah ruangan",
+    "Menghabiskan waktu",
+    "Menyulitkan analis"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "Apabila sampel memerlukan perlakuan khusus seperti perlindungan dari cahaya, maka sampel harus...."
+    }
+   ],
+   "options": [
+    "Diletakkan di tempat terang",
+    "Dipanaskan",
+    "Disimpan dalam wadah gelap atau dilindungi dari cahaya",
+    "Didinginkan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Setelah preparasi selesai, sampel siap uji harus...."
+    }
+   ],
+   "options": [
+    "Dibuang",
+    "Dibiarkan di meja tanpa label",
+    "Dicampur dengan sampel lain",
+    "Segera dianalisis atau disimpan sesuai kondisi yang ditentukan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Rekaman teknis pengujian harus dicatat...."
+    }
+   ],
+   "options": [
+    "Seminggu setelah analisis",
+    "Saat pelaksanaan analisis (real-time)",
+    "Hanya jika diminta atasan",
+    "Pada akhir bulan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "Apabila terjadi kesalahan penulisan pada rekaman teknis, koreksi dilakukan dengan cara...."
+    }
+   ],
+   "options": [
+    "Menghapus tulisan yang salah",
+    "Menutup dengan tip-ex",
+    "Mencoret satu garis, menulis data benar, dan memaraf",
+    "Merobek halaman tersebut"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Tujuan utama pengelolaan rekaman teknis adalah...."
+    }
+   ],
+   "options": [
+    "Menjamin ketertelusuran data pengujian",
+    "Menyulitkan auditor",
+    "Menambah beban kerja",
+    "Membuang waktu"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Rekaman teknis harus disimpan di tempat yang...."
+    }
+   ],
+   "options": [
+    "Terbuka untuk umum",
+    "Lembab",
+    "Mudah dijangkau semua orang",
+    "Aman dan terlindung dari kerusakan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Masa simpan rekaman teknis ditentukan berdasarkan...."
+    }
+   ],
+   "options": [
+    "Keinginan analis",
+    "Harga kertas",
+    "Ketentuan laboratorium atau persyaratan regulasi",
+    "Ketersediaan tempat"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Data mentah hasil pengujian yang dicatat meliputi...."
+    }
+   ],
+   "options": [
+    "Hanya hasil akhir",
+    "Opini analis",
+    "Kesimpulan saja",
+    "Seluruh pembacaan alat, berat sampel, dan perhitungan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Verifikasi kelengkapan rekaman teknis dilakukan oleh...."
+    }
+   ],
+   "options": [
+    "Analis sendiri tanpa verifikasi",
+    "Petugas yang berwenang (misal supervisor)",
+    "Petugas kebersihan",
+    "Pelanggan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Akses terhadap rekaman teknis sebaiknya...."
+    }
+   ],
+   "options": [
+    "Terbuka untuk semua orang",
+    "Dibatasi hanya untuk personel berwenang",
+    "Dipublikasikan di internet",
+    "Dijual ke umum"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Pemusnahan rekaman teknis yang telah melewati masa simpan harus...."
+    }
+   ],
+   "options": [
+    "Dilakukan dengan cara aman dan didokumentasikan",
+    "Dibuang sembarangan",
+    "Dibiarkan saja",
+    "Dijual ke pengepul"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Penyimpanan rekaman teknis elektronik memerlukan...."
+    }
+   ],
+   "options": [
+    "Tidak perlu backup",
+    "Sistem keamanan seperti password dan backup data berkala",
+    "Dibagikan ke semua orang",
+    "Disimpan di komputer pribadi tanpa backup"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Tujuan utama penjaminan mutu hasil pengujian adalah...."
+    }
+   ],
+   "options": [
+    "Memperlambat analisis",
+    "Menyulitkan analis",
+    "Menambah biaya laboratorium",
+    "Memastikan keabsahan dan keandalan hasil pengujian secara konsisten"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Pengendalian mutu internal dilakukan dengan cara...."
+    }
+   ],
+   "options": [
+    "Tidak perlu dilakukan",
+    "Menganalisis bahan kontrol mutu bersamaan dengan sampel rutin",
+    "Hanya mengandalkan perkiraan",
+    "Menebak hasil"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Bahan yang tepat digunakan sebagai kontrol mutu internal adalah...."
+    }
+   ],
+   "options": [
+    "Bahan acuan bersertifikat (CRM) atau bahan kontrol mutu",
+    "Air ledeng",
+    "Sampel yang sudah kadaluarsa",
+    "Reagen bekas"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Diagram kendali (control chart) digunakan untuk...."
+    }
+   ],
+   "options": [
+    "Memantau tren kinerja metode dari waktu ke waktu",
+    "Hiasan dinding",
+    "Mengganti data asli",
+    "Menyulitkan auditor"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Apabila hasil kontrol mutu berada di luar batas kendali, tindakan yang tepat adalah...."
+    }
+   ],
+   "options": [
+    "Mengabaikan dan melanjutkan analisis",
+    "Tetap melaporkan hasil sampel",
+    "Memalsukan data kontrol",
+    "Menghentikan analisis sampel, investigasi penyebab, dan lakukan tindakan korektif"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Uji profisiensi (proficiency testing) termasuk dalam...."
+    }
+   ],
+   "options": [
+    "Pengendalian mutu internal",
+    "Pengendalian mutu eksternal",
+    "Pengujian rutin",
+    "Validasi metode"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Standar ISO yang mengatur tentang penyelenggara uji profisiensi adalah...."
+    }
+   ],
+   "options": [
+    "ISO 9001",
+    "ISO/IEC 17025",
+    "ISO/IEC 17043",
+    "ISO 14001"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Partisipasi dalam uji profisiensi bertujuan untuk...."
+    }
+   ],
+   "options": [
+    "Menghabiskan anggaran",
+    "Membandingkan kinerja laboratorium dengan laboratorium lain secara eksternal",
+    "Mencari masalah",
+    "Menambah pekerjaan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Sampel uji profisiensi harus diperlakukan...."
+    }
+   ],
+   "options": [
+    "Istimewa, berbeda dari sampel rutin",
+    "Lebih cepat dari sampel rutin",
+    "Sama seperti sampel rutin",
+    "Tidak perlu dianalisis"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Data dari kegiatan pemantauan mutu harus...."
+    }
+   ],
+   "options": [
+    "Dibiarkan saja",
+    "Dirahasiakan terus",
+    "Dianalisis untuk pengendalian dan peningkatan",
+    "Dibuang"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Metode statistik yang digunakan dalam uji profisiensi diatur dalam standar...."
+    }
+   ],
+   "options": [
+    "ISO 13528",
+    "ISO 9001",
+    "ISO 14001",
+    "ISO 45001"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Jika hasil uji profisiensi suatu laboratorium tidak memuaskan (outlier), laboratorium harus...."
+    }
+   ],
+   "options": [
+    "Mengabaikan hasil",
+    "Melakukan investigasi dan tindakan korektif",
+    "Menyalahkan penyelenggara",
+    "Berhenti berpartisipasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Presisi dalam pengendalian mutu mengukur...."
+    }
+   ],
+   "options": [
+    "Kedekatan hasil dengan nilai sebenarnya",
+    "Kedekatan antar hasil pengujian berulang",
+    "Rentang pengukuran",
+    "Selektivitas metode"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Akurasi dalam pengendalian mutu mengukur...."
+    }
+   ],
+   "options": [
+    "Kedekatan hasil dengan nilai sebenarnya",
+    "Kedekatan antar hasil pengujian berulang",
+    "Linearitas",
+    "Batas deteksi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Penggunaan sampel buta (blind sample) dalam pengendalian mutu bertujuan untuk...."
+    }
+   ],
+   "options": [
+    "Menilai kinerja analis secara objektif tanpa sepengetahuan analis",
+    "Menyulitkan analis",
+    "Membuang sampel",
+    "Memperlambat pekerjaan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Ketidakpastian pengukuran adalah...."
+    }
+   ],
+   "options": [
+    "Kesalahan yang dilakukan analis",
+    "Parameter yang terkait dengan hasil pengukuran yang menjelaskan penyebaran nilai yang dapat diperkirakan",
+    "Nilai pasti pengukuran",
+    "Hasil pengukuran tanpa kesalahan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Sumber ketidakpastian dalam pengujian laboratorium dapat berasal dari...."
+    }
+   ],
+   "options": [
+    "Harga alat",
+    "Warna laboratorium",
+    "Preparasi sampel, kalibrasi alat, personel, dan kondisi lingkungan",
+    "Merek peralatan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Diagram sebab-akibat (fishbone) digunakan untuk...."
+    }
+   ],
+   "options": [
+    "Mengidentifikasi sumber-sumber ketidakpastian secara sistematis",
+    "Memasak ikan",
+    "Menghitung hasil akhir",
+    "Membuat laporan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Ketidakpastian tipe A diperoleh dari...."
+    }
+   ],
+   "options": [
+    "Sertifikat kalibrasi",
+    "Spesifikasi pabrik",
+    "Analisis statistik serangkaian data pengukuran berulang",
+    "Literatur"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Ketidakpastian tipe B diperoleh dari...."
+    }
+   ],
+   "options": [
+    "Data statistik pengukuran berulang",
+    "Tebakan",
+    "Perkiraan analis",
+    "Sumber selain statistik seperti sertifikat kalibrasi dan spesifikasi alat"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "Ketidakpastian gabungan (combined uncertainty) dihitung dengan cara...."
+    }
+   ],
+   "options": [
+    "Menjumlahkan semua komponen",
+    "Mengalikan semua komponen",
+    "Akar kuadrat dari jumlah kuadrat komponen (root sum square)",
+    "Rata-rata semua komponen"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Faktor cakupan (coverage factor) untuk tingkat kepercayaan 95% umumnya menggunakan nilai...."
+    }
+   ],
+   "options": [
+    "1",
+    "2",
+    "3",
+    "10"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Ketidakpastian diperluas (expanded uncertainty) diperoleh dari...."
+    }
+   ],
+   "options": [
+    "Ketidakpastian gabungan dikurangi faktor cakupan",
+    "Ketidakpastian gabungan ditambah faktor cakupan",
+    "Ketidakpastian gabungan dibagi faktor cakupan",
+    "Ketidakpastian gabungan dikalikan faktor cakupan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Dalam laporan hasil uji, ketidakpastian pengukuran disajikan sebagai...."
+    }
+   ],
+   "options": [
+    "Hasil uji ± nilai ketidakpastian diperluas",
+    "Hanya hasil uji",
+    "Hanya ketidakpastian",
+    "Tidak perlu dicantumkan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Pedoman internasional untuk evaluasi ketidakpastian pengukuran dikenal dengan singkatan...."
+    }
+   ],
+   "options": [
+    "ISO 9001",
+    "GUM (Guide to the Expression of Uncertainty in Measurement)",
+    "SOP",
+    "GLP"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Informasi yang WAJIB ada dalam laporan hasil uji adalah...."
+    }
+   ],
+   "options": [
+    "Harga sampel",
+    "Alamat rumah analis",
+    "Nama lengkap analis",
+    "Identitas laboratorium, identitas pelanggan, identitas sampel, metode uji, dan hasil uji"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "Sebelum laporan hasil uji dikeluarkan, harus diverifikasi oleh...."
+    }
+   ],
+   "options": [
+    "Analis pelaksana saja",
+    "Pelanggan",
+    "Petugas yang berwenang (supervisor atau penanggung jawab teknis)",
+    "Petugas kebersihan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Apabila terdapat kesalahan pada laporan hasil uji yang sudah dikeluarkan, tindakan yang tepat adalah...."
+    }
+   ],
+   "options": [
+    "Membiarkan kesalahan",
+    "Memperbaiki dengan tulisan tangan di laporan asli",
+    "Menerbitkan laporan revisi atau laporan pengganti",
+    "Menyuruh pelanggan memperbaiki sendiri"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Hasil pengujian dalam laporan harus disajikan...."
+    }
+   ],
+   "options": [
+    "Dengan tingkat ketelitian yang sesuai dan satuan yang benar",
+    "Dengan pembulatan sembarang",
+    "Tanpa satuan",
+    "Dengan kode rahasia"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Laporan hasil uji yang telah ditandatangani oleh personel berwenang menandakan bahwa...."
+    }
+   ],
+   "options": [
+    "Laporan tersebut telah disetujui dan sah dikeluarkan",
+    "Laporan tersebut masih draft",
+    "Laporan tersebut perlu diperbaiki",
+    "Laporan tersebut tidak penting"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Arsip laporan hasil uji harus disimpan untuk...."
+    }
+   ],
+   "options": [
+    "Dijual ke pelanggan lain",
+    "Keperluan ketertelusuran dan audit",
+    "Dibuang setelah dibaca",
+    "Diberikan ke pesaing"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Apabila hasil pengujian akan digunakan untuk pernyataan kesesuaian terhadap spesifikasi, maka dalam laporan harus dicantumkan...."
+    }
+   ],
+   "options": [
+    "Opini analis",
+    "Harga sampel",
+    "Kriteria penerimaan atau spesifikasi yang dimaksud",
+    "Warna sampel"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Laporan hasil uji didistribusikan kepada pelanggan sesuai dengan...."
+    }
+   ],
+   "options": [
+    "Keinginan analis",
+    "Ketersediaan kertas",
+    "Jadwal liburan",
+    "Cara dan waktu yang disepakati dalam kontrak"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Yang dimaksud dengan pekerjaan yang tidak sesuai adalah...."
+    }
+   ],
+   "options": [
+    "Pekerjaan yang sesuai prosedur",
+    "Pekerjaan yang mudah dilakukan",
+    "Pekerjaan yang selesai tepat waktu",
+    "Pekerjaan yang tidak memenuhi persyaratan yang ditetapkan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Indikator terjadinya ketidaksesuaian dalam pengujian antara lain...."
+    }
+   ],
+   "options": [
+    "Hasil kontrol mutu masuk dalam batas kendali",
+    "Semua sampel selesai tepat waktu",
+    "Hasil kontrol mutu di luar batas kendali, keluhan pelanggan, kegagalan peralatan",
+    "Tidak ada keluhan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Langkah pertama ketika menemukan ketidaksesuaian adalah...."
+    }
+   ],
+   "options": [
+    "Mengabaikan",
+    "Melanjutkan pekerjaan",
+    "Menyembunyikan masalah",
+    "Menghentikan proses yang terkait dan mengidentifikasi ketidaksesuaian"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Tindakan segera (koreksi) untuk memperbaiki ketidaksesuaian contohnya adalah...."
+    }
+   ],
+   "options": [
+    "Pengujian ulang, kalibrasi ulang alat, atau pembuatan reagen baru",
+    "Membiarkan kesalahan",
+    "Menunggu instruksi tanpa tindakan",
+    "Menyalahkan orang lain"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Apabila hasil pengujian yang tidak valid telah dikeluarkan, laboratorium harus...."
+    }
+   ],
+   "options": [
+    "Membiarkan saja",
+    "Memberitahu pelanggan dan menarik laporan yang salah, serta menerbitkan laporan pengganti",
+    "Menyembunyikan kesalahan",
+    "Meminta maaf tanpa tindakan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Ketidaksesuaian yang signifikan harus ditindaklanjuti dengan...."
+    }
+   ],
+   "options": [
+    "Tindakan korektif untuk mencegah terulang kembali",
+    "Dibuang catatannya",
+    "Diabaikan",
+    "Dilaporkan ke polisi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Dokumentasi ketidaksesuaian harus mencakup...."
+    }
+   ],
+   "options": [
+    "Uraian ketidaksesuaian, penyebab, tindakan koreksi, dan status penyelesaian",
+    "Hanya uraian ketidaksesuaian",
+    "Hanya penyebab",
+    "Tidak perlu didokumentasikan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "Analisis data ketidaksesuaian secara periodik bertujuan untuk...."
+    }
+   ],
+   "options": [
+    "Memperbanyak pekerjaan",
+    "Menyulitkan analis",
+    "Mengidentifikasi tren dan peluang perbaikan",
+    "Membuang waktu"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Sikap yang tepat ketika menemukan ketidaksesuaian adalah...."
+    }
+   ],
+   "options": [
+    "Menyembunyikan",
+    "Melaporkan dan mengambil tindakan sesuai prosedur",
+    "Menyalahkan rekan kerja",
+    "Pura-pura tidak tahu"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Tujuan akhir dari pengendalian pekerjaan yang tidak sesuai adalah...."
+    }
+   ],
+   "options": [
+    "Menghukum analis",
+    "Memperlambat pekerjaan",
+    "Menambah prosedur",
+    "Mencegah penggunaan hasil yang tidak valid dan melindungi kepentingan pelanggan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Dalam pencatatan rekaman teknis hasil pengujian, apabila terjadi kesalahan penulisan pada data mentah maka tindakan yang benar adalah:"
+    }
+   ],
+   "options": [
+    "Menghapus data dengan penghapus",
+    "Mengganti lembar rekaman baru",
+    "Mencoret satu garis pada data salah lalu menulis data benar serta paraf dan tanggal",
+    "Menghapus menggunakan cairan penghapus"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "Jika ditemukan ketidaksesuaian dalam proses pengujian (misalnya hasil kontrol mutu di luar batas), maka tindakan pertama yang harus dilakukan adalah:"
+    }
+   ],
+   "options": [
+    "Menghentikan sementara proses pengujian terkait",
+    "Melanjutkan pengujian sampel rutin",
+    "Mengabaikan hasil tersebut",
+    "Menghapus data pengujian"
+   ],
+   "answer": 1
+  }
+ ],
+ "esai": [
+  {
+   "no": 1,
+   "question": "<p>Dalam pekerjaan sehari-hari sebagai Analis QC, Anda menerima permintaan pengujian dari pelanggan untuk parameter logam berat dalam air limbah menggunakan metode AAS. Setelah memeriksa kesiapan laboratorium, ternyata lampu katoda (Hollow Cathode Lamp) untuk logam tersebut sedang rusak dan reagen standar yang dibutuhkan telah habis. Jelaskan langkah-langkah yang harus Anda lakukan sesuai dengan prinsip Kaji Ulang Permintaan, Tender, dan Kontrak Pengujian sebelum memutuskan untuk menerima atau menolak permintaan tersebut!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Tidak boleh langsung menerima permintaan tanpa verifikasi kesiapan.</li><li>Lakukan kaji ulang dengan memeriksa ketersediaan sumber daya (alat berfungsi, reagen tersedia, personel kompeten).</li><li>Dokumentasikan ketidaktersediaan sumber daya.</li><li>Komunikasikan kepada pelanggan mengenai ketidakmampuan memenuhi permintaan saat ini dan tawarkan solusi (misal: perbaikan alat terlebih dahulu, pemesanan reagen, atau perpanjangan waktu).</li><li>Jika pelanggan menyetujui penundaan, buat kesepakatan tertulis mengenai jadwal baru.</li><li>Jika tidak ada kesepakatan, tolak permintaan secara profesional dan dokumentasikan penolakan tersebut.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan tahapan secara sistematis: verifikasi kesiapan sumber daya, larangan menerima langsung, komunikasi ke pelanggan terkait penundaan/solusi, dan pembuatan kesepakatan baru atau penolakan tertulis."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Memahami bahwa permintaan tidak boleh diterima dan pelanggan harus dihubungi, namun tidak menjabarkan keharusan mendokumentasikan ketidakmampuan atau solusi kesepakatan jadwal."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"menolak permintaan\" tanpa memberikan penjelasan prosedur kaji ulang atau upaya komunikasi solusi ke pelanggan."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menerima permintaan dan berjanji akan menguji seadanya atau memanipulasi metode dengan alat lain yang tidak standar."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan administrasi penerimaan sampel."
+    }
+   ]
+  },
+  {
+   "no": 2,
+   "question": "<p>Laboratorium Anda akan mengadopsi metode standar internasional untuk pertama kalinya. Di sisi lain, bagian R&amp;D sedang mengembangkan metode baru untuk parameter yang belum ada metode standarnya. Jelaskan secara rinci perbedaan pendekatan yang harus Anda lakukan antara memverifikasi metode standar dan memvalidasi metode baru! Sertakan parameter uji apa saja yang umumnya dievaluasi untuk masing-masing pendekatan!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Verifikasi Metode (untuk metode standar): Membuktikan laboratorium mampu melaksanakan metode standar sesuai spesifikasinya. Parameter yang diuji: Presisi (repeatability), akurasi (menggunakan CRM/recovery), linearitas (jika diperlukan), dan batas deteksi/kuantifikasi. Data dibandingkan dengan nilai acuan atau kriteria yang tercantum dalam standar.</li><li>Validasi Metode (untuk metode baru/non-standar): Membuktikan metode cocok untuk tujuan penggunaan tertentu melalui studi komprehensif. Parameter yang diuji: Selektivitas/spesifisitas, linearitas, batas deteksi (LOD), batas kuantifikasi (LOQ), presisi (repeatability &amp; reproducibility), akurasi (% recovery), ketangguhan (ruggedness), dan ketidakpastian. Hasil validasi dibandingkan dengan kriteria penerimaan yang ditetapkan sendiri berdasarkan tujuan penggunaan.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Membedakan prinsip dengan tajam: Verifikasi untuk metode standar (membuktikan lab mampu) vs Validasi untuk metode baru/modifikasi (membuktikan metode cocok untuk tujuan). Mampu menyebutkan parameter uji untuk masing-masing metode dengan tepat."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Definisi benar secara teori, tetapi penyebutan parameter ujinya tertukar, kurang lengkap, atau tidak membedakan ruang lingkupnya dengan jelas."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Mengartikan keduanya sebagai \"pengecekan metode sebelum dipakai\" tanpa membedakan status metode standar dan metode non-standar."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Terbalik secara total dalam mendefinisikan verifikasi dan validasi."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas pengujian kinerja metode analitik."
+    }
+   ]
+  },
+  {
+   "no": 3,
+   "question": "<p>Sebagai Analis QC, Anda ditugaskan mengambil sampel air sungai untuk uji kualitas rutin. Lokasi pengambilan sampel berada di hilir pabrik, dan Anda membawa cool box serta peralatan sampling. Jelaskan prosedur lengkap pengambilan sampel yang harus Anda lakukan mulai dari persiapan hingga sampel siap diserahkan ke laboratorium, termasuk bagaimana menjaga representativitas dan integritas sampel!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Persiapan: Siapkan wadah bersih dan sesuai (misal: botol kaca/plastik), cool box dengan ice pack, label, APD, dan formulir sampling.</li><li>Di Lokasi: Ambil sampel di titik yang ditentukan (hilir), hindari pengambilan di area yang tergenang. Bilas wadah dengan air sungai (kecuali untuk analisis mikrobiologi). Isi wadah penuh, hindari gelembung udara.</li><li>Penanganan: Simpan sampel dalam cool box dengan suhu dingin (4°C) untuk menjaga integritas.</li><li>Pelabelan: Beri label jelas (kode sampel, lokasi, tanggal, waktu, inisial).</li><li>Dokumentasi: Isi formulir sampling (kondisi lingkungan, lokasi GPS, dll.).</li><li>Transportasi: Segera bawa ke laboratorium dalam cool box.</li><li>Serah Terima: Serahkan sampel beserta formulir ke petugas penerima sampel di laboratorium.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Merinci seluruh tahapan mulai dari persiapan (wadah/APD), eksekusi lokasi (bilas wadah, isi penuh tanpa gelembung), penanganan (4°C di cool box), pelabelan, dokumentasi kondisi GPS/lingkungan, hingga serah terima ke lab."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan cara pengambilan sampel dan penyimpanannya di cool box, tetapi melewatkan 2-3 langkah administratif (seperti pembilasan, pelabelan detail, atau dokumentasi kondisi lapangan)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menjawab secara awam \"mengambil air sungai dengan botol dan dibawa ke lab\" tanpa menyinggung usaha menjaga integritas sampel (suhu dingin)."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyertakan instruksi yang berpotensi merusak sampel (misal: menambahkan bahan kimia sembarangan atau menjemur sampel)."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan teknik sampling lingkungan."
+    }
+   ]
+  },
+  {
+   "no": 4,
+   "question": "<p>Di ruang preparasi, Anda menerima sampel makanan untuk analisis pengawet. Sampel datang dalam kemasan plastik tanpa label yang jelas, hanya ada tulisan pensil yang sudah hampir terhapus. Jelaskan tindakan yang harus Anda ambil sesuai prosedur penanganan sampel dan mengapa identitas sampel sangat krusial dalam sistem manajemen mutu laboratorium!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Tidak boleh memproses sampel yang identitasnya tidak jelas.</li><li>Segera laporkan kepada atasan atau penanggung jawab teknis.</li><li>Catat kondisi sampel (label rusak/tidak terbaca) sebagai ketidaksesuaian.</li><li>Hubungi petugas pengambil sampel atau pelanggan untuk verifikasi ulang identitas.</li><li>Minta informasi ulang (kode, nama sampel, parameter) dan minta sampel diberi label baru yang benar.</li><li>Jika tidak bisa diverifikasi, sampel tidak dapat dianalisis dan harus dikembalikan/dimusnahkan sesuai prosedur.</li><li>Mengapa krusial: Identitas sampel adalah dasar ketertelusuran. Tanpa identitas yang jelas, hasil uji tidak dapat dikaitkan dengan sampel asal, sehingga data menjadi tidak valid dan berisiko menyebabkan kesalahan pengambilan keputusan oleh pelanggan.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Tegas menyatakan sampel tidak boleh diproses. Merinci langkah isolasi, pencatatan ketidaksesuaian, verifikasi ulang ke pelanggan, dan menjelaskan signifikansi identitas sebagai dasar ketertelusuran dan pencegahan kesalahan keputusan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjawab bahwa sampel harus ditahan dan pelanggan dihubungi ulang untuk pelabelan, namun tidak menggunakan argumen \"ketertelusuran\" (traceability) secara eksplisit."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"kembalikan sampel ke pengirim\" tanpa menjelaskan prosedur verifikasi internal atau alasan sistem manajemen mutunya."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan untuk menebak identitas sampel dan tetap memprosesnya agar tidak membuang waktu."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban melenceng dari konteks penerimaan bahan uji."
+    }
+   ]
+  },
+  {
+   "no": 5,
+   "question": "<p>Anda sedang mencatat data hasil titrasi di lembar kerja. Tiba-tiba Anda salah menulis angka volume titrasi. Jelaskan cara yang benar untuk melakukan koreksi pada rekaman teknis sesuai dengan prinsip Good Documentation Practice! Apa yang akan terjadi jika Anda menggunakan tip-ex atau menghapus tulisan tersebut?</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Cara benar: Coret angka salah dengan satu garis lurus (sehingga masih terbaca), tulis angka yang benar di dekatnya, lalu paraf dan tulis tanggal koreksi.</li><li>Koreksi dilakukan segera saat kesalahan diketahui (real-time).</li><li>Jika menggunakan tip-ex atau menghapus: Tindakan tersebut dianggap pemalsuan data karena menghilangkan jejak kesalahan asli. Hal ini akan merusak kredibilitas data, menyebabkan temuan besar saat audit, dan laboratorium bisa kehilangan akreditasi karena dianggap tidak jujur dalam pengelolaan rekaman.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan aturan absolut: coret satu garis (masih terbaca), tulis angka benar, paraf, dan tanggal. Menjelaskan secara fatal bahwa tip-ex merupakan pemalsuan data/fraud yang dapat menghilangkan akreditasi lab."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan aturan coret satu garis dan larangan tip-ex, namun melupakan syarat tanggal/paraf, atau kurang tegas dalam menyebutkan konsekuensi audit akreditasinya."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menyatakan tip-ex dilarang hanya karena alasan agar kertas tidak kotor, tanpa menyinggung integritas data mentah."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Membenarkan penggunaan tip-ex, penghapus, atau menulis ulang di kertas baru agar rapi."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas dokumentasi teknis laboratorium."
+    }
+   ]
+  },
+  {
+   "no": 6,
+   "question": "<p>Dalam Klausul 7.7 ISO/IEC 17025 (Penjaminan Mutu Hasil Pengujian) yang telah kita pelajari, laboratorium harus melakukan pengendalian mutu internal dan eksternal. Anda mendapatkan hasil kontrol mutu internal (QC sample) selama 3 hari berturut-turut menunjukkan tren menurun mendekati batas peringatan bawah (lower warning limit), meskipun masih dalam batas kendali. Sebagai analis yang kritis, jelaskan tindakan apa yang harus Anda lakukan sebelum tren tersebut mencapai batas tindakan (action limit) dan bagaimana hal ini berkaitan dengan prinsip perbaikan berkelanjutan!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Jangan menunggu sampai gagal. Tren menurun adalah sinyal awal adanya potensi masalah (misal: degradasi reagen, lampu instrument mulai melemah).</li><li>Lakukan investigasi proaktif: Periksa kondisi reagen (tanggal kadaluarsa), lakukan pengecekan fungsi alat (intermediate check), atau ganti dengan lot reagen baru.</li><li>Lakukan tindakan pencegahan sebelum terjadi penyimpangan (misal: kalibrasi ulang, servis preventif).</li><li>Catat tren dan tindakan yang diambil dalam logbook.</li><li>Hubungan dengan perbaikan berkelanjutan: Dengan mendeteksi dan mengoreksi potensi masalah sebelum menyebabkan hasil tidak valid, laboratorium menerapkan prinsip pencegahan (preventive action) yang merupakan inti dari peningkatan mutu berkelanjutan.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyatakan tidak boleh menunggu gagal. Mengusulkan investigasi proaktif (intermediate check, cek usia reagen) dan tindakan pencegahan. Mengaitkannya dengan konsep preventive action sebagai inti perbaikan berkelanjutan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Mengerti bahwa alat/reagen harus segera dicek sebelum rusak, namun tidak menggunakan terminologi preventive action atau perbaikan berkelanjutan secara eksplisit."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"laporkan ke atasan agar alat diservis\", kurang menunjukkan inisiatif analitis sebagai QC analis."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Mengabaikan tren tersebut dan berargumen bahwa selama hasil belum keluar batas (action limit), tidak perlu dilakukan tindakan apapun."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan pengendalian mutu (quality control)."
+    }
+   ]
+  },
+  {
+   "no": 7,
+   "question": "<p>Sebagai Analis QC, Anda harus melaporkan hasil uji kadar protein dalam sampel susu bubuk. Hasil analisis Anda adalah 12,5% dengan ketidakpastian diperluas ± 0,3% (pada tingkat kepercayaan 95%). Spesifikasi dari pelanggan mensyaratkan kadar protein minimal 12,0%. Dengan menerapkan aturan keputusan (decision rule), apakah sampel tersebut dinyatakan \"Memenuhi Syarat\"? Jelaskan pertimbangan Anda terkait ketidakpastian pengukuran</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Hasil uji = 12,5% ± 0,3%, sehingga rentang nilai sesungguhnya adalah antara 12,2% - 12,8%.</li><li>Batas spesifikasi = ≥ 12,0%.</li><li>Dengan mempertimbangkan batas bawah rentang ketidakpastian (12,2%):</li><li>12,2% &gt; 12,0% (masih di atas batas spesifikasi).</li><li>Karena seluruh rentang ketidakpastian berada di atas batas spesifikasi, maka risiko \"salah vonis\" (false reject/false accept) sangat kecil. Dengan aturan keputusan yang sederhana (berdasarkan batas bawah ketidakpastian), sampel dapat dinyatakan Memenuhi Syarat.</li><li>Penting untuk mencantumkan dalam laporan bahwa pernyataan kesesuaian telah mempertimbangkan ketidakpastian pengukuran.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menghitung rentang dengan tepat (12,2% - 12,8%). Membandingkan batas bawah (12,2%) dengan syarat minimal (12,0%). Menyimpulkan bahwa risiko false reject amat kecil dan sampel sah dinyatakan \"Memenuhi Syarat\"."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjawab \"Memenuhi Syarat\" dengan perhitungan rentang 12,2 - 12,8 yang benar, tetapi kurang analitis dalam menjabarkan risiko false reject/accept."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menjawab \"Memenuhi Syarat\" hanya dengan melihat angka 12,5% > 12,0% tanpa memasukkan perhitungan ketidakpastian (0,3%) dalam alasannya."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menghitung rentang dengan salah (misal menjadi kurang dari 12,0%) dan menyimpulkan tidak memenuhi syarat."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan perhitungan spesifikasi produk."
+    }
+   ]
+  },
+  {
+   "no": 8,
+   "question": "<p>Seorang pelanggan menelepon dan mengeluh bahwa hasil uji yang Anda laporkan minggu lalu (parameter logam) jauh berbeda dari hasil uji laboratorium lain untuk sampel yang sama (sampel duplikat). Keluhan ini adalah indikasi adanya potensi pekerjaan yang tidak sesuai . Jelaskan langkah-langkah investigasi yang akan Anda lakukan untuk menangani keluhan ini, termasuk bagaimana Anda akan mengidentifikasi akar penyebab dan menentukan apakah laporan perlu ditarik!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Terima dan Catat Keluhan: Dokumentasikan keluhan pelanggan secara resmi.</li><li>Hentikan Sementara: Jika proses untuk sampel serupa masih berjalan, hentikan sementara untuk investigasi.</li><li>Tinjau Rekaman: Periksa rekaman teknis pengujian sampel tersebut (data mentah, perhitungan, kalibrasi, kontrol mutu saat itu).</li><li>Investigasi Akar Penyebab: Cari kemungkinan penyebab:</li><li>Apakah ada kesalahan preparasi?</li><li>Apakah alat sedang tidak stabil (cek data kontrol mutu saat itu)?</li><li>Apakah ada kontaminasi?</li><li>Apakah sampel teridentifikasi dengan benar?</li><li>Evaluasi Dampak: Jika terbukti ada kesalahan sistematis yang mempengaruhi hasil, putuskan untuk menarik laporan dan melakukan pengujian ulang dari sampel cadangan (retained sample).</li><li>Komunikasi: Beritahu pelanggan hasil investigasi dan tindakan koreksi yang diambil.</li><li>Tindakan Korektif: Jika penyebabnya adalah masalah berulang (misal: metode tidak robust), lakukan tindakan korektif jangka panjang.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menguraikan langkah komprehensif: Terima keluhan -> Hentikan sementara pengujian serupa -> Tinjau rekaman kalibrasi/prep -> Lakukan root cause analysis -> Evaluasi uji ulang (retained sample) -> Komunikasikan tindakan korektif ke pelanggan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan proses pengecekan ulang sampel dan rekaman data, tetapi melupakan langkah preventif penghentian sementara sampel lain atau komunikasi akhir ke pelanggan."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"lakukan pengujian ulang dari sisa sampel\", tanpa menginvestigasi akar masalah pada data rekaman sebelumnya."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Membela diri secara membabi buta tanpa investigasi dan menyalahkan laboratorium lain sebagai pihak yang pasti salah."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas prosedur komplain."
+    }
+   ]
+  },
+  {
+   "no": 9,
+   "question": "<p>ISO 17025:2017 mewajibkan laboratorium untuk selalu menjaga ketidakberpihakan (impartiality). Sebutkan dan jelaskan dua contoh situasi nyata di laboratorium yang berpotensi menimbulkan konflik kepentingan bagi seorang Analis QC. Bagaimana seharusnya sikap Anda jika menghadapi situasi tersebut, dan mekanisme apa yang harus disediakan manajemen untuk mengatasinya?</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Contoh 1: Tekanan dari Manajemen/Produksi. Atasan atau bagian produksi meminta analis untuk \"mengatur\" hasil uji agar sesuai spesifikasi karena batch produk akan dikirim ke pelanggan besar.</li><li>Contoh 2: Hubungan Pribadi dengan Pelanggan. Analis menguji sampel dari perusahaan milik saudara atau teman dekat, sehingga secara tidak sadar bisa bias.</li><li>Sikap Analis: Menolak tekanan dengan tegas dan profesional. Melaporkan potensi konflik kepentingan kepada atasan sebelum analisis dimulai. Mengembalikan tugas jika dimungkinkan ada konflik.</li><li>Mekanisme Manajemen:</li><li>Adanya kode etik dan pakta integritas yang ditandatangani personel.</li><li>Sistem rotasi tugas atau penugasan buta (blind sample assignment).</li><li>Kebijakan gratifikasi dan pelaporan gratifikasi.</li><li>Mekanisme pelaporan pelanggaran (whistleblowing) yang aman.</li><li>Review hasil oleh supervisor (second layer review).</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Memberikan 2 contoh konkret (tekanan atasan untuk meloloskan batch, atau menguji sampel teman/keluarga). Menguraikan sikap tegas (menolak/melapor) dan mekanisme manajemen (Pakta Integritas, blind sample, whistleblowing)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Contoh yang diberikan valid, namun mekanisme manajemen yang disebutkan terlalu normatif/umum (hanya \"memberi sanksi\")."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya mampu memberikan 1 contoh dan tidak menjelaskan mekanisme antisipasi yang harus dibuat oleh pimpinan lab."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Kesalahan memahami impartiality (misal menganggapnya sebagai keharusan memihak pada kepentingan keuntungan lab semata)."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan etika profesionalisme laboratorium."
+    }
+   ]
+  },
+  {
+   "no": 10,
+   "question": "<p>Sebagai lulusan baru yang akan bekerja sebagai Analis QC, ijazah Anda membuktikan kompetensi akademik. Namun, menurut ISO 17025, Anda belum bisa langsung diberi wewenang menandatangani laporan hasil uji. Jelaskan proses otorisasi personel yang harus Anda lalui di laboratorium hingga Anda dinyatakan kompeten dan diberi wewenang untuk melakukan pengujian secara mandiri serta menandatangani laporan hasil uji!</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Ijazah hanya membuktikan pengetahuan dasar (knowledge), bukan keterampilan spesifik (skill) menggunakan metode dan peralatan di laboratorium tertentu.</li><li>Proses otorisasi (berdasarkan Klausul 6.2) umumnya meliputi:</li><li>Seleksi: Rekrutmen berdasarkan kualifikasi.</li><li>Pelatihan (Training): Mengikuti pelatihan teknis metode dan SOP yang berlaku.</li><li>Supervisi/Magang: Bekerja di bawah pengawasan analis senior untuk jangka waktu tertentu.</li><li>Uji Kompetensi Internal: Demonstrasi kemampuan melakukan pengujian dengan benar dan mandiri, termasuk penanganan sampel, pengoperasian alat, dan perhitungan.</li><li>Evaluasi: Penilaian oleh supervisor atau penanggung jawab teknis terhadap kinerja selama masa supervisi dan hasil uji kompetensi.</li><li>Otorisasi: Penerbitan surat keputusan atau penetapan tertulis oleh manajemen laboratorium yang menyatakan personel tersebut kompeten dan berwenang melakukan tugas spesifik (misal: menguji parameter tertentu dengan alat tertentu).</li><li>Pemantauan Berkala: Kinerja yang telah diotorisasi tetap dipantau secara berkala.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan bahwa ijazah adalah sekadar knowledge. Merunut tahapan utuh: Pelatihan teknis -> Supervisi/Magang -> Uji Kompetensi (demonstrasi) -> Evaluasi oleh penanggung jawab -> Otorisasi resmi (SK)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan pentingnya training dan tes sebelum berwenang, namun tahapannya melompat-lompat atau kurang terstruktur secara ISO 17025."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"harus ikut masa probation dan ditraining ulang oleh HRD\", tanpa menyinggung penerbitan wewenang/otorisasi teknis secara spesifik."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Berargumen bahwa fresh graduate langsung boleh menandatangani sertifikat asal didampingi secara verbal, yang merupakan miskonsepsi otorisasi."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas pengembangan atau legalitas SDM."
+    }
+   ]
+  }
+ ],
+ "esai_panduan": "<p><strong>Panduan Penilaian Umum (Rentang Skor 10–100)</strong></p>\n<p><strong>Skor 90 – 100: Sangat Baik (Komprehensif &amp; Presisi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan seluruh elemen kunci jawaban secara akurat, terstruktur, dan tuntas.</li>\n<li><strong>Pemahaman Konsep (ISO/IEC 17025):</strong> Menunjukkan pemahaman prinsip pengujian dan manajemen mutu laboratorium yang sangat tajam dan aplikatif.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Menggunakan istilah teknis laboratorium dengan sangat tepat (misal: ketertelusuran, preventive action, false reject, decision rule, impartiality).</li>\n</ul>\n<p><strong>Skor 70 – 89: Baik (Memadai &amp; Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan sebagian besar poin kunci dengan benar. Terdapat toleransi jika ada penjabaran detail atau satu langkah operasional yang terlewat.</li>\n<li><strong>Pemahaman Konsep (ISO/IEC 17025):</strong> Penjelasan logis dan sesuai dengan standar laboratorium, namun argumentasinya kurang spesifik.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Pemahaman konsep terlihat, meskipun istilah teknis kadang diganti dengan padanan bahasa operasional yang lebih umum.</li>\n</ul>\n<p><strong>Skor 50 – 69: Cukup (Parsial &amp; Terlalu Umum)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Hanya mampu menjawab secara parsial (setengah dari kriteria yang diminta).</li>\n<li><strong>Pemahaman Konsep (ISO/IEC 17025):</strong> Penjelasan terlalu awam, mengambang, dan berfokus pada logika keseharian tanpa merujuk pada pemenuhan persyaratan standar analisis QC.</li>\n</ul>\n<p><strong>Skor 30 – 49: Kurang (Dangkal &amp; Miskonsepsi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Gagal menangkap substansi instruksi atau skenario pada soal.</li>\n<li><strong>Pemahaman Konsep (ISO/IEC 17025):</strong> Terdapat miskonsepsi fatal mengenai prinsip dasar laboratorium (misal: membenarkan manipulasi data atau mengabaikan kontaminasi).</li>\n</ul>\n<p><strong>Skor 10 – 29: Sangat Kurang (Tidak Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Jawaban sama sekali tidak berkaitan dengan pertanyaan atau prinsip analis laboratorium. Skor 10 diberikan sebagai nilai dasar karena peserta telah berupaya merespons.</li>\n</ul>",
+ "praktik": {
+  "template": "qc.docx",
+  "template_name": "Ujian Praktik V2 - QC Laboratory Analyst.docx",
+  "duration": 120,
+  "panduan": "Informasi umum\nUjian ini dapat diikuti analis dari bidang mana pun: kimia, mikrobiologi, fisik, maupun pangan. Semua tugas memakai alat yang ada di hampir setiap laboratorium (neraca, pipet mikro, pH meter, termometer) dan sampel produk sehari-hari. Yang diuji adalah cara kerja seorang QC analis: menerima sampel, mengambil sampel yang mewakili, memastikan alat layak pakai, mengukur dengan kendali mutu, mencatat data dengan benar, menilai hasil, melaporkan, dan menangani ketidaksesuaian.\nSkenario: laboratorium menerima permintaan dari pelanggan fiktif CV Rasa Nusantara untuk menguji gula pasir kemasan air mineral (pH).\nNo | Kegiatan | Alat\n1 | Pengarahan dan pemeriksaan APD | —\n2 | Stasiun 1: Penerimaan sampel dan kaji ulang permintaan | Formulir, daftar metode\n3 | Stasiun 2: Sampling acak dan uji bobot bersih | Neraca, anak timbangan\n4 | Stasiun 3: pH meter dengan kendali mutu dan cek suhu penyimpanan | pH meter, buffer, termometer\n5 | Stasiun 4: Evaluasi data, laporan, ketidaksesuaian | Kalkulator, formulir\n\nTata tertib\nMemakai jas lab dan sarung tangan selama di laboratorium.\nBekerja mandiri; boleh membawa kalkulator. Instruksi kerja (IK) dan formulir disediakan.\nSemua data dicatat langsung di formulir resmi dengan tinta permanen. Koreksi dengan coret satu garis, paraf, dan tanggal. Dilarang memakai tipe-X atau kertas coretan.\nAsesor berperan sebagai penyelia dan sebagai pelanggan. Laporkan setiap temuan kepada asesor.\nWaktu per stasiun ketat. Bila waktu habis, serahkan pekerjaan sebagaimana adanya.\nStasiun 1 — Penerimaan sampel dan kaji ulang permintaan (20 menit)\nTujuan: memutuskan apakah permintaan jelas, dapat dikerjakan lab, dan sampelnya layak, sebelum sampel diregistrasi.\nTerima formulir permintaan dan sampel dari asesor.\nPeriksa kelengkapan formulir: identitas pelanggan, identitas sampel, parameter, metode, tanggal, dan tanda tangan persetujuan.\nCocokkan setiap parameter dengan daftar metode lab. Tulis keputusan per parameter: diterima, subkontrak, tunda, atau tolak.\nPeriksa setiap sampel: wadah, segel, label, jumlah, tanda kerusakan. Cocokkan label dengan formulir.\nHitung kecukupan sampel: jumlah per uji × ulangan + uji ulang + cadangan.\nSampaikan temuan kepada pelanggan/atasan (asesor) dan minta keputusan tertulis bila perlu.\nRegistrasi sampel yang dapat diproses: kode unik lab, tanggal-jam terima, parameter, metode, kondisi sampel, nama penerima. Isi catatan penyimpangan.\nDiserahkan: formulir kaji ulang, register sampel, hitungan kecukupan, catatan penyimpangan.\nStasiun 2 — Sampling acak dan uji bobot bersih (25 menit)\nTujuan: mengambil sampel yang mewakili lot, memastikan neraca layak pakai, dan mencatat data yang tertelusur.\nDari lot 5 kemasan gula (rak bernomor 1–5), pilih 2 kemasan secara acak memakai tabel bilangan acak. Tulis titik awal dan nomor terpilih di rekaman sampling.\nAmbil kemasan sesuai nomor terpilih, bukan yang paling mudah dijangkau. Beri kode turunan pada tiap kemasan.\nPeriksa label kalibrasi neraca yang tersedia. Pilih neraca yang layak; laporkan yang tidak layak.\nCek harian neraca: rata (waterpass), nol, timbang anak timbangan 1 kg. Catat dan bandingkan dengan batas IK (contoh 1000,0 ± 0,5 g).\nTimbang 3 kantong kosong dan hitung reratanya. Timbang bobot kotor 5 kemasan sampel.\nHitung bobot bersih tiap kemasan (bobot kotor − rerata kantong), rerata, dan nilai terkecil.\nSimpulkan terhadap kriteria IK (contoh): rerata ≥ 1000 g dan tidak ada kemasan di bawah 985 g.\nDiserahkan: rekaman sampling, logbook cek neraca, lembar kerja bobot bersih dan kesimpulan.\nStasiun 3 — pH meter dengan kendali mutu dan cek suhu penyimpanan (20 menit)\nTujuan: menyiapkan alat ukur, mengukur dengan larutan kontrol dan duplo, memutuskan keabsahan hasil, dan memeriksa kondisi penyimpanan sampel.\nPeriksa label pH meter dan tanggal kedaluwarsa buffer. Pakai yang berlaku; pisahkan dan laporkan yang tidak berlaku.\nKalibrasi pH meter dengan buffer 7,00 lalu 4,01. Bilas dan keringkan elektroda di antara larutan. Catat slope.\nUkur larutan kontrol pH 6,86 sebelum sampel.\nUkur pH air secara duplo dari dua porsi terpisah.\nUkur kembali larutan kontrol sesudah sampel.\nNilai terhadap kriteria (tabel di bawah) dan nyatakan apakah hasil sah untuk dilaporkan.\nPemeriksaan | Kriteria contoh\nSlope kalibrasi | 95–105 %\nLarutan kontrol (sebelum dan sesudah) | 6,86 ± 0,05\nSelisih duplo sampel | ≤ 0,10 unit pH\n\nDiserahkan: catatan kalibrasi, lembar kerja pH, keputusan keabsahan hasil, catatan pemeriksaan kulkas.\nStasiun 4 — Evaluasi data, laporan, dan ketidaksesuaian (25 menit)\nDikerjakan di meja dengan kalkulator. Kerjakan keempat tugas.\nStudi Kasus\nTugas 1.\nDari 20 data larutan kontrol pH 6,86 dalam kondisi terkendali diperoleh rerata = 6,861 dan simpangan baku s = 0,012.\nHitung batas peringatan (rerata ± 2s) dan batas kendali (rerata ± 3s).\nLima hari berikutnya kontrol terbaca 6,86; 6,87; 6,89; 6,89; 6,90. Pada hari ke berapa pengukuran harus dihentikan? Aturan apa yang dilanggar, dan apa kemungkinan penyebabnya?\nTugas 2 — Kesalahan rekaman dan uji profisiensi\nSebuah lembar kerja milik analis lain memiliki kondisi berikut. Tuliskan apa yang salah dan cara memperbaikinya untuk masing-masing.\nData ditulis dengan pensil.\nSatu angka ditutup tipe-X lalu ditulis ulang.\nFormulir revisi 01, padahal yang berlaku revisi 03.\nHasil ditulis 4,1 padahal alat menampilkan 4,13.\nKolom verifikator kosong, tetapi hasil sudah masuk laporan.\nTugas 3— Draf laporan hasil uji (M8)\nIsi format laporan hasil uji yang disediakan dengan hasil Anda dari Stasiun 2. Cantumkan informasi wajib, kesimpulan bobot bersih beserta acuannya, catatan penyimpangan dari Stasiun 1, status parameter yang tidak diuji, dan hasil pH hanya bila kendali mutunya lolos.\n\nFormulir permintaan, daftar metode, tabel bilangan acak, instruksi kerja, dan Lembar Kerja Asesi ada di file template.",
+  "rubrik": "<p><strong>RUBRIK PENILAIAN</strong></p>\n<table><tr><th>Nilai</th><th>Label</th><th>Patokan umum</th></tr><tr><td>76-100</td><td>Sepenuhnya Kompeten</td><td>Semua poin kunci terpenuhi dengan benar.</td></tr><tr><td>51-75</td><td>Kompeten dengan Catatan</td><td>Semua gerbang kritis terpenuhi; kekurangan kecil pada poin non-kritis yang tidak mengubah hasil (pedoman: paling banyak sekitar ¼ poin kunci).</td></tr><tr><td>26-50</td><td>Belum Kompeten</td><td>Satu gerbang kritis gagal, ATAU kekurangan lebih banyak dari batas pita 51-75.</td></tr><tr><td>0-25</td><td>Belum Kompeten</td><td>Sebagian besar poin kunci salah atau tidak dikerjakan.</td></tr></table>\n<p><strong>Stasiun 1 - Penerimaan Sampel Dan Kaji Ulang Permintaan</strong></p><table><tr><td>Sumber bukti</td><td>Stasiun 1</td></tr><tr><td>Poin kunci</td><td>J1: tanda tangan persetujuan pelanggan kosong → sampel belum diproses, dicatat, pelanggan dihubungi<br>J2: timbal (Pb) tidak ada di daftar metode → ditawarkan subkontrak atau ditolak, dengan konfirmasi tertulis<br>J3: satu botol SPL-02 segel tutupnya terbuka → dipisahkan, tidak diuji tanpa persetujuan tertulis, dicatat<br>J4: satu botol berlabel AM-B padahal formulir AM-A → ditahan sampai dikonfirmasi pelanggan<br>Kecukupan sampel SPL-02 dihitung benar (perlu 2 botol, yang sah hanya 1) → minta tambahan atau persetujuan tertulis<br>Keputusan per parameter tepat: bobot bersih &amp; pH diterima (pH dengan catatan), Pb subkontrak/tolak<br>Registrasi sampel yang dapat diproses lengkap: kode unik lab, tanggal-jam terima, parameter, metode, kondisi, penerima</td></tr><tr><td>Gerbang kritis</td><td>- Memproses sampel bermasalah (J3 atau J4) tanpa konfirmasi tertulis → maksimal 50<br>- Menerima uji Pb sebagai uji lab sendiri tanpa subkontrak/persetujuan → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>J1–J4 ditemukan dan ditangani tepat, kecukupan sampel benar, keputusan per parameter tepat, registrasi lengkap.</td></tr><tr><td>51-75</td><td>Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya J1 terlewat, hitungan kecukupan kurang tepat, atau satu kolom registrasi kosong.</td></tr><tr><td>26-50</td><td>Salah satu gerbang kritis gagal, ATAU dua temuan atau lebih terlewat.</td></tr><tr><td>0-25</td><td>Sampel diterima dan diregistrasi tanpa kaji ulang.</td></tr></table>\n<p><strong>Stasiun 2- Sampling Acak Dan Uji Bobot Bersih</strong></p><table><tr><td>Sumber bukti</td><td>Stasiun 2</td></tr><tr><td>Poin kunci</td><td>Titik awal tabel bilangan acak dicatat dan 5 nomor kemasan dipilih dengan benar dari titik itu<br>Kemasan diambil sesuai nomor terpilih (tidak diganti) dan diberi kode turunan<br>J7: neraca NR-02 berlabel kalibrasi kedaluwarsa tidak dipakai dan dilaporkan; NR-01 dipakai<br>Cek harian NR-01 sebelum menimbang: waterpass, nol, anak timbangan 1 kg dalam 999,5–1000,5 g<br>Tiga kantong kosong ditimbang dan dirata-rata; bobot kotor 5 kemasan ditimbang<br>Bobot bersih tiap kemasan, rerata dan nilai terkecil dihitung benar<br>Kesimpulan lot sesuai kriteria IK (rerata ≥ 1000 g dan tidak ada &lt; 985 g) berdasarkan data sendiri</td></tr><tr><td>Gerbang kritis</td><td>Mengganti kemasan terpilih dengan kemasan lain → maksimal 50<br>Menimbang dengan NR-02 atau tanpa cek harian yang lolos → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Sampling acak benar dan tertelusur, neraca layak dan terverifikasi, perhitungan dan kesimpulan benar.</td></tr><tr><td>51-75</td><td>Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya titik awal tidak dicatat, kode turunan tidak diberi, atau satu salah hitung yang tidak mengubah kesimpulan.</td></tr><tr><td>26-50</td><td>Salah satu gerbang kritis gagal, ATAU kesimpulan lot salah terhadap data sendiri.</td></tr><tr><td>0-25</td><td>Sampling tidak acak dan penimbangan tidak sesuai IK.</td></tr></table>\n<p><strong>Stasiun 3- pH meter dengan kendali mutu dan cek suhu penyimpanan</strong></p><table><tr><td>Sumber bukti</td><td>Stasiun 3</td></tr><tr><td>Poin kunci</td><td>Label pH meter dan tanggal kedaluwarsa semua buffer/kontrol diperiksa<br>J5: buffer 4,01 botol 1 kedaluwarsa dipisahkan dan dilaporkan; botol 2 yang dipakai<br>Kalibrasi berurutan buffer 7,00 lalu 4,01; elektroda dibilas dan dikeringkan di antara larutan; slope dicatat dan dinilai (95–105 %)<br>Kontrol pH 6,86 diukur sebelum sampel dan sesudah sampel (6,81–6,91)<br>Sampel diukur duplo dari dua porsi terpisah; selisih duplo dinilai (≤ 0,10)<br>Keputusan SAH/TIDAK SAH sesuai seluruh kriteria<br>J6: suhu kulkas sampel 12 °C (syarat 2–8 °C) dicatat sebagai ketidaksesuaian dan dilaporkan</td></tr><tr><td>Gerbang kritis</td><td>- Kalibrasi memakai buffer kedaluwarsa → maksimal 50<br>- Menyatakan hasil SAH padahal ada kriteria QC yang gagal → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Semua langkah IK-QC-02 dilakukan berurutan, keputusan keabsahan benar, dan suhu kulkas dilaporkan.</td></tr><tr><td>51-75</td><td>Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya slope tidak dicatat, elektroda tidak dikeringkan, atau kulkas tidak dilaporkan.</td></tr><tr><td>26-50</td><td>Salah satu gerbang kritis gagal, ATAU kontrol sebelum/sesudah sampel tidak diukur.</td></tr><tr><td>0-25</td><td>Pengukuran tanpa kalibrasi atau tanpa kendali mutu.</td></tr></table>\n<p><strong>Stasiun 4 - Evaluasi data, laporan, ketidaksesuaian</strong></p><table><tr><td>Sumber bukti</td><td>Stasiun 4</td></tr><tr><td>Poin kunci</td><td>Pencatatan sesuai ALCOA selama ujian: tinta permanen, koreksi coret satu garis + paraf + tanggal + alasan<br>Tugas 1: batas peringatan 6,837–6,885 dan batas kendali 6,825–6,897 benar<br>Tugas 1: pengukuran dihentikan hari ke-4 (aturan 2₂s); penyebab galat sistematis disebut<br>Tugas 2: lima kesalahan rekaman dan perbaikannya benar (minimal 4 dari 5)<br>Tugas 2: z = 2,2 → diragukan; tindak lanjut investigasi disebut<br>Tugas 3: ketidakpastian gabungan ≈ 0,016 dan diperluas U ≈ 0,03 unit pH (k = 2)</td></tr><tr><td>Gerbang kritis</td><td>Memakai pensil/tipe-X atau menimpa angka di rekaman → maksimal 50<br>- Tugas 1 menyimpulkan pengukuran tetap terkendali sampai hari ke-5 → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Rekaman bersih sesuai ALCOA; ketiga tugas benar.</td></tr><tr><td>51-75</td><td>Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya penyebab tidak disebut, satu temuan Tugas 2 terlewat, atau U salah hitung tetapi komponennya benar.</td></tr><tr><td>26-50</td><td>Salah satu gerbang kritis gagal, ATAU dua dari tiga tugas salah.</td></tr><tr><td>0-25</td><td>Sebagian besar tugas tidak dikerjakan atau salah.</td></tr></table>\n<p><strong>REKAPITULASI NILAI</strong></p>\n<table><tr><th>Tugas</th><th>Bobot</th></tr><tr><td>Stasiun 1: Penerimaan sampel dan kaji ulang permintaan</td><td>20%</td></tr><tr><td>Stasiun 2: Sampling acak dan uji bobot bersih</td><td>35%</td></tr><tr><td>Stasiun 3: pH meter dengan kendali mutu dan cek suhu penyimpanan</td><td>25%</td></tr><tr><td>Stasiun 4: Evaluasi data, laporan, ketidaksesuaian</td><td>20%</td></tr><tr><td>Nilai (Jumlah Nilai × Bobot)</td><td>100%</td></tr></table>",
+  "aspek": [
+   {
+    "no": 1,
+    "nama": "Stasiun 1 - Penerimaan Sampel Dan Kaji Ulang Permintaan",
+    "bobot": 20,
+    "sumber": "Stasiun 1",
+    "poin_kunci": [
+     "J1: tanda tangan persetujuan pelanggan kosong → sampel belum diproses, dicatat, pelanggan dihubungi",
+     "J2: timbal (Pb) tidak ada di daftar metode → ditawarkan subkontrak atau ditolak, dengan konfirmasi tertulis",
+     "J3: satu botol SPL-02 segel tutupnya terbuka → dipisahkan, tidak diuji tanpa persetujuan tertulis, dicatat",
+     "J4: satu botol berlabel AM-B padahal formulir AM-A → ditahan sampai dikonfirmasi pelanggan",
+     "Kecukupan sampel SPL-02 dihitung benar (perlu 2 botol, yang sah hanya 1) → minta tambahan atau persetujuan tertulis",
+     "Keputusan per parameter tepat: bobot bersih & pH diterima (pH dengan catatan), Pb subkontrak/tolak",
+     "Registrasi sampel yang dapat diproses lengkap: kode unik lab, tanggal-jam terima, parameter, metode, kondisi, penerima"
+    ],
+    "gerbang": [
+     "Memproses sampel bermasalah (J3 atau J4) tanpa konfirmasi tertulis",
+     "Menerima uji Pb sebagai uji lab sendiri tanpa subkontrak/persetujuan"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "J1–J4 ditemukan dan ditangani tepat, kecukupan sampel benar, keputusan per parameter tepat, registrasi lengkap."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya J1 terlewat, hitungan kecukupan kurang tepat, atau satu kolom registrasi kosong."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU dua temuan atau lebih terlewat."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Sampel diterima dan diregistrasi tanpa kaji ulang."
+     }
+    ]
+   },
+   {
+    "no": 2,
+    "nama": "Stasiun 2- Sampling Acak Dan Uji Bobot Bersih",
+    "bobot": 35,
+    "sumber": "Stasiun 2",
+    "poin_kunci": [
+     "Titik awal tabel bilangan acak dicatat dan 5 nomor kemasan dipilih dengan benar dari titik itu",
+     "Kemasan diambil sesuai nomor terpilih (tidak diganti) dan diberi kode turunan",
+     "J7: neraca NR-02 berlabel kalibrasi kedaluwarsa tidak dipakai dan dilaporkan; NR-01 dipakai",
+     "Cek harian NR-01 sebelum menimbang: waterpass, nol, anak timbangan 1 kg dalam 999,5–1000,5 g",
+     "Tiga kantong kosong ditimbang dan dirata-rata; bobot kotor 5 kemasan ditimbang",
+     "Bobot bersih tiap kemasan, rerata dan nilai terkecil dihitung benar",
+     "Kesimpulan lot sesuai kriteria IK (rerata ≥ 1000 g dan tidak ada < 985 g) berdasarkan data sendiri"
+    ],
+    "gerbang": [
+     "Mengganti kemasan terpilih dengan kemasan lain",
+     "Menimbang dengan NR-02 atau tanpa cek harian yang lolos"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Sampling acak benar dan tertelusur, neraca layak dan terverifikasi, perhitungan dan kesimpulan benar."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya titik awal tidak dicatat, kode turunan tidak diberi, atau satu salah hitung yang tidak mengubah kesimpulan."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU kesimpulan lot salah terhadap data sendiri."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Sampling tidak acak dan penimbangan tidak sesuai IK."
+     }
+    ]
+   },
+   {
+    "no": 3,
+    "nama": "Stasiun 3- pH meter dengan kendali mutu dan cek suhu penyimpanan",
+    "bobot": 25,
+    "sumber": "Stasiun 3",
+    "poin_kunci": [
+     "Label pH meter dan tanggal kedaluwarsa semua buffer/kontrol diperiksa",
+     "J5: buffer 4,01 botol 1 kedaluwarsa dipisahkan dan dilaporkan; botol 2 yang dipakai",
+     "Kalibrasi berurutan buffer 7,00 lalu 4,01; elektroda dibilas dan dikeringkan di antara larutan; slope dicatat dan dinilai (95–105 %)",
+     "Kontrol pH 6,86 diukur sebelum sampel dan sesudah sampel (6,81–6,91)",
+     "Sampel diukur duplo dari dua porsi terpisah; selisih duplo dinilai (≤ 0,10)",
+     "Keputusan SAH/TIDAK SAH sesuai seluruh kriteria",
+     "J6: suhu kulkas sampel 12 °C (syarat 2–8 °C) dicatat sebagai ketidaksesuaian dan dilaporkan"
+    ],
+    "gerbang": [
+     "Kalibrasi memakai buffer kedaluwarsa",
+     "Menyatakan hasil SAH padahal ada kriteria QC yang gagal"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Semua langkah IK-QC-02 dilakukan berurutan, keputusan keabsahan benar, dan suhu kulkas dilaporkan."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya slope tidak dicatat, elektroda tidak dikeringkan, atau kulkas tidak dilaporkan."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU kontrol sebelum/sesudah sampel tidak diukur."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Pengukuran tanpa kalibrasi atau tanpa kendali mutu."
+     }
+    ]
+   },
+   {
+    "no": 4,
+    "nama": "Stasiun 4 - Evaluasi data, laporan, ketidaksesuaian",
+    "bobot": 20,
+    "sumber": "Stasiun 4",
+    "poin_kunci": [
+     "Pencatatan sesuai ALCOA selama ujian: tinta permanen, koreksi coret satu garis + paraf + tanggal + alasan",
+     "Tugas 1: batas peringatan 6,837–6,885 dan batas kendali 6,825–6,897 benar",
+     "Tugas 1: pengukuran dihentikan hari ke-4 (aturan 2₂s); penyebab galat sistematis disebut",
+     "Tugas 2: lima kesalahan rekaman dan perbaikannya benar (minimal 4 dari 5)",
+     "Tugas 2: z = 2,2 → diragukan; tindak lanjut investigasi disebut",
+     "Tugas 3: ketidakpastian gabungan ≈ 0,016 dan diperluas U ≈ 0,03 unit pH (k = 2)"
+    ],
+    "gerbang": [
+     "Memakai pensil/tipe-X atau menimpa angka di rekaman",
+     "Tugas 1 menyimpulkan pengukuran tetap terkendali sampai hari ke-5"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Rekaman bersih sesuai ALCOA; ketiga tugas benar."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya penyebab tidak disebut, satu temuan Tugas 2 terlewat, atau U salah hitung tetapi komponennya benar."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU dua dari tiga tugas salah."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Sebagian besar tugas tidak dikerjakan atau salah."
+     }
+    ]
+   }
+  ]
+ }
+}

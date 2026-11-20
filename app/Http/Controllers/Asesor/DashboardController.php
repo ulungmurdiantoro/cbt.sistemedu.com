@@ -30,7 +30,7 @@ class DashboardController extends Controller
             ->pluck('exam_session_id')
             ->unique();
 
-        $all = ExamSession::with('examPg.classroom', 'examEsai.classroom', 'examPraktik.classroom')
+        $all = ExamSession::with('examPg.classroom', 'examEsai.classroom', 'examPraktik.classroom', 'examPraktik2:id,title,type')
             ->whereIn('id', $session_ids)
             ->orderBy('end_time', 'desc')
             ->get()

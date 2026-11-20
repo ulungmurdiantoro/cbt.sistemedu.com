@@ -1,0 +1,2172 @@
+{
+ "key": "rnd",
+ "classroom_code": "RDO",
+ "nama": "Research and Development Officer",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda Research And Development Officer.pdf",
+  "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai Research and Development_Officer Rev 1.pdf",
+  "praktik": "FR.IA.04 Tugas_Keterampilan RnD Officer.docx"
+ },
+ "durasi": {
+  "pg": 120,
+  "esai": 90
+ },
+ "komposisi": {
+  "bobot_ujian_tulis": 70,
+  "proporsi_pg": 65,
+  "bobot_wawancara": 22.5,
+  "bobot_praktik_1": 7.5,
+  "bobot_praktik_2": 0,
+  "nilai_kelulusan": 60
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Langkah pertama dalam merencanakan kegiatan R&D adalah..."
+    }
+   ],
+   "options": [
+    "Menyusun anggaran",
+    "Menentukan tujuan penelitian",
+    "Mengumpulkan data",
+    "Menyusun laporan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Dokumen perencanaan R&D yang berisi latar belakang, tujuan, dan metode disebut..."
+    }
+   ],
+   "options": [
+    "Proposal penelitian",
+    "Laporan akhir",
+    "Abstrak",
+    "Jurnal ilmiah"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "Analisis kebutuhan dalam perencanaan R&D bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Menentukan jumlah responden",
+    "Mengidentifikasi masalah dan peluang",
+    "Menyusun hipotesis",
+    "Menentukan metode analisis"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Studi literatur dilakukan untuk..."
+    }
+   ],
+   "options": [
+    "Menguji hipotesis",
+    "Mengetahui penelitian terdahulu",
+    "Menyusun kesimpulan",
+    "Mengolah data"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Dalam perencanaan R&D, sumber daya yang perlu diidentifikasi meliputi..."
+    }
+   ],
+   "options": [
+    "Waktu, dana, dan tenaga",
+    "Hanya dana",
+    "Hanya tenaga",
+    "Hanya waktu"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "Tujuan utama dari perencanaan R&D adalah..."
+    }
+   ],
+   "options": [
+    "Menghasilkan produk baru",
+    "Memastikan kegiatan berjalan sistematis dan terarah",
+    "Menghemat biaya",
+    "Memperbanyak publikasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Salah satu teknik pengumpulan data awal dalam perencanaan adalah..."
+    }
+   ],
+   "options": [
+    "Eksperimen",
+    "Publikasi",
+    "Uji statistik",
+    "Wawancara"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "Analisis SWOT dalam perencanaan R&D digunakan untuk..."
+    }
+   ],
+   "options": [
+    "Menentukan harga produk",
+    "Mengevaluasi kekuatan, kelemahan, peluang, dan ancaman",
+    "Menyusun daftar pustaka",
+    "Menentukan sampel penelitian"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Tahapan pertama dalam menyusun proposal R&D adalah..."
+    }
+   ],
+   "options": [
+    "Menentukan judul",
+    "Menyusun latar belakang",
+    "Menentukan metode",
+    "Menyusun anggaran"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Ketersediaan teknologi dan tenaga ahli termasuk dalam analisis..."
+    }
+   ],
+   "options": [
+    "Kelayakan",
+    "Risiko",
+    "Pasar",
+    "Biaya"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Perencanaan waktu dalam R&D biasanya dituangkan dalam bentuk..."
+    }
+   ],
+   "options": [
+    "Diagram alir",
+    "Gantt chart",
+    "Pie chart",
+    "Histogram"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Tujuan dari penetapan indikator keberhasilan dalam perencanaan R&D adalah..."
+    }
+   ],
+   "options": [
+    "Menyusun laporan",
+    "Mengukur pencapaian hasil",
+    "Menentukan responden",
+    "Menyusun hipotesis"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Faktor eksternal yang mempengaruhi perencanaan R&D adalah..."
+    }
+   ],
+   "options": [
+    "Motivasi tim",
+    "Ketersediaan alat",
+    "Kebijakan pemerintah",
+    "Kompetensi peneliti"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Metode penelitian yang dipilih harus sesuai dengan..."
+    }
+   ],
+   "options": [
+    "Jumlah halaman laporan",
+    "Tujuan dan jenis data",
+    "Waktu istirahat peneliti",
+    "Popularitas metode"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Perencanaan R&D yang baik harus bersifat..."
+    }
+   ],
+   "options": [
+    "Fleksibel dan adaptif",
+    "Kaku dan terstruktur",
+    "Acak dan spontan",
+    "Tertutup dan rahasia"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Anggaran dalam proposal R&D mencakup..."
+    }
+   ],
+   "options": [
+    "Hanya biaya cetak laporan",
+    "Hanya biaya alat",
+    "Hanya biaya transportasi",
+    "Biaya operasional, alat, dan honor"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Salah satu langkah dalam analisis kelayakan adalah..."
+    }
+   ],
+   "options": [
+    "Menentukan judul",
+    "Menguji produk",
+    "Menilai ketersediaan sumber daya",
+    "Menyusun daftar pustaka"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Tujuan dari studi pendahuluan dalam perencanaan R&D adalah..."
+    }
+   ],
+   "options": [
+    "Menentukan sampel",
+    "Memahami konteks dan masalah",
+    "Menyusun kesimpulan",
+    "Mengolah data"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Perencanaan R&D harus mempertimbangkan aspek etika, terutama jika melibatkan..."
+    }
+   ],
+   "options": [
+    "Alat laboratorium",
+    "Manusia atau hewan uji",
+    "Bahan kimia",
+    "Data sekunder"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "Hasil dari perencanaan R&D yang baik adalah..."
+    }
+   ],
+   "options": [
+    "Publikasi internasional",
+    "Produk jadi",
+    "Laporan akhir",
+    "Proposal yang matang dan realistis"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Pelaksanaan R&D dimulai setelah..."
+    }
+   ],
+   "options": [
+    "Proposal disetujui",
+    "Produk jadi",
+    "Laporan selesai",
+    "Data terkumpul"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Pengumpulan data primer dilakukan melalui..."
+    }
+   ],
+   "options": [
+    "Buku",
+    "Jurnal",
+    "Observasi langsung",
+    "Internet"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Instrumen penelitian harus..."
+    }
+   ],
+   "options": [
+    "Mahal",
+    "Valid dan reliabel",
+    "Panjang",
+    "Sulit dipahami"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Teknik sampling bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Memilih sebagian populasi",
+    "Mengolah data",
+    "Menyusun hipotesis",
+    "Menentukan judul"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "Dalam eksperimen, variabel yang dimanipulasi disebut..."
+    }
+   ],
+   "options": [
+    "Variabel kontrol",
+    "Variabel terikat",
+    "Variabel bebas",
+    "Variabel luar"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "Data kualitatif biasanya diperoleh dari..."
+    }
+   ],
+   "options": [
+    "Kuesioner tertutup",
+    "Wawancara mendalam",
+    "Skala Likert",
+    "Angka statistik"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Dokumentasi selama pelaksanaan R&D penting untuk..."
+    }
+   ],
+   "options": [
+    "Bukti dan audit",
+    "Hiasan laporan",
+    "Menambah halaman",
+    "Publikasi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Salah satu tantangan dalam pelaksanaan R&D adalah..."
+    }
+   ],
+   "options": [
+    "Banyaknya responden",
+    "Ketersediaan dana",
+    "Kemudahan akses data",
+    "Dukungan penuh"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Uji coba produk dalam R&D bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Menyusun proposal",
+    "Menambah biaya",
+    "Memperpanjang waktu",
+    "Mengetahui kelemahan produk"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Dalam pengembangan produk, iterasi dilakukan untuk..."
+    }
+   ],
+   "options": [
+    "Perbaikan berkelanjutan",
+    "Menghemat waktu",
+    "Menyelesaikan laporan",
+    "Menambah jumlah responden"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "Data sekunder dapat diperoleh dari..."
+    }
+   ],
+   "options": [
+    "Wawancara",
+    "Observasi",
+    "BPS, jurnal, laporan",
+    "Eksperimen"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Validitas data dalam penelitian berarti..."
+    }
+   ],
+   "options": [
+    "Data mudah diakses",
+    "Data sesuai dengan kenyataan",
+    "Data banyak",
+    "Data mahal"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Reliabilitas instrumen berarti..."
+    }
+   ],
+   "options": [
+    "Hasil konsisten jika diulang",
+    "Instrumen mahal",
+    "Instrumen baru",
+    "Instrumen panjang"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Salah satu etika dalam pelaksanaan R&D adalah..."
+    }
+   ],
+   "options": [
+    "Mengubah data",
+    "Memaksa responden",
+    "Menyembunyikan hasil",
+    "Menjaga kerahasiaan responden"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Pengolahan data kuantitatif biasanya menggunakan..."
+    }
+   ],
+   "options": [
+    "Kutipan",
+    "Narasi",
+    "Statistik",
+    "Cerita"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Dalam pengembangan produk, prototipe dibuat untuk..."
+    }
+   ],
+   "options": [
+    "Produksi massal",
+    "Uji coba awal",
+    "Publikasi",
+    "Dokumentasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Observasi partisipatif berarti peneliti..."
+    }
+   ],
+   "options": [
+    "Hanya merekam",
+    "Hanya melihat dari jauh",
+    "Tidak terlibat",
+    "Terlibat langsung dalam kegiatan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Fokus grup diskusi (FGD) termasuk metode..."
+    }
+   ],
+   "options": [
+    "Kuantitatif",
+    "Kualitatif",
+    "Eksperimen",
+    "Survei"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Pelaksanaan R&D harus mengikuti..."
+    }
+   ],
+   "options": [
+    "Prosedur operasional standar (SOP)",
+    "Keinginan pribadi",
+    "Tekanan atasan",
+    "Tren terbaru"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Hasil sementara dari pelaksanaan R&D sebaiknya..."
+    }
+   ],
+   "options": [
+    "Dirahasiakan",
+    "Dihancurkan",
+    "Diabaikan",
+    "Didokumentasikan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "Analisis data bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Menyusun proposal",
+    "Menambah data",
+    "Menjawab rumusan masalah",
+    "Membuat grafik"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Validasi hasil penelitian dilakukan untuk..."
+    }
+   ],
+   "options": [
+    "Memperbanyak data",
+    "Memastikan keabsahan hasil",
+    "Menambah responden",
+    "Memperpanjang waktu"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Uji statistik yang digunakan untuk membandingkan dua rata-rata adalah..."
+    }
+   ],
+   "options": [
+    "Regresi",
+    "Korelasi",
+    "T-test",
+    "Anova"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "Validasi internal berkaitan dengan..."
+    }
+   ],
+   "options": [
+    "Generalisasi hasil",
+    "Kebenaran desain penelitian",
+    "Publikasi",
+    "Anggaran"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Triangulasi data dilakukan untuk..."
+    }
+   ],
+   "options": [
+    "Menguji keabsahan data",
+    "Mengurangi data",
+    "Menambah variabel",
+    "Menyusun hipotesis"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Dalam analisis kualitatif, teknik yang digunakan adalah..."
+    }
+   ],
+   "options": [
+    "Regresi",
+    "Korelasi",
+    "Coding",
+    "T-test"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "Validasi eksternal berkaitan dengan..."
+    }
+   ],
+   "options": [
+    "Sampel",
+    "Desain penelitian",
+    "Instrumen",
+    "Generalisasi hasil"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Uji normalitas data dilakukan sebelum..."
+    }
+   ],
+   "options": [
+    "Pengumpulan data",
+    "Uji nonparametrik",
+    "Uji parametrik",
+    "Penyusunan proposal"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Jika data tidak berdistribusi normal, maka digunakan uji..."
+    }
+   ],
+   "options": [
+    "Parametrik",
+    "Nonparametrik",
+    "T-test",
+    "Anova"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Koefisien korelasi digunakan untuk..."
+    }
+   ],
+   "options": [
+    "Mengukur hubungan antar variabel",
+    "Mengukur perbedaan",
+    "Mengukur rata-rata",
+    "Mengukur validitas"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Validasi ahli dilakukan dengan..."
+    }
+   ],
+   "options": [
+    "Menguji statistik",
+    "Meminta pendapat pakar",
+    "Menyebar kuesioner",
+    "Observasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Dalam analisis regresi, variabel dependen adalah..."
+    }
+   ],
+   "options": [
+    "Variabel kontrol",
+    "Variabel bebas",
+    "Variabel terikat",
+    "Variabel luar"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Uji validitas instrumen bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Mengukur homogenitas",
+    "Mengukur konsistensi",
+    "Mengukur normalitas",
+    "Mengukur ketepatan instrumen"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Uji reliabilitas instrumen bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Mengukur ketepatan",
+    "Mengukur normalitas",
+    "Mengukur validitas",
+    "Mengukur konsistensi"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Teknik analisis data kualitatif yang populer adalah..."
+    }
+   ],
+   "options": [
+    "Regresi",
+    "Anova",
+    "Analisis isi",
+    "T-test"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Hasil analisis data harus diinterpretasikan dalam bentuk..."
+    }
+   ],
+   "options": [
+    "Narasi dan kesimpulan",
+    "Hanya angka",
+    "Hanya grafik",
+    "Hanya tabel"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Validasi hasil pengembangan produk dilakukan melalui..."
+    }
+   ],
+   "options": [
+    "Uji coba lapangan",
+    "Studi literatur",
+    "Penyusunan proposal",
+    "Dokumentasi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Jika hasil validasi menunjukkan kelemahan, maka langkah selanjutnya adalah..."
+    }
+   ],
+   "options": [
+    "Publikasi",
+    "Revisi",
+    "Abaikan",
+    "Simpan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Dalam validasi produk, responden yang tepat adalah..."
+    }
+   ],
+   "options": [
+    "Mahasiswa",
+    "Peneliti lain",
+    "Atasan",
+    "Pengguna produk"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Kesimpulan penelitian harus didasarkan pada..."
+    }
+   ],
+   "options": [
+    "Opini pribadi",
+    "Keinginan sponsor",
+    "Tren terbaru",
+    "Hasil analisis data"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Dokumentasi R&D mencakup..."
+    }
+   ],
+   "options": [
+    "Semua catatan kegiatan",
+    "Hanya laporan akhir",
+    "Hanya proposal",
+    "Hanya data mentah"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Laporan R&D harus disusun secara..."
+    }
+   ],
+   "options": [
+    "Acak",
+    "Subjektif",
+    "Sistematis dan objektif",
+    "Singkat tanpa data"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Bagian laporan yang berisi ringkasan penelitian adalah..."
+    }
+   ],
+   "options": [
+    "Abstrak",
+    "Daftar pustaka",
+    "Lampiran",
+    "Metodologi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Dokumentasi yang baik berguna untuk..."
+    }
+   ],
+   "options": [
+    "Audit dan replikasi",
+    "Hiasan",
+    "Menambah berat",
+    "Publikasi instan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Sistem penyimpanan dokumen R&D sebaiknya..."
+    }
+   ],
+   "options": [
+    "Tersebar",
+    "b Tidak teratur",
+    "Hanya cetak",
+    "Terstruktur dan aman"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Laporan kemajuan (progress report) berisi..."
+    }
+   ],
+   "options": [
+    "Hanya daftar pustaka",
+    "Hanya anggaran",
+    "Hanya jadwal",
+    "Capaian dan kendala"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Daftar pustaka memuat..."
+    }
+   ],
+   "options": [
+    "Sumber referensi",
+    "Data mentah",
+    "Instrumen",
+    "Lampiran"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Dokumentasi foto dan video termasuk dalam..."
+    }
+   ],
+   "options": [
+    "Dokumentasi utama",
+    "Laporan akhir",
+    "Dokumentasi pendukung",
+    "Proposal"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Laporan akhir harus ditandatangani oleh..."
+    }
+   ],
+   "options": [
+    "Pihak luar",
+    "Hanya peneliti",
+    "Hanya atasan",
+    "Peneliti dan atasan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Arsip digital sebaiknya disimpan di..."
+    }
+   ],
+   "options": [
+    "Hanya di flashdisk",
+    "Hanya di email",
+    "Cloud dan hard disk",
+    "Hanya di kertas"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Dokumentasi keuangan dalam R&D penting untuk..."
+    }
+   ],
+   "options": [
+    "Publikasi",
+    "Akuntabilitas",
+    "Dokumentasi foto",
+    "Abstrak"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Lampiran laporan dapat berisi..."
+    }
+   ],
+   "options": [
+    "Hanya daftar pustaka",
+    "Hanya abstrak",
+    "Kuesioner dan data mentah",
+    "Hanya kesimpulan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Pelaporan hasil R&D harus memperhatikan..."
+    }
+   ],
+   "options": [
+    "Kaidah penulisan ilmiah",
+    "Keinginan pribadi",
+    "Tren media sosial",
+    "Gaya bahasa bebas"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Dokumentasi hak kekayaan intelektual (HKI) dilakukan untuk..."
+    }
+   ],
+   "options": [
+    "Laporan keuangan",
+    "Publikasi",
+    "Dokumentasi foto",
+    "Melindungi hasil temuan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Logbook penelitian berisi..."
+    }
+   ],
+   "options": [
+    "Hanya anggaran",
+    "Catatan harian kegiatan",
+    "Hanya jadwal",
+    "Hanya daftar pustaka"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "Dokumentasi yang hilang dapat menyebabkan..."
+    }
+   ],
+   "options": [
+    "Publikasi mudah",
+    "Penelitian cepat selesai",
+    "Hemat biaya",
+    "Gagal audit"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Format laporan biasanya mengikuti..."
+    }
+   ],
+   "options": [
+    "Standar organisasi",
+    "Keinginan peneliti",
+    "Tren terbaru",
+    "Media sosial"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Tujuan pelaporan adalah..."
+    }
+   ],
+   "options": [
+    "Menyembunyikan data",
+    "Menambah biaya",
+    "Memperpanjang waktu",
+    "Komunikasi hasil penelitian"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Dokumentasi etik penelitian diperlukan jika melibatkan..."
+    }
+   ],
+   "options": [
+    "Buku",
+    "Data sekunder",
+    "Manusia atau hewan",
+    "Jurnal"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Revisi laporan dilakukan berdasarkan..."
+    }
+   ],
+   "options": [
+    "Keinginan pribadi",
+    "Tren",
+    "Hobi",
+    "Masukan reviewer"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Implementasi hasil R&D bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Dokumentasi",
+    "Menyusun proposal",
+    "Mengumpulkan data",
+    "Menerapkan hasil pengembangan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "Peningkatan berkelanjutan dilakukan berdasarkan..."
+    }
+   ],
+   "options": [
+    "Tren",
+    "Keinginan pribadi",
+    "Evaluasi dan umpan balik",
+    "Tekanan atasan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Peningkatan berkelanjutan dilakukan berdasarkan..."
+    }
+   ],
+   "options": [
+    "Evaluasi dan umpan balik",
+    "Keinginan pribadi",
+    "Tren",
+    "Tekanan atasan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Salah satu indikator keberhasilan implementasi adalah..."
+    }
+   ],
+   "options": [
+    "Banyak laporan",
+    "Banyak proposal",
+    "Adopsi oleh pengguna",
+    "Banyak publikasi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Evaluasi pasca-implementasi bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Memperpanjang waktu",
+    "Menambah biaya",
+    "Mengukur dampak",
+    "Dokumentasi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Umpan balik dari pengguna sangat penting untuk..."
+    }
+   ],
+   "options": [
+    "Proposal",
+    "Publikasi",
+    "Dokumentasi",
+    "Perbaikan produk"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Siklus PDCA (Plan-Do-Check-Act) digunakan dalam..."
+    }
+   ],
+   "options": [
+    "Penyusunan proposal",
+    "Pengumpulan data",
+    "Dokumentasi",
+    "Peningkatan berkelanjutan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Implementasi produk harus didukung oleh..."
+    }
+   ],
+   "options": [
+    "Sosialisasi dan pelatihan",
+    "Hanya dokumen",
+    "Hanya proposal",
+    "Hanya laporan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Monitoring implementasi dilakukan untuk..."
+    }
+   ],
+   "options": [
+    "Menambah biaya",
+    "Memastikan berjalan sesuai rencana",
+    "Dokumentasi",
+    "Publikasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Jika implementasi tidak berjalan lancar, langkah pertama adalah..."
+    }
+   ],
+   "options": [
+    "Abaikan",
+    "Menghentikan proyek",
+    "Analisis penyebab",
+    "Publikasi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Peningkatan produk dapat dilakukan melalui..."
+    }
+   ],
+   "options": [
+    "Dokumentasi",
+    "Publikasi",
+    "Inovasi dan riset lanjutan",
+    "Penyusunan proposal"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Standar operasional prosedur (SOP) implementasi bertujuan untuk..."
+    }
+   ],
+   "options": [
+    "Panduan pelaksanaan",
+    "Publikasi",
+    "Dokumentasi",
+    "Proposal"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Keberlanjutan hasil R&D bergantung pada..."
+    }
+   ],
+   "options": [
+    "Banyaknya laporan",
+    "Dukungan manajemen dan pengguna",
+    "Banyaknya proposal",
+    "Banyaknya publikasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Inovasi berkelanjutan dalam R&D berarti..."
+    }
+   ],
+   "options": [
+    "Hanya dokumentasi",
+    "Berhenti setelah produk jadi",
+    "Terus melakukan perbaikan",
+    "Hanya publikasi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Diseminasi hasil R&D penting untuk..."
+    }
+   ],
+   "options": [
+    "Dokumentasi",
+    "Proposal",
+    "Anggaran",
+    "Penyebarluasan manfaat"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "Pengukuran kepuasan pengguna dilakukan melalui..."
+    }
+   ],
+   "options": [
+    "Survei",
+    "Dokumentasi",
+    "Proposal",
+    "Publikasi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Salah satu bentuk peningkatan berkelanjutan adalah..."
+    }
+   ],
+   "options": [
+    "Menghentikan produksi",
+    "Upgrade fitur produk",
+    "Menyimpan produk",
+    "Dokumentasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Kolaborasi dengan pihak lain dapat mendukung..."
+    }
+   ],
+   "options": [
+    "Dokumentasi",
+    "Proposal",
+    "Implementasi dan inovasi",
+    "Anggaran"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Keberhasilan implementasi diukur dari..."
+    }
+   ],
+   "options": [
+    "Banyaknya publikasi",
+    "Banyaknya laporan",
+    "Banyaknya proposal",
+    "Tingkat adopsi dan dampak"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "Pelatihan pengguna dilakukan agar..."
+    }
+   ],
+   "options": [
+    "Publikasi",
+    "Dokumentasi",
+    "Proposal",
+    "Produk digunakan dengan benar"
+   ],
+   "answer": 4
+  }
+ ],
+ "esai": [
+  {
+   "no": 1,
+   "question": "<p>Kegiatan penelitian dan pengembangan merupakan bagian penting dalam inovasi produk pada suatu perusahaan.</p><p>Jelaskan pengertian Research and Development (R&amp;D) serta peran R&amp;D Officer dalam pengembangan produk baru.</p>",
+   "answer": "<p>Poin Kunci:</p><p>Research and Development adalah kegiatan penelitian dan pengembangan untuk menghasilkan produk baru atau meningkatkan kualitas produk yang sudah ada. R&amp;D Officer bertugas merancang, menguji, dan mengembangkan produk. Mendukung inovasi dan daya saing perusahaan.</p><p>Memastikan produk yang dikembangkan memenuhi standar mutu dan kebutuhan pasar.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan R&D sebagai kegiatan penelitian dan pengembangan untuk menghasilkan produk baru atau meningkatkan produk yang ada. Menguraikan peran R&D Officer (merancang, menguji, mengembangkan produk), kontribusinya pada inovasi dan daya saing, serta memastikan produk memenuhi standar mutu dan kebutuhan pasar."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Pengertian R&D benar dan menyebutkan peran merancang/menguji/menge mbangkan produk, tetapi tidak mengaitkan dengan daya saing perusahaan atau pemenuhan standar mutu dan kebutuhan pasar."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya memberikan pengertian R&D secara umum (misal: \"bagian yang membuat produk\") tanpa menjelaskan peran R&D Officer secara jelas."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyamakan R&D dengan bagian produksi rutin atau pemasaran semata, sehingga peran penelitian dan pengujian tidak muncul."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan kegiatan penelitian dan pengembangan produk."
+    }
+   ]
+  },
+  {
+   "no": 2,
+   "question": "<p>Dalam proses pengembangan produk, R&amp;D Officer harus melakukan kajian awal sebelum melakukan eksperimen.</p><p>Jelaskan langkah-langkah awal yang dilakukan dalam proses penelitian dan pengembangan produk.</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Identifikasi kebutuhan pasar atau masalah yang ingin diselesaikan.</li><li>Melakukan studi literatur atau kajian ilmiah.</li><li>Menyusun rencana penelitian dan pengembangan.</li><li>Menentukan metode penelitian dan parameter pengujian.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan langkah awal secara runtut dan logis: identifikasi kebutuhan pasar/masalah, studi literatur/kajian ilmiah, penyusunan rencana penelitian, serta penentuan metode dan parameter pengujian, disertai penjelasan singkat fungsi tiap langkah."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan 3–4 langkah dengan benar, tetapi urutannya kurang runtut atau penjelasan tiap langkah terlalu singkat/normatif."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menyebutkan 1–2 langkah (misal: langsung membuat sampel atau melakukan uji coba) tanpa tahapan perencanaan dan kajian awal."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan langsung melakukan eksperimen/produksi tanpa kajian awal, studi literatur, maupun perencanaan."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas tahapan awal penelitian dan pengembangan produk."
+    }
+   ]
+  },
+  {
+   "no": 3,
+   "question": "<p>Eksperimen merupakan bagian penting dalam kegiatan R&amp;D.</p><p>Jelaskan tujuan dilakukannya eksperimen dalam proses pengembangan produk.</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Menguji formulasi atau konsep produk yang dikembangkan.</li><li>Mengetahui karakteristik dan performa produk.</li><li>Mengidentifikasi parameter proses yang optimal.</li><li>Memastikan produk memenuhi standar mutu yang ditetapkan.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan tujuan eksperimen secara lengkap: menguji formulasi/konsep produk, mengetahui karakteristik dan performa produk, mengidentifikasi parameter proses yang optimal, dan memastikan produk memenuhi standar mutu yang ditetapkan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan sebagian besar tujuan (menguji produk dan mengetahui karakteristiknya), tetapi tidak menyinggung optimasi parameter proses atau pemenuhan standar mutu."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab secara umum, misal \"untuk mencoba produk\" atau \"agar tahu hasilnya\", tanpa merinci aspek yang diuji."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap eksperimen hanya formalitas atau cukup dilakukan sekali tanpa memperhatikan data dan standar mutu."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan eksperimen dalam pengembangan produk."
+    }
+   ]
+  },
+  {
+   "no": 4,
+   "question": "<p>Dalam kegiatan penelitian dan pengembangan, pencatatan data sangat penting. Jelaskan mengapa dokumentasi hasil penelitian harus dilakukan secara sistematis.</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Memastikan data penelitian dapat ditelusuri kembali.</li><li>Mendukung analisis dan evaluasi hasil penelitian.</li><li>Memudahkan replikasi penelitian.</li><li>Menjadi bukti ilmiah dari proses penelitian.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan bahwa dokumentasi sistematis menjamin ketertelusuran data, mendukung analisis dan evaluasi hasil, memudahkan replikasi penelitian, dan menjadi bukti ilmiah dari proses penelitian."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan bahwa dokumentasi penting agar data tidak hilang dan bisa dianalisis, tetapi tidak menyinggung aspek replikasi atau bukti ilmiah/ketertelusuran."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"agar rapi\" atau \"sebagai arsip\" tanpa menjelaskan fungsi dokumentasi bagi analisis dan validitas penelitian."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap pencatatan data cukup di akhir penelitian atau boleh mengandalkan ingatan, atau membenarkan perubahan data tanpa catatan."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas dokumentasi atau pencatatan data penelitian."
+    }
+   ]
+  },
+  {
+   "no": 5,
+   "question": "<p>R&amp;D Officer sering bekerja sama dengan berbagai departemen lain dalam perusahaan.</p><p>Jelaskan mengapa kolaborasi antar departemen penting dalam kegiatan penelitian dan pengembangan produk.</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Mendapatkan masukan dari berbagai perspektif (produksi, QA, pemasaran).</li><li>Memastikan produk dapat diproduksi secara efektif.</li><li>Memastikan produk memenuhi kebutuhan pasar.</li><li>Mempercepat proses pengembangan produk.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan manfaat kolaborasi secara lengkap: memperoleh masukan dari berbagai perspektif (produksi, QA, pemasaran), memastikan produk dapat diproduksi secara efektif (scale-up), memenuhi kebutuhan pasar, dan mempercepat proses pengembangan, disertai contoh peran departemen terkait."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan pentingnya kolaborasi dan beberapa departemen terkait, tetapi tidak menjelaskan dampaknya secara spesifik (misal: kelayakan produksi atau kecepatan pengembangan)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab secara umum, misal \"agar kerja sama baik\" atau \"agar kompak\", tanpa mengaitkan dengan proses pengembangan produk."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap R&D dapat bekerja sendiri dan departemen lain cukup menerima hasil akhir."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan kolaborasi dalam pengembangan produk."
+    }
+   ]
+  },
+  {
+   "no": 6,
+   "question": "<p>Dalam pengembangan produk baru, R&amp;D Officer harus memperhatikan aspek regulasi dan keamanan produk.</p><p>Jelaskan mengapa aspek regulasi penting dalam proses pengembangan produk.</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Memastikan produk memenuhi persyaratan hukum dan regulasi.</li><li>Menghindari penolakan registrasi produk.</li><li>Menjamin keamanan konsumen.</li><li>Mendukung legalitas produk di pasar.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan bahwa regulasi penting untuk memastikan produk memenuhi persyaratan hukum, menghindari penolakan registrasi/izin edar, menjamin keamanan konsumen, dan mendukung legalitas produk di pasar; dapat memberi contoh regulasi/standar yang relevan (misal: BPOM, SNI, halal, sertifikasi organik)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan bahwa produk harus sesuai aturan dan aman bagi konsumen, tetapi tidak menyinggung konsekuensi registrasi/legalitas atau contoh regulasi spesifik."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"agar tidak melanggar aturan\" tanpa menjelaskan kaitannya dengan keamanan konsumen dan izin edar produk."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap regulasi cukup diurus setelah produk siap dipasarkan atau dapat diabaikan jika produk sudah diuji internal."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas aspek regulasi atau keamanan produk."
+    }
+   ]
+  },
+  {
+   "no": 7,
+   "question": "<p>Uji stabilitas merupakan salah satu pengujian yang dilakukan dalam pengembangan produk.</p><p>Jelaskan tujuan dilakukannya uji stabilitas pada produk yang dikembangkan.</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Mengetahui ketahanan produk selama masa penyimpanan.</li><li>Menentukan masa simpan (shelf life) produk.</li><li>Memastikan mutu produk tetap stabil selama penyimpanan.</li><li>Menilai pengaruh kondisi lingkungan terhadap produk.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan tujuan uji stabilitas secara lengkap: mengetahui ketahanan produk selama penyimpanan, menentukan masa simpan (shelf life), memastikan mutu tetap stabil, dan menilai pengaruh kondisi lingkungan (suhu, kelembapan, cahaya) terhadap produk."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan uji stabilitas untuk mengetahui daya tahan dan masa simpan produk, tetapi tidak menjelaskan pengaruh kondisi lingkungan atau parameter mutu yang dipantau."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"agar produk awet\" atau \"agar tidak cepat rusak\" tanpa menyebut penentuan shelf life."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Mengartikan uji stabilitas sebagai uji kekuatan fisik kemasan saja atau uji rasa sesaat, atau menentukan masa simpan tanpa pengujian."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan uji stabilitas produk."
+    }
+   ]
+  },
+  {
+   "no": 8,
+   "question": "<p>Evaluasi hasil penelitian merupakan tahap penting dalam kegiatan R&amp;D. Jelaskan bagaimana R&amp;D Officer melakukan evaluasi terhadap hasil penelitian atau pengembangan produk.</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Menganalisis data hasil eksperimen.</li><li>Membandingkan hasil dengan standar atau target yang ditetapkan.</li><li>Mengidentifikasi kelebihan dan kekurangan produk.</li><li>Menentukan langkah perbaikan atau pengembangan lanjutan.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan tahapan evaluasi secara runtut: menganalisis data hasil eksperimen, membandingkan dengan standar/target yang ditetapkan, mengidentifikasi kelebihan dan kekurangan produk, serta menentukan langkah perbaikan atau pengembangan lanjutan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan analisis data dan perbandingan dengan target, tetapi tidak menjelaskan tindak lanjut (perbaikan atau pengembangan lanjutan)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"dilihat hasilnya bagus atau tidak\" tanpa acuan standar/target maupun analisis data."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Mengevaluasi berdasarkan selera pribadi atau pendapat tanpa data, atau langsung menyatakan produk berhasil tanpa pembanding."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas evaluasi hasil penelitian."
+    }
+   ]
+  },
+  {
+   "no": 9,
+   "question": "<p>Salah satu tujuan utama kegiatan R&amp;D adalah menciptakan inovasi produk. Jelaskan apa yang dimaksud dengan inovasi produk dan bagaimana peran R&amp;D Officer dalam menciptakan inovasi tersebut.</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Inovasi produk adalah pengembangan produk baru atau peningkatan produk yang sudah ada.</li><li>Dilakukan melalui penelitian, eksperimen, dan pengujian produk.</li><li>R&amp;D Officer mengidentifikasi peluang inovasi berdasarkan kebutuhan pasar.</li><li>Menghasilkan produk yang memiliki nilai tambah dan daya saing.</li><li>Dalam kegiatan penelitian dan pengembangan, risiko kegagalan eksperimen sering terjadi.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Mendefinisikan inovasi produk sebagai pengembangan produk baru atau peningkatan produk yang ada. Menjelaskan peran R&D Officer: mengidentifikasi peluang inovasi berdasarkan kebutuhan pasar, melakukan penelitian, eksperimen, dan pengujian, sehingga menghasilkan produk bernilai tambah dan berdaya saing."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Definisi inovasi benar dan menyebutkan peran melalui penelitian/eksperimen, tetapi tidak mengaitkan dengan kebutuhan pasar atau nilai tambah dan daya saing."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya memberikan definisi inovasi secara umum (misal: \"membuat hal baru\") tanpa menjelaskan peran R&D Officer."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyamakan inovasi dengan sekadar mengganti kemasan/nama produk atau meniru produk pesaing tanpa pengembangan."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan inovasi produk."
+    }
+   ]
+  },
+  {
+   "no": 10,
+   "question": "<p>Jelaskan bagaimana R&amp;D Officer harus menangani kegagalan dalam proses penelitian.</p>",
+   "answer": "<p>Poin Kunci:</p><ul><li>Melakukan analisis penyebab kegagalan.</li><li>Mengevaluasi metode penelitian atau parameter eksperimen.</li><li>Melakukan perbaikan desain penelitian.</li><li>Mengulang eksperimen dengan pendekatan yang lebih tepat.</li><li>Mendokumentasikan hasil untuk pembelajaran dan pengembangan selanjutnya.</li></ul>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan penanganan kegagalan secara sistematis: analisis penyebab kegagalan (root cause), evaluasi metode/parameter eksperimen, perbaikan desain penelitian, pengulangan eksperimen dengan pendekatan yang tepat, dan dokumentasi hasil sebagai pembelajaran."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan analisis penyebab dan pengulangan eksperimen, tetapi tidak menyinggung perbaikan desain penelitian atau dokumentasi kegagalan sebagai pembelajaran."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"diulang lagi\" atau \"dicoba lagi\" tanpa analisis penyebab maupun perbaikan metode."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan menghentikan penelitian, menyembunyikan/tidak mencatat hasil yang gagal, atau mengubah data agar terlihat berhasil."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas penanganan kegagalan penelitian."
+    }
+   ]
+  }
+ ],
+ "esai_panduan": "<p><strong>Panduan Penilaian Umum (Rentang Skor 10–100)</strong></p>\n<p><strong>Skor 90 – 100: Sangat Baik (Komprehensif &amp; Presisi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan seluruh elemen kunci jawaban secara akurat dan lengkap.</li>\n<li><strong>Pemahaman Konsep (R&amp;D):</strong> Menunjukkan pemahaman prinsip penelitian dan pengembangan produk yang tajam, logis, dan analitis, serta mampu mengaitkannya dengan praktik nyata di perusahaan.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Menggunakan istilah R&amp;D/penelitian dengan tepat (misal: studi literatur, parameter pengujian, formulasi, replikasi, ketertelusuran, shelf life, root cause analysis).</li>\n</ul>\n<p><strong>Skor 70 – 89: Baik (Memadai &amp; Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan sebagian besar poin kunci dengan benar. Terdapat toleransi untuk satu detail kecil yang terlewat.</li>\n<li><strong>Pemahaman Konsep (R&amp;D):</strong> Penjelasan logis dan sesuai dengan kaidah penelitian dan pengembangan, namun penjabarannya kurang tajam atau menggunakan bahasa yang sedikit lebih umum.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Pemahaman konsep terlihat, meskipun istilah teknis R&amp;D tidak digunakan secara menyeluruh.</li>\n</ul>\n<p><strong>Skor 50 – 69: Cukup (Parsial &amp; Terlalu Umum)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Hanya mampu menjawab secara parsial atau setengah-setengah dari kunci jawaban.</li>\n<li><strong>Pemahaman Konsep (R&amp;D):</strong> Penjelasan terlalu awam, mengambang, dan kurang menggambarkan proses penelitian dan pengembangan produk yang sistematis.</li>\n</ul>\n<p><strong>Skor 30 – 49: Kurang (Dangkal &amp; Miskonsepsi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Gagal menangkap substansi instruksi soal atau memberikan jawaban yang bertentangan dengan kaidah penelitian (misal: mengabaikan data, regulasi, atau mutu).</li>\n<li><strong>Pemahaman Konsep (R&amp;D):</strong> Terdapat kesalahan pemahaman yang fatal mengenai prinsip dasar penelitian dan pengembangan produk.</li>\n</ul>\n<p><strong>Skor 10 – 29: Sangat Kurang (Tidak Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Jawaban sama sekali tidak berkaitan dengan pertanyaan atau prinsip penelitian dan pengembangan. Nilai 10 diberikan sebagai nilai dasar karena peserta telah menuliskan respons.</li>\n</ul>",
+ "praktik": {
+  "template": "rnd.docx",
+  "template_name": "Ujian Praktik V2 - Research and Development Officer.docx",
+  "duration": 120,
+  "panduan": "Studi Kasus: FORMULASI DAN UJI STABILITAS EMULSI PRODUK RENDAH LEMAK\nSebagai R&D Officer di perusahaan, Anda ditugaskan untuk mengembangkan produk rendah lemak berbasis minyak nabati. Anda perlu menyusun instruksi kerja pengujian stabilitas emulsi, mengevaluasi data pengujian duplo terhadap 20 formulasi, memeriksa keabsahan lembar data hasil uji, serta memantau stabilitas produk selama penyimpanan menggunakan control chart. Seluruh jawaban ditulis pada Lembar Kerja Asesi yang disediakan.\nTugas Keterampilan:\n1.Instruksi Kerja Pengujian Stabilitas Emulsi\nSusunlah Instruksi Kerja Pengujian dalam format dokumen terkendali sesuai SNI ISO/IEC 17025:2017 pada Lembar Kerja Asesi Bagian 1, yang mencakup:\nA.Pengendalian Dokumen:\n-Judul, nomor dokumen, revisi, tanggal berlaku, serta pihak yang menyusun dan mengesahkan\nB.Tujuan, Ruang Lingkup, dan Prinsip Pengujian:\nStabilitas emulsi diukur berdasarkan perubahan parameter fisik selama penyimpanan dipercepat (accelerated storage test).\nC.Parameter Pengujian (lengkapi satuan, alat dan kondisi uji, serta hari pengamatan):\n-Viskositas (mPa.s) – menggunakan viskometer Brookfield, spindle dan rpm tertentu\n-pH – menggunakan pH meter terkalibrasi\n-Ukuran Globula Lemak (µm) – menggunakan mikroskop atau particle size analyzer\n-Indeks Pemisahan (%) – setelah sentrifugasi atau penyimpanan statis\nD.Peralatan dan Status Kalibrasi/Verifikasi:\n-Viscometer Brookfield\n-pH meter\n-Mikroskop binokuler + kamera\n-Sentrifugator\n-Oven 40°C\n-Waterbath\n-Tabung sentrifus 15 mL\nTuliskan nomor identitas alat, cara verifikasi sebelum dipakai, dan status alat.\nE.Prosedur Pengujian:\n1)Persiapan Sampel:\n-Homogenkan produk selama 1 menit dengan mixer kecepatan rendah, bagi ke dalam wadah tertutup untuk masing-masing kondisi uji\n2)Pengujian Stabilitas Dipercepat (Accelerated Test):\n-Simpan sampel pada suhu 40°C selama 7 hari\n-Amati viskositas, pH, dan pemisahan fase (visual atau sentrifugasi 3000 rpm, 10 menit) pada hari ke-0, 3, dan 7\n-Ukur ukuran globula lemak pada hari ke-0 dan ke-7\nF.Rumus Perhitungan:\n-Indeks pemisahan (%)\n-Perubahan viskositas dan ukuran globula lemak terhadap hari ke-0 (%)\n-% RPD hasil uji duplo\nG.Kriteria Penerimaan (beserta dasar penetapannya):\n-Viskositas tidak turun >20% dari hari ke-0\n-pH tidak berubah >0,5\n-Indeks pemisahan <5%\n-Ukuran globula lemak tidak naik >30%\nH.Dokumentasi:\nData mentah, grafik perubahan parameter, kesimpulan stabilitas, dan rekaman lain yang wajib disimpan.\n2.Data Pengujian 20 Sampel Duplo\nA.Evaluasi Data Duplo (Lembar Kerja Asesi Bagian 2.A)\nData viskositas (mPa.s) hari ke-7 pada 40°C untuk 20 sampel duplo (F01–F20) disediakan pada lembar kerja. Lengkapi tabel yang mencakup:\nKode Sampel Viskositas 1 (mPa.s) Viskositas 2 (mPa.s) Rerata % RPD Keputusan\n*Catatan: % RPD = |(A-B)| / ((A+B)/2) × 100%; batas keberterimaan duplo laboratorium % RPD ≤ 5%*\n-Tetapkan keputusan setiap sampel: diterima atau ulang uji\n-Tentukan jumlah sampel diterima, rata-rata % RPD, % RPD maksimum, dan sampel yang harus diuji ulang\n-Tuliskan satu contoh perhitungan lengkap dengan angka\n-Jelaskan tindakan dan kemungkinan penyebab untuk sampel dengan % RPD >5%\nB.Studi Kasus Lembar Data FR-RND-EMS-01 “milik Analis X” (Lembar Kerja Asesi Bagian 2.B)\nPeriksa lembar data hasil uji stabilitas formulasi F08 hari ke-7 yang disediakan, kemudian isi Lembar Ketidaksesuaian Studi Kasus:\n-Identifikasi setiap ketidaksesuaian pada data, kondisi uji, perhitungan, maupun cara pencatatan\n-Jelaskan mengapa tidak sesuai, dengan mengacu pada instruksi kerja, SNI ISO/IEC 17025:2017, atau prinsip ALCOA\n-Tuliskan koreksi yang benar, termasuk kesimpulan stabilitas yang seharusnya\n3.Control Chart Stabilitas Viskositas Selama 1 Tahun\nFormulasi terpilih F08 dipantau selama 12 bulan (data bulanan, triplo) pada uji stabilitas jangka panjang suhu ruang. Data disediakan pada Lembar Kerja Asesi Bagian 4.A.\nBuatlah control chart untuk parameter viskositas (mPa.s) dengan ketentuan:\n-Hitung rata-rata bulanan dari ketiga ulangan\n-Tentukan status setiap bulan: dalam batas atau di luar batas\nTentukan:\n-Garis Tengah (CL) = rata-rata keseluruhan\n-Standar deviasi (SD) dari 12 rata-rata bulanan\n-Batas Kendali Atas (UCL) = rata-rata + 3 × standar deviasi\n-Batas Kendali Bawah (LCL) = rata-rata − 3 × standar deviasi\nGambarkan grafik kendali (manual pada kisi grafik yang disediakan atau menggunakan Excel/software statistik) dengan sumbu X = bulan dan sumbu Y = viskositas, lalu lampirkan dalam lembar kerja.\n4.Interpretasi Control Chart\nBerdasarkan control chart yang telah dibuat (Lembar Kerja Asesi Bagian 4.D):\nApakah semua titik berada dalam batas kendali? Adakah pola atau tren yang perlu diwaspadai (aturan run)?\nJika ada titik di luar batas kendali atau tren, jelaskan kemungkinan penyebab teknis (misal: degradasi emulsifier, kontaminasi mikroba, flokulasi globula lemak) dan cara memverifikasinya.\n-Berikan rekomendasi tindakan perbaikan dalam konteks R&D, misalnya:\n-Reformulasi jenis atau konsentrasi emulsifier\n-Penambahan stabilizer atau pengawet\n-Optimasi proses homogenisasi\n-Kaitkan dengan prinsip Quality by Design (QbD): QTPP, CQA, CMA/CPP, design space, strategi kendali, dan pengendalian mutu produk selama shelf-life\nRangkum jawaban pada tabel temuan, kemungkinan penyebab teknis, cara verifikasi, tindakan perbaikan R&D, dan kaitan QbD.\n\nLembar Kerja Asesi (Bagian 1–4) ada di file template.",
+  "rubrik": "<p><strong>RUBRIK PENILAIAN TUGAS KETERAMPILAN</strong></p>\n<p><strong>Panduan Penilaian Umum (Rentang Skor 10–100)</strong></p>\n<p><strong>Skor 90 – 100: Sangat Baik (Komprehensif &amp; Presisi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Seluruh elemen kunci jawaban terpenuhi; perhitungan tepat (toleransi pembulatan ±0,01).</li>\n<li><strong>Pemahaman Konsep (R&amp;D/Mutu Lab):</strong> Analisis tajam, logis, dan dikaitkan dengan SNI ISO/IEC 17025:2017, ALCOA, SPC, dan QbD.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Tepat menggunakan istilah (dokumen terkendali, % RPD, CL/UCL/LCL, aturan run, CQA/CPP, design space).</li>\n</ul>\n<p><strong>Skor 70 – 89: Baik (Memadai &amp; Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Sebagian besar poin kunci benar; toleransi satu detail kecil terlewat atau satu kesalahan pembulatan.</li>\n<li><strong>Pemahaman Konsep:</strong> Logis dan sesuai standar, namun penjabaran kurang tajam/umum.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Konsep terlihat dipahami walau istilah tidak digunakan menyeluruh.</li>\n</ul>\n<p><strong>Skor 50 – 69: Cukup (Parsial &amp; Terlalu Umum)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Hanya sebagian (± setengah) elemen kunci terpenuhi atau terdapat beberapa kesalahan hitung non-fatal.</li>\n<li><strong>Pemahaman Konsep:</strong> Penjelasan awam, kurang menyasar standar laboratorium/R&amp;D.</li>\n</ul>\n<p><strong>Skor 30 – 49: Kurang (Dangkal &amp; Miskonsepsi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Gagal menangkap substansi tugas; rumus salah sehingga keputusan salah.</li>\n<li><strong>Pemahaman Konsep:</strong> Terdapat miskonsepsi fatal (mis. menerima data tidak valid, salah menetapkan batas kendali).</li>\n</ul>\n<p><strong>Skor 10 – 29: Sangat Kurang (Tidak Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Jawaban tidak berkaitan dengan tugas. Nilai 10 diberikan sebagai nilai dasar karena asesi telah menuliskan respons.</li>\n</ul>\n<p><strong>Rubrik Penilaian per Nomor Soal</strong></p>\n<table><tr><th>Nomor Soal</th><th>Skor 90 – 100: Sangat Baik (Komprehensif &amp; Presisi)</th><th>Skor 70 – 89: Baik (Memadai &amp; Relevan)</th><th>Skor 50 – 69: Cukup (Parsial &amp; Terlalu Umum)</th><th>Skor 30 – 49: Kurang (Dangkal &amp; Miskonsepsi)</th><th>Skor 10 – 29: Sangat Kurang (Tidak Relevan)</th></tr><tr><td>1 (A–D) IK: Pengendalian dokumen, tujuan/ lingkup/prinsip, parameter, peralatan</td><td>Elemen dokumen terkendali lengkap (judul, nomor, revisi, tgl berlaku, penyusun, pengesah). Prinsip accelerated test dijelaskan (mekanisme destabilisasi). Keempat parameter lengkap satuan, alat, kondisi (RV-04/20 rpm/25 ± 0,5°C, kalibrasi pH 2 titik, 3000 rpm/10 menit) dan hari pengamatan. Ketujuh alat memiliki ID, cara verifikasi, dan status.</td><td>Elemen dokumen terkendali ada namun 1 elemen kurang (mis. tanpa pengesah). Parameter lengkap tetapi satu kondisi uji kurang spesifik (mis. tanpa suhu ukur viskositas). Verifikasi alat ada untuk sebagian besar alat.</td><td>Hanya menulis judul tanpa sistem pengendalian dokumen. Parameter disebut tanpa satuan/kondisi uji. Daftar alat tanpa ID atau tanpa cara verifikasi.</td><td>Format bukan dokumen terkendali; parameter/satuan salah (mis. viskositas dalam %); alat tidak terkalibrasi dianggap boleh dipakai.</td><td>Isi tidak berkaitan dengan instruksi kerja pengujian stabilitas emulsi.</td></tr><tr><td>1 (E–H) IK: Prosedur, rumus, kriteria penerimaan, dokumentasi</td><td>Prosedur runtut (homogenisasi, pembagian sampel, H0 sebelum simpan, 40°C/7 hari, pengamatan H0-H3-H7, globula H0 &amp; H7, pengondisian suhu). Kelima rumus benar (indeks pemisahan, % perubahan terhadap H0, ΔpH, % RPD). Kriteria lengkap beserta dasar ilmiahnya; kesimpulan stabil bila semua kriteria terpenuhi. Dokumentasi mencakup data mentah, grafik, log alat/suhu, kesimpulan, masa simpan.</td><td>Prosedur &amp; rumus benar dengan satu kekurangan kecil (mis. dasar penetapan kriteria kurang dijelaskan atau satu rekaman terlewat).</td><td>Prosedur tidak runtut/hari pengamatan tidak lengkap; hanya sebagian rumus benar; kriteria disebut tanpa dasar.</td><td>Rumus salah (mis. % perubahan dibagi nilai H7, RPD dibagi salah satu nilai); kriteria penerimaan diubah/terbalik.</td><td>Tidak menulis prosedur/rumus atau isinya tidak relevan.</td></tr><tr><td>2.A Evaluasi 20 data duplo</td><td>Tabel 20 sampel lengkap &amp; benar (rerata, % RPD 2 desimal). Keputusan benar: 19 diterima, F13 (6,21%) ulang uji; rata-rata % RPD 1,50%; maks 6,21%. Contoh perhitungan lengkap dengan angka. Penyebab (homogenitas, suhu, gelembung, tiksotropi, pencatatan) dan tindakan (invalidasi, ulang uji, investigasi/CAPA) logis.</td><td>Perhitungan &amp; keputusan benar, tetapi satu ringkasan kurang (mis. tanpa rata-rata RPD) atau penyebab/tindakan kurang spesifik.</td><td>Sebagian perhitungan salah (≤ 5 sampel) namun F13 masih teridentifikasi; tanpa contoh perhitungan atau penyebab hanya 1 butir.</td><td>Rumus RPD salah sehingga keputusan salah (F13 diterima atau sampel lain ditolak); menyarankan merata-ratakan saja tanpa ulang uji.</td><td>Tidak mengisi tabel atau isian tidak berkaitan dengan data duplo.</td></tr><tr><td>2.B Studi kasus lembar data Analis X (F08 H7)</td><td>Mengidentifikasi seluruh (≥ 80%) ketidaksesuaian yang ditanam (kondisi uji, perhitungan, pencatatan, alat, kesimpulan); setiap temuan diberi alasan dengan acuan IK, klausul SNI ISO/IEC 17025 (6.3, 6.4, 7.5, 7.8) dan prinsip ALCOA; koreksi benar (RPD F08 0,58%) dan kesimpulan stabilitas sesuai data.</td><td>Mengidentifikasi sebagian besar (60–79%) temuan dengan koreksi benar; acuan standar/ALCOA disebut untuk sebagian temuan.</td><td>Hanya menemukan 40–59% temuan; alasan umum tanpa acuan; koreksi tidak lengkap atau kesimpulan tidak dibahas.</td><td>Menemukan &lt; 40% temuan; menganggap koreksi tip-ex/penimpaan data wajar; menyalin kesimpulan Analis X yang salah.</td><td>Jawaban tidak membahas lembar data atau ketidaksesuaian.</td></tr><tr><td>3 Perhitungan control chart</td><td>Rerata bulanan 12 titik benar; CL 2.496,25; SD 36,38; UCL 2.605,38; LCL 2.387,12 (toleransi ±0,01; SD populasi diterima bila rumus disebut); status 12 bulan \"dalam batas\" benar.</td><td>Perhitungan benar dengan satu kesalahan pembulatan/kesalahan kecil yang tidak mengubah status.</td><td>Rerata benar tetapi SD/UCL/LCL salah hitung; status sebagian tidak ditentukan.</td><td>Rumus batas salah (mis. memakai SD data individual tanpa alasan, ±1SD) sehingga status salah.</td><td>Tidak menghitung atau tidak relevan.</td></tr><tr><td>3 Grafik kendali</td><td>Grafik lengkap: judul, sumbu X = bulan, sumbu Y = viskositas (mPa.s), 12 titik terhubung, garis CL/UCL/LCL berlabel nilai, skala proporsional &amp; terbaca.</td><td>Grafik benar, kurang satu elemen (mis. label nilai garis atau satuan sumbu).</td><td>Grafik tanpa garis UCL/LCL atau skala tidak proporsional sehingga sulit dibaca.</td><td>Plot salah (data individu dicampur rerata, sumbu tertukar, titik salah plot).</td><td>Tidak melampirkan grafik.</td></tr><tr><td>4 Interpretasi control chart &amp; kaitan QbD</td><td>Menyatakan semua titik dalam batas, mengidentifikasi tren menurun 7 titik (Bln 6–12) dan shift di bawah CL sebagai sinyal penyebab khusus (aturan run). Menjelaskan ≥ 3 penyebab teknis (degradasi emulsifier, flokulasi/koalesensi, stabilizer, mikroba, oksidasi) beserta verifikasinya; rekomendasi R&amp;D (emulsifier, stabilizer/pengawet, homogenisasi); kaitan QbD lengkap (QTPP, CQA, CMA/CPP, design space, strategi kendali, shelf-life). Tabel temuan lengkap.</td><td>Mengidentifikasi tren, penyebab &amp; tindakan sesuai, namun kaitan QbD hanya sebagian (mis. tanpa design space) atau verifikasi kurang spesifik.</td><td>Hanya menyatakan \"semua dalam batas, proses stabil\" dengan sedikit menyinggung penurunan; penyebab/tindakan umum; QbD hanya disebut.</td><td>Menyimpulkan proses stabil tanpa masalah dan mengabaikan tren, atau menyatakan ada titik di luar batas (salah baca grafik); rekomendasi tidak relevan.</td><td>Jawaban tidak berkaitan dengan interpretasi control chart.</td></tr></table>\n<p><strong>REKAPITULASI NILAI</strong></p>\n<table><tr><th>Tugas</th><th>Bobot</th></tr><tr><td>Instruksi Kerja Pengujian Stabilitas Emulsi</td><td>30%</td></tr><tr><td>Data Pengujian 20 Sampel Duplo</td><td>30%</td></tr><tr><td>Control Chart Stabilitas Viskositas</td><td>20%</td></tr><tr><td>Interpretasi Control Chart</td><td>20%</td></tr><tr><td>Nilai (Jumlah Nilai × Bobot)</td><td>100%</td></tr></table>",
+  "aspek": [
+   {
+    "no": 1,
+    "nama": "1 (A–D) IK: Pengendalian dokumen, tujuan/ lingkup/prinsip, parameter, peralatan",
+    "kelompok": "Tugas 1: Instruksi Kerja Pengujian Stabilitas Emulsi (30%)",
+    "bobot": 15,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Elemen dokumen terkendali lengkap (judul, nomor, revisi, tgl berlaku, penyusun, pengesah). Prinsip accelerated test dijelaskan (mekanisme destabilisasi). Keempat parameter lengkap satuan, alat, kondisi (RV-04/20 rpm/25 ± 0,5°C, kalibrasi pH 2 titik, 3000 rpm/10 menit) dan hari pengamatan. Ketujuh alat memiliki ID, cara verifikasi, dan status."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Elemen dokumen terkendali ada namun 1 elemen kurang (mis. tanpa pengesah). Parameter lengkap tetapi satu kondisi uji kurang spesifik (mis. tanpa suhu ukur viskositas). Verifikasi alat ada untuk sebagian besar alat."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Hanya menulis judul tanpa sistem pengendalian dokumen. Parameter disebut tanpa satuan/kondisi uji. Daftar alat tanpa ID atau tanpa cara verifikasi."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Format bukan dokumen terkendali; parameter/satuan salah (mis. viskositas dalam %); alat tidak terkalibrasi dianggap boleh dipakai."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Isi tidak berkaitan dengan instruksi kerja pengujian stabilitas emulsi."
+     }
+    ]
+   },
+   {
+    "no": 2,
+    "nama": "1 (E–H) IK: Prosedur, rumus, kriteria penerimaan, dokumentasi",
+    "kelompok": "Tugas 1: Instruksi Kerja Pengujian Stabilitas Emulsi (30%)",
+    "bobot": 15,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Prosedur runtut (homogenisasi, pembagian sampel, H0 sebelum simpan, 40°C/7 hari, pengamatan H0-H3-H7, globula H0 & H7, pengondisian suhu). Kelima rumus benar (indeks pemisahan, % perubahan terhadap H0, ΔpH, % RPD). Kriteria lengkap beserta dasar ilmiahnya; kesimpulan stabil bila semua kriteria terpenuhi. Dokumentasi mencakup data mentah, grafik, log alat/suhu, kesimpulan, masa simpan."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Prosedur & rumus benar dengan satu kekurangan kecil (mis. dasar penetapan kriteria kurang dijelaskan atau satu rekaman terlewat)."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Prosedur tidak runtut/hari pengamatan tidak lengkap; hanya sebagian rumus benar; kriteria disebut tanpa dasar."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Rumus salah (mis. % perubahan dibagi nilai H7, RPD dibagi salah satu nilai); kriteria penerimaan diubah/terbalik."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Tidak menulis prosedur/rumus atau isinya tidak relevan."
+     }
+    ]
+   },
+   {
+    "no": 3,
+    "nama": "2.A Evaluasi 20 data duplo",
+    "kelompok": "Tugas 2: Data Pengujian 20 Sampel Duplo (30%)",
+    "bobot": 15,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Tabel 20 sampel lengkap & benar (rerata, % RPD 2 desimal). Keputusan benar: 19 diterima, F13 (6,21%) ulang uji; rata-rata % RPD 1,50%; maks 6,21%. Contoh perhitungan lengkap dengan angka. Penyebab (homogenitas, suhu, gelembung, tiksotropi, pencatatan) dan tindakan (invalidasi, ulang uji, investigasi/CAPA) logis."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Perhitungan & keputusan benar, tetapi satu ringkasan kurang (mis. tanpa rata-rata RPD) atau penyebab/tindakan kurang spesifik."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Sebagian perhitungan salah (≤ 5 sampel) namun F13 masih teridentifikasi; tanpa contoh perhitungan atau penyebab hanya 1 butir."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Rumus RPD salah sehingga keputusan salah (F13 diterima atau sampel lain ditolak); menyarankan merata-ratakan saja tanpa ulang uji."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Tidak mengisi tabel atau isian tidak berkaitan dengan data duplo."
+     }
+    ]
+   },
+   {
+    "no": 4,
+    "nama": "2.B Studi kasus lembar data Analis X (F08 H7)",
+    "kelompok": "Tugas 2: Data Pengujian 20 Sampel Duplo (30%)",
+    "bobot": 15,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Mengidentifikasi seluruh (≥ 80%) ketidaksesuaian yang ditanam (kondisi uji, perhitungan, pencatatan, alat, kesimpulan); setiap temuan diberi alasan dengan acuan IK, klausul SNI ISO/IEC 17025 (6.3, 6.4, 7.5, 7.8) dan prinsip ALCOA; koreksi benar (RPD F08 0,58%) dan kesimpulan stabilitas sesuai data."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Mengidentifikasi sebagian besar (60–79%) temuan dengan koreksi benar; acuan standar/ALCOA disebut untuk sebagian temuan."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Hanya menemukan 40–59% temuan; alasan umum tanpa acuan; koreksi tidak lengkap atau kesimpulan tidak dibahas."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Menemukan < 40% temuan; menganggap koreksi tip-ex/penimpaan data wajar; menyalin kesimpulan Analis X yang salah."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Jawaban tidak membahas lembar data atau ketidaksesuaian."
+     }
+    ]
+   },
+   {
+    "no": 5,
+    "nama": "3 Perhitungan control chart",
+    "kelompok": "Tugas 3: Control Chart Stabilitas Viskositas (20%)",
+    "bobot": 10,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Rerata bulanan 12 titik benar; CL 2.496,25; SD 36,38; UCL 2.605,38; LCL 2.387,12 (toleransi ±0,01; SD populasi diterima bila rumus disebut); status 12 bulan \"dalam batas\" benar."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Perhitungan benar dengan satu kesalahan pembulatan/kesalahan kecil yang tidak mengubah status."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Rerata benar tetapi SD/UCL/LCL salah hitung; status sebagian tidak ditentukan."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Rumus batas salah (mis. memakai SD data individual tanpa alasan, ±1SD) sehingga status salah."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Tidak menghitung atau tidak relevan."
+     }
+    ]
+   },
+   {
+    "no": 6,
+    "nama": "3 Grafik kendali",
+    "kelompok": "Tugas 3: Control Chart Stabilitas Viskositas (20%)",
+    "bobot": 10,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Grafik lengkap: judul, sumbu X = bulan, sumbu Y = viskositas (mPa.s), 12 titik terhubung, garis CL/UCL/LCL berlabel nilai, skala proporsional & terbaca."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Grafik benar, kurang satu elemen (mis. label nilai garis atau satuan sumbu)."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Grafik tanpa garis UCL/LCL atau skala tidak proporsional sehingga sulit dibaca."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Plot salah (data individu dicampur rerata, sumbu tertukar, titik salah plot)."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Tidak melampirkan grafik."
+     }
+    ]
+   },
+   {
+    "no": 7,
+    "nama": "4 Interpretasi control chart & kaitan QbD",
+    "kelompok": "Tugas 4: Interpretasi Control Chart (20%)",
+    "bobot": 20,
+    "kriteria": [
+     {
+      "min": 90,
+      "max": 100,
+      "label": "Sangat Baik",
+      "deskripsi": "Menyatakan semua titik dalam batas, mengidentifikasi tren menurun 7 titik (Bln 6–12) dan shift di bawah CL sebagai sinyal penyebab khusus (aturan run). Menjelaskan ≥ 3 penyebab teknis (degradasi emulsifier, flokulasi/koalesensi, stabilizer, mikroba, oksidasi) beserta verifikasinya; rekomendasi R&D (emulsifier, stabilizer/pengawet, homogenisasi); kaitan QbD lengkap (QTPP, CQA, CMA/CPP, design space, strategi kendali, shelf-life). Tabel temuan lengkap."
+     },
+     {
+      "min": 70,
+      "max": 89,
+      "label": "Baik",
+      "deskripsi": "Mengidentifikasi tren, penyebab & tindakan sesuai, namun kaitan QbD hanya sebagian (mis. tanpa design space) atau verifikasi kurang spesifik."
+     },
+     {
+      "min": 50,
+      "max": 69,
+      "label": "Cukup",
+      "deskripsi": "Hanya menyatakan \"semua dalam batas, proses stabil\" dengan sedikit menyinggung penurunan; penyebab/tindakan umum; QbD hanya disebut."
+     },
+     {
+      "min": 30,
+      "max": 49,
+      "label": "Kurang",
+      "deskripsi": "Menyimpulkan proses stabil tanpa masalah dan mengabaikan tren, atau menyatakan ada titik di luar batas (salah baca grafik); rekomendasi tidak relevan."
+     },
+     {
+      "min": 10,
+      "max": 29,
+      "label": "Sangat Kurang",
+      "deskripsi": "Jawaban tidak berkaitan dengan interpretasi control chart."
+     }
+    ]
+   }
+  ]
+ }
+}

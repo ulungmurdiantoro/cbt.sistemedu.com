@@ -23,7 +23,14 @@ class Essay extends Model
         'question',
         'answer',
         'is_essay',
+        'rubrik',
     ];
+
+    /** Matriks rubrik per soal (FR.IA.06): [{min, max, label, deskripsi}] — panduan asesor, tidak masuk STUDENT_COLUMNS. */
+    protected function casts(): array
+    {
+        return ['rubrik' => 'array'];
+    }
 
     /**
      * exam

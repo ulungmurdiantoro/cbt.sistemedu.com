@@ -1,0 +1,2087 @@
+{
+ "key": "glp",
+ "classroom_code": "GLP",
+ "nama": "GLP Laboratory Technician / Teknisi Laboratorium Berbasis GLP",
+ "sumber": {
+  "pg": "FR.IA.05 Pilihan Ganda GLP Laboratory Technician-Teknisi Laboratorium Berbasis GLP.pdf",
+  "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai GLP.pdf",
+  "praktik": "FR.IA.04 Ujian Praktik - GLP Technician-V1.docx"
+ },
+ "durasi": {
+  "pg": 120,
+  "esai": 90
+ },
+ "komposisi": {
+  "bobot_ujian_tulis": 70,
+  "proporsi_pg": 65,
+  "bobot_wawancara": 22.5,
+  "bobot_praktik_1": 7.5,
+  "bobot_praktik_2": 0,
+  "nilai_kelulusan": 60
+ },
+ "pilihan_ganda": [
+  {
+   "no": 1,
+   "blocks": [
+    {
+     "text": "Dalam penerapan GLP, pendekatan manajemen terhadap kendali analisis sangat berbeda dengan standar ISO 17025. Apa perbedaan mendasar tersebut berdasarkan kriteria unjuk kerja?"
+    }
+   ],
+   "options": [
+    "GLP menerapkan sistem pengambilan keputusan kolegial di antara para analis",
+    "GLP mewajibkan penunjukan Penanggungjawab Teknis Pengujian yang memiliki kendali tunggal (Single Point of Control) atas analisis",
+    "ISO 17025 mewajibkan pembentukan Quality Assurance Unit secara independen di luar struktur laboratorium",
+    "ISO 17025 mengharuskan Penjaminan Mutu merangkap sebagai Penanggungjawab Teknis"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 2,
+   "blocks": [
+    {
+     "text": "Aspek paling kritis yang menjadi fokus utama dalam penilaian kesiapan struktur organisasi berstandar GLP adalah..."
+    }
+   ],
+   "options": [
+    "Kemampuan menyusun hierarki Rencana Analisis di atas SOP teknis",
+    "Kemampuan melakukan facility walkthrough secara harian tanpa pengawasan",
+    "Kemampuan mengidentifikasi potensi konflik kepentingan dan memastikan independensi Penjaminan Mutu",
+    "Kemampuan melakukan kualifikasi alat secara mandiri"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 3,
+   "blocks": [
+    {
+     "text": "Hierarki dokumen mutu dalam GLP diatur sedemikian rupa untuk memastikan kejelasan operasional. Kedudukan dokumen Rencana Analisis dalam sistem ini adalah..."
+    }
+   ],
+   "options": [
+    "Ditetapkan di atas Standar Operasional Prosedur (SOP)",
+    "Sejajar dengan SOP kategori manajemen",
+    "Berada di bawah Instruksi Kerja karena instruksi kerja lebih detail",
+    "Tergantung pada kebijakan Penjaminan Mutu laboratorium"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 4,
+   "blocks": [
+    {
+     "text": "Jika seorang analis menemukan SOP yang sudah usang di area kerjanya, tindakan apa yang diwajibkan oleh prosedur GLP?"
+    }
+   ],
+   "options": [
+    "Dokumen direvisi langsung oleh analis menggunakan tulisan tangan",
+    "Dokumen dapat digunakan sebagai referensi dengan persetujuan lisan dari manajer",
+    "Dokumen tersebut diarsipkan di meja kerja sebagai perbandingan sejarah analisis",
+    "Dokumen tersebut harus ditarik dari peredaran karena akses dokumen harus terkendali"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 5,
+   "blocks": [
+    {
+     "text": "Tujuan utama diterapkannya sistem pemisahan fasilitas (zoning) di dalam laboratorium GLP adalah untuk..."
+    }
+   ],
+   "options": [
+    "Menghemat anggaran pengkondisian udara (HVAC)",
+    "Mempercepat alur pergerakan analis selama jam kerja",
+    "Mencegah terjadinya kontaminasi silang antar berbagai tahapan atau bahan pengujian",
+    "Memudahkan penyusunan Master Schedule fasilitas pengujian"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 6,
+   "blocks": [
+    {
+     "text": "Berdasarkan persyaratan manajemen bahan kimia dalam GLP, syarat mutlak sebelum bahan pengujian dapat digunakan adalah memiliki Certificate of Analysis (CoA). Komponen informasi apa saja yang wajib ada dalam CoA tersebut?"
+    }
+   ],
+   "options": [
+    "Identitas bahan, berat jenis, dan rute pengiriman",
+    "Nomor CAS, suhu penyimpanan, dan metode sintesis",
+    "Nama vendor, harga bahan, dan sertifikat ISO vendor",
+    "Identitas, kemurnian, dan tanggal kadaluarsa"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 7,
+   "blocks": [
+    {
+     "text": "Apa kebijakan GLP terhadap bahan kimia atau reagen yang telah melewati tanggal kadaluarsa?"
+    }
+   ],
+   "options": [
+    "Dapat terus digunakan asalkan tidak ada perubahan warna fisik",
+    "Dilarang keras digunakan kecuali telah divalidasi ulang",
+    "Dapat digunakan khusus untuk uji coba pendahuluan, bukan pengujian utama",
+    "Dilarang keras digunakan dan harus segera dihancurkan oleh Quality Assurance Unit"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 8,
+   "blocks": [
+    {
+     "text": "Bukti objektif yang sah untuk menunjukkan bahwa struktur organisasi laboratorium telah mematuhi prinsip independensi GLP adalah..."
+    }
+   ],
+   "options": [
+    "Bagan organisasi yang menunjukkan garis pelaporan yang terpisah antara Penanggungjawab Teknis (SD) dan Penjaminan Mutu",
+    "Surat pengangkatan Manajer Fasilitas Pengujian dari direksi",
+    "Daftar hadir harian staf Quality Assurance Unit",
+    "Logbook penyusunan Rencana Analisis"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 9,
+   "blocks": [
+    {
+     "text": "Manajemen peralatan laboratorium dalam GLP mencakup beberapa tahapan kritikal. Rangkaian kualifikasi alat yang benar menurut panduan penilaian adalah..."
+    }
+   ],
+   "options": [
+    "Initial Qualification, Quality Qualification, Process Qualification",
+    "Instrument Qualification, Observation Qualification, Proficiency Qualification",
+    "Installation Qualification, Operational Qualification, Performance Qualification (IQ/OQ/PQ)",
+    "Internal Qualification, Output Qualification, Preventive Qualification"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 10,
+   "blocks": [
+    {
+     "text": "Mengapa pemantauan suhu dan kelembaban (kondisi lingkungan) secara terus- menerus sangat ditekankan ?"
+    }
+   ],
+   "options": [
+    "Untuk memperpanjang umur kalibrasi instrumen elektronik",
+    "Karena fluktuasinya dapat memengaruhi validitas sistem pengujian biologis atau merusak stabilitas bahan kimia",
+    "Sebagai persyaratan utama untuk menjaga kesehatan dan keselamatan kerja (K3) personel",
+    "Untuk menghindari kerusakan dokumen mutu yang disimpan di laboratorium"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 11,
+   "blocks": [
+    {
+     "text": "Dokumen apa yang dituntut sebagai bukti kuat bahwa personel laboratorium benar- benar telah mengakses dan memahami dokumen mutu (SOP)?"
+    }
+   ],
+   "options": [
+    "Log distribusi SOP dan rekaman pelatihan pemahaman SOP",
+    "Catatan absensi rapat manajemen tahunan",
+    "Sertifikat kompetensi analis kimia dari Badan Nasional Sertifikasi Profesi",
+    "Master Schedule yang telah ditandatangani oleh setiap analis"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 12,
+   "blocks": [
+    {
+     "text": "Manakah dari pilihan berikut yang merupakan contoh implementasi zoning (pemisahan fasilitas) yang tepat menurut panduan GLP?"
+    }
+   ],
+   "options": [
+    "Menggabungkan area preparasi bahan uji dengan area pengarsipan dokumen mutu",
+    "Menyatukan jalur pembuangan limbah kimia dengan sistem ventilasi HVAC laboratorium",
+    "Memisahkan secara fisik area penyimpanan sampel dari area tempat dilakukannya analisis",
+    "Menempatkan Quality Assurance Unit di dalam ruang pengujian yang sama dengan analis"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 13,
+   "blocks": [
+    {
+     "text": "Keterampilan yang wajib dikuasai oleh personel dalam persiapan penerapan GLP sebelum dimulainya suatu analisis teknis adalah melakukan pemeriksaan visual keliling fasilitas. Istilah teknis untuk keterampilan ini adalah..."
+    }
+   ],
+   "options": [
+    "Management Review",
+    "Master Scheduling",
+    "Quality Qualification",
+    "Facility Walkthrough"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 14,
+   "blocks": [
+    {
+     "text": "Untuk mengatur jadwal dan beban kerja secara terpusat, laboratorium pengujian GLP diwajibkan memiliki keterampilan menyusun suatu dokumen pengatur jadwal. Dokumen ini disebut..."
+    }
+   ],
+   "options": [
+    "Master Schedule (Jadwal Induk) Fasilitas Pengujian",
+    "Standard Operating Procedure (SOP) Manajemen",
+    "Rencana Analisis",
+    "Log Harian Kondisi Lingkungan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 15,
+   "blocks": [
+    {
+     "text": "Bukti fisik apa yang secara langsung membuktikan bahwa status validitas dan kalibrasi suatu alat penganalisa kimia telah dipastikan siap sebelum digunakan?"
+    }
+   ],
+   "options": [
+    "Log inventaris alat laboratorium",
+    "Instruksi Kerja alat yang berada di dekat mesin",
+    "Label status kalibrasi yang tertempel pada alat",
+    "Kuitansi pembayaran jasa vendor kalibrasi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 16,
+   "blocks": [
+    {
+     "text": "Personel laboratorium yang mengadopsi GLP diwajibkan memahami Standar Operasional Prosedur (SOP) dari tiga kategori utama, yaitu..."
+    }
+   ],
+   "options": [
+    "SOP Kualifikasi, SOP Kalibrasi, dan SOP Audit",
+    "SOP Manajemen, SOP Teknis, dan SOP Keselamatan dan Kesehatan Kerja (K3)",
+    "SOP Eksternal, SOP Internal, dan SOP Vendor",
+    "SOP Pengadaan Barang, SOP Penyimpanan, dan SOP Pemusnahan Limbah"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 17,
+   "blocks": [
+    {
+     "text": "Dalam prinsip organisasi GLP, beberapa peran kunci didefinisikan secara khusus. Manakah dari kelompok jabatan berikut yang merupakan fokus utama dari pengetahuan struktur organisasi GLP?"
+    }
+   ],
+   "options": [
+    "Pemasok (Vendor), Staf Gudang, dan Teknisi Kalibrasi Eksternal",
+    "Kepala Divisi Produksi, Kepala Quality Control, dan Petugas Limbah",
+    "Health and Safety Officer, Manajer SDM, dan Analis Lingkungan",
+    "Penanggungjawab Fasilitas Pengujian, Penanggungjawab Analisis, Auditor Internal Laboratorium, dan Penjaminan Mutu"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 18,
+   "blocks": [
+    {
+     "text": "Skenario: Sebuah laboratorium komersial membuang sisa sampel bahan kimia ke tempat sampah umum untuk menghindari biaya pengolahan limbah pihak ketiga. Hal ini tidak dicatat di mana pun. Selain melanggar peraturan lingkungan, pelanggaran prinsip GLP apa yang paling mendasar terjadi di sini?"
+    }
+   ],
+   "options": [
+    "Pelanggaran terhadap prinsip akuntabilitas bahan pengujian",
+    "Pelanggaran terhadap prinsip validasi metode pencucian",
+    "Pelanggaran terhadap masa simpan (retention period)",
+    "Pelanggaran batas akses personel laboratorium"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 19,
+   "blocks": [
+    {
+     "text": "Salah satu bukti yang ditagihkan untuk memenuhi kriteria kesesuaian akomodasi dan lingkungan fasilitas adalah Log harian. Apa tujuan spesifik log tersebut?"
+    }
+   ],
+   "options": [
+    "Mendata jumlah personel yang keluar-masuk area steril",
+    "Menjadi bukti rekaman berkelanjutan atas parameter suhu dan kelembaban udara ruang pengujian",
+    "Merekam riwayat kerusakan dan perawatan peralatan analisis",
+    "Mendata jumlah sampel yang masuk dan keluar fasilitas pada hari tersebut"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 20,
+   "blocks": [
+    {
+     "text": "Menurut deskripsi unit, kapan persiapan struktur organisasi dan hierarki dokumentasi ini harus sudah selesai ditetapkan secara mapan?"
+    }
+   ],
+   "options": [
+    "Saat penyusunan laporan akhir Rencana Analisis",
+    "Tepat setelah Quality Assurance menyelesaikan audit internal pertamanya",
+    "Sebelum Analisis GLP dimulai",
+    "Bersamaan dengan proses kualifikasi peralatan penganalisa tingkat lanjut"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 21,
+   "blocks": [
+    {
+     "text": "Untuk memastikan zoning telah berjalan sesuai standar GLP, bukti audit visual apa yang harus ditunjukkan oleh fasilitas kepada asesor atau inspektur?"
+    }
+   ],
+   "options": [
+    "Bagan struktur organisasi (Organization Chart)",
+    "Master Schedule yang dicetak harian",
+    "Log distribusi material kimia",
+    "Peta pemisahan area fasilitas laboratorium"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 22,
+   "blocks": [
+    {
+     "text": "Di samping konsep kualifikasi dan kalibrasi, manajemen peralatan GLP juga mewajibkan sebuah konsep proaktif agar instrumen tidak mengalami kerusakan mendadak. Konsep ini dinamakan..."
+    }
+   ],
+   "options": [
+    "Corrective Maintenance",
+    "Breakdown Maintenance",
+    "Preventive Maintenance (perawatan preventif)",
+    "Reactive Qualification"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 23,
+   "blocks": [
+    {
+     "text": "Konflik kepentingan menjadi ancaman terbesar bagi validitas data di laboratorium. Dalam sistem manajemen GLP, siapa pihak operasional utama yang harus dipisahkan dengan tegas dari Quality Assurance Unit?"
+    }
+   ],
+   "options": [
+    "Personel operasional pelaksana analisis laboratorium",
+    "Manajer sumber daya manusia",
+    "Pihak vendor pemasok bahan kimia",
+    "Auditor Internal Laboratorium yang didatangkan dari eksternal"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 24,
+   "blocks": [
+    {
+     "text": "Apa contoh bentuk persyaratan akomodasi lingkungan secara spesifik yang disebutkan untuk pengujian mikrobiologi?"
+    }
+   ],
+   "options": [
+    "Memerlukan ruang bersuhu ruangan tanpa pemantauan kelembaban",
+    "Memerlukan ruang steril",
+    "Harus terintegrasi dengan area preparasi bahan kimia korosif",
+    "Menggunakan ventilasi udara alami tanpa filter mekanis"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 25,
+   "blocks": [
+    {
+     "text": "\"Melakukan Persiapan Penerapan GLP\" menyatakan bahwa tahapan tersebut merupakan \"tahap krusial\". Apa alasan utamanya?"
+    }
+   ],
+   "options": [
+    "Karena merupakan momen di mana anggaran pengadaan peralatan baru disetujui",
+    "Karena kegagalan di tahap ini langsung mencabut sertifikasi ISO 17025 laboratorium tersebut",
+    "Karena ini adalah satu-satunya tahap yang melibatkan kalibrasi eksternal",
+    "Karena pada tahap inilah struktur Penanggungjawab Teknis Pengujian dan infrastruktur laboratorium ditetapkan secara mapan"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 26,
+   "blocks": [
+    {
+     "text": "\"Melakukan Persiapan Penerapan GLP\" menyatakan bahwa tahapan tersebut merupakan \"tahap krusial\". Apakah hal tersebut?"
+    }
+   ],
+   "options": [
+    "Ketersediaan anggaran yang tak terbatas untuk bahan uji",
+    "Kepatuhan terhadap Rencana Analisis dan pencatatan data secara real-time",
+    "Penggunaan instrumen otomatis sepenuhnya tanpa campur tangan manual",
+    "Kebebasan analis untuk memodifikasi metode demi efisiensi waktu"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 27,
+   "blocks": [
+    {
+     "text": "Dalam pelaksanaan pengujian, jika ditemukan adanya instruksi dalam SOP yang ternyata bertentangan dengan Rencana Analisis, dokumen manakah yang harus dipatuhi secara mutlak?"
+    }
+   ],
+   "options": [
+    "Rencana Analisis, karena dokumen ini memuat spesifikasi yang berlaku khusus untuk analisis tersebut",
+    "SOP, karena SOP adalah dokumen hierarki standar laboratorium",
+    "Instruksi lisan dari Penjaminan Mutu (Quality Assurance)",
+    "Kesepakatan kolegial antara analis yang bertugas"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 28,
+   "blocks": [
+    {
+     "text": "Apabila terjadi suatu kondisi tak terduga yang mengharuskan seorang analis menyimpang dari SOP yang telah ditetapkan, apa tindakan yang sah menurut prinsip GLP?"
+    }
+   ],
+   "options": [
+    "Melakukan penyimpangan secara diam-diam asalkan hasil akhirnya akurat",
+    "Mencatat penyimpangan di akhir bulan saat penyusunan laporan final",
+    "Setiap penyimpangan harus diotorisasi secara resmi oleh Penanggungjawab Analisis",
+    "Meminta persetujuan dari sesama analis operasional"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 29,
+   "blocks": [
+    {
+     "text": "Bukti fisik objektif apa yang diperlukan untuk mendemonstrasikan bahwa sebuah kegiatan pengujian telah dilakukan dengan mematuhi SOP?"
+    }
+   ],
+   "options": [
+    "Sertifikat analisis reagen dari vendor",
+    "Surat izin pelaksanaan penelitian dari manajemen",
+    "Kehadiran Penjaminan Mutu (QA) selama pengujian berlangsung",
+    "Rekaman pelaksanaan kerja yang merujuk pada nomor SOP spesifik"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 30,
+   "blocks": [
+    {
+     "text": "Pilar operasional GLP yang mewajibkan adanya catatan lengkap mengenai penerimaan, penggunaan, dan sisa bahan pengujian disebut dengan istilah..."
+    }
+   ],
+   "options": [
+    "Contemporaneous Data Entry",
+    "Test Item Accountability",
+    "Reference Item Traceability",
+    "Chain of Custody Maintenance"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 31,
+   "blocks": [
+    {
+     "text": "Mengapa penanganan bahan pengujian (test item) dan bahan pembanding (reference item) harus sangat dijaga dari risiko kontaminasi?"
+    }
+   ],
+   "options": [
+    "Karena dapat meningkatkan durasi pengujian menjadi dua kali lipat",
+    "Karena bahan pembanding sangat mahal dan sulit didapat",
+    "Karena dapat menyebabkan kerusakan permanen pada sistem HVAC laboratorium",
+    "Karena kontaminasi silang antara bahan pengujian dan kontrol dapat membatalkan validitas Analisis"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 32,
+   "blocks": [
+    {
+     "text": "Untuk membuktikan bahwa bahan pengujian tidak tertukar dan terlacak dengan baik, asesor akan meminta bukti berupa..."
+    }
+   ],
+   "options": [
+    "Log penimbangan dan Chain of Custody bahan pengujian",
+    "Log harian suhu ruang penyimpanan sampel",
+    "Label kalibrasi timbangan analitik",
+    "Lembar kerja (worksheet) yang dicetak dengan komputer"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 33,
+   "blocks": [
+    {
+     "text": "Penerapan K3 tidak hanya sekadar melindungi personel. Risiko lain apa yang sangat dihindari dari kecelakaan kerja di laboratorium GLP?"
+    }
+   ],
+   "options": [
+    "Penambahan waktu lembur yang tidak terencana",
+    "Kehilangan sertifikasi ISO 17025 secara otomatis",
+    "Kecelakaan kerja dapat merusak data Analisis (contoh: tumpahan bahan pada sampel)",
+    "Penarikan produk oleh Badan Pengawas Obat dan Makanan"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 34,
+   "blocks": [
+    {
+     "text": "Panduan paling utama yang harus dirujuk oleh personel dalam memilih Alat Pelindung Diri (APD) yang tepat saat menangani bahan kimia berbahaya adalah..."
+    }
+   ],
+   "options": [
+    "Rencana Analisis",
+    "Material Safety Data Sheet (MSDS) bahan pengujian tersebut",
+    "Instruksi Kerja (IK) penggunaan peralatan penganalisa",
+    "Poster K3 yang dipasang di pintu masuk laboratorium"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 35,
+   "blocks": [
+    {
+     "text": "Bukti konkret bahwa K3 telah dilaksanakan secara konsisten selama kegiatan analisis berlangsung adalah..."
+    }
+   ],
+   "options": [
+    "Penggunaan APD yang benar oleh personel dan tersedianya spill kit",
+    "Adanya anggaran kesehatan tahunan untuk analis",
+    "Tersedianya daftar nomor telepon darurat di buku catatan",
+    "Tersedianya laporan insiden nihil (zero accident report)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 36,
+   "blocks": [
+    {
+     "text": "Bagaimana standar GLP mendefinisikan Data Mentah (Raw Data) secara tegas?"
+    }
+   ],
+   "options": [
+    "Data primer yang telah direkapitulasi ke dalam tabel Excel oleh analis",
+    "Laporan akhir pengujian yang telah disetujui oleh Penanggungjawab Analisis",
+    "Kertas coretan (post-it) yang digunakan analis saat menimbang",
+    "Catatan asli pertama, baik yang dibuat secara manual maupun elektronik"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 37,
+   "blocks": [
+    {
+     "text": "Pencatatan Raw Data harus dilakukan \"secara langsung\". Dalam terminologi integritas data GLP, pencatatan segera saat kejadian berlangsung ini disebut..."
+    }
+   ],
+   "options": [
+    "Original",
+    "Contemporaneous",
+    "Legible",
+    "Attributable"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 38,
+   "blocks": [
+    {
+     "text": "Seorang analis melakukan titrasi dan mencatat volume akhir di secarik kertas kecil sebelum menyalinnya ke worksheet resmi. Berdasarkan panduan GLP, tindakan ini..."
+    }
+   ],
+   "options": [
+    "Dilarang, karena data harus dicatat segera (contemporaneous) hanya pada dokumen yang sah (bukan kertas coretan)",
+    "Diizinkan, selama data pada akhirnya disalin ke dokumen resmi dengan benar",
+    "Diizinkan, jika ruangan laboratorium terlalu sempit untuk membawa worksheet",
+    "Sangat dianjurkan untuk mencegah kotornya dokumen resmi"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 39,
+   "blocks": [
+    {
+     "text": "Untuk memastikan data mentah yang dicatat secara manual sah dan tidak mudah dimanipulasi, worksheet harus diisi lengkap menggunakan..."
+    }
+   ],
+   "options": [
+    "Pensil khusus laboratorium agar mudah dikoreksi bila salah",
+    "Spidol berukuran besar agar jelas terbaca (legible)",
+    "Tinta permanen, menyertakan tanggal, dan diberi paraf personel yang bersangkutan",
+    "Tinta biru eksklusif yang hanya dipegang oleh Manajer Fasilitas"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 40,
+   "blocks": [
+    {
+     "text": "Kepanjangan dari akronim ALCOA yang merupakan prinsip utama dalam pencatatan data pengamatan real-time adalah..."
+    }
+   ],
+   "options": [
+    "Attributable, Legible, Contemporaneous, Observable, Analytical",
+    "Accountable, Logical, Continuous, Objective, Accurate",
+    "Accessible, Legitimate, Consistent, Organized, Approved",
+    "Attributable, Legible, Contemporaneous, Original, Accurate"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 41,
+   "blocks": [
+    {
+     "text": "Prinsip ALCOA bagian \"L\" (Legible) berarti bahwa catatan data mentah yang dibuat oleh personel harus..."
+    }
+   ],
+   "options": [
+    "Sah secara asas hukum nasional",
+    "Terbaca dengan jelas sehingga tidak menimbulkan interpretasi yang salah",
+    "Dicatat dengan sistem digital dan terenkripsi",
+    "Dikunci di dalam lemari arsip khusus"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 42,
+   "blocks": [
+    {
+     "text": "Skenario: Anda melihat sebuah spektrometer massa (MS) memiliki label bertuliskan \"Clean\". Apa interpretasi operasional dari label ini menurut prosedur GLP?"
+    }
+   ],
+   "options": [
+    "Alat sedang dalam proses perbaikan oleh vendor",
+    "Alat sedang digunakan untuk mengukur sampel kontrol",
+    "Alat telah dibersihkan, diverifikasi, dan dikembalikan ke status siap pakai",
+    "Alat tersebut merupakan barang baru yang belum pernah dipakai"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 43,
+   "blocks": [
+    {
+     "text": "Pengetahuan esensial yang wajib dimiliki analis sebelum mulai bekerja adalah kemampuan mendefinisikan dan membedakan karakteristik antara..."
+    }
+   ],
+   "options": [
+    "Bahan Pengujian (Test Item) dan Bahan Pembanding (Reference Item)",
+    "Data Kualitatif dan Data Kuantitatif",
+    "Standar Kalibrasi dan Standar Kualifikasi",
+    "Auditor Internal dan Auditor Eksternal"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 44,
+   "blocks": [
+    {
+     "text": "Dokumen acuan ketertelusuran yang menunjukkan \"siapa yang memegang sampel pada jam berapa\" sejak sampel diterima hingga dianalisis adalah..."
+    }
+   ],
+   "options": [
+    "Master Schedule",
+    "Material Safety Data Sheet (MSDS)",
+    "Standard Operating Procedure (SOP)",
+    "Chain of Custody"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 45,
+   "blocks": [
+    {
+     "text": "Kontaminasi sangat dihindari. Oleh karena itu, keterampilan teknis apa yang disyaratkan secara spesifik dalam Panduan Penilaian untuk mencegah hal tersebut?"
+    }
+   ],
+   "options": [
+    "Keterampilan melakukan audit silang ke bagian Penjaminan Mutu",
+    "Mengkalibrasi instrumen sentrifugasi secara harian",
+    "Melakukan teknik sampling dan preparasi sampel tanpa kontaminasi",
+    "Mencuci semua peralatan gelas menggunakan asam kuat konsentrat"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 46,
+   "blocks": [
+    {
+     "text": "Selain penanganan bahan kimia berbahaya (B3), personel GLP juga dituntut memiliki pengetahuan prosedur penanganan pembuangan khusus untuk..."
+    }
+   ],
+   "options": [
+    "Limbah domestik dapur laboratorium",
+    "Limbah biologis",
+    "Emisi gas rumah kaca",
+    "Limbah kertas bekas pakai administrasi"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 47,
+   "blocks": [
+    {
+     "text": "Manakah dari pernyataan berikut yang BUKAN merupakan karakteristik Raw Data (Data Mentah) dalam rezim integritas data GLP?"
+    }
+   ],
+   "options": [
+    "Merupakan catatan observasi asli yang pertama kali dibuat",
+    "Harus dilengkapi tanggal dan paraf pencatatnya",
+    "Dapat direkam menggunakan instrumen penganalisa secara elektronik",
+    "Data kotor yang sah untuk ditulis menggunakan pensil sebelum disalin pakai pulpen"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 48,
+   "blocks": [
+    {
+     "text": "Skenario: Laboratorium Anda baru saja terbakar. Syukurlah semua personel selamat, namun ruang Arsip hangus total karena ruangan tersebut ternyata tidak menggunakan material tahan api. Dampak fatal apa yang terjadi pada kredibilitas laboratorium Anda berdasarkan aspek kritis GLP?"
+    }
+   ],
+   "options": [
+    "Semua data yang terbakar di arsip dianggap menjadi tidak valid",
+    "Laboratorium hanya perlu membayar denda ke OECD",
+    "Laboratorium masih bisa menggunakan softcopy di komputer analis",
+    "Pengujian harus diulang namun klien tidak perlu diberitahu"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 49,
+   "blocks": [
+    {
+     "text": "Apa implikasi nyata dari frasa \"Data harus dicatat secara Attributable\" dalam prinsip ALCOA?"
+    }
+   ],
+   "options": [
+    "Setiap data harus memiliki format angka yang dapat dihitung",
+    "Setiap data harus disalin minimal di dua worksheet yang berbeda",
+    "Setiap catatan data mentah harus jelas menunjukkan identitas (paraf/nama) personel spesifik yang melakukan pekerjaan tersebut",
+    "Setiap pengujian harus diatribusikan pada metode internasional"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 50,
+   "blocks": [
+    {
+     "text": "Mengapa ketersediaan spill kit (peralatan penanganan tumpahan) secara spesifik disebutkan sebagai salah satu bentuk bukti kepatuhan K3?"
+    }
+   ],
+   "options": [
+    "Karena inspektur eksternal selalu menjual spill kit kepada laboratorium",
+    "Karena penanganan tumpahan yang lambat/salah dapat langsung membahayakan personel dan merusak bahan/data analisis di sekitarnya",
+    "Karena penggunaannya diwajibkan oleh standar tata letak ISO 17025",
+    "Sebagai syarat mutlak untuk mendapatkan Material Safety Data Sheet (MSDS)"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 51,
+   "blocks": [
+    {
+     "text": "Jika SOP menyatakan bahan uji perlu disentrifugasi selama 10 menit, tetapi Rencana Analisis menyatakan 15 menit, analis memilih 15 menit. Apakah ini dihitung sebagai \"Penyimpangan SOP\" yang wajib mendapat otorisasi?"
+    }
+   ],
+   "options": [
+    "Ya, karena semua tindakan yang berbeda dari SOP adalah penyimpangan (deviasi)",
+    "Tidak, asalkan hasil sentrifugasi menunjukkan pemisahan yang sempurna",
+    "Ya, karena durasi lebih lama membuang waktu operasional",
+    "Tidak, karena SOP secara otomatis batal jika ada perbedaan dengan Rencana Analisis, dan analis sekadar mematuhi hierarki tanpa melanggar GLP"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 52,
+   "blocks": [
+    {
+     "text": "Prinsip pencatatan \"Original\" pada ALCOA mengandung makna bahwa data yang disajikan haruslah data primer. Mana yang paling memenuhi kriteria ini?"
+    }
+   ],
+   "options": [
+    "Salinan fotokopi dari buku catatan ketua peneliti",
+    "Laporan PDF yang digenerate oleh QA di akhir tahun",
+    "Worksheet berparaf basah yang diisi langsung oleh tangan analis tepat di samping meja kerja lab saat analisis berjalan",
+    "Email laporan progres harian dari analis ke manajer"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 53,
+   "blocks": [
+    {
+     "text": "Dalam menjaga Akuntabilitas Bahan Pengujian (Test Item Accountability), selain jumlah penerimaan dan jumlah sisa, apa lagi yang diwajibkan untuk tercatat lengkap secara real-time?"
+    }
+   ],
+   "options": [
+    "Harga fluktuatif bahan uji di pasaran",
+    "Jumlah penggunaan aktual bahan tersebut untuk setiap tahap analisis",
+    "Riwayat mutasi jabatan petugas inventaris bahan",
+    "Nama kurir logistik yang mengantar bahan ke laboratorium"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 54,
+   "blocks": [
+    {
+     "text": "Berdasarkan prinsip integritas data, apa alasan saintifik larangan keras merekam data mentah ke \"kertas coretan\" sebelum disalin ke dokumen resmi?"
+    }
+   ],
+   "options": [
+    "Menyalin data ganda berpotensi tinggi memunculkan kesalahan transkripsi (human error) dan merusak jejak waktu (contemporaneous)",
+    "Kertas coretan terlihat tidak profesional di mata klien yang berkunjung",
+    "Laboratorium GLP menerapkan kebijakan paperless mutlak",
+    "Biaya pembelian kertas coretan tidak dianggarkan oleh manajemen"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 55,
+   "blocks": [
+    {
+     "text": "Istilah bahasa Inggris yang ditekankan dalam Aspek Kritis penilaian untuk merujuk pada \"Kedisiplinan mencatat data saat kejadian berlangsung\" adalah..."
+    }
+   ],
+   "options": [
+    "Test Item Accountability",
+    "Single point of control",
+    "Chain of custody validation",
+    "Recording as it happens"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 56,
+   "blocks": [
+    {
+     "text": "Skenario: Seorang analis baru bertanya kepada Anda di mana ia harus menyimpan buku catatan kerja (logbook) kasarnya yang berisi coretan data pengujian yang baru saja selesai. Ke mana buku tersebut harus diserahkan?"
+    }
+   ],
+   "options": [
+    "Diserahkan ke Arsiparis bersama dokumen lainnya",
+    "Dibuang ke tempat sampah kertas yang aman",
+    "Disimpan di laci meja kerjanya sendiri",
+    "Diserahkan kepada petugas limbah B3"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 57,
+   "blocks": [
+    {
+     "text": "Mengapa pelaksanaan kalibrasi tahunan saja dianggap tidak cukup untuk memenuhi kriteria terkait peralatan?"
+    }
+   ],
+   "options": [
+    "Karena peralatan mudah rusak akibat kelembaban ruangan",
+    "Karena GLP mewajibkan verifikasi harian/berkala untuk memastikan alat berfungsi valid selama periode Analisis",
+    "Karena auditor eksternal meminta laporan bulanan",
+    "Karena biaya kalibrasi tahunan terlalu mahal jika tidak diimbangi pemeliharaan harian"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 58,
+   "blocks": [
+    {
+     "text": "Contoh tindakan \"pengecekan antara\" (intermediate check) yang dilakukan secara berkala pada peralatan laboratorium meliputi..."
+    }
+   ],
+   "options": [
+    "Membongkar mesin sentrifuse untuk dibersihkan",
+    "Memperbarui perangkat lunak instrumen penganalisa ke versi terbaru",
+    "Mengecek timbangan menggunakan batu timbang standar atau mengecek kromatogram standar",
+    "Mengirimkan alat ke vendor pembuatnya"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 59,
+   "blocks": [
+    {
+     "text": "Dokumen apa yang menjadi bukti valid bahwa pengecekan antara (intermediate check) peralatan telah dilakukan sesuai jadwal?"
+    }
+   ],
+   "options": [
+    "Sertifikat kalibrasi dari vendor eksternal",
+    "Master Schedule fasilitas pengujian",
+    "Formulir Laporan Penyimpangan",
+    "Logbook pemakaian alat (Instrument Log) yang mencatat hasil verifikasi harian"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 60,
+   "blocks": [
+    {
+     "text": "Menurut prinsip GLP, setiap bahan acuan yang digunakan harus teridentifikasi dengan jelas. Apa tujuan utama dari penggunaan bahan acuan ini?"
+    }
+   ],
+   "options": [
+    "Sebagai bukti kebenaran pengujian agar sistem memberikan respon akurat sesuai nilai yang diketahui serta menjamin ketertelusuran",
+    "Menggantikan peran SOP teknis di laboratorium",
+    "Mempercepat waktu analisis sampel biologis",
+    "Mengurangi biaya pembelian reagen kimia harian"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 61,
+   "blocks": [
+    {
+     "text": "Dokumen asli dari produsen yang diwajibkan untuk membuktikan validitas sebuah bahan acuan adalah Sertifikat Analisis (CoA). Informasi wajib apa saja yang harus tertera pada CoA tersebut?"
+    }
+   ],
+   "options": [
+    "Tanggal produksi, rute pengiriman, dan nama kurir",
+    "Harga bahan, nomor seri, dan suhu penyimpanan",
+    "Lot number, kemurnian, dan tanggal kedaluwarsa",
+    "Lot number, batas deteksi instrumen, dan paraf Penjaminan Mutu"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 62,
+   "blocks": [
+    {
+     "text": "Selain Sertifikat Analisis (CoA), bukti nyata yang harus ditunjukkan laboratorium bahwa penggunaan bahan acuan memberikan hasil yang akurat dan konsisten selama analisis berjalan adalah..."
+    }
+   ],
+   "options": [
+    "Perubahan Master Schedule",
+    "Pembuatan Control Chart Pengujian",
+    "Penghapusan data pencilan (outlier)",
+    "Logbook suhu ruangan"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 63,
+   "blocks": [
+    {
+     "text": "Dalam konteks GLP, suatu penyimpangan prosedur (deviation) yang terjadi di tengah berlangsungnya pengujian didefinisikan sebagai..."
+    }
+   ],
+   "options": [
+    "Amandemen teknis yang direncanakan",
+    "Prosedur standar dari Quality Assurance",
+    "Kesalahan fatal yang membatalkan pengujian",
+    "Kejadian tidak terencana"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 64,
+   "blocks": [
+    {
+     "text": "Jika terjadi penyimpangan prosedur (deviation), prinsip GLP menyatakan bahwa analisis tidak otomatis batal asalkan memenuhi tiga syarat wajib. Apakah syarat tersebut?"
+    }
+   ],
+   "options": [
+    "Dicatat, disembunyikan dari auditor eksternal, dan direvisi laporannya",
+    "Dihapus dari data mentah, diulang pengujiannya, dan dilaporkan ke manajemen",
+    "Dicatat, dijelaskan, dan dievaluasi dampaknya oleh Penanggungjawab Analisis",
+    "Dicatat, dilaporkan ke vendor alat, dan diubah SOP-nya"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 65,
+   "blocks": [
+    {
+     "text": "Tindakan menyembunyikan penyimpangan (deviation) yang terjadi selama pengujian dikategorikan oleh GLP sebagai..."
+    }
+   ],
+   "options": [
+    "Tindakan efisiensi operasional",
+    "Pelanggaran serius (fraud)",
+    "Kesalahan administratif ringan",
+    "Kebijakan Single Point of Control"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 66,
+   "blocks": [
+    {
+     "text": "Bukti objektif bahwa sebuah penyimpangan telah ditangani dengan benar sesuai standar GLP adalah ketersediaan Formulir Laporan Penyimpangan yang ditandatangani oleh..."
+    }
+   ],
+   "options": [
+    "Penanggungjawab Analisis",
+    "Penanggungjawab Fasilitas Pengujian",
+    "Petugas Penjaminan Mutu (Quality Assurance)",
+    "Analis yang bersangkutan"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 67,
+   "blocks": [
+    {
+     "text": "Dalam melakukan koreksi data secara manual, data yang salah tidak boleh dihapus atau ditimpa. Metode perbaikan yang diwajibkan oleh GLP adalah..."
+    }
+   ],
+   "options": [
+    "Menggunakan cairan pengoreksi (tip-ex) lalu menulis angka yang benar di atasnya",
+    "Menghitamkan data yang salah dengan spidol tebal agar tidak terlihat",
+    "Merobek worksheet yang lama dan menulis ulang di worksheet baru",
+    "Menggunakan metode \"coret satu garis\" (single strike-through) sehingga data asli tetap terbaca"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 68,
+   "blocks": [
+    {
+     "text": "Selain menerapkan coretan satu garis pada data yang salah, apa tiga elemen wajib lainnya yang harus dibubuhkan analis saat melakukan koreksi data manual?"
+    }
+   ],
+   "options": [
+    "Alasan koreksi, tanggal, dan paraf",
+    "Tanda tangan manajer, tanggal, dan stempel laboratorium",
+    "Jam kejadian, saksi mata, dan nama instrumen",
+    "Referensi SOP, nomor lot reagen, dan paraf"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 69,
+   "blocks": [
+    {
+     "text": "Untuk data elektronik yang dihasilkan dari instrumen terkomputerisasi, persyaratan utama GLP untuk pengendalian koreksi datanya adalah..."
+    }
+   ],
+   "options": [
+    "Sistem harus mengizinkan analis untuk menghapus berkas data lama",
+    "Sistem harus mencetak data secara otomatis setiap 5 menit",
+    "Sistem harus memiliki fitur audit trail otomatis yang tidak bisa dimatikan",
+    "Sistem harus bisa diakses tanpa perlu memasukkan kata sandi"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 70,
+   "blocks": [
+    {
+     "text": "Berdasarkan panduan pengetahuan yang dibutuhkan, seorang analis harus mampu membedakan jenis-jenis deviasi mutu. Apa perbedaan utama antara Amandemen Rencana Analisis dengan Penyimpangan prosedur?"
+    }
+   ],
+   "options": [
+    "Amandemen dilakukan oleh QA, sedangkan penyimpangan oleh analis",
+    "Amandemen adalah perubahan yang terencana, sedangkan penyimpangan adalah kejadian tidak terencana",
+    "Amandemen sifatnya tidak terencana, sedangkan penyimpangan terencana",
+    "Amandemen hanya berlaku untuk SOP teknis, sedangkan penyimpangan untuk K3"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 71,
+   "blocks": [
+    {
+     "text": "Skenario: Setelah pengujian mikrobiologi selesai, cawan petri yang berisi bakteri patogen dimasukkan ke dalam autoklaf lalu dimasukkan ke dalam kantong plastik biohazard kuning. Ini adalah contoh penerapan kompetensi..."
+    }
+   ],
+   "options": [
+    "Mengarsipkan data mentah",
+    "Mengembalikan alat ke status siap pakai",
+    "Melakukan prosedur swab test",
+    "Mengelola limbah sesuai sifat bahaya"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 72,
+   "blocks": [
+    {
+     "text": "Konsep integritas data yang harus dipahami oleh personel untuk menerapkan tata kelola pencatatan dan koreksi data yang baik terangkum dalam prinsip yang disebut..."
+    }
+   ],
+   "options": [
+    "Sistem Kolegial",
+    "Single Point of Control",
+    "ALCOA+",
+    "Intermediate Checking"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 73,
+   "blocks": [
+    {
+     "text": "Apa yang menjadi \"Aspek Kritis\" utama yang akan diuji oleh asesor terhadap analis pada Kompetensi Pengendalian Mutu dan Data ?"
+    }
+   ],
+   "options": [
+    "Kecepatan membuat kurva kalibrasi instrumen analitik tingkat tinggi",
+    "Penerapan audit trail yang konsisten dalam merekam dan mengoreksi data",
+    "Kemampuan memperbaiki peralatan sentrifuse yang rusak mendadak",
+    "Keterampilan menghitung anggaran pengadaan bahan acuan baru"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 74,
+   "blocks": [
+    {
+     "text": "Pada sesi pengujian, jika asesor menguji peserta dengan melihat apakah mereka menggunakan tip-ex atau penghapus saat terjadi salah tulis, hal tersebut bertujuan memverifikasi kompetensi personel terhadap larangan yang tertera pada panduan penilaian untuk..."
+    }
+   ],
+   "options": [
+    "Koreksi data sesuai aturan audit trail",
+    "Penggunaan bahan acuan",
+    "Pencatatan penyimpangan prosedur",
+    "Pengecekan antara"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 75,
+   "blocks": [
+    {
+     "text": "Alasan utama mengapa penghapusan data atau penggunaan tip-ex dilarang keras dalam prosedur koreksi GLP adalah..."
+    }
+   ],
+   "options": [
+    "Agar kertas worksheet tidak menjadi tipis dan mudah sobek saat diaudit",
+    "Karena tip-ex mengandung senyawa organik yang merusak presisi penimbangan",
+    "Karena tinta permanen laboratorium tidak bereaksi dengan bahan kimia tip-ex",
+    "Agar data asli tetap terbaca sebagai bagian dari keterbukaan audit trail manual"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 76,
+   "blocks": [
+    {
+     "text": "Keterampilan praktis yang wajib didemonstrasikan untuk membuktikan kompetensi pengendalian mutu secara mekanis pada unit ini adalah..."
+    }
+   ],
+   "options": [
+    "Mengkalibrasi ulang spektrofotometer massa secara menyeluruh",
+    "Mengubah sistem kelistrikan pada software alat",
+    "Melakukan verifikasi kinerja alat ukur sederhana",
+    "Membuang limbah B3 sesuai prosedur alat ukur"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 77,
+   "blocks": [
+    {
+     "text": "Dalam mengevaluasi sebuah kejadian tidak terencana saat analisis, pihak yang berwenang mengevaluasi dampaknya dan wajib menandatangani pelaporannya adalah..."
+    }
+   ],
+   "options": [
+    "Penyelia Gudang",
+    "Penanggungjawab Analisis",
+    "Petugas Pengadaan Barang",
+    "Teknisi Kalibrasi Eksternal"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 78,
+   "blocks": [
+    {
+     "text": "Apabila terjadi penyimpangan prosedur (deviation) selama pengujian, hal tersebut harus segera dicatat dan dilaporkan kepada..."
+    }
+   ],
+   "options": [
+    "Penyelia",
+    "Vendor perangkat lunak",
+    "Klien pemesan sampel",
+    "Asesor akreditasi secara langsung"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 79,
+   "blocks": [
+    {
+     "text": "Apa yang menjadi bentuk bukti objektif yang sah atas berjalannya audit trail pada sistem komputerisasi laboratorium?"
+    }
+   ],
+   "options": [
+    "Tangkapan layar dari desktop komputer penganalisa",
+    "Buku harian login penggunaan komputer",
+    "Log audit dari sistem komputer",
+    "Sertifikat instalasi perangkat keras komputer"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 80,
+   "blocks": [
+    {
+     "text": "Salah satu keterampilan krusial yang harus didemonstrasikan analis dalam mengelola anomali operasional adalah..."
+    }
+   ],
+   "options": [
+    "Menulis Rencana Analisis baru setiap kali terjadi kesalahan",
+    "Mengidentifikasi dan mendokumentasikan penyimpangan prosedur",
+    "Menghapus log instrumen secara berkala agar ruang penyimpanan tidak penuh",
+    "Mengambil alih tugas inspeksi dari Quality Assurance Unit"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 81,
+   "blocks": [
+    {
+     "text": "Skenario: Seorang analis baru saja selesai menggunakan High-Performance Liquid Chromatography (HPLC) untuk menguji sampel pestisida. Ia akan pergi makan siang sebelum membersihkan alat tersebut. Label status apa yang harus ia pasang pada HPLC tersebut?"
+    }
+   ],
+   "options": [
+    "Dirty",
+    "Clean",
+    "In Use",
+    "Under Maintenance"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 82,
+   "blocks": [
+    {
+     "text": "Skenario: Seorang auditor internal sedang meninjau prosedur pembersihan labu ukur di laboratorium Anda. Ia meminta bukti bahwa metode pencucian yang Anda gunakan benar-benar menghilangkan sisa bahan kimia. Praktik tervalidasi apa yang harus Anda tunjukkan pada SOP Anda?"
+    }
+   ],
+   "options": [
+    "Merendam labu ukur dalam air panas selama 24 jam",
+    "Menimbang labu ukur sebelum dan sesudah dicuci",
+    "Melakukan swab test untuk mendeteksi residu di permukaan alat",
+    "Menyemprot labu ukur dengan alkohol 70%"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 83,
+   "blocks": [
+    {
+     "text": "Skenario: Anda adalah Manajer Mutu. Saat inspeksi mendadak, Anda menemukan sebuah mikroskop di atas meja tanpa label status kebersihan. Dokumen operasional harian apa yang harus Anda periksa untuk melacak kapan terakhir kali mikroskop itu digunakan dan dibersihkan?"
+    }
+   ],
+   "options": [
+    "Log kebersihan ruangan dan peralatan",
+    "Indeks arsip mikroskop",
+    "Manifest limbah B3",
+    "Berita acara serah terima alat"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 84,
+   "blocks": [
+    {
+     "text": "Skenario: Laboratorium Anda menerima 500 gram sampel uji (test item). Analisis hanya menghabiskan 50 gram. Sebelum sisa 450 gram tersebut dimusnahkan oleh pihak ketiga, Anda harus mencatat dan mencocokkan jumlah tersebut. Prinsip GLP apa yang sedang Anda tegakkan?"
+    }
+   ],
+   "options": [
+    "Kualifikasi personel",
+    "Kerahasiaan data klien",
+    "Akuntabilitas bahan pengujian",
+    "Pengarsipan jangka panjang"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 85,
+   "blocks": [
+    {
+     "text": "Skenario: Seorang petugas kebersihan laboratorium secara tidak sengaja membuang botol berisi sisa pelarut organik beracun ke tempat sampah plastik biasa. Keterampilan krusial apa yang gagal diterapkan di laboratorium ini?"
+    }
+   ],
+   "options": [
+    "Melakukan prosedur serah terima data ke Arsiparis",
+    "Melakukan pemilahan dan pelabelan limbah B3",
+    "Melakukan swab test pada tempat sampah",
+    "Menyusun indeks arsip Analisis"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 86,
+   "blocks": [
+    {
+     "text": "Skenario: Sebuah laboratorium di Jakarta ingin membuang limbah biologis sisa pengujian toksisitas. Agar sesuai dengan kepatuhan GLP, regulasi instansi mana yang harus mereka jadikan rujukan utama untuk prosedur pembuangan ini?"
+    }
+   ],
+   "options": [
+    "Kementerian Lingkungan Hidup dan Kehutanan (KLHK)",
+    "Kementerian Kesehatan (Kemenkes)",
+    "Organisasi Kesehatan Dunia (WHO)",
+    "Badan Pengawas Obat dan Makanan (BPOM)"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 87,
+   "blocks": [
+    {
+     "text": "Skenario: Inspektur dari badan regulasi lingkungan hidup meminta bukti sah bahwa laboratorium Anda tidak membuang sisa reagen kimia berbahaya ke sungai terdekat. Dokumen legal apa yang harus Anda tunjukkan?"
+    }
+   ],
+   "options": [
+    "Log penggunaan reagen kimia",
+    "Berita acara serah terima arsip",
+    "Manifest limbah B3",
+    "Dokumen kualifikasi petugas limbah"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 88,
+   "blocks": [
+    {
+     "text": "Skenario: Direktur Analisis telah menyelesaikan laporannya dan menyerahkan semua data mentah (raw data) ke fasilitas arsip. Namun, auditor menemukan temuan mayor (major finding) karena Direktur Analisis lupa menyertakan satu jenis dokumen penting terkait siapa yang mengerjakan pengujian tersebut. Dokumen apa itu?"
+    }
+   ],
+   "options": [
+    "Rekam medis personel",
+    "Log kehadiran (absensi) harian personel",
+    "Kontrak kerja personel dengan klien",
+    "Dokumen kualifikasi personel"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 89,
+   "blocks": [
+    {
+     "text": "Skenario: Setelah menguji senyawa kimia X yang sangat reaktif, mudah menguap, dan terdegradasi dalam suhu ruang dalam hitungan jam, apa yang harus dilakukan laboratorium terhadap sisa sampel senyawa X tersebut pada fase pasca pengujian?"
+    }
+   ],
+   "options": [
+    "Wajib diarsipkan di dalam ruang arsip selama 10 tahun",
+    "Tidak perlu diarsipkan karena sifatnya yang tidak stabil, langsung dikelola sebagai limbah",
+    "Dikembalikan kepada klien penguji menggunakan kurir biasa",
+    "Dicampur dengan bahan penstabil dan diarsipkan selamanya"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 90,
+   "blocks": [
+    {
+     "text": "Skenario: Arsitek yang disewa perusahaan Anda sedang mendesain tata letak gedung laboratorium baru. Ia meletakkan ruang Arsip GLP berdampingan dengan kantin yang memiliki risiko hama tikus dan area cuci yang rawan bocor. Mengapa desain ini menyalahi aturan GLP?"
+    }
+   ],
+   "options": [
+    "Ruang arsip GLP mensyaratkan ketahanan terhadap api, air, dan hama",
+    "Arsip harus memiliki akses publik yang mudah dijangkau",
+    "Kantin akan mencemari sampel uji dengan bau makanan",
+    "Ruang arsip harus berada di gedung yang terpisah minimal 10 km"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 91,
+   "blocks": [
+    {
+     "text": "Skenario: Fasilitas Arsip Anda berencana merenovasi sistem penyimpanannya. Untuk memastikan fasilitas tersebut memenuhi standar internasional GLP yang diakui, dokumen pedoman apa yang harus dipelajari oleh manajer fasilitas?"
+    }
+   ],
+   "options": [
+    "ISO 9001 tentang Manajemen Mutu",
+    "Pedoman KLHK tentang Limbah",
+    "OECD Series No. 15",
+    "GLP Unit SP.GLP.004.01"
+   ],
+   "answer": 3
+  },
+  {
+   "no": 92,
+   "blocks": [
+    {
+     "text": "Skenario: Sebuah perusahaan memproduksi pestisida baru dan telah melakukan pengujian toksisitas. Manajer laboratorium bertanya kepada Anda, berapa lama setidaknya data mentah pengujian ini harus disimpan di ruang arsip agar mematuhi regulasi?"
+    }
+   ],
+   "options": [
+    "1 sampai 2 tahun",
+    "Maksimal 5 tahun untuk menghemat ruang",
+    "Hanya sampai produk mulai dijual di pasaran",
+    "10 tahun atau lebih"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 93,
+   "blocks": [
+    {
+     "text": "Skenario: Arsiparis laboratorium Anda sedang cuti sakit. Analis senior ingin meminjam data mentah dari tahun 2021 untuk referensi. Ia mencoba mencari di tumpukan kardus di ruang arsip namun menyerah setelah 2 jam tidak menemukannya. Keterampilan apa yang tidak diterapkan dengan baik oleh arsiparis sebelumnya?"
+    }
+   ],
+   "options": [
+    "Melakukan prosedur swab test pada dokumen",
+    "Menyusun indeks arsip Analisis agar data mudah ditelusuri kembali",
+    "Melakukan pemilahan limbah B3 pada kertas dokumen",
+    "Membatasi akses personel ke ruang arsip"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 94,
+   "blocks": [
+    {
+     "text": "Skenario: Terjadi insiden atap bocor parah di ruang arsip yang membasahi dan merusak dokumen data mentah (raw data) dari sebuah pengujian obat yang dilakukan bulan lalu. Berdasarkan aspek kritis GLP, bagaimana status pengujian obat tersebut sekarang?"
+    }
+   ],
+   "options": [
+    "Dianggap sebagai data yang tidak valid",
+    "Masih valid asalkan laporan akhirnya tidak rusak",
+    "Harus diaudit ulang oleh KLHK",
+    "Valid jika analis masih mengingat detail angkanya"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 95,
+   "blocks": [
+    {
+     "text": "Skenario: Direktur Analisis membawa setumpuk dokumen rencana analisis dan data mentah ke meja Arsiparis, lalu meninggalkannya begitu saja untuk pergi rapat. Kesalahan administratif apa yang terjadi pada proses serah terima?"
+    }
+   ],
+   "options": [
+    "Tidak melampirkan manifest limbah",
+    "Tidak menggunakan sarung tangan steril",
+    "Dokumen tidak dibungkus plastik tahan air",
+    "Tidak membuat dan menandatangani berita acara serah terima dokumen"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 96,
+   "blocks": [
+    {
+     "text": "Skenario: Anda sedang melakukan fase akhir dari sebuah analisis kimia. Mengapa Anda harus segera mendekontaminasi meja kerja dan fume hood setelah prosedur selesai, sebelum tim lain masuk?"
+    }
+   ],
+   "options": [
+    "Untuk mematuhi jadwal retention period",
+    "Untuk mengurangi biaya operasional AC ruangan",
+    "Agar alat mendapatkan status \"Under Maintenance\"",
+    "Untuk mencegah kontaminasi silang yang berdampak pada Analisis berikutnya"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 97,
+   "blocks": [
+    {
+     "text": "Skenario: Seorang pengawas dari Dinas Lingkungan Hidup datang dan ingin memastikan bahwa sisa sampel pestisida dari pengujian bulan lalu tidak dibuang sembarangan. Dokumen spesifik apa yang membuktikan bahwa sisa sampel tersebut telah dihancurkan sesuai aturan?"
+    }
+   ],
+   "options": [
+    "Catatan pemusnahan sisa sampel",
+    "Log kebersihan peralatan",
+    "Berita acara serah terima arsip",
+    "Indeks arsip Analisis"
+   ],
+   "answer": 1
+  },
+  {
+   "no": 98,
+   "blocks": [
+    {
+     "text": "Skenario: Klien meminta Anda untuk merekonstruksi hasil analisis yang dilakukan 3 tahun yang lalu karena ada sengketa hukum. Laboratorium Anda berhasil memberikan salinan data mentahnya dalam waktu kurang dari 30 menit. Karakteristik sistem kearsipan apa yang baru saja Anda buktikan?"
+    }
+   ],
+   "options": [
+    "Confidentiality (Kerahasiaan)",
+    "Accountable (Dapat dipertanggungjawabkan)",
+    "Decontaminated (Telah didekontaminasi)",
+    "Retrievable (Dapat diambil kembali/ditelusuri)"
+   ],
+   "answer": 4
+  },
+  {
+   "no": 99,
+   "blocks": [
+    {
+     "text": "Skenario: Teknisi IT perusahaan meminta kunci master agar bisa bebas keluar-masuk ruang Arsip GLP kapan saja untuk mengecek router WiFi. Sebagai Manajer Mutu, tindakan apa yang harus Anda lakukan berdasarkan panduan GLP?"
+    }
+   ],
+   "options": [
+    "Memberikan kunci master agar internet tetap stabil",
+    "Menolak memberikan akses bebas karena akses ke arsip harus sangat dibatasi",
+    "Memberikan kunci dengan syarat ia tidak menyentuh dokumen",
+    "Memindahkan router WiFi ke luar gedung laboratorium"
+   ],
+   "answer": 2
+  },
+  {
+   "no": 100,
+   "blocks": [
+    {
+     "text": "Skenario: Dalam formulir pembuangan sisa test item, tercatat: \"Diterima: 100ml. Digunakan: 20ml. Dibuang: 80ml.\" Proses mencocokkan angka-angka ini agar sesuai dan tidak ada bahan yang hilang tanpa jejak disebut sebagai proses..."
+    }
+   ],
+   "options": [
+    "Dekontaminasi silang",
+    "Validasi kebersihan",
+    "Serah terima arsiparis",
+    "Rekonsiliasi jumlah sisa bahan pengujian"
+   ],
+   "answer": 4
+  }
+ ],
+ "esai": [
+  {
+   "no": 1,
+   "question": "<p>Konsep akuntabilitas bahan pengujian (Test Item Accountability) merupakan salah satu pilar utama pelaksaaan GLP. Jelaskan dampak prosedural jika personel laboratorium membuang sisa bahan pengujian tanpa melakukan pencatatan atau pendokumentasian pemusnahan yang benar!</p>",
+   "answer": "<p>Jika personel membuang sisa bahan pengujian tanpa pendokumentasian yang sah, hal tersebut merupakan pelanggaran serius terhadap prinsip akuntabilitas bahan pengujian. GLP mewajibkan adanya rekonsiliasi jumlah bahan (catatan lengkap penerimaan, penggunaan, dan sisa bahan uji). Pembuangan yang tidak terdokumentasi memutus Chain of Custody (rantai pasok) bahan uji dan dapat membatalkan integritas seluruh data Analisis karena penggunaan bahan uji tidak dapat ditelusuri atau dipertanggungjawabkan.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan pelanggaran Test Item Accountability. Secara eksplisit menyebutkan dampak pemutusan Chain of Custody (rantai pasok) dan perlunya rekonsiliasi sehingga integritas data menjadi tidak valid/batal."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjawab bahwa hal ini melanggar prosedur GLP karena bahan tidak bisa dipertanggungjawabkan, namun tidak menggunakan istilah spesifik seperti Chain of Custody atau rekonsiliasi."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab bahwa pembuangan sembarangan berbahaya bagi lingkungan atau pabrik, tanpa mengaitkan dengan validitas data analisis uji."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap hal tersebut bukan masalah besar asalkan analisis sudah selesai."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban sama sekali tidak relevan.."
+    }
+   ]
+  },
+  {
+   "no": 2,
+   "question": "<p>Seorang analis mencatat hasil penimbangan sampel secara cepat di secarik kertas coretan bebas, lalu memindahkannya dengan rapi ke lembar kerja (worksheet) resmi setelah Analisis selesai. Berdasarkan prinsip ALCOA pada pencatatan data mentah GLP, mengapa tindakan ini sangat dilarang?</p>",
+   "answer": "<p>Tindakan ini sangat dilarang karena melanggar prinsip Contemporaneous (dicatat saat itu juga/secara langsung) dan Original (asli) dari data mentah. Dalam GLP, data harus dicatat segera (real-time) pada dokumen yang sah dan bukan pada kertas coretan. Data mentah didefinisikan sebagai catatan asli pertama; dengan menggunakan kertas coretan, lembar kerja resmi hanya menjadi salinan (bukan dokumen orisinal) yang rentan terhadap kesalahan transkripsi dan membatalkan validitas pencatatan data mentah.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan pelanggaran prinsip Contemporaneous (real- time/dicatat saat itu juga) dan Original (asli). Menjelaskan bahwa memindahkan data memicu risiko kesalahan transkripsi (transcription error)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjelaskan bahwa data harus dicatat langsung di dokumen resmi agar tidak salah salin, namun tidak menyebutkan istilah Contemporaneous atau Original."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab bahwa kertas coretan mudah hilang atau tidak rapi secara administratif."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap menulis di kertas coretan justru dianjurkan agar lembar kerja resmi tidak kotor."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban melenceng dari konteks integritas data."
+    }
+   ]
+  },
+  {
+   "no": 3,
+   "question": "<p>Peralatan laboratorium seperti timbangan analitik telah dikalibrasi secara resmi setiap tahun. Mengapa skema GLP masih mewajibkan analis untuk melakukan pengecekan antara (intermediate check) secara harian atau berkala sebelum alat tersebut digunakan?</p>",
+   "answer": "<p>Sertifikat kalibrasi tahunan saja tidak cukup dalam standar GLP. GLP mewajibkan verifikasi harian atau pengecekan berkala (seperti mengecek timbangan dengan batu timbang standar) untuk memastikan dan membuktikan bahwa alat tersebut memang berfungsi dengan valid selama periode dilaksanakannya Analisis tersebut. Hal ini harus didokumentasikan dalam Instrument Log.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Memberikan penalaran bahwa sertifikat tahunan tidak menjamin kondisi harian. Intermediate check diperlukan untuk membuktikan alat berfungsi valid selama periode spesifik pengujian tersebut, dan didokumentasikan dalam log alat."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjawab bahwa alat bisa saja rusak sewaktu- waktu sehingga harus dicek ulang secara berkala, namun kurang tajam dalam menjelaskan keterkaitannya dengan validitas pengujian di hari tersebut."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menganggap pengecekan harian dilakukan sekadar untuk memanaskan alat atau membersihkannya dari debu."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menjawab bahwa pengecekan harian dilakukan karena sertifikat kalibrasi tahunan biasanya palsu atau tidak bisa dipercaya."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan teknis instrumen."
+    }
+   ]
+  },
+  {
+   "no": 4,
+   "question": "<p>Seorang penguji menyadari bahwa ia salah menuliskan angka desimal hasil titrasi pada lembar raw data yang ditulis dengan tinta permanen. Berdasarkan aturan audit trail manual GLP, bagaimana langkah demi langkah yang harus ia lakukan untuk mengoreksi data tersebut secara sah?</p>",
+   "answer": "<p>Penguji sama sekali tidak boleh menghapus, menimpa tulisan, atau menggunakan tip- ex. Langkah koreksi yang benar sesuai GLP adalah menggunakan metode \"coret satu garis\" (single strike-through) pada angka yang salah, sehingga data asli yang salah tersebut masih tetap bisa terbaca. Setelah itu, ia harus menulis angka yang benar di dekatnya, mencantumkan alasan dilakukannya koreksi, serta membubuhkan tanggal dan parafnya di dekat perbaikan tersebut.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyebutkan keempat syarat mutlak GLP: 1) Coret satu garis (data asli tetap terbaca), 2) Tulis angka yang benar, 3) Cantumkan alasan koreksi, 4) Cantumkan tanggal dan paraf."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan aturan coret satu garis dan larangan menghapus, namun melupakan syarat tanggal, paraf, atau alasan koreksi."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Hanya menjawab \"dicoret lalu ditulis yang baru\" tanpa menjelaskan bahwa data asli harus tetap terlihat."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menyarankan penggunaan tip-ex, penghapus karet, atau menimpa tulisan (miskonsepsi fatal)."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak relevan."
+    }
+   ]
+  },
+  {
+   "no": 5,
+   "question": "<p>Seorang laboran menemukan sebotol reagen kimia di lemari penyimpanan yang tanggal kedaluwarsanya sudah lewat satu bulan. Bolehkah laboran tersebut menggunakannya untuk pengujian GLP hari itu?</p>",
+   "answer": "<p>Tidak boleh. Penggunaan bahan yang sudah kedaluwarsa dilarang keras dalam GLP, kecuali bahan tersebut telah divalidasi ulang.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjawab Tidak Boleh secara tegas dan menambahkan syarat pengecualian (kecuali jika bahan tersebut telah melewati prosedur validasi ulang/re- validasi)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjawab Tidak Boleh karena dilarang GLP atau berbahaya bagi pengujian, tanpa menyebutkan klausul validasi ulang."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Ragu-ragu, menjawab boleh dipakai asalkan kondisinya secara fisik (warna/bau) belum berubah."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menjawab boleh digunakan demi efisiensi biaya laboratorium karena baru kedaluwarsa satu bulan."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban di luar konteks pertanyaan."
+    }
+   ]
+  },
+  {
+   "no": 6,
+   "question": "<p>Seorang staf menumpahkan bahan kimia berbahaya ke atas sampel uji karena ia tidak memakai Alat Pelindung Diri (APD) yang tepat saat bekerja. Menurut panduan GLP, apa dua dampak negatif utama dari kecelakaan kerja seperti ini?</p>",
+   "answer": "<p>Kecelakaan kerja tidak hanya membahayakan keselamatan personel itu sendiri, tetapi juga dapat merusak data Analisis (misalnya akibat tumpahan bahan kimia pada sampel).</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Mengidentifikasi dua dampak negatif secara spesifik: 1) Membahayakan kesehatan/keselamatan personel, 2) Merusak integritas sampel/data analisis akibat kontaminasi tumpahan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Hanya menyebutkan satu dari dua dampak (biasanya hanya fokus pada cedera personel tanpa membahas nasib data analisis)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Jawaban sangat awam, seperti \"membuat laboratorium menjadi kotor dan bau\"."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap dampaknya hanya berupa pemotongan gaji akibat kerugian bahan kimia."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak masuk akal atau tidak relevan."
+    }
+   ]
+  },
+  {
+   "no": 7,
+   "question": "<p>Saat mengisi lembar kerja manual menggunakan pulpen, seorang penguji salah menuliskan angka \"15\" yang seharusnya \"51\". Ia kemudian menggunakan tip-ex (cairan penghapus) untuk menghapus dan memperbaiki angka tersebut. Bagaimana seharusnya ia melakukan koreksi yang benar menurut standar GLP?</p>",
+   "answer": "<p>Menggunakan tip-ex atau menghapus data dilarang keras. Koreksi manual yang benar adalah menggunakan metode \"coret satu garis\" (single strike- through) sehingga data asli tetap terbaca, kemudian memberikan alasan koreksi, tanggal, dan paraf.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyatakan penggunaan tip-ex dilarang keras. Menjelaskan prosedur koreksi yang benar: coret satu garis, tulis yang benar, beri alasan, dan bubuhkan tanggal beserta paraf."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyatakan tip-ex dilarang dan harus dicoret, tetapi tidak melengkapi langkah otorisasi (alasan, tanggal, paraf)."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menyatakan tip-ex dilarang hanya karena alasan estetika dokumen."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Membenarkan penggunaan tip-ex asalkan dokumen difotokopi ulang agar terlihat bersih."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak membahas perbaikan data dokumentasi."
+    }
+   ]
+  },
+  {
+   "no": 8,
+   "question": "<p>Terjadi insiden mati listrik sesaat yang membuat suhu inkubator turun, dan hal ini tidak direncanakan dalam prosedur. Apakah penguji boleh menyembunyikan kejadian ini agar Analisisnya tidak dianggap gagal?</p>",
+   "answer": "<p>Tidak boleh, karena menyembunyikan penyimpangan adalah pelanggaran serius atau fraud. Penyimpangan tidak otomatis membatalkan Analisis asalkan kejadian tersebut dicatat, dijelaskan, dan dievaluasi dampaknya oleh Penanggungjawab Analisis.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menyatakan Tidak Boleh dan menyebutnya sebagai tindakan penipuan (fraud). Menguraikan langkah perbaikan: kejadian harus dicatat, dilaporkan, dan dampaknya dievaluasi oleh Penanggungjawab Analisis (Study Director)."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjawab tidak boleh disembunyikan karena bisa merusak hasil, dan harus dilaporkan ke atasan, tetapi tidak menyebutkan perlunya pencatatan atau evaluasi dampak saintifik."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menjawab tidak boleh karena berbohong itu dosa atau melanggar SOP perusahaan secara umum."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Membenarkan tindakan penyembunyian asalkan hasil analisis akhirnya tetap masuk dalam batas spesifikasi."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban di luar konteks GLP."
+    }
+   ]
+  },
+  {
+   "no": 9,
+   "question": "<p>Laboratorium membuang sisa bahan pengujian (test item) ke tempat pembuangan akhir tanpa mendata atau mencatat berapa jumlah yang dibuang. Prinsip utama apa yang dilanggar dari tindakan ini?</p>",
+   "answer": "<p>Tindakan pembuangan yang tidak terdokumentasi ini melanggar prinsip akuntabilitas bahan pengujian (Test Item Accountability). Sisa bahan pengujian harus selalu direkonsiliasi jumlahnya.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Secara eksplisit menyebutkan pelanggaran terhadap prinsip Akuntabilitas Bahan Pengujian (Test Item Accountability) dan keharusan melakukan rekonsiliasi jumlah bahan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menyebutkan pelanggaran pencatatan dan dokumentasi bahan, tetapi tidak menggunakan terminologi Test Item Accountability."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menyebutkan pelanggaran membuang limbah sembarangan (fokus pada aspek lingkungan/K3L, bukan prinsip material GLP)."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap membuang bahan sisa adalah hak teknisi selama pengujian sudah kelar."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan soal."
+    }
+   ]
+  },
+  {
+   "no": 10,
+   "question": "<p>Sebuah fasilitas pengujian menyimpan dokumen data mentah dan laporan akhir di sebuah gudang kayu yang atapnya bocor dan sering dimasuki tikus. Mengapa kondisi ini melanggar syarat kritis fasilitas arsip GLP?</p>",
+   "answer": "<p>Ruang arsip GLP mensyaratkan tingkat keamanan tinggi di mana arsip harus ditempatkan di tempat yang aman, tahan terhadap api, air, dan hama. Data yang rusak di arsip akibat kondisi tersebut akan dianggap sebagai data yang tidak valid.</p>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat Baik",
+     "deskripsi": "Menjelaskan bahwa fasilitas arsip GLP menuntut keamanan tinggi (tahan air, hama, api). Memberikan konsekuensi bahwa data mentah yang rusak/hilang akibat kondisi tersebut menjadikan seluruh pengujian dianggap tidak valid/tidak dapat dipertanggungjawabkan."
+    },
+    {
+     "min": 70,
+     "max": 89,
+     "label": "Baik",
+     "deskripsi": "Menjawab bahwa ruang arsip harus aman dan bebas tikus/bocor, tanpa menekankan konsekuensi fatal terhadap status validitas data GLP."
+    },
+    {
+     "min": 50,
+     "max": 69,
+     "label": "Cukup",
+     "deskripsi": "Menjawab bahwa hal tersebut membuat staf kesulitan mencari dokumen atau membuat ruang arsip kotor."
+    },
+    {
+     "min": 30,
+     "max": 49,
+     "label": "Kurang",
+     "deskripsi": "Menganggap arsip kertas tidak penting asalkan data sudah ada di dalam komputer."
+    },
+    {
+     "min": 10,
+     "max": 29,
+     "label": "Sangat Kurang",
+     "deskripsi": "Jawaban tidak berkaitan dengan infrastruktur pengarsipan."
+    }
+   ]
+  }
+ ],
+ "esai_panduan": "<p><strong>Panduan Penilaian Umum (Rentang Skor 10–100)</strong></p>\n<p><strong>Skor 90 – 100: Sangat Baik (Komprehensif &amp; Presisi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan seluruh elemen kunci jawaban secara lengkap dan akurat.</li>\n<li><strong>Pemahaman Konsep (GLP):</strong> Menunjukkan pemahaman prinsip GLP yang sangat tajam, logis, dan analitis.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Menggunakan istilah teknis laboratorium/GLP dengan tepat (misal: ALCOA, Contemporaneous, Chain of Custody, Intermediate Check).</li>\n</ul>\n<p><strong>Skor 70 – 89: Baik (Memadai &amp; Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Menyebutkan sebagian besar poin kunci. Terdapat toleransi satu detail kecil yang terlewat (misalnya lupa menyebutkan &quot;tanggal dan paraf&quot; pada prosedur koreksi).</li>\n<li><strong>Pemahaman Konsep (GLP):</strong> Penjelasan logis dan benar secara prinsip, namun penjabarannya kurang mendalam.</li>\n<li><strong>Penggunaan Istilah Teknis:</strong> Memahami konsep teknis meskipun kadang menggunakan bahasa yang lebih umum.</li>\n</ul>\n<p><strong>Skor 50 – 69: Cukup (Parsial &amp; Terlalu Umum)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Hanya mampu menjawab secara parsial atau setengah-setengah.</li>\n<li><strong>Pemahaman Konsep (GLP):</strong> Penjelasan terlalu awam dan kurang menargetkan standar spesifik GLP. Cenderung menjawab dengan logika umum (common sense) sehari-hari.</li>\n</ul>\n<p><strong>Skor 30 – 49: Kurang (Dangkal &amp; Miskonsepsi)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Gagal menangkap substansi instruksi soal.</li>\n<li><strong>Pemahaman Konsep (GLP):</strong> Terdapat kesalahan pemahaman yang fatal mengenai aturan dasar GLP (misalnya memperbolehkan penggunaan bahan kedaluwarsa atau menyembunyikan insiden).</li>\n</ul>\n<p><strong>Skor 10 – 29: Sangat Kurang (Tidak Relevan)</strong></p>\n<ul>\n<li><strong>Kesesuaian Poin Kunci:</strong> Jawaban sama sekali tidak berkaitan dengan pertanyaan atau prinsip laboratorium. Nilai 10 diberikan sebagai nilai dasar (baseline) karena peserta telah berupaya merespons.</li>\n</ul>",
+ "praktik": {
+  "template": "glp.docx",
+  "template_name": "Ujian Praktik V2 - GLP Laboratory Technician.docx",
+  "duration": 120,
+  "panduan": "Ringkasan Kegiatan\nNo | Stasiun | Waktu\n0 | Pengarahan | 10 menit\n1 | Persiapan & Facility Walkthrough | 20 menit\n2 | Pelaksanaan Pengujian | 40 menit\n3 | Pengendalian Mutu & Data | 25 menit\n4 | Pasca Pengujian | 20 menit\nTotal | 120 menit\n\nFormat: satu asesi per meja kerja, satu asesor mengamati 1–3 asesi. Bila asesi lebih banyak, jalankan Stasiun 1, 3, dan 4 secara bergiliran sementara asesi lain mengerjakan Stasiun 2.\nSkenario yang dibacakan kepada asesi: \"Anda adalah teknisi di fasilitas uji GLP. Hari ini Anda ditugaskan melaksanakan Analisis: verifikasi timbangan. Kerjakan seperti di tempat kerja sebenarnya. Semua yang Anda lakukan dan catat akan dinilai.\"\nStasiun 0 — Pengarahan (10 menit)\nStasiun 1 — Persiapan dan facility walkthrough (20 menit)\nInstruksi kepada asesi: \"Sebelum mulai, periksa kesiapan personel, dokumen, lingkungan, alat, dan bahan di meja ini. Catat setiap ketidaksesuaian beserta tindakan Anda di Lembar Kerja 4.1. Laporkan kepada penyelia sebelum lanjut.\"\nStasiun 2 — Pelaksanaan pengecekan silang (45 menit)\nInstruksi kepada asesi: \"Laksanakan pengecekan silang lengkap sesuai SOP pada semua timbangan yang layak. Catat semua data langsung di Lembar Kerja 4.2.\"\nStasiun 3 — Pengendalian mutu dan data (25 menit)\nInstruksi kepada asesi: \"Olah data Anda dan tentukan status setiap timbangan. Setelah itu evaluasi studi kasus : rekap pengecekan TG-02 di Pos Pengumpul X, dan periksa formulir F-01 dari petugas lain.\"\nStasiun 4 — Pasca pengujian (20 menit)\nInstruksi kepada asesi: \"Selesaikan pekerjaan Anda: tempel label status, kembalikan alat dan area ke kondisi standar, rekonsiliasi anak timbangan dan beban uji, lalu lengkapi dan arsipkan seluruh rekaman.\"\n\nDokumen (struktur organisasi, logbook, SOP) dan Lembar Kerja Asesi ada di file template. Lembar Data F-01 \"milik Petugas X\" diberikan asesor di Stasiun 3.",
+  "rubrik": "<p><strong>RUBRIK PENILAIAN</strong></p>\n<table><tr><th>Nilai</th><th>Label</th><th>Patokan umum</th></tr><tr><td>76-100</td><td>Sepenuhnya Kompeten</td><td>Semua poin kunci terpenuhi dengan benar.</td></tr><tr><td>51-75</td><td>Kompeten dengan Catatan</td><td>Semua gerbang kritis terpenuhi; kekurangan kecil pada poin non-kritis yang tidak mengubah hasil (pedoman: paling banyak sekitar ¼ poin kunci).</td></tr><tr><td>26-50</td><td>Belum Kompeten</td><td>Satu gerbang kritis gagal, ATAU kekurangan lebih banyak dari batas pita 51-75.</td></tr><tr><td>0-25</td><td>Belum Kompeten</td><td>Sebagian besar poin kunci salah atau tidak dikerjakan.</td></tr></table>\n<p><strong>A1 Persiapan &amp; Facility Walkthrough</strong></p><table><tr><td>Sumber bukti</td><td>Stasiun 1</td></tr><tr><td>Poin kunci</td><td>T1: TG-04 berlabel kalibrasi kedaluwarsa ditemukan, diberi tanda \"Tidak Boleh Digunakan\" dan dipisahkan<br>T2: catatan suhu 27,8 °C di luar batas 20–25 °C tanpa tindakan, dan satu hari kosong<br>T3: entri terakhir logbook timbangan ditulis pensil dan tanpa paraf<br>T4: orang yang sama menjabat PJ Analisis dan Penjaminan Mutu (QA)<br>Membaca dan mencatat termohigrometer ruang (suhu, %RH, jam baca)</td></tr><tr><td>Gerbang kritis</td><td>- TG-04 tidak ditandai/dipisahkan → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>T1–T4 dicatat beserta tindakan yang tepat, kondisi ruang dicatat lengkap, dan dilaporkan ke penyelia.</td></tr><tr><td>51-75</td><td>T1 ditangani dengan benar; ada kekurangan kecil, misalnya 3 dari 4 temuan, atau jam baca/kolom lapor tidak diisi.</td></tr><tr><td>26-50</td><td>TG-04 tidak ditandai/dipisahkan, ATAU hanya 2 temuan, ATAU temuan dicatat tanpa tindakan.</td></tr><tr><td>0-25</td><td>Paling banyak 1 temuan atau tidak melakukan walkthrough.</td></tr></table>\n<p><strong>A2 Pelaksanaan Pengecekan Silang</strong></p><table><tr><td>Sumber bukti</td><td>Stasiun 2</td></tr><tr><td>Poin kunci</td><td>Memakai APD dan mengisi identitas pengecekan lengkap (SOP 4.1 langkah 1–2)<br>Menata timbangan: datar/stabil, kipas dimatikan/dijauhkan, waterpass di tengah (SOP 4.1 langkah 3)<br>Membersihkan piringan, menyalakan dan menunggu ±5 menit sebelum mengukur (SOP 4.1 langkah 4–5)<br>Memeriksa anak timbangan sebelum dipakai; AT-05B (cacat) tidak dipakai, dipisahkan dan dilaporkan (SOP 4.1 langkah 6)<br>Cek nol tiap timbangan, mencatat tampilan sebelum/sesudah ZERO/TARE (SOP 4.2)<br>Uji 3 titik beban (3, 15, 20 kg), beban di tengah, catat saat stabil, cek kembali ke nol (SOP 4.3)<br>Uji silang beban uji BU-01: tentukan timbangan acuan, 2 putaran dengan urutan dibalik (SOP 4.4)<br>Uji pojok 10 kg di tengah + 4 pojok tiap timbangan (SOP 4.5); anak timbangan dipegang dengan pinset/sarung tangan</td></tr><tr><td>Gerbang kritis</td><td>- Mengukur tanpa pemanasan ±5 menit → maksimal 50<br>- Memakai TG-04 atau AT-05B → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Semua langkah SOP 4.1–4.5 dilakukan berurutan dan lengkap untuk TG-01, TG-02, TG-03.</td></tr><tr><td>51-75</td><td>Kedua gerbang kritis terpenuhi; ada kekurangan kecil, misalnya satu titik/posisi pojok terlewat atau identitas kurang lengkap.</td></tr><tr><td>26-50</td><td>Salah satu gerbang kritis gagal, ATAU satu tahap uji (uji silang atau uji pojok) tidak dilakukan.</td></tr><tr><td>0-25</td><td>Sebagian besar langkah SOP tidak dilakukan atau urutannya kacau.</td></tr></table>\n<p><strong>A3 Pengendalian Mutu &amp; Data</strong></p><table><tr><td>Sumber bukti</td><td>Stasiun 3</td></tr><tr><td>Poin kunci</td><td>Pencatatan sesuai ALCOA selama praktik: pulpen permanen, koreksi coret satu garis + paraf + tanggal + alasan<br>Perhitungan selisih thd standar, thd acuan (rata-rata 2 putaran) dan rentang uji pojok benar<br>Status tiap timbangan sesuai SOP 5.1<br>TG-02: status M1–M3 LAYAK, M4–M7 LAYAK–zona waspada, M8 TIDAK LAYAK; plot grafik; pola drift; M5–M7 tidak diuji ulang<br>Tindakan koreksi SOP 5.2 berurutan<br>Kekurangan berat petani: total 1,22–1,24 kg<br>Alur kompensasi: diusulkan koordinator titik → manajer operasional → diinformasikan ke petani<br>8. F-01 Petugas X: minimal 6 dari 8 ketidaksesuaian (C1–C8), C5 dan C6 wajib</td></tr><tr><td>Gerbang kritis</td><td>Memakai pensil/tip-ex/kertas buram atau menimpa angka → maksimal 50<br>Status timbangan tidak sesuai data/toleransi → maksimal 50<br>C5 atau C6 pada F-01 tidak ditemukan → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Semua poin benar; pencatatan bersih sesuai ALCOA; F-01 ≥ 6 temuan termasuk C5 &amp; C6.</td></tr><tr><td>51-75</td><td>Ketiga gerbang kritis terpenuhi; ada kekurangan kecil, misalnya satu salah hitung yang tidak mengubah status, tindakan SOP 5.2 kurang 1 langkah, atau koreksi tanpa alasan.</td></tr><tr><td>26-50</td><td>Salah satu gerbang kritis gagal, ATAU beberapa perhitungan/analisis TG-02 salah.</td></tr><tr><td>0-25</td><td>Sebagian besar perhitungan dan analisis salah atau tidak dikerjakan.</td></tr></table>\n<p><strong>A4 Pasca Pengujian</strong></p><table><tr><td>Sumber bukti</td><td>Stasiun 4</td></tr><tr><td>Poin kunci</td><td>Label \"LAYAK PAKAI\"/\"JANGAN DIPAKAI\" sesuai hasil 4.3-A sendiri; TG-04 \"JANGAN DIPAKAI\"<br>Membersihkan piringan, mematikan/standby, membuang lap/tisu kotor ke tempatnya, mengisi log pembersihan<br>Rekonsiliasi anak timbangan (jumlah &amp; kode keluar = kembali); AT-05B disimpan terpisah &amp; berlabel; BU-01 tetap tertutup<br>Log ketidaksesuaian memuat minimal TG-04 dan AT-05B<br>Menandatangani lembar kerja, menyerahkan untuk verifikasi, menyusun rekaman di map arsip</td></tr><tr><td>Gerbang kritis</td><td>- Ada label status yang tidak cocok dengan data asesi → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76-100</td><td>Semua label sesuai, area bersih, rekonsiliasi cocok, log ketidaksesuaian lengkap, rekaman ditandatangani dan diarsipkan.</td></tr><tr><td>51-75</td><td>Semua label sesuai; ada kekurangan kecil, misalnya log pembersihan tidak lengkap atau salah satu item log ketidaksesuaian terlewat.</td></tr><tr><td>26-50</td><td>Ada label yang tidak cocok, ATAU rekonsiliasi tidak dilakukan.</td></tr><tr><td>0-25</td><td>Sebagian besar kegiatan pasca pengujian tidak dilakukan.</td></tr></table>\n<p><strong>REKAPITULASI NILAI</strong></p>\n<table><tr><th>Tugas</th><th>Bobot</th></tr><tr><td>1. Persiapan &amp; facility walkthrough</td><td>20%</td></tr><tr><td>2. Pelaksanaan pengecekan silang</td><td>35%</td></tr><tr><td>3. Pengendalian mutu &amp; data</td><td>25%</td></tr><tr><td>4. Pasca pengujian</td><td>20%</td></tr><tr><td>Nilai (Jumlah Nilai × Bobot)</td><td>100%</td></tr></table>",
+  "aspek": [
+   {
+    "no": 1,
+    "nama": "A1 Persiapan & Facility Walkthrough",
+    "bobot": 20,
+    "sumber": "Stasiun 1",
+    "poin_kunci": [
+     "T1: TG-04 berlabel kalibrasi kedaluwarsa ditemukan, diberi tanda \"Tidak Boleh Digunakan\" dan dipisahkan",
+     "T2: catatan suhu 27,8 °C di luar batas 20–25 °C tanpa tindakan, dan satu hari kosong",
+     "T3: entri terakhir logbook timbangan ditulis pensil dan tanpa paraf",
+     "T4: orang yang sama menjabat PJ Analisis dan Penjaminan Mutu (QA)",
+     "Membaca dan mencatat termohigrometer ruang (suhu, %RH, jam baca)"
+    ],
+    "gerbang": [
+     "TG-04 tidak ditandai/dipisahkan"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "T1–T4 dicatat beserta tindakan yang tepat, kondisi ruang dicatat lengkap, dan dilaporkan ke penyelia."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "T1 ditangani dengan benar; ada kekurangan kecil, misalnya 3 dari 4 temuan, atau jam baca/kolom lapor tidak diisi."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "TG-04 tidak ditandai/dipisahkan, ATAU hanya 2 temuan, ATAU temuan dicatat tanpa tindakan."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Paling banyak 1 temuan atau tidak melakukan walkthrough."
+     }
+    ]
+   },
+   {
+    "no": 2,
+    "nama": "A2 Pelaksanaan Pengecekan Silang",
+    "bobot": 35,
+    "sumber": "Stasiun 2",
+    "poin_kunci": [
+     "Memakai APD dan mengisi identitas pengecekan lengkap (SOP 4.1 langkah 1–2)",
+     "Menata timbangan: datar/stabil, kipas dimatikan/dijauhkan, waterpass di tengah (SOP 4.1 langkah 3)",
+     "Membersihkan piringan, menyalakan dan menunggu ±5 menit sebelum mengukur (SOP 4.1 langkah 4–5)",
+     "Memeriksa anak timbangan sebelum dipakai; AT-05B (cacat) tidak dipakai, dipisahkan dan dilaporkan (SOP 4.1 langkah 6)",
+     "Cek nol tiap timbangan, mencatat tampilan sebelum/sesudah ZERO/TARE (SOP 4.2)",
+     "Uji 3 titik beban (3, 15, 20 kg), beban di tengah, catat saat stabil, cek kembali ke nol (SOP 4.3)",
+     "Uji silang beban uji BU-01: tentukan timbangan acuan, 2 putaran dengan urutan dibalik (SOP 4.4)",
+     "Uji pojok 10 kg di tengah + 4 pojok tiap timbangan (SOP 4.5); anak timbangan dipegang dengan pinset/sarung tangan"
+    ],
+    "gerbang": [
+     "Mengukur tanpa pemanasan ±5 menit",
+     "Memakai TG-04 atau AT-05B"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Semua langkah SOP 4.1–4.5 dilakukan berurutan dan lengkap untuk TG-01, TG-02, TG-03."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Kedua gerbang kritis terpenuhi; ada kekurangan kecil, misalnya satu titik/posisi pojok terlewat atau identitas kurang lengkap."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU satu tahap uji (uji silang atau uji pojok) tidak dilakukan."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Sebagian besar langkah SOP tidak dilakukan atau urutannya kacau."
+     }
+    ]
+   },
+   {
+    "no": 3,
+    "nama": "A3 Pengendalian Mutu & Data",
+    "bobot": 25,
+    "sumber": "Stasiun 3",
+    "poin_kunci": [
+     "Pencatatan sesuai ALCOA selama praktik: pulpen permanen, koreksi coret satu garis + paraf + tanggal + alasan",
+     "Perhitungan selisih thd standar, thd acuan (rata-rata 2 putaran) dan rentang uji pojok benar",
+     "Status tiap timbangan sesuai SOP 5.1",
+     "TG-02: status M1–M3 LAYAK, M4–M7 LAYAK–zona waspada, M8 TIDAK LAYAK; plot grafik; pola drift; M5–M7 tidak diuji ulang",
+     "Tindakan koreksi SOP 5.2 berurutan",
+     "Kekurangan berat petani: total 1,22–1,24 kg",
+     "Alur kompensasi: diusulkan koordinator titik → manajer operasional → diinformasikan ke petani",
+     "F-01 Petugas X: minimal 6 dari 8 ketidaksesuaian (C1–C8), C5 dan C6 wajib"
+    ],
+    "gerbang": [
+     "Memakai pensil/tip-ex/kertas buram atau menimpa angka",
+     "Status timbangan tidak sesuai data/toleransi",
+     "C5 atau C6 pada F-01 tidak ditemukan"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Semua poin benar; pencatatan bersih sesuai ALCOA; F-01 ≥ 6 temuan termasuk C5 & C6."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Ketiga gerbang kritis terpenuhi; ada kekurangan kecil, misalnya satu salah hitung yang tidak mengubah status, tindakan SOP 5.2 kurang 1 langkah, atau koreksi tanpa alasan."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU beberapa perhitungan/analisis TG-02 salah."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Sebagian besar perhitungan dan analisis salah atau tidak dikerjakan."
+     }
+    ]
+   },
+   {
+    "no": 4,
+    "nama": "A4 Pasca Pengujian",
+    "bobot": 20,
+    "sumber": "Stasiun 4",
+    "poin_kunci": [
+     "Label \"LAYAK PAKAI\"/\"JANGAN DIPAKAI\" sesuai hasil 4.3-A sendiri; TG-04 \"JANGAN DIPAKAI\"",
+     "Membersihkan piringan, mematikan/standby, membuang lap/tisu kotor ke tempatnya, mengisi log pembersihan",
+     "Rekonsiliasi anak timbangan (jumlah & kode keluar = kembali); AT-05B disimpan terpisah & berlabel; BU-01 tetap tertutup",
+     "Log ketidaksesuaian memuat minimal TG-04 dan AT-05B",
+     "Menandatangani lembar kerja, menyerahkan untuk verifikasi, menyusun rekaman di map arsip"
+    ],
+    "gerbang": [
+     "Ada label status yang tidak cocok dengan data asesi"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Semua label sesuai, area bersih, rekonsiliasi cocok, log ketidaksesuaian lengkap, rekaman ditandatangani dan diarsipkan."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Semua label sesuai; ada kekurangan kecil, misalnya log pembersihan tidak lengkap atau salah satu item log ketidaksesuaian terlewat."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Ada label yang tidak cocok, ATAU rekonsiliasi tidak dilakukan."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Sebagian besar kegiatan pasca pengujian tidak dilakukan."
+     }
+    ]
+   }
+  ]
+ }
+}

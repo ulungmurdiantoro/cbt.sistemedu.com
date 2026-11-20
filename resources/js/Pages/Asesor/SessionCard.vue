@@ -21,16 +21,21 @@
 
             <p class="text-muted mb-1 small">
                 <i class="fa fa-book me-1"></i>
-                <span v-if="session.examPg">
-                    {{ session.examPg.title }}
-                    <span class="badge bg-info ms-1">{{ session.examPg.type }}</span>
+                <span v-if="examPg">
+                    {{ examPg.title }}
+                    <span class="badge bg-info ms-1">{{ examPg.type }}</span>
                 </span>
-                <br v-if="session.examPg && session.examEsai">
-                <span v-if="session.examEsai">
-                    <i v-if="!session.examPg" class="fa fa-book me-1"></i>
-                    {{ session.examEsai.title }}
-                    <span class="badge bg-warning text-gray-800 ms-1">{{ session.examEsai.type }}</span>
+                <br v-if="examPg && examEsai">
+                <span v-if="examEsai">
+                    <i v-if="!examPg" class="fa fa-book me-1"></i>
+                    {{ examEsai.title }}
+                    <span class="badge bg-warning text-gray-800 ms-1">{{ examEsai.type }}</span>
                 </span>
+                <template v-for="(p, i) in examPraktik" :key="p.id">
+                    <br v-if="examPg || examEsai || i > 0">
+                    {{ p.title }}
+                    <span class="badge bg-danger ms-1">Ujian Praktik</span>
+                </template>
             </p>
 
             <p class="text-muted small" :class="progressItems.length ? 'mb-2' : 'mb-3'">
@@ -92,8 +97,18 @@ export default {
         hasPraktik() {
             return Object.keys(this.session.praktik_weights ?? {}).length > 0;
         },
+        // Relasi Eloquent dikirim snake_case (exam_pg); examPg dipertahankan untuk data lama
+        examPg() {
+            return this.session.exam_pg ?? this.session.examPg ?? null;
+        },
+        examEsai() {
+            return this.session.exam_esai ?? this.session.examEsai ?? null;
+        },
+        examPraktik() {
+            return [this.session.exam_praktik, this.session.exam_praktik2].filter(Boolean);
+        },
         classroomTitle() {
-            const exam = this.session.examPg ?? this.session.examEsai;
+            const exam = this.examPg ?? this.examEsai ?? this.examPraktik[0];
             return exam?.classroom?.title ?? '—';
         },
         // Dari Asesor\DashboardController::progress() — null untuk sesi lama (pakai jam selesai sesi)

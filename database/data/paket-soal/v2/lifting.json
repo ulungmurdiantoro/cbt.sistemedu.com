@@ -1667,14 +1667,305 @@
    "template": "lifting-calculation.zip",
    "template_name": "Ujian Praktik V2 - Lifting Calculation.zip",
    "duration": 300,
-   "panduan": "A. PRAKTIK PENGHITUNGAN (CALCULATION)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nTUGAS\n\nCALCULATION - C\n1. Tentukan Load Factor untuk kondisi Tail Lifting seperti ini\n2. Hitung Maximal Dynamic Sling Load untuk Main & Crane dari beban ini\n3. Hitung Maximum Sling Tension pada Main Crane & Tail Crane\n4. Pilih Sling & Shackle yang tepat untuk Main Crane & Tail Crane\n5. Buat Tabel Lifting Gear yang digunakan\n6. Hitung Dynamic Hook Load (DHL) untuk Main Crane & Tail Crane\n7. Tentukan Working radius yang aman untuk Main & Tail Crane pada operasi ini\n8. Hitung Crane utilization & SF & GBP Cdari crane ini\n9. Tentukan lifting Sequence dari mulai Site Preparation, Setting Crane, Lifting Execution, Dismantling Crane dan Site Clearance\n10. Buatlah dokumen Lifting Method untuk operasi lifting ini\n11. Buatlah Lifting Operational Procedur (template disediakan)\n12. Buatlah JSA untuk operasi ini\n\nWaktu 300 menit · bobot nilai 50%.\nGambar posisi Main Crane & Tail Crane ada di file soal (PDF). Data crane (IHI CCH 1500, KATO SL6000), template perhitungan (Excel), template Lifting Operation Plan, Lifting Method, dan JSA ada di template (file ZIP). Kumpulkan seluruh hasil (perhitungan, Lifting Method, LOP, JSA) dalam satu file ZIP, lalu unggah (maks. 20 MB)."
+   "panduan": "A. PRAKTIK PENGHITUNGAN (CALCULATION)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nTUGAS\n\nCALCULATION - C\n1. Tentukan Load Factor untuk kondisi Tail Lifting seperti ini\n2. Hitung Maximal Dynamic Sling Load untuk Main & Crane dari beban ini\n3. Hitung Maximum Sling Tension pada Main Crane & Tail Crane\n4. Pilih Sling & Shackle yang tepat untuk Main Crane & Tail Crane\n5. Buat Tabel Lifting Gear yang digunakan\n6. Hitung Dynamic Hook Load (DHL) untuk Main Crane & Tail Crane\n7. Tentukan Working radius yang aman untuk Main & Tail Crane pada operasi ini\n8. Hitung Crane utilization & SF & GBP Cdari crane ini\n9. Tentukan lifting Sequence dari mulai Site Preparation, Setting Crane, Lifting Execution, Dismantling Crane dan Site Clearance\n10. Buatlah dokumen Lifting Method untuk operasi lifting ini\n11. Buatlah Lifting Operational Procedur (template disediakan)\n12. Buatlah JSA untuk operasi ini\n\nWaktu 300 menit · bobot nilai 50%.\nGambar posisi Main Crane & Tail Crane ada di file soal (PDF). Data crane (IHI CCH 1500, KATO SL6000), template perhitungan (Excel), template Lifting Operation Plan, Lifting Method, dan JSA ada di template (file ZIP). Kumpulkan seluruh hasil (perhitungan, Lifting Method, LOP, JSA) dalam satu file ZIP, lalu unggah (maks. 20 MB).",
+   "aspek": [
+    {
+     "no": 1,
+     "nama": "B1: Lifting Calculation",
+     "bobot": 45,
+     "item": [
+      {
+       "no": 1,
+       "nama": "Load Factor"
+      },
+      {
+       "no": 2,
+       "nama": "Dynamic Sling Load"
+      },
+      {
+       "no": 3,
+       "nama": "Distribusi Sling Tension"
+      },
+      {
+       "no": 4,
+       "nama": "Pemilihan Sling"
+      },
+      {
+       "no": 5,
+       "nama": "Pemilihan Shackle"
+      },
+      {
+       "no": 6,
+       "nama": "Rekap Lifting Gear"
+      },
+      {
+       "no": 7,
+       "nama": "Dynamic Hook Load"
+      },
+      {
+       "no": 8,
+       "nama": "Working Radius"
+      },
+      {
+       "no": 9,
+       "nama": "Crane Utilization"
+      },
+      {
+       "no": 10,
+       "nama": "Rekap Crane Utilization"
+      }
+     ],
+     "pilihan": [
+      {
+       "label": "Ada & Benar",
+       "nilai": 10
+      },
+      {
+       "label": "Ada tapi Salah",
+       "nilai": 5
+      },
+      {
+       "label": "Tidak Ada",
+       "nilai": 0
+      }
+     ]
+    },
+    {
+     "no": 2,
+     "nama": "B2: Sequence",
+     "bobot": 20,
+     "item": [
+      {
+       "no": 1,
+       "nama": "Site Preparation"
+      },
+      {
+       "no": 2,
+       "nama": "Setting Crane"
+      },
+      {
+       "no": 3,
+       "nama": "Lifting Execution"
+      },
+      {
+       "no": 4,
+       "nama": "Dismantle Crane"
+      },
+      {
+       "no": 5,
+       "nama": "Site Clearance"
+      }
+     ],
+     "pilihan": [
+      {
+       "label": "Ada & Benar",
+       "nilai": 20
+      },
+      {
+       "label": "Ada tapi Salah/Tidak Lengkap",
+       "nilai": 10
+      },
+      {
+       "label": "Tidak Ada",
+       "nilai": 0
+      }
+     ]
+    },
+    {
+     "no": 3,
+     "nama": "B3: Lifting Method",
+     "bobot": 20,
+     "item": [
+      {
+       "no": 1,
+       "nama": "Project Overview"
+      },
+      {
+       "no": 2,
+       "nama": "Summary"
+      },
+      {
+       "no": 3,
+       "nama": "Design Data"
+      },
+      {
+       "no": 4,
+       "nama": "Equipment Summary"
+      },
+      {
+       "no": 5,
+       "nama": "Crane Utilization & SF"
+      },
+      {
+       "no": 6,
+       "nama": "Man Power"
+      },
+      {
+       "no": 7,
+       "nama": "Site Organization Chart"
+      },
+      {
+       "no": 8,
+       "nama": "Lifting Sequence"
+      },
+      {
+       "no": 9,
+       "nama": "Drawing Illustration"
+      },
+      {
+       "no": 10,
+       "nama": "JSA"
+      }
+     ],
+     "pilihan": [
+      {
+       "label": "Ada & Benar",
+       "nilai": 10
+      },
+      {
+       "label": "Ada tapi Salah/Tidak Lengkap",
+       "nilai": 5
+      },
+      {
+       "label": "Tidak Ada",
+       "nilai": 0
+      }
+     ]
+    },
+    {
+     "no": 4,
+     "nama": "B4: Lifting Operational Plan (LOP)",
+     "bobot": 15,
+     "item": [
+      {
+       "no": 1,
+       "nama": "Define Category"
+      },
+      {
+       "no": 2,
+       "nama": "Lifting Plan Detail"
+      },
+      {
+       "no": 3,
+       "nama": "Description of Loads"
+      },
+      {
+       "no": 4,
+       "nama": "Crane Description"
+      },
+      {
+       "no": 5,
+       "nama": "Description of Rigging Equipment"
+      },
+      {
+       "no": 6,
+       "nama": "Man Power"
+      },
+      {
+       "no": 7,
+       "nama": "Criticalities Identification"
+      },
+      {
+       "no": 8,
+       "nama": "Method Statement"
+      },
+      {
+       "no": 9,
+       "nama": "Sketch"
+      },
+      {
+       "no": 10,
+       "nama": "Final Check Before Lifting"
+      }
+     ],
+     "pilihan": [
+      {
+       "label": "Ada & Benar",
+       "nilai": 10
+      },
+      {
+       "label": "Ada tapi Salah/Tidak Lengkap",
+       "nilai": 5
+      },
+      {
+       "label": "Tidak Ada",
+       "nilai": 0
+      }
+     ]
+    }
+   ],
+   "rubrik": "<p><strong>PRAKTIK CALCULATION (50%)</strong></p>\n<p><strong>B1: Lifting Calculation (45%)</strong></p>\n<table><tr><th>No</th><th>Butir</th><th>Ada &amp; Benar (10)</th><th>Ada tapi Salah (5)</th><th>Tidak Ada (0)</th></tr><tr><td>1</td><td>Load Factor</td><td></td><td></td><td></td></tr><tr><td>2</td><td>Dynamic Sling Load</td><td></td><td></td><td></td></tr><tr><td>3</td><td>Distribusi Sling Tension</td><td></td><td></td><td></td></tr><tr><td>4</td><td>Pemilihan Sling</td><td></td><td></td><td></td></tr><tr><td>5</td><td>Pemilihan Shackle</td><td></td><td></td><td></td></tr><tr><td>6</td><td>Rekap Lifting Gear</td><td></td><td></td><td></td></tr><tr><td>7</td><td>Dynamic Hook Load</td><td></td><td></td><td></td></tr><tr><td>8</td><td>Working Radius</td><td></td><td></td><td></td></tr><tr><td>9</td><td>Crane Utilization</td><td></td><td></td><td></td></tr><tr><td>10</td><td>Rekap Crane Utilization</td><td></td><td></td><td></td></tr></table>\n<p><strong>B2: Sequence (20%)</strong></p>\n<table><tr><th>No</th><th>Butir</th><th>Ada &amp; Benar (20)</th><th>Ada tapi Salah/Tidak Lengkap (10)</th><th>Tidak Ada (0)</th></tr><tr><td>1</td><td>Site Preparation</td><td></td><td></td><td></td></tr><tr><td>2</td><td>Setting Crane</td><td></td><td></td><td></td></tr><tr><td>3</td><td>Lifting Execution</td><td></td><td></td><td></td></tr><tr><td>4</td><td>Dismantle Crane</td><td></td><td></td><td></td></tr><tr><td>5</td><td>Site Clearance</td><td></td><td></td><td></td></tr></table>\n<p><strong>B3: Lifting Method (20%)</strong></p>\n<table><tr><th>No</th><th>Butir</th><th>Ada &amp; Benar (10)</th><th>Ada tapi Salah/Tidak Lengkap (5)</th><th>Tidak Ada (0)</th></tr><tr><td>1</td><td>Project Overview</td><td></td><td></td><td></td></tr><tr><td>2</td><td>Summary</td><td></td><td></td><td></td></tr><tr><td>3</td><td>Design Data</td><td></td><td></td><td></td></tr><tr><td>4</td><td>Equipment Summary</td><td></td><td></td><td></td></tr><tr><td>5</td><td>Crane Utilization &amp; SF</td><td></td><td></td><td></td></tr><tr><td>6</td><td>Man Power</td><td></td><td></td><td></td></tr><tr><td>7</td><td>Site Organization Chart</td><td></td><td></td><td></td></tr><tr><td>8</td><td>Lifting Sequence</td><td></td><td></td><td></td></tr><tr><td>9</td><td>Drawing Illustration</td><td></td><td></td><td></td></tr><tr><td>10</td><td>JSA</td><td></td><td></td><td></td></tr></table>\n<p><strong>B4: Lifting Operational Plan (LOP) (15%)</strong></p>\n<table><tr><th>No</th><th>Butir</th><th>Ada &amp; Benar (10)</th><th>Ada tapi Salah/Tidak Lengkap (5)</th><th>Tidak Ada (0)</th></tr><tr><td>1</td><td>Define Category</td><td></td><td></td><td></td></tr><tr><td>2</td><td>Lifting Plan Detail</td><td></td><td></td><td></td></tr><tr><td>3</td><td>Description of Loads</td><td></td><td></td><td></td></tr><tr><td>4</td><td>Crane Description</td><td></td><td></td><td></td></tr><tr><td>5</td><td>Description of Rigging Equipment</td><td></td><td></td><td></td></tr><tr><td>6</td><td>Man Power</td><td></td><td></td><td></td></tr><tr><td>7</td><td>Criticalities Identification</td><td></td><td></td><td></td></tr><tr><td>8</td><td>Method Statement</td><td></td><td></td><td></td></tr><tr><td>9</td><td>Sketch</td><td></td><td></td><td></td></tr><tr><td>10</td><td>Final Check Before Lifting</td><td></td><td></td><td></td></tr></table>\n<p><strong>Contoh penghitungan</strong></p><p>Lifting Calculation 75 × 45% = 33,75; Sequence 80 × 20% = 16; Lifting Method 80 × 20% = 16; LOP 100 × 15% = 15 → Calculation 80,75. Nilai akhir = PG 75 × 20% + Calculation 80,75 × 50% + Gambar 100 × 30% = 85,4.</p>"
   },
   {
    "nama": "Gambar",
    "template": "lifting-gambar.zip",
    "template_name": "Ujian Praktik V2 - Lifting Gambar.zip",
    "duration": 180,
-   "panduan": "SKENARIO (sama dengan Praktik Calculation)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nB. PRAKTIK GAMBAR\nBuatlah gambar lifting plan untuk operasi tailing lifting ini, yang menggandung informasi :\n1. Working radius aman untuk Main dan Tail Crane untuk operasi ini\n2. Ilustrasi posisi load saat 0,30,60 dan 90 derajat dan setelah slewing, dan placed beban\n3. Rigging Arraggement dan tabelnya (halaman berbeda)\n4. Tabel crane utilization\n5. Load Chart Crane\n6. Catatan/Note penting\n7. Kepada/Kop gambar yang lengkap\n\nWaktu 180 menit · bobot nilai 30%.\nGunakan hasil perhitungan Anda dari Praktik Calculation. Gambar posisi crane, bahan gambar (DWG), Lifting Sequence, dan data crane ada di template (file ZIP). Simpan gambar lifting plan (PDF dan/atau DWG) dalam satu file ZIP, lalu unggah (maks. 20 MB)."
+   "panduan": "SKENARIO (sama dengan Praktik Calculation)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nB. PRAKTIK GAMBAR\nBuatlah gambar lifting plan untuk operasi tailing lifting ini, yang menggandung informasi :\n1. Working radius aman untuk Main dan Tail Crane untuk operasi ini\n2. Ilustrasi posisi load saat 0,30,60 dan 90 derajat dan setelah slewing, dan placed beban\n3. Rigging Arraggement dan tabelnya (halaman berbeda)\n4. Tabel crane utilization\n5. Load Chart Crane\n6. Catatan/Note penting\n7. Kepada/Kop gambar yang lengkap\n\nWaktu 180 menit · bobot nilai 30%.\nGunakan hasil perhitungan Anda dari Praktik Calculation. Gambar posisi crane, bahan gambar (DWG), Lifting Sequence, dan data crane ada di template (file ZIP). Simpan gambar lifting plan (PDF dan/atau DWG) dalam satu file ZIP, lalu unggah (maks. 20 MB).",
+   "aspek": [
+    {
+     "no": 1,
+     "nama": "C: Lifting Plan Drawing",
+     "bobot": 100,
+     "item": [
+      {
+       "no": 1,
+       "nama": "Pick Up Drawing"
+      },
+      {
+       "no": 2,
+       "nama": "Placed Drawing"
+      },
+      {
+       "no": 3,
+       "nama": "Denah"
+      },
+      {
+       "no": 4,
+       "nama": "Rigging Arrangement & Tabel"
+      },
+      {
+       "no": 5,
+       "nama": "Tabel Rigging Arrangement"
+      },
+      {
+       "no": 6,
+       "nama": "Tabel Crane Utilization"
+      },
+      {
+       "no": 7,
+       "nama": "Crane Load Chart"
+      },
+      {
+       "no": 8,
+       "nama": "Working Radius, Boom Angle & Length"
+      },
+      {
+       "no": 9,
+       "nama": "Skala, Dimensi, Text"
+      },
+      {
+       "no": 10,
+       "nama": "Kerapian & Proporsional Gambar"
+      }
+     ],
+     "pilihan": [
+      {
+       "label": "Ada & Lengkap",
+       "nilai": 10
+      },
+      {
+       "label": "Ada tapi Salah/Tidak Lengkap",
+       "nilai": 5
+      },
+      {
+       "label": "Tidak Ada",
+       "nilai": 0
+      }
+     ]
+    }
+   ],
+   "rubrik": "<p><strong>PRAKTIK GAMBAR (30%)</strong></p>\n<p><strong>C: Lifting Plan Drawing (100%)</strong></p>\n<table><tr><th>No</th><th>Butir</th><th>Ada &amp; Lengkap (10)</th><th>Ada tapi Salah/Tidak Lengkap (5)</th><th>Tidak Ada (0)</th></tr><tr><td>1</td><td>Pick Up Drawing</td><td></td><td></td><td></td></tr><tr><td>2</td><td>Placed Drawing</td><td></td><td></td><td></td></tr><tr><td>3</td><td>Denah</td><td></td><td></td><td></td></tr><tr><td>4</td><td>Rigging Arrangement &amp; Tabel</td><td></td><td></td><td></td></tr><tr><td>5</td><td>Tabel Rigging Arrangement</td><td></td><td></td><td></td></tr><tr><td>6</td><td>Tabel Crane Utilization</td><td></td><td></td><td></td></tr><tr><td>7</td><td>Crane Load Chart</td><td></td><td></td><td></td></tr><tr><td>8</td><td>Working Radius, Boom Angle &amp; Length</td><td></td><td></td><td></td></tr><tr><td>9</td><td>Skala, Dimensi, Text</td><td></td><td></td><td></td></tr><tr><td>10</td><td>Kerapian &amp; Proporsional Gambar</td><td></td><td></td><td></td></tr></table>\n<p><strong>Contoh penghitungan</strong></p><p>Jumlah nilai 10 butir (maks. 100) = nilai Praktek Gambar. Nilai akhir = PG × 20% + Calculation × 50% + Gambar × 30%.</p>"
   }
  ]
 }

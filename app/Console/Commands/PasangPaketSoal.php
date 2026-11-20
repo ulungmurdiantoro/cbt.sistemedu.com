@@ -210,9 +210,21 @@ class PasangPaketSoal extends Command
         }
 
         foreach ($data['esai'] ?? [] as $e) {
+            $no = $e['no'] ?? '?';
             if (trim(strip_tags($e['question'] ?? '')) === '') {
-                $problems[] = 'esai ' . ($e['no'] ?? '?') . ': soal kosong';
+                $problems[] = "esai {$no}: soal kosong";
             }
+            if (isset($e['rubrik'])) {
+                $valid = is_array($e['rubrik']) && $e['rubrik'] !== [] && collect($e['rubrik'])->every(fn ($b) => is_array($b)
+                    && is_int($b['min'] ?? null) && is_int($b['max'] ?? null) && $b['min'] >= 0 && $b['min'] <= $b['max'] && $b['max'] <= 100
+                    && trim($b['deskripsi'] ?? '') !== '');
+                if (!$valid) {
+                    $problems[] = "esai {$no}: rubrik harus daftar {min, max, label, deskripsi} dengan 0 ≤ min ≤ max ≤ 100";
+                }
+            }
+        }
+        if (isset($data['esai_panduan']) && (!is_string($data['esai_panduan']) || mb_strlen($data['esai_panduan']) > 50000)) {
+            $problems[] = 'esai_panduan: harus teks HTML maksimal 50.000 karakter';
         }
 
         foreach ($data['durasi'] ?? [] as $part => $menit) {
@@ -252,6 +264,29 @@ class PasangPaketSoal extends Command
             if (trim($praktik['panduan'] ?? '') === '' || mb_strlen($praktik['panduan']) > 20000) {
                 $problems[] = "{$label}: panduan kosong atau lebih dari 20.000 karakter";
             }
+            if (isset($praktik['aspek'])) {
+                $aspek = $praktik['aspek'];
+                $valid = is_array($aspek) && $aspek !== [] && collect($aspek)->every(fn ($a) => is_array($a)
+                    && is_int($a['no'] ?? null) && trim($a['nama'] ?? '') !== '' && is_numeric($a['bobot'] ?? null) && $a['bobot'] > 0);
+                if (!$valid || count(array_unique(array_column($aspek, 'no'))) !== count($aspek)) {
+                    $problems[] = "{$label}: aspek harus daftar {no, nama, bobot} dengan no unik dan bobot > 0";
+                } elseif (abs(array_sum(array_column($aspek, 'bobot')) - 100) > 0.01) {
+                    $problems[] = "{$label}: total bobot aspek harus 100%";
+                }
+                // Aspek per butir: butir {no, nama} + pilihan {label, nilai}; nilai maksimal = 100
+                foreach ($valid ? $aspek : [] as $a) {
+                    if (!isset($a['item'])) {
+                        continue;
+                    }
+                    $nilai = array_column($a['pilihan'] ?? [], 'nilai');
+                    if (!$a['item'] || !$nilai || max($nilai) * count($a['item']) != 100) {
+                        $problems[] = "{$label}: aspek {$a['no']} — butir × nilai pilihan tertinggi harus 100";
+                    }
+                }
+            }
+            if (isset($praktik['rubrik']) && (!is_string($praktik['rubrik']) || strlen($praktik['rubrik']) > 200000)) {
+                $problems[] = "{$label}: rubrik harus teks HTML (maks. 200 KB)";
+            }
             $ext = strtolower(pathinfo($praktik['template_name'] ?? '', PATHINFO_EXTENSION));
             if (!in_array($ext, AnswerFile::EXTENSIONS, true)) {
                 $problems[] = "{$label}: tipe template .{$ext} tidak diizinkan";
@@ -278,6 +313,7 @@ class PasangPaketSoal extends Command
 
         $esaiCell = !empty($data['esai'])
             ? count($data['esai']) . ' soal → ' . $this->status($classroom, $key, 'esai', self::TYPE_ESAI, $durasi['esai'] ?? null)
+                . $this->esaiRubrikStatus($classroom, $key, $data)
             : '— (tanpa esai)';
 
         $parts = $this->praktikParts($data);
@@ -371,6 +407,12 @@ class PasangPaketSoal extends Command
         if (trim((string) $exam->praktik_panduan) !== trim($praktik['panduan'])) {
             $changes[] = 'panduan';
         }
+        if (trim((string) $exam->praktik_rubrik) !== trim((string) $this->rubrik($praktik))) {
+            $changes[] = 'rubrik';
+        }
+        if (($exam->praktik_aspek ?: null) != ($praktik['aspek'] ?? null)) {
+            $changes[] = 'aspek';
+        }
         if ((int) $exam->duration !== (int) $praktik['duration']) {
             $changes[] = 'durasi';
         }
@@ -434,20 +476,28 @@ class PasangPaketSoal extends Command
 
         if (!empty($data['esai'])) {
             $isEssay = Schema::hasColumn('essays', 'is_essay');
+            $rubrikReady = $this->esaiRubrikReady();
             $this->installPart($key, 'esai', $classroom, self::TYPE_ESAI, $durasi['esai'] ?? null, "{$classroom->title} - Esai {$label}",
                 'Paket Soal ' . $label . ' — FR.IA.06 Esai (' . count($data['esai']) . ' soal).',
-                function (Exam $exam) use ($data, $isEssay) {
+                function (Exam $exam) use ($data, $isEssay, $rubrikReady) {
                     foreach ($data['esai'] as $e) {
                         Essay::create([
                             'exam_id'     => $exam->id,
                             'essays_code' => 'essy-' . Str::ulid(),
                             'question'    => $e['question'],
                             'answer'      => $e['answer'] ?? '',
-                        ] + ($isEssay ? ['is_essay' => true] : []));
+                        ] + ($isEssay ? ['is_essay' => true] : []) + ($rubrikReady ? ['rubrik' => $e['rubrik'] ?? null] : []));
+                    }
+                    if ($rubrikReady) {
+                        $exam->update(['esai_panduan' => $this->esaiPanduan($data)]);
                     }
 
                     return count($data['esai']);
                 });
+
+            if ($rubrikReady && $exam = Exam::where('exams_code', $this->code($key, 'esai'))->first()) {
+                $this->syncEsaiRubrik($key, $exam, $data);
+            }
         }
 
         $parts = $this->praktikParts($data);
@@ -523,6 +573,8 @@ class PasangPaketSoal extends Command
                 'random_answer'   => 'N',
                 'show_answer'     => 'N',
                 'praktik_panduan' => $praktik['panduan'],
+                'praktik_rubrik'  => $this->rubrik($praktik),
+                'praktik_aspek'   => $praktik['aspek'] ?? null,
             ]);
             $this->info("{$key}: {$title} dibuat (ujian #{$exam->id}).");
         } elseif ($this->perbarui()) {
@@ -558,6 +610,8 @@ class PasangPaketSoal extends Command
 
         $exam->title = $title;
         $exam->praktik_panduan = $praktik['panduan'];
+        $exam->praktik_rubrik = $this->rubrik($praktik);
+        $exam->praktik_aspek = $praktik['aspek'] ?? null;
         $exam->duration = $praktik['duration'];
         $exam->save();
         $this->info("{$key}: {$exam->title} — judul, panduan & durasi disamakan dengan paket.");
@@ -652,6 +706,105 @@ class PasangPaketSoal extends Command
     private function classroom(array $data): ?Classroom
     {
         return Classroom::where('classrooms_code', $data['classroom_code'])->first();
+    }
+
+    /** Rubrik penilaian asesor (HTML dari FR.IA.04) — hanya tag tabel/paragraf yang dipertahankan. */
+    private function rubrik(array $praktik): ?string
+    {
+        $html = trim((string) ($praktik['rubrik'] ?? ''));
+
+        return $html === '' ? null : strip_tags($html, Exam::RUBRIK_TAGS);
+    }
+
+    private function esaiRubrikReady(): bool
+    {
+        return Schema::hasColumn('essays', 'rubrik') && Schema::hasColumn('exams', 'esai_panduan');
+    }
+
+    /** Panduan Penilaian Umum esai (FR.IA.06) — hanya tag paragraf/daftar yang dipertahankan. */
+    private function esaiPanduan(array $data): ?string
+    {
+        $html = trim((string) ($data['esai_panduan'] ?? ''));
+
+        return $html === '' ? null : strip_tags($html, Exam::PANDUAN_ESAI_TAGS);
+    }
+
+    /**
+     * Perbedaan matriks rubrik/panduan antara ujian esai terpasang dan paket. Soal dicocokkan lewat teks pertanyaan
+     * (seperti kunci-esai:perbarui), bukan posisi. Rubrik hanya panduan tampilan asesor — nilai tersimpan tidak berubah,
+     * jadi boleh diperbarui meski jawaban sudah dinilai.
+     *
+     * @return array{0: array<int, array{0: Essay, 1: ?array}>, 1: bool, 2: int}  [soal berubah, panduan berubah, soal tak cocok]
+     */
+    private function esaiRubrikChanges(Exam $exam, array $data): array
+    {
+        $installed = $exam->essays()->get()->keyBy(fn (Essay $e) => PerbaruiKunciEsai::normalize($e->question));
+        $changes = [];
+        $missing = 0;
+        foreach ($data['esai'] as $e) {
+            $essay = $installed->get(PerbaruiKunciEsai::normalize($e['question'] ?? ''));
+            if (!$essay) {
+                $missing++;
+
+                continue;
+            }
+            $rubrik = $e['rubrik'] ?? null;
+            if ($essay->rubrik != $rubrik) {
+                $changes[] = [$essay, $rubrik];
+            }
+        }
+
+        return [$changes, (string) $exam->esai_panduan !== (string) $this->esaiPanduan($data), $missing];
+    }
+
+    private function esaiRubrikStatus(?Classroom $classroom, string $key, array $data): string
+    {
+        $hasRubrik = isset($data['esai_panduan']) || collect($data['esai'])->contains(fn ($e) => !empty($e['rubrik']));
+        if (!$classroom || !$hasRubrik) {
+            return '';
+        }
+        if (!$this->esaiRubrikReady()) {
+            return "\nmatriks rubrik: dilewati (migrasi add_esai_rubrik belum dijalankan)";
+        }
+        $exam = Exam::where('exams_code', $this->code($key, 'esai'))->first();
+        if (!$exam || !$exam->essays()->exists()) {
+            return "\nmatriks rubrik ikut dipasang";
+        }
+
+        [$changes, $panduan, $missing] = $this->esaiRubrikChanges($exam, $data);
+        $miss = $missing ? "; {$missing} soal paket tidak cocok dengan soal terpasang" : '';
+        if (!$changes && !$panduan) {
+            return "\nmatriks rubrik sudah sama{$miss}";
+        }
+        $what = trim(($changes ? count($changes) . ' soal' : '') . ($changes && $panduan ? ' + ' : '') . ($panduan ? 'panduan umum' : ''));
+
+        return "\nmatriks rubrik {$what} " . ($this->perbarui() ? 'diperbarui' : 'berbeda — pakai --perbarui') . $miss;
+    }
+
+    private function syncEsaiRubrik(string $key, Exam $exam, array $data): void
+    {
+        [$changes, $panduan, $missing] = $this->esaiRubrikChanges($exam, $data);
+        if ($missing) {
+            $this->warn("{$key}: {$missing} soal esai paket tidak cocok dengan soal di {$exam->title} — matriksnya dilewati.");
+        }
+        if (!$changes && !$panduan) {
+            return;
+        }
+        if (!$this->perbarui()) {
+            $this->warn("{$key}: matriks rubrik esai {$exam->title} berbeda dengan paket — jalankan dengan --perbarui untuk menyamakan.");
+
+            return;
+        }
+
+        DB::transaction(function () use ($changes, $panduan, $exam, $data) {
+            foreach ($changes as [$essay, $rubrik]) {
+                $essay->update(['rubrik' => $rubrik]);
+            }
+            if ($panduan) {
+                $exam->update(['esai_panduan' => $this->esaiPanduan($data)]);
+            }
+        });
+        $this->info("{$key}: {$exam->title} — matriks rubrik " . count($changes) . ' soal' . ($panduan ? ' + Panduan Penilaian Umum' : '') . ' diperbarui.');
     }
 
     private function perbarui(): bool

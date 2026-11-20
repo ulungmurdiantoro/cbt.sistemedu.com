@@ -78,6 +78,8 @@ class InterviewAssessmentController extends Controller
             // Judul bagian Ujian Praktik ({bagian: judul}) bila sesi punya lebih dari satu bagian
             'tugas_parts'  => \App\Support\UjianPraktik::partTitles($exam_session_id),
             'bobot'        => $this->getBobotWawancaraFraction($exam_session_id),
+            // Keterampilan dinilai terpisah di halaman Nilai Praktik → kriteria (D) Worksheet tidak dipakai
+            'praktik_terpisah' => \App\Support\NilaiPraktik::applies($exam_session),
         ]);
     }
 
@@ -144,7 +146,14 @@ class InterviewAssessmentController extends Controller
             ->pluck('student_id')
             ->all();
 
+        // Keterampilan dinilai terpisah (halaman Nilai Praktik) → total wawancara = rata-rata 3 kriteria lisan
+        $praktikTerpisah = \App\Support\NilaiPraktik::applies(ExamSession::findOrFail($exam_session_id));
+
         foreach ($request->assessments as $item) {
+            if ($praktikTerpisah) {
+                $item['hasil_worksheet'] = null;
+            }
+
             abort_unless(
                 in_array($item['student_id'], $assigned_student_ids),
                 403,

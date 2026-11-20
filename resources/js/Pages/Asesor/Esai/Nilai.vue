@@ -33,6 +33,19 @@
                             <strong class="d-block">Ujian ini belum punya soal esai</strong>
                         </div>
 
+                        <!-- Panduan Penilaian Umum (FR.IA.06) — berlaku untuk semua soal -->
+                        <div v-if="panduan" class="card border-0 shadow mb-3">
+                            <div class="card-body py-3">
+                                <button type="button" class="btn btn-link p-0 fw-bolder text-gray-800 text-decoration-none w-100 text-start"
+                                    @click="openPanduan = !openPanduan">
+                                    <i :class="openPanduan ? 'fa fa-chevron-down' : 'fa fa-chevron-right'" class="me-2 text-muted"></i>
+                                    <i class="fa fa-book-open me-1 text-primary"></i> Panduan Penilaian Umum
+                                    <span class="small text-muted fw-normal ms-1">— pedoman rentang skor untuk semua soal</span>
+                                </button>
+                                <div v-if="openPanduan" class="panduan rich mt-3" v-html="panduan"></div>
+                            </div>
+                        </div>
+
                         <!-- Essay Migas: satu berkas untuk seluruh soal -->
                         <div v-if="files.length || isMigas" class="card border-0 shadow mb-3">
                             <div class="card-body">
@@ -88,9 +101,23 @@
                                         <div v-else-if="item.by_file" class="answer-box text-muted"><i class="fa fa-paperclip me-1"></i>Dijawab lewat berkas di atas.</div>
                                         <div v-else class="answer-box text-muted fst-italic">Tidak menjawab.</div>
 
+                                        <!-- Matriks rubrik soal ini (FR.IA.06) — klik rentang untuk mengisi nilai tertingginya -->
+                                        <div v-if="item.essay.rubrik" class="mt-3">
+                                            <div class="small text-muted fw-bolder text-uppercase mb-1">Matriks penilaian</div>
+                                            <div class="band-grid" :style="{ '--bands': item.essay.rubrik.length }">
+                                                <button v-for="(k, ki) in item.essay.rubrik" :key="k.min" type="button" class="band text-start"
+                                                    :class="[`band-${bandTone(ki, item.essay.rubrik.length)}`, { active: inBand(item.score, k) }]"
+                                                    :disabled="!item.answer_essay_id"
+                                                    @click="pickBand(item, k, ai)">
+                                                    <div class="fw-bolder small">{{ k.min }}–{{ k.max }}<template v-if="k.label"> · {{ k.label }}</template></div>
+                                                    <div class="band-desc">{{ k.deskripsi }}</div>
+                                                </button>
+                                            </div>
+                                        </div>
+
                                         <div class="score-row mt-3">
                                             <label :for="`score-${ai}`" class="fw-bolder small mb-0">Nilai (0–100) <span class="text-danger">*</span></label>
-                                            <input :id="`score-${ai}`" type="number" min="0" max="100" step="0.01"
+                                            <input :id="`score-${ai}`" :ref="`score-${ai}`" type="number" min="0" max="100" step="0.01"
                                                 v-model.number="item.score"
                                                 :disabled="!item.answer_essay_id"
                                                 class="form-control score-input"
@@ -138,7 +165,8 @@ export default {
 
     props: {
         exam_session: Object,
-        essays: Array,      // [{ id, number, question, guide, guide_label }] — urutan resmi (id naik)
+        essays: Array,      // [{ id, number, question, guide, guide_label, rubrik: [{min, max, label, deskripsi}]|null }] — urutan resmi (id naik)
+        panduan: String,    // Panduan Penilaian Umum (HTML) atau null
         student: Object,    // { id, name, no_participant, attempt }
         answers: Array,     // [{ id, essay_id, by_file, answer, score }]
         files: Array,       // Essay Migas: [{ name, download_url, preview_url }]
@@ -151,6 +179,7 @@ export default {
             saved: null,
             saving: false,
             successMsg: '',
+            openPanduan: false,
         };
     },
 
@@ -217,6 +246,23 @@ export default {
 
         isScored(v) {
             return v !== null && v !== '' && v !== undefined && !isNaN(v);
+        },
+
+        inBand(v, k) {
+            return this.isScored(v) && Number(v) >= k.min && Number(v) <= k.max;
+        },
+        // Warna rentang menurut urutan (tertinggi hijau … terendah merah), berapa pun jumlah rentangnya
+        bandTone(i, n) {
+            return (n <= 4 ? ['a', 'b', 'd', 'e'] : ['a', 'b', 'c', 'd', 'e'])[i] ?? 'e';
+        },
+        // Klik rentang: isi nilai tertinggi rentang itu (bila nilai sekarang di luar rentang), lalu fokus untuk disesuaikan
+        pickBand(item, k, ai) {
+            if (!item.answer_essay_id) return;
+            if (!this.inBand(item.score, k)) item.score = k.max;
+            this.$nextTick(() => {
+                const el = this.$refs[`score-${ai}`];
+                (Array.isArray(el) ? el[0] : el)?.focus();
+            });
         },
 
         onBeforeUnload(e) {
@@ -296,6 +342,27 @@ export default {
 .rich :deep(p:last-child) { margin-bottom: 0; }
 .rich :deep(img) { max-width: 100%; height: auto; }
 .rich :deep(ol), .rich :deep(ul) { padding-left: 1.25rem; margin-bottom: .5rem; }
+
+.panduan { font-size: .875rem; color: #374151; max-height: 60vh; overflow-y: auto; }
+.panduan :deep(p) { margin-bottom: .35rem; }
+.panduan :deep(ul) { margin-bottom: .85rem; }
+
+.band-grid { display: grid; grid-template-columns: repeat(var(--bands, 5), minmax(0, 1fr)); gap: .5rem; }
+@media (max-width: 991.98px) { .band-grid { grid-template-columns: 1fr; } }
+.band {
+    background: #fff; border: 1px solid #e5e7eb; border-radius: .5rem; padding: .5rem .65rem;
+    color: #1f2937; transition: border-color .15s, box-shadow .15s;
+}
+.band:hover:not(:disabled) { border-color: #9ca3af; }
+.band:disabled { opacity: .6; cursor: not-allowed; }
+.band-desc { font-size: .78rem; line-height: 1.35; color: #4b5563; margin-top: .2rem; }
+.band.active { box-shadow: 0 0 0 2px currentColor inset; }
+.band-a.active { background: rgba(16, 185, 129, .08); color: #047857; }
+.band-b.active { background: rgba(59, 130, 246, .08); color: #1d4ed8; }
+.band-c.active { background: rgba(245, 158, 11, .1); color: #b45309; }
+.band-d.active { background: rgba(249, 115, 22, .1); color: #c2410c; }
+.band-e.active { background: rgba(239, 68, 68, .08); color: #b91c1c; }
+.band.active .band-desc { color: inherit; }
 
 .score-row { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
 .score-input { width: 140px; }

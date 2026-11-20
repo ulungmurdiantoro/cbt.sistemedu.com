@@ -79,6 +79,8 @@ class EssayAssessmentController extends Controller
                 'question'    => $e->question,
                 'guide'       => $showKey && RichText::hasContent($e->answer) ? $e->answer : null,
                 'guide_label' => $e->is_essay ? 'Poin / kisi jawaban' : 'Jawaban benar',
+                // Matriks rubrik FR.IA.06 [{min, max, label, deskripsi}] — pedoman menilai, dari paket soal
+                'rubrik'      => is_array($e->rubrik) && $e->rubrik ? array_values($e->rubrik) : null,
             ]);
 
         $answers = AnswerEssay::where('exam_id', $esaiExamId)
@@ -104,6 +106,8 @@ class EssayAssessmentController extends Controller
         return inertia('Asesor/Esai/Nilai', [
             'exam_session' => $exam_session,
             'essays'       => $essays,
+            // Panduan Penilaian Umum (HTML dari paket soal, tag dibatasi Exam::PANDUAN_ESAI_TAGS)
+            'panduan'      => RichText::hasContent($exam_session->examEsai?->esai_panduan) ? $exam_session->examEsai->esai_panduan : null,
             'student'      => $student->only('id', 'name', 'no_participant') + ['attempt' => $attempt],
             'answers'      => $answers->map(fn (AnswerEssay $a) => [
                 'id'       => $a->id,

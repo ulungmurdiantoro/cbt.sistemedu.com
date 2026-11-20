@@ -123,6 +123,30 @@ class EssayAssessmentTest extends TestCase
                 ->where('nav.prev_id', null));
     }
 
+    public function test_grade_page_sends_general_guide_and_rubric_per_question(): void
+    {
+        $ctx    = $this->essaySession();
+        $asesor = $this->asesor();
+        AsesorAssignment::forceCreate(['user_id' => $asesor->id, 'exam_session_id' => $ctx['session']->id, 'student_id' => $ctx['student']->id]);
+
+        $rubrik = [['min' => 90, 'max' => 100, 'label' => 'Sangat Baik', 'deskripsi' => 'Lengkap'], ['min' => 10, 'max' => 29, 'label' => 'Sangat Kurang', 'deskripsi' => 'Tidak relevan']];
+        Essay::find($ctx['answers'][0]->essay_id)->update(['rubrik' => $rubrik]);
+        $ctx['session']->examEsai->update(['esai_panduan' => '<p><strong>Panduan Penilaian Umum</strong></p>']);
+
+        $this->actingAs($asesor)
+            ->get("/asesor/penilaian/{$ctx['session']->id}/esai/peserta/{$ctx['student']->id}")
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->where('panduan', '<p><strong>Panduan Penilaian Umum</strong></p>')
+                ->where('essays.0.rubrik.0.label', 'Sangat Baik')
+                ->where('essays.0.rubrik.1.max', 29)
+                ->where('essays.1.rubrik', null));
+
+        // Rubrik & panduan tidak ikut terserialisasi bawaan (peserta / JSON lain)
+        $this->assertArrayNotHasKey('esai_panduan', $ctx['session']->examEsai->fresh()->toArray());
+        $this->assertNotContains('rubrik', Essay::STUDENT_COLUMNS);
+    }
+
     public function test_list_page_shows_progress_and_total(): void
     {
         $ctx    = $this->essaySession();

@@ -5,7 +5,7 @@
  "sumber": {
   "pg": "FR.IA.05 Pilihan Ganda ESG Officer v1 (1).pdf",
   "esai": "FR.IA.06 Pertanyaan dan Jawaban Esai ESG Officer - V1.docx",
-  "praktik": "FR.IA.04 Tugas Keterampilan - ESG Officer - Rev.docx + FR.IA.04 Lembar Kerja Asesi ESG Officer.xlsx"
+  "praktik": "FR.IA.04 Tugas Keterampilan - ESG Officer - Rev.pdf + FR.IA.04 Lembar Kerja Asesi ESG Officer.xlsx"
  },
  "durasi": {
   "pg": 120,
@@ -14,8 +14,8 @@
  "komposisi": {
   "bobot_ujian_tulis": 70,
   "proporsi_pg": 65,
-  "bobot_wawancara": 30,
-  "bobot_praktik_1": 0,
+  "bobot_wawancara": 22.5,
+  "bobot_praktik_1": 7.5,
   "bobot_praktik_2": 0,
   "nilai_kelulusan": 60
  },
@@ -1525,58 +1525,494 @@
   {
    "no": 1,
    "question": "<p><strong>Konteks:</strong> PT XYZ adalah perusahaan manufaktur tekstil yang menggunakan air tanah dalam jumlah besar, memiliki pemasok dari 3 negara, dan sedang menghadapi keluhan warga terkait limbah cair. Perusahaan belum memiliki kebijakan ESG tertulis.</p><p><strong>Pertanyaan:</strong> Anda diminta menyiapkan bahan awal untuk draf kebijakan ESG yang ringkas. Sebutkan minimal 4 bagian yang perlu ada dalam draf tersebut dan jelaskan secara singkat isi setiap bagian.</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Tujuan dan ruang lingkup kebijakan (unit/lokasi/pihak yang dicakup)</li><li>Komitmen terhadap isu yang relevan bagi PT XYZ (air tanah, limbah cair, praktik ketenagakerjaan pemasok)</li><li>Peran dan tanggung jawab (siapa melakukan apa)</li><li>Mekanisme pelaporan, pemantauan, dan peninjauan kebijakan secara berkala</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menyebut ≥4 bagian dengan isi yang jelas; komitmen dikaitkan langsung dengan isu PT XYZ; menyebut mekanisme peninjauan berkala.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyebut 4 bagian dengan isi yang benar, tetapi kaitan dengan isu PT XYZ masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Menyebut 2–3 bagian yang benar, atau 4 bagian tanpa penjelasan isi.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Menyebut ≤1 bagian yang benar atau jawaban tidak relevan dengan kebijakan ESG.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Tujuan dan ruang lingkup kebijakan (unit/lokasi/pihak yang dicakup)</li><li>Komitmen terhadap isu yang relevan bagi PT XYZ (air tanah, limbah cair, praktik ketenagakerjaan pemasok)</li><li>Peran dan tanggung jawab (siapa melakukan apa)</li><li>Mekanisme pelaporan, pemantauan, dan peninjauan kebijakan secara berkala</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menyebut ≥4 bagian dengan isi yang jelas; komitmen dikaitkan langsung dengan isu PT XYZ; menyebut mekanisme peninjauan berkala.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyebut 4 bagian dengan isi yang benar, tetapi kaitan dengan isu PT XYZ masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Menyebut 2–3 bagian yang benar, atau 4 bagian tanpa penjelasan isi.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Menyebut ≤1 bagian yang benar atau jawaban tidak relevan dengan kebijakan ESG.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 81,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Menyebut ≥4 bagian dengan isi yang jelas; komitmen dikaitkan langsung dengan isu PT XYZ; menyebut mekanisme peninjauan berkala."
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Menyebut 4 bagian dengan isi yang benar, tetapi kaitan dengan isu PT XYZ masih umum."
+    },
+    {
+     "min": 31,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Menyebut 2–3 bagian yang benar, atau 4 bagian tanpa penjelasan isi."
+    },
+    {
+     "min": 0,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Menyebut ≤1 bagian yang benar atau jawaban tidak relevan dengan kebijakan ESG."
+    }
+   ]
   },
   {
    "no": 2,
    "question": "<p><strong>Konteks:</strong> Keluhan warga tentang limbah cair di PT XYZ diterima oleh bagian CSR, bagian produksi, dan bagian legal. Masing-masing menganggap pihak lain yang seharusnya menindaklanjuti, sehingga keluhan menumpuk tanpa jawaban.</p><p><strong>Pertanyaan:</strong> Usulkan pembagian peran sederhana untuk menangani keluhan tersebut: siapa menerima, siapa menindaklanjuti, siapa memantau, dan ke mana hasilnya dilaporkan. Jelaskan mengapa peran tidak boleh tumpang tindih.</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Satu pintu penerimaan keluhan yang jelas</li><li>Penanggung jawab tindak lanjut sesuai sumber masalah (mis. produksi untuk limbah)</li><li>Fungsi pemantau/koordinator (mis. staf ESG) dan jalur pelaporan ke atasan/manajemen</li><li>Alasan: tumpang tindih menyebabkan keluhan tidak tertangani dan tidak ada akuntabilitas</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Keempat peran dibagi dengan jelas tanpa tumpang tindih, jalur pelaporan disebut, dan alasan akuntabilitas dijelaskan dengan tepat.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Peran utama dan jalur pelaporan sudah jelas, tetapi alasan pentingnya pembagian peran kurang lengkap.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Pembagian peran masih sebagian atau masih tumpang tindih; jalur pelaporan tidak jelas.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Tidak ada pembagian peran yang dapat dijalankan, atau jawaban hanya menyalahkan salah satu bagian.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Satu pintu penerimaan keluhan yang jelas</li><li>Penanggung jawab tindak lanjut sesuai sumber masalah (mis. produksi untuk limbah)</li><li>Fungsi pemantau/koordinator (mis. staf ESG) dan jalur pelaporan ke atasan/manajemen</li><li>Alasan: tumpang tindih menyebabkan keluhan tidak tertangani dan tidak ada akuntabilitas</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Keempat peran dibagi dengan jelas tanpa tumpang tindih, jalur pelaporan disebut, dan alasan akuntabilitas dijelaskan dengan tepat.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Peran utama dan jalur pelaporan sudah jelas, tetapi alasan pentingnya pembagian peran kurang lengkap.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Pembagian peran masih sebagian atau masih tumpang tindih; jalur pelaporan tidak jelas.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Tidak ada pembagian peran yang dapat dijalankan, atau jawaban hanya menyalahkan salah satu bagian.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 81,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Keempat peran dibagi dengan jelas tanpa tumpang tindih, jalur pelaporan disebut, dan alasan akuntabilitas dijelaskan dengan tepat."
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Peran utama dan jalur pelaporan sudah jelas, tetapi alasan pentingnya pembagian peran kurang lengkap."
+    },
+    {
+     "min": 31,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Pembagian peran masih sebagian atau masih tumpang tindih; jalur pelaporan tidak jelas."
+    },
+    {
+     "min": 0,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Tidak ada pembagian peran yang dapat dijalankan, atau jawaban hanya menyalahkan salah satu bagian."
+    }
+   ]
   },
   {
    "no": 3,
    "question": "<p><strong>Konteks:</strong> PT XYZ sudah mengesahkan kebijakan ESG, tetapi survei singkat menunjukkan sebagian besar karyawan produksi tidak mengetahui isinya.</p><p><strong>Pertanyaan:</strong> Jelaskan langkah-langkah yang dapat Anda usulkan agar kebijakan tersebut diketahui dan dipahami karyawan, serta bagaimana cara mengetahui bahwa langkah tersebut berhasil.</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Materi sosialisasi yang sederhana dan sesuai audiens (bahasa mudah, contoh dari pekerjaan sehari-hari)</li><li>Saluran yang menjangkau karyawan produksi (briefing, papan informasi, pelatihan singkat)</li><li>Melibatkan atasan langsung/pemimpin unit</li><li>Cara mengukur keberhasilan: kuis/survei ulang, umpan balik, pemantauan berkala</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menyusun ≥3 langkah yang sesuai karyawan produksi dan menyebut cara mengukur keberhasilan secara konkret.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyusun langkah sosialisasi yang tepat, tetapi cara mengukur keberhasilan masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Langkah sosialisasi tidak sesuai audiens (mis. hanya mengirim email) atau tidak ada cara mengukur keberhasilan.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Jawaban tidak memberikan langkah yang dapat dijalankan.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Materi sosialisasi yang sederhana dan sesuai audiens (bahasa mudah, contoh dari pekerjaan sehari-hari)</li><li>Saluran yang menjangkau karyawan produksi (briefing, papan informasi, pelatihan singkat)</li><li>Melibatkan atasan langsung/pemimpin unit</li><li>Cara mengukur keberhasilan: kuis/survei ulang, umpan balik, pemantauan berkala</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menyusun ≥3 langkah yang sesuai karyawan produksi dan menyebut cara mengukur keberhasilan secara konkret.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyusun langkah sosialisasi yang tepat, tetapi cara mengukur keberhasilan masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Langkah sosialisasi tidak sesuai audiens (mis. hanya mengirim email) atau tidak ada cara mengukur keberhasilan.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Jawaban tidak memberikan langkah yang dapat dijalankan.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 81,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Menyusun ≥3 langkah yang sesuai karyawan produksi dan menyebut cara mengukur keberhasilan secara konkret."
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Menyusun langkah sosialisasi yang tepat, tetapi cara mengukur keberhasilan masih umum."
+    },
+    {
+     "min": 31,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Langkah sosialisasi tidak sesuai audiens (mis. hanya mengirim email) atau tidak ada cara mengukur keberhasilan."
+    },
+    {
+     "min": 0,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Jawaban tidak memberikan langkah yang dapat dijalankan."
+    }
+   ]
   },
   {
    "no": 4,
    "question": "<p><strong>Konteks:</strong> Saat menyiapkan data untuk laporan ESG, Anda menemukan hasil uji limbah cair bulan lalu melebihi baku mutu. Atasan langsung meminta Anda tidak mencantumkannya dulu sampai audit selesai.</p><p><strong>Pertanyaan:</strong> Apa yang sebaiknya Anda lakukan? Jelaskan alasan Anda dan langkah yang sesuai dengan peran staf ESG.</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Tidak menghapus atau mengubah data; mendokumentasikan temuan apa adanya</li><li>Menyampaikan kepada atasan bahwa data material perlu diungkapkan, disertai alasan</li><li>Mengeskalasi melalui jalur resmi bila permintaan tetap dipertahankan (atasan berikutnya, fungsi kepatuhan, atau saluran pelaporan pelanggaran)</li><li>Alasan: integritas data, risiko sanksi, dan kepercayaan pemangku kepentingan</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menolak menghapus data, mendokumentasikan temuan, berdialog dengan atasan, menyebut jalur eskalasi resmi, dan menjelaskan alasan integritas serta risiko.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menolak menghapus data dan menyebut eskalasi, tetapi alasan atau dokumentasi kurang lengkap.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Jawaban ragu-ragu (mis. menunda tanpa dokumentasi) atau eskalasi langsung ke pihak luar tanpa melalui jalur internal.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Mengikuti permintaan menghapus data atau mengubah angka.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Tidak menghapus atau mengubah data; mendokumentasikan temuan apa adanya</li><li>Menyampaikan kepada atasan bahwa data material perlu diungkapkan, disertai alasan</li><li>Mengeskalasi melalui jalur resmi bila permintaan tetap dipertahankan (atasan berikutnya, fungsi kepatuhan, atau saluran pelaporan pelanggaran)</li><li>Alasan: integritas data, risiko sanksi, dan kepercayaan pemangku kepentingan</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menolak menghapus data, mendokumentasikan temuan, berdialog dengan atasan, menyebut jalur eskalasi resmi, dan menjelaskan alasan integritas serta risiko.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menolak menghapus data dan menyebut eskalasi, tetapi alasan atau dokumentasi kurang lengkap.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Jawaban ragu-ragu (mis. menunda tanpa dokumentasi) atau eskalasi langsung ke pihak luar tanpa melalui jalur internal.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Mengikuti permintaan menghapus data atau mengubah angka.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 81,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Menolak menghapus data, mendokumentasikan temuan, berdialog dengan atasan, menyebut jalur eskalasi resmi, dan menjelaskan alasan integritas serta risiko."
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Menolak menghapus data dan menyebut eskalasi, tetapi alasan atau dokumentasi kurang lengkap."
+    },
+    {
+     "min": 31,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Jawaban ragu-ragu (mis. menunda tanpa dokumentasi) atau eskalasi langsung ke pihak luar tanpa melalui jalur internal."
+    },
+    {
+     "min": 0,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Mengikuti permintaan menghapus data atau mengubah angka."
+    }
+   ]
   },
   {
    "no": 5,
    "question": "<p><strong>Konteks:</strong> Kebijakan ESG PT XYZ saat ini hanya mengatur efisiensi energi. Hasil penilaian materialitas menunjukkan tiga isu material: penggunaan air tanah, limbah cair, dan praktik ketenagakerjaan di pemasok.</p><p><strong>Pertanyaan:</strong> Identifikasi kesenjangan antara kebijakan yang ada dan isu material tersebut, lalu susun rekomendasi pembaruan kebijakan yang dapat Anda ajukan kepada atasan.</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Kesenjangan: air tanah, limbah cair, dan praktik ketenagakerjaan pemasok belum diatur</li><li>Rekomendasi komitmen untuk setiap isu yang belum diatur</li><li>Urutan prioritas dengan alasan (mis. limbah cair karena sudah ada keluhan warga)</li><li>Rekomendasi diajukan untuk dibahas dan disahkan manajemen, bukan diputuskan sendiri</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>90–100</td><td>Sangat baik</td><td>Ketiga kesenjangan teridentifikasi, setiap kesenjangan punya rekomendasi, prioritas diberi alasan, dan jalur persetujuan manajemen disebut.</td></tr><tr><td>70–80</td><td>Kompeten</td><td>Ketiga kesenjangan teridentifikasi dengan rekomendasi, tetapi prioritas atau jalur persetujuan tidak disebut.</td></tr><tr><td>40–60</td><td>Belum memadai</td><td>Hanya 1–2 kesenjangan teridentifikasi, atau rekomendasi tidak terkait dengan isu material.</td></tr><tr><td>10–30</td><td>Tidak memadai</td><td>Tidak mengidentifikasi kesenjangan yang benar.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Kesenjangan: air tanah, limbah cair, dan praktik ketenagakerjaan pemasok belum diatur</li><li>Rekomendasi komitmen untuk setiap isu yang belum diatur</li><li>Urutan prioritas dengan alasan (mis. limbah cair karena sudah ada keluhan warga)</li><li>Rekomendasi diajukan untuk dibahas dan disahkan manajemen, bukan diputuskan sendiri</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>90–100</td><td>Sangat baik</td><td>Ketiga kesenjangan teridentifikasi, setiap kesenjangan punya rekomendasi, prioritas diberi alasan, dan jalur persetujuan manajemen disebut.</td></tr><tr><td>70–80</td><td>Kompeten</td><td>Ketiga kesenjangan teridentifikasi dengan rekomendasi, tetapi prioritas atau jalur persetujuan tidak disebut.</td></tr><tr><td>40–60</td><td>Belum memadai</td><td>Hanya 1–2 kesenjangan teridentifikasi, atau rekomendasi tidak terkait dengan isu material.</td></tr><tr><td>10–30</td><td>Tidak memadai</td><td>Tidak mengidentifikasi kesenjangan yang benar.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 90,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Ketiga kesenjangan teridentifikasi, setiap kesenjangan punya rekomendasi, prioritas diberi alasan, dan jalur persetujuan manajemen disebut."
+    },
+    {
+     "min": 70,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Ketiga kesenjangan teridentifikasi dengan rekomendasi, tetapi prioritas atau jalur persetujuan tidak disebut."
+    },
+    {
+     "min": 40,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Hanya 1–2 kesenjangan teridentifikasi, atau rekomendasi tidak terkait dengan isu material."
+    },
+    {
+     "min": 10,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Tidak mengidentifikasi kesenjangan yang benar."
+    }
+   ]
   },
   {
    "no": 6,
    "question": "<p><strong>Konteks:</strong> PT XYZ sedang menghadapi keluhan warga sekitar pabrik terkait limbah cair. Pada saat yang sama, dua merek global pembeli utama meminta informasi tentang praktik ketenagakerjaan di pemasok. Pemasok PT XYZ berasal dari 3 negara dengan profil risiko ketenagakerjaan yang berbeda.</p><p><strong>Pertanyaan:</strong> Sebutkan minimal 5 kelompok pemangku kepentingan yang terkait dengan kedua isu tersebut. Pilih 2 kelompok, lalu jelaskan tingkat pengaruh dan kepentingannya serta cara yang tepat untuk melibatkan mereka.</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Minimal 5 kelompok yang relevan (mis. warga sekitar pabrik, pekerja di pemasok, merek pembeli, instansi lingkungan hidup daerah, karyawan dan fungsi internal terkait, pemasok, LSM)</li><li>Tingkat pengaruh dan kepentingan dinilai dengan alasan yang bersumber dari kasus</li><li>Cara keterlibatan sesuai posisi kelompok (memberi informasi, berkonsultasi, melibatkan aktif, atau mengelola secara dekat)</li><li>Kelompok yang terdampak langsung atau rentan (warga, pekerja pemasok) tetap diperhatikan walaupun pengaruh formalnya rendah</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menyebut ≥5 kelompok relevan; dua kelompok dinilai pengaruh dan kepentingannya dengan alasan dari kasus; cara keterlibatan tepat; menyinggung kelompok terdampak/rentan.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyebut ≥5 kelompok relevan; penilaian dan cara keterlibatan benar, tetapi alasannya masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Menyebut 3–4 kelompok relevan, atau penilaian tanpa alasan, atau cara keterlibatan tidak sesuai posisi kelompok.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Menyebut ≤2 kelompok relevan atau jawaban tidak terkait kasus.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Minimal 5 kelompok yang relevan (mis. warga sekitar pabrik, pekerja di pemasok, merek pembeli, instansi lingkungan hidup daerah, karyawan dan fungsi internal terkait, pemasok, LSM)</li><li>Tingkat pengaruh dan kepentingan dinilai dengan alasan yang bersumber dari kasus</li><li>Cara keterlibatan sesuai posisi kelompok (memberi informasi, berkonsultasi, melibatkan aktif, atau mengelola secara dekat)</li><li>Kelompok yang terdampak langsung atau rentan (warga, pekerja pemasok) tetap diperhatikan walaupun pengaruh formalnya rendah</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Menyebut ≥5 kelompok relevan; dua kelompok dinilai pengaruh dan kepentingannya dengan alasan dari kasus; cara keterlibatan tepat; menyinggung kelompok terdampak/rentan.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyebut ≥5 kelompok relevan; penilaian dan cara keterlibatan benar, tetapi alasannya masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Menyebut 3–4 kelompok relevan, atau penilaian tanpa alasan, atau cara keterlibatan tidak sesuai posisi kelompok.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Menyebut ≤2 kelompok relevan atau jawaban tidak terkait kasus.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 81,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Menyebut ≥5 kelompok relevan; dua kelompok dinilai pengaruh dan kepentingannya dengan alasan dari kasus; cara keterlibatan tepat; menyinggung kelompok terdampak/rentan."
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Menyebut ≥5 kelompok relevan; penilaian dan cara keterlibatan benar, tetapi alasannya masih umum."
+    },
+    {
+     "min": 31,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Menyebut 3–4 kelompok relevan, atau penilaian tanpa alasan, atau cara keterlibatan tidak sesuai posisi kelompok."
+    },
+    {
+     "min": 0,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Menyebut ≤2 kelompok relevan atau jawaban tidak terkait kasus."
+    }
+   ]
   },
   {
    "no": 7,
    "question": "<p><strong>Konteks:</strong> Pemakaian air tanah PT XYZ naik 15% dalam setahun. Dalam tiga bulan terakhir, warga melaporkan sumur dangkal mereka makin cepat kering pada musim kemarau. Perusahaan menilai risiko dengan skala 1–5 untuk kemungkinan dan dampak; tingkat risiko = kemungkinan × dampak (1–6 rendah, 8–12 sedang, 15–25 tinggi).</p><p><strong>Pertanyaan:</strong> Rumuskan isu dan risiko ESG dari kondisi tersebut, lalu lakukan penilaian sederhana memakai skala perusahaan. Jelaskan alasan skor yang Anda berikan dan data tambahan apa yang perlu dikumpulkan.</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Isu dibedakan dari risiko (isu: pemakaian air tanah dan dampaknya pada sumur warga; risiko: konflik dengan warga, pembatasan izin, gangguan pasokan air produksi, reputasi)</li><li>Skor kemungkinan dan dampak diberi alasan berbasis data kasus; perhitungan dan kategori benar</li><li>Data tambahan yang relevan (catatan meter per sumur, catatan keluhan, data izin dan muka air tanah, rencana produksi)</li><li>Asumsi dan keterbatasan data dicatat; skor diperbarui saat data tersedia</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Isu dan risiko dibedakan dengan jelas; skor diberi alasan dari kasus dan dihitung benar; menyebut ≥2 data tambahan yang relevan serta mencatat asumsi.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Isu dan risiko dibedakan; skor dan kategori benar; alasan atau data tambahan masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Isu dan risiko tercampur, atau skor tanpa alasan, atau perhitungan/kategori salah.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Tidak merumuskan risiko atau tidak melakukan penilaian.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Isu dibedakan dari risiko (isu: pemakaian air tanah dan dampaknya pada sumur warga; risiko: konflik dengan warga, pembatasan izin, gangguan pasokan air produksi, reputasi)</li><li>Skor kemungkinan dan dampak diberi alasan berbasis data kasus; perhitungan dan kategori benar</li><li>Data tambahan yang relevan (catatan meter per sumur, catatan keluhan, data izin dan muka air tanah, rencana produksi)</li><li>Asumsi dan keterbatasan data dicatat; skor diperbarui saat data tersedia</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Isu dan risiko dibedakan dengan jelas; skor diberi alasan dari kasus dan dihitung benar; menyebut ≥2 data tambahan yang relevan serta mencatat asumsi.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Isu dan risiko dibedakan; skor dan kategori benar; alasan atau data tambahan masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Isu dan risiko tercampur, atau skor tanpa alasan, atau perhitungan/kategori salah.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Tidak merumuskan risiko atau tidak melakukan penilaian.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 81,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Isu dan risiko dibedakan dengan jelas; skor diberi alasan dari kasus dan dihitung benar; menyebut ≥2 data tambahan yang relevan serta mencatat asumsi."
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Isu dan risiko dibedakan; skor dan kategori benar; alasan atau data tambahan masih umum."
+    },
+    {
+     "min": 31,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Isu dan risiko tercampur, atau skor tanpa alasan, atau perhitungan/kategori salah."
+    },
+    {
+     "min": 0,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Tidak merumuskan risiko atau tidak melakukan penilaian."
+    }
+   ]
   },
   {
    "no": 8,
    "question": "<p><strong>Konteks:</strong> Tim PT XYZ menilai lima isu dengan skala 1–5 pada dua sumbu: signifikansi dampak terhadap lingkungan/masyarakat dan tingkat kepentingan bagi pemangku kepentingan. Ambang material: ≥3,5 pada kedua sumbu. Hasilnya: limbah cair (4,5; 4,6), penggunaan air tanah (4,2; 3,8), praktik ketenagakerjaan pemasok (4,0; 4,3), efisiensi energi (2,8; 3,0), dan kemasan plastik (3,4; 3,7).</p><p><strong>Pertanyaan:</strong> Tentukan isu mana yang material dan jelaskan alasannya. Apa yang sebaiknya dilakukan terhadap isu kemasan plastik, dan apa saja yang perlu didokumentasikan dari proses ini?</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Isu material: limbah cair, penggunaan air tanah, dan praktik ketenagakerjaan pemasok (memenuhi ambang pada kedua sumbu)</li><li>Efisiensi energi tidak material; kemasan plastik hampir material (dampak 3,4 di bawah ambang)</li><li>Kemasan plastik dicatat dan dipantau untuk ditinjau ulang; tidak dihapus dan tidak dinaikkan tanpa dasar</li><li>Dokumentasi: sumber skor, pihak yang dilibatkan, ambang yang dipakai, alasan keputusan, dan jadwal peninjauan</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>Skor</td><td>Kategori</td><td>Tiga isu material tepat dengan alasan ambang; kemasan diperlakukan sebagai isu yang dipantau; menyebut ≥3 hal yang perlu didokumentasikan.</td></tr><tr><td>81–100</td><td>Sangat baik</td><td>Tiga isu material tepat; perlakuan kemasan benar; dokumentasi disebut secara umum.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Ada kesalahan menentukan isu material, atau kemasan dihapus/dinaikkan tanpa dasar, atau tidak menyebut dokumentasi.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Tidak memakai ambang atau jawaban tidak relevan.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Isu material: limbah cair, penggunaan air tanah, dan praktik ketenagakerjaan pemasok (memenuhi ambang pada kedua sumbu)</li><li>Efisiensi energi tidak material; kemasan plastik hampir material (dampak 3,4 di bawah ambang)</li><li>Kemasan plastik dicatat dan dipantau untuk ditinjau ulang; tidak dihapus dan tidak dinaikkan tanpa dasar</li><li>Dokumentasi: sumber skor, pihak yang dilibatkan, ambang yang dipakai, alasan keputusan, dan jadwal peninjauan</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>Skor</td><td>Kategori</td><td>Tiga isu material tepat dengan alasan ambang; kemasan diperlakukan sebagai isu yang dipantau; menyebut ≥3 hal yang perlu didokumentasikan.</td></tr><tr><td>81–100</td><td>Sangat baik</td><td>Tiga isu material tepat; perlakuan kemasan benar; dokumentasi disebut secara umum.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Ada kesalahan menentukan isu material, atau kemasan dihapus/dinaikkan tanpa dasar, atau tidak menyebut dokumentasi.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Tidak memakai ambang atau jawaban tidak relevan.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 81,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Tiga isu material tepat dengan alasan ambang; kemasan diperlakukan sebagai isu yang dipantau; menyebut ≥3 hal yang perlu didokumentasikan."
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Tiga isu material tepat; perlakuan kemasan benar; dokumentasi disebut secara umum."
+    },
+    {
+     "min": 31,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Ada kesalahan menentukan isu material, atau kemasan dihapus/dinaikkan tanpa dasar, atau tidak menyebut dokumentasi."
+    },
+    {
+     "min": 0,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Tidak memakai ambang atau jawaban tidak relevan."
+    }
+   ]
   },
   {
    "no": 9,
    "question": "<p><strong>Konteks:</strong> Laporan sebuah LSM menyebut indikasi praktik kerja yang serius merugikan hak pekerja di salah satu pemasok PT XYZ di Negara C, yang memasok 25% kebutuhan kain. Register risiko perusahaan (ERM) sudah memuat risiko keuangan dan operasional, tetapi belum memuat risiko ESG. Anda diminta membantu memasukkan risiko ini ke register.</p><p><strong>Pertanyaan:</strong> Jelaskan langkah Anda untuk memasukkan risiko tersebut ke register risiko perusahaan, termasuk informasi apa saja yang perlu diisi.</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Memverifikasi atau mengklarifikasi laporan LSM sebelum menyimpulkan, tanpa mengabaikannya</li><li>Merumuskan risiko dari sisi perusahaan (gangguan pasokan, kehilangan pembeli, reputasi) dan dampak bagi pekerja</li><li>Menilai dengan skala dan format ERM yang sama; mengusulkan pemilik risiko dari fungsi yang mengendalikan sumbernya (mis. pengadaan), bukan staf ESG</li><li>Mengisi pengendalian yang ada, rencana mitigasi (klarifikasi, audit, rencana perbaikan, pemasok alternatif), serta pemantauan dan pelaporan berkala</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Langkah runtut dari verifikasi sampai pemantauan; memakai format ERM yang sama; pemilik risiko tepat; mitigasi dan pelaporan disebut jelas.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyebut perumusan risiko, penilaian dengan skala ERM, pemilik risiko, dan mitigasi; urutan atau rinciannya kurang lengkap.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Hanya menyebut sebagian (mis. mencatat risiko tanpa pemilik atau tanpa mitigasi), atau memakai skala terpisah dari ERM.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Tidak menjelaskan cara memasukkan risiko ke register atau jawaban tidak relevan.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Memverifikasi atau mengklarifikasi laporan LSM sebelum menyimpulkan, tanpa mengabaikannya</li><li>Merumuskan risiko dari sisi perusahaan (gangguan pasokan, kehilangan pembeli, reputasi) dan dampak bagi pekerja</li><li>Menilai dengan skala dan format ERM yang sama; mengusulkan pemilik risiko dari fungsi yang mengendalikan sumbernya (mis. pengadaan), bukan staf ESG</li><li>Mengisi pengendalian yang ada, rencana mitigasi (klarifikasi, audit, rencana perbaikan, pemasok alternatif), serta pemantauan dan pelaporan berkala</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Langkah runtut dari verifikasi sampai pemantauan; memakai format ERM yang sama; pemilik risiko tepat; mitigasi dan pelaporan disebut jelas.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menyebut perumusan risiko, penilaian dengan skala ERM, pemilik risiko, dan mitigasi; urutan atau rinciannya kurang lengkap.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Hanya menyebut sebagian (mis. mencatat risiko tanpa pemilik atau tanpa mitigasi), atau memakai skala terpisah dari ERM.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Tidak menjelaskan cara memasukkan risiko ke register atau jawaban tidak relevan.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 81,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Langkah runtut dari verifikasi sampai pemantauan; memakai format ERM yang sama; pemilik risiko tepat; mitigasi dan pelaporan disebut jelas."
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Menyebut perumusan risiko, penilaian dengan skala ERM, pemilik risiko, dan mitigasi; urutan atau rinciannya kurang lengkap."
+    },
+    {
+     "min": 31,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Hanya menyebut sebagian (mis. mencatat risiko tanpa pemilik atau tanpa mitigasi), atau memakai skala terpisah dari ERM."
+    },
+    {
+     "min": 0,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Tidak menjelaskan cara memasukkan risiko ke register atau jawaban tidak relevan."
+    }
+   ]
   },
   {
    "no": 10,
    "question": "<p><strong>Konteks:</strong> Anda menyiapkan data pemakaian air tanah tahun 2025 untuk laporan keberlanjutan PT XYZ. Catatan meter sumur menunjukkan 480.000 m³, sedangkan rekap bagian produksi menunjukkan 430.000 m³. Data meter bulan Agustus tidak tersedia karena meter rusak.</p><p><strong>Pertanyaan:</strong> Jelaskan langkah Anda agar angka yang diungkapkan akurat dan dapat ditelusuri, termasuk cara menangani perbedaan data dan data bulan yang hilang.</p>",
-   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Menelusuri sumber dan metode kedua angka (rekonsiliasi) dan mengonfirmasi ke pemilik data</li><li>Tidak memilih angka yang lebih kecil atau lebih menguntungkan tanpa dasar</li><li>Data bulan yang hilang diestimasi dengan metode wajar dan diungkapkan sebagai estimasi, atau keterbatasannya diungkapkan</li><li>Mendokumentasikan jejak perhitungan, melaporkan kepada atasan, dan mengusulkan perbaikan (perbaikan meter, pengecekan rutin)</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Melakukan rekonsiliasi dengan pemilik data; menangani data hilang secara transparan; mendokumentasikan jejak perhitungan; mengusulkan perbaikan.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menangani perbedaan data dan data hilang dengan benar; dokumentasi atau usulan perbaikan masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Memilih salah satu angka tanpa penelusuran, atau mengabaikan data yang hilang.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Memilih angka yang lebih menguntungkan, mengarang data, atau jawaban tidak relevan.</td></tr></table>"
+   "answer": "<p><strong>Poin kunci:</strong></p><ul><li>Menelusuri sumber dan metode kedua angka (rekonsiliasi) dan mengonfirmasi ke pemilik data</li><li>Tidak memilih angka yang lebih kecil atau lebih menguntungkan tanpa dasar</li><li>Data bulan yang hilang diestimasi dengan metode wajar dan diungkapkan sebagai estimasi, atau keterbatasannya diungkapkan</li><li>Mendokumentasikan jejak perhitungan, melaporkan kepada atasan, dan mengusulkan perbaikan (perbaikan meter, pengecekan rutin)</li></ul><p><strong>Rubrik penilaian:</strong></p><table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\"><tr><th>Skor</th><th>Kategori</th><th>Kriteria</th></tr><tr><td>81–100</td><td>Sangat baik</td><td>Melakukan rekonsiliasi dengan pemilik data; menangani data hilang secara transparan; mendokumentasikan jejak perhitungan; mengusulkan perbaikan.</td></tr><tr><td>61–80</td><td>Kompeten</td><td>Menangani perbedaan data dan data hilang dengan benar; dokumentasi atau usulan perbaikan masih umum.</td></tr><tr><td>31–60</td><td>Belum memadai</td><td>Memilih salah satu angka tanpa penelusuran, atau mengabaikan data yang hilang.</td></tr><tr><td>0–30</td><td>Tidak memadai</td><td>Memilih angka yang lebih menguntungkan, mengarang data, atau jawaban tidak relevan.</td></tr></table>",
+   "rubrik": [
+    {
+     "min": 81,
+     "max": 100,
+     "label": "Sangat baik",
+     "deskripsi": "Melakukan rekonsiliasi dengan pemilik data; menangani data hilang secara transparan; mendokumentasikan jejak perhitungan; mengusulkan perbaikan."
+    },
+    {
+     "min": 61,
+     "max": 80,
+     "label": "Kompeten",
+     "deskripsi": "Menangani perbedaan data dan data hilang dengan benar; dokumentasi atau usulan perbaikan masih umum."
+    },
+    {
+     "min": 31,
+     "max": 60,
+     "label": "Belum memadai",
+     "deskripsi": "Memilih salah satu angka tanpa penelusuran, atau mengabaikan data yang hilang."
+    },
+    {
+     "min": 0,
+     "max": 30,
+     "label": "Tidak memadai",
+     "deskripsi": "Memilih angka yang lebih menguntungkan, mengarang data, atau jawaban tidak relevan."
+    }
+   ]
   }
  ],
  "praktik": {
   "template": "esg.zip",
   "template_name": "Ujian Praktik V2 - ESG Officer.zip",
   "duration": 120,
-  "panduan": "Lembar Data Kasus — PT XYZ\n\nKonteks: PT XYZ adalah perusahaan manufaktur tekstil yang menggunakan air tanah dalam jumlah besar, memiliki pemasok dari 3 negara dengan profil risiko ketenagakerjaan yang berbeda, menghadapi keluhan warga terkait limbah cair, dan belum memiliki matriks materialitas formal. Anda adalah staf ESG yang baru bergabung.\n\n- No.: 1; Data / Temuan: Pemakaian air tanah tahun 2025 sebesar 480.000 m³, naik 15% dari tahun sebelumnya. Izin pengambilan air tanah berlaku sampai 2027.; Sumber: Catatan meter sumur (bagian utilitas)\n- No.: 2; Data / Temuan: Warga desa di sekitar pabrik menyampaikan 9 keluhan dalam 6 bulan terakhir: air sumur dangkal keruh dan berbau di dekat saluran pembuangan.; Sumber: Catatan keluhan (bagian CSR)\n- No.: 3; Data / Temuan: Hasil uji limbah cair: 2 dari 6 bulan terakhir melebihi baku mutu.; Sumber: Laporan laboratorium eksternal\n- No.: 4; Data / Temuan: Instansi lingkungan hidup kabupaten melakukan kunjungan pengawasan 2 bulan lalu; tindak lanjut temuan belum dilaporkan.; Sumber: Notulen kunjungan\n- No.: 5; Data / Temuan: Pemasok kain dari Negara A (40% pasokan, belum ada temuan), Negara B (35%, laporan jam lembur berlebih), dan Negara C (25%, laporan LSM tentang indikasi praktik kerja yang serius merugikan hak pekerja).; Sumber: Data pengadaan dan laporan publik\n- No.: 6; Data / Temuan: Dua merek global pembeli utama meminta data air dan data praktik ketenagakerjaan pemasok untuk evaluasi kontrak tahun depan.; Sumber: Surel bagian pemasaran\n- No.: 7; Data / Temuan: Konsumsi listrik naik 4%, terutama dari mesin produksi. Kemasan plastik produk sekitar 120 ton per tahun; belum ada keluhan.; Sumber: Tagihan listrik dan data gudang\n- No.: 8; Data / Temuan: Perusahaan sudah memiliki register risiko perusahaan (ERM) tetapi belum memuat risiko ESG. Matriks materialitas belum pernah disusun.; Sumber: Bagian manajemen risiko\n\nKRONOLOGI (disusun dari lembar data; tidak ada fakta tambahan)\n\n- Waktu: Tahun 2025 (tahun lalu); Kejadian: Pemakaian air tanah 480.000 m³, naik 15% dari tahun sebelumnya. Konsumsi listrik naik 4%.; Data no.: 1, 7\n- Waktu: 6 bulan terakhir; Kejadian: 9 keluhan warga tentang air sumur dangkal keruh dan berbau. 2 dari 6 hasil uji bulanan limbah cair melebihi baku mutu.; Data no.: 2, 3\n- Waktu: 2 bulan lalu; Kejadian: Kunjungan pengawasan instansi lingkungan hidup kabupaten. Sampai hari ini tindak lanjut temuan belum dilaporkan.; Data no.: 4\n- Waktu: Saat ini; Kejadian: Dua merek global pembeli utama meminta data air dan data praktik ketenagakerjaan pemasok. Register ERM belum memuat risiko ESG; matriks materialitas belum ada.; Data no.: 6, 8\n- Waktu: Tahun depan; Kejadian: Merek pembeli mengevaluasi kontrak dengan PT XYZ.; Data no.: 6\n- Waktu: 2027; Kejadian: Izin pengambilan air tanah berakhir.; Data no.: 1\n\n- Tugas 1 — Memetakan Pemangku Kepentingan (±25 menit)\nInstruksi: Identifikasi minimal 6 kelompok pemangku kepentingan PT XYZ berdasarkan Lembar Data Kasus. Petakan setiap kelompok dalam matriks pengaruh–kepentingan (tinggi/rendah) dan tentukan cara keterlibatannya (memberi informasi, berkonsultasi, melibatkan aktif, atau mengelola secara dekat).\nOutput: Tabel pemangku kepentingan berisi: nama kelompok, isu/kepentingan, tingkat pengaruh, tingkat kepentingan, dasar penilaian, dan cara keterlibatan.\n- Tugas 2 — Daftar Isu dan Penilaian Risiko ESG (±35 menit)\nInstruksi: Susun daftar minimal 5 isu ESG yang mencakup aspek lingkungan, sosial, dan tata kelola. Untuk setiap isu, rumuskan risikonya bagi perusahaan, beri skor kemungkinan (1–5) dan dampak (1–5), hitung tingkat risiko = kemungkinan × dampak, lalu beri kategori (1–6 rendah, 8–12 sedang, 15–25 tinggi). Cantumkan nomor data kasus yang menjadi sumber dan asumsi yang Anda pakai.\nOutput: Register isu dan risiko ESG berisi: isu, aspek (E/S/G), rumusan risiko, skor kemungkinan, skor dampak, tingkat dan kategori risiko, sumber data, serta asumsi.\n- Tugas 3 — Matriks Materialitas Sederhana (±30 menit)\nInstruksi: Nilai isu dari Tugas 2 pada dua sumbu berskala 1–5: (a) signifikansi dampak terhadap lingkungan/masyarakat dan (b) tingkat kepentingan bagi pemangku kepentingan (gunakan hasil Tugas 1). Gambarkan dalam matriks dua sumbu dan tentukan isu material dengan ambang ≥3 pada kedua sumbu. Tulis alasan singkat untuk setiap isu material, dan catat satu isu yang hampir material beserta tindak lanjutnya.\nOutput: Matriks materialitas dan tabel pendukung berisi: isu, skor kedua sumbu, status (material/hampir material/tidak material), dan alasan.\n- Tugas 4 — Ringkasan Bahan Pengungkapan (±30 menit)\nInstruksi: Untuk dua isu material teratas dari Tugas 3, susun ringkasan bahan pengungkapan untuk atasan (maksimal 1 halaman): isu, alasan material, data yang tersedia beserta sumbernya, kesenjangan data, dan informasi yang belum dapat diungkapkan beserta tindak lanjutnya. Pastikan isinya konsisten dengan hasil Tugas 3.\nOutput: Ringkasan bahan pengungkapan (maksimal 1 halaman) untuk dua isu material teratas.\n\nKerjakan Tugas 1–4 pada Lembar Kerja Asesi (file Excel di template). Simpan, lalu unggah file Excel yang sudah diisi."
+  "panduan": "LEMBAR DATA KASUS — PT XYZ\n\nKonteks: PT XYZ adalah perusahaan manufaktur tekstil yang menggunakan air tanah dalam jumlah besar, memiliki pemasok dari 3 negara dengan profil risiko ketenagakerjaan yang berbeda, menghadapi keluhan warga terkait limbah cair, dan belum memiliki matriks materialitas formal. Anda adalah staf ESG yang baru bergabung.\n\n1. Pemakaian air tanah tahun 2025 sebesar 480.000 m³, naik 15% dari tahun sebelumnya. Izin pengambilan air tanah berlaku sampai 2027. (Sumber: Catatan meter sumur (bagian utilitas))\n2. Warga desa di sekitar pabrik menyampaikan 9 keluhan dalam 6 bulan terakhir: air sumur dangkal keruh dan berbau di dekat saluran pembuangan. (Sumber: Catatan keluhan (bagian CSR))\n3. Hasil uji limbah cair: 2 dari 6 bulan terakhir melebihi baku mutu. (Sumber: Laporan laboratorium eksternal)\n4. Instansi lingkungan hidup kabupaten melakukan kunjungan pengawasan 2 bulan lalu; tindak lanjut temuan belum dilaporkan. (Sumber: Notulen kunjungan)\n5. Pemasok kain dari Negara A (40% pasokan, belum ada temuan), Negara B (35%, laporan jam lembur berlebih), dan Negara C (25%, laporan LSM tentang indikasi praktik kerja yang serius merugikan hak pekerja). (Sumber: Data pengadaan dan laporan publik)\n6. Dua merek global pembeli utama meminta data air dan data praktik ketenagakerjaan pemasok untuk evaluasi kontrak tahun depan. (Sumber: Surel bagian pemasaran)\n7. Konsumsi listrik naik 4%, terutama dari mesin produksi. Kemasan plastik produk sekitar 120 ton per tahun; belum ada keluhan. (Sumber: Tagihan listrik dan data gudang)\n8. Perusahaan sudah memiliki register risiko perusahaan (ERM) tetapi belum memuat risiko ESG. Matriks materialitas belum pernah disusun. (Sumber: Bagian manajemen risiko)\n\nKRONOLOGI (disusun dari lembar data; tidak ada fakta tambahan)\n\n• Tahun 2025 (tahun lalu): Pemakaian air tanah 480.000 m³, naik 15% dari tahun sebelumnya. Konsumsi listrik naik 4%. [data no. 1, 7]\n• 6 bulan terakhir: 9 keluhan warga tentang air sumur dangkal keruh dan berbau. 2 dari 6 hasil uji bulanan limbah cair melebihi baku mutu. [data no. 2, 3]\n• 2 bulan lalu: Kunjungan pengawasan instansi lingkungan hidup kabupaten. Sampai hari ini tindak lanjut temuan belum dilaporkan. [data no. 4]\n• Saat ini: Dua merek global pembeli utama meminta data air dan data praktik ketenagakerjaan pemasok. Register ERM belum memuat risiko ESG; matriks materialitas belum ada. [data no. 6, 8]\n• Tahun depan: Merek pembeli mengevaluasi kontrak dengan PT XYZ. [data no. 6]\n• 2027: Izin pengambilan air tanah berakhir. [data no. 1]\n\nA. Tugas 1 — Memetakan Pemangku Kepentingan (±25 menit)\nInstruksi: Identifikasi minimal 6 kelompok pemangku kepentingan PT XYZ berdasarkan Lembar Data Kasus. Petakan setiap kelompok dalam matriks pengaruh–kepentingan (tinggi/rendah) dan tentukan cara keterlibatannya (memberi informasi, berkonsultasi, melibatkan aktif, atau mengelola secara dekat).\nOutput: Tabel pemangku kepentingan berisi: nama kelompok, isu/kepentingan, tingkat pengaruh, tingkat kepentingan, dasar penilaian, dan cara keterlibatan.\n\nB. Tugas 2 — Daftar Isu dan Penilaian Risiko ESG (±35 menit)\nInstruksi: Susun daftar minimal 5 isu ESG yang mencakup aspek lingkungan, sosial, dan tata kelola. Untuk setiap isu, rumuskan risikonya bagi perusahaan, beri skor kemungkinan (1–5) dan dampak (1–5), hitung tingkat risiko = kemungkinan × dampak, lalu beri kategori (1–6 rendah, 8–12 sedang, 15–25 tinggi). Cantumkan nomor data kasus yang menjadi sumber dan asumsi yang Anda pakai.\nOutput: Register isu dan risiko ESG berisi: isu, aspek (E/S/G), rumusan risiko, skor kemungkinan, skor dampak, tingkat dan kategori risiko, sumber data, serta asumsi.\n\nC. Tugas 3 — Matriks Materialitas Sederhana (±30 menit)\nInstruksi: Nilai isu dari Tugas 2 pada dua sumbu berskala 1–5: (a) signifikansi dampak terhadap lingkungan/masyarakat dan (b) tingkat kepentingan bagi pemangku kepentingan (gunakan hasil Tugas 1). Gambarkan dalam matriks dua sumbu dan tentukan isu material dengan ambang ≥3 pada kedua sumbu. Tulis alasan singkat untuk setiap isu material, dan catat satu isu yang hampir material beserta tindak lanjutnya.\nOutput: Matriks materialitas dan tabel pendukung berisi: isu, skor kedua sumbu, status (material/hampir material/tidak material), dan alasan.\n\nD. Tugas 4 — Ringkasan Bahan Pengungkapan (±30 menit)\nInstruksi: Untuk dua isu material teratas dari Tugas 3, susun ringkasan bahan pengungkapan untuk atasan (maksimal 1 halaman): isu, alasan material, data yang tersedia beserta sumbernya, kesenjangan data, dan informasi yang belum dapat diungkapkan beserta tindak lanjutnya. Pastikan isinya konsisten dengan hasil Tugas 3.\nOutput: Ringkasan bahan pengungkapan (maksimal 1 halaman) untuk dua isu material teratas.\n\nTotal waktu ±120 menit. Kerjakan Tugas 1–4 pada Lembar Kerja Asesi (file Excel di template; soal juga ada dalam file PDF). Simpan, lalu unggah file Excel yang sudah diisi.",
+  "aspek": [
+   {
+    "no": 1,
+    "nama": "Tugas 1 — Peta Pemangku Kepentingan",
+    "bobot": 25,
+    "sumber": "Lembar Kerja Tugas 1",
+    "poin_kunci": [
+     "Minimal 6 kelompok relevan dengan data kasus (mis. warga sekitar, instansi lingkungan hidup, merek pembeli, pemasok, pekerja di pemasok, karyawan/fungsi internal, LSM, direksi)",
+     "Isu/kepentingan tiap kelompok dikaitkan dengan nomor data kasus",
+     "Pengaruh dan kepentingan dinilai dengan dasar tertulis",
+     "Cara keterlibatan sesuai posisi di matriks (mis. instansi LH dan merek pembeli dikelola secara dekat; warga dilibatkan aktif)",
+     "Kelompok terdampak/rentan (warga sekitar; pekerja di pemasok Negara B dan C) dipetakan"
+    ],
+    "gerbang": [
+     "Warga sekitar ATAU pekerja di pemasok Negara B/C tidak dipetakan sama sekali"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "≥ 6 kelompok relevan dengan dasar penilaian dan cara keterlibatan yang tepat; kelompok rentan dipetakan."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Gerbang kritis terpenuhi; kekurangan kecil, misalnya hanya 5 kelompok, satu dasar penilaian kosong, atau satu cara keterlibatan kurang tepat."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Gerbang kritis gagal, ATAU kurang dari 5 kelompok, ATAU sebagian besar penilaian tanpa dasar."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Peta tidak dibuat atau kelompok tidak relevan dengan kasus."
+     }
+    ]
+   },
+   {
+    "no": 2,
+    "nama": "Tugas 2 — Register Isu dan Risiko",
+    "bobot": 25,
+    "sumber": "Lembar Kerja Tugas 2",
+    "poin_kunci": [
+     "Minimal 5 isu yang mencakup aspek E, S, dan G",
+     "Isu dibedakan dari risiko; risiko dirumuskan sebagai kemungkinan kejadian dan akibatnya bagi perusahaan",
+     "Tingkat risiko = kemungkinan × dampak dihitung benar dan kategori sesuai rentang (1–6 rendah, 8–12 sedang, 15–25 tinggi)",
+     "Skor konsisten dengan data (lihat rentang acuan di Bagian G): limbah cair dan pemasok Negara C tidak rendah; kemasan tidak tinggi tanpa alasan",
+     "Nomor sumber data dan asumsi dicantumkan"
+    ],
+    "gerbang": [
+     "Ada perhitungan atau kategori risiko yang salah",
+     "Limbah cair atau praktik kerja pemasok Negara C dinilai rendah"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "≥ 5 isu E/S/G, risiko dirumuskan benar, skor dalam rentang acuan, sumber dan asumsi lengkap."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya satu isu masih ditulis sebagai topik bukan risiko, satu skor di luar rentang acuan, atau asumsi tidak ditulis."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Salah satu gerbang kritis gagal, ATAU salah satu aspek E/S/G tidak ada, ATAU sebagian besar risiko tidak dirumuskan."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Register tidak dibuat atau sebagian besar salah."
+     }
+    ]
+   },
+   {
+    "no": 3,
+    "nama": "Tugas 3 — Matriks Materialitas",
+    "bobot": 25,
+    "sumber": "Lembar Kerja Tugas 3",
+    "poin_kunci": [
+     "Kedua sumbu (signifikansi dampak; kepentingan pemangku kepentingan) dinilai 1–5 untuk setiap isu dan dipetakan dengan benar",
+     "Skor kepentingan pemangku kepentingan konsisten dengan hasil Tugas 1",
+     "Isu material ditentukan sesuai ambang ≥ 3 pada kedua sumbu",
+     "Setiap isu material diberi alasan tertulis",
+     "Satu isu hampir material dicatat beserta tindak lanjut pemantauannya, tidak dihapus"
+    ],
+    "gerbang": [
+     "Status material tidak sesuai ambang terhadap skor yang ditulis asesi sendiri"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Matriks benar, konsisten dengan Tugas 1–2, alasan lengkap, isu hampir material dicatat."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Gerbang kritis terpenuhi; kekurangan kecil, misalnya satu alasan kosong atau isu hampir material tanpa tindak lanjut."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Gerbang kritis gagal, ATAU matriks tidak konsisten dengan Tugas 1–2."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Matriks tidak dibuat atau sebagian besar salah."
+     }
+    ]
+   },
+   {
+    "no": 4,
+    "nama": "Tugas 4 — Ringkasan Bahan Pengungkapan",
+    "bobot": 25,
+    "sumber": "Lembar Kerja Tugas 4",
+    "poin_kunci": [
+     "Dua isu yang dipilih adalah dua isu material teratas di matriks Tugas 3",
+     "Alasan material dijelaskan",
+     "Setiap angka disertai sumber (nomor data kasus) sehingga dapat ditelusuri",
+     "Kesenjangan data dan tindak lanjutnya disebutkan",
+     "Data yang kurang baik (mis. 2 bulan limbah cair melebihi baku mutu) tidak disembunyikan"
+    ],
+    "gerbang": [
+     "Data yang kurang baik dihilangkan atau dikaburkan (mis. limbah cair ditulis \"memenuhi baku mutu\")"
+    ],
+    "maks_gerbang": 50,
+    "kriteria": [
+     {
+      "min": 76,
+      "max": 100,
+      "label": "Sepenuhnya Kompeten",
+      "deskripsi": "Ringkasan lengkap, tertelusur, berimbang, dan konsisten dengan Tugas 3."
+     },
+     {
+      "min": 51,
+      "max": 75,
+      "label": "Kompeten dengan Catatan",
+      "deskripsi": "Gerbang kritis terpenuhi; kekurangan kecil, misalnya satu angka tanpa sumber atau tindak lanjut kesenjangan kurang spesifik."
+     },
+     {
+      "min": 26,
+      "max": 50,
+      "label": "Belum Kompeten",
+      "deskripsi": "Gerbang kritis gagal, ATAU isu yang dipilih tidak sesuai matriks, ATAU sebagian besar angka tanpa sumber."
+     },
+     {
+      "min": 0,
+      "max": 25,
+      "label": "Belum Kompeten",
+      "deskripsi": "Ringkasan tidak dibuat atau tidak relevan."
+     }
+    ]
+   }
+  ],
+  "rubrik": "<p><strong>RUBRIK PENILAIAN</strong></p>\n<table><tr><th>Nilai</th><th>Label</th><th>Patokan umum</th></tr><tr><td>76–100</td><td>Sepenuhnya Kompeten</td><td>Semua poin kunci terpenuhi dengan benar.</td></tr><tr><td>51–75</td><td>Kompeten dengan Catatan</td><td>Semua gerbang kritis terpenuhi; kekurangan kecil pada poin non-kritis yang tidak mengubah hasil (pedoman: paling banyak sekitar ¼ poin kunci).</td></tr><tr><td>26–50</td><td>Belum Kompeten</td><td>Satu gerbang kritis gagal, ATAU kekurangan lebih banyak dari batas pita 51-75.</td></tr><tr><td>0–25</td><td>Belum Kompeten</td><td>Sebagian besar poin kunci salah atau tidak dikerjakan.</td></tr></table>\n<p><strong>Tugas 1 — Peta Pemangku Kepentingan</strong></p>\n<table><tr><th>Sumber bukti</th><td>Lembar Kerja Tugas 1</td></tr><tr><th>Poin kunci</th><td>1. Minimal 6 kelompok relevan dengan data kasus (mis. warga sekitar, instansi lingkungan hidup, merek pembeli, pemasok, pekerja di pemasok, karyawan/fungsi internal, LSM, direksi)<br>2. Isu/kepentingan tiap kelompok dikaitkan dengan nomor data kasus<br>3. Pengaruh dan kepentingan dinilai dengan dasar tertulis<br>4. Cara keterlibatan sesuai posisi di matriks (mis. instansi LH dan merek pembeli dikelola secara dekat; warga dilibatkan aktif)<br>5. Kelompok terdampak/rentan (warga sekitar; pekerja di pemasok Negara B dan C) dipetakan</td></tr><tr><th>Gerbang kritis</th><td>• Warga sekitar ATAU pekerja di pemasok Negara B/C tidak dipetakan sama sekali → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76–100</td><td>≥ 6 kelompok relevan dengan dasar penilaian dan cara keterlibatan yang tepat; kelompok rentan dipetakan.</td></tr><tr><td>51–75</td><td>Gerbang kritis terpenuhi; kekurangan kecil, misalnya hanya 5 kelompok, satu dasar penilaian kosong, atau satu cara keterlibatan kurang tepat.</td></tr><tr><td>26–50</td><td>Gerbang kritis gagal, ATAU kurang dari 5 kelompok, ATAU sebagian besar penilaian tanpa dasar.</td></tr><tr><td>0–25</td><td>Peta tidak dibuat atau kelompok tidak relevan dengan kasus.</td></tr></table>\n<p><strong>Tugas 2 — Register Isu dan Risiko</strong></p>\n<table><tr><th>Sumber bukti</th><td>Lembar Kerja Tugas 2</td></tr><tr><th>Poin kunci</th><td>1. Minimal 5 isu yang mencakup aspek E, S, dan G<br>2. Isu dibedakan dari risiko; risiko dirumuskan sebagai kemungkinan kejadian dan akibatnya bagi perusahaan<br>3. Tingkat risiko = kemungkinan × dampak dihitung benar dan kategori sesuai rentang (1–6 rendah, 8–12 sedang, 15–25 tinggi)<br>4. Skor konsisten dengan data (lihat rentang acuan di Bagian G): limbah cair dan pemasok Negara C tidak rendah; kemasan tidak tinggi tanpa alasan<br>5. Nomor sumber data dan asumsi dicantumkan</td></tr><tr><th>Gerbang kritis</th><td>• Ada perhitungan atau kategori risiko yang salah → maksimal 50<br>• Limbah cair atau praktik kerja pemasok Negara C dinilai rendah → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76–100</td><td>≥ 5 isu E/S/G, risiko dirumuskan benar, skor dalam rentang acuan, sumber dan asumsi lengkap.</td></tr><tr><td>51–75</td><td>Kedua gerbang kritis terpenuhi; kekurangan kecil, misalnya satu isu masih ditulis sebagai topik bukan risiko, satu skor di luar rentang acuan, atau asumsi tidak ditulis.</td></tr><tr><td>26–50</td><td>Salah satu gerbang kritis gagal, ATAU salah satu aspek E/S/G tidak ada, ATAU sebagian besar risiko tidak dirumuskan.</td></tr><tr><td>0–25</td><td>Register tidak dibuat atau sebagian besar salah.</td></tr></table>\n<p><strong>Tugas 3 — Matriks Materialitas</strong></p>\n<table><tr><th>Sumber bukti</th><td>Lembar Kerja Tugas 3</td></tr><tr><th>Poin kunci</th><td>1. Kedua sumbu (signifikansi dampak; kepentingan pemangku kepentingan) dinilai 1–5 untuk setiap isu dan dipetakan dengan benar<br>2. Skor kepentingan pemangku kepentingan konsisten dengan hasil Tugas 1<br>3. Isu material ditentukan sesuai ambang ≥ 3 pada kedua sumbu<br>4. Setiap isu material diberi alasan tertulis<br>5. Satu isu hampir material dicatat beserta tindak lanjut pemantauannya, tidak dihapus</td></tr><tr><th>Gerbang kritis</th><td>• Status material tidak sesuai ambang terhadap skor yang ditulis asesi sendiri → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76–100</td><td>Matriks benar, konsisten dengan Tugas 1–2, alasan lengkap, isu hampir material dicatat.</td></tr><tr><td>51–75</td><td>Gerbang kritis terpenuhi; kekurangan kecil, misalnya satu alasan kosong atau isu hampir material tanpa tindak lanjut.</td></tr><tr><td>26–50</td><td>Gerbang kritis gagal, ATAU matriks tidak konsisten dengan Tugas 1–2.</td></tr><tr><td>0–25</td><td>Matriks tidak dibuat atau sebagian besar salah.</td></tr></table>\n<p><strong>Tugas 4 — Ringkasan Bahan Pengungkapan</strong></p>\n<table><tr><th>Sumber bukti</th><td>Lembar Kerja Tugas 4</td></tr><tr><th>Poin kunci</th><td>1. Dua isu yang dipilih adalah dua isu material teratas di matriks Tugas 3<br>2. Alasan material dijelaskan<br>3. Setiap angka disertai sumber (nomor data kasus) sehingga dapat ditelusuri<br>4. Kesenjangan data dan tindak lanjutnya disebutkan<br>5. Data yang kurang baik (mis. 2 bulan limbah cair melebihi baku mutu) tidak disembunyikan</td></tr><tr><th>Gerbang kritis</th><td>• Data yang kurang baik dihilangkan atau dikaburkan (mis. limbah cair ditulis &quot;memenuhi baku mutu&quot;) → maksimal 50</td></tr></table>\n<table><tr><th>Nilai</th><th>Kriteria</th></tr><tr><td>76–100</td><td>Ringkasan lengkap, tertelusur, berimbang, dan konsisten dengan Tugas 3.</td></tr><tr><td>51–75</td><td>Gerbang kritis terpenuhi; kekurangan kecil, misalnya satu angka tanpa sumber atau tindak lanjut kesenjangan kurang spesifik.</td></tr><tr><td>26–50</td><td>Gerbang kritis gagal, ATAU isu yang dipilih tidak sesuai matriks, ATAU sebagian besar angka tanpa sumber.</td></tr><tr><td>0–25</td><td>Ringkasan tidak dibuat atau tidak relevan.</td></tr></table>\n<p><strong>REKAPITULASI NILAI</strong></p><table><tr><th>Tugas</th><th>Bobot</th></tr><tr><td>Tugas 1 — Peta Pemangku Kepentingan</td><td>25%</td></tr><tr><td>Tugas 2 — Register Isu dan Risiko</td><td>25%</td></tr><tr><td>Tugas 3 — Matriks Materialitas</td><td>25%</td></tr><tr><td>Tugas 4 — Ringkasan Bahan Pengungkapan</td><td>25%</td></tr><tr><td>Nilai (Jumlah Nilai × Bobot)</td><td>100%</td></tr></table>"
  }
 }

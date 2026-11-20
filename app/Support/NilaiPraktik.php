@@ -42,6 +42,44 @@ class NilaiPraktik
     }
 
     /**
+     * Nilai satu aspek yang dinilai per butir ($aspek['item'] = [{no, nama}], $aspek['pilihan'] = [{label, nilai}],
+     * $pilih = {no butir: nilai}): jumlah nilai butir (maks. 100). Null selama ada butir yang belum dipilih.
+     */
+    public static function itemScore(array $aspek, array $pilih): ?float
+    {
+        $sum = 0.0;
+        foreach ($aspek['item'] ?? [] as $item) {
+            $v = $pilih[$item['no']] ?? null;
+            if ($v === null || $v === '') {
+                return null;
+            }
+            $sum += (float) $v;
+        }
+
+        return round($sum, 2);
+    }
+
+    /**
+     * Nilai satu bagian dari nilai per aspek rubrik ($aspek = [{no, nama, bobot}], $nilai = {no: 0–100}):
+     * Σ nilai × bobot / Σ bobot. Null selama masih ada aspek yang kosong (nilai per aspek tetap tersimpan).
+     */
+    public static function aspekScore(array $aspek, array $nilai): ?float
+    {
+        $sum = 0.0;
+        $bobot = 0.0;
+        foreach ($aspek as $a) {
+            $v = $nilai[$a['no']] ?? null;
+            if ($v === null || $v === '') {
+                return null;
+            }
+            $sum += (float) $v * (float) $a['bobot'];
+            $bobot += (float) $a['bobot'];
+        }
+
+        return $bobot > 0 ? round($sum / $bobot, 2) : null;
+    }
+
+    /**
      * Nilai praktik gabungan dari nilai per bagian ([bagian => nilai|null]) — rata-rata berbobot bagian yang sudah
      * dinilai — dan jumlah bobotnya (dipakai ResultCalculatorService seperti bobot komponen lain).
      *
