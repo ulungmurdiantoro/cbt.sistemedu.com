@@ -270,17 +270,18 @@ class PaketSoalTest extends TestCase
         }
         $this->assertSame(90, (int) Exam::where('exams_code', 'exms-v2-glp-esai')->value('duration'));
 
-        // 10 soal esai bermatriks + panduan penilaian (Panelis: dari panduan skoring SENSORI)
+        // 10 soal esai bermatriks + Panduan Penilaian Umum (Panelis: matriks dari panduan skoring SENSORI, panduan umum dari Sensory.pdf)
         foreach (['glp' => 5, 'qc' => 5, 'fsms' => 4, 'rnd' => 5, 'iso17025' => 4, 'panelis' => 5] as $key => $bands) {
             $esai = Exam::where('exams_code', "exms-v2-{$key}-esai")->firstOrFail();
             $this->assertSame(10, $esai->essays()->count(), $key);
-            $this->assertStringContainsString($key === 'panelis' ? 'Panduan Penilaian' : 'Panduan Penilaian Umum', $esai->esai_panduan, $key);
+            $this->assertStringContainsString('Panduan Penilaian Umum', $esai->esai_panduan, $key);
             $this->assertCount($bands, $esai->essays()->first()->rubrik, $key);
         }
         $panelis = Exam::where('exams_code', 'exms-v2-panelis-esai')->firstOrFail()->essays()->get();
         $this->assertStringContainsString('Duo-Trio', $panelis[2]->question);
         $this->assertStringContainsString('33.3%', $panelis[2]->answer);
-        $this->assertStringContainsString('kondisi kesehatan prima.</p>', $panelis[0]->answer);   // angka catatan kaki dibuang
+        $this->assertStringContainsString('kondisi kesehatan prima.</p>', $panelis[0]->answer);
+        $this->assertStringContainsString('Pemahaman Konsep Sensori:', Exam::where('exams_code', 'exms-v2-panelis-esai')->value('esai_panduan'));   // angka catatan kaki dibuang
 
         // Rubrik bergerbang (sumber bukti, poin kunci, gerbang kritis maks. 50) — GLP A1–A4: 20/35/25/20
         $glp = Exam::where('exams_code', 'exms-v2-glp-praktik')->firstOrFail()->praktik_aspek;
