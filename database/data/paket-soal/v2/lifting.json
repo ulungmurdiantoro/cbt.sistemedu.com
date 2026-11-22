@@ -1540,7 +1540,7 @@
    "no": 94,
    "blocks": [
     {
-     "text": "Membaca Load Chart Crane – KATO SL6000"
+     "text": "Membaca Load Chart Crane – Kobelco SL6000"
     },
     {
      "image": "lifting/lifting-q094-1.png"
@@ -1564,7 +1564,7 @@
    "no": 95,
    "blocks": [
     {
-     "text": "Membaca Load Chart Crane – KATO SL6000"
+     "text": "Membaca Load Chart Crane – Kobelco SL6000"
     },
     {
      "image": "lifting/lifting-q094-1.png"
@@ -1667,7 +1667,7 @@
    "template": "lifting-calculation.zip",
    "template_name": "Ujian Praktik Keterampilan V2 - Lifting Calculation.zip",
    "duration": 300,
-   "panduan": "A. PRAKTIK PENGHITUNGAN (CALCULATION)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nTUGAS\n\nCALCULATION - C\n1. Tentukan Load Factor untuk kondisi Tail Lifting seperti ini\n2. Hitung Maximal Dynamic Sling Load untuk Main & Crane dari beban ini\n3. Hitung Maximum Sling Tension pada Main Crane & Tail Crane\n4. Pilih Sling & Shackle yang tepat untuk Main Crane & Tail Crane\n5. Buat Tabel Lifting Gear yang digunakan\n6. Hitung Dynamic Hook Load (DHL) untuk Main Crane & Tail Crane\n7. Tentukan Working radius yang aman untuk Main & Tail Crane pada operasi ini\n8. Hitung Crane utilization & SF & GBP Cdari crane ini\n9. Tentukan lifting Sequence dari mulai Site Preparation, Setting Crane, Lifting Execution, Dismantling Crane dan Site Clearance\n10. Buatlah dokumen Lifting Method untuk operasi lifting ini\n11. Buatlah Lifting Operational Procedur (template disediakan)\n12. Buatlah JSA untuk operasi ini\n\nWaktu 300 menit · bobot nilai 50%.\nGambar posisi Main Crane & Tail Crane ada di file soal (PDF). Data crane (IHI CCH 1500, KATO SL6000), template perhitungan (Excel), template Lifting Operation Plan, Lifting Method, dan JSA ada di template (file ZIP). Kumpulkan seluruh hasil (perhitungan, Lifting Method, LOP, JSA) dalam satu file ZIP, lalu unggah (maks. 20 MB).",
+   "panduan": "A. PRAKTIK PENGHITUNGAN (CALCULATION)\nSebagai Competent Person for Lifting Operation, anda ditugaskan untuk melakukan pengangkatan sebuah Reactor Tank berbobot 75 ton dari posisi horizontal ke posisi vertical dan diletakan pada pondasi yang sudah dibuat sebelumnya. Pengangkatan menggunakan 2 crane, main crane dan tail crane. Lifting point pada main crane menggunan 2 trunion (diameter 412 mm) dan pada tail crane, menggunakan lifting lug.\nMain crane berposisi tetap dan tail crane yang bergerak maju.\n\nTUGAS\n\nCALCULATION - C\n1. Tentukan Load Factor untuk kondisi Tail Lifting seperti ini\n2. Hitung Maximal Dynamic Sling Load untuk Main & Crane dari beban ini\n3. Hitung Maximum Sling Tension pada Main Crane & Tail Crane\n4. Pilih Sling & Shackle yang tepat untuk Main Crane & Tail Crane\n5. Buat Tabel Lifting Gear yang digunakan\n6. Hitung Dynamic Hook Load (DHL) untuk Main Crane & Tail Crane\n7. Tentukan Working radius yang aman untuk Main & Tail Crane pada operasi ini\n8. Hitung Crane utilization & SF & GBP Cdari crane ini\n9. Tentukan lifting Sequence dari mulai Site Preparation, Setting Crane, Lifting Execution, Dismantling Crane dan Site Clearance\n10. Buatlah dokumen Lifting Method untuk operasi lifting ini\n11. Buatlah Lifting Operational Procedur (template disediakan)\n12. Buatlah JSA untuk operasi ini\n\nWaktu 300 menit · bobot nilai 50%.\nGambar posisi Main Crane & Tail Crane ada di file soal (PDF). Data crane (IHI CCH 1500, Kobelco SL6000), template perhitungan (Excel), template Lifting Operation Plan, Lifting Method, dan JSA ada di template (file ZIP). Kumpulkan seluruh hasil (perhitungan, Lifting Method, LOP, JSA) dalam satu file ZIP, lalu unggah (maks. 20 MB).",
    "aspek": [
     {
      "no": 1,

@@ -53,11 +53,12 @@
             </div>
 
             <div class="d-flex flex-wrap gap-2">
-                <Link :href="'/asesor/penilaian/' + session.id + '/esai'"
+                <!-- Esai / Wawancara hanya bila dipakai sesi (Asesor\DashboardController: show_esai, show_wawancara) -->
+                <Link v-if="session.show_esai ?? true" :href="'/asesor/penilaian/' + session.id + '/esai'"
                     :class="variant === 'completed' ? 'btn btn-sm btn-outline-primary' : 'btn btn-sm btn-primary border-0 shadow'">
                     <i class="fa fa-pen me-1"></i> Esai
                 </Link>
-                <Link :href="'/asesor/penilaian/' + session.id + '/wawancara'"
+                <Link v-if="session.show_wawancara ?? true" :href="'/asesor/penilaian/' + session.id + '/wawancara'"
                     :class="variant === 'completed' ? 'btn btn-sm btn-outline-success' : 'btn btn-sm btn-success border-0 shadow'">
                     <i class="fa fa-comments me-1"></i> Wawancara
                 </Link>

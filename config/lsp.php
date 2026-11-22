@@ -37,6 +37,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Toleransi Gangguan Koneksi Peserta (menit)
+    |--------------------------------------------------------------------------
+    | Khusus ujian Pilihan Ganda & Esai. Timer klien berhenti saat peserta offline /
+    | halaman tertutup; server menutup ujian paling lambat pada
+    | (waktu mulai + durasi + toleransi) — Student\BaseExamController::remainingMs.
+    */
+    'toleransi_koneksi_menit' => (int) env('TOLERANSI_KONEKSI_MENIT', 30),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Waktu Unggah Ujian Praktik/Keterampilan (menit)
+    |--------------------------------------------------------------------------
+    | Ujian praktik berwaktu punya dua durasi: waktu pengerjaan (durasi ujian, tidak
+    | dijeda) lalu waktu unggah ini — hasil masih bisa diunggah/diganti, template
+    | sudah ditutup. Setelah itu unggahan ditutup (App\Support\UjianPraktik).
+    */
+    'praktik_waktu_unggah_menit' => (int) env('PRAKTIK_WAKTU_UNGGAH_MENIT', 10),
+
+    /*
+    |--------------------------------------------------------------------------
     | Admin Mengganti Dokumen Persyaratan Peserta
     |--------------------------------------------------------------------------
     | Tombol Ganti/Unggah di kartu Bukti Kelengkapan (detail permohonan admin).

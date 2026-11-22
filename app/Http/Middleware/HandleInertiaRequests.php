@@ -36,6 +36,9 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
+            // Toleransi gangguan koneksi peserta (menit, PG/Esai) — teks halaman konfirmasi ujian
+            'toleransi_koneksi_menit' => fn () => max(0, (int) config('lsp.toleransi_koneksi_menit', 30)),
+
             //session
             'session' => [
                 'status'    => fn () => $request->session()->get('status'),

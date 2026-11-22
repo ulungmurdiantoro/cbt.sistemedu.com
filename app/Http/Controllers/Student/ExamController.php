@@ -22,6 +22,7 @@ class ExamController extends BaseExamController
         $grade = $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id);
 
         return inertia('Student/Exams/Confirmation', [
+            'lock'       => $this->confirmationLock($exam_group, $grade),
             'exam_group' => $exam_group,
             'grade'      => $grade,
         ]);
@@ -32,6 +33,11 @@ class ExamController extends BaseExamController
         $exam_group = $this->examGroup((int) $id);
 
         if ($redirect = $this->tugasRedirectIfRequired($exam_group)) {
+            return $redirect;
+        }
+
+        // Satu ujian berjalan per sesi: ujian lain yang sedang berjalan harus diakhiri dulu
+        if ($redirect = $this->otherExamRunningRedirect($exam_group)) {
             return $redirect;
         }
 

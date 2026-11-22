@@ -46,9 +46,45 @@ class AnswerFile
         return [
             "{$field}.required"   => 'File wajib dipilih.',
             "{$field}.max"        => 'Ukuran file maksimal ' . (self::MAX_KB / 1024) . ' MB.',
+            // PHP menolak file sebelum sampai ke aplikasi (upload_max_filesize / post_max_size server lebih kecil)
+            "{$field}.uploaded"   => 'File gagal diunggah: ukuran file melebihi batas server (maks. ' . self::maxUploadMb()
+                . ' MB). Perkecil/kompres file, atau hubungi panitia.',
             "{$field}.mimes"      => "Tipe file tidak diizinkan. Gunakan: {$types}.",
             "{$field}.extensions" => "Tipe file tidak diizinkan. Gunakan: {$types}.",
         ];
+    }
+
+    /**
+     * Batas unggah efektif (MB): aturan aplikasi (MAX_KB) dibatasi upload_max_filesize & post_max_size PHP server.
+     * Bila PHP lebih kecil dari MAX_KB, file ditolak PHP sebelum validasi aplikasi — naikkan di php.ini server.
+     */
+    public static function maxUploadMb(): float
+    {
+        $limits = [self::MAX_KB * 1024];
+        foreach (['upload_max_filesize', 'post_max_size'] as $key) {
+            $bytes = self::iniBytes((string) ini_get($key));
+            if ($bytes > 0) {
+                $limits[] = $bytes;
+            }
+        }
+
+        return round(min($limits) / 1048576, 1);
+    }
+
+    private static function iniBytes(string $value): int
+    {
+        $value = trim($value);
+        if ($value === '') {
+            return 0;
+        }
+        $number = (float) $value;
+
+        return (int) match (strtolower(substr($value, -1))) {
+            'g'     => $number * 1024 ** 3,
+            'm'     => $number * 1024 ** 2,
+            'k'     => $number * 1024,
+            default => $number,
+        };
     }
 
     /** Nilai atribut accept="" untuk <input type="file">. */

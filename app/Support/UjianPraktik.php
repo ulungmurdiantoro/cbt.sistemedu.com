@@ -18,13 +18,21 @@ use App\Models\StudentTask;
  *
  * Bila exams.duration > 0 (berwaktu), per bagian:
  * - Waktu mulai saat peserta menekan "Mulai" (sekali, tidak bisa diulang; durasi dibekukan saat mulai).
- * - Panduan & template baru terlihat/bisa diunduh setelah mulai dan selama waktu berjalan.
- * - Unggah diterima sampai batas waktu + UPLOAD_GRACE_MINUTES, setelah itu ditutup.
+ * - Waktu pengerjaan = durasi ujian (jam dinding, tidak dijeda). Panduan & template baru terlihat/bisa diunduh setelah mulai
+ *   dan selama waktu pengerjaan.
+ * - Sesudahnya waktu unggah (uploadMinutes(), lsp.praktik_waktu_unggah_menit = 10): hasil masih bisa diunggah/diganti,
+ *   setelah itu unggahan ditutup. (Toleransi koneksi lsp.toleransi_koneksi_menit hanya untuk PG/Esai.)
  * - Waktu habis tanpa unggahan tidak mengunci ujian lain: bagian itu dianggap selesai.
+ * - Beberapa bagian: urutan bebas, tetapi hanya satu yang berjalan (startBlockedReason): bagian lain baru bisa dimulai setelah
+ *   bagian yang berjalan diunggah/habis, dan memulainya menutup bagian yang dimulai lebih dulu (laterPartStarted).
  */
 class UjianPraktik
 {
-    public const UPLOAD_GRACE_MINUTES = 2;
+    /** Waktu unggah (menit) setelah waktu pengerjaan habis — config lsp.praktik_waktu_unggah_menit (10). */
+    public static function uploadMinutes(): int
+    {
+        return max(0, (int) config('lsp.praktik_waktu_unggah_menit', 10));
+    }
 
     /** Bagian Ujian Praktik/Keterampilan sesi: [bagian => Exam], kosong bila sesi memakai Upload Tugas. */
     public static function parts(int $sessionId): array
@@ -101,6 +109,66 @@ class UjianPraktik
         );
     }
 
+    /** Bagian yang sedang berjalan (sudah dimulai, belum diunggah, waktunya belum habis), selain $kecuali; null bila tidak ada. */
+    public static function runningPart(int $sessionId, int $studentId, ?int $kecuali = null): ?int
+    {
+        foreach (self::tugasStatus($sessionId, $studentId)['parts'] as $b => $part) {
+            if ($b !== $kecuali && $part['started'] && ! $part['done']) {
+                return $b;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Urutan bagian bebas, tetapi hanya satu bagian yang boleh berjalan: bagian lain baru bisa dimulai setelah bagian yang sedang
+     * berjalan diunggah atau waktunya habis. Null = boleh dimulai; selain itu pesan untuk peserta.
+     */
+    public static function startBlockedReason(int $sessionId, int $studentId, int $bagian): ?string
+    {
+        // Satu ujian berjalan per sesi — termasuk PG/Esai yang belum diakhiri (UjianBerjalan)
+        return UjianBerjalan::blockedReason($sessionId, $studentId, null, $bagian);
+    }
+
+    /**
+     * Bagian lain dimulai SETELAH bagian ini → bagian ini ditutup (template & unggahan), supaya dua waktu tidak berjalan bersamaan.
+     * Urutan mulai dilihat dari id percobaan (dibuat saat menekan Mulai).
+     */
+    public static function laterPartStarted(int $studentId, int $sessionId, int $bagian): bool
+    {
+        $own = self::attempt($studentId, $sessionId, $bagian);
+
+        if ($own === null) {
+            return false;
+        }
+
+        // Bagian praktik lain, atau ujian PG/Esai, yang dimulai sesudah bagian ini
+        return StudentPraktikAttempt::where('student_id', $studentId)
+                ->where('exam_session_id', $sessionId)
+                ->where('bagian', '!=', $bagian)
+                ->where('id', '>', $own->id)
+                ->exists()
+            || \App\Models\Grade::where('student_id', $studentId)
+                ->where('exam_session_id', $sessionId)
+                ->where('start_time', '>', $own->started_at)
+                ->exists();
+    }
+
+    /** Bagian yang akan ditutup bila $bagian dimulai sekarang: sudah dimulai dan belum ditutup (mis. sudah diunggah, waktu masih ada). */
+    public static function partsClosedByStarting(int $sessionId, int $studentId, int $bagian): array
+    {
+        $out = [];
+        foreach (self::parts($sessionId) as $b => $exam) {
+            $attempt = $b === $bagian ? null : self::attempt($studentId, $sessionId, $b);
+            if ($attempt && ! self::closed($exam, $studentId, $sessionId, $b)) {
+                $out[] = $b;
+            }
+        }
+
+        return $out;
+    }
+
     /** Status untuk halaman peserta. Sisa waktu dihitung server, jadi tidak bergantung jam/zona waktu browser. */
     public static function state(?Exam $exam, int $studentId, int $sessionId, int $bagian = 1): array
     {
@@ -110,12 +178,27 @@ class UjianPraktik
 
         $attempt = self::attempt($studentId, $sessionId, $bagian);
 
+        $uploadEnds = $attempt?->deadline()->addMinutes(self::uploadMinutes());
+        $closedByNext = $attempt !== null && self::laterPartStarted($studentId, $sessionId, $bagian);
+
         return [
-            'timed'             => true,
-            'durasi'            => $attempt?->durasi ?? (int) $exam->duration,
-            'started'           => $attempt !== null,
-            'expired'           => $attempt !== null && now()->greaterThanOrEqualTo($attempt->deadline()),
-            'remaining_seconds' => $attempt ? max(0, now()->diffInSeconds($attempt->deadline(), false)) : null,
+            'timed'                    => true,
+            // Dua durasi: waktu pengerjaan (durasi ujian) lalu waktu unggah
+            'durasi'                   => $attempt?->durasi ?? (int) $exam->duration,
+            'waktu_unggah'             => self::uploadMinutes(),
+            'started'                  => $attempt !== null,
+            // Waktu pengerjaan habis (template ditutup; masih bisa unggah selama waktu unggah)
+            'expired'                  => $attempt !== null && now()->greaterThanOrEqualTo($attempt->deadline()),
+            'remaining_seconds'        => $attempt ? max(0, (int) now()->diffInSeconds($attempt->deadline(), false)) : null,
+            // Waktu unggah juga habis: unggahan ditutup
+            'closed'                   => $attempt !== null && ($closedByNext || now()->greaterThan($uploadEnds)),
+            'upload_remaining_seconds' => $attempt && ! $closedByNext ? max(0, (int) now()->diffInSeconds($uploadEnds, false)) : 0,
+            // Ditutup lebih awal karena bagian lain dimulai sesudahnya
+            'closed_by_next'           => $closedByNext,
+            // Belum boleh dimulai: bagian sebelumnya belum selesai
+            'start_blocked'            => $attempt ? null : self::startBlockedReason($sessionId, $studentId, $bagian),
+            // Bagian lain yang akan ditutup bila bagian ini dimulai (peringatan sebelum Mulai)
+            'closes_parts'             => $attempt ? [] : self::partsClosedByStarting($sessionId, $studentId, $bagian),
         ];
     }
 
@@ -128,7 +211,8 @@ class UjianPraktik
 
         $attempt = self::attempt($studentId, $sessionId, $bagian);
 
-        return $attempt !== null && now()->lessThan($attempt->deadline());
+        return $attempt !== null && now()->lessThan($attempt->deadline())
+            && ! self::laterPartStarted($studentId, $sessionId, $bagian);
     }
 
     /** Null = boleh unggah; selain itu pesan penolakan. */
@@ -144,8 +228,12 @@ class UjianPraktik
             return 'Mulai Ujian Praktik/Keterampilan terlebih dahulu.';
         }
 
-        if (now()->greaterThan($attempt->deadline()->addMinutes(self::UPLOAD_GRACE_MINUTES))) {
+        if (now()->greaterThan($attempt->deadline()->addMinutes(self::uploadMinutes()))) {
             return 'Waktu Ujian Praktik/Keterampilan sudah habis. Hasil tidak dapat diunggah lagi.';
+        }
+
+        if (self::laterPartStarted($studentId, $sessionId, $bagian)) {
+            return "Ujian lain sudah dimulai. Hasil Bagian {$bagian} tidak dapat diubah lagi.";
         }
 
         return null;
@@ -160,7 +248,8 @@ class UjianPraktik
 
         $attempt = self::attempt($studentId, $sessionId, $bagian);
 
-        return $attempt !== null && now()->greaterThan($attempt->deadline()->addMinutes(self::UPLOAD_GRACE_MINUTES));
+        return $attempt !== null && (now()->greaterThan($attempt->deadline()->addMinutes(self::uploadMinutes()))
+            || self::laterPartStarted($studentId, $sessionId, $bagian));
     }
 
     /**

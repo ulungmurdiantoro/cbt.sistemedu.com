@@ -47,7 +47,7 @@ class PaketSoalTest extends TestCase
 
     private function templateFiles(): void
     {
-        foreach (['lifting-calculation.zip', 'lifting-gambar.zip', 'hse.docx', 'legal.docx', 'esg.zip'] as $f) {
+        foreach (['lifting-calculation.zip', 'lifting-gambar.zip', 'hse.docx', 'legal.zip', 'esg.zip'] as $f) {
             File::put("{$this->templates}/{$f}", "isi {$f}");
         }
     }
@@ -176,10 +176,11 @@ class PaketSoalTest extends TestCase
         $this->pasang(['--skema' => ['legal']])->assertSuccessful();
 
         $exam = Exam::where('exams_code', 'exms-v2-legal-praktik')->firstOrFail();
-        $this->assertStringContainsString('RUBRIK STUDI KASUS 2', $exam->praktik_rubrik);
+        $this->assertStringContainsString('RUBRIK STUDI KASUS – SURAT KUASA KHUSUS', $exam->praktik_rubrik);
+        $this->assertStringNotContainsString('STUDI KASUS 2', $exam->praktik_rubrik . $exam->praktik_panduan);
         $this->assertStringContainsString('<table>', $exam->praktik_rubrik);
         $this->assertStringNotContainsString('STUDI KASUS 1', $exam->praktik_rubrik);
-        // 8 aspek Studi Kasus 2, bobot total 100% (Rekapitulasi Nilai FR.IA.04)
+        // 8 aspek Studi Kasus (Surat Kuasa Khusus), bobot total 100% (Rekapitulasi Nilai FR.IA.04)
         $this->assertCount(8, $exam->praktik_aspek);
         $this->assertSame(100, array_sum(array_column($exam->praktik_aspek, 'bobot')));
         $this->assertSame('Pembatasan sampai CK-1', $exam->praktik_aspek[3]['nama']);
@@ -245,7 +246,7 @@ class PaketSoalTest extends TestCase
         $skema = ['glp' => 'GLP', 'qc' => 'QCA', 'fsms' => 'FMO', 'rnd' => 'RDO', 'panelis' => 'PSP', 'iso17025' => 'LQO'];
         foreach ($skema as $key => $code) {
             $this->makeClassroom($code);
-            File::put("{$this->templates}/" . "{$key}.docx", "isi {$key}");
+            File::put("{$this->templates}/" . ($key === 'iso17025' ? 'iso17025.zip' : "{$key}.docx"), "isi {$key}");
         }
 
         $this->pasang(['--skema' => array_keys($skema)])->assertSuccessful();
@@ -293,6 +294,10 @@ class PaketSoalTest extends TestCase
         $this->assertSame('Stasiun 1', $glp[0]['sumber']);
         $this->assertSame(50, $glp[0]['maks_gerbang']);
         $this->assertSame([76, 51, 26, 0], array_column($glp[0]['kriteria'], 'min'));
+        // Revisi V1.1 (21 Nov 2026): Food Safety bobot = skor maks petunjuk; QC Tugas 3 = draf LHU; ISO template ZIP (DOCX + XLSX)
+        $this->assertSame([15, 20, 25, 10, 30], array_column(Exam::where('exams_code', 'exms-v2-fsms-praktik')->firstOrFail()->praktik_aspek, 'bobot'));
+        $this->assertStringNotContainsString('ketidakpastian', json_encode(Exam::where('exams_code', 'exms-v2-qc-praktik')->firstOrFail()->praktik_aspek));
+        $this->assertStringEndsWith('.zip', Exam::where('exams_code', 'exms-v2-iso17025-praktik')->value('praktik_template_name'));
         // R&D: rubrik per nomor soal dikelompokkan per tugas (30/30/20/20)
         $rnd = Exam::where('exams_code', 'exms-v2-rnd-praktik')->firstOrFail()->praktik_aspek;
         $this->assertSame([15, 15, 15, 15, 10, 10, 20], array_column($rnd, 'bobot'));
@@ -317,7 +322,7 @@ class PaketSoalTest extends TestCase
         $fsi = \App\Models\Classroom::forceCreate(['classrooms_code' => 'FSI', 'title' => 'Food Safety Management Officer']);
         $isl = \App\Models\Classroom::forceCreate(['classrooms_code' => 'ISL', 'title' => 'Laboratory Quality System Officer ISO/IEC 17025']);
         $pan = \App\Models\Classroom::forceCreate(['classrooms_code' => 'PTS', 'title' => 'Panelis Terlatih Pengujian Sensori Pangan']);
-        foreach (['fsms.docx', 'iso17025.docx', 'panelis.docx'] as $f) {
+        foreach (['fsms.docx', 'iso17025.zip', 'panelis.docx'] as $f) {
             File::put("{$this->templates}/{$f}", "isi {$f}");
         }
 
@@ -360,6 +365,20 @@ class PaketSoalTest extends TestCase
         $this->assertSame([76, 51, 26, 0], array_column($aspek[0]['kriteria'], 'min'));
     }
 
+    public function test_revisi_paket_24_25_hse_legal_lifting(): void
+    {
+        $this->classrooms();
+        $this->templateFiles();
+        $this->pasang(['--skema' => ['hse', 'legal', 'lifting']])->assertSuccessful();
+
+        $hse = Exam::where('exams_code', 'exms-v2-hse-praktik')->firstOrFail();
+        $this->assertStringContainsString('ketiga tugas', $hse->praktik_panduan);
+        $this->assertStringContainsString('Matriks Risiko', $hse->praktik_panduan);
+        $this->assertStringEndsWith('.zip', Exam::where('exams_code', 'exms-v2-legal-praktik')->value('praktik_template_name'));
+        $this->assertStringNotContainsString('ASTuntuk', Exam::where('exams_code', 'exms-v2-legal-praktik')->value('praktik_panduan'));
+        $this->assertStringContainsString('Kobelco SL6000', Exam::where('exams_code', 'exms-v2-lifting-praktik')->value('praktik_panduan'));
+    }
+
     public function test_esg_praktik_sesuai_fr_ia_04_rev(): void
     {
         $this->classrooms();
@@ -376,13 +395,17 @@ class PaketSoalTest extends TestCase
         $this->assertSame(50, $exam->praktik_aspek[0]['maks_gerbang']);
         $this->assertCount(5, $exam->praktik_aspek[3]['poin_kunci']);
         $this->assertStringContainsString('REKAPITULASI NILAI', $exam->praktik_rubrik);
+        // Rubrik Tugas 2 merujuk tabel rentang acuan (dulu "Bagian G" yang tidak ada di dokumen Rev)
+        $this->assertStringContainsString('Rentang acuan Tugas 2', $exam->praktik_rubrik);
+        $this->assertStringNotContainsString('Bagian G', json_encode($exam->praktik_aspek));
     }
 
-    public function test_corporate_legal_praktik_hanya_studi_kasus_2(): void
+    public function test_corporate_legal_praktik_hanya_satu_studi_kasus(): void
     {
         $panduan = json_decode(File::get(database_path('data/paket-soal/v2/legal.json')), true)['praktik']['panduan'];
 
-        $this->assertStringStartsWith('Studi Kasus 2', $panduan);
+        $this->assertStringStartsWith("Studi Kasus\n", $panduan);   // tanpa nomor (dulu "Studi Kasus 2")
+        $this->assertStringNotContainsString('Studi Kasus 2', $panduan);
         $this->assertStringContainsString('SURAT KUASA KHUSUS', $panduan);
         $this->assertStringNotContainsString('Studi Kasus 1', $panduan);
         $this->assertStringNotContainsString('LEGAL OPINION', $panduan);
@@ -397,7 +420,7 @@ class PaketSoalTest extends TestCase
 
         $exam = Exam::where('exams_code', 'exms-v2-legal-praktik')->firstOrFail();
         $exam->update(['praktik_panduan' => "Studi Kasus 1\nLEGAL OPINION\n\nStudi Kasus 2\nSURAT KUASA"]);
-        File::put("{$this->templates}/legal.docx", 'template baru: studi kasus 2 saja');
+        File::put("{$this->templates}/legal.zip", 'template baru: studi kasus 2 saja');
 
         return $exam->fresh();
     }

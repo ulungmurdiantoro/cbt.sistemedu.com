@@ -238,7 +238,7 @@ Gambar 30, lulus ≥ 70 (sesi Lifting tanpa wawancara). CLO/K3L/ESG V2: Tulis 70
 kriteria (D) Worksheet (`praktik_terpisah`; total = rata-rata 3 kriteria lisan, `hasil_worksheet` disimpan null).
 Rubrik penilaian per ujian praktik di `exams.praktik_rubrik` (HTML tabel dari FR.IA.04, tag dibatasi `Exam::RUBRIK_TAGS`,
 `$hidden` — hanya dikirim ke halaman Nilai Praktik asesor); diisi lewat paket (`praktik.rubrik`, contoh Corporate Legal
-Studi Kasus 2). **Penilaian per aspek**: `exams.praktik_aspek` = `[{no, nama, bobot}]` (total 100, dari tabel Rekapitulasi
+Studi Kasus — Surat Kuasa Khusus). **Penilaian per aspek**: `exams.praktik_aspek` = `[{no, nama, bobot}]` (total 100, dari tabel Rekapitulasi
 Nilai FR.IA.04; paket `praktik.aspek`) → asesor mengisi nilai per aspek (`praktik_scores.aspek` = `{no: nilai}`), server
 menghitung `score` = Σ nilai × bobot / Σ bobot (`NilaiPraktik::aspekScore`, null selama ada aspek kosong — nilai langsung
 dari browser diabaikan untuk bagian beraspek). Aspek membawa `kriteria` per rentang skor (`[{min, max, label, deskripsi}]`)
@@ -286,8 +286,16 @@ Aturan di `Student\BaseExamController` (dipakai PG, Essay, Essay Migas):
   (`Question::STUDENT_COLUMNS`, `Essay::STUDENT_COLUMNS`); `is_correct`/`score` disembunyikan.
   Setiap query baru di halaman siswa wajib memakai `questionForStudent()` / `essayForStudent()`.
 - **Timer dijaga server.** `grades.duration` (sisa ms) hanya boleh berkurang (`syncDuration`), dan dibatasi
-  jam dinding `start_time + durasi ujian + GRACE_MINUTES (60)` (`remainingMs`). Timer klien berhenti saat
+  jam dinding `start_time + durasi ujian + toleransi koneksi` (`remainingMs`; `config('lsp.toleransi_koneksi_menit')`, env
+  `TOLERANSI_KONEKSI_MENIT`, bawaan **30** — khusus PG/Esai; dibagikan ke halaman lewat prop Inertia `toleransi_koneksi_menit`.
+  Ujian Praktik/Keterampilan memakai waktu unggah, lihat di bawah). Timer klien berhenti saat
   peserta offline, jadi toleransi ini menampung gangguan koneksi.
+- **Satu ujian berjalan per sesi** (`App\Support\UjianBerjalan`): urutan ujian bebas, tetapi selama satu ujian berjalan — PG/Esai/
+  Esai Migas dimulai, belum diakhiri & `remainingMs` > 0, atau bagian praktik dimulai, belum diunggah & waktunya belum habis — ujian
+  lain di sesi itu tidak bisa dimulai: `start*` → `otherExamRunningRedirect` (kembali ke dashboard + flash), konfirmasi → prop
+  `lock.blocked`, praktik → `UjianPraktik::startBlockedReason`, dashboard → `running_by_session` (kartu PG/Esai) & `praktik_cards.*.locked`.
+  Melanjutkan ujian yang sudah dimulai selalu boleh. Memulai ujian lain menutup bagian praktik yang sudah diunggah tetapi waktunya
+  masih ada (`laterPartStarted` juga melihat `grades.start_time`; peringatan lewat `lock.closes` / `timer.closes_parts`).
 - Mulai ujian hanya sekali (tidak reset `start_time` / acak ulang soal); jawaban ditolak setelah
   `end_time` terisi atau waktu habis (`acceptsAnswers`); mengakhiri dua kali tidak menimpa nilai.
 - Jendela sesi (`exam_sessions.start_time/end_time`) **tidak** dicek di server: `APP_TIMEZONE` default UTC
@@ -300,28 +308,48 @@ gambar non-`data:` dibuang. Menulis kolom ini lewat Query Builder `->update()` m
 Ubah daftar tag di `RichText` → naikkan `HTML.DefinitionRev`.
 
 File upload peserta (Essay Migas & tugas) lewat `App\Support\AnswerFile`: tipe dibatasi
-(pdf, office, gambar, zip/rar; maks 20 MB) dan disimpan di disk **`private`**, diunduh lewat controller
+(pdf, office, gambar, zip/rar; maks 20 MB — **php.ini server harus `upload_max_filesize` ≥ 20M dan `post_max_size` > 20M**, kalau
+tidak PHP menolak file lebih dulu: pesan `uploaded` / HTTP 413; batas efektif `AnswerFile::maxUploadMb()` dikirim ke halaman tugas
+sebagai `file_max_mb` dan dicek di browser) dan disimpan di disk **`private`**, diunduh lewat controller
 (`student.essaysmigas.download`, `admin.essay_migas.download`). File lama di disk `public`
 dipindah dengan `php artisan answer-files:move-private` (`--dry-run` untuk cek dulu).
 
 **Ujian Praktik/Keterampilan** = jenis ujian `Exam::TYPE_PRAKTIK` ('Ujian Praktik/Keterampilan' — dulu 'Ujian Praktik', diganti
-  migrasi `2026_11_21_000001` beserta judul ujiannya; label tampilan "Praktik" juga jadi "Praktik/Keterampilan") di admin/exams, dipilih per sesi lewat
+  migrasi `2026_11_21_000001` beserta judul ujiannya; label tampilan "Praktik" juga jadi "Praktik/Keterampilan"; database yang belum
+  dimigrasi tetap jalan: accessor `Exam::type` membaca "Ujian Praktik" sebagai tipe baru, validasi pakai `Exam::TYPES_PRAKTIK`) di admin/exams, dipilih per sesi lewat
 `exam_sessions.exam_id_praktik` (setiap versi soal = ujian tersendiri, sesi lama tetap memakai versinya). Ujiannya berisi
 panduan (`exams.praktik_panduan`, teks biasa) + template (`praktik_template_path`, disk private, wajib; `$hidden`).
 Sesi tanpa ujian praktik = "Upload Tugas" biasa. Tidak dibuatkan ExamGroup: peserta mengerjakannya di halaman tugas
-(`student.tugas.show`) — membaca panduan, unduh template (`student.tugas.template` / `peserta.application.tugas.template`,
+(`/student/praktik-confirmation/{sesi}` = `student.praktik.confirmation`, URL senada exam-confirmation; Upload Tugas biasa tetap
+`/student/tugas/{sesi}` = `student.tugas.show`; keduanya `StudentTaskController::show`, URL yang salah dialihkan; tampilan + tabel
+informasi senada konfirmasi PG/Esai lewat `Components/Student/{ExamInfoTable,ExamConfirmation}`) — membaca panduan, unduh template (`student.tugas.template` / `peserta.application.tugas.template`,
 cek terdaftar di sesi), lalu hasilnya diunggah lewat alur `StudentTask` yang sama (asesor melihatnya di halaman wawancara).
-Data ke halaman peserta lewat `UjianPraktik::examFor($sesi)` + `tugasProps()`. Skema di
+Data ke halaman peserta lewat `UjianPraktik::examFor($sesi)` + `tugasProps()`. Dashboard portal ujian (`Student/Dashboard/Index`):
+Ujian Praktik/Keterampilan = kartu sendiri per bagian (`praktik_cards`, Kerjakan / Lanjut / Sudah Diunggah / Waktu Habis), kartu
+PG/Esai sesi itu **tidak dikunci** (urutan bebas; `tugasRedirectIfRequired` melewati sesi berujian praktik). Hanya Upload Tugas biasa yang tetap syarat sebelum ujian. Skema di
 `Student::TUGAS_EXEMPT_CLASSROOM_CODES` tetap tidak wajib tugas.
 Durasi = `exams.duration` (0 = tanpa batas) — aturannya di `App\Support\UjianPraktik`: waktu mulai saat peserta
 menekan Mulai (POST `student.tugas.start`, sekali per sesi di `student_praktik_attempts`, durasi dibekukan saat mulai);
-panduan & template baru dikirim setelah mulai; unggah ditolak setelah batas + `UPLOAD_GRACE_MINUTES` (2); waktu habis
-tanpa unggahan **tidak** mengunci ujian lain (`UjianPraktik::closed()` di `tugasRedirectIfRequired`). Praktik berwaktu
+**dua durasi**: waktu pengerjaan = durasi (jam dinding, tidak dijeda; panduan & template hanya selama ini) lalu **waktu unggah**
+`UjianPraktik::uploadMinutes()` (`config('lsp.praktik_waktu_unggah_menit')`, env `PRAKTIK_WAKTU_UNGGAH_MENIT`, bawaan 10) — hasil
+masih bisa diunggah/diganti, setelah itu ditolak. Prop `timer`: `expired` = pengerjaan habis, `closed` = waktu unggah habis.
+Beberapa bagian: **urutan bebas, tetapi hanya satu yang berjalan** (dua waktu tidak pernah berjalan bersamaan): selama satu bagian
+berjalan (dimulai, belum diunggah, waktu belum habis — `UjianPraktik::runningPart`), bagian lain tidak bisa dimulai
+(`startBlockedReason`, prop `timer.start_blocked`, kartu dashboard `locked` = nomor bagian yang berjalan); memulai bagian lain menutup
+bagian yang dimulai lebih dulu (`laterPartStarted`, dilihat dari id percobaan → template & unggahan ditutup, `timer.closed_by_next`;
+peringatan sebelum Mulai dari `timer.closes_parts`). Halaman
+praktik tidak punya tab antar-bagian — tiap bagian dibuka dari kartunya di dashboard (`?bagian=N`). Halaman dipakai ulang Inertia
+saat pindah bagian / setelah Mulai: timer disetel ulang lewat watcher props (`initTimer`).
+`started_at` = DATETIME (migrasi `2026_11_22_000001`): sebagai TIMESTAMP pertama, MySQL/MariaDB lama (explicit_defaults_for_timestamp
+OFF) memberinya ON UPDATE CURRENT_TIMESTAMP → setiap UPDATE baris menggeser waktu mulai ke jam server (+7 jam). Jangan kembalikan
+ke `timestamp()`. (Kolom serupa yang belum diperbaiki: `initial_assessments.assessed_at`.)
+panduan & template baru dikirim setelah mulai; waktu unggah habis
+tanpa unggahan = bagian selesai (`UjianPraktik::closed()`). Praktik berwaktu
 hanya dari portal ujian — portal peserta menolak unduh/unggah dan menampilkan petunjuk.
 **Dua bagian per sesi** (mis. Lifting: Calculation 300 mnt lalu Gambar 180 mnt): bagian 1 = `exam_id_praktik`, bagian 2 =
 `exam_id_praktik_2` (relasi `examPraktik2`, di JSON `exam_praktik2`; hanya bila bagian 1 ada). Setiap bagian punya Mulai,
 waktu & unggahan sendiri — kolom `bagian` di `student_praktik_attempts` & `student_tasks` (unik per peserta+sesi+bagian;
-Upload Tugas biasa = bagian 1). Semua route/aksi per bagian lewat `?bagian=N` / field `bagian` (bawaan 1); syarat ujian lain
+Upload Tugas biasa = bagian 1). Semua route/aksi per bagian lewat `?bagian=N` / field `bagian` (bawaan 1); praktik selesai
 = semua bagian diunggah atau habis waktunya (`UjianPraktik::tugasStatus()/tugasDone()`). Multi-bagian juga hanya dari portal
 ujian (`examPortalOnly`). Rekap Hasil & halaman wawancara asesor: `tugas[student_id]` = daftar `{bagian, original_filename}`.
 **Sesi dengan Ujian Praktik wajib untuk semua skema** — termasuk yang dikecualikan dari Upload Tugas (LEM, LHC, LDT, DLD):
@@ -381,8 +409,18 @@ FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda 
   Praktik skema 27-28: template = bagian untuk asesi saja (bagian asesor, kunci, rubrik dibuang; GLP tanpa lembar F-01 "milik Petugas X"
   yang dibuat fisik asesor; Panelis = Lembar Kerja Asesi DOCX dari `FR.IA.04 Ujian Praktik - Panelis-V2.docx` (root repo, standar
   soal A–K): petunjuk + instruksi 7 tes + Lembar 1–7, 24 pelat Ishihara sesuai lampiran, garis skoring tepat 10 cm). Rubrik bergerbang (GLP, QC, Food Safety, Panelis) seperti ESG; ISO 17025 = KUK
-  seperti HSE; R&D = rubrik per nomor soal (5 pita) dikelompokkan per tugas. Food Safety: bobot dari Rekapitulasi (20% per tugas),
-  bukan "Skor maks" di tabel petunjuk.
+  seperti HSE; R&D = rubrik per nomor soal (5 pita) dikelompokkan per tugas.
+  **Revisi V1.1 (21 Nov 2026, disetujui pengguna)** — dokumen asesor `FR.IA.04 … -V1.1.docx` di root repo (dasar = V1 folder 27-28,
+  bagian yang tidak konsisten diambil dari V2 root): GLP skenario timbangan meja kg (TG-01–04, AT-xx, BU-01, T5), Stasiun 2 45 mnt,
+  Lembar Kerja 4.1–4.5; QC gula 1 kg lot 20 ambil 5, neraca ≥ 2 kg 0,1 g (NR-01/02), label AM-A/AM-B, isian kulkas, waktu 10/20/25/25/40,
+  rubrik Tugas 3 = draf LHU; Food Safety bobot 15/20/25/10/30 (= skor maks petunjuk); R&D rujukan Bagian 3.A/3.C + huruf A–H;
+  ISO 17025 Soal 3 = control chart 25 uji CRM (±2/±3 SD dari data uji), formulir 25 kolom, template ZIP (DOCX + XLSX data).
+  Template peserta GLP/QC dibangun dari dokumen V1.1 (petunjuk + instruksi per stasiun + dokumen + Lembar Kerja; tanpa bagian asesor).
+  Skema 24-25 (revisi 21 Nov 2026): HSE V1.1 (`FR.IA.04 Ujian Keterampilan - HSE-V1.1.docx`: "ketiga tugas", Matriks Risiko V2 sebagai Data
+  Acuan Tugas 1, Lembar Kerja Tugas 2 lima baris kosong, kunci risiko fisik/ergonomi + rentang dari V2); Legal template ZIP = soal +
+  Lembar Jawaban; Lifting: kedua ZIP (Calculation & Gambar) = PDF soal bagiannya + **seluruh** folder "LAMPIRAN SOAL HEAVY LIFTING"
+  dari folder 24-25 dengan struktur asli, termasuk .gem (permintaan pengguna 22 Nov 2026; file kunci Office `~$…` dilewati), crane
+  utama = Kobelco SL6000; ESG rubrik + tabel "Rentang acuan Tugas 2" (dari ESG V2 G.2) menggantikan rujukan "Bagian G".
   Gambar soal disalin ke disk public dan dirujuk `/storage/paket-soal/{versi}/…` (kolom `questions.question` TEXT —
   jangan simpan gambar base64). Skema tanpa `esai` (Lifting V2) tidak dibuatkan ujian esai.
 - Ujian dikenali lewat `exams_code` `exms-{versi}-{skema}-{pg|esai|praktik}` → aman dijalankan ulang (yang sudah ada
@@ -393,7 +431,7 @@ FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda 
 - Ubah materi praktik di paket (panduan/durasi di JSON, file template) → `--perbarui-praktik` menyamakan ujian praktik
   yang sudah terpasang (template lama dihapus), **hanya** bila belum dipakai peserta (`student_praktik_attempts` /
   `student_tasks` di sesi yang memakainya); yang sudah dipakai dilewati — revisinya jadi versi paket baru.
-  Corporate Legal V2 praktik = Studi Kasus 2 (Surat Kuasa Khusus) saja (durasi ujian terbatas). Durasi praktik V2 = 120 menit,
+  Corporate Legal V2 praktik = Studi Kasus 2 dokumen sumber (Surat Kuasa Khusus) saja, ditampilkan sebagai "Studi Kasus" (tanpa nomor) (durasi ujian terbatas). Durasi praktik V2 = 120 menit,
   kecuali Lifting: `praktik` di JSON = **daftar bagian** (`nama` wajib) → bagian 1 Calculation 300 mnt (kode lama
   `exms-v2-lifting-praktik`, judul "… - Ujian Praktik V2 - Calculation"), bagian 2 Gambar 180 mnt (`exms-v2-lifting-praktik-2`).
   Template `lifting-calculation.zip` & `lifting-gambar.zip`. `--perbarui-praktik` juga menyamakan judul, jadi ujian Lifting
@@ -504,6 +542,9 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
   No. Peserta, NIK) — koreksi di menu Peserta langsung tampil. Menambah data peserta baru ke dokumen → tambahkan ke kunci itu.
   Varian dengan KAN juga memuat isi file logo KAN (`config/lsp_documents.php` → `logo_kan`), jadi ganti logo = PDF dibuat
   ulang; `php artisan documents:regenerate-kan [sesi...] [--dry-run]` membuatnya sekarang (varian tanpa KAN tidak disentuh).
+- Simpan sesi (`ExamSessionController::update`) menyamakan ExamGroup peserta dengan ujian PG/Esai sesi: ujian baru ditambahkan,
+  ujian yang tidak lagi dipilih dilepas (beserta baris `grades` kosong) — kecuali yang sudah dimulai peserta (`grades.start_time`),
+  dilaporkan lewat flash. Tidak ada yang dilepas bila sesi tanpa PG/Esai (ExamGroup juga penanda peserta terdaftar).
 - Jumlah peserta per sesi di daftar mana pun: `ExamSession::withActiveStudentsCount()` (peserta unik terdaftar di
   `exam_groups`, akun aktif — sama dengan baris Rekap Hasil/Tinjau Sertifikasi). **Jangan** hitung `participant_results`:
   barisnya baru dibuat saat Rekap dibuka dan tertinggal saat peserta dipindah batch/dikeluarkan. Progres/cek berbasis
@@ -569,6 +610,10 @@ php artisan migrate --force
 php artisan storage:link
 npm run build   # atau npm run dev
 ```
+
+Peserta dummy untuk mencoba paket soal V2 (alur peserta PG/Esai/Ujian Praktik/Keterampilan + penilaian asesor), setelah
+`paket-soal:pasang v2`: `php artisan db:seed --class=DemoUjianPraktikSeeder` → sesi "DEMO V2 - …" per skema terpasang, peserta
+`DEMO-{SKEMA}-01/02` (login ujian di `/`), asesor demo (email/password di seeder). Tidak jalan di production; aman diulang.
 
 Untuk membuat akun asesor pertama (via tinker):
 ```php

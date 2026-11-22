@@ -19,6 +19,7 @@ class EssayController extends BaseExamController
         }
 
         return inertia('Student/Essays/Confirmation', [
+            'lock'       => $this->confirmationLock($exam_group, $this->currentGrade($exam_group->exam_id, $exam_group->exam_session_id)),
             'exam_group' => $exam_group,
             'grade'      => $this->currentGrade($exam_group->exam->id, $exam_group->exam_session->id),
         ]);
@@ -29,6 +30,11 @@ class EssayController extends BaseExamController
         $exam_group = $this->examGroup((int) $id);
 
         if ($redirect = $this->tugasRedirectIfRequired($exam_group)) {
+            return $redirect;
+        }
+
+        // Satu ujian berjalan per sesi: ujian lain yang sedang berjalan harus diakhiri dulu
+        if ($redirect = $this->otherExamRunningRedirect($exam_group)) {
             return $redirect;
         }
 

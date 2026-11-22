@@ -7,9 +7,73 @@
             <div class="alert alert-success border-0 shadow">
                 Selamat Datang <strong>{{ auth.student.name }}</strong>
             </div>
+            <div v-if="$page.props.session?.error" class="alert alert-danger border-0 shadow">
+                <i class="fa fa-exclamation-triangle me-2"></i>{{ $page.props.session.error }}
+            </div>
         </div>
     </div>
     <div class="row" v-if="exam_groups.length > 0">
+        <!-- Ujian Praktik/Keterampilan: kartu sendiri per bagian, dikerjakan lebih dulu sebelum PG/Esai -->
+        <div class="col-md-6" v-for="p in praktik_cards" :key="`praktik-${p.exam_session.id}-${p.bagian}`">
+            <div class="card border-0 shadow mb-4">
+                <div class="card-body">
+                    <h5>{{ p.title || 'Ujian Praktik/Keterampilan' }}</h5>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table table-centered table-nowrap mb-0 rounded table-wrap">
+                            <thead>
+                                <tr>
+                                    <td class="fw-bold">Tipe Ujian</td>
+                                    <td>Ujian Praktik/Keterampilan<span v-if="p.total > 1"> — Bagian {{ p.bagian }} dari {{ p.total }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Skema</td>
+                                    <td>{{ p.skema }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Sesi</td>
+                                    <td>{{ p.exam_session.title }}</td>
+                                </tr>
+                                <tr v-if="p.durasi">
+                                    <td class="fw-bold">Durasi</td>
+                                    <td>{{ p.durasi }} menit<span v-if="p.waktu_unggah"> + {{ p.waktu_unggah }} menit unggah</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Mulai</td>
+                                    <td>{{ p.exam_session.start_time }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Selesai</td>
+                                    <td>{{ p.exam_session.end_time }}</td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="alert alert-warning border-0 shadow mt-3 mb-0 py-2 px-3" v-if="p.started && !p.done">
+                        <i class="fa fa-exclamation-triangle me-2"></i> Sedang berjalan — unggah hasilnya sebelum waktu habis.
+                    </div>
+
+                    <!-- Urutan bebas, tetapi hanya satu ujian berjalan: terkunci selama ujian lain sedang berjalan -->
+                    <button v-if="p.locked" class="btn btn-md btn-gray-700 border-0 shadow w-100 mt-2" disabled>
+                        <i class="fa fa-lock me-1"></i> {{ p.locked }} sedang berjalan — selesaikan dulu
+                    </button>
+                    <template v-else-if="p.uploaded">
+                        <Link :href="praktikUrl(p)" class="btn btn-md btn-outline-secondary border-0 shadow w-100 mt-2">
+                            <i class="fa fa-check-circle me-1"></i> Sudah Diunggah — Lihat / Ganti Hasil
+                        </Link>
+                    </template>
+                    <button v-else-if="p.closed" class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Waktu Habis</button>
+                    <template v-else-if="examTimeRangeChecker(p.exam_session.start_time, p.exam_session.end_time)">
+                        <Link v-if="p.started" :href="praktikUrl(p)" class="btn btn-md btn-info border-0 shadow w-100 mt-2">Lanjut Kerjakan</Link>
+                        <Link v-else :href="praktikUrl(p)" class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
+                    </template>
+                    <button v-else-if="examTimeStartChecker(p.exam_session.start_time)" class="btn btn-md btn-gray-700 border-0 shadow w-100 mt-2" disabled>Belum Mulai</button>
+                    <button v-else class="btn btn-md btn-danger border-0 shadow w-100 mt-2" disabled>Waktu Terlewat</button>
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-6" v-for="(data, index) in exam_groups" :key="index">
             <div class="card border-0 shadow mb-4">
                 <div class="card-body">
@@ -31,6 +95,10 @@
                                     <td>{{ data.exam_group.exam_session.title }}</td>
                                 </tr>
                                 <tr>
+                                    <td class="fw-bold">Durasi</td>
+                                    <td>{{ data.exam_group.exam.duration }} menit</td>
+                                </tr>
+                                <tr>
                                     <td class="fw-bold">Mulai</td>
                                     <td>{{ data.exam_group.exam_session.start_time }}</td>
                                 </tr>
@@ -44,7 +112,9 @@
                     
                     <!-- status tugas (wajib upload sebelum ujian, kecuali skema yang dikecualikan) -->
                     <!-- selalu tampil supaya peserta bisa kembali mengganti tugas kapan saja -->
-                    <div v-if="tugas_required_by_session[data.exam_group.exam_session.id]" class="mb-2">
+                    <!-- Upload Tugas biasa: wajib sebelum ujian. Sesi dengan Ujian Praktik/Keterampilan tidak mengunci PG/Esai
+                         (praktik dikerjakan lewat kartunya sendiri, urutan bebas). -->
+                    <div v-if="tugas_required_by_session[data.exam_group.exam_session.id] && !isPraktik(data)" class="mb-2">
                         <div v-if="tugas_by_session[data.exam_group.exam_session.id]" class="alert alert-success border-0 shadow mb-2 py-2 px-3">
                             <i class="fa fa-check-circle me-2"></i> {{ tugas_label_by_session[data.exam_group.exam_session.id] || 'Tugas' }} sudah diunggah.
                         </div>
@@ -73,12 +143,16 @@
                     </div>
 
                     <!-- cek waktu selesai -->
-                    <div v-if="data.grade.end_time == null && (!tugas_required_by_session[data.exam_group.exam_session.id] || tugas_by_session[data.exam_group.exam_session.id] || tugas_closed_by_session[data.exam_group.exam_session.id])">
+                    <div v-if="data.grade.end_time == null && (!tugas_required_by_session[data.exam_group.exam_session.id] || isPraktik(data) || tugas_by_session[data.exam_group.exam_session.id] || tugas_closed_by_session[data.exam_group.exam_session.id])">
 
                         <!-- cek apakah ujian sudah dimulai, tapi waktu masih ada -->
                         <div v-if="examTimeRangeChecker(data.exam_group.exam_session.start_time, data.exam_group.exam_session.end_time)">
 
-                            <div v-if="data.grade.start_time == null">
+                            <!-- Satu ujian berjalan per sesi: ujian lain sedang berjalan → belum bisa dimulai -->
+                            <button v-if="data.grade.start_time == null && lockedBy(data)" class="btn btn-md btn-gray-700 border-0 shadow w-100 mt-2" disabled>
+                                <i class="fa fa-lock me-1"></i> {{ lockedBy(data) }} sedang berjalan — selesaikan dulu
+                            </button>
+                            <div v-else-if="data.grade.start_time == null">
                                 <div v-if="data.exam_group.exam.type == 'Essay'">
                                     <Link :href="`/student/essay-confirmation/${data.exam_group.id}`" class="btn btn-md btn-success border-0 shadow w-100 mt-2 text-white">Kerjakan</Link>
                                 </div>
@@ -168,6 +242,24 @@
             tugas_closed_by_session: { type: Object, default: () => ({}) },
             // Ujian Praktik/Keterampilan beberapa bagian: { [sesi]: { done, total } }
             tugas_progress_by_session: { type: Object, default: () => ({}) },
+            // Kartu Ujian Praktik/Keterampilan per bagian: { bagian, title, durasi, started, uploaded, closed, done, total, skema, exam_session }
+            praktik_cards: { type: Array, default: () => [] },
+            // Ujian yang sedang berjalan per sesi: { [sesi]: { label, exam_id, bagian } }
+            running_by_session: { type: Object, default: () => ({}) },
+        },
+
+        methods: {
+            // Nama ujian lain yang sedang berjalan di sesi kartu ini (null = kartu tidak terkunci)
+            lockedBy(data) {
+                const r = this.running_by_session[data.exam_group.exam_session.id];
+                return r && r.exam_id !== data.exam_group.exam_id ? r.label : null;
+            },
+            isPraktik(data) {
+                return this.tugas_label_by_session[data.exam_group.exam_session.id] === 'Ujian Praktik/Keterampilan';
+            },
+            praktikUrl(p) {
+                return `/student/praktik-confirmation/${p.exam_session.id}` + (p.total > 1 ? `?bagian=${p.bagian}` : '');
+            },
         }
 
     }

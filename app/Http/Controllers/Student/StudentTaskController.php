@@ -19,6 +19,13 @@ class StudentTaskController extends BaseExamController
 
         $exam_session = ExamSession::findOrFail($exam_session_id);
 
+        // Ujian Praktik/Keterampilan dibuka di /student/praktik-confirmation/{sesi} (senada exam-confirmation),
+        // Upload Tugas biasa di /student/tugas/{sesi}. URL yang tidak cocok dialihkan (tautan/bookmark lama).
+        $pageRoute = UjianPraktik::parts($exam_session_id) ? 'student.praktik.confirmation' : 'student.tugas.show';
+        if ($request->route()->getName() !== $pageRoute) {
+            return redirect()->route($pageRoute, ['exam_session_id' => $exam_session_id] + $request->only('bagian'));
+        }
+
         // Ujian Praktik/Keterampilan bisa dua bagian (?bagian=2); bawaan = bagian pertama yang belum selesai.
         $status = UjianPraktik::tugasStatus($exam_session_id, $student->id);
         $bagian = $this->bagian($request, $status);
@@ -39,11 +46,20 @@ class StudentTaskController extends BaseExamController
 
         return inertia('Student/Tugas/Show', [
             'exam_session'  => $exam_session->only(['id', 'title']),
+            // Alamat halaman ini (navigasi antar-bagian)
+            'page_url'      => route($pageRoute, $exam_session_id, false),
+            // Informasi lengkap seperti halaman konfirmasi PG/Esai
+            'student'       => [
+                'name'           => $student->name,
+                'no_participant' => $student->no_participant,
+                'skema'          => $student->classroom?->title,
+            ],
             'existing_file' => $task ? [
                 'name'        => $task->original_filename,
                 'uploaded_at' => $task->uploaded_at,
             ] : null,
             'file_accept'   => AnswerFile::accept(),
+            'file_max_mb'   => AnswerFile::maxUploadMb(),   // batas efektif (aplikasi & PHP server)
             'tugas'         => $tugas,
             'timer'         => UjianPraktik::state($praktik, $student->id, $exam_session_id, $bagian),
             'bagian'        => $bagian,
@@ -62,9 +78,17 @@ class StudentTaskController extends BaseExamController
         abort_unless($student->requiresTugasFor($exam_session_id) && UjianPraktik::timed($praktik), 404);
         $this->abortUnlessEnrolled($exam_session_id);
 
+        // Hanya satu bagian berjalan: bagian lain baru boleh dimulai setelah bagian yang berjalan selesai (urutan bebas)
+        if (! UjianPraktik::attempt($student->id, $exam_session_id, $bagian)
+            && ($reason = UjianPraktik::startBlockedReason($exam_session_id, $student->id, $bagian))) {
+            return redirect()
+                ->route('student.praktik.confirmation', ['exam_session_id' => $exam_session_id] + ($bagian > 1 ? ['bagian' => $bagian] : []))
+                ->with('error', $reason);
+        }
+
         UjianPraktik::start($praktik, $student->id, $exam_session_id, $bagian);
 
-        return redirect()->route('student.tugas.show', ['exam_session_id' => $exam_session_id] + ($bagian > 1 ? ['bagian' => $bagian] : []));
+        return redirect()->route('student.praktik.confirmation', ['exam_session_id' => $exam_session_id] + ($bagian > 1 ? ['bagian' => $bagian] : []));
     }
 
     /** Unduh template Ujian Praktik/Keterampilan sesi (per bagian; hanya peserta yang terdaftar di sesi). */
@@ -106,7 +130,8 @@ class StudentTaskController extends BaseExamController
         // Bagian harus ada di sesi (Upload Tugas biasa hanya bagian 1)
         abort_unless(array_key_exists($bagian, UjianPraktik::tugasStatus($sessionId, $student->id)['parts']), 404);
 
-        if ($reason = UjianPraktik::uploadBlockedReason(UjianPraktik::examFor($sessionId, $bagian), $student->id, $sessionId, $bagian)) {
+        $praktik = UjianPraktik::examFor($sessionId, $bagian);
+        if ($reason = UjianPraktik::uploadBlockedReason($praktik, $student->id, $sessionId, $bagian)) {
             abort(403, $reason);
         }
 

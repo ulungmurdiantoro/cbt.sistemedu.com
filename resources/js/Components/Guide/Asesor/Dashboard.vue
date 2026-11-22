@@ -6,7 +6,8 @@
         <strong>nilai esai</strong> dan <strong>nilai wawancara</strong>. Progresnya terlihat di kartu
         (mis. <span class="badge bg-gray-200 text-gray-800 border">Esai 3/5</span>). Peserta yang tidak mengikuti ujian
         tidak dihitung. Kartu di tab Sesi Selesai tetap bisa dibuka. Nama sesi bisa sama untuk beberapa batch, jadi bedakan lewat
-        label <span class="badge bg-gray-200 text-gray-800 border">Batch</span> dan jadwalnya. Tombol di tiap kartu:
+        label <span class="badge bg-gray-200 text-gray-800 border">Batch</span> dan jadwalnya. Tombol di tiap kartu
+        (Esai, Wawancara dan Praktik/Keterampilan hanya muncul bila dipakai sesi itu — mis. Lifting hanya PG + Praktik/Keterampilan):
     </p>
     <div class="table-responsive mb-2">
         <table class="table table-sm table-bordered mb-0">

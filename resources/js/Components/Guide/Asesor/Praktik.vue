@@ -1,7 +1,7 @@
 <template>
     <p class="mb-2">
         Halaman ini muncul untuk skema yang menilai <strong>Ujian Praktik/Keterampilan</strong> sebagai komponen sendiri
-        (tombol <span class="badge bg-danger">Praktik/Keterampilan</span> di kartu sesi), mis. Corporate Legal (Studi Kasus 2 — Surat Kuasa
+        (tombol <span class="badge bg-danger">Praktik/Keterampilan</span> di kartu sesi), mis. Corporate Legal (Studi Kasus — Surat Kuasa
         Khusus) atau Lifting Engineer (Praktek Calculation dan Praktek Gambar). Untuk skema ini kriteria
         <em>(D) Worksheet</em> di halaman Wawancara tidak dipakai.
     </p>

@@ -139,7 +139,7 @@
                             <template v-if="app.tugas.exam_portal_only && app.tugas.parts?.length > 1">
                                 <h6 class="fw-bold small mb-1"><i class="fa fa-stopwatch me-1 text-muted"></i>Ujian Praktik/Keterampilan ({{ app.tugas.parts.length }} bagian)</h6>
                                 <p class="small text-muted mb-2">
-                                    Dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta), sebelum mengerjakan ujian lain.
+                                    Dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta).
                                     Setiap bagian dimulai, diberi waktu, dan diunggah sendiri.
                                 </p>
                                 <ul class="small mb-0 ps-3">
@@ -152,8 +152,8 @@
                             <template v-else-if="app.tugas.exam_portal_only">
                                 <h6 class="fw-bold small mb-1"><i class="fa fa-stopwatch me-1 text-muted"></i>Ujian Praktik/Keterampilan ({{ app.tugas.durasi }} menit)</h6>
                                 <p class="small text-muted mb-2">
-                                    Ujian Praktik/Keterampilan ini berbatas waktu dan dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta),
-                                    sebelum mengerjakan ujian lain. Waktu berjalan sejak Anda menekan Mulai Ujian Praktik/Keterampilan.
+                                    Ujian Praktik/Keterampilan ini berbatas waktu dan dikerjakan dari <strong>portal ujian</strong> (login dengan No. Peserta).
+                                    Waktu berjalan sejak Anda menekan Mulai Ujian Praktik/Keterampilan.
                                 </p>
                                 <div v-if="app.tugas.file" class="alert alert-success p-2 small mb-0">
                                     <i class="fa fa-check-circle me-1"></i>Hasil sudah diunggah: <strong>{{ app.tugas.file.name }}</strong>

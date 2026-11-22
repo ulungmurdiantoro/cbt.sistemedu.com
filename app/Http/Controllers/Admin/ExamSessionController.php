@@ -12,6 +12,7 @@ use App\Models\Exam;
 use App\Models\Student;
 use App\Models\ExamGroup;
 use App\Models\ExamSession;
+use App\Models\Grade;
 use App\Models\ParticipantResult;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -159,7 +160,8 @@ class ExamSessionController extends Controller
 
     public function update(UpdateExamSessionRequest $request, ExamSession $exam_session)
     {
-        \DB::transaction(function () use ($request, $exam_session) {
+        $kept = 0;
+        \DB::transaction(function () use ($request, $exam_session, &$kept) {
             $exam_session->update([
                 'title'           => $request->title,
                 'exam_id_pg'      => $request->exam_id_pg,
@@ -204,9 +206,33 @@ class ExamSessionController extends Controller
                     );
                 }
             }
+
+            // Ujian yang tidak lagi dipilih sesi (mis. Esai dihapus dari sesi Lifting) dilepas dari peserta, supaya kartunya
+            // hilang dari dashboard. Yang sudah dikerjakan peserta (grades.start_time terisi) tetap disimpan. Hanya bila sesi
+            // masih punya ujian PG/Esai: ExamGroup juga menandai peserta terdaftar di sesi.
+            if ($examIds) {
+                $stale = ExamGroup::where('exam_session_id', $exam_session->id)
+                    ->whereNotIn('exam_id', $examIds)
+                    ->get();
+                foreach ($stale as $group) {
+                    $grades = Grade::where('exam_id', $group->exam_id)
+                        ->where('exam_session_id', $exam_session->id)
+                        ->where('student_id', $group->student_id);
+                    if ((clone $grades)->whereNotNull('start_time')->exists()) {
+                        $kept++;
+                        continue;
+                    }
+                    $grades->delete();   // baris nilai kosong yang dibuat saat dashboard dibuka
+                    $group->delete();
+                }
+            }
         });
 
-        return redirect()->route('admin.exam_sessions.index');
+        $redirect = redirect()->route('admin.exam_sessions.index');
+
+        return $kept
+            ? $redirect->with('error', "{$kept} pendaftaran ujian yang tidak lagi dipilih sesi ini tetap disimpan karena sudah dikerjakan peserta.")
+            : $redirect;
     }
 
     public function destroy($id)

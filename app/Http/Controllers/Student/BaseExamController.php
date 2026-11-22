@@ -12,8 +12,11 @@ use Illuminate\Http\RedirectResponse;
 
 abstract class BaseExamController extends Controller
 {
-    /** Toleransi (menit) di atas durasi ujian untuk gangguan koneksi peserta. */
-    protected const GRACE_MINUTES = 60;
+    /** Toleransi (menit) di atas durasi ujian untuk gangguan koneksi peserta — config lsp.toleransi_koneksi_menit (30). */
+    protected function graceMinutes(): int
+    {
+        return \App\Support\UjianBerjalan::graceMinutes();
+    }
 
     protected function studentId(): int
     {
@@ -30,6 +33,12 @@ abstract class BaseExamController extends Controller
         $student = $exam_group->student;
 
         if (! $student->requiresTugasFor($exam_group->exam_session_id)) {
+            return null;
+        }
+
+        // Sesi dengan Ujian Praktik/Keterampilan: PG/Esai tidak dikunci — praktik dikerjakan lewat kartunya sendiri, urutan bebas.
+        // Hanya "Upload Tugas" biasa yang tetap jadi syarat sebelum ujian.
+        if (\App\Support\UjianPraktik::parts($exam_group->exam_session_id)) {
             return null;
         }
 
@@ -73,16 +82,39 @@ abstract class BaseExamController extends Controller
      */
     protected function remainingMs(Grade $grade): int
     {
-        $stored = max(0, (int) $grade->duration);
+        return \App\Support\UjianBerjalan::remainingMs($grade);
+    }
 
-        if (! $grade->start_time) {
-            return $stored;
+    /**
+     * Satu ujian berjalan per sesi: ujian ini belum dimulai dan ujian lain sedang berjalan → kembali ke dashboard.
+     * Ujian yang sudah dimulai selalu boleh dilanjutkan.
+     */
+    protected function otherExamRunningRedirect(ExamGroup $exam_group): ?RedirectResponse
+    {
+        $grade = $this->currentGrade($exam_group->exam_id, $exam_group->exam_session_id);
+        if ($grade?->start_time) {
+            return null;
         }
 
-        $deadline = Carbon::parse($grade->start_time)
-            ->addMinutes((int) $grade->exam->duration + self::GRACE_MINUTES);
+        $reason = \App\Support\UjianBerjalan::blockedReason($exam_group->exam_session_id, $this->studentId(), (int) $exam_group->exam_id);
 
-        return (int) min($stored, max(0, now()->diffInMilliseconds($deadline, false)));
+        return $reason ? redirect()->route('student.dashboard')->with('error', $reason) : null;
+    }
+
+    /** Untuk halaman konfirmasi: alasan terkunci + bagian praktik yang ditutup bila ujian ini dimulai. */
+    protected function confirmationLock(ExamGroup $exam_group, ?Grade $grade): array
+    {
+        if ($grade?->start_time || $grade?->end_time) {
+            return ['blocked' => null, 'closes' => []];
+        }
+
+        $sid = (int) $exam_group->exam_session_id;
+
+        return [
+            'blocked' => \App\Support\UjianBerjalan::blockedReason($sid, $this->studentId(), (int) $exam_group->exam_id),
+            // Bagian praktik yang sudah diunggah tetapi waktunya masih ada → ditutup bila ujian ini dimulai
+            'closes'  => \App\Support\UjianPraktik::partsClosedByStarting($sid, $this->studentId(), 0),
+        ];
     }
 
     /** Ujian sedang berjalan: sudah dimulai, belum diakhiri, dan waktu masih ada. */

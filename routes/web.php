@@ -291,6 +291,8 @@ Route::prefix('student')->middleware('student')->group(function () {
     Route::get('/dashboard', App\Http\Controllers\Student\DashboardController::class)->name('student.dashboard');
 
     Route::get('/tugas/{exam_session_id}', [\App\Http\Controllers\Student\StudentTaskController::class, 'show'])->name('student.tugas.show');
+    // Ujian Praktik/Keterampilan: URL senada exam-confirmation (sesi berujian praktik di /tugas/{sesi} dialihkan ke sini)
+    Route::get('/praktik-confirmation/{exam_session_id}', [\App\Http\Controllers\Student\StudentTaskController::class, 'show'])->name('student.praktik.confirmation');
     Route::get('/tugas/{exam_session_id}/template', [\App\Http\Controllers\Student\StudentTaskController::class, 'template'])->name('student.tugas.template');
     Route::post('/tugas/{exam_session_id}/mulai',   [\App\Http\Controllers\Student\StudentTaskController::class, 'start'])->name('student.tugas.start');
     Route::post('/tugas',                  [\App\Http\Controllers\Student\StudentTaskController::class, 'store'])->name('student.tugas.store');

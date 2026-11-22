@@ -39,11 +39,33 @@ class DashboardController extends Controller
         $tugas_label_by_session   = [];
         $tugas_closed_by_session  = [];
         $tugas_progress_by_session = [];
+        // Kartu Ujian Praktik/Keterampilan sendiri di dashboard (satu kartu per bagian), sejajar kartu PG/Esai
+        $praktik_cards = [];
+        // Satu ujian berjalan per sesi: { label, exam_id, bagian } ujian yang sedang berjalan — kartu ujian lain terkunci
+        $running_by_session = [];
         foreach ($exam_groups->pluck('exam_session_id')->unique() as $sid) {
+            if ($running = \App\Support\UjianBerjalan::running((int) $sid, $student->id)) {
+                $running_by_session[$sid] = $running;
+            }
             if ($student->requiresTugasFor((int) $sid)) {
                 $tugas_required_by_session[$sid] = true;
                 $status = \App\Support\UjianPraktik::tugasStatus((int) $sid, $student->id);
                 $tugas_label_by_session[$sid] = $status['label'];
+                if ($status['label'] === 'Ujian Praktik/Keterampilan') {
+                    $session = $exam_groups->firstWhere('exam_session_id', $sid)->exam_session;
+                    // Urutan bebas, satu ujian berjalan: kartu terkunci selama ujian lain (PG/Esai/bagian lain) sedang berjalan
+                    $running = $running_by_session[$sid] ?? null;
+                    foreach ($status['parts'] as $part) {
+                        $locked = $running && $running['bagian'] !== $part['bagian'] && ! $part['started'];
+                        $praktik_cards[] = $part + [
+                            'locked'       => $locked ? $running['label'] : null,   // ujian yang sedang berjalan
+                            'total'        => $status['total'],
+                            'skema'        => $student->classroom?->title,
+                            'waktu_unggah' => $part['durasi'] ? \App\Support\UjianPraktik::uploadMinutes() : null,
+                            'exam_session' => $session->only('id', 'title', 'start_time', 'end_time'),
+                        ];
+                    }
+                }
                 if ($status['uploaded_all']) {
                     $tugas_by_session[$sid] = true;
                 } elseif ($status['done']) {
@@ -99,6 +121,8 @@ class DashboardController extends Controller
             'tugas_label_by_session'  => (object) $tugas_label_by_session,
             'tugas_closed_by_session' => (object) $tugas_closed_by_session,
             'tugas_progress_by_session' => (object) $tugas_progress_by_session,
+            'praktik_cards' => $praktik_cards,
+            'running_by_session' => (object) $running_by_session,
         ]);
     }
 }

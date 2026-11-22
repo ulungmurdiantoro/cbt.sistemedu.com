@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,15 @@ class Exam extends Model
 
     /** Ujian Praktik/Keterampilan: panduan + template yang diunduh peserta, hasilnya diunggah (lihat App\Support\UjianPraktik). */
     public const TYPE_PRAKTIK = 'Ujian Praktik/Keterampilan';
+
+    /**
+     * Nama tipe lama (sebelum migrasi 2026_11_21_000001). Database yang belum dimigrasi masih menyimpannya: dibaca sebagai
+     * TYPE_PRAKTIK (accessor `type`) dan diterima validasi, supaya ujian praktik tetap dikenali (bukan jatuh ke "Upload Tugas").
+     */
+    public const TYPE_PRAKTIK_LAMA = 'Ujian Praktik';
+
+    /** Nilai kolom `type` yang berarti Ujian Praktik/Keterampilan (untuk query/validasi langsung ke database). */
+    public const TYPES_PRAKTIK = [self::TYPE_PRAKTIK, self::TYPE_PRAKTIK_LAMA];
 
     /**
      * fillable
@@ -54,6 +64,12 @@ class Exam extends Model
     public function isPraktik(): bool
     {
         return $this->type === self::TYPE_PRAKTIK;
+    }
+
+    /** Tipe lama "Ujian Praktik" dibaca sebagai TYPE_PRAKTIK (halaman & JSON selalu memakai nama baru). */
+    protected function type(): Attribute
+    {
+        return Attribute::get(fn (?string $value) => $value === self::TYPE_PRAKTIK_LAMA ? self::TYPE_PRAKTIK : $value);
     }
 
     /**

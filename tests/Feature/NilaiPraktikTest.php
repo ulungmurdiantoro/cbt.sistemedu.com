@@ -304,6 +304,19 @@ class NilaiPraktikTest extends TestCase
             ->where('active_sessions.0.praktik_weights', ['1' => 50, '2' => 30])
             ->where('active_sessions.0.progress.items.praktik', ['done' => 0, 'total' => 1])
         );
+
+        // Lifting: PG + 2 praktik saja → tanpa tombol Esai & Wawancara; Wawancara muncul bila sesi mengaktifkannya
+        $semula = $this->ctx['session']->only('exam_id_esai', 'has_wawancara');
+        $this->ctx['session']->update(['exam_id_esai' => null, 'has_wawancara' => false]);
+        $this->get('/asesor/dashboard')->assertInertia(fn (Assert $page) => $page
+            ->where('active_sessions.0.show_esai', false)
+            ->where('active_sessions.0.show_wawancara', false)
+        );
+        $this->ctx['session']->update(['has_wawancara' => true]);
+        $this->get('/asesor/dashboard')->assertInertia(fn (Assert $page) => $page
+            ->where('active_sessions.0.show_wawancara', true)
+        );
+        $this->ctx['session']->update($semula);
         $this->get("/asesor/penilaian/{$this->ctx['session']->id}/rekap")->assertInertia(fn (Assert $page) => $page
             ->where('scheme.bobot_praktik', 80)
             ->where('rows.0.nilai_praktik', 80)

@@ -42,6 +42,12 @@ class DashboardController extends Controller
                 $session->student_count = $studentIds->count();
                 // Bagian Ujian Praktik/Keterampilan yang dinilai terpisah (mis. Lifting) → tombol Nilai Praktik/Keterampilan
                 $session->praktik_weights = NilaiPraktik::weights($session);
+                // Tombol Esai / Wawancara hanya bila dipakai sesi (mis. Lifting: PG + 2 praktik saja). Sesi lama yang
+                // kolomnya kosong tetapi sudah punya jawaban esai / nilai wawancara tetap menampilkannya.
+                $session->show_esai = (bool) $session->exam_id_esai
+                    || AnswerEssay::where('exam_session_id', $session->id)->exists();
+                $session->show_wawancara = (bool) $session->has_wawancara
+                    || InterviewAssessment::where('exam_session_id', $session->id)->exists();
                 $session->progress      = $session->id >= self::PROGRESS_FROM_SESSION_ID
                     ? $this->progress($session, $studentIds)
                     : null;

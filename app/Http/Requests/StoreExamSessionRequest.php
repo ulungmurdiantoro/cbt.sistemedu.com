@@ -18,9 +18,9 @@ class StoreExamSessionRequest extends FormRequest
             'exam_id_pg'      => 'nullable|exists:exams,id',
             'exam_id_esai'    => 'nullable|exists:exams,id',
             // Ujian Praktik/Keterampilan (panduan + template). Kosong = peserta hanya Upload Tugas.
-            'exam_id_praktik' => ['nullable', \Illuminate\Validation\Rule::exists('exams', 'id')->where('type', \App\Models\Exam::TYPE_PRAKTIK)],
+            'exam_id_praktik' => ['nullable', \Illuminate\Validation\Rule::exists('exams', 'id')->whereIn('type', \App\Models\Exam::TYPES_PRAKTIK)],
             // Bagian 2 (opsional, mis. Lifting: Gambar setelah Calculation) — waktu & unggahan sendiri.
-            'exam_id_praktik_2' => ['nullable', 'different:exam_id_praktik', \Illuminate\Validation\Rule::exists('exams', 'id')->where('type', \App\Models\Exam::TYPE_PRAKTIK)],
+            'exam_id_praktik_2' => ['nullable', 'different:exam_id_praktik', \Illuminate\Validation\Rule::exists('exams', 'id')->whereIn('type', \App\Models\Exam::TYPES_PRAKTIK)],
             'has_wawancara'   => 'boolean',
             'verifikasi_tuk'  => 'boolean',
             'start_time'      => 'required',

@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 /**
- * Nilai Ujian Praktik/Keterampilan (mis. Corporate Legal Studi Kasus 2, Lifting Calculation & Gambar) — hanya untuk sesi yang
+ * Nilai Ujian Praktik/Keterampilan (mis. Corporate Legal Studi Kasus, Lifting Calculation & Gambar) — hanya untuk sesi yang
  * Komposisi Nilai skemanya memberi bobot praktik (NilaiPraktik::weights).
  * - show  : daftar peserta (baca saja) — progres aspek, nilai per bagian, tombol Nilai;
  * - grade : nilai satu peserta — kartu per aspek rubrik (kriteria per rentang skor + nilai + catatan), atau satu
