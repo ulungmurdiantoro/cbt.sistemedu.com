@@ -126,7 +126,7 @@
                     <div v-if="uploadedFile" class="alert alert-success border-0 shadow">
                         <i class="fa fa-check-circle me-2"></i>
                         Tugas sudah diunggah: <strong>{{ uploadedFile.name }}</strong>
-                        <div class="small text-muted" v-if="uploadedFile.uploaded_at">Diunggah pada {{ uploadedFile.uploaded_at }}</div>
+                        <div class="small text-muted" v-if="uploadedFile.uploaded_at">Diunggah pada {{ formatDateTime(uploadedFile.uploaded_at) }}</div>
                     </div>
 
                     <div v-if="successMsg" class="alert alert-success border-0 shadow">{{ successMsg }}</div>
@@ -311,6 +311,11 @@
                 }, 1000);
             },
 
+            // Tanggal dari server (ISO UTC, mis. 2026-11-23T02:01:31.000000Z) → waktu lokal perangkat peserta, senada TugasPreview
+            formatDateTime(value) {
+                const d = value ? new Date(value) : null;
+                return d && !isNaN(d) ? d.toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '';
+            },
             formatSeconds(seconds) {
                 const s = Math.max(0, Math.round(seconds));
                 const h = Math.floor(s / 3600);
@@ -362,7 +367,7 @@
                     },
                 }).then(() => {
                     this.successMsg = 'Tugas berhasil diunggah.';
-                    this.uploadedFile = { name: this.selectedFile.name, uploaded_at: null };
+                    this.uploadedFile = { name: this.selectedFile.name, uploaded_at: new Date().toISOString() };
                     this.selectedFile = null;
                     if (this.$refs.fileInput) this.$refs.fileInput.value = '';
                 }).catch((err) => {
