@@ -188,25 +188,51 @@ class StudentEnrollmentService
     {
         $kodeSkema = $application->classroom->kode_skema ?? '';
         $kode      = substr($kodeSkema, 7, 3) ?: 'SKM';
-        $batch     = $application->kode_batch ?? '-';
-        $year      = now()->year;
-        $prefix    = $kode . '.' . $batch . '.' . $year . '.';
 
-        // Ambil nomor urut tertinggi yang SUDAH benar-benar dipakai untuk kombinasi
-        // kode+batch+tahun ini, baru +1 — jangan hitung jumlah permohonan (bisa bentrok
-        // kalau ada permohonan yang batch-nya berubah, ditolak lalu direset, dst).
+        return $this->nextNoParticipant($kode, self::batchFor($application), (string) now()->year);
+    }
+
+    /**
+     * Kode batch untuk No. Peserta: Kode Batch sesi yang berlaku sekarang, bukan salinan di permohonan — kode batch sesi bisa
+     * dibetulkan belakangan (mis. 02 → 002) dan nomor baru / reissue harus ikut.
+     */
+    public static function batchFor(AssessmentApplication $application): string
+    {
+        $batch = trim((string) ($application->examSession?->kode_batch ?? ''));
+
+        return $batch !== '' ? $batch : ($application->kode_batch ?: '-');
+    }
+
+    /**
+     * No. Peserta {kode}.{batch}.{tahun}.{urut 5 digit}: nomor urut $preferred bila belum dipakai, selain itu nomor urut
+     * tertinggi yang SUDAH dipakai untuk kode+batch+tahun itu + 1 — jangan hitung jumlah permohonan (bisa bentrok kalau
+     * ada permohonan yang batch-nya berubah, ditolak lalu direset, dst).
+     */
+    public function nextNoParticipant(string $kode, string $batch, string $year, ?int $preferred = null, array $reserved = []): string
+    {
+        $prefix = $kode . '.' . $batch . '.' . $year . '.';
+        $format = fn (int $n) => $prefix . str_pad($n, 5, '0', STR_PAD_LEFT);
+        // $reserved = nomor yang sudah direncanakan tetapi belum tersimpan (mis. dry-run no-peserta:samakan-batch)
+        $taken = fn (string $no) => in_array($no, $reserved, true) || Student::where('no_participant', $no)->exists();
+
+        if ($preferred && ! $taken($format($preferred))) {
+            return $format($preferred);
+        }
+
         $lastNumber = Student::where('no_participant', 'like', $prefix . '%')
             ->get(['no_participant'])
-            ->map(fn ($s) => (int) substr($s->no_participant, strlen($prefix)))
+            ->pluck('no_participant')
+            ->merge(array_filter($reserved, fn ($no) => str_starts_with($no, $prefix)))
+            ->map(fn ($no) => (int) substr($no, strlen($prefix)))
             ->max() ?? 0;
 
         $next = $lastNumber + 1;
 
         // Pengaman tambahan kalau masih bentrok (mis. ada nomor yang diinput manual).
-        while (Student::where('no_participant', $prefix . str_pad($next, 5, '0', STR_PAD_LEFT))->exists()) {
+        while ($taken($format($next))) {
             $next++;
         }
 
-        return $prefix . str_pad($next, 5, '0', STR_PAD_LEFT);
+        return $format($next);
     }
 }

@@ -553,6 +553,11 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
 - Simpan sesi (`ExamSessionController::update`) menyamakan ExamGroup peserta dengan ujian PG/Esai sesi: ujian baru ditambahkan,
   ujian yang tidak lagi dipilih dilepas (beserta baris `grades` kosong) — kecuali yang sudah dimulai peserta (`grades.start_time`),
   dilaporkan lewat flash. Tidak ada yang dilepas bila sesi tanpa PG/Esai (ExamGroup juga penanda peserta terdaftar).
+- No. Peserta `{kode}.{batch}.{tahun}.{urut}` (`StudentEnrollmentService::nextNoParticipant`): batch = **Kode Batch sesi yang berlaku**
+  (`batchFor()`), bukan salinan `assessment_applications.kode_batch` — reissue setelah Kode Batch dibetulkan (02 → 002) ikut batch baru.
+  Simpan sesi dengan Kode Batch berubah menyamakan `kode_batch` semua permohonan sesi itu. Nomor yang sudah terbit dengan batch lama:
+  `php artisan no-peserta:samakan-batch [sesi…] [--dry-run]` (urut dipertahankan bila belum dipakai; yang Final dilewati; No. Peserta
+  = login ujian → beri tahu peserta nomor barunya).
 - Jumlah peserta per sesi di daftar mana pun: `ExamSession::withActiveStudentsCount()` (peserta unik terdaftar di
   `exam_groups`, akun aktif — sama dengan baris Rekap Hasil/Tinjau Sertifikasi). **Jangan** hitung `participant_results`:
   barisnya baru dibuat saat Rekap dibuka dan tertinggal saat peserta dipindah batch/dikeluarkan. Progres/cek berbasis

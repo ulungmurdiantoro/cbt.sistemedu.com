@@ -179,6 +179,13 @@ class ExamSessionController extends Controller
                 'kode_batch'      => $request->kode_batch,
             ]);
 
+            // Kode Batch dibetulkan (mis. 02 → 002): permohonan sesi ini ikut, supaya dokumen & No. Peserta baru/reissue
+            // memakai batch yang sama. No. Peserta yang sudah terbit dibetulkan lewat php artisan no-peserta:samakan-batch.
+            if ($exam_session->wasChanged('kode_batch') && $exam_session->kode_batch) {
+                AssessmentApplication::where('exam_session_id', $exam_session->id)
+                    ->update(['kode_batch' => $exam_session->kode_batch]);
+            }
+
             // Sinkronkan ExamGroup peserta yang sudah enrolled supaya
             // exam yang baru ditambahkan (mis. esai) langsung ter-create
             // untuk semua peserta tanpa perlu re-enroll manual.

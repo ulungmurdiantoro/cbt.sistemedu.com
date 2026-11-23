@@ -83,6 +83,46 @@ class StudentEnrollmentServiceTest extends TestCase
         $this->assertSame($new->id, AsesorAssignment::first()->student_id);
     }
 
+    /** Kode Batch sesi dibetulkan (07 → 007): nomor baru & reissue memakai batch sesi, nomor lama disamakan lewat perintah. */
+    public function test_no_peserta_follows_session_batch_after_correction(): void
+    {
+        $year = now()->year;
+        $app = $this->application();
+        $app->examSession->update(['kode_batch' => '07']);
+        $old = $this->service->findOrCreateStudent($app);
+        $app->update(['student_id' => $old->id, 'exam_group_id' => $this->service->enroll($old->id, $app->examSession)->id]);
+        $this->assertSame("K3U.07.{$year}.00001", $old->no_participant);
+
+        // Admin membetulkan Kode Batch sesi → permohonan ikut
+        $admin = User::forceCreate(['users_code' => 'ADM', 'name' => 'Admin', 'email' => 'adm@example.com', 'password' => 'x']);
+        \App\Models\UserRoleAssignment::forceCreate(['user_id' => $admin->id, 'role' => \App\Enums\UserRole::Admin->value]);
+        $s = $app->examSession;
+        $this->actingAs($admin)->put("/admin/exam_sessions/{$s->id}", [
+            'title' => $s->title, 'start_time' => now()->format('Y-m-d H:i'), 'end_time' => now()->addDay()->format('Y-m-d H:i'),
+            'konteks_asesmen' => 'Sertifikasi', 'tempat_ujian' => 'Online', 'kode_batch' => '007',
+            'exam_id_pg' => $s->exam_id_pg, 'exam_id_esai' => $s->exam_id_esai,
+        ])->assertSessionHasNoErrors();
+        $this->assertSame('007', $app->fresh()->kode_batch);
+
+        // Nomor lama disamakan: urut tetap
+        $this->artisan('no-peserta:samakan-batch', ['sesi' => [$s->id], '--dry-run' => true])->assertSuccessful();
+        $this->assertSame("K3U.07.{$year}.00001", $old->fresh()->no_participant);
+        $this->artisan('no-peserta:samakan-batch', ['sesi' => [$s->id]])
+            ->expectsOutputToContain("K3U.007.{$year}.00001")
+            ->assertSuccessful();
+        $this->assertSame("K3U.007.{$year}.00001", $old->fresh()->no_participant);
+
+        // Reissue memakai Kode Batch sesi
+        $new = $this->service->reissue($app->fresh(), 'nomor batch salah', $admin->id);
+        $this->assertSame("K3U.007.{$year}.00002", $new->no_participant);
+
+        // Yang sudah Final tidak diubah
+        $s->update(['kode_batch' => '070']);
+        \App\Models\ParticipantResult::forceCreate(['exam_session_id' => $s->id, 'student_id' => $new->id, 'is_finalized' => true]);
+        $this->artisan('no-peserta:samakan-batch', ['sesi' => [$s->id]])->expectsOutputToContain('dilewati: sudah Final')->assertSuccessful();
+        $this->assertSame("K3U.007.{$year}.00002", $new->fresh()->no_participant);
+    }
+
     public function test_move_to_session_is_blocked_once_exam_activity_exists(): void
     {
         $app     = $this->application();
