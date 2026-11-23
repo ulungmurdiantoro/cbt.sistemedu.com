@@ -234,8 +234,10 @@ komponen yang ada). Tampil di Rekap Hasil (kolom Praktik, rincian per bagian), R
 tahap "Nilai" (`ResultProgressService`) & Pipeline dashboard. SK: kolom pertama jadi "NILAI PRAKTIK" bila ada nilai praktik
 tanpa wawancara; SP: kolom NILAI PRAKTIK berisi `nilai_praktik ?? nilai_wawancara`. Lifting V2: PG 20 + Calculation 50 +
 Gambar 30, lulus ≥ 70 (sesi Lifting tanpa wawancara). CLO/K3L/ESG V2: Tulis 70 (PG 65/Esai 35) + Lisan 22,5 + Keterampilan
-(praktik bagian 1) 7,5 (= 30% × 75/25% dokumen skema), lulus ≥ 60. Bila praktik dinilai terpisah, wawancara tidak memakai
-kriteria (D) Worksheet (`praktik_terpisah`; total = rata-rata 3 kriteria lisan, `hasil_worksheet` disimpan null).
+(praktik bagian 1) 7,5 (= 30% × 75/25% dokumen skema), lulus ≥ 60. Bila sesi memakai Ujian Praktik/Keterampilan (apa pun
+bobotnya — `UjianPraktik::wawancaraTanpaWorksheet()`), wawancara tidak memakai kriteria (D) Worksheet (`praktik_terpisah`; total =
+rata-rata 3 kriteria lisan, `hasil_worksheet` disimpan null; rincian wawancara Rekap Hasil juga tanpa D). Sesi Upload Tugas biasa tetap
+memakai (D) Worksheet. Ujian praktik baru ikut nilai akhir bila Komposisi Nilai memberi bobot praktik.
 Rubrik penilaian per ujian praktik di `exams.praktik_rubrik` (HTML tabel dari FR.IA.04, tag dibatasi `Exam::RUBRIK_TAGS`,
 `$hidden` — hanya dikirim ke halaman Nilai Praktik asesor); diisi lewat paket (`praktik.rubrik`, contoh Corporate Legal
 Studi Kasus — Surat Kuasa Khusus). **Penilaian per aspek**: `exams.praktik_aspek` = `[{no, nama, bobot}]` (total 100, dari tabel Rekapitulasi
@@ -438,8 +440,13 @@ FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda 
   gabungan yang sudah terpasang berubah jadi bagian 1 dan bagian 2 dibuat baru.
 - Paket juga membawa `durasi` (`pg`/`esai`, menit) dan `komposisi` (isian form Komposisi Nilai) per skema dari dokumen skema R2.
   Ujian baru memakai durasi paket; Komposisi Nilai dibuat bila skema belum punya. Yang sudah ada & berbeda disamakan dengan
-  **`--perbarui`** (alias lama `--perbarui-praktik`): durasi PG/Esai hanya bila belum ada peserta yang mulai (`grades.start_time`),
-  Komposisi Nilai berlaku per skema — hasil sesi lama yang belum Final ikut dihitung ulang saat Rekap dibuka.
+  **`--perbarui`** (alias lama `--perbarui-praktik`): durasi PG/Esai hanya bila belum ada peserta yang mulai (`grades.start_time`).
+  **Komposisi Nilai beku per sesi** (`exam_sessions.komposisi_nilai`, migrasi `2026_11_23_000001`): sebelum `--perbarui` mengubah
+  komposisi skema, sesi skema itu yang belum memakai ujian paket versi ini dibekukan dengan komposisi lama — skema yang sama bisa
+  punya sesi lama (ujian & komposisi lama, mis. PSP sesi 86) dan sesi paket baru (sesi 98). Semua perhitungan/tampilan nilai per sesi
+  lewat `GradingScheme::forSession($sesi)` (bukan `GradingScheme::where('classroom_id', …)`); Rekap Hasil menandai "komposisi khusus
+  sesi ini". Lihat/ubah: `php artisan komposisi-nilai:sesi [sesi…] [--lepas|--bekukan] [--dry-run]` — mis. sesi yang baru diarahkan
+  ke ujian V2 setelah `--perbarui` ikut beku → `--lepas`. Form Komposisi Nilai admin tetap mengubah semua sesi yang tidak beku.
 - Esai membawa `esai_panduan` (paket) + `esai[].rubrik`: ikut dipasang pada ujian esai baru; ujian esai yang sudah terpasang
   disamakan dengan `--perbarui` (soal dicocokkan lewat teks pertanyaan seperti `kunci-esai:perbarui`), **termasuk** yang jawabannya
   sudah dinilai — rubrik hanya tampilan asesor, nilai tersimpan tidak berubah.

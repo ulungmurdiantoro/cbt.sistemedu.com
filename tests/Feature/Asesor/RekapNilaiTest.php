@@ -153,6 +153,23 @@ class RekapNilaiTest extends TestCase
                 ->where('scheme.nilai_kelulusan', 70));
     }
 
+    /** Komposisi beku sesi (sesi lama) dipakai menggantikan Komposisi Nilai skema. */
+    public function test_frozen_session_composition_overrides_scheme(): void
+    {
+        $this->ctx['session']->update(['komposisi_nilai' => [
+            'bobot_pg' => 20, 'bobot_esai' => 20, 'bobot_wawancara' => 60, 'bobot_praktik_1' => 0, 'bobot_praktik_2' => 0,
+            'nilai_kelulusan' => 80, 'faktor_wawancara' => null, 'bobot_ujian_tulis' => 40, 'proporsi_pg' => 50,
+        ]]);
+
+        // 80×0,2 + 90×0,2 + 70×0,6 = 76 < 80
+        $this->actingAs($this->ctx['asesor'])
+            ->get($this->rekapUrl())
+            ->assertInertia(fn (AssertableInertia $page) => $page
+                ->where('rows.0.nilai_akhir', 76)
+                ->where('rows.0.keputusan', 'TIDAK_LULUS')
+                ->where('scheme.nilai_kelulusan', 80));
+    }
+
     public function test_viewing_does_not_write_results(): void
     {
         $this->actingAs($this->ctx['asesor'])->get($this->rekapUrl())->assertOk();

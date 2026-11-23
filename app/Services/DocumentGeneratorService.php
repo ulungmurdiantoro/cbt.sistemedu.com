@@ -733,10 +733,7 @@ class DocumentGeneratorService
         $lsp       = config('lsp_documents.lsp');
         $sp        = config('lsp_documents.sp');
 
-        $classroomId = $classroom?->id;
-        $scheme      = $classroomId
-            ? GradingScheme::where('classroom_id', $classroomId)->first()
-            : null;
+        $scheme = GradingScheme::forSession($session);   // komposisi beku sesi lama, atau komposisi skema
 
         $startDt = $session?->start_time ? Carbon::parse($session->start_time) : Carbon::now();
 

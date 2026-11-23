@@ -24,11 +24,7 @@ class InterviewAssessmentController extends Controller
      */
     private function getBobotWawancaraFraction(int $examSessionId): float
     {
-        $session     = ExamSession::find($examSessionId);
-        $classroomId = $session?->referenceExam?->classroom_id;
-        $scheme      = $classroomId
-            ? GradingScheme::where('classroom_id', $classroomId)->first()
-            : null;
+        $scheme = GradingScheme::forSession(ExamSession::find($examSessionId));
 
         return (float) ($scheme?->bobot_wawancara ?? 30) / 100;
     }
@@ -79,7 +75,7 @@ class InterviewAssessmentController extends Controller
             'tugas_parts'  => \App\Support\UjianPraktik::partTitles($exam_session_id),
             'bobot'        => $this->getBobotWawancaraFraction($exam_session_id),
             // Keterampilan dinilai terpisah di halaman Nilai Praktik/Keterampilan → kriteria (D) Worksheet tidak dipakai
-            'praktik_terpisah' => \App\Support\NilaiPraktik::applies($exam_session),
+            'praktik_terpisah' => \App\Support\UjianPraktik::wawancaraTanpaWorksheet($exam_session->id),
         ]);
     }
 
@@ -146,8 +142,8 @@ class InterviewAssessmentController extends Controller
             ->pluck('student_id')
             ->all();
 
-        // Keterampilan dinilai terpisah (halaman Nilai Praktik/Keterampilan) → total wawancara = rata-rata 3 kriteria lisan
-        $praktikTerpisah = \App\Support\NilaiPraktik::applies(ExamSession::findOrFail($exam_session_id));
+        // Sesi memakai Ujian Praktik/Keterampilan → tanpa (D) Worksheet; total wawancara = rata-rata 3 kriteria lisan
+        $praktikTerpisah = \App\Support\UjianPraktik::wawancaraTanpaWorksheet((int) ExamSession::findOrFail($exam_session_id)->id);
 
         foreach ($request->assessments as $item) {
             if ($praktikTerpisah) {

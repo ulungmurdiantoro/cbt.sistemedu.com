@@ -557,6 +557,44 @@ class PaketSoalTest extends TestCase
         $this->assertSame(100, (int) $pg->fresh()->duration);
     }
 
+    /** Skema yang sama: sesi lama (ujian lama) tetap memakai komposisi lama, sesi paket baru memakai komposisi baru. */
+    public function test_perbarui_membekukan_komposisi_lama_di_sesi_lama(): void
+    {
+        $this->classrooms();
+        $esg = \App\Models\Classroom::where('classrooms_code', 'ESG')->first();
+        \App\Models\GradingScheme::create(['classroom_id' => $esg->id, 'bobot_pg' => 40, 'bobot_esai' => 35, 'bobot_wawancara' => 25,
+            'bobot_ujian_tulis' => 75, 'proporsi_pg' => 53.33, 'nilai_kelulusan' => 70]);
+        $sesiLama = $this->makeSession($this->makeExam($esg));          // ujian lama skema ESG
+        $this->pasang(['--skema' => ['esg']])->assertSuccessful();
+        $sesiBaru = $this->makeSession(Exam::where('exams_code', 'exms-v2-esg-pg')->firstOrFail());
+
+        $this->pasang(['--skema' => ['esg'], '--perbarui' => true, '--dry-run' => true])
+            ->expectsOutputToContain('1 sesi lama tetap memakai komposisi lama')
+            ->assertSuccessful();
+        $this->assertNull($sesiLama->fresh()->komposisi_nilai);
+
+        $this->pasang(['--skema' => ['esg'], '--perbarui' => true])
+            ->expectsOutputToContain("Sesi lama tetap memakai komposisi lama (dibekukan): #{$sesiLama->id}")
+            ->assertSuccessful();
+
+        $lama = \App\Models\GradingScheme::forSession($sesiLama->fresh());
+        $baru = \App\Models\GradingScheme::forSession($sesiBaru->fresh());
+        $this->assertTrue($lama->frozen);
+        $this->assertSame([40.0, 35.0, 25.0, 0.0, 70.0], [$lama->bobot_pg, $lama->bobot_esai, $lama->bobot_wawancara, (float) $lama->bobot_praktik_1, $lama->nilai_kelulusan]);
+        $this->assertFalse($baru->frozen);
+        $this->assertSame([45.5, 22.5, 7.5, 60.0], [$baru->bobot_pg, $baru->bobot_wawancara, $baru->bobot_praktik_1, $baru->nilai_kelulusan]);
+        $this->assertNull($sesiBaru->fresh()->komposisi_nilai);
+
+        // Dijalankan ulang: sesi yang sudah beku tidak ditimpa komposisi baru
+        $this->pasang(['--skema' => ['esg'], '--perbarui' => true])->assertSuccessful();
+        $this->assertSame(40.0, \App\Models\GradingScheme::forSession($sesiLama->fresh())->bobot_pg);
+
+        // Lepas → sesi mengikuti komposisi skema lagi
+        $this->artisan('komposisi-nilai:sesi', ['sesi' => [$sesiLama->id], '--lepas' => true])->assertSuccessful();
+        $this->assertNull($sesiLama->fresh()->komposisi_nilai);
+        $this->assertSame(45.5, \App\Models\GradingScheme::forSession($sesiLama->fresh())->bobot_pg);
+    }
+
     public function test_skema_tanpa_kelas_dilewati(): void
     {
         $this->makeClassroom('ESG');

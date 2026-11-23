@@ -17,6 +17,7 @@ class ExamSession extends Model
         'exam_id_praktik_2',
         'has_wawancara',
         'verifikasi_tuk',
+        'komposisi_nilai',
         'title',
         'start_time',
         'end_time',
@@ -36,6 +37,8 @@ class ExamSession extends Model
         return [
             'has_wawancara'       => 'boolean',
             'verifikasi_tuk'      => 'boolean',
+            // Komposisi Nilai beku untuk sesi ini (null = ikut skema) — GradingScheme::forSession()
+            'komposisi_nilai'     => 'array',
             'keputusan_issued_at' => 'datetime',
         ];
     }

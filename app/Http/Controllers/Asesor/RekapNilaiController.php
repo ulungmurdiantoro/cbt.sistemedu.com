@@ -67,8 +67,7 @@ class RekapNilaiController extends Controller
             'rekomendasi'        => $rekomendasi[$r->student_id] ?? null,
         ])->sortBy('no_participant')->values();
 
-        $classroomId = $examSession->referenceExam?->classroom_id;
-        $scheme      = $classroomId ? GradingScheme::where('classroom_id', $classroomId)->first() : null;
+        $scheme = GradingScheme::forSession($examSession);
 
         return inertia('Asesor/RekapNilai/Show', [
             'exam_session' => $examSession,

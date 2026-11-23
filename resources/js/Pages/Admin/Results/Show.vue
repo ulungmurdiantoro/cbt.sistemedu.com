@@ -38,7 +38,10 @@
         <!-- Scheme info -->
         <div v-if="scheme" class="alert alert-info py-2 small border-0 mb-3">
             <i class="fa fa-info-circle me-1"></i>
-            Komposisi: PG <strong>{{ scheme.bobot_pg }}%</strong> · Esai <strong>{{ scheme.bobot_esai }}%</strong> · Wawancara <strong>{{ scheme.bobot_wawancara }}%</strong> · KKM <strong>{{ scheme.nilai_kelulusan }}</strong>
+            Komposisi: PG <strong>{{ scheme.bobot_pg }}%</strong> · Esai <strong>{{ scheme.bobot_esai }}%</strong> · Wawancara <strong>{{ scheme.bobot_wawancara }}%</strong>
+            <template v-if="(scheme.bobot_praktik_1 || 0) + (scheme.bobot_praktik_2 || 0) > 0"> · Praktik/Keterampilan <strong>{{ (scheme.bobot_praktik_1 || 0) + (scheme.bobot_praktik_2 || 0) }}%</strong></template>
+            · KKM <strong>{{ scheme.nilai_kelulusan }}</strong>
+            <span v-if="scheme_frozen" class="ms-1">— <strong>komposisi khusus sesi ini</strong> (sesi lama, tidak ikut perubahan Komposisi Nilai skema)</span>
         </div>
         <div v-else class="alert alert-warning py-2 small border-0 mb-3">
             <i class="fa fa-exclamation-triangle me-1"></i>
@@ -472,6 +475,8 @@ export default {
         exam_session: Object,
         rows:         Array,
         scheme:       Object,
+        scheme_frozen: { type: Boolean, default: false },
+        wawancara_tanpa_worksheet: { type: Boolean, default: false },
         // { [student_id]: [{ bagian, original_filename }] }
         tugas:        Object,
         show_tugas:   Boolean,
@@ -611,7 +616,8 @@ export default {
                 ['A', 'Gaya Wawancara', w.gaya_wawancara],
                 ['B', 'Penguasaan Materi', w.penguasaan_materi],
                 ['C', 'Kemampuan Menghadapi Pertanyaan', w.kemampuan_hadapi_pertanyaan],
-                ['D', 'Hasil Pengerjaan Worksheet Ujian Keterampilan', w.hasil_worksheet],
+                // Sesi dengan Ujian Praktik/Keterampilan: keterampilan dinilai lewat praktik, bukan (D) Worksheet
+                ...(props.wawancara_tanpa_worksheet ? [] : [['D', 'Hasil Pengerjaan Worksheet Ujian Keterampilan', w.hasil_worksheet]]),
             ];
             const bobot = props.scheme?.bobot_wawancara;
             Swal.fire({
@@ -628,7 +634,7 @@ export default {
                         <thead><tr><th style="width:2.5rem">#</th><th>Kriteria</th><th class="text-end" style="width:6rem">Nilai</th></tr></thead>
                         <tbody>
                             ${kriteria.map(([k, label, v]) => `<tr><td>${k}</td><td style="white-space:normal">${label}</td><td class="text-end num">${fmt(v)}</td></tr>`).join('')}
-                            <tr class="fw-bolder"><td></td><td>Total (rata-rata A–D)</td><td class="text-end num">${fmt(w.total_nilai)}</td></tr>
+                            <tr class="fw-bolder"><td></td><td>Total (rata-rata A–${props.wawancara_tanpa_worksheet ? 'C' : 'D'})</td><td class="text-end num">${fmt(w.total_nilai)}</td></tr>
                         </tbody>
                     </table>
                     ${bobot != null ? `<div class="text-start text-muted small mb-2">Bobot wawancara: ${esc(Number(bobot))}% dari nilai akhir.</div>` : ''}

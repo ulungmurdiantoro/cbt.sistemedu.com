@@ -18,9 +18,7 @@ class NilaiPraktik
     /** Komposisi Nilai skema sesi (kelas ujian PG/Esai/Praktik pertama). */
     public static function schemeFor(ExamSession $session): ?GradingScheme
     {
-        $classroomId = $session->referenceExam?->classroom_id;
-
-        return $classroomId ? GradingScheme::where('classroom_id', $classroomId)->first() : null;
+        return GradingScheme::forSession($session);   // komposisi beku sesi, atau komposisi skema
     }
 
     /** [bagian => bobot (% nilai akhir)] untuk bagian praktik sesi yang dinilai terpisah; kosong = tidak berlaku. */

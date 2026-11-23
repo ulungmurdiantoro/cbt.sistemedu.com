@@ -59,6 +59,15 @@ class UjianPraktik
         return self::parts($sessionId)[$bagian] ?? null;
     }
 
+    /**
+     * Sesi memakai Ujian Praktik/Keterampilan → keterampilan dinilai lewat ujian praktik, wawancara tanpa kriteria (D) Worksheet
+     * (total wawancara = rata-rata 3 kriteria lisan). Sesi Upload Tugas biasa tetap memakai (D) Worksheet.
+     */
+    public static function wawancaraTanpaWorksheet(int $sessionId): bool
+    {
+        return self::parts($sessionId) !== [];
+    }
+
     public static function timed(?Exam $exam): bool
     {
         return $exam !== null && (int) $exam->duration > 0;

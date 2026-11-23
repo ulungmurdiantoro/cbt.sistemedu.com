@@ -165,6 +165,28 @@ class NilaiPraktikTest extends TestCase
         $this->assertSame(80.0, (float) $ia->total_nilai);
     }
 
+    /** Wawancara tanpa (D) Worksheet ditentukan oleh sesi yang memakai Ujian Praktik/Keterampilan, bukan oleh bobot praktik. */
+    public function test_worksheet_dropped_whenever_session_uses_praktik(): void
+    {
+        GradingScheme::where('classroom_id', $this->ctx['classroom']->id)
+            ->update(['bobot_praktik_1' => 0, 'bobot_praktik_2' => 0, 'bobot_wawancara' => 80]);
+        $this->ctx['session']->forceFill(['has_wawancara' => true])->save();
+        $url = "/asesor/penilaian/{$this->ctx['session']->id}/wawancara";
+
+        $this->actingAs($this->ctx['asesor'])->get($url)->assertInertia(fn (Assert $page) => $page->where('praktik_terpisah', true));
+        $this->actingAs($this->user(UserRole::Admin))->get("/admin/results/{$this->ctx['session']->id}")
+            ->assertInertia(fn (Assert $page) => $page->where('wawancara_tanpa_worksheet', true));
+
+        // Sesi tanpa ujian praktik (Upload Tugas biasa) tetap memakai (D) Worksheet
+        $this->ctx['session']->forceFill(['exam_id_praktik' => null, 'exam_id_praktik_2' => null])->save();
+        $this->actingAs($this->ctx['asesor'])->get($url)->assertInertia(fn (Assert $page) => $page->where('praktik_terpisah', false));
+        $this->post($url, ['assessments' => [[
+            'student_id' => $this->ctx['student']->id, 'gaya_wawancara' => 80, 'penguasaan_materi' => 70,
+            'kemampuan_hadapi_pertanyaan' => 90, 'hasil_worksheet' => 60,
+        ]]])->assertSessionHasNoErrors();
+        $this->assertSame(75.0, (float) \App\Models\InterviewAssessment::firstOrFail()->total_nilai);
+    }
+
     public function test_part_scored_per_rubric_aspect(): void
     {
         // Bagian 1 dinilai per aspek (mis. Corporate Legal Studi Kasus 2): bobot 60 + 40

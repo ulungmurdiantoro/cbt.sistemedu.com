@@ -160,15 +160,16 @@ class ResultController extends Controller
             ];
         })->sortBy('no_participant')->values();
 
-        $classroomId = $examSession->referenceExam?->classroom_id;
-        $scheme = $classroomId
-            ? \App\Models\GradingScheme::where('classroom_id', $classroomId)->first()
-            : null;
+        $scheme = \App\Models\GradingScheme::forSession($examSession);
 
         return inertia('Admin/Results/Show', [
             'exam_session' => $examSession,
             'rows'         => $rows,
             'scheme'       => $scheme,
+            // Komposisi beku milik sesi ini (sesi lama), bukan Komposisi Nilai skema yang berlaku sekarang
+            'scheme_frozen' => (bool) $scheme?->frozen,
+            // Sesi memakai Ujian Praktik/Keterampilan → rincian wawancara tanpa kriteria (D) Worksheet
+            'wawancara_tanpa_worksheet' => \App\Support\UjianPraktik::wawancaraTanpaWorksheet($examSession->id),
             'tugas'        => $tugas,
             // Kolom Tugas disembunyikan untuk skema yang tidak wajib upload tugas
             // (Student::requiresTugas), kecuali ada yang tetap mengunggah.

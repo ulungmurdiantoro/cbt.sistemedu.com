@@ -39,10 +39,7 @@ class ResultCalculatorService
     {
         $session->loadMissing(['examPg.classroom', 'examEsai.classroom', 'exam_groups']);
 
-        $classroomId = $session->referenceExam?->classroom_id;
-        $scheme      = $classroomId
-            ? GradingScheme::where('classroom_id', $classroomId)->first()
-            : null;
+        $scheme = GradingScheme::forSession($session);   // komposisi beku sesi lama, atau komposisi skema
 
         $bobotPg         = $scheme?->bobot_pg        ?? 0;
         $bobotEsai       = $scheme?->bobot_esai      ?? 0;

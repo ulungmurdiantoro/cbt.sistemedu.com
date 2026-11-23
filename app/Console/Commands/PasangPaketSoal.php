@@ -896,7 +896,34 @@ class PasangPaketSoal extends Command
             return 'sama';
         }
 
-        return $this->perbarui() ? 'diperbarui' : 'beda dengan yang berlaku — pakai --perbarui';
+        if (!$this->perbarui()) {
+            return 'beda dengan yang berlaku — pakai --perbarui';
+        }
+        $lama = $this->sesiKomposisiLama($classroom)->count();
+
+        return 'diperbarui' . ($lama ? "; {$lama} sesi lama tetap memakai komposisi lama" : '');
+    }
+
+    /**
+     * Sesi skema ini yang belum memakai ujian paket versi ini dan belum punya komposisi beku. Sebelum Komposisi Nilai skema
+     * diubah, sesi-sesi ini dibekukan dengan komposisi yang berlaku sekarang (exam_sessions.komposisi_nilai), supaya sesi
+     * lama (ujian lama) tetap dinilai dengan aturan lama dan hanya sesi paket baru yang memakai komposisi baru.
+     */
+    private function sesiKomposisiLama(Classroom $classroom): \Illuminate\Support\Collection
+    {
+        if (!Schema::hasColumn('exam_sessions', 'komposisi_nilai')) {
+            return collect();
+        }
+
+        $examIds  = Exam::where('classroom_id', $classroom->id)->pluck('id');
+        $paketIds = Exam::where('classroom_id', $classroom->id)->where('exams_code', 'like', "exms-{$this->versi}-%")->pluck('id');
+
+        return ExamSession::whereNull('komposisi_nilai')
+            ->where(fn ($q) => $q->whereIn('exam_id_pg', $examIds)->orWhereIn('exam_id_esai', $examIds)->orWhereIn('exam_id_praktik', $examIds))
+            ->get()
+            ->reject(fn (ExamSession $s) => collect([$s->exam_id_pg, $s->exam_id_esai, $s->exam_id_praktik, $s->exam_id_praktik_2])
+                ->filter()->intersect($paketIds)->isNotEmpty())
+            ->values();
     }
 
     /** Komposisi Nilai skema dari dokumen skema. Yang sudah ada & berbeda hanya diubah dengan --perbarui. */
@@ -918,10 +945,16 @@ class PasangPaketSoal extends Command
             return;
         }
 
+        // Sesi lama (ujian lama) dibekukan dulu dengan komposisi yang berlaku sekarang — hanya sesi paket baru yang ikut berubah
+        $lama = $scheme ? $this->sesiKomposisiLama($classroom) : collect();
+        foreach ($lama as $sesi) {
+            $sesi->update(['komposisi_nilai' => $scheme->snapshot()]);
+        }
+
         GradingScheme::updateOrCreate(['classroom_id' => $classroom->id], $this->komposisiAttributes($k));
         $this->info("{$key}: Komposisi Nilai {$classroom->title} = " . $this->komposisiText($k) . '.');
-        if ($scheme) {
-            $this->line('   Berlaku per skema: hasil sesi lama yang belum Final ikut dihitung ulang saat Rekap dibuka.');
+        if ($lama->isNotEmpty()) {
+            $this->line('   Sesi lama tetap memakai komposisi lama (dibekukan): #' . $lama->pluck('id')->implode(', #') . '.');
         }
     }
 
