@@ -595,6 +595,32 @@ class PaketSoalTest extends TestCase
         $this->assertSame(45.5, \App\Models\GradingScheme::forSession($sesiLama->fresh())->bobot_pg);
     }
 
+    /** Komposisi lama yang sudah tertimpa di skema dipulihkan manual untuk sesi lama (mis. server: PSP sesi 86). */
+    public function test_komposisi_sesi_dibekukan_dengan_nilai_manual(): void
+    {
+        $psp = $this->makeClassroom('PSP');
+        \App\Models\GradingScheme::create(['classroom_id' => $psp->id, 'bobot_pg' => 45.5, 'bobot_esai' => 24.5, 'bobot_wawancara' => 22.5,
+            'bobot_praktik_1' => 7.5, 'bobot_ujian_tulis' => 70, 'proporsi_pg' => 65, 'nilai_kelulusan' => 60]);
+        $lama = $this->makeSession($this->makeExam($psp));
+        $lain = $this->makeSession($this->makeExam($this->makeClassroom('ESG')));
+        $nilai = ['--tulis' => 70, '--pg' => 65, '--lisan' => 30, '--praktik1' => 0, '--praktik2' => 0, '--lulus' => 60];
+
+        // Total harus 100; nilai manual hanya bersama --bekukan
+        $this->artisan('komposisi-nilai:sesi', ['sesi' => [$lama->id], '--bekukan' => true] + ['--lisan' => 25] + $nilai)->assertFailed();
+        $this->artisan('komposisi-nilai:sesi', ['sesi' => [$lama->id]] + $nilai)->assertFailed();
+        $this->artisan('komposisi-nilai:sesi', ['sesi' => [$lain->id], '--skema' => 'PSP'])->assertFailed();   // bukan sesi PSP
+
+        $this->artisan('komposisi-nilai:sesi', ['--skema' => 'PSP', '--bekukan' => true, '--dry-run' => true] + $nilai)->assertSuccessful();
+        $this->assertNull($lama->fresh()->komposisi_nilai);
+
+        $this->artisan('komposisi-nilai:sesi', ['sesi' => [$lama->id], '--skema' => 'PSP', '--bekukan' => true] + $nilai)
+            ->expectsOutputToContain('dibekukan → Tulis 70 (PG 65%) + Lisan 30, lulus ≥60')
+            ->assertSuccessful();
+        $s = \App\Models\GradingScheme::forSession($lama->fresh());
+        $this->assertSame([45.5, 24.5, 30.0, 0.0, 60.0], [$s->bobot_pg, $s->bobot_esai, $s->bobot_wawancara, $s->bobot_praktik_1, $s->nilai_kelulusan]);
+        $this->assertNull($lain->fresh()->komposisi_nilai);
+    }
+
     public function test_skema_tanpa_kelas_dilewati(): void
     {
         $this->makeClassroom('ESG');

@@ -445,8 +445,9 @@ FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda 
   komposisi skema, sesi skema itu yang belum memakai ujian paket versi ini dibekukan dengan komposisi lama — skema yang sama bisa
   punya sesi lama (ujian & komposisi lama, mis. PSP sesi 86) dan sesi paket baru (sesi 98). Semua perhitungan/tampilan nilai per sesi
   lewat `GradingScheme::forSession($sesi)` (bukan `GradingScheme::where('classroom_id', …)`); Rekap Hasil menandai "komposisi khusus
-  sesi ini". Lihat/ubah: `php artisan komposisi-nilai:sesi [sesi…] [--lepas|--bekukan] [--dry-run]` — mis. sesi yang baru diarahkan
-  ke ujian V2 setelah `--perbarui` ikut beku → `--lepas`. Form Komposisi Nilai admin tetap mengubah semua sesi yang tidak beku.
+  sesi ini". Lihat/ubah: `php artisan komposisi-nilai:sesi [sesi…] [--skema=PSP] [--lepas|--bekukan] [--dry-run]` — mis. sesi yang
+  baru diarahkan ke ujian V2 setelah `--perbarui` ikut beku → `--lepas`; komposisi lama yang sudah tertimpa (`--perbarui` dijalankan
+  sebelum fitur ini) → `--bekukan --tulis= --pg= --lisan= --praktik1= --praktik2= --lulus=` (semua wajib, total 100; menimpa yang beku). Form Komposisi Nilai admin tetap mengubah semua sesi yang tidak beku.
 - Esai membawa `esai_panduan` (paket) + `esai[].rubrik`: ikut dipasang pada ujian esai baru; ujian esai yang sudah terpasang
   disamakan dengan `--perbarui` (soal dicocokkan lewat teks pertanyaan seperti `kunci-esai:perbarui`), **termasuk** yang jawabannya
   sudah dinilai — rubrik hanya tampilan asesor, nilai tersimpan tidak berubah.
