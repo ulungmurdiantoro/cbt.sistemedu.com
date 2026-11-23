@@ -298,6 +298,11 @@ Aturan di `Student\BaseExamController` (dipakai PG, Essay, Essay Migas):
   `lock.blocked`, praktik → `UjianPraktik::startBlockedReason`, dashboard → `running_by_session` (kartu PG/Esai) & `praktik_cards.*.locked`.
   Melanjutkan ujian yang sudah dimulai selalu boleh. Memulai ujian lain menutup bagian praktik yang sudah diunggah tetapi waktunya
   masih ada (`laterPartStarted` juga melihat `grades.start_time`; peringatan lewat `lock.closes` / `timer.closes_parts`).
+- **Kompensasi kerjakan ulang** (mis. lupa menyimpan jawaban esai): `php artisan ujian:beri-ulang {sesi} {No. Peserta}
+  --ujian=esai|pg --alasan="…" [--menit=N] [--dry-run]` — `grades.start_time/end_time` dikosongkan & durasi penuh (peserta menekan
+  Kerjakan lagi), jawaban tersimpan **tetap** (startEssay/startExam tidak menimpa jawaban yang ada), nilai esai asesor & hasil sesi
+  (nilai, keputusan, verifikasi PK/MS) dikosongkan, Final ditolak, dicatat di `exam_retakes`. Jendela sesi hanya dicek di browser →
+  bila jam selesai sesi sudah lewat, perpanjang di Edit Sesi.
 - Mulai ujian hanya sekali (tidak reset `start_time` / acak ulang soal); jawaban ditolak setelah
   `end_time` terisi atau waktu habis (`acceptsAnswers`); mengakhiri dua kali tidak menimpa nilai.
 - Jendela sesi (`exam_sessions.start_time/end_time`) **tidak** dicek di server: `APP_TIMEZONE` default UTC
@@ -556,8 +561,9 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
 - No. Peserta `{kode}.{batch}.{tahun}.{urut}` (`StudentEnrollmentService::nextNoParticipant`): batch = **Kode Batch sesi yang berlaku**
   (`batchFor()`), bukan salinan `assessment_applications.kode_batch` — reissue setelah Kode Batch dibetulkan (02 → 002) ikut batch baru.
   Simpan sesi dengan Kode Batch berubah menyamakan `kode_batch` semua permohonan sesi itu. Nomor yang sudah terbit dengan batch lama:
-  `php artisan no-peserta:samakan-batch [sesi…] [--dry-run]` (urut dipertahankan bila belum dipakai; yang Final dilewati; No. Peserta
-  = login ujian → beri tahu peserta nomor barunya).
+  `php artisan no-peserta:samakan-batch [sesi…] [--kirim-email] [--dry-run]` (urut dipertahankan bila belum dipakai; yang Final
+  dilewati; No. Peserta = login ujian → `--kirim-email` mengirim `NoPesertaChangedMail` (nomor lama → baru) ke email peserta,
+  gagal kirim tidak membatalkan perubahan dan tampil di kolom Email; dry-run tidak mengirim apa pun).
 - Jumlah peserta per sesi di daftar mana pun: `ExamSession::withActiveStudentsCount()` (peserta unik terdaftar di
   `exam_groups`, akun aktif — sama dengan baris Rekap Hasil/Tinjau Sertifikasi). **Jangan** hitung `participant_results`:
   barisnya baru dibuat saat Rekap dibuka dan tertinggal saat peserta dipindah batch/dikeluarkan. Progres/cek berbasis

@@ -104,13 +104,25 @@ class StudentEnrollmentServiceTest extends TestCase
         ])->assertSessionHasNoErrors();
         $this->assertSame('007', $app->fresh()->kode_batch);
 
-        // Nomor lama disamakan: urut tetap
-        $this->artisan('no-peserta:samakan-batch', ['sesi' => [$s->id], '--dry-run' => true])->assertSuccessful();
+        // Nomor lama disamakan: urut tetap; dry-run tidak menyimpan & tidak mengirim email
+        \Illuminate\Support\Facades\Mail::fake();
+        $this->artisan('no-peserta:samakan-batch', ['sesi' => [$s->id], '--dry-run' => true, '--kirim-email' => true])
+            ->expectsOutputToContain('akan dikirim ke')
+            ->assertSuccessful();
         $this->assertSame("K3U.07.{$year}.00001", $old->fresh()->no_participant);
-        $this->artisan('no-peserta:samakan-batch', ['sesi' => [$s->id]])
+        \Illuminate\Support\Facades\Mail::assertNothingSent();
+
+        $this->artisan('no-peserta:samakan-batch', ['sesi' => [$s->id], '--kirim-email' => true])
             ->expectsOutputToContain("K3U.007.{$year}.00001")
             ->assertSuccessful();
         $this->assertSame("K3U.007.{$year}.00001", $old->fresh()->no_participant);
+        \Illuminate\Support\Facades\Mail::assertSent(\App\Mail\NoPesertaChangedMail::class, fn ($mail) =>
+            $mail->hasTo($app->participant->email)
+            && $mail->oldNumber === "K3U.07.{$year}.00001"
+            && $mail->newNumber === "K3U.007.{$year}.00001");
+        $html = (new \App\Mail\NoPesertaChangedMail($app->fresh(), "K3U.07.{$year}.00001", "K3U.007.{$year}.00001"))->render();
+        $this->assertStringContainsString("K3U.007.{$year}.00001", $html);
+        $this->assertStringContainsString('Nomor lama sudah tidak dapat dipakai', $html);
 
         // Reissue memakai Kode Batch sesi
         $new = $this->service->reissue($app->fresh(), 'nomor batch salah', $admin->id);
