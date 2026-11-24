@@ -80,6 +80,11 @@ resources/js/
                       tahap yang ditunggu, riwayat, dokumen) dari App\Services\ResultProgressService — hanya membaca data
                       yang ada; tahap yang belum tercatat padahal tahap sesudahnya selesai = 'skipped' (sesi lama).
                       Daftar sesi: progres per tahap dari AdminDashboardService::pipelineRow() (sama dengan Pipeline dashboard)
+                      Laporan Nilai → "Hasil Ujian Lengkap (ZIP)" (`admin.results.hasil-ujian`, `?peserta=ID` = satu peserta,
+                      juga di panel detail peserta): App\Services\ExamResultsArchiveService — per peserta PDF jawaban PG/Esai +
+                      ringkasan Praktik (view `documents/hasil_ujian`, logo kecil `logo_edukia_kecil`), berkas Esai Migas &
+                      unggahan praktik/tugas, plus `Rekap Hasil Ujian.xlsx`. Hanya membaca (calculateForSession). ±1 dtk/peserta
+                      (mPDF) — sesi besar bisa kena timeout web server; pakai unduhan per peserta
       ...
     Asesor/
       Dashboard.vue          ← (baru) dashboard asesor
@@ -433,7 +438,10 @@ FR.IA.05/06/04 sebagai ujian **baru** per skema: "{judul kelas} - Pilihan Ganda 
 - Ujian dikenali lewat `exams_code` `exms-{versi}-{skema}-{pg|esai|praktik}` → aman dijalankan ulang (yang sudah ada
   dilewati). Durasi/acak mencontoh ujian sejenis terakhir di kelas itu (bawaan 120 menit). Ujian/sesi lama tidak disentuh.
 - Template Ujian Praktik (Lifting ±34 MB, di atas batas upload) **tidak** ada di git: dibaca dari
-  `storage/app/paket-soal/{versi}/templates/` lalu disalin ke disk private. Template belum ada → ujian praktik tetap
+  `storage/app/paket-soal/{versi}/templates/` lalu disalin ke disk private. **Di server jalankan sebagai user web server**
+  (`sudo -u www-data php artisan paket-soal:pasang …`): disk `private` membuat folder baru ber-izin 700, jadi folder yang dibuat
+  user SSH (`PadmaForClient`) tak terbaca php-fpm → unduh template 404 (terjadi 24 Nov 2026; diperbaiki `chown -R www-data`).
+  Server juga perlu `php artisan storage:link` (tanpa `public/storage` semua gambar soal paket 404). Template belum ada → ujian praktik tetap
   dibuat; jalankan ulang setelah folder diunggah untuk melengkapinya. Bagian praktik dilewati bila migrasi Ujian Praktik belum ada.
 - Ubah materi praktik di paket (panduan/durasi di JSON, file template) → `--perbarui-praktik` menyamakan ujian praktik
   yang sudah terpasang (template lama dihapus), **hanya** bila belum dipakai peserta (`student_praktik_attempts` /
@@ -579,6 +587,10 @@ peserta yang ditugaskan). `recalcForSession()` = hitung + simpan, dipakai halama
   `resources/js/Components/Guide/{Asesor,Manager,CertificationManager}/*.vue`,
   ditampilkan lewat `<PageGuide storage-key="...">` di atas halaman **dan** dirangkai di `Pages/*/Guide/Index.vue`.
   Ubah perilaku/tombol halaman → perbarui komponen Guide-nya juga.
+- Panduan PDF untuk dibagikan (Peserta — Pendaftaran, Peserta — Mengerjakan Ujian, Asesor) ada di `docs/panduan/`:
+  sumber HTML + CSS di `sumber/`, tangkapan layar (data uji lokal sesi 98, tanpa data peserta sungguhan) di `img/`,
+  cetak ulang dengan `python docs/panduan/build.py` (PDF, Playwright + Chrome) dan `python docs/panduan/build_docx.py`
+  (Word, python-docx + beautifulsoup4 — dari HTML yang sama). Alur peserta/asesor berubah → perbarui juga.
 
 ---
 

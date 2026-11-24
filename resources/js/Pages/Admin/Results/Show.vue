@@ -25,6 +25,14 @@
                             <i class="fa fa-file-pdf text-danger me-2"></i>PDF Lebar (A0)
                         </a>
                     </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" :href="`/admin/results/${exam_session.id}/hasil-ujian`"
+                           title="Lembar jawaban PG & Esai per peserta (PDF), berkas Esai Migas, unggahan Ujian Praktik/Tugas, dan rekap nilai (Excel). Sesi besar bisa butuh beberapa menit.">
+                            <i class="fa fa-file-archive text-primary me-2"></i>Hasil Ujian Lengkap (ZIP)
+                            <div class="small text-muted ms-4">PG, Esai &amp; Praktik semua peserta</div>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <button class="btn btn-outline-success border shadow fw-bolder" @click="distributeSp" :disabled="!hasFinalized">
@@ -392,6 +400,15 @@
                                 <a v-if="detail.progress?.docs.ak05_ready" :href="`/dokumen/laporan-asesmen/${exam_session.id}/${detail.progress.docs.asesor_id}/download`" target="_blank" class="btn btn-sm btn-gray-100 border"><i class="fa fa-file-pdf me-1"></i>PDF</a>
                                 <span v-else-if="detail.progress?.docs.asesor_id" class="small text-muted fst-italic">Belum diisi oleh asesor</span>
                                 <span v-else class="text-muted small">Asesor belum ditugaskan</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hasil Ujian<div class="small text-muted">PG, Esai &amp; Praktik</div></td>
+                            <td>
+                                <a :href="`/admin/results/${exam_session.id}/hasil-ujian?peserta=${detail.student_id}`" class="btn btn-sm btn-gray-100 border"
+                                   title="Lembar jawaban PG & Esai (PDF) + berkas unggahan peserta ini">
+                                    <i class="fa fa-file-archive me-1"></i>ZIP
+                                </a>
                             </td>
                         </tr>
                         <tr v-if="detail.fr_ak_14">

@@ -213,6 +213,35 @@ class ResultController extends Controller
             ->header('Content-Disposition', "inline; filename=\"{$filename}.pdf\"");
     }
 
+    /**
+     * ZIP hasil seluruh ujian sesi: lembar jawaban PG & Esai (PDF per peserta), berkas Essay Migas,
+     * unggahan Ujian Praktik/Keterampilan / Upload Tugas, dan rekap nilai (Excel). ?peserta=ID → satu peserta saja.
+     */
+    public function downloadHasilUjian(ExamSession $examSession, \App\Services\ExamResultsArchiveService $archive)
+    {
+        @set_time_limit(600);
+        // ±1 detik & ±40 MB per PDF peserta (mPDF) — naikkan batas memori hanya untuk unduhan ini
+        $limit = (string) ini_get('memory_limit');
+        $bytes = $limit === '-1' ? PHP_INT_MAX
+            : (int) $limit * match (strtoupper(substr($limit, -1))) { 'G' => 1 << 30, 'M' => 1 << 20, 'K' => 1 << 10, default => 1 };
+        if ($bytes < 512 << 20) {
+            @ini_set('memory_limit', '512M');
+        }
+
+        $only = request()->filled('peserta') ? [request()->integer('peserta')] : null;
+        abort_if($only && ! ExamSession::activeStudentIds($examSession->id)->contains($only[0]), 404, 'Peserta tidak terdaftar di sesi ini.');
+
+        $path = $archive->build($examSession, $only);
+
+        $name = \App\Services\ExamResultsArchiveService::fileName($examSession);
+        if ($only) {
+            $no   = Student::whereKey($only[0])->value('no_participant');
+            $name = 'Hasil Ujian - ' . \App\Services\ExamResultsArchiveService::safeName($no ?: (string) $only[0]) . '.zip';
+        }
+
+        return response()->download($path, $name, ['Content-Type' => 'application/zip'])->deleteFileAfterSend();
+    }
+
     /** Pratinjau tugas peserta di tab baru — sama dengan portal asesor, tanpa cek penugasan. */
     public function previewTugas(ExamSession $examSession, Student $student)
     {

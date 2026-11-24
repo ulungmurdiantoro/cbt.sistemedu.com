@@ -33,6 +33,8 @@ return [
      * --------------------------------------------------------------- */
     'assets' => [
         'logo_edukia'         => 'resources/lsp-assets/logo-edukia.jpg',
+        // 480 px (21 KB) — untuk PDF massal seperti ZIP Hasil Ujian; logo asli 2848 px / 467 KB per PDF
+        'logo_edukia_kecil'   => 'resources/lsp-assets/logo-edukia-kecil.jpg',
         'logo_kan'            => 'resources/lsp-assets/logo-kan-lsp.png',
         'ttd'                 => 'resources/lsp-assets/ttd.png',
         'bg_sertif_depan_kan'       => 'resources/lsp-assets/bg-sertifikat-depan-kan.png',
