@@ -1,0 +1,124 @@
+/* Gaya bersama panduan PDF (dicetak lewat Chrome headless — lihat docs/panduan/README.md) */
+@page { size: A4; margin: 16mm 15mm 18mm 15mm; }
+@page :first { margin-top: 0; }
+
+:root {
+    --navy: #1F2937;
+    --blue: #2361CE;
+    --orange: #F4891F;
+    --green: #10B981;
+    --red: #E11D48;
+    --amber: #F0BC74;
+    --text: #374151;
+    --muted: #6B7280;
+    --line: #E5E7EB;
+    --soft: #F3F4F6;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.3pt;
+    line-height: 1.5;
+    color: var(--text);
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Sampul */
+.cover {
+    background: var(--navy);
+    color: #fff;
+    margin: 0 -15mm 9mm;
+    padding: 16mm 15mm 12mm;
+    position: relative;
+}
+.cover::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2.2mm;
+    background: linear-gradient(90deg, var(--blue) 0 55%, var(--orange) 55% 100%);
+}
+.cover .logo { height: 17mm; margin-bottom: 8mm; }
+.cover .eyebrow { font-size: 9pt; letter-spacing: .14em; text-transform: uppercase; color: #93C5FD; font-weight: 700; }
+.cover h1 { font-size: 25pt; line-height: 1.15; margin: 2mm 0 3mm; font-weight: 700; }
+.cover .lead { font-size: 11pt; color: #D1D5DB; max-width: 150mm; margin: 0; }
+.cover .meta { margin-top: 7mm; font-size: 8.8pt; color: #9CA3AF; display: flex; gap: 8mm; flex-wrap: wrap; }
+.cover .meta b { color: #E5E7EB; font-weight: 600; }
+
+/* Daftar isi */
+.toc { border: 1px solid var(--line); border-radius: 2.5mm; padding: 4mm 6mm; margin-bottom: 7mm; background: var(--soft); }
+.toc h3 { margin: 0 0 2mm; font-size: 10.5pt; color: var(--navy); }
+.toc ol { margin: 0; padding-left: 5mm; columns: 2; column-gap: 10mm; }
+.toc li { margin: .6mm 0; break-inside: avoid; }
+
+/* Judul bagian */
+h2 {
+    font-size: 15pt; color: var(--navy); margin: 8mm 0 3mm; break-before: auto; padding-bottom: 1.5mm;
+    border-bottom: .6mm solid var(--navy); break-after: avoid;
+}
+h2 .no { color: var(--blue); margin-right: 2.5mm; font-variant-numeric: tabular-nums; }
+h3 { font-size: 11.5pt; color: var(--navy); margin: 5mm 0 1.5mm; break-after: avoid; }
+p { margin: 0 0 2.5mm; }
+ul, ol { margin: 0 0 2.5mm; padding-left: 5.5mm; }
+li { margin: .7mm 0; }
+.page-break { break-before: page; }
+
+/* Langkah bernomor */
+.step { display: grid; grid-template-columns: 9mm 1fr; gap: 3mm; margin: 4mm 0; break-inside: avoid; }
+.step .n {
+    width: 8mm; height: 8mm; border-radius: 50%; background: var(--blue); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 10pt;
+}
+.step h3 { margin-top: 1mm; }
+
+/* Gambar */
+figure { margin: 3mm 0 4mm; break-inside: avoid; }
+figure img { display: block; width: auto; max-width: 100%; max-height: 122mm; margin: 0 auto; border: 1px solid var(--line); border-radius: 2mm; box-shadow: 0 .6mm 2mm rgba(0,0,0,.08); }
+figure.half img { max-width: 74%; max-height: 90mm; }
+figure.tall img { max-height: 200mm; }
+figure.small img { max-width: 58%; }
+figcaption { font-size: 8.5pt; color: var(--muted); margin-top: 1.5mm; text-align: center; }
+
+/* Kotak catatan */
+.note { border-left: 1.2mm solid var(--blue); background: #EFF6FF; padding: 2.8mm 4mm; border-radius: 0 2mm 2mm 0; margin: 3mm 0; break-inside: avoid; }
+.note.warn { border-color: var(--orange); background: #FFF7ED; }
+.note.danger { border-color: var(--red); background: #FFF1F2; }
+.note.ok { border-color: var(--green); background: #ECFDF5; }
+.note .t { font-weight: 700; color: var(--navy); display: block; margin-bottom: .8mm; }
+.note p:last-child, .note ul:last-child { margin-bottom: 0; }
+
+/* Tabel */
+table { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; font-size: 9.5pt; break-inside: avoid; }
+th { background: var(--navy); color: #fff; text-align: left; padding: 2mm 2.5mm; font-weight: 600; }
+td { border-bottom: 1px solid var(--line); padding: 1.8mm 2.5mm; vertical-align: top; }
+tr:nth-child(even) td { background: #FAFAFA; }
+td.k { white-space: nowrap; font-weight: 600; color: var(--navy); }
+
+/* Label tombol / status seperti di aplikasi */
+.btn { display: inline-block; padding: .2mm 2mm; border-radius: 1.2mm; font-size: 8.8pt; font-weight: 600; white-space: nowrap; border: 1px solid transparent; }
+.b-blue { background: var(--blue); color: #fff; }
+.b-navy { background: var(--navy); color: #fff; }
+.b-green { background: var(--green); color: #fff; }
+.b-red { background: var(--red); color: #fff; }
+.b-amber { background: var(--amber); color: var(--navy); }
+.b-gray { background: #E5E7EB; color: var(--navy); border-color: #D1D5DB; }
+.b-info { background: #0EA5E9; color: #fff; }
+
+/* Alur ringkas */
+.flow { display: flex; gap: 1.5mm; margin: 3mm 0 5mm; }
+.flow div { flex: 1 1 0; min-width: 0; background: var(--soft); border: 1px solid var(--line); border-radius: 2mm; padding: 2.5mm 2mm; text-align: center; font-size: 8.6pt; position: relative; }
+.flow div b { display: block; color: var(--blue); font-size: 11pt; }
+.flow div.hl { background: #EFF6FF; border-color: #BFDBFE; }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.card { border: 1px solid var(--line); border-radius: 2mm; padding: 3mm 4mm; break-inside: avoid; }
+.card h4 { margin: 0 0 1.5mm; color: var(--navy); font-size: 10pt; }
+.card ul { margin-bottom: 0; }
+
+.faq dt { font-weight: 700; color: var(--navy); margin-top: 3mm; break-after: avoid; }
+.faq dd { margin: .8mm 0 0; }
+
+.end { margin-top: 8mm; padding: 4mm 5mm; border-radius: 2mm; background: var(--navy); color: #E5E7EB; font-size: 9.5pt; break-inside: avoid; }
+.end b { color: #fff; }
+code { font-family: Consolas, monospace; background: var(--soft); padding: 0 1mm; border-radius: 1mm; font-size: 9pt; }

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Panduan Asesor — Penilaian Ujian</title>
+<link rel="stylesheet" href="panduan.css">
+</head>
+<body>
+
+<div class="cover">
+    <img class="logo" src="../img/logo.png" alt="EDUKIA">
+    <div class="eyebrow">Panduan Asesor</div>
+    <h1>Portal Asesor:<br>Persiapan &amp; Penilaian Ujian</h1>
+    <p class="lead">Tugas asesor di aplikasi — menyiapkan tanda tangan dan CV, menandatangani FR.AK.01, menilai Esai, Wawancara,
+        dan Ujian Praktik/Keterampilan, memeriksa Rekap Nilai, lalu menyusun Laporan Asesmen FR.AK.05.</p>
+    <div class="meta">
+        <span><b>Login:</b> /login (email + password)</span>
+        <span><b>Versi:</b> November 2026</span>
+        <span><b>Panduan di aplikasi:</b> menu Panduan</span>
+    </div>
+</div>
+
+<div class="toc">
+    <h3>Isi panduan</h3>
+    <ol>
+        <li>Gambaran tugas asesor</li>
+        <li>Login &amp; Dashboard</li>
+        <li>Tanda tangan &amp; CV</li>
+        <li>TTD FR.AK.01</li>
+        <li>Penilaian Esai</li>
+        <li>Penilaian Wawancara</li>
+        <li>Penilaian Ujian Praktik/Keterampilan</li>
+        <li>Rekap Nilai</li>
+        <li>Laporan Asesmen (FR.AK.05)</li>
+        <li>Pertanyaan umum</li>
+    </ol>
+</div>
+
+<h2><span class="no">1</span>Gambaran tugas asesor</h2>
+<p>Asesor hanya melihat sesi dan peserta yang <b>ditugaskan admin</b> kepadanya. Verifikasi dokumen persyaratan (FR.APL.01) bukan
+    tugas asesor — itu ditangani admin.</p>
+<div class="flow">
+    <div class="hl"><b>Sebelum ujian</b>Simpan TTD &amp; lengkapi CV</div>
+    <div class="hl"><b>Sebelum / saat ujian</b>TTD FR.AK.01 peserta</div>
+    <div class="hl"><b>Setelah ujian</b>Nilai Esai, Wawancara, Praktik</div>
+    <div class="hl"><b>Periksa</b>Rekap Nilai</div>
+    <div class="hl"><b>Akhir</b>Laporan FR.AK.05 (K/BK)</div>
+    <div><b>Lanjut</b>Pengambil Keputusan → Manager Sertifikasi</div>
+</div>
+<ul>
+    <li><b>Pilihan Ganda</b> dinilai otomatis oleh sistem — asesor tidak perlu menilai.</li>
+    <li><b>Nilai Akhir</b> dihitung sistem dari komponen yang ada sesuai bobot skema (Komposisi Nilai). Bobot diterapkan sekali saat
+        Nilai Akhir dihitung, bukan di halaman penilaian.</li>
+    <li>Keputusan resmi Kompeten/Belum Kompeten ditetapkan setelah verifikasi Pengambil Keputusan dan finalisasi Manager Sertifikasi.</li>
+</ul>
+
+<h2><span class="no">2</span>Login &amp; Dashboard</h2>
+<p>Buka <code>/login</code>, masukkan email dan password asesor, lalu klik <b>LOGIN</b>. Anda diarahkan otomatis ke Dashboard Asesor.</p>
+<figure class="half"><img src="../img/a01-login.jpg"><figcaption>Halaman login staf (admin, asesor, Pengambil Keputusan, Manager Sertifikasi)</figcaption></figure>
+<p>Dashboard memuat semua sesi yang pesertanya ditugaskan kepada Anda, dibagi tab <span class="btn b-green">Sesi Aktif</span> dan
+    <span class="btn b-amber">Sesi Selesai</span>. Sesi pindah ke Sesi Selesai setelah tugas Anda untuk semua peserta lengkap
+    (TTD AK.01, nilai esai, nilai wawancara); progresnya tampil di kartu (mis. <span class="btn b-gray">Esai 1/2</span>). Peserta yang
+    tidak mengikuti ujian tidak dihitung. Nama sesi bisa sama untuk beberapa batch — bedakan lewat label <b>Batch</b> dan jadwalnya.</p>
+<figure><img src="../img/a02-dashboard.jpg"><figcaption>Dashboard Asesor — kartu sesi dengan progres dan tombol penilaian</figcaption></figure>
+<table>
+    <tr><th style="width:42mm">Tombol di kartu sesi</th><th>Fungsi</th></tr>
+    <tr><td><span class="btn b-navy">Esai</span></td><td>Menilai jawaban esai peserta.</td></tr>
+    <tr><td><span class="btn b-green">Wawancara</span></td><td>Mengisi nilai kriteria wawancara per peserta.</td></tr>
+    <tr><td><span class="btn b-red">Praktik/Keterampilan</span></td><td>Menilai Ujian Praktik/Keterampilan dengan rubrik FR.IA.04.</td></tr>
+    <tr><td><span class="btn b-blue">Rekap Nilai</span></td><td>Melihat nilai semua komponen dan Nilai Akhir (baca saja).</td></tr>
+    <tr><td><span class="btn b-navy">Laporan</span></td><td>Rekomendasi K/BK, catatan, dan unduh FR.AK.05.</td></tr>
+    <tr><td><span class="btn b-amber">TTD AK.01</span></td><td>Menandatangani FR.AK.01 peserta yang ditugaskan kepada Anda.</td></tr>
+</table>
+<div class="note"><span class="t">Tombol hanya muncul bila dipakai sesi itu</span>
+    Contoh: sesi Lifting hanya berisi Pilihan Ganda + dua bagian Ujian Praktik, sehingga tombol Esai dan Wawancara tidak tampil.
+    Setiap halaman portal juga punya kotak <b>Panduan halaman ini</b> yang bisa ditampilkan/disembunyikan.</div>
+
+<h2><span class="no">3</span>Tanda tangan &amp; CV</h2>
+<h3>Tanda tangan (sekali untuk semua sesi)</h3>
+<p>Di kartu <b>Tanda Tangan Anda</b> (halaman Laporan atau TTD AK.01), pilih <span class="btn b-navy">Gambar</span> atau
+    <span class="btn b-gray">Upload</span>, lalu klik <span class="btn b-navy">Simpan Tanda Tangan</span>. Tanda tangan ini dipakai otomatis
+    di FR.AK.05 dan saat menandatangani FR.AK.01. Tanpa tanda tangan tersimpan, tombol Tandatangani tidak aktif.</p>
+<h3>CV Saya</h3>
+<p>Menu <b>CV Saya</b> menerbitkan CV resmi asesor LSP dalam PDF.</p>
+<ul>
+    <li>Isi data pribadi dan tiap bagian (pendidikan, pelatihan, pengalaman, keahlian, sertifikasi). Tambah baris dengan
+        <span class="btn b-gray">+ Tambah Baris</span>, hapus dengan ikon tempat sampah.</li>
+    <li>Kolom <b>Bukti (opsional)</b> per baris: unggah scan ijazah/sertifikat/surat keterangan (PDF/JPG/PNG, maks. 5 MB).</li>
+    <li>Klik <span class="btn b-green">Simpan CV</span> di bagian paling bawah, baru kemudian <span class="btn b-gray">Unduh PDF</span>
+        — PDF dibuat dari data yang sudah tersimpan.</li>
+</ul>
+<figure class="tall"><img src="../img/a11-cv.jpg"><figcaption>Halaman CV Saya</figcaption></figure>
+
+<h2><span class="no">4</span>TTD FR.AK.01</h2>
+<p>FR.AK.01 (Persetujuan Asesmen, Ketidakberpihakan, Kerahasiaan) ditandatangani asesor untuk setiap peserta yang ditugaskan kepadanya.</p>
+<ol>
+    <li>Pastikan tanda tangan Anda sudah tersimpan (kartu <b>Tanda Tangan Anda</b> di atas daftar).</li>
+    <li>Klik <span class="btn b-gray">Preview</span> untuk melihat dokumen FR.AK.01 peserta di tab baru.</li>
+    <li>Klik <span class="btn b-green">Tandatangani</span> pada baris peserta, lalu konfirmasi. Status menjadi <span class="btn b-green">Sudah</span> beserta tanggalnya.</li>
+</ol>
+<figure class="tall"><img src="../img/a03-ttd-ak01.jpg"><figcaption>Halaman TTD AK.01 — "Belum ada permohonan" berarti peserta belum punya permohonan sertifikasi</figcaption></figure>
+<div class="note warn"><span class="t">Tidak bisa dibatalkan</span>FR.AK.01 yang sudah ditandatangani tidak bisa ditandatangani ulang lewat aplikasi
+    dan tetap memakai tanda tangan yang berlaku saat itu, walaupun Anda mengganti tanda tangan sesudahnya.</div>
+
+<h2><span class="no">5</span>Penilaian Esai</h2>
+<p>Klik <span class="btn b-navy">Esai</span> di kartu sesi. Daftar peserta menampilkan <b>Progress</b> (soal dinilai / total soal) dan
+    <b>Total</b>. Klik baris peserta atau tombol <span class="btn b-navy">Nilai</span>.</p>
+<figure><img src="../img/a04-esai-daftar.jpg"><figcaption>Daftar peserta Penilaian Esai</figcaption></figure>
+<ol>
+    <li>Halaman per peserta berisi satu kartu per soal: <b>pertanyaan</b>, lalu <b>jawaban peserta</b> dan kolom <b>Nilai (0–100)</b>.</li>
+    <li>Klik <b>Lihat poin / kisi jawaban</b> untuk membuka kunci/panduan jawaban soal itu sebagai acuan.</li>
+    <li>Skema dengan rubrik FR.IA.06 (mis. HSE, Corporate Legal, ESG, Panelis) menampilkan kartu <b>Panduan Penilaian Umum</b> di atas soal dan
+        <b>Matriks penilaian</b> per soal (mis. 90–100 Sangat Baik … 10–29 Sangat Kurang). Klik rentang yang paling sesuai: nilai tertinggi
+        rentang itu terisi, lalu sesuaikan angkanya bila perlu.</li>
+    <li>Untuk Essay Migas, berkas jawaban peserta ada di kartu paling atas (Pratinjau / Unduh).</li>
+    <li>Gunakan bar di kanan bawah: <span class="btn b-green">Simpan</span>, <span class="btn b-blue">Simpan &amp; Berikutnya</span>
+        (peserta berikutnya, urut No. Peserta), atau <span class="btn b-gray">Sebelumnya</span>.</li>
+</ol>
+<figure class="tall"><img src="../img/a05-esai-nilai.jpg"><figcaption>Halaman nilai esai per peserta dengan matriks penilaian dan bar Simpan</figcaption></figure>
+<div class="note warn"><span class="t">Simpan sebelum pindah peserta</span>Nilai baru tersimpan setelah tombol Simpan diklik. Bila masih ada nilai yang
+    belum disimpan, bar menampilkan "Belum disimpan" dan Anda diminta konfirmasi sebelum meninggalkan halaman.</div>
+<p><b>Total Nilai Esai</b> = rata-rata nilai soal yang sudah diisi (nilai 0 ikut dihitung; soal yang dikosongkan tidak). Badge
+    <span class="btn b-amber">Remidi</span> menandai peserta yang mengikuti ujian ulang.</p>
+
+<h2><span class="no">6</span>Penilaian Wawancara</h2>
+<p>Klik <span class="btn b-green">Wawancara</span>. Satu baris per peserta; isi setiap kriteria dengan skala <b>0–100</b>:</p>
+<table>
+    <tr><th style="width:12mm">Kode</th><th>Kriteria</th><th style="width:70mm">Dipakai bila</th></tr>
+    <tr><td class="k">A</td><td>Gaya Wawancara</td><td>Selalu</td></tr>
+    <tr><td class="k">B</td><td>Penguasaan Materi</td><td>Selalu</td></tr>
+    <tr><td class="k">C</td><td>Kemampuan Menghadapi Pertanyaan</td><td>Selalu</td></tr>
+    <tr><td class="k">D</td><td>Hasil Pengerjaan Worksheet Ujian Keterampilan</td><td>Hanya sesi <b>tanpa</b> Ujian Praktik/Keterampilan (sesi Upload Tugas biasa)</td></tr>
+</table>
+<ul>
+    <li><b>Total</b> = rata-rata kriteria yang terisi. Pada sesi yang memakai Ujian Praktik/Keterampilan, kolom D tidak tampil karena
+        keterampilan dinilai di halaman Praktik/Keterampilan; total = rata-rata A–C.</li>
+    <li>Kolom <b>Tugas</b>: ikon mata membuka hasil unggahan peserta di tab baru (PDF, DOCX, JPG, PNG bisa langsung dilihat), ikon unduh
+        mengunduhnya. Ujian praktik dua bagian menampilkan tombol bernomor <b>1</b> dan <b>2</b>. Tanda "-" = belum mengunggah.</li>
+    <li><b>Catatan</b> boleh dikosongkan.</li>
+    <li>Klik <span class="btn b-green">Simpan Semua Nilai</span> di kanan atas kartu Daftar Peserta untuk menyimpan seluruh tabel.</li>
+</ul>
+<figure class="tall"><img src="../img/a06-wawancara.jpg"><figcaption>Penilaian Wawancara — sesi dengan Ujian Praktik/Keterampilan (kriteria A–C)</figcaption></figure>
+
+<h2><span class="no">7</span>Penilaian Ujian Praktik/Keterampilan</h2>
+<p>Klik <span class="btn b-red">Praktik/Keterampilan</span>. Daftar peserta menampilkan hasil unggahan (ikon mata) dan progres aspek
+    (mis. <i>0/5 aspek</i>). Klik <span class="btn b-navy">Nilai</span> untuk menilai satu peserta.</p>
+<figure><img src="../img/a07-praktik-daftar.jpg"><figcaption>Daftar peserta Penilaian Ujian Praktik/Keterampilan</figcaption></figure>
+<ul>
+    <li>Satu kartu per <b>aspek</b> rubrik FR.IA.04 berisi bobot, sumber bukti, poin kunci, dan kriteria tiap rentang skor.
+        Klik <span class="btn b-gray">Lihat hasil unggahan</span> untuk membuka pekerjaan peserta.</li>
+    <li>Klik rentang yang sesuai untuk mengisi nilai tertinggi rentang itu, lalu sesuaikan angkanya (0–100). <b>Catatan</b> per aspek boleh diisi.</li>
+    <li><b>Gerbang kritis</b> (mis. ESG, GLP, QC, Food Safety, Panelis): bila ada gerbang yang gagal, centang
+        <i>"Ada gerbang kritis yang gagal"</i> — nilai aspek itu maksimal 50.</li>
+    <li><b>Aspek per butir</b> (Lifting): pilih <i>Ada &amp; Benar / Ada tapi Salah / Tidak Ada</i> per butir; nilai aspek = jumlah butir.
+        Klik pilihan yang sama lagi untuk membatalkan.</li>
+    <li><b>Nilai bagian</b> = Σ (nilai aspek × bobot aspek), dihitung otomatis setelah semua aspek terisi. Isian yang belum lengkap tetap tersimpan.</li>
+    <li>Bar di kanan bawah: <span class="btn b-green">Simpan</span>, <span class="btn b-blue">Simpan &amp; Berikutnya</span>,
+        <span class="btn b-gray">Sebelumnya</span>.</li>
+</ul>
+<figure class="tall"><img src="../img/a08-praktik-nilai.jpg"><figcaption>Nilai praktik per peserta — kartu aspek dengan gerbang kritis dan rentang skor</figcaption></figure>
+
+<h2><span class="no">8</span>Rekap Nilai</h2>
+<p>Klik <span class="btn b-blue">Rekap Nilai</span> untuk melihat (tanpa mengubah) nilai PG, Esai, Wawancara, Praktik, Nilai Akhir,
+    keputusan sementara, dan rekomendasi K/BK Anda untuk peserta yang ditugaskan kepada Anda.</p>
+<ul>
+    <li><span class="btn b-amber">belum dinilai</span> menandai komponen yang masih menunggu nilai dari Anda.</li>
+    <li>Selama ada komponen yang belum dinilai, Nilai Akhir dihitung dari komponen yang ada dan masih bisa berubah.</li>
+    <li><b>Lulus (sementara)</b> dihitung otomatis dari nilai kelulusan skema; berubah menjadi <b>Lulus/Tidak Lulus</b> setelah difinalisasi.</li>
+</ul>
+<figure class="tall"><img src="../img/a09-rekap.jpg"><figcaption>Rekap Nilai — bobot komponen tampil di bagian atas</figcaption></figure>
+
+<h2><span class="no">9</span>Laporan Asesmen (FR.AK.05)</h2>
+<p>Klik <span class="btn b-navy">Laporan</span>. Halaman ini punya tiga bagian, masing-masing dengan tombol simpan sendiri:</p>
+<ol>
+    <li><b>Tanda Tangan Anda</b> — lihat bagian 3.</li>
+    <li><b>Rekomendasi Asesi</b> — klik <span class="btn b-green">K</span> (Kompeten) atau <span class="btn b-red">BK</span> (Belum Kompeten)
+        per peserta, lalu <span class="btn b-green">Simpan Rekomendasi</span>. Rekomendasi bisa diubah sampai peserta difinalisasi; setelah itu terkunci.
+        "Tidak ada aplikasi" berarti peserta belum punya permohonan sertifikasi.</li>
+    <li><b>Catatan Laporan Asesmen</b> — tanggal pelaksanaan dan empat kolom catatan sudah berisi teks contoh. Sunting seperlunya, lalu
+        <span class="btn b-green">Simpan Laporan</span>.</li>
+</ol>
+<figure class="tall"><img src="../img/a10-laporan-atas.jpg"><figcaption>Tanda tangan dan Rekomendasi Asesi</figcaption></figure>
+<figure><img src="../img/a10-laporan-catatan.jpg"><figcaption>Catatan Laporan Asesmen</figcaption></figure>
+<p>Tombol <span class="btn b-gray">Download PDF</span> (FR.AK.05) muncul setelah laporan disimpan pertama kali. Isinya rekomendasi semua
+    peserta Anda di sesi itu, catatan, dan tanda tangan Anda.</p>
+
+<h2><span class="no">10</span>Pertanyaan umum</h2>
+<dl class="faq">
+    <dt>Sesi atau peserta tidak muncul di Dashboard.</dt>
+    <dd>Penugasan asesor dilakukan admin per peserta di detail sesi. Hubungi admin bila ada peserta yang belum ditugaskan kepada Anda.</dd>
+    <dt>Tombol Esai/Wawancara tidak ada.</dt>
+    <dd>Sesi itu tidak memakai ujian tersebut (mis. Lifting: PG + Ujian Praktik saja).</dd>
+    <dt>Nilai sudah diisi tetapi Rekap masih "belum dinilai".</dt>
+    <dd>Pastikan sudah menekan Simpan / Simpan Semua Nilai, lalu muat ulang halaman Rekap.</dd>
+    <dt>Peserta mengikuti remidi atau kerjakan ulang.</dt>
+    <dd>Nilai esai peserta itu dikosongkan agar dinilai ulang; peserta tampil dengan badge Remidi atau progres kembali belum lengkap.</dd>
+    <dt>Saya salah menandatangani AK.01.</dt>
+    <dd>Tidak bisa dibatalkan di aplikasi — hubungi admin.</dd>
+</dl>
+
+<div class="end"><b>Selesai.</b> Setelah nilai dan Laporan Asesmen lengkap, hasil peserta di sesi tersebut siap diverifikasi Pengambil Keputusan
+    dan difinalisasi Manager Sertifikasi. Panduan yang sama tersedia di menu <b>Panduan</b> portal asesor.</div>
+
+</body>
+</html>
