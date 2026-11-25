@@ -226,6 +226,9 @@ No Peserta | Nama | Gaya Wawancara | Penguasaan Materi | Kemampuan Menghadapi Pe
 - **Total Nilai** = rata-rata 4 kriteria (skala 0–100), sejajar dengan nilai PG & esai
   - Contoh: (88 + 86 + 86 + 88) / 4 = **87**
 - Bobot wawancara diterapkan **sekali** di `ResultCalculatorService` (bukan di controller)
+- **Rubrik Penilaian Wawancara** (sama untuk semua skema): `App\Support\RubrikWawancara` — deskripsi indikator kriteria A–C per
+  pita N > 80 / 71–80 / 60–70 / < 60 (D Worksheet tanpa deskripsi). Hanya panduan: kartu lipat di atas tabel + rentang di bawah
+  tiap isian (prop `rubrik`; `pita()` di Vue harus sama dengan PHP), juga kolom Kategori di PDF ZIP Hasil Ujian
 
 ### Nilai Praktik (komponen terpisah, mis. Lifting)
 Komposisi Nilai skema (`grading_schemes`, form `/admin/classrooms/{id}/grading-scheme`) = Ujian Tulis (`bobot_ujian_tulis`,

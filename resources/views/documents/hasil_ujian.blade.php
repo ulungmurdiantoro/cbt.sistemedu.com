@@ -125,12 +125,17 @@
         <h2>Wawancara</h2>
         @if($wawancara['dinilai'])
             <table class="grid">
-                <thead><tr><th class="c" style="width:8%;">No</th><th>Kriteria</th><th class="c" style="width:14%;">Nilai</th></tr></thead>
+                <thead><tr><th class="c" style="width:7%;">No</th><th style="width:25%;">Kriteria</th><th class="c" style="width:9%;">Nilai</th><th>Kategori (Rubrik Penilaian Wawancara)</th></tr></thead>
                 <tbody>
                     @foreach($wawancara['kriteria'] as $k)
-                        <tr><td class="c">{{ $k['kode'] }}</td><td>{{ $k['nama'] }}</td><td class="c">{{ $fmt($k['nilai']) }}</td></tr>
+                        <tr>
+                            <td class="c">{{ $k['kode'] }}</td>
+                            <td>{{ $k['nama'] }}</td>
+                            <td class="c">{{ $fmt($k['nilai']) }}</td>
+                            <td>@if($k['pita'])<b>{{ $k['pita'] }}</b>@if($k['deskripsi']) — {{ $k['deskripsi'] }}@endif @else—@endif</td>
+                        </tr>
                     @endforeach
-                    <tr><td></td><td><b>{{ $wawancara['total_label'] }}</b></td><td class="c"><b>{{ $fmt($wawancara['total']) }}</b></td></tr>
+                    <tr><td></td><td><b>{{ $wawancara['total_label'] }}</b></td><td class="c"><b>{{ $fmt($wawancara['total']) }}</b></td><td></td></tr>
                 </tbody>
             </table>
             <table class="info" style="margin-top:4pt;">

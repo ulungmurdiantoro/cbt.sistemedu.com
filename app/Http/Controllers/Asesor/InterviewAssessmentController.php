@@ -76,6 +76,8 @@ class InterviewAssessmentController extends Controller
             'bobot'        => $this->getBobotWawancaraFraction($exam_session_id),
             // Keterampilan dinilai terpisah di halaman Nilai Praktik/Keterampilan → kriteria (D) Worksheet tidak dipakai
             'praktik_terpisah' => \App\Support\UjianPraktik::wawancaraTanpaWorksheet($exam_session->id),
+            // Rubrik Indikator Penilaian Wawancara (sama untuk semua skema) — hanya panduan
+            'rubrik'       => \App\Support\RubrikWawancara::props(),
         ]);
     }
 

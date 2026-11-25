@@ -11,6 +11,10 @@
         </table>
     </div>
     <ul class="mb-0 ps-3">
+        <li><strong>Rubrik Penilaian Wawancara</strong> (kartu di atas tabel, bisa dilipat) memuat indikator kriteria A–C per
+            rentang nilai: <strong>N &gt; 80</strong>, <strong>71–80</strong>, <strong>60–70</strong>, <strong>N &lt; 60</strong> — sama untuk
+            semua skema. Rubrik hanya panduan; nilai tetap diketik. Di bawah setiap isian A–C tampil rentangnya, arahkan kursor ke
+            rentang itu untuk melihat deskripsi indikatornya.</li>
         <li><strong>Total</strong> = rata-rata kriteria yang terisi. Isi keempatnya; kriteria yang kosong tidak ikut dihitung.
             Bobot wawancara baru diterapkan saat Nilai Akhir dihitung, bukan di tabel ini.</li>
         <li>Kolom <strong>Tugas</strong> (tugas yang diupload peserta sebelum ujian): tombol <i class="fa fa-eye"></i>

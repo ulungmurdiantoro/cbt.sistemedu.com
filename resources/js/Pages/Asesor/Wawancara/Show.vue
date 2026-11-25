@@ -14,6 +14,39 @@
                     <button type="button" class="btn-close" @click="successMsg = ''"></button>
                 </div>
 
+                <!-- Rubrik Indikator Penilaian Wawancara — sama untuk semua skema (App\Support\RubrikWawancara) -->
+                <div v-if="students.length" class="card border-0 shadow mb-3">
+                    <div class="card-body py-3">
+                        <button type="button" class="btn btn-link p-0 fw-bolder text-gray-800 text-decoration-none w-100 text-start"
+                            @click="openRubrik = !openRubrik">
+                            <i :class="openRubrik ? 'fa fa-chevron-down' : 'fa fa-chevron-right'" class="me-2 text-muted"></i>
+                            <i class="fa fa-book-open me-1 text-primary"></i> Rubrik Penilaian Wawancara
+                            <span class="small text-muted fw-normal ms-1">— indikator per rentang nilai untuk kriteria A–C</span>
+                        </button>
+                        <div v-if="openRubrik" class="table-responsive mt-3">
+                            <table class="table table-bordered table-sm mb-0 rubrik-table">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th style="min-width:160px">Indikator</th>
+                                        <th v-for="p in rubrik.pita" :key="p.kode" class="text-center" style="min-width:180px">{{ p.label }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(k, kolom, idx) in rubrik.kriteria" :key="kolom">
+                                        <td class="fw-bolder">({{ 'ABC'[idx] }}) {{ k.nama }}</td>
+                                        <td v-for="p in rubrik.pita" :key="p.kode">{{ k.deskripsi[p.kode] }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="small text-muted mt-2">
+                                Hanya panduan: tetap ketik nilai 0–100 per kriteria. Di bawah setiap isian muncul rentang yang sesuai
+                                dengan nilainya (arahkan kursor untuk melihat deskripsinya).
+                                <template v-if="!praktik_terpisah">Kriteria (D) Worksheet dinilai dari hasil tugas peserta, tanpa deskripsi indikator.</template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div v-if="students.length === 0" class="alert alert-info">
                     Tidak ada peserta yang ditugaskan di sesi ini.
                 </div>
@@ -76,6 +109,7 @@
                                                 class="form-control form-control-sm text-center"
                                                 style="width:90px;margin:auto"
                                                 placeholder="0–100" />
+                                            <div v-if="pita(row.gaya_wawancara)" class="pita-hint" :title="rubrik.kriteria.gaya_wawancara.deskripsi[pita(row.gaya_wawancara)]">{{ pitaLabel(row.gaya_wawancara) }}</div>
                                         </td>
                                         <td class="text-center">
                                             <input type="number" min="0" max="100" step="0.01"
@@ -84,6 +118,7 @@
                                                 class="form-control form-control-sm text-center"
                                                 style="width:90px;margin:auto"
                                                 placeholder="0–100" />
+                                            <div v-if="pita(row.penguasaan_materi)" class="pita-hint" :title="rubrik.kriteria.penguasaan_materi.deskripsi[pita(row.penguasaan_materi)]">{{ pitaLabel(row.penguasaan_materi) }}</div>
                                         </td>
                                         <td class="text-center">
                                             <input type="number" min="0" max="100" step="0.01"
@@ -92,6 +127,7 @@
                                                 class="form-control form-control-sm text-center"
                                                 style="width:90px;margin:auto"
                                                 placeholder="0–100" />
+                                            <div v-if="pita(row.kemampuan_hadapi_pertanyaan)" class="pita-hint" :title="rubrik.kriteria.kemampuan_hadapi_pertanyaan.deskripsi[pita(row.kemampuan_hadapi_pertanyaan)]">{{ pitaLabel(row.kemampuan_hadapi_pertanyaan) }}</div>
                                         </td>
                                         <td v-if="!praktik_terpisah" class="text-center">
                                             <input type="number" min="0" max="100" step="0.01"
@@ -168,12 +204,15 @@ export default {
         bobot: Number,
         // Keterampilan dinilai di halaman Nilai Praktik/Keterampilan → kolom (D) Worksheet disembunyikan
         praktik_terpisah: { type: Boolean, default: false },
+        // Rubrik Indikator Penilaian Wawancara: { pita: [{kode, label}], kriteria: {kolom: {nama, deskripsi: {kode: teks}}} }
+        rubrik: { type: Object, default: () => ({ pita: [], kriteria: {} }) },
     },
 
     data() {
         return {
             saving: false,
             successMsg: '',
+            openRubrik: true,
             form: this.buildForm(),
         };
     },
@@ -192,6 +231,17 @@ export default {
     },
 
     methods: {
+        // Kode pita rubrik untuk nilai n — sama dengan App\Support\RubrikWawancara::pita()
+        pita(n) {
+            if (n === null || n === '' || isNaN(n)) return null;
+            n = Number(n);
+            return n > 80 ? 'a' : n >= 71 ? 'b' : n >= 60 ? 'c' : 'd';
+        },
+
+        pitaLabel(n) {
+            return this.rubrik.pita.find(p => p.kode === this.pita(n))?.label;
+        },
+
         tugasUrl(student, bagian = 1) {
             return `/asesor/penilaian/${this.exam_session.id}/wawancara/tugas/${student.id}` + (bagian > 1 ? `?bagian=${bagian}` : '');
         },
@@ -272,3 +322,8 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.rubrik-table td { font-size: .8rem; vertical-align: top; white-space: normal; }
+.pita-hint { font-size: .7rem; color: #6B7280; margin-top: 2px; cursor: help; white-space: nowrap; }
+</style>

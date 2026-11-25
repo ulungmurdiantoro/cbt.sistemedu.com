@@ -158,6 +158,9 @@ class ExamResultsArchiveTest extends TestCase
         $this->assertStringContainsString('Menjawab runtut', $html);
         $this->assertStringContainsString('Asesor Wawancara', $html);
         $this->assertStringContainsString('rata-rata A–C', $html);
+        // kategori rubrik: 85 → N > 80 + deskripsi indikatornya
+        $this->assertStringContainsString('Sangat menguasai topik bahasan', $html);
+        $this->assertStringContainsString('N &gt; 80', $html);
         $this->assertStringNotContainsString('Worksheet', $html);
         // gambar soal /storage/… dibaca dari file lokal, bukan alamat relatif
         $this->assertStringContainsString(Storage::disk('public')->path('paket-soal/v2/clo/g1.png'), $html);

@@ -145,6 +145,10 @@ class InterviewTaskFileTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (AssertableInertia $page) => $page
                 ->component('Asesor/Wawancara/Show')
-                ->where("tugas.{$this->ctx['student']->id}", [['bagian' => 1, 'original_filename' => 'Tugas Akhir.DOCX']]));
+                ->where("tugas.{$this->ctx['student']->id}", [['bagian' => 1, 'original_filename' => 'Tugas Akhir.DOCX']])
+                // Rubrik Penilaian Wawancara ikut dikirim (sama untuk semua skema)
+                ->has('rubrik.pita', 4)
+                ->where('rubrik.pita.0.label', 'N > 80')
+                ->has('rubrik.kriteria.kemampuan_hadapi_pertanyaan.deskripsi'));
     }
 }

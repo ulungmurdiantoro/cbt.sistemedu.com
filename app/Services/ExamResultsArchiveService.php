@@ -17,6 +17,7 @@ use App\Models\StudentTask;
 use App\Models\User;
 use App\Support\AnswerFile;
 use App\Support\RichText;
+use App\Support\RubrikWawancara;
 use App\Support\UjianPraktik;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
@@ -224,17 +225,24 @@ class ExamResultsArchiveService
     private function wawancaraItem(?InterviewAssessment $ia, bool $tanpaWorksheet, Collection $users): array
     {
         $kriteria = [
-            ['A', 'Gaya Wawancara', $ia?->gaya_wawancara],
-            ['B', 'Penguasaan Materi', $ia?->penguasaan_materi],
-            ['C', 'Kemampuan Menghadapi Pertanyaan', $ia?->kemampuan_hadapi_pertanyaan],
+            ['A', 'Gaya Wawancara', $ia?->gaya_wawancara, 'gaya_wawancara'],
+            ['B', 'Penguasaan Materi', $ia?->penguasaan_materi, 'penguasaan_materi'],
+            ['C', 'Kemampuan Menghadapi Pertanyaan', $ia?->kemampuan_hadapi_pertanyaan, 'kemampuan_hadapi_pertanyaan'],
         ];
         if (! $tanpaWorksheet) {
-            $kriteria[] = ['D', 'Hasil Pengerjaan Worksheet Ujian Keterampilan', $ia?->hasil_worksheet];
+            $kriteria[] = ['D', 'Hasil Pengerjaan Worksheet Ujian Keterampilan', $ia?->hasil_worksheet, 'hasil_worksheet'];
         }
 
         return [
             'dinilai'  => (bool) $ia,
-            'kriteria' => array_map(fn ($k) => ['kode' => $k[0], 'nama' => $k[1], 'nilai' => $k[2]], $kriteria),
+            // Kategori = pita Rubrik Penilaian Wawancara (sama untuk semua skema) + deskripsi indikatornya
+            'kriteria' => array_map(fn ($k) => [
+                'kode'      => $k[0],
+                'nama'      => $k[1],
+                'nilai'     => $k[2],
+                'pita'      => RubrikWawancara::label(RubrikWawancara::pita($k[2])),
+                'deskripsi' => RubrikWawancara::deskripsi($k[3], $k[2]),
+            ], $kriteria),
             'total'    => $ia?->total_nilai,
             'total_label' => 'Total (rata-rata A–' . ($tanpaWorksheet ? 'C' : 'D') . ')',
             'catatan'  => $ia?->catatan,
