@@ -6,6 +6,7 @@ use App\Exports\ExamResultsSummaryExport;
 use App\Models\Answer;
 use App\Models\AnswerEssay;
 use App\Models\Essay;
+use App\Models\InterviewAssessment;
 use App\Models\Exam;
 use App\Models\ExamSession;
 use App\Models\PraktikScore;
@@ -28,7 +29,7 @@ use Mpdf\Mpdf;
 /**
  * ZIP hasil seluruh ujian satu sesi (Rekap Hasil → "Unduh Hasil Ujian"):
  *   Rekap Hasil Ujian.xlsx                         ← nilai per komponen semua peserta
- *   {No. Peserta} - {Nama}/Hasil Ujian - {No}.pdf  ← lembar jawaban PG + Esai + ringkasan Praktik
+ *   {No. Peserta} - {Nama}/Hasil Ujian - {No}.pdf  ← lembar jawaban PG + Esai + Wawancara + ringkasan Praktik
  *   {No. Peserta} - {Nama}/Esai - Berkas Jawaban/  ← berkas Essay Migas
  *   {No. Peserta} - {Nama}/Ujian Praktik …/        ← unggahan Ujian Praktik/Keterampilan (per bagian) / Upload Tugas
  *
@@ -70,11 +71,16 @@ class ExamResultsArchiveService
         $tasks     = $bySession(StudentTask::class)->orderBy('bagian')->get()->groupBy('student_id');
         $attempts  = $bySession(StudentPraktikAttempt::class)->get()->groupBy('student_id');
         $scores    = $bySession(PraktikScore::class)->get()->groupBy('student_id');
+        $interviews = $bySession(InterviewAssessment::class)->get()->keyBy('student_id');
+        // Sesi dengan Ujian Praktik/Keterampilan: wawancara tanpa kriteria (D) Worksheet
+        $tanpaWorksheet = UjianPraktik::wawancaraTanpaWorksheet($session->id);
+        $hasWawancara   = (bool) $session->has_wawancara || $interviews->isNotEmpty();
 
         $results = collect($this->calculator->calculateForSession($session, $ids))->keyBy('student_id');
 
         $users = User::whereIn('id', $essayAnswers->flatten()->pluck('assessed_by')
-            ->merge($scores->flatten()->pluck('asesor_id'))->filter()->unique())->pluck('name', 'id');
+            ->merge($scores->flatten()->pluck('asesor_id'))
+            ->merge($interviews->pluck('asesor_id'))->filter()->unique())->pluck('name', 'id');
 
         $tmpDir = storage_path('app/tmp');
         if (! is_dir($tmpDir)) {
@@ -131,7 +137,8 @@ class ExamResultsArchiveService
                 'esaiItems'  => $esaiItems,
                 'esaiFiles'  => $esaiFiles,
                 'praktik'    => $praktik,
-                'hasWawancara' => (bool) $session->has_wawancara,
+                'hasWawancara' => $hasWawancara,
+                'wawancara'  => $hasWawancara ? $this->wawancaraItem($interviews->get($student->id), $tanpaWorksheet, $users) : null,
             ]);
             $zip->addFile($pdfFile, "{$folder}/Hasil Ujian - " . self::safeName($student->no_participant ?: $student->name) . '.pdf');
 
@@ -147,6 +154,7 @@ class ExamResultsArchiveService
                 'pg_terjawab' => $pgItems ? collect($pgItems)->where('status', '!=', 'kosong')->count() . '/' . count($pgItems) : null,
                 'pg_benar'   => $pgItems ? collect($pgItems)->where('status', 'benar')->count() : null,
                 'esai_dinilai' => $esaiItems ? collect($esaiItems)->whereNotNull('score')->count() . '/' . count($esaiItems) : null,
+                'wawancara_catatan' => $interviews->get($student->id)?->catatan,
                 'unggahan'   => collect($praktik)->filter(fn ($p) => $p['task'])->map(fn ($p) => $p['label'] . ': ' . $p['file_name'])->implode('; '),
             ];
         }
@@ -155,7 +163,7 @@ class ExamResultsArchiveService
             new ExamResultsSummaryExport($summary, [
                 'pg'        => (bool) $pg,
                 'esai'      => (bool) $esai,
-                'wawancara' => (bool) $session->has_wawancara,
+                'wawancara' => $hasWawancara,
                 'praktik'   => (bool) $parts,
             ]),
             \Maatwebsite\Excel\Excel::XLSX
@@ -210,6 +218,29 @@ class ExamResultsArchiveService
                 'assessor' => $answer?->assessed_by ? $users->get($answer->assessed_by) : null,
             ];
         })->all();
+    }
+
+    /** Rincian wawancara: kriteria A–C (+ D Worksheet bila sesi tanpa Ujian Praktik), total = rata-rata, catatan & asesor. */
+    private function wawancaraItem(?InterviewAssessment $ia, bool $tanpaWorksheet, Collection $users): array
+    {
+        $kriteria = [
+            ['A', 'Gaya Wawancara', $ia?->gaya_wawancara],
+            ['B', 'Penguasaan Materi', $ia?->penguasaan_materi],
+            ['C', 'Kemampuan Menghadapi Pertanyaan', $ia?->kemampuan_hadapi_pertanyaan],
+        ];
+        if (! $tanpaWorksheet) {
+            $kriteria[] = ['D', 'Hasil Pengerjaan Worksheet Ujian Keterampilan', $ia?->hasil_worksheet];
+        }
+
+        return [
+            'dinilai'  => (bool) $ia,
+            'kriteria' => array_map(fn ($k) => ['kode' => $k[0], 'nama' => $k[1], 'nilai' => $k[2]], $kriteria),
+            'total'    => $ia?->total_nilai,
+            'total_label' => 'Total (rata-rata A–' . ($tanpaWorksheet ? 'C' : 'D') . ')',
+            'catatan'  => $ia?->catatan,
+            'asesor'   => $ia?->asesor_id ? $users->get($ia->asesor_id) : null,
+            'tanggal'  => self::wib($ia?->updated_at),
+        ];
     }
 
     /**

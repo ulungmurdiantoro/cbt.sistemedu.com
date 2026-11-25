@@ -7,6 +7,7 @@ use App\Models\Answer;
 use App\Models\AnswerEssay;
 use App\Models\Essay;
 use App\Models\Exam;
+use App\Models\InterviewAssessment;
 use App\Models\PraktikScore;
 use App\Models\Question;
 use App\Models\StudentTask;
@@ -79,6 +80,13 @@ class ExamResultsArchiveTest extends TestCase
             'score' => 76, 'aspek' => ['1' => 80, '2' => 70],
         ]);
 
+        InterviewAssessment::forceCreate([
+            'exam_session_id' => $session->id, 'student_id' => $student->id,
+            'asesor_id' => User::forceCreate(['users_code' => 'ASR-' . Str::random(4), 'name' => 'Asesor Wawancara', 'email' => Str::random(8) . '@example.com', 'password' => 'x'])->id,
+            'gaya_wawancara' => 80, 'penguasaan_materi' => 85, 'kemampuan_hadapi_pertanyaan' => 90,
+            'total_nilai' => 85, 'catatan' => 'Menjawab runtut',
+        ]);
+
         $admin = User::forceCreate([
             'users_code' => 'U-' . Str::random(6), 'name' => 'Admin', 'email' => Str::random(8) . '@example.com', 'password' => bcrypt('x'),
         ]);
@@ -145,6 +153,12 @@ class ExamResultsArchiveTest extends TestCase
         $this->assertStringContainsString('Benar', $html);
         $this->assertStringContainsString('Hasil Studi Kasus.pdf', $html);
         $this->assertStringContainsString('Analisis', $html);
+        // wawancara: kriteria A–C (sesi berujian praktik → tanpa D Worksheet) + catatan
+        $this->assertStringContainsString('Penguasaan Materi', $html);
+        $this->assertStringContainsString('Menjawab runtut', $html);
+        $this->assertStringContainsString('Asesor Wawancara', $html);
+        $this->assertStringContainsString('rata-rata A–C', $html);
+        $this->assertStringNotContainsString('Worksheet', $html);
         // gambar soal /storage/… dibaca dari file lokal, bukan alamat relatif
         $this->assertStringContainsString(Storage::disk('public')->path('paket-soal/v2/clo/g1.png'), $html);
     }

@@ -120,6 +120,28 @@
         @endforeach
     @endif
 
+    {{-- ───────── Wawancara ───────── --}}
+    @if($wawancara)
+        <h2>Wawancara</h2>
+        @if($wawancara['dinilai'])
+            <table class="grid">
+                <thead><tr><th class="c" style="width:8%;">No</th><th>Kriteria</th><th class="c" style="width:14%;">Nilai</th></tr></thead>
+                <tbody>
+                    @foreach($wawancara['kriteria'] as $k)
+                        <tr><td class="c">{{ $k['kode'] }}</td><td>{{ $k['nama'] }}</td><td class="c">{{ $fmt($k['nilai']) }}</td></tr>
+                    @endforeach
+                    <tr><td></td><td><b>{{ $wawancara['total_label'] }}</b></td><td class="c"><b>{{ $fmt($wawancara['total']) }}</b></td></tr>
+                </tbody>
+            </table>
+            <table class="info" style="margin-top:4pt;">
+                <tr><td class="k">Catatan asesor</td><td>{!! nl2br(e($wawancara['catatan'] ?: '—')) !!}</td></tr>
+                <tr><td class="k">Dinilai oleh</td><td>{{ $wawancara['asesor'] ?: '—' }}@if($wawancara['tanggal']) <span class="muted">({{ $wawancara['tanggal'] }})</span>@endif</td></tr>
+            </table>
+        @else
+            <p class="kosong">Belum dinilai asesor.</p>
+        @endif
+    @endif
+
     {{-- ───────── Ujian Praktik/Keterampilan / Upload Tugas ───────── --}}
     @if($praktik)
         <h2>{{ $praktik[0]['title'] ? 'Ujian Praktik/Keterampilan' : 'Upload Tugas' }}</h2>

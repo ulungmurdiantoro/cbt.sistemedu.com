@@ -39,6 +39,7 @@ class ExamResultsSummaryExport implements FromArray, WithHeadings, WithTitle, Sh
             'esai_dinilai' => $c['esai'] ? 'Esai Dinilai' : null,
             'esai'         => $c['esai'] ? 'Nilai Esai' : null,
             'wawancara'    => $c['wawancara'] ? 'Nilai Wawancara' : null,
+            'wawancara_catatan' => $c['wawancara'] ? 'Catatan Wawancara' : null,
             'praktik'      => $c['praktik'] ? 'Nilai Praktik/Keterampilan' : null,
             'akhir'        => 'Nilai Akhir',
             'keputusan'    => 'Keputusan',

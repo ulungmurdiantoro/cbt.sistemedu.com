@@ -81,7 +81,7 @@ resources/js/
                       yang ada; tahap yang belum tercatat padahal tahap sesudahnya selesai = 'skipped' (sesi lama).
                       Daftar sesi: progres per tahap dari AdminDashboardService::pipelineRow() (sama dengan Pipeline dashboard)
                       Laporan Nilai → "Hasil Ujian Lengkap (ZIP)" (`admin.results.hasil-ujian`, `?peserta=ID` = satu peserta,
-                      juga di panel detail peserta): App\Services\ExamResultsArchiveService — per peserta PDF jawaban PG/Esai +
+                      juga di panel detail peserta): App\Services\ExamResultsArchiveService — per peserta PDF jawaban PG/Esai + wawancara (kriteria, catatan, asesor) +
                       ringkasan Praktik (view `documents/hasil_ujian`, logo kecil `logo_edukia_kecil`), berkas Esai Migas &
                       unggahan praktik/tugas, plus `Rekap Hasil Ujian.xlsx`. Hanya membaca (calculateForSession). ±1 dtk/peserta
                       (mPDF) — sesi besar bisa kena timeout web server; pakai unduhan per peserta
